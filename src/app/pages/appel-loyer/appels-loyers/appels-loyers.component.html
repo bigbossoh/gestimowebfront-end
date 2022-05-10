@@ -1,0 +1,168 @@
+<div class="col">
+  <div class="row m-3">
+    <div class="col-md-8 p-0">
+      <h1>Appel loyers</h1>
+    </div>
+    <div class="col-md-4 text-right">
+
+    </div>
+
+  </div>
+  <div class="col">
+    <div class="row">
+      <div class="col">
+        <h5><i class="fas fa-asterisk blue-color"></i>&nbsp;Paramètre d'appel</h5>
+      </div>
+    </div>
+    <hr style="margin-top: 0;">
+    <div class="row mb-3">
+      <div class="col-md-3">
+        <label>Période</label>
+        <select id="modele" name="typeClim" class="form-control">
+          <option value="0">selectionnez une période</option>
+          <option value="Janvier 2022">Janvier 2022</option>
+          <option value="Février 2022">Février 2022</option>
+          <option value="Mars 2022">Mars 2022</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label>Du </label>
+        <input type="Date" class="form-control" placeholder="Contrat" name="dateAchat">
+      </div>
+      <div class="col-md-3">
+        <label>Au</label>
+        <input type="Date" class="form-control" placeholder="Contrat" name="dateAchat">
+      </div>
+      <div class="col-md-3">
+        <label>Date limite</label>
+        <input type="Date" class="form-control" placeholder="Contrat" name="dateAchat">
+      </div>
+    </div>
+    <div class="row mb-3 ">
+      <div class="col panel-body text-right">
+
+        <button type="button" class="mb-sm btn btn-primary mr-1">Valider appel</button>
+        <button type="button" class="mb-sm btn btn-success mr-1">Rappel d'appel</button>
+        <button type="button" class="mb-sm btn btn-info mr-1">Loyers soldés</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h5><i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des loyers impayés</h5>
+      </div>
+    </div>
+    <hr>
+    <!-- main content -->
+    <div class="tab-content" id="myTabContent">
+      <!-- user table -->
+      <div class="tab-pane fade show active" id="users">
+        <table class="table table-hover m-3 p-3">
+          <thead class="table-borderless">
+            <tr class="text-center mt-3">
+              <th>Photo</th>
+              <th>User ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="text-center">
+              <td>
+                <img height="40" width="40" src="assets/nassmam.jpg" class="rounded-circle img-fluid img-thumbnail"
+                  alt="" />
+              </td>
+              <td>I2547185</td>
+              <td>zrango</td>
+              <td>nasaire</td>
+              <td>+2250103833350</td>
+              <td>zrangonazaire@gmail.com</td>
+              <td>
+                <span>Active</span>
+              </td>
+              <td class="">
+                <div class="btn-group">
+                  <button class="btn btn-outline-info"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="text-center">
+              <td>
+                <img height="40" width="40" src="assets/zolo.jpg" class="rounded-circle img-fluid img-thumbnail"
+                  alt="" />
+              </td>
+              <td>I2547185</td>
+              <td>Bossoh</td>
+              <td>Michel</td>
+              <td>+2250777880885</td>
+              <td>michel.bossoh@outlook.fr</td>
+              <td>
+                <span>Active</span>
+              </td>
+              <td class="">
+                <div class="btn-group">
+                  <button class="btn btn-outline-info"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="text-center">
+              <td>
+                <img height="40" width="40" src="assets/nassmam.jpg" class="rounded-circle img-fluid img-thumbnail"
+                  alt="" />
+              </td>
+              <td>I2547185</td>
+              <td>zrango</td>
+              <td>nasaire</td>
+              <td>+2250103833350</td>
+              <td>zrangonazaire@gmail.com</td>
+              <td>
+                <span>Active</span>
+              </td>
+              <td class="">
+                <div class="btn-group">
+                  <button class="btn btn-outline-info"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="text-center">
+              <td>
+                <img height="40" width="40" src="assets/zolo.jpg" class="rounded-circle img-fluid img-thumbnail"
+                  alt="" />
+              </td>
+              <td>I2547185</td>
+              <td>Bossoh</td>
+              <td>Michel</td>
+              <td>+2250777880885</td>
+              <td>michel.bossoh@outlook.fr</td>
+              <td>
+                <span>Active</span>
+              </td>
+              <td class="">
+                <div class="btn-group">
+                  <button class="btn btn-outline-info"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="row mb-3">
+    <div class=" col-md-12 text-center">
+      <app-pagination></app-pagination>
+    </div>
+  </div>
+
+</div>

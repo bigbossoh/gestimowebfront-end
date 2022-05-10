@@ -1,0 +1,4008 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Swagger API pour GESTIMOWEB REST API",
+    "version" : "0.0.1-SNAPSHOT",
+    "title" : "Swagger GESTIMOWEB REST API",
+    "contact" : {
+      "name" : "bzadata",
+      "email" : "michel.bossoh@outlook.fr"
+    }
+  },
+  "basePath" : "http://localhost:8284",
+  "paths" : {
+    "gestimoweb/api/v1/agences/all" : {
+      "get" : {
+        "operationId" : "getAllAgenceByOrder",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AgenceResponseDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/agences/deleteagence/{id}" : {
+      "delete" : {
+        "operationId" : "deleteAgenceById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/agences/getagencebyemail/{email}" : {
+      "get" : {
+        "operationId" : "getAgenceByEmail",
+        "parameters" : [ {
+          "name" : "email",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/AgenceResponseDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/agences/getagencebyid/{id}" : {
+      "get" : {
+        "operationId" : "getAgenceByID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/AgenceResponseDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/agences/signup" : {
+      "post" : {
+        "operationId" : "authenticate",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/AgenceRequestDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/AgenceResponseDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appartement/all" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AppartementDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appartement/delete/{id}" : {
+      "delete" : {
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appartement/findById/{id}" : {
+      "get" : {
+        "operationId" : "findByID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/AppartementDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appartement/findByIdEtage/{id}" : {
+      "get" : {
+        "operationId" : "findByIdPays",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AppartementDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appartement/findByName/{name}" : {
+      "get" : {
+        "operationId" : "findByName",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/AppartementDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appartement/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/AppartementDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/AppartementDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appelloyer/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/AppelLoyerRequestDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/auth/accountVerification/{token}" : {
+      "get" : {
+        "operationId" : "verifyAccount",
+        "parameters" : [ {
+          "name" : "token",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/auth/login" : {
+      "post" : {
+        "operationId" : "login",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/AuthRequestDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/Utilisateur"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailappartement/all" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/BailAppartementDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailappartement/delete/{id}" : {
+      "delete" : {
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailappartement/findById/{id}" : {
+      "get" : {
+        "operationId" : "findByID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/BailAppartementDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailappartement/findByName/{name}" : {
+      "get" : {
+        "operationId" : "findByName",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/BailAppartementDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailappartement/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/BailAppartementDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/BailAppartementDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailmagasin/all" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/BailMagasinDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailmagasin/delete/{id}" : {
+      "delete" : {
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailmagasin/findById/{id}" : {
+      "get" : {
+        "operationId" : "findByID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/BailMagasinDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailmagasin/findByName/{name}" : {
+      "get" : {
+        "operationId" : "findByName",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/BailMagasinDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailmagasin/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/BailMagasinDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/BailMagasinDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailsudio/all" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/BailStudioDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailsudio/delete/{id}" : {
+      "delete" : {
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailsudio/findById/{id}" : {
+      "get" : {
+        "operationId" : "findByID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/BailStudioDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailsudio/findByName/{name}" : {
+      "get" : {
+        "operationId" : "findByName",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/BailStudioDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailsudio/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/BailStudioDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/BailStudioDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailvilla/all" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/BailVillaDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailvilla/delete/{id}" : {
+      "delete" : {
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailvilla/findById/{id}" : {
+      "get" : {
+        "operationId" : "findByID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/BailVillaDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailvilla/findByName/{name}" : {
+      "get" : {
+        "operationId" : "findByName",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/BailVillaDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bailvilla/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/BailVillaDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/BailVillaDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/commune/all" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/CommuneDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/commune/delete/{id}" : {
+      "delete" : {
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/commune/findById/{id}" : {
+      "get" : {
+        "operationId" : "findByID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/CommuneDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/commune/findByIdVille/{id}" : {
+      "get" : {
+        "operationId" : "findByIdPays",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/CommuneDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/commune/findByName/{name}" : {
+      "get" : {
+        "operationId" : "findByName",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/CommuneDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/commune/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/CommuneDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/CommuneDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/especeencaissement/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/EspeceEncaissementDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/EspeceEncaissementDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/etage/all" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/EtageDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/etage/delete/{id}" : {
+      "delete" : {
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/etage/findById/{id}" : {
+      "get" : {
+        "operationId" : "findByID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/EtageDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/etage/findByIdImmeuble/{id}" : {
+      "get" : {
+        "operationId" : "findByIdPays",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/EtageDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/etage/findByName/{name}" : {
+      "get" : {
+        "operationId" : "findByName",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/EtageDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/etage/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/EtageDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/EtageDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/immeuble/all" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ImmeubleDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/immeuble/delete/{id}" : {
+      "delete" : {
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/immeuble/findById/{id}" : {
+      "get" : {
+        "operationId" : "findByID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ImmeubleDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/immeuble/findByIdSite/{id}" : {
+      "get" : {
+        "operationId" : "findByIdPays",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ImmeubleDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/immeuble/findByName/{name}" : {
+      "get" : {
+        "operationId" : "findByName",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ImmeubleDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/immeuble/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/ImmeubleDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ImmeubleDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/magasin/all" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/MagasinDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/magasin/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/MagasinDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/montantloyerbail/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/MontantLoyerBailDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/pays/all" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/PaysDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/pays/delete/{id}" : {
+      "delete" : {
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/pays/findById/{id}" : {
+      "get" : {
+        "operationId" : "findByID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PaysDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/pays/findByName/{name}" : {
+      "get" : {
+        "operationId" : "findByName",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PaysDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/pays/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/PaysDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PaysDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/print/quittance/{id}" : {
+      "get" : {
+        "operationId" : "sample",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string",
+                "format" : "byte"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/quartier/all" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/QuartierDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/quartier/delete/{id}" : {
+      "delete" : {
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/quartier/findById/{id}" : {
+      "get" : {
+        "operationId" : "findByID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/QuartierDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/quartier/findByIdCommune/{id}" : {
+      "get" : {
+        "operationId" : "findByIdCommune",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/QuartierDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/quartier/findByName/{name}" : {
+      "get" : {
+        "operationId" : "findByName",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/QuartierDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/quartier/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/QuartierDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/QuartierDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/sites/all" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/SiteResponseDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/sites/delete/{id}" : {
+      "delete" : {
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/sites/findById/{id}" : {
+      "get" : {
+        "operationId" : "findByID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/SiteResponseDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/sites/findByName/{name}" : {
+      "get" : {
+        "operationId" : "findByName",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/SiteResponseDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/sites/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/SiteRequestDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/studio/all" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/StudioDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/studio/delete/{id}" : {
+      "delete" : {
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/studio/findById/{id}" : {
+      "get" : {
+        "operationId" : "findByID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/StudioDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/studio/findByIdEtage/{id}" : {
+      "get" : {
+        "operationId" : "findByIdPays",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/StudioDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/studio/findByName/{name}" : {
+      "get" : {
+        "operationId" : "findByName",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/StudioDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/studio/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/StudioDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/utilisateur/all" : {
+      "get" : {
+        "operationId" : "getAllUtilisateurByOrder",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/UtilisateurRequestDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/utilisateur/gerants/all" : {
+      "get" : {
+        "operationId" : "getAllGerantByOrder",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/UtilisateurRequestDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/utilisateur/getutilisateurbyemail/{email}" : {
+      "get" : {
+        "operationId" : "getUtilisateurByEmail",
+        "parameters" : [ {
+          "name" : "email",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/UtilisateurRequestDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/utilisateur/getutilisateurbyid/{id}" : {
+      "get" : {
+        "operationId" : "getUtilisateurByID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/UtilisateurRequestDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/utilisateur/locataires/all" : {
+      "get" : {
+        "operationId" : "getAllLocataireByOrder",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/UtilisateurRequestDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/utilisateur/proprietaires/all" : {
+      "get" : {
+        "operationId" : "getAllProprietaireByOrder",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/UtilisateurRequestDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/utilisateur/save" : {
+      "post" : {
+        "operationId" : "saveLocataire",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/UtilisateurRequestDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/utilisateur/superviseurs/all" : {
+      "get" : {
+        "operationId" : "getAllSuperviseurByOrder",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/UtilisateurRequestDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/villa/all" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/VillaDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/villa/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/VillaDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/ville/all" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/VilleDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/ville/delete/{id}" : {
+      "delete" : {
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/ville/findById/{id}" : {
+      "get" : {
+        "operationId" : "findByID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/VilleDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/ville/findByIdPays/{id}" : {
+      "get" : {
+        "operationId" : "findByIdPays",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/VilleDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/ville/findByName/{name}" : {
+      "get" : {
+        "operationId" : "findByName",
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/VilleDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/ville/findByPays" : {
+      "get" : {
+        "operationId" : "findByPays",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/PaysDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/VilleDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/ville/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/VilleDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/VilleDto"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "AgenceImmobiliere" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nomAgence" : {
+          "type" : "string"
+        },
+        "telAgence" : {
+          "type" : "string"
+        },
+        "compteContribuable" : {
+          "type" : "string"
+        },
+        "capital" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "emailAgence" : {
+          "type" : "string"
+        },
+        "mobileAgence" : {
+          "type" : "string"
+        },
+        "regimeFiscaleAgence" : {
+          "type" : "string"
+        },
+        "faxAgence" : {
+          "type" : "string"
+        },
+        "sigleAgence" : {
+          "type" : "string"
+        },
+        "utilisateurs" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Utilisateur"
+          }
+        },
+        "createur" : {
+          "$ref" : "#/definitions/Utilisateur"
+        }
+      }
+    },
+    "AgenceRequestDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nomAgence" : {
+          "type" : "string"
+        },
+        "telAgence" : {
+          "type" : "string"
+        },
+        "compteContribuable" : {
+          "type" : "string"
+        },
+        "capital" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "emailAgence" : {
+          "type" : "string"
+        },
+        "mobileAgence" : {
+          "type" : "string"
+        },
+        "regimeFiscaleAgence" : {
+          "type" : "string"
+        },
+        "faxAgence" : {
+          "type" : "string"
+        },
+        "sigleAgence" : {
+          "type" : "string"
+        },
+        "utilisateurCreateur" : {
+          "$ref" : "#/definitions/UtilisateurRequestDto"
+        }
+      }
+    },
+    "AgenceResponseDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nomAgence" : {
+          "type" : "string"
+        },
+        "telAgence" : {
+          "type" : "string"
+        },
+        "compteContribuable" : {
+          "type" : "string"
+        },
+        "capital" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "emailAgence" : {
+          "type" : "string"
+        },
+        "regimeFiscaleAgence" : {
+          "type" : "string"
+        },
+        "faxAgence" : {
+          "type" : "string"
+        },
+        "sigleAgence" : {
+          "type" : "string"
+        },
+        "utilisateurRequestDto" : {
+          "$ref" : "#/definitions/UtilisateurRequestDto"
+        }
+      }
+    },
+    "Appartement" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "meubleApp" : {
+          "type" : "boolean"
+        },
+        "nbrPieceApp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbreChambreApp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbreSalonApp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbreSalleEauApp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "occupied" : {
+          "type" : "boolean"
+        },
+        "statutAppart" : {
+          "type" : "string"
+        },
+        "numeroApp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "abrvNomApp" : {
+          "type" : "string"
+        },
+        "nomApp" : {
+          "type" : "string"
+        },
+        "etageAppartement" : {
+          "$ref" : "#/definitions/Etage"
+        },
+        "operationsApp" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Operation"
+          }
+        },
+        "residence" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "AppartementDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "meubleApp" : {
+          "type" : "boolean"
+        },
+        "nbrPieceApp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbreChambreApp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbreSalonApp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbreSalleEauApp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numeroApp" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "abrvNomApp" : {
+          "type" : "string"
+        },
+        "nomApp" : {
+          "type" : "string"
+        },
+        "idEtage" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "residence" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "AppelLoyer" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "periodeAppelLoyer" : {
+          "type" : "string"
+        },
+        "statusAppelLoyer" : {
+          "type" : "string"
+        },
+        "datePaiementPrevuAppelLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateDebutMoisAppelLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateFinMoisAppelLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "anneeAppelLoyer" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "moisChiffreAppelLoyer" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "descAppelLoyer" : {
+          "type" : "string"
+        },
+        "montantBailLPeriode" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "soldeAppelLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "bailLocationAppelLoyer" : {
+          "$ref" : "#/definitions/BailLocation"
+        },
+        "encaissementsAppelLoyer" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Encaissement"
+          }
+        },
+        "solderAppelLoyer" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "AppelLoyerRequestDto" : {
+      "type" : "object",
+      "properties" : {
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idBailLocation" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "montantLoyerEnCours" : {
+          "type" : "number",
+          "format" : "double"
+        }
+      }
+    },
+    "AuthRequestDto" : {
+      "type" : "object",
+      "properties" : {
+        "username" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        }
+      }
+    },
+    "BailAppartementDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "designationBail" : {
+          "type" : "string"
+        },
+        "abrvCodeBail" : {
+          "type" : "string"
+        },
+        "enCoursBail" : {
+          "type" : "boolean"
+        },
+        "archiveBail" : {
+          "type" : "boolean"
+        },
+        "montantCautionBail" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nbreMoisCautionBail" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nouveauMontantLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "dateDebut" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateFin" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "idAppartement" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idUtilisateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "BailLocation" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "dateDebut" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateFin" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "utilisateurOperation" : {
+          "$ref" : "#/definitions/Utilisateur"
+        },
+        "bienImmobilierOperation" : {
+          "$ref" : "#/definitions/Bienimmobilier"
+        },
+        "studioBail" : {
+          "$ref" : "#/definitions/Studio"
+        },
+        "appartementBail" : {
+          "$ref" : "#/definitions/Appartement"
+        },
+        "magasinBail" : {
+          "$ref" : "#/definitions/Magasin"
+        },
+        "villaBail" : {
+          "$ref" : "#/definitions/Villa"
+        },
+        "designationBail" : {
+          "type" : "string"
+        },
+        "abrvCodeBail" : {
+          "type" : "string"
+        },
+        "enCoursBail" : {
+          "type" : "boolean"
+        },
+        "archiveBail" : {
+          "type" : "boolean"
+        },
+        "montantCautionBail" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nbreMoisCautionBail" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "montantLoyerBail" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/MontantLoyerBail"
+          }
+        },
+        "charges" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Charges"
+          }
+        },
+        "listAppelsLoyers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AppelLoyer"
+          }
+        }
+      }
+    },
+    "BailMagasinDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "designationBail" : {
+          "type" : "string"
+        },
+        "abrvCodeBail" : {
+          "type" : "string"
+        },
+        "enCoursBail" : {
+          "type" : "boolean"
+        },
+        "archiveBail" : {
+          "type" : "boolean"
+        },
+        "montantCautionBail" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nbreMoisCautionBail" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nouveauMontantLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "dateDebut" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateFin" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "idMagasin" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idUtilisateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "BailStudioDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "designationBail" : {
+          "type" : "string"
+        },
+        "abrvCodeBail" : {
+          "type" : "string"
+        },
+        "enCoursBail" : {
+          "type" : "boolean"
+        },
+        "archiveBail" : {
+          "type" : "boolean"
+        },
+        "montantCautionBail" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nbreMoisCautionBail" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nouveauMontantLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "dateDebut" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateFin" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "idStudio" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idUtilisateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "BailVillaDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "designationBail" : {
+          "type" : "string"
+        },
+        "abrvCodeBail" : {
+          "type" : "string"
+        },
+        "enCoursBail" : {
+          "type" : "boolean"
+        },
+        "archiveBail" : {
+          "type" : "boolean"
+        },
+        "montantCautionBail" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nbreMoisCautionBail" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nouveauMontantLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "dateDebut" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateFin" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "idVilla" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idUtilisateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "Bienimmobilier" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "numBien" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "statutBien" : {
+          "type" : "string"
+        },
+        "abrvBienimmobilier" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "nomBien" : {
+          "type" : "string"
+        },
+        "superficieBien" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "site" : {
+          "$ref" : "#/definitions/Site"
+        },
+        "utilisateur" : {
+          "$ref" : "#/definitions/Utilisateur"
+        },
+        "archived" : {
+          "type" : "boolean"
+        },
+        "occupied" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "Charges" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "typeCharge" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "debutCharge" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "finCharge" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "montantCharge" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "augmentationCharge" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "tauxCharge" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "bailLocataireCharge" : {
+          "$ref" : "#/definitions/BailLocation"
+        }
+      }
+    },
+    "Commune" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrvCommune" : {
+          "type" : "string"
+        },
+        "nomCommune" : {
+          "type" : "string"
+        },
+        "ville" : {
+          "$ref" : "#/definitions/Ville"
+        },
+        "quartiers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Quartier"
+          }
+        }
+      }
+    },
+    "CommuneDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrvCommune" : {
+          "type" : "string"
+        },
+        "nomCommune" : {
+          "type" : "string"
+        },
+        "idVille" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "Encaissement" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "dateEncaissement" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "montantEncaissement" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "utilisateurEncaissement" : {
+          "$ref" : "#/definitions/Utilisateur"
+        },
+        "appelLoyerEncaissement" : {
+          "$ref" : "#/definitions/AppelLoyer"
+        }
+      }
+    },
+    "EspeceEncaissementDto" : {
+      "type" : "object",
+      "properties" : {
+        "dateEncaissement" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "montantEncaissement" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "idUtilisateurEncaissement" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAppelLoyerEncaissement" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "Etage" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nomEtage" : {
+          "type" : "string"
+        },
+        "numEtage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "appartements" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Appartement"
+          }
+        },
+        "studios" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Studio"
+          }
+        },
+        "magasins" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Magasin"
+          }
+        },
+        "immeuble" : {
+          "$ref" : "#/definitions/Immeuble"
+        },
+        "abrvEtage" : {
+          "type" : "string"
+        }
+      }
+    },
+    "EtageDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nomEtage" : {
+          "type" : "string"
+        },
+        "numEtage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "idImmeuble" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrvEtage" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Immeuble" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "numBien" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "statutBien" : {
+          "type" : "string"
+        },
+        "abrvBienimmobilier" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "nomBien" : {
+          "type" : "string"
+        },
+        "superficieBien" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "site" : {
+          "$ref" : "#/definitions/Site"
+        },
+        "utilisateur" : {
+          "$ref" : "#/definitions/Utilisateur"
+        },
+        "nbrEtage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbrePieceImmeuble" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "abrvNomImmeuble" : {
+          "type" : "string"
+        },
+        "descriptionImmeuble" : {
+          "type" : "string"
+        },
+        "numeroImmeuble" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "etages" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Etage"
+          }
+        },
+        "garrage" : {
+          "type" : "boolean"
+        },
+        "archived" : {
+          "type" : "boolean"
+        },
+        "occupied" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "ImmeubleDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "numBien" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "statutBien" : {
+          "type" : "string"
+        },
+        "denominationBien" : {
+          "type" : "string"
+        },
+        "nomBien" : {
+          "type" : "string"
+        },
+        "etatBien" : {
+          "type" : "string"
+        },
+        "superficieBien" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "idSite" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idUtilisateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nbrEtage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbrePieceImmeuble" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "abrvNomImmeuble" : {
+          "type" : "string"
+        },
+        "descriptionImmeuble" : {
+          "type" : "string"
+        },
+        "numeroImmeuble" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "garrage" : {
+          "type" : "boolean"
+        },
+        "occupied" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "Magasin" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "numBien" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "statutBien" : {
+          "type" : "string"
+        },
+        "abrvBienimmobilier" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "nomBien" : {
+          "type" : "string"
+        },
+        "superficieBien" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "site" : {
+          "$ref" : "#/definitions/Site"
+        },
+        "utilisateur" : {
+          "$ref" : "#/definitions/Utilisateur"
+        },
+        "nmbrPieceMagasin" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nomMagasin" : {
+          "type" : "string"
+        },
+        "abrvNomMagasin" : {
+          "type" : "string"
+        },
+        "etageMagasin" : {
+          "$ref" : "#/definitions/Etage"
+        },
+        "operationsMagasin" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Operation"
+          }
+        },
+        "underBuildingMagasin" : {
+          "type" : "boolean"
+        },
+        "archived" : {
+          "type" : "boolean"
+        },
+        "occupied" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "MagasinDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "numBien" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "statutBien" : {
+          "type" : "string"
+        },
+        "abrvBienimmobilier" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "nomBien" : {
+          "type" : "string"
+        },
+        "superficieBien" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "abrvNomMagasin" : {
+          "type" : "string"
+        },
+        "nmbrPieceMagasin" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nomMagasin" : {
+          "type" : "string"
+        },
+        "idEtage" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idSite" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idUtilisateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "underBuildingMagasin" : {
+          "type" : "boolean"
+        },
+        "archived" : {
+          "type" : "boolean"
+        },
+        "occupied" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "MontantLoyerBail" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "ancienMontantLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nouveauMontantLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "debutLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "finLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "statusLoyer" : {
+          "type" : "boolean"
+        },
+        "tauxLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "montantAugmentation" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "bailLocation" : {
+          "$ref" : "#/definitions/BailLocation"
+        }
+      }
+    },
+    "MontantLoyerBailDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "ancienMontantLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nouveauMontantLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "debutLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "finLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "statusLoyer" : {
+          "type" : "boolean"
+        },
+        "tauxLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "montantAugmentation" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "bailLocation" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "Operation" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "dateDebut" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateFin" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "utilisateurOperation" : {
+          "$ref" : "#/definitions/Utilisateur"
+        },
+        "bienImmobilierOperation" : {
+          "$ref" : "#/definitions/Bienimmobilier"
+        },
+        "studioBail" : {
+          "$ref" : "#/definitions/Studio"
+        },
+        "appartementBail" : {
+          "$ref" : "#/definitions/Appartement"
+        },
+        "magasinBail" : {
+          "$ref" : "#/definitions/Magasin"
+        },
+        "villaBail" : {
+          "$ref" : "#/definitions/Villa"
+        }
+      }
+    },
+    "Pays" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrvPays" : {
+          "type" : "string"
+        },
+        "nomPays" : {
+          "type" : "string"
+        },
+        "villes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Ville"
+          }
+        }
+      }
+    },
+    "PaysDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrvPays" : {
+          "type" : "string"
+        },
+        "nomPays" : {
+          "type" : "string"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "Quartier" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrvQuartier" : {
+          "type" : "string"
+        },
+        "nomQuartier" : {
+          "type" : "string"
+        },
+        "commune" : {
+          "$ref" : "#/definitions/Commune"
+        },
+        "sites" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Site"
+          }
+        }
+      }
+    },
+    "QuartierDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrvQuartier" : {
+          "type" : "string"
+        },
+        "nomQuartier" : {
+          "type" : "string"
+        },
+        "idCommune" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "Role" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "roleName" : {
+          "type" : "string"
+        },
+        "descriptionRole" : {
+          "type" : "string"
+        },
+        "utilisateurs" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Utilisateur"
+          }
+        }
+      }
+    },
+    "Site" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrSite" : {
+          "type" : "string"
+        },
+        "nomSite" : {
+          "type" : "string"
+        },
+        "quartier" : {
+          "$ref" : "#/definitions/Quartier"
+        },
+        "bienImmobiliers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Bienimmobilier"
+          }
+        }
+      }
+    },
+    "SiteRequestDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idQuartier" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrSite" : {
+          "type" : "string"
+        },
+        "nomSite" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SiteResponseDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrSite" : {
+          "type" : "string"
+        },
+        "nomSite" : {
+          "type" : "string"
+        },
+        "idQuartier" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "Studio" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "descStudio" : {
+          "type" : "string"
+        },
+        "numeroStudio" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "abrvNomStudio" : {
+          "type" : "string"
+        },
+        "nomStudio" : {
+          "type" : "string"
+        },
+        "occupied" : {
+          "type" : "boolean"
+        },
+        "statutStudio" : {
+          "type" : "string"
+        },
+        "etageStudio" : {
+          "$ref" : "#/definitions/Etage"
+        },
+        "operationsStudio" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Operation"
+          }
+        }
+      }
+    },
+    "StudioDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "descStudio" : {
+          "type" : "string"
+        },
+        "numeroStudio" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "abrvNomStudio" : {
+          "type" : "string"
+        },
+        "nomStudio" : {
+          "type" : "string"
+        },
+        "idEtage" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "Utilisateur" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nom" : {
+          "type" : "string"
+        },
+        "prenom" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "mobile" : {
+          "type" : "string"
+        },
+        "dateDeNaissance" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "lieuNaissance" : {
+          "type" : "string"
+        },
+        "typePieceIdentite" : {
+          "type" : "string"
+        },
+        "numeroPieceIdentite" : {
+          "type" : "string"
+        },
+        "dateDebutPiece" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateFinPiece" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "nationalité" : {
+          "type" : "string"
+        },
+        "genre" : {
+          "type" : "string"
+        },
+        "username" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        },
+        "profileImageUrl" : {
+          "type" : "string"
+        },
+        "lastLoginDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "lastLoginDateDisplay" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "joinDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "roleUsed" : {
+          "type" : "string"
+        },
+        "authorities" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "agence" : {
+          "$ref" : "#/definitions/AgenceImmobiliere"
+        },
+        "listeAgence" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AgenceImmobiliere"
+          }
+        },
+        "urole" : {
+          "$ref" : "#/definitions/Role"
+        },
+        "userCreate" : {
+          "$ref" : "#/definitions/Utilisateur"
+        },
+        "operationUser" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Operation"
+          }
+        },
+        "encaissementsUtilisateur" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Encaissement"
+          }
+        },
+        "nonLocked" : {
+          "type" : "boolean"
+        },
+        "activated" : {
+          "type" : "boolean"
+        },
+        "active" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "UtilisateurRequestDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nom" : {
+          "type" : "string"
+        },
+        "prenom" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "mobile" : {
+          "type" : "string"
+        },
+        "dateDeNaissance" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "lieuNaissance" : {
+          "type" : "string"
+        },
+        "typePieceIdentite" : {
+          "type" : "string"
+        },
+        "numeroPieceIdentite" : {
+          "type" : "string"
+        },
+        "dateDebutPiece" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateFinPiece" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "nationalité" : {
+          "type" : "string"
+        },
+        "genre" : {
+          "type" : "string"
+        },
+        "username" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        },
+        "profileImageUrl" : {
+          "type" : "string"
+        },
+        "lastLoginDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "lastLoginDateDisplay" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "joinDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "roleUsed" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "authorities" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "agenceDto" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "userCreate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nonLocked" : {
+          "type" : "boolean"
+        },
+        "activated" : {
+          "type" : "boolean"
+        },
+        "active" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "Villa" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "numBien" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "statutBien" : {
+          "type" : "string"
+        },
+        "abrvBienimmobilier" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "nomBien" : {
+          "type" : "string"
+        },
+        "superficieBien" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "site" : {
+          "$ref" : "#/definitions/Site"
+        },
+        "utilisateur" : {
+          "$ref" : "#/definitions/Utilisateur"
+        },
+        "nbrChambreVilla" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbrePiece" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbrSalonVilla" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbrSalleEauVilla" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nomVilla" : {
+          "type" : "string"
+        },
+        "abrvVilla" : {
+          "type" : "string"
+        },
+        "garageVilla" : {
+          "type" : "boolean"
+        },
+        "nbreVoitureGarageVilla" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "operationsVilla" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Operation"
+          }
+        },
+        "archived" : {
+          "type" : "boolean"
+        },
+        "occupied" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "VillaDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nbrChambreVilla" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbrePiece" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbrSalonVilla" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbrSalleEauVilla" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nomVilla" : {
+          "type" : "string"
+        },
+        "abrvVilla" : {
+          "type" : "string"
+        },
+        "garageVilla" : {
+          "type" : "boolean"
+        },
+        "nbreVoitureGarageVilla" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numBien" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "statutBien" : {
+          "type" : "string"
+        },
+        "abrvBienimmobilier" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "nomBien" : {
+          "type" : "string"
+        },
+        "superficieBien" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "idSite" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idUtilisateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "archived" : {
+          "type" : "boolean"
+        },
+        "occupied" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "Ville" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrvVille" : {
+          "type" : "string"
+        },
+        "nomVille" : {
+          "type" : "string"
+        },
+        "pays" : {
+          "$ref" : "#/definitions/Pays"
+        },
+        "communes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Commune"
+          }
+        }
+      }
+    },
+    "VilleDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrvVille" : {
+          "type" : "string"
+        },
+        "nomVille" : {
+          "type" : "string"
+        },
+        "idPays" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    }
+  }
+}
