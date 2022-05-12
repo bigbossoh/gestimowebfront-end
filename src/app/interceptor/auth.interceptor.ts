@@ -16,8 +16,11 @@ export class AuthInterceptor implements HttpInterceptor {
     private userService:UserService) {}
 
   intercept(httpRequest: HttpRequest<any>, httpHandler: HttpHandler): Observable<HttpEvent<any>> {
+   // console.log(`${this.apiService.rootUrl}gestimoweb/api/v1/auth/login`);
 
-   if(httpRequest.url.includes(`${this.apiService.rootUrl}/gestimoweb/api/v1/auth/login`)){
+   if(httpRequest.url.includes(`${this.apiService.rootUrl}gestimoweb/api/v1/auth/login`)){
+    // console.log("we are in the interceptor",httpRequest);
+
      return httpHandler.handle(httpRequest);
    }
 
