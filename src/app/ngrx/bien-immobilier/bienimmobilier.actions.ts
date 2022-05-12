@@ -2,7 +2,7 @@
 
 import { Action } from '@ngrx/store';
 import { type } from 'os';
-import { Bienimmobilier } from 'src/gs-api/src/models';
+import { Bienimmobilier, BienImmobilierDto } from 'src/gs-api/src/models';
 
 //STORE
 export enum BienImmobilierActionsTypes {
@@ -19,7 +19,7 @@ export class GetAllBiensActions implements Action {
 export class GetAllBiensActionsSuccess implements Action {
   type: BienImmobilierActionsTypes =
     BienImmobilierActionsTypes.GET_ALL_BIENS_SUCCES;
-  constructor(public payload: Bienimmobilier[]) {}
+  constructor(public payload: BienImmobilierDto[]) {}
 }
 export class GetAllBiensActionsError implements Action {
   type: BienImmobilierActionsTypes =
