@@ -7,6 +7,7 @@ import { HeaderType } from 'src/app/enum/header-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
+import { ApiService } from 'src/gs-api/src/services';
 
 @Component({
   selector: 'app-page-login',
@@ -17,12 +18,12 @@ export class PageLoginComponent implements OnInit, OnDestroy {
   public showLoading?: boolean;
   private subscriptions: Subscription[] = [];
 
-  constructor(private router: Router, private userService: UserService,
+  constructor(private router: Router,private apiService:ApiService, private userService: UserService,
               private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     if (this.userService.isUserLoggedIn()) {
-      this.router.navigateByUrl('/user/management');
+      this.router.navigateByUrl('statistiques');
     } else {
       this.router.navigateByUrl('/login');
     }
