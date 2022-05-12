@@ -24,7 +24,7 @@ export interface UtilisateurRequestDto {
   authorities?: Array<string>;
   agenceDto?: number;
   userCreate?: number;
+  active?: boolean;
   nonLocked?: boolean;
   activated?: boolean;
-  active?: boolean;
 }

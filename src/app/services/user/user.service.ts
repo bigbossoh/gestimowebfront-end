@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AuthRequestDto, Utilisateur } from 'src/gs-api/src/models';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { StrictHttpResponse } from 'src/gs-api/src/strict-http-response';
+import { HttpClient,HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +14,20 @@ export class UserService {
   private token?: string | null;
   private loggedInUsername?: string | null;
   private jwtHelper = new JwtHelperService();
+
   constructor(
     private apiService:ApiService,
-    private router:Router
+    private router:Router,
+    private http:HttpClient
   ) { }
 
-  public login(authRequestDto:AuthRequestDto) : Observable<Utilisateur>{
-    return this.apiService.login(authRequestDto);
+  // public login(authRequestDto:AuthRequestDto) : Observable<Utilisateur>{
+  //  // console.log("we are in userservice first", authRequestDto);
+  //   return this.apiService.login(authRequestDto);
+  // }
+  public login(authRequestDto:AuthRequestDto):Observable<any>{
+    //console.log("we are the login from us");
+    return this.http.post<Utilisateur>(`${this.apiService.rootUrl}gestimoweb/api/v1/auth/login`,authRequestDto,{observe:'response'});
   }
   public logOut(): void {
     this.token = null;
