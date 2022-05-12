@@ -110,7 +110,7 @@ export class MenuComponent implements OnInit {
       {
         id: '41',
         titre: "biens par site",
-        icon: 'fas fa-hotel',
+        icon: '',
         url: 'bien-par-site'
       },
       {

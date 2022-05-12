@@ -13,7 +13,6 @@
     "gs-api:download": "cp /Users/miche/Documents/Projet\\ JEE/GestimoSpringBackend/target/GestimoSpringBackend-0.0.1-SNAPSHOT.jar ./tools/swagger/dist && cp /Users/miche/Documents/Projet\\ JEE/GestimoSpringBackend/target/swagger.json ./tools/swagger/src",
     "gs-api:extract": "node ./src/tools/swagger/src/swagger.json 0.0.1-SNAPSHOT",
     "gs-api:swagger-gen": "./node_modules/.bin/ng-swagger-gen -i ./src/tools/swagger/src/swagger.json -o src/gs-api/src"
-
   },
   "private": true,
   "dependencies": {
@@ -25,7 +24,9 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
+    "@auth0/angular-jwt": "^5.0.2",
     "@fortawesome/fontawesome-free": "^5.15.4",
+    "angular-notifier": "^11.0.0",
     "bootstrap": "^4.6.1",
     "highcharts": "^9.3.2",
     "highcharts-angular": "^3.0.0",

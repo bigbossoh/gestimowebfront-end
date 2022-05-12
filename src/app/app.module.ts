@@ -40,6 +40,10 @@ import { AppDetailBiensImmobilliersComponent } from './composants/app-detail-bie
 import { PageBauxLoyersComponent } from './pages/baux/page-baux-loyers/page-baux-loyers.component';
 import { AppDetailBailComponent } from './composants/app-detail-bail/app-detail-bail.component';
 import { AppDetailBailLoyerComponent } from './composants/app-detail-bail-loyer/app-detail-bail-loyer.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NoticationModule } from './notification.module';
+import { NotificationService } from './services/notification/notification.service';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -84,9 +88,13 @@ import { AppDetailBailLoyerComponent } from './composants/app-detail-bail-loyer/
     FormsModule,
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    NoticationModule,
     HighchartsChartModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS,
+    useClass:AuthInterceptor,
+    multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
