@@ -44,6 +44,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NoticationModule } from './notification.module';
 import { NotificationService } from './services/notification/notification.service';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -82,7 +85,7 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     AppDetailBiensImmobilliersComponent,
     PageBauxLoyersComponent,
     AppDetailBailComponent,
-    AppDetailBailLoyerComponent
+    AppDetailBailLoyerComponent,
   ],
   imports: [
     FormsModule,
@@ -90,11 +93,14 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     AppRoutingModule,
     HttpClientModule,
     NoticationModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument(),
   ],
-  providers: [{provide: HTTP_INTERCEPTORS,
-    useClass:AuthInterceptor,
-    multi: true}],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
