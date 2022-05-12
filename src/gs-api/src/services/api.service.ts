@@ -17,6 +17,7 @@ import { BailAppartementDto } from '../models/bail-appartement-dto';
 import { BailMagasinDto } from '../models/bail-magasin-dto';
 import { BailStudioDto } from '../models/bail-studio-dto';
 import { BailVillaDto } from '../models/bail-villa-dto';
+import { BienImmobilierDto } from '../models/bien-immobilier-dto';
 import { CommuneDto } from '../models/commune-dto';
 import { EspeceEncaissementDto } from '../models/espece-encaissement-dto';
 import { EtageDto } from '../models/etage-dto';
@@ -35,102 +36,107 @@ import { VilleDto } from '../models/ville-dto';
   providedIn: 'root',
 })
 class ApiService extends __BaseService {
-  static readonly getAllAgenceByOrderPath = 'gestimoweb/api/v1/agences/all';
-  static readonly deleteAgenceByIdPath = 'gestimoweb/api/v1/agences/deleteagence/{id}';
-  static readonly getAgenceByEmailPath = 'gestimoweb/api/v1/agences/getagencebyemail/{email}';
-  static readonly getAgenceByIDPath = 'gestimoweb/api/v1/agences/getagencebyid/{id}';
-  static readonly authenticatePath = 'gestimoweb/api/v1/agences/signup';
-  static readonly findAllPath = 'gestimoweb/api/v1/appartement/all';
-  static readonly deletePath = 'gestimoweb/api/v1/appartement/delete/{id}';
-  static readonly findByIDPath = 'gestimoweb/api/v1/appartement/findById/{id}';
-  static readonly findByIdPaysPath = 'gestimoweb/api/v1/appartement/findByIdEtage/{id}';
-  static readonly findByNamePath = 'gestimoweb/api/v1/appartement/findByName/{name}';
-  static readonly savePath = 'gestimoweb/api/v1/appartement/save';
-  static readonly save_1Path = 'gestimoweb/api/v1/appelloyer/save';
+  static readonly getAllAgenceByOrderAgencePath = 'gestimoweb/api/v1/agences/all';
+  static readonly deleteAgenceByIdAgencePath = 'gestimoweb/api/v1/agences/deleteagence/{id}';
+  static readonly getAgenceByEmailAgencePath = 'gestimoweb/api/v1/agences/getagencebyemail/{email}';
+  static readonly getAgenceByIDAgencePath = 'gestimoweb/api/v1/agences/getagencebyid/{id}';
+  static readonly authenticateAgencePath = 'gestimoweb/api/v1/agences/signup';
+  static readonly findAllAppartementPath = 'gestimoweb/api/v1/appartement/all';
+  static readonly deleteAppartementPath = 'gestimoweb/api/v1/appartement/delete/{id}';
+  static readonly findByIDAppartementPath = 'gestimoweb/api/v1/appartement/findById/{id}';
+  static readonly findByIdEtageAppartementPath = 'gestimoweb/api/v1/appartement/findByIdEtage/{id}';
+  static readonly findByNameAppartementPath = 'gestimoweb/api/v1/appartement/findByName/{name}';
+  static readonly saveAppartementPath = 'gestimoweb/api/v1/appartement/save';
+  static readonly saveAppelLoyersPath = 'gestimoweb/api/v1/appelloyer/save';
   static readonly verifyAccountPath = 'gestimoweb/api/v1/auth/accountVerification/{token}';
   static readonly loginPath = 'gestimoweb/api/v1/auth/login';
-  static readonly findAll_1Path = 'gestimoweb/api/v1/bailappartement/all';
-  static readonly delete_1Path = 'gestimoweb/api/v1/bailappartement/delete/{id}';
-  static readonly findByID_1Path = 'gestimoweb/api/v1/bailappartement/findById/{id}';
-  static readonly findByName_1Path = 'gestimoweb/api/v1/bailappartement/findByName/{name}';
-  static readonly save_2Path = 'gestimoweb/api/v1/bailappartement/save';
-  static readonly findAll_2Path = 'gestimoweb/api/v1/bailmagasin/all';
-  static readonly delete_2Path = 'gestimoweb/api/v1/bailmagasin/delete/{id}';
-  static readonly findByID_2Path = 'gestimoweb/api/v1/bailmagasin/findById/{id}';
-  static readonly findByName_2Path = 'gestimoweb/api/v1/bailmagasin/findByName/{name}';
-  static readonly save_3Path = 'gestimoweb/api/v1/bailmagasin/save';
-  static readonly findAll_3Path = 'gestimoweb/api/v1/bailsudio/all';
-  static readonly delete_3Path = 'gestimoweb/api/v1/bailsudio/delete/{id}';
-  static readonly findByID_3Path = 'gestimoweb/api/v1/bailsudio/findById/{id}';
-  static readonly findByName_3Path = 'gestimoweb/api/v1/bailsudio/findByName/{name}';
-  static readonly save_4Path = 'gestimoweb/api/v1/bailsudio/save';
-  static readonly findAll_4Path = 'gestimoweb/api/v1/bailvilla/all';
-  static readonly delete_4Path = 'gestimoweb/api/v1/bailvilla/delete/{id}';
-  static readonly findByID_4Path = 'gestimoweb/api/v1/bailvilla/findById/{id}';
-  static readonly findByName_4Path = 'gestimoweb/api/v1/bailvilla/findByName/{name}';
-  static readonly save_5Path = 'gestimoweb/api/v1/bailvilla/save';
-  static readonly findAll_5Path = 'gestimoweb/api/v1/commune/all';
-  static readonly delete_5Path = 'gestimoweb/api/v1/commune/delete/{id}';
-  static readonly findByID_5Path = 'gestimoweb/api/v1/commune/findById/{id}';
-  static readonly findByIdPays_1Path = 'gestimoweb/api/v1/commune/findByIdVille/{id}';
-  static readonly findByName_5Path = 'gestimoweb/api/v1/commune/findByName/{name}';
-  static readonly save_6Path = 'gestimoweb/api/v1/commune/save';
-  static readonly save_7Path = 'gestimoweb/api/v1/especeencaissement/save';
-  static readonly findAll_6Path = 'gestimoweb/api/v1/etage/all';
-  static readonly delete_6Path = 'gestimoweb/api/v1/etage/delete/{id}';
-  static readonly findByID_6Path = 'gestimoweb/api/v1/etage/findById/{id}';
-  static readonly findByIdPays_2Path = 'gestimoweb/api/v1/etage/findByIdImmeuble/{id}';
-  static readonly findByName_6Path = 'gestimoweb/api/v1/etage/findByName/{name}';
-  static readonly save_8Path = 'gestimoweb/api/v1/etage/save';
-  static readonly findAll_7Path = 'gestimoweb/api/v1/immeuble/all';
-  static readonly delete_7Path = 'gestimoweb/api/v1/immeuble/delete/{id}';
-  static readonly findByID_7Path = 'gestimoweb/api/v1/immeuble/findById/{id}';
-  static readonly findByIdPays_3Path = 'gestimoweb/api/v1/immeuble/findByIdSite/{id}';
-  static readonly findByName_7Path = 'gestimoweb/api/v1/immeuble/findByName/{name}';
-  static readonly save_9Path = 'gestimoweb/api/v1/immeuble/save';
-  static readonly findAll_8Path = 'gestimoweb/api/v1/magasin/all';
-  static readonly save_10Path = 'gestimoweb/api/v1/magasin/save';
-  static readonly save_11Path = 'gestimoweb/api/v1/montantloyerbail/save';
-  static readonly findAll_9Path = 'gestimoweb/api/v1/pays/all';
-  static readonly delete_8Path = 'gestimoweb/api/v1/pays/delete/{id}';
-  static readonly findByID_8Path = 'gestimoweb/api/v1/pays/findById/{id}';
-  static readonly findByName_8Path = 'gestimoweb/api/v1/pays/findByName/{name}';
-  static readonly save_12Path = 'gestimoweb/api/v1/pays/save';
-  static readonly samplePath = 'gestimoweb/api/v1/print/quittance/{id}';
-  static readonly findAll_10Path = 'gestimoweb/api/v1/quartier/all';
-  static readonly delete_9Path = 'gestimoweb/api/v1/quartier/delete/{id}';
-  static readonly findByID_9Path = 'gestimoweb/api/v1/quartier/findById/{id}';
-  static readonly findByIdCommunePath = 'gestimoweb/api/v1/quartier/findByIdCommune/{id}';
-  static readonly findByName_9Path = 'gestimoweb/api/v1/quartier/findByName/{name}';
-  static readonly save_13Path = 'gestimoweb/api/v1/quartier/save';
-  static readonly findAll_11Path = 'gestimoweb/api/v1/sites/all';
-  static readonly delete_10Path = 'gestimoweb/api/v1/sites/delete/{id}';
-  static readonly findByID_10Path = 'gestimoweb/api/v1/sites/findById/{id}';
-  static readonly findByName_10Path = 'gestimoweb/api/v1/sites/findByName/{name}';
-  static readonly save_14Path = 'gestimoweb/api/v1/sites/save';
-  static readonly findAll_12Path = 'gestimoweb/api/v1/studio/all';
-  static readonly delete_11Path = 'gestimoweb/api/v1/studio/delete/{id}';
-  static readonly findByID_11Path = 'gestimoweb/api/v1/studio/findById/{id}';
-  static readonly findByIdPays_4Path = 'gestimoweb/api/v1/studio/findByIdEtage/{id}';
-  static readonly findByName_11Path = 'gestimoweb/api/v1/studio/findByName/{name}';
-  static readonly save_15Path = 'gestimoweb/api/v1/studio/save';
-  static readonly getAllUtilisateurByOrderPath = 'gestimoweb/api/v1/utilisateur/all';
-  static readonly getAllGerantByOrderPath = 'gestimoweb/api/v1/utilisateur/gerants/all';
+  static readonly findAllBailAppartementPath = 'gestimoweb/api/v1/bailappartement/all';
+  static readonly deleteBailAppartementPath = 'gestimoweb/api/v1/bailappartement/delete/{id}';
+  static readonly findByIDBailAppartementPath = 'gestimoweb/api/v1/bailappartement/findById/{id}';
+  static readonly findByNameBailAppartementPath = 'gestimoweb/api/v1/bailappartement/findByName/{name}';
+  static readonly saveBailAppartementPath = 'gestimoweb/api/v1/bailappartement/save';
+  static readonly findAllBailMagasinPath = 'gestimoweb/api/v1/bailmagasin/all';
+  static readonly deleteBailMagasinPath = 'gestimoweb/api/v1/bailmagasin/delete/{id}';
+  static readonly findByIDBailMagasinPath = 'gestimoweb/api/v1/bailmagasin/findById/{id}';
+  static readonly findByNameBailMagasinPath = 'gestimoweb/api/v1/bailmagasin/findByName/{name}';
+  static readonly saveBailMagasinPath = 'gestimoweb/api/v1/bailmagasin/save';
+  static readonly findAllBailStudioPath = 'gestimoweb/api/v1/bailsudio/all';
+  static readonly deleteBailStudioPath = 'gestimoweb/api/v1/bailsudio/delete/{id}';
+  static readonly findBailStudioByIDPath = 'gestimoweb/api/v1/bailsudio/findById/{id}';
+  static readonly findBailStudioByNamePath = 'gestimoweb/api/v1/bailsudio/findByName/{name}';
+  static readonly saveBailStudioPath = 'gestimoweb/api/v1/bailsudio/save';
+  static readonly findAllBailVillaPath = 'gestimoweb/api/v1/bailvilla/all';
+  static readonly deleteBailVillaPath = 'gestimoweb/api/v1/bailvilla/delete/{id}';
+  static readonly findBailVillaByIDPath = 'gestimoweb/api/v1/bailvilla/findById/{id}';
+  static readonly findBailVillaByNamePath = 'gestimoweb/api/v1/bailvilla/findByName/{name}';
+  static readonly saveBailVillaPath = 'gestimoweb/api/v1/bailvilla/save';
+  static readonly findAllBienPath = 'gestimoweb/api/v1/bienImmobilier/all';
+  static readonly findAllCommunePath = 'gestimoweb/api/v1/commune/all';
+  static readonly deleteCommunePath = 'gestimoweb/api/v1/commune/delete/{id}';
+  static readonly findCommuneByIDPath = 'gestimoweb/api/v1/commune/findById/{id}';
+  static readonly findCommuneByIdPaysPath = 'gestimoweb/api/v1/commune/findByIdVille/{id}';
+  static readonly findCommuneByNamePath = 'gestimoweb/api/v1/commune/findByName/{name}';
+  static readonly saveCommunePath = 'gestimoweb/api/v1/commune/save';
+  static readonly saveEspeceEncaissementPath = 'gestimoweb/api/v1/especeencaissement/save';
+  static readonly findAllEtagePath = 'gestimoweb/api/v1/etage/all';
+  static readonly deleteEtagePath = 'gestimoweb/api/v1/etage/delete/{id}';
+  static readonly findEtageByIDPath = 'gestimoweb/api/v1/etage/findById/{id}';
+  static readonly findEtageByIdPaysPath = 'gestimoweb/api/v1/etage/findByIdImmeuble/{id}';
+  static readonly findEtageByNamePath = 'gestimoweb/api/v1/etage/findByName/{name}';
+  static readonly saveEtagePath = 'gestimoweb/api/v1/etage/save';
+  static readonly findAllImmeublePath = 'gestimoweb/api/v1/immeuble/all';
+  static readonly deleteImmeublePath = 'gestimoweb/api/v1/immeuble/deleteImmeuble/{id}';
+  static readonly findImmeubleByIDPath = 'gestimoweb/api/v1/immeuble/findById/{id}';
+  static readonly findImmeubleByIdSitePath = 'gestimoweb/api/v1/immeuble/findByIdSite/{id}';
+  static readonly findImmeubleByNamePath = 'gestimoweb/api/v1/immeuble/findByName/{name}';
+  static readonly saveImmeublePath = 'gestimoweb/api/v1/immeuble/save';
+  static readonly findAllMagasinPath = 'gestimoweb/api/v1/magasin/all';
+  static readonly findAllMagasinByIdSitePath = 'gestimoweb/api/v1/magasin/findAllMagasinByIdSite/{idSite}';
+  static readonly findByNameMagasinDtoPath = 'gestimoweb/api/v1/magasin/findByName/{name}';
+  static readonly findByIDMagasinPath = 'gestimoweb/api/v1/magasin/findmagasinById/{id}';
+  static readonly saveMagasinPath = 'gestimoweb/api/v1/magasin/save';
+  static readonly saveMontantLoyerBailPath = 'gestimoweb/api/v1/montantloyerbail/save';
+  static readonly findAllPaysPath = 'gestimoweb/api/v1/pays/all';
+  static readonly deletePaysPath = 'gestimoweb/api/v1/pays/delete/{id}';
+  static readonly findPaysByIDPath = 'gestimoweb/api/v1/pays/findById/{id}';
+  static readonly findPaysByNamePath = 'gestimoweb/api/v1/pays/findByName/{name}';
+  static readonly savePaysPath = 'gestimoweb/api/v1/pays/save';
+  static readonly sampleQuitancePath = 'gestimoweb/api/v1/print/quittance/{id}';
+  static readonly findAllQuartiersPath = 'gestimoweb/api/v1/quartier/all';
+  static readonly deleteQuartierPath = 'gestimoweb/api/v1/quartier/delete/{id}';
+  static readonly findByIDQuartiersPath = 'gestimoweb/api/v1/quartier/findById/{id}';
+  static readonly findAllQuartierByIdCommunePath = 'gestimoweb/api/v1/quartier/findByIdCommune/{id}';
+  static readonly findByNameQuartierPath = 'gestimoweb/api/v1/quartier/findByName/{name}';
+  static readonly saveQuartierPath = 'gestimoweb/api/v1/quartier/save';
+  static readonly findAllSitesPath = 'gestimoweb/api/v1/sites/all';
+  static readonly deleteSitePath = 'gestimoweb/api/v1/sites/delete/{id}';
+  static readonly findSiteByIDPath = 'gestimoweb/api/v1/sites/findById/{id}';
+  static readonly findSiteByNamePath = 'gestimoweb/api/v1/sites/findByName/{name}';
+  static readonly saveSitePath = 'gestimoweb/api/v1/sites/save';
+  static readonly findAllStudiosPath = 'gestimoweb/api/v1/studio/all';
+  static readonly deleteStudioPath = 'gestimoweb/api/v1/studio/delete/{id}';
+  static readonly findStudioByIDPath = 'gestimoweb/api/v1/studio/findById/{id}';
+  static readonly findAllStudioByIdPaysPath = 'gestimoweb/api/v1/studio/findByIdEtage/{id}';
+  static readonly findStudioByNamePath = 'gestimoweb/api/v1/studio/findByName/{name}';
+  static readonly saveStudioPath = 'gestimoweb/api/v1/studio/save';
+  static readonly getAllUtilisateursByOrderPath = 'gestimoweb/api/v1/utilisateur/all';
+  static readonly getAllGerantsByOrderPath = 'gestimoweb/api/v1/utilisateur/gerants/all';
   static readonly getUtilisateurByEmailPath = 'gestimoweb/api/v1/utilisateur/getutilisateurbyemail/{email}';
   static readonly getUtilisateurByIDPath = 'gestimoweb/api/v1/utilisateur/getutilisateurbyid/{id}';
-  static readonly getAllLocataireByOrderPath = 'gestimoweb/api/v1/utilisateur/locataires/all';
+  static readonly getUtilisateurByUsernamePath = 'gestimoweb/api/v1/utilisateur/getutilisateurbyusername/{username}';
+  static readonly getAllLocatairesByOrderPath = 'gestimoweb/api/v1/utilisateur/locataires/all';
   static readonly getAllProprietaireByOrderPath = 'gestimoweb/api/v1/utilisateur/proprietaires/all';
-  static readonly saveLocatairePath = 'gestimoweb/api/v1/utilisateur/save';
-  static readonly getAllSuperviseurByOrderPath = 'gestimoweb/api/v1/utilisateur/superviseurs/all';
-  static readonly findAll_13Path = 'gestimoweb/api/v1/villa/all';
-  static readonly save_16Path = 'gestimoweb/api/v1/villa/save';
-  static readonly findAll_14Path = 'gestimoweb/api/v1/ville/all';
-  static readonly delete_12Path = 'gestimoweb/api/v1/ville/delete/{id}';
-  static readonly findByID_12Path = 'gestimoweb/api/v1/ville/findById/{id}';
-  static readonly findByIdPays_5Path = 'gestimoweb/api/v1/ville/findByIdPays/{id}';
-  static readonly findByName_12Path = 'gestimoweb/api/v1/ville/findByName/{name}';
-  static readonly findByPaysPath = 'gestimoweb/api/v1/ville/findByPays';
-  static readonly save_17Path = 'gestimoweb/api/v1/ville/save';
+  static readonly saveUtilisateurPath = 'gestimoweb/api/v1/utilisateur/save';
+  static readonly getAllSuperviseursByOrderPath = 'gestimoweb/api/v1/utilisateur/superviseurs/all';
+  static readonly findAllVillaPath = 'gestimoweb/api/v1/villa/all';
+  static readonly saveVillaPath = 'gestimoweb/api/v1/villa/save';
+  static readonly findAllVillesPath = 'gestimoweb/api/v1/ville/all';
+  static readonly deleteVillePath = 'gestimoweb/api/v1/ville/delete/{id}';
+  static readonly findByIdVillePath = 'gestimoweb/api/v1/ville/findById/{id}';
+  static readonly findAllVilleByIdPaysPath = 'gestimoweb/api/v1/ville/findByIdPays/{id}';
+  static readonly findVilleByNameVillePath = 'gestimoweb/api/v1/ville/findByName/{name}';
+  static readonly findAllVilleByPaysObjectPath = 'gestimoweb/api/v1/ville/findByPays';
+  static readonly saveVillePath = 'gestimoweb/api/v1/ville/save';
 
   constructor(
     config: __Configuration,
@@ -142,7 +148,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  getAllAgenceByOrderResponse(): __Observable<__StrictHttpResponse<Array<AgenceResponseDto>>> {
+  getAllAgenceByOrderAgenceResponse(): __Observable<__StrictHttpResponse<Array<AgenceResponseDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -166,8 +172,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  getAllAgenceByOrder(): __Observable<Array<AgenceResponseDto>> {
-    return this.getAllAgenceByOrderResponse().pipe(
+  getAllAgenceByOrderAgence(): __Observable<Array<AgenceResponseDto>> {
+    return this.getAllAgenceByOrderAgenceResponse().pipe(
       __map(_r => _r.body as Array<AgenceResponseDto>)
     );
   }
@@ -176,7 +182,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  deleteAgenceByIdResponse(id: number): __Observable<__StrictHttpResponse<string>> {
+  deleteAgenceByIdAgenceResponse(id: number): __Observable<__StrictHttpResponse<string>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -202,8 +208,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  deleteAgenceById(id: number): __Observable<string> {
-    return this.deleteAgenceByIdResponse(id).pipe(
+  deleteAgenceByIdAgence(id: number): __Observable<string> {
+    return this.deleteAgenceByIdAgenceResponse(id).pipe(
       __map(_r => _r.body as string)
     );
   }
@@ -212,7 +218,7 @@ class ApiService extends __BaseService {
    * @param email undefined
    * @return successful operation
    */
-  getAgenceByEmailResponse(email: string): __Observable<__StrictHttpResponse<AgenceResponseDto>> {
+  getAgenceByEmailAgenceResponse(email: string): __Observable<__StrictHttpResponse<AgenceResponseDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -238,8 +244,8 @@ class ApiService extends __BaseService {
    * @param email undefined
    * @return successful operation
    */
-  getAgenceByEmail(email: string): __Observable<AgenceResponseDto> {
-    return this.getAgenceByEmailResponse(email).pipe(
+  getAgenceByEmailAgence(email: string): __Observable<AgenceResponseDto> {
+    return this.getAgenceByEmailAgenceResponse(email).pipe(
       __map(_r => _r.body as AgenceResponseDto)
     );
   }
@@ -248,7 +254,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  getAgenceByIDResponse(id: number): __Observable<__StrictHttpResponse<AgenceResponseDto>> {
+  getAgenceByIDAgenceResponse(id: number): __Observable<__StrictHttpResponse<AgenceResponseDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -274,8 +280,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  getAgenceByID(id: number): __Observable<AgenceResponseDto> {
-    return this.getAgenceByIDResponse(id).pipe(
+  getAgenceByIDAgence(id: number): __Observable<AgenceResponseDto> {
+    return this.getAgenceByIDAgenceResponse(id).pipe(
       __map(_r => _r.body as AgenceResponseDto)
     );
   }
@@ -284,7 +290,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  authenticateResponse(body?: AgenceRequestDto): __Observable<__StrictHttpResponse<AgenceResponseDto>> {
+  authenticateAgenceResponse(body?: AgenceRequestDto): __Observable<__StrictHttpResponse<AgenceResponseDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -310,8 +316,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  authenticate(body?: AgenceRequestDto): __Observable<AgenceResponseDto> {
-    return this.authenticateResponse(body).pipe(
+  authenticateAgence(body?: AgenceRequestDto): __Observable<AgenceResponseDto> {
+    return this.authenticateAgenceResponse(body).pipe(
       __map(_r => _r.body as AgenceResponseDto)
     );
   }
@@ -319,7 +325,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAllResponse(): __Observable<__StrictHttpResponse<Array<AppartementDto>>> {
+  findAllAppartementResponse(): __Observable<__StrictHttpResponse<Array<AppartementDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -343,8 +349,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll(): __Observable<Array<AppartementDto>> {
-    return this.findAllResponse().pipe(
+  findAllAppartement(): __Observable<Array<AppartementDto>> {
+    return this.findAllAppartementResponse().pipe(
       __map(_r => _r.body as Array<AppartementDto>)
     );
   }
@@ -353,7 +359,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  deleteResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
+  deleteAppartementResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -379,8 +385,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete(id: number): __Observable<boolean> {
-    return this.deleteResponse(id).pipe(
+  deleteAppartement(id: number): __Observable<boolean> {
+    return this.deleteAppartementResponse(id).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -389,7 +395,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIDResponse(id: number): __Observable<__StrictHttpResponse<AppartementDto>> {
+  findByIDAppartementResponse(id: number): __Observable<__StrictHttpResponse<AppartementDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -415,8 +421,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID(id: number): __Observable<AppartementDto> {
-    return this.findByIDResponse(id).pipe(
+  findByIDAppartement(id: number): __Observable<AppartementDto> {
+    return this.findByIDAppartementResponse(id).pipe(
       __map(_r => _r.body as AppartementDto)
     );
   }
@@ -425,7 +431,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIdPaysResponse(id: number): __Observable<__StrictHttpResponse<Array<AppartementDto>>> {
+  findByIdEtageAppartementResponse(id: number): __Observable<__StrictHttpResponse<Array<AppartementDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -451,8 +457,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIdPays(id: number): __Observable<Array<AppartementDto>> {
-    return this.findByIdPaysResponse(id).pipe(
+  findByIdEtageAppartement(id: number): __Observable<Array<AppartementDto>> {
+    return this.findByIdEtageAppartementResponse(id).pipe(
       __map(_r => _r.body as Array<AppartementDto>)
     );
   }
@@ -461,7 +467,7 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByNameResponse(name: string): __Observable<__StrictHttpResponse<AppartementDto>> {
+  findByNameAppartementResponse(name: string): __Observable<__StrictHttpResponse<AppartementDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -487,8 +493,8 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName(name: string): __Observable<AppartementDto> {
-    return this.findByNameResponse(name).pipe(
+  findByNameAppartement(name: string): __Observable<AppartementDto> {
+    return this.findByNameAppartementResponse(name).pipe(
       __map(_r => _r.body as AppartementDto)
     );
   }
@@ -497,7 +503,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveResponse(body?: AppartementDto): __Observable<__StrictHttpResponse<AppartementDto>> {
+  saveAppartementResponse(body?: AppartementDto): __Observable<__StrictHttpResponse<AppartementDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -523,8 +529,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save(body?: AppartementDto): __Observable<AppartementDto> {
-    return this.saveResponse(body).pipe(
+  saveAppartement(body?: AppartementDto): __Observable<AppartementDto> {
+    return this.saveAppartementResponse(body).pipe(
       __map(_r => _r.body as AppartementDto)
     );
   }
@@ -533,7 +539,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_1Response(body?: AppelLoyerRequestDto): __Observable<__StrictHttpResponse<Array<string>>> {
+  saveAppelLoyersResponse(body?: AppelLoyerRequestDto): __Observable<__StrictHttpResponse<Array<string>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -559,8 +565,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_1(body?: AppelLoyerRequestDto): __Observable<Array<string>> {
-    return this.save_1Response(body).pipe(
+  saveAppelLoyers(body?: AppelLoyerRequestDto): __Observable<Array<string>> {
+    return this.saveAppelLoyersResponse(body).pipe(
       __map(_r => _r.body as Array<string>)
     );
   }
@@ -640,7 +646,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_1Response(): __Observable<__StrictHttpResponse<Array<BailAppartementDto>>> {
+  findAllBailAppartementResponse(): __Observable<__StrictHttpResponse<Array<BailAppartementDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -664,8 +670,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_1(): __Observable<Array<BailAppartementDto>> {
-    return this.findAll_1Response().pipe(
+  findAllBailAppartement(): __Observable<Array<BailAppartementDto>> {
+    return this.findAllBailAppartementResponse().pipe(
       __map(_r => _r.body as Array<BailAppartementDto>)
     );
   }
@@ -674,7 +680,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_1Response(id: number): __Observable<__StrictHttpResponse<boolean>> {
+  deleteBailAppartementResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -700,8 +706,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_1(id: number): __Observable<boolean> {
-    return this.delete_1Response(id).pipe(
+  deleteBailAppartement(id: number): __Observable<boolean> {
+    return this.deleteBailAppartementResponse(id).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -710,7 +716,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_1Response(id: number): __Observable<__StrictHttpResponse<BailAppartementDto>> {
+  findByIDBailAppartementResponse(id: number): __Observable<__StrictHttpResponse<BailAppartementDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -736,8 +742,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_1(id: number): __Observable<BailAppartementDto> {
-    return this.findByID_1Response(id).pipe(
+  findByIDBailAppartement(id: number): __Observable<BailAppartementDto> {
+    return this.findByIDBailAppartementResponse(id).pipe(
       __map(_r => _r.body as BailAppartementDto)
     );
   }
@@ -746,7 +752,7 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_1Response(name: string): __Observable<__StrictHttpResponse<BailAppartementDto>> {
+  findByNameBailAppartementResponse(name: string): __Observable<__StrictHttpResponse<BailAppartementDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -772,8 +778,8 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_1(name: string): __Observable<BailAppartementDto> {
-    return this.findByName_1Response(name).pipe(
+  findByNameBailAppartement(name: string): __Observable<BailAppartementDto> {
+    return this.findByNameBailAppartementResponse(name).pipe(
       __map(_r => _r.body as BailAppartementDto)
     );
   }
@@ -782,7 +788,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_2Response(body?: BailAppartementDto): __Observable<__StrictHttpResponse<BailAppartementDto>> {
+  saveBailAppartementResponse(body?: BailAppartementDto): __Observable<__StrictHttpResponse<BailAppartementDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -808,8 +814,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_2(body?: BailAppartementDto): __Observable<BailAppartementDto> {
-    return this.save_2Response(body).pipe(
+  saveBailAppartement(body?: BailAppartementDto): __Observable<BailAppartementDto> {
+    return this.saveBailAppartementResponse(body).pipe(
       __map(_r => _r.body as BailAppartementDto)
     );
   }
@@ -817,7 +823,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_2Response(): __Observable<__StrictHttpResponse<Array<BailMagasinDto>>> {
+  findAllBailMagasinResponse(): __Observable<__StrictHttpResponse<Array<BailMagasinDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -841,8 +847,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_2(): __Observable<Array<BailMagasinDto>> {
-    return this.findAll_2Response().pipe(
+  findAllBailMagasin(): __Observable<Array<BailMagasinDto>> {
+    return this.findAllBailMagasinResponse().pipe(
       __map(_r => _r.body as Array<BailMagasinDto>)
     );
   }
@@ -851,7 +857,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_2Response(id: number): __Observable<__StrictHttpResponse<boolean>> {
+  deleteBailMagasinResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -877,8 +883,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_2(id: number): __Observable<boolean> {
-    return this.delete_2Response(id).pipe(
+  deleteBailMagasin(id: number): __Observable<boolean> {
+    return this.deleteBailMagasinResponse(id).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -887,7 +893,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_2Response(id: number): __Observable<__StrictHttpResponse<BailMagasinDto>> {
+  findByIDBailMagasinResponse(id: number): __Observable<__StrictHttpResponse<BailMagasinDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -913,8 +919,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_2(id: number): __Observable<BailMagasinDto> {
-    return this.findByID_2Response(id).pipe(
+  findByIDBailMagasin(id: number): __Observable<BailMagasinDto> {
+    return this.findByIDBailMagasinResponse(id).pipe(
       __map(_r => _r.body as BailMagasinDto)
     );
   }
@@ -923,7 +929,7 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_2Response(name: string): __Observable<__StrictHttpResponse<BailMagasinDto>> {
+  findByNameBailMagasinResponse(name: string): __Observable<__StrictHttpResponse<BailMagasinDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -949,8 +955,8 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_2(name: string): __Observable<BailMagasinDto> {
-    return this.findByName_2Response(name).pipe(
+  findByNameBailMagasin(name: string): __Observable<BailMagasinDto> {
+    return this.findByNameBailMagasinResponse(name).pipe(
       __map(_r => _r.body as BailMagasinDto)
     );
   }
@@ -959,7 +965,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_3Response(body?: BailMagasinDto): __Observable<__StrictHttpResponse<BailMagasinDto>> {
+  saveBailMagasinResponse(body?: BailMagasinDto): __Observable<__StrictHttpResponse<BailMagasinDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -985,8 +991,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_3(body?: BailMagasinDto): __Observable<BailMagasinDto> {
-    return this.save_3Response(body).pipe(
+  saveBailMagasin(body?: BailMagasinDto): __Observable<BailMagasinDto> {
+    return this.saveBailMagasinResponse(body).pipe(
       __map(_r => _r.body as BailMagasinDto)
     );
   }
@@ -994,7 +1000,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_3Response(): __Observable<__StrictHttpResponse<Array<BailStudioDto>>> {
+  findAllBailStudioResponse(): __Observable<__StrictHttpResponse<Array<BailStudioDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1018,8 +1024,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_3(): __Observable<Array<BailStudioDto>> {
-    return this.findAll_3Response().pipe(
+  findAllBailStudio(): __Observable<Array<BailStudioDto>> {
+    return this.findAllBailStudioResponse().pipe(
       __map(_r => _r.body as Array<BailStudioDto>)
     );
   }
@@ -1028,7 +1034,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_3Response(id: number): __Observable<__StrictHttpResponse<boolean>> {
+  deleteBailStudioResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1054,8 +1060,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_3(id: number): __Observable<boolean> {
-    return this.delete_3Response(id).pipe(
+  deleteBailStudio(id: number): __Observable<boolean> {
+    return this.deleteBailStudioResponse(id).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -1064,7 +1070,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_3Response(id: number): __Observable<__StrictHttpResponse<BailStudioDto>> {
+  findBailStudioByIDResponse(id: number): __Observable<__StrictHttpResponse<BailStudioDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1090,8 +1096,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_3(id: number): __Observable<BailStudioDto> {
-    return this.findByID_3Response(id).pipe(
+  findBailStudioByID(id: number): __Observable<BailStudioDto> {
+    return this.findBailStudioByIDResponse(id).pipe(
       __map(_r => _r.body as BailStudioDto)
     );
   }
@@ -1100,7 +1106,7 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_3Response(name: string): __Observable<__StrictHttpResponse<BailStudioDto>> {
+  findBailStudioByNameResponse(name: string): __Observable<__StrictHttpResponse<BailStudioDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1126,8 +1132,8 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_3(name: string): __Observable<BailStudioDto> {
-    return this.findByName_3Response(name).pipe(
+  findBailStudioByName(name: string): __Observable<BailStudioDto> {
+    return this.findBailStudioByNameResponse(name).pipe(
       __map(_r => _r.body as BailStudioDto)
     );
   }
@@ -1136,7 +1142,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_4Response(body?: BailStudioDto): __Observable<__StrictHttpResponse<BailStudioDto>> {
+  saveBailStudioResponse(body?: BailStudioDto): __Observable<__StrictHttpResponse<BailStudioDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1162,8 +1168,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_4(body?: BailStudioDto): __Observable<BailStudioDto> {
-    return this.save_4Response(body).pipe(
+  saveBailStudio(body?: BailStudioDto): __Observable<BailStudioDto> {
+    return this.saveBailStudioResponse(body).pipe(
       __map(_r => _r.body as BailStudioDto)
     );
   }
@@ -1171,7 +1177,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_4Response(): __Observable<__StrictHttpResponse<Array<BailVillaDto>>> {
+  findAllBailVillaResponse(): __Observable<__StrictHttpResponse<Array<BailVillaDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1195,8 +1201,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_4(): __Observable<Array<BailVillaDto>> {
-    return this.findAll_4Response().pipe(
+  findAllBailVilla(): __Observable<Array<BailVillaDto>> {
+    return this.findAllBailVillaResponse().pipe(
       __map(_r => _r.body as Array<BailVillaDto>)
     );
   }
@@ -1205,7 +1211,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_4Response(id: number): __Observable<__StrictHttpResponse<boolean>> {
+  deleteBailVillaResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1231,8 +1237,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_4(id: number): __Observable<boolean> {
-    return this.delete_4Response(id).pipe(
+  deleteBailVilla(id: number): __Observable<boolean> {
+    return this.deleteBailVillaResponse(id).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -1241,7 +1247,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_4Response(id: number): __Observable<__StrictHttpResponse<BailVillaDto>> {
+  findBailVillaByIDResponse(id: number): __Observable<__StrictHttpResponse<BailVillaDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1267,8 +1273,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_4(id: number): __Observable<BailVillaDto> {
-    return this.findByID_4Response(id).pipe(
+  findBailVillaByID(id: number): __Observable<BailVillaDto> {
+    return this.findBailVillaByIDResponse(id).pipe(
       __map(_r => _r.body as BailVillaDto)
     );
   }
@@ -1277,7 +1283,7 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_4Response(name: string): __Observable<__StrictHttpResponse<BailVillaDto>> {
+  findBailVillaByNameResponse(name: string): __Observable<__StrictHttpResponse<BailVillaDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1303,8 +1309,8 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_4(name: string): __Observable<BailVillaDto> {
-    return this.findByName_4Response(name).pipe(
+  findBailVillaByName(name: string): __Observable<BailVillaDto> {
+    return this.findBailVillaByNameResponse(name).pipe(
       __map(_r => _r.body as BailVillaDto)
     );
   }
@@ -1313,7 +1319,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_5Response(body?: BailVillaDto): __Observable<__StrictHttpResponse<BailVillaDto>> {
+  saveBailVillaResponse(body?: BailVillaDto): __Observable<__StrictHttpResponse<BailVillaDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1339,8 +1345,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_5(body?: BailVillaDto): __Observable<BailVillaDto> {
-    return this.save_5Response(body).pipe(
+  saveBailVilla(body?: BailVillaDto): __Observable<BailVillaDto> {
+    return this.saveBailVillaResponse(body).pipe(
       __map(_r => _r.body as BailVillaDto)
     );
   }
@@ -1348,7 +1354,40 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_5Response(): __Observable<__StrictHttpResponse<Array<CommuneDto>>> {
+  findAllBienResponse(): __Observable<__StrictHttpResponse<Array<BienImmobilierDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/bienImmobilier/all`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<BienImmobilierDto>>;
+      })
+    );
+  }
+  /**
+   * @return successful operation
+   */
+  findAllBien(): __Observable<Array<BienImmobilierDto>> {
+    return this.findAllBienResponse().pipe(
+      __map(_r => _r.body as Array<BienImmobilierDto>)
+    );
+  }
+
+  /**
+   * @return successful operation
+   */
+  findAllCommuneResponse(): __Observable<__StrictHttpResponse<Array<CommuneDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1372,8 +1411,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_5(): __Observable<Array<CommuneDto>> {
-    return this.findAll_5Response().pipe(
+  findAllCommune(): __Observable<Array<CommuneDto>> {
+    return this.findAllCommuneResponse().pipe(
       __map(_r => _r.body as Array<CommuneDto>)
     );
   }
@@ -1382,7 +1421,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_5Response(id: number): __Observable<__StrictHttpResponse<boolean>> {
+  deleteCommuneResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1408,8 +1447,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_5(id: number): __Observable<boolean> {
-    return this.delete_5Response(id).pipe(
+  deleteCommune(id: number): __Observable<boolean> {
+    return this.deleteCommuneResponse(id).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -1418,7 +1457,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_5Response(id: number): __Observable<__StrictHttpResponse<CommuneDto>> {
+  findCommuneByIDResponse(id: number): __Observable<__StrictHttpResponse<CommuneDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1444,8 +1483,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_5(id: number): __Observable<CommuneDto> {
-    return this.findByID_5Response(id).pipe(
+  findCommuneByID(id: number): __Observable<CommuneDto> {
+    return this.findCommuneByIDResponse(id).pipe(
       __map(_r => _r.body as CommuneDto)
     );
   }
@@ -1454,7 +1493,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIdPays_1Response(id: number): __Observable<__StrictHttpResponse<Array<CommuneDto>>> {
+  findCommuneByIdPaysResponse(id: number): __Observable<__StrictHttpResponse<Array<CommuneDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1480,8 +1519,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIdPays_1(id: number): __Observable<Array<CommuneDto>> {
-    return this.findByIdPays_1Response(id).pipe(
+  findCommuneByIdPays(id: number): __Observable<Array<CommuneDto>> {
+    return this.findCommuneByIdPaysResponse(id).pipe(
       __map(_r => _r.body as Array<CommuneDto>)
     );
   }
@@ -1490,7 +1529,7 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_5Response(name: string): __Observable<__StrictHttpResponse<CommuneDto>> {
+  findCommuneByNameResponse(name: string): __Observable<__StrictHttpResponse<CommuneDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1516,8 +1555,8 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_5(name: string): __Observable<CommuneDto> {
-    return this.findByName_5Response(name).pipe(
+  findCommuneByName(name: string): __Observable<CommuneDto> {
+    return this.findCommuneByNameResponse(name).pipe(
       __map(_r => _r.body as CommuneDto)
     );
   }
@@ -1526,7 +1565,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_6Response(body?: CommuneDto): __Observable<__StrictHttpResponse<CommuneDto>> {
+  saveCommuneResponse(body?: CommuneDto): __Observable<__StrictHttpResponse<CommuneDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1552,8 +1591,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_6(body?: CommuneDto): __Observable<CommuneDto> {
-    return this.save_6Response(body).pipe(
+  saveCommune(body?: CommuneDto): __Observable<CommuneDto> {
+    return this.saveCommuneResponse(body).pipe(
       __map(_r => _r.body as CommuneDto)
     );
   }
@@ -1562,7 +1601,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_7Response(body?: EspeceEncaissementDto): __Observable<__StrictHttpResponse<EspeceEncaissementDto>> {
+  saveEspeceEncaissementResponse(body?: EspeceEncaissementDto): __Observable<__StrictHttpResponse<EspeceEncaissementDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1588,8 +1627,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_7(body?: EspeceEncaissementDto): __Observable<EspeceEncaissementDto> {
-    return this.save_7Response(body).pipe(
+  saveEspeceEncaissement(body?: EspeceEncaissementDto): __Observable<EspeceEncaissementDto> {
+    return this.saveEspeceEncaissementResponse(body).pipe(
       __map(_r => _r.body as EspeceEncaissementDto)
     );
   }
@@ -1597,7 +1636,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_6Response(): __Observable<__StrictHttpResponse<Array<EtageDto>>> {
+  findAllEtageResponse(): __Observable<__StrictHttpResponse<Array<EtageDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1621,8 +1660,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_6(): __Observable<Array<EtageDto>> {
-    return this.findAll_6Response().pipe(
+  findAllEtage(): __Observable<Array<EtageDto>> {
+    return this.findAllEtageResponse().pipe(
       __map(_r => _r.body as Array<EtageDto>)
     );
   }
@@ -1631,7 +1670,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_6Response(id: number): __Observable<__StrictHttpResponse<boolean>> {
+  deleteEtageResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1657,8 +1696,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_6(id: number): __Observable<boolean> {
-    return this.delete_6Response(id).pipe(
+  deleteEtage(id: number): __Observable<boolean> {
+    return this.deleteEtageResponse(id).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -1667,7 +1706,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_6Response(id: number): __Observable<__StrictHttpResponse<EtageDto>> {
+  findEtageByIDResponse(id: number): __Observable<__StrictHttpResponse<EtageDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1693,8 +1732,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_6(id: number): __Observable<EtageDto> {
-    return this.findByID_6Response(id).pipe(
+  findEtageByID(id: number): __Observable<EtageDto> {
+    return this.findEtageByIDResponse(id).pipe(
       __map(_r => _r.body as EtageDto)
     );
   }
@@ -1703,7 +1742,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIdPays_2Response(id: number): __Observable<__StrictHttpResponse<Array<EtageDto>>> {
+  findEtageByIdPaysResponse(id: number): __Observable<__StrictHttpResponse<Array<EtageDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1729,8 +1768,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIdPays_2(id: number): __Observable<Array<EtageDto>> {
-    return this.findByIdPays_2Response(id).pipe(
+  findEtageByIdPays(id: number): __Observable<Array<EtageDto>> {
+    return this.findEtageByIdPaysResponse(id).pipe(
       __map(_r => _r.body as Array<EtageDto>)
     );
   }
@@ -1739,7 +1778,7 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_6Response(name: string): __Observable<__StrictHttpResponse<EtageDto>> {
+  findEtageByNameResponse(name: string): __Observable<__StrictHttpResponse<EtageDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1765,8 +1804,8 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_6(name: string): __Observable<EtageDto> {
-    return this.findByName_6Response(name).pipe(
+  findEtageByName(name: string): __Observable<EtageDto> {
+    return this.findEtageByNameResponse(name).pipe(
       __map(_r => _r.body as EtageDto)
     );
   }
@@ -1775,7 +1814,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_8Response(body?: EtageDto): __Observable<__StrictHttpResponse<EtageDto>> {
+  saveEtageResponse(body?: EtageDto): __Observable<__StrictHttpResponse<EtageDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1801,8 +1840,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_8(body?: EtageDto): __Observable<EtageDto> {
-    return this.save_8Response(body).pipe(
+  saveEtage(body?: EtageDto): __Observable<EtageDto> {
+    return this.saveEtageResponse(body).pipe(
       __map(_r => _r.body as EtageDto)
     );
   }
@@ -1810,7 +1849,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_7Response(): __Observable<__StrictHttpResponse<Array<ImmeubleDto>>> {
+  findAllImmeubleResponse(): __Observable<__StrictHttpResponse<Array<ImmeubleDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1834,8 +1873,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_7(): __Observable<Array<ImmeubleDto>> {
-    return this.findAll_7Response().pipe(
+  findAllImmeuble(): __Observable<Array<ImmeubleDto>> {
+    return this.findAllImmeubleResponse().pipe(
       __map(_r => _r.body as Array<ImmeubleDto>)
     );
   }
@@ -1844,14 +1883,14 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_7Response(id: number): __Observable<__StrictHttpResponse<boolean>> {
+  deleteImmeubleResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
 
     let req = new HttpRequest<any>(
       'DELETE',
-      this.rootUrl + `gestimoweb/api/v1/immeuble/delete/${id}`,
+      this.rootUrl + `gestimoweb/api/v1/immeuble/deleteImmeuble/${id}`,
       __body,
       {
         headers: __headers,
@@ -1870,8 +1909,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_7(id: number): __Observable<boolean> {
-    return this.delete_7Response(id).pipe(
+  deleteImmeuble(id: number): __Observable<boolean> {
+    return this.deleteImmeubleResponse(id).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -1880,7 +1919,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_7Response(id: number): __Observable<__StrictHttpResponse<ImmeubleDto>> {
+  findImmeubleByIDResponse(id: number): __Observable<__StrictHttpResponse<ImmeubleDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1906,8 +1945,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_7(id: number): __Observable<ImmeubleDto> {
-    return this.findByID_7Response(id).pipe(
+  findImmeubleByID(id: number): __Observable<ImmeubleDto> {
+    return this.findImmeubleByIDResponse(id).pipe(
       __map(_r => _r.body as ImmeubleDto)
     );
   }
@@ -1916,7 +1955,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIdPays_3Response(id: number): __Observable<__StrictHttpResponse<Array<ImmeubleDto>>> {
+  findImmeubleByIdSiteResponse(id: number): __Observable<__StrictHttpResponse<Array<ImmeubleDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1942,8 +1981,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIdPays_3(id: number): __Observable<Array<ImmeubleDto>> {
-    return this.findByIdPays_3Response(id).pipe(
+  findImmeubleByIdSite(id: number): __Observable<Array<ImmeubleDto>> {
+    return this.findImmeubleByIdSiteResponse(id).pipe(
       __map(_r => _r.body as Array<ImmeubleDto>)
     );
   }
@@ -1952,7 +1991,7 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_7Response(name: string): __Observable<__StrictHttpResponse<ImmeubleDto>> {
+  findImmeubleByNameResponse(name: string): __Observable<__StrictHttpResponse<ImmeubleDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1978,8 +2017,8 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_7(name: string): __Observable<ImmeubleDto> {
-    return this.findByName_7Response(name).pipe(
+  findImmeubleByName(name: string): __Observable<ImmeubleDto> {
+    return this.findImmeubleByNameResponse(name).pipe(
       __map(_r => _r.body as ImmeubleDto)
     );
   }
@@ -1988,7 +2027,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_9Response(body?: ImmeubleDto): __Observable<__StrictHttpResponse<ImmeubleDto>> {
+  saveImmeubleResponse(body?: ImmeubleDto): __Observable<__StrictHttpResponse<ImmeubleDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2014,8 +2053,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_9(body?: ImmeubleDto): __Observable<ImmeubleDto> {
-    return this.save_9Response(body).pipe(
+  saveImmeuble(body?: ImmeubleDto): __Observable<ImmeubleDto> {
+    return this.saveImmeubleResponse(body).pipe(
       __map(_r => _r.body as ImmeubleDto)
     );
   }
@@ -2023,7 +2062,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_8Response(): __Observable<__StrictHttpResponse<Array<MagasinDto>>> {
+  findAllMagasinResponse(): __Observable<__StrictHttpResponse<Array<MagasinDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2047,9 +2086,117 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_8(): __Observable<Array<MagasinDto>> {
-    return this.findAll_8Response().pipe(
+  findAllMagasin(): __Observable<Array<MagasinDto>> {
+    return this.findAllMagasinResponse().pipe(
       __map(_r => _r.body as Array<MagasinDto>)
+    );
+  }
+
+  /**
+   * @param idSite undefined
+   * @return successful operation
+   */
+  findAllMagasinByIdSiteResponse(idSite: number): __Observable<__StrictHttpResponse<Array<MagasinDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/magasin/findAllMagasinByIdSite/${idSite}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<MagasinDto>>;
+      })
+    );
+  }
+  /**
+   * @param idSite undefined
+   * @return successful operation
+   */
+  findAllMagasinByIdSite(idSite: number): __Observable<Array<MagasinDto>> {
+    return this.findAllMagasinByIdSiteResponse(idSite).pipe(
+      __map(_r => _r.body as Array<MagasinDto>)
+    );
+  }
+
+  /**
+   * @param name undefined
+   * @return successful operation
+   */
+  findByNameMagasinDtoResponse(name: string): __Observable<__StrictHttpResponse<MagasinDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/magasin/findByName/${name}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<MagasinDto>;
+      })
+    );
+  }
+  /**
+   * @param name undefined
+   * @return successful operation
+   */
+  findByNameMagasinDto(name: string): __Observable<MagasinDto> {
+    return this.findByNameMagasinDtoResponse(name).pipe(
+      __map(_r => _r.body as MagasinDto)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findByIDMagasinResponse(id: number): __Observable<__StrictHttpResponse<MagasinDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/magasin/findmagasinById/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<MagasinDto>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findByIDMagasin(id: number): __Observable<MagasinDto> {
+    return this.findByIDMagasinResponse(id).pipe(
+      __map(_r => _r.body as MagasinDto)
     );
   }
 
@@ -2057,7 +2204,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_10Response(body?: MagasinDto): __Observable<__StrictHttpResponse<boolean>> {
+  saveMagasinResponse(body?: MagasinDto): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2083,8 +2230,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_10(body?: MagasinDto): __Observable<boolean> {
-    return this.save_10Response(body).pipe(
+  saveMagasin(body?: MagasinDto): __Observable<boolean> {
+    return this.saveMagasinResponse(body).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -2093,7 +2240,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_11Response(body?: MontantLoyerBailDto): __Observable<__StrictHttpResponse<boolean>> {
+  saveMontantLoyerBailResponse(body?: MontantLoyerBailDto): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2119,8 +2266,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_11(body?: MontantLoyerBailDto): __Observable<boolean> {
-    return this.save_11Response(body).pipe(
+  saveMontantLoyerBail(body?: MontantLoyerBailDto): __Observable<boolean> {
+    return this.saveMontantLoyerBailResponse(body).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -2128,7 +2275,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_9Response(): __Observable<__StrictHttpResponse<Array<PaysDto>>> {
+  findAllPaysResponse(): __Observable<__StrictHttpResponse<Array<PaysDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2152,8 +2299,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_9(): __Observable<Array<PaysDto>> {
-    return this.findAll_9Response().pipe(
+  findAllPays(): __Observable<Array<PaysDto>> {
+    return this.findAllPaysResponse().pipe(
       __map(_r => _r.body as Array<PaysDto>)
     );
   }
@@ -2162,7 +2309,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_8Response(id: number): __Observable<__StrictHttpResponse<boolean>> {
+  deletePaysResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2188,8 +2335,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_8(id: number): __Observable<boolean> {
-    return this.delete_8Response(id).pipe(
+  deletePays(id: number): __Observable<boolean> {
+    return this.deletePaysResponse(id).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -2198,7 +2345,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_8Response(id: number): __Observable<__StrictHttpResponse<PaysDto>> {
+  findPaysByIDResponse(id: number): __Observable<__StrictHttpResponse<PaysDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2224,8 +2371,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_8(id: number): __Observable<PaysDto> {
-    return this.findByID_8Response(id).pipe(
+  findPaysByID(id: number): __Observable<PaysDto> {
+    return this.findPaysByIDResponse(id).pipe(
       __map(_r => _r.body as PaysDto)
     );
   }
@@ -2234,7 +2381,7 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_8Response(name: string): __Observable<__StrictHttpResponse<PaysDto>> {
+  findPaysByNameResponse(name: string): __Observable<__StrictHttpResponse<PaysDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2260,8 +2407,8 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_8(name: string): __Observable<PaysDto> {
-    return this.findByName_8Response(name).pipe(
+  findPaysByName(name: string): __Observable<PaysDto> {
+    return this.findPaysByNameResponse(name).pipe(
       __map(_r => _r.body as PaysDto)
     );
   }
@@ -2270,7 +2417,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_12Response(body?: PaysDto): __Observable<__StrictHttpResponse<PaysDto>> {
+  savePaysResponse(body?: PaysDto): __Observable<__StrictHttpResponse<PaysDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2296,8 +2443,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_12(body?: PaysDto): __Observable<PaysDto> {
-    return this.save_12Response(body).pipe(
+  savePays(body?: PaysDto): __Observable<PaysDto> {
+    return this.savePaysResponse(body).pipe(
       __map(_r => _r.body as PaysDto)
     );
   }
@@ -2306,7 +2453,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  sampleResponse(id: number): __Observable<__StrictHttpResponse<Array<string>>> {
+  sampleQuitanceResponse(id: number): __Observable<__StrictHttpResponse<Array<string>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2332,8 +2479,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  sample(id: number): __Observable<Array<string>> {
-    return this.sampleResponse(id).pipe(
+  sampleQuitance(id: number): __Observable<Array<string>> {
+    return this.sampleQuitanceResponse(id).pipe(
       __map(_r => _r.body as Array<string>)
     );
   }
@@ -2341,7 +2488,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_10Response(): __Observable<__StrictHttpResponse<Array<QuartierDto>>> {
+  findAllQuartiersResponse(): __Observable<__StrictHttpResponse<Array<QuartierDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2365,8 +2512,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_10(): __Observable<Array<QuartierDto>> {
-    return this.findAll_10Response().pipe(
+  findAllQuartiers(): __Observable<Array<QuartierDto>> {
+    return this.findAllQuartiersResponse().pipe(
       __map(_r => _r.body as Array<QuartierDto>)
     );
   }
@@ -2375,7 +2522,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_9Response(id: number): __Observable<__StrictHttpResponse<boolean>> {
+  deleteQuartierResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2401,8 +2548,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_9(id: number): __Observable<boolean> {
-    return this.delete_9Response(id).pipe(
+  deleteQuartier(id: number): __Observable<boolean> {
+    return this.deleteQuartierResponse(id).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -2411,7 +2558,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_9Response(id: number): __Observable<__StrictHttpResponse<QuartierDto>> {
+  findByIDQuartiersResponse(id: number): __Observable<__StrictHttpResponse<QuartierDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2437,8 +2584,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_9(id: number): __Observable<QuartierDto> {
-    return this.findByID_9Response(id).pipe(
+  findByIDQuartiers(id: number): __Observable<QuartierDto> {
+    return this.findByIDQuartiersResponse(id).pipe(
       __map(_r => _r.body as QuartierDto)
     );
   }
@@ -2447,7 +2594,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIdCommuneResponse(id: number): __Observable<__StrictHttpResponse<Array<QuartierDto>>> {
+  findAllQuartierByIdCommuneResponse(id: number): __Observable<__StrictHttpResponse<Array<QuartierDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2473,8 +2620,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIdCommune(id: number): __Observable<Array<QuartierDto>> {
-    return this.findByIdCommuneResponse(id).pipe(
+  findAllQuartierByIdCommune(id: number): __Observable<Array<QuartierDto>> {
+    return this.findAllQuartierByIdCommuneResponse(id).pipe(
       __map(_r => _r.body as Array<QuartierDto>)
     );
   }
@@ -2483,7 +2630,7 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_9Response(name: string): __Observable<__StrictHttpResponse<QuartierDto>> {
+  findByNameQuartierResponse(name: string): __Observable<__StrictHttpResponse<QuartierDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2509,8 +2656,8 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_9(name: string): __Observable<QuartierDto> {
-    return this.findByName_9Response(name).pipe(
+  findByNameQuartier(name: string): __Observable<QuartierDto> {
+    return this.findByNameQuartierResponse(name).pipe(
       __map(_r => _r.body as QuartierDto)
     );
   }
@@ -2519,7 +2666,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_13Response(body?: QuartierDto): __Observable<__StrictHttpResponse<QuartierDto>> {
+  saveQuartierResponse(body?: QuartierDto): __Observable<__StrictHttpResponse<QuartierDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2545,8 +2692,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_13(body?: QuartierDto): __Observable<QuartierDto> {
-    return this.save_13Response(body).pipe(
+  saveQuartier(body?: QuartierDto): __Observable<QuartierDto> {
+    return this.saveQuartierResponse(body).pipe(
       __map(_r => _r.body as QuartierDto)
     );
   }
@@ -2554,7 +2701,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_11Response(): __Observable<__StrictHttpResponse<Array<SiteResponseDto>>> {
+  findAllSitesResponse(): __Observable<__StrictHttpResponse<Array<SiteResponseDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2578,8 +2725,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_11(): __Observable<Array<SiteResponseDto>> {
-    return this.findAll_11Response().pipe(
+  findAllSites(): __Observable<Array<SiteResponseDto>> {
+    return this.findAllSitesResponse().pipe(
       __map(_r => _r.body as Array<SiteResponseDto>)
     );
   }
@@ -2588,7 +2735,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_10Response(id: number): __Observable<__StrictHttpResponse<boolean>> {
+  deleteSiteResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2614,8 +2761,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_10(id: number): __Observable<boolean> {
-    return this.delete_10Response(id).pipe(
+  deleteSite(id: number): __Observable<boolean> {
+    return this.deleteSiteResponse(id).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -2624,7 +2771,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_10Response(id: number): __Observable<__StrictHttpResponse<SiteResponseDto>> {
+  findSiteByIDResponse(id: number): __Observable<__StrictHttpResponse<SiteResponseDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2650,8 +2797,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_10(id: number): __Observable<SiteResponseDto> {
-    return this.findByID_10Response(id).pipe(
+  findSiteByID(id: number): __Observable<SiteResponseDto> {
+    return this.findSiteByIDResponse(id).pipe(
       __map(_r => _r.body as SiteResponseDto)
     );
   }
@@ -2660,7 +2807,7 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_10Response(name: string): __Observable<__StrictHttpResponse<SiteResponseDto>> {
+  findSiteByNameResponse(name: string): __Observable<__StrictHttpResponse<SiteResponseDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2686,8 +2833,8 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_10(name: string): __Observable<SiteResponseDto> {
-    return this.findByName_10Response(name).pipe(
+  findSiteByName(name: string): __Observable<SiteResponseDto> {
+    return this.findSiteByNameResponse(name).pipe(
       __map(_r => _r.body as SiteResponseDto)
     );
   }
@@ -2696,7 +2843,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_14Response(body?: SiteRequestDto): __Observable<__StrictHttpResponse<boolean>> {
+  saveSiteResponse(body?: SiteRequestDto): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2722,8 +2869,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_14(body?: SiteRequestDto): __Observable<boolean> {
-    return this.save_14Response(body).pipe(
+  saveSite(body?: SiteRequestDto): __Observable<boolean> {
+    return this.saveSiteResponse(body).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -2731,7 +2878,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_12Response(): __Observable<__StrictHttpResponse<Array<StudioDto>>> {
+  findAllStudiosResponse(): __Observable<__StrictHttpResponse<Array<StudioDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2755,8 +2902,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_12(): __Observable<Array<StudioDto>> {
-    return this.findAll_12Response().pipe(
+  findAllStudios(): __Observable<Array<StudioDto>> {
+    return this.findAllStudiosResponse().pipe(
       __map(_r => _r.body as Array<StudioDto>)
     );
   }
@@ -2765,7 +2912,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_11Response(id: number): __Observable<__StrictHttpResponse<boolean>> {
+  deleteStudioResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2791,8 +2938,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_11(id: number): __Observable<boolean> {
-    return this.delete_11Response(id).pipe(
+  deleteStudio(id: number): __Observable<boolean> {
+    return this.deleteStudioResponse(id).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -2801,7 +2948,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_11Response(id: number): __Observable<__StrictHttpResponse<StudioDto>> {
+  findStudioByIDResponse(id: number): __Observable<__StrictHttpResponse<StudioDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2827,8 +2974,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_11(id: number): __Observable<StudioDto> {
-    return this.findByID_11Response(id).pipe(
+  findStudioByID(id: number): __Observable<StudioDto> {
+    return this.findStudioByIDResponse(id).pipe(
       __map(_r => _r.body as StudioDto)
     );
   }
@@ -2837,7 +2984,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIdPays_4Response(id: number): __Observable<__StrictHttpResponse<Array<StudioDto>>> {
+  findAllStudioByIdPaysResponse(id: number): __Observable<__StrictHttpResponse<Array<StudioDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2863,8 +3010,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIdPays_4(id: number): __Observable<Array<StudioDto>> {
-    return this.findByIdPays_4Response(id).pipe(
+  findAllStudioByIdPays(id: number): __Observable<Array<StudioDto>> {
+    return this.findAllStudioByIdPaysResponse(id).pipe(
       __map(_r => _r.body as Array<StudioDto>)
     );
   }
@@ -2873,7 +3020,7 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_11Response(name: string): __Observable<__StrictHttpResponse<StudioDto>> {
+  findStudioByNameResponse(name: string): __Observable<__StrictHttpResponse<StudioDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2899,8 +3046,8 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_11(name: string): __Observable<StudioDto> {
-    return this.findByName_11Response(name).pipe(
+  findStudioByName(name: string): __Observable<StudioDto> {
+    return this.findStudioByNameResponse(name).pipe(
       __map(_r => _r.body as StudioDto)
     );
   }
@@ -2909,7 +3056,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_15Response(body?: StudioDto): __Observable<__StrictHttpResponse<boolean>> {
+  saveStudioResponse(body?: StudioDto): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2935,8 +3082,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_15(body?: StudioDto): __Observable<boolean> {
-    return this.save_15Response(body).pipe(
+  saveStudio(body?: StudioDto): __Observable<boolean> {
+    return this.saveStudioResponse(body).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -2944,7 +3091,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  getAllUtilisateurByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurRequestDto>>> {
+  getAllUtilisateursByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurRequestDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2968,8 +3115,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  getAllUtilisateurByOrder(): __Observable<Array<UtilisateurRequestDto>> {
-    return this.getAllUtilisateurByOrderResponse().pipe(
+  getAllUtilisateursByOrder(): __Observable<Array<UtilisateurRequestDto>> {
+    return this.getAllUtilisateursByOrderResponse().pipe(
       __map(_r => _r.body as Array<UtilisateurRequestDto>)
     );
   }
@@ -2977,7 +3124,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  getAllGerantByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurRequestDto>>> {
+  getAllGerantsByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurRequestDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3001,8 +3148,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  getAllGerantByOrder(): __Observable<Array<UtilisateurRequestDto>> {
-    return this.getAllGerantByOrderResponse().pipe(
+  getAllGerantsByOrder(): __Observable<Array<UtilisateurRequestDto>> {
+    return this.getAllGerantsByOrderResponse().pipe(
       __map(_r => _r.body as Array<UtilisateurRequestDto>)
     );
   }
@@ -3080,9 +3227,45 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param username undefined
    * @return successful operation
    */
-  getAllLocataireByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurRequestDto>>> {
+  getUtilisateurByUsernameResponse(username: string): __Observable<__StrictHttpResponse<UtilisateurRequestDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/utilisateur/getutilisateurbyusername/${username}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<UtilisateurRequestDto>;
+      })
+    );
+  }
+  /**
+   * @param username undefined
+   * @return successful operation
+   */
+  getUtilisateurByUsername(username: string): __Observable<UtilisateurRequestDto> {
+    return this.getUtilisateurByUsernameResponse(username).pipe(
+      __map(_r => _r.body as UtilisateurRequestDto)
+    );
+  }
+
+  /**
+   * @return successful operation
+   */
+  getAllLocatairesByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurRequestDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3106,8 +3289,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  getAllLocataireByOrder(): __Observable<Array<UtilisateurRequestDto>> {
-    return this.getAllLocataireByOrderResponse().pipe(
+  getAllLocatairesByOrder(): __Observable<Array<UtilisateurRequestDto>> {
+    return this.getAllLocatairesByOrderResponse().pipe(
       __map(_r => _r.body as Array<UtilisateurRequestDto>)
     );
   }
@@ -3149,7 +3332,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveLocataireResponse(body?: UtilisateurRequestDto): __Observable<__StrictHttpResponse<boolean>> {
+  saveUtilisateurResponse(body?: UtilisateurRequestDto): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3175,8 +3358,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveLocataire(body?: UtilisateurRequestDto): __Observable<boolean> {
-    return this.saveLocataireResponse(body).pipe(
+  saveUtilisateur(body?: UtilisateurRequestDto): __Observable<boolean> {
+    return this.saveUtilisateurResponse(body).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -3184,7 +3367,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  getAllSuperviseurByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurRequestDto>>> {
+  getAllSuperviseursByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurRequestDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3208,8 +3391,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  getAllSuperviseurByOrder(): __Observable<Array<UtilisateurRequestDto>> {
-    return this.getAllSuperviseurByOrderResponse().pipe(
+  getAllSuperviseursByOrder(): __Observable<Array<UtilisateurRequestDto>> {
+    return this.getAllSuperviseursByOrderResponse().pipe(
       __map(_r => _r.body as Array<UtilisateurRequestDto>)
     );
   }
@@ -3217,7 +3400,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_13Response(): __Observable<__StrictHttpResponse<Array<VillaDto>>> {
+  findAllVillaResponse(): __Observable<__StrictHttpResponse<Array<VillaDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3241,8 +3424,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_13(): __Observable<Array<VillaDto>> {
-    return this.findAll_13Response().pipe(
+  findAllVilla(): __Observable<Array<VillaDto>> {
+    return this.findAllVillaResponse().pipe(
       __map(_r => _r.body as Array<VillaDto>)
     );
   }
@@ -3251,7 +3434,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_16Response(body?: VillaDto): __Observable<__StrictHttpResponse<boolean>> {
+  saveVillaResponse(body?: VillaDto): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3277,8 +3460,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_16(body?: VillaDto): __Observable<boolean> {
-    return this.save_16Response(body).pipe(
+  saveVilla(body?: VillaDto): __Observable<boolean> {
+    return this.saveVillaResponse(body).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -3286,7 +3469,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_14Response(): __Observable<__StrictHttpResponse<Array<VilleDto>>> {
+  findAllVillesResponse(): __Observable<__StrictHttpResponse<Array<VilleDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3310,8 +3493,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_14(): __Observable<Array<VilleDto>> {
-    return this.findAll_14Response().pipe(
+  findAllVilles(): __Observable<Array<VilleDto>> {
+    return this.findAllVillesResponse().pipe(
       __map(_r => _r.body as Array<VilleDto>)
     );
   }
@@ -3320,7 +3503,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_12Response(id: number): __Observable<__StrictHttpResponse<boolean>> {
+  deleteVilleResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3346,8 +3529,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  delete_12(id: number): __Observable<boolean> {
-    return this.delete_12Response(id).pipe(
+  deleteVille(id: number): __Observable<boolean> {
+    return this.deleteVilleResponse(id).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -3356,7 +3539,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_12Response(id: number): __Observable<__StrictHttpResponse<VilleDto>> {
+  findByIdVilleResponse(id: number): __Observable<__StrictHttpResponse<VilleDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3382,8 +3565,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByID_12(id: number): __Observable<VilleDto> {
-    return this.findByID_12Response(id).pipe(
+  findByIdVille(id: number): __Observable<VilleDto> {
+    return this.findByIdVilleResponse(id).pipe(
       __map(_r => _r.body as VilleDto)
     );
   }
@@ -3392,7 +3575,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIdPays_5Response(id: number): __Observable<__StrictHttpResponse<Array<VilleDto>>> {
+  findAllVilleByIdPaysResponse(id: number): __Observable<__StrictHttpResponse<Array<VilleDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3418,8 +3601,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIdPays_5(id: number): __Observable<Array<VilleDto>> {
-    return this.findByIdPays_5Response(id).pipe(
+  findAllVilleByIdPays(id: number): __Observable<Array<VilleDto>> {
+    return this.findAllVilleByIdPaysResponse(id).pipe(
       __map(_r => _r.body as Array<VilleDto>)
     );
   }
@@ -3428,7 +3611,7 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_12Response(name: string): __Observable<__StrictHttpResponse<VilleDto>> {
+  findVilleByNameVilleResponse(name: string): __Observable<__StrictHttpResponse<VilleDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3454,8 +3637,8 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByName_12(name: string): __Observable<VilleDto> {
-    return this.findByName_12Response(name).pipe(
+  findVilleByNameVille(name: string): __Observable<VilleDto> {
+    return this.findVilleByNameVilleResponse(name).pipe(
       __map(_r => _r.body as VilleDto)
     );
   }
@@ -3464,7 +3647,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  findByPaysResponse(body?: PaysDto): __Observable<__StrictHttpResponse<Array<VilleDto>>> {
+  findAllVilleByPaysObjectResponse(body?: PaysDto): __Observable<__StrictHttpResponse<Array<VilleDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3490,8 +3673,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  findByPays(body?: PaysDto): __Observable<Array<VilleDto>> {
-    return this.findByPaysResponse(body).pipe(
+  findAllVilleByPaysObject(body?: PaysDto): __Observable<Array<VilleDto>> {
+    return this.findAllVilleByPaysObjectResponse(body).pipe(
       __map(_r => _r.body as Array<VilleDto>)
     );
   }
@@ -3500,7 +3683,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_17Response(body?: VilleDto): __Observable<__StrictHttpResponse<VilleDto>> {
+  saveVilleResponse(body?: VilleDto): __Observable<__StrictHttpResponse<VilleDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3526,8 +3709,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_17(body?: VilleDto): __Observable<VilleDto> {
-    return this.save_17Response(body).pipe(
+  saveVille(body?: VilleDto): __Observable<VilleDto> {
+    return this.saveVilleResponse(body).pipe(
       __map(_r => _r.body as VilleDto)
     );
   }

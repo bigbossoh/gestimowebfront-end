@@ -34,7 +34,7 @@ export interface Utilisateur {
   userCreate?: Utilisateur;
   operationUser?: Array<Operation>;
   encaissementsUtilisateur?: Array<Encaissement>;
+  active?: boolean;
   nonLocked?: boolean;
   activated?: boolean;
-  active?: boolean;
 }
