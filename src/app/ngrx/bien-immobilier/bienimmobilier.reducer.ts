@@ -1,4 +1,4 @@
-import { Bienimmobilier } from 'src/gs-api/src/models';
+import { Bienimmobilier, BienImmobilierDto } from 'src/gs-api/src/models';
 import {
   BienImmobilierActions,
   BienImmobilierActionsTypes,
@@ -10,7 +10,7 @@ export enum BienImmobilierStateEnum {
   INITIAL = 'Initial',
 }
 export interface BienImmobilierState {
-  bienImmoblilier: Bienimmobilier[];
+  bienImmoblilier: BienImmobilierDto[];
   errorMessage: string;
   dataState: BienImmobilierStateEnum;
 }
