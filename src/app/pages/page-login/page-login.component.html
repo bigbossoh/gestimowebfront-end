@@ -32,7 +32,8 @@
           <div class="d-flex justify-content-center mt-3 login_container">
             <button type="submit" [disabled]="loginForm.invalid || showLoading" name="button" class="btn login_btn">
               <i class="fas fa-check"></i>&nbsp;
-              <i *ngIf="showLoading" class="fas fa-spinner fa-spin"></i>&nbsp;&nbsp;
+               <i *ngIf="showLoading" class="fas fa-spinner fa-spin"></i>&nbsp;&nbsp;
+              <!-- <i  class="fab fa-facebook fa-5x"></i>&nbsp;&nbsp; -->
               <span *ngIf="showLoading">Loading...</span>
               <span *ngIf="!showLoading">Login</span>
             </button>
