@@ -47,6 +47,8 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { bienReducer } from './ngrx/bien-immobilier/bienimmobilier.reducer';
+import { BienEffects } from './ngrx/bien-immobilier/bienimmobilier.effects';
 
 @NgModule({
   declarations: [
@@ -94,8 +96,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     HttpClientModule,
     NoticationModule,
     HighchartsChartModule,
-    StoreModule.forRoot({}),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot({ biensState: bienReducer }),
+    EffectsModule.forRoot([BienEffects]),
     StoreDevtoolsModule.instrument(),
   ],
   providers: [
