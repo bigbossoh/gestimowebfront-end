@@ -19,7 +19,6 @@ export class PageLoginComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(private router: Router,
-    private apiService:ApiService,
     private userService: UserService,
     private notificationService: NotificationService) {}
 
@@ -44,7 +43,7 @@ export class PageLoginComponent implements OnInit, OnDestroy {
 
           this.userService.saveToken(token!);
           this.userService.addUserToLocalCache(response.body!);
-          this.router.navigateByUrl('/statistiques');
+          this.router.navigateByUrl('/dashboard');
           this.showLoading = false;
         },
         (errorResponse: HttpErrorResponse) => {
