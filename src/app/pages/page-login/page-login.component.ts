@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user/user.service';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { HeaderType } from 'src/app/enum/header-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
-import { ApiService } from 'src/gs-api/src/services';
 import { AuthRequestDto } from 'src/gs-api/src/models';
 
 @Component({
