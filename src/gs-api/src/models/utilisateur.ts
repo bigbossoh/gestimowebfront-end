@@ -8,6 +8,7 @@ export interface Utilisateur {
   idAgence?: number;
   creationDate?: number;
   lastModifiedDate?: number;
+  utilisateurIdApp?: string;
   nom?: string;
   prenom?: string;
   email?: string;
@@ -35,6 +36,6 @@ export interface Utilisateur {
   operationUser?: Array<Operation>;
   encaissementsUtilisateur?: Array<Encaissement>;
   active?: boolean;
-  nonLocked?: boolean;
   activated?: boolean;
+  nonLocked?: boolean;
 }

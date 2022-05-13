@@ -3239,13 +3239,13 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "underBuildingMagasin" : {
+          "type" : "boolean"
+        },
         "occupied" : {
           "type" : "boolean"
         },
         "archived" : {
-          "type" : "boolean"
-        },
-        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -3536,6 +3536,25 @@
         }
       }
     },
+    "RoleRequestDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "roleName" : {
+          "type" : "string"
+        },
+        "descriptionRole" : {
+          "type" : "string"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
     "Site" : {
       "type" : "object",
       "properties" : {
@@ -3712,6 +3731,9 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "utilisateurIdApp" : {
+          "type" : "string"
+        },
         "nom" : {
           "type" : "string"
         },
@@ -3811,10 +3833,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -3829,6 +3851,9 @@
         "idAgence" : {
           "type" : "integer",
           "format" : "int64"
+        },
+        "utilisateurIdApp" : {
+          "type" : "string"
         },
         "nom" : {
           "type" : "string"
@@ -3891,8 +3916,7 @@
           "format" : "date-time"
         },
         "roleUsed" : {
-          "type" : "integer",
-          "format" : "int64"
+          "type" : "string"
         },
         "authorities" : {
           "type" : "array",
@@ -3904,6 +3928,9 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "roleRequestDto" : {
+          "$ref" : "#/definitions/RoleRequestDto"
+        },
         "userCreate" : {
           "type" : "integer",
           "format" : "int64"
@@ -3911,10 +3938,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
