@@ -1,3 +1,4 @@
+import { Action } from '@ngrx/store';
 import { Bienimmobilier, BienImmobilierDto } from 'src/gs-api/src/models';
 import {
   BienImmobilierActions,
@@ -21,22 +22,22 @@ const initState: BienImmobilierState = {
 };
 export function bienReducer(
   state: BienImmobilierState = initState,
-  action: BienImmobilierActions
-) {
+  action: Action
+): BienImmobilierState {
   switch (action.type) {
     case BienImmobilierActionsTypes.GET_ALL_BIENS:
-      return { ...state, dataState: BienImmobilierStateEnum.LOADED };
+      return { ...state, dataState: BienImmobilierStateEnum.LOADING };
     case BienImmobilierActionsTypes.GET_ALL_BIENS_SUCCES:
       return {
         ...state,
         dataState: BienImmobilierStateEnum.LOADED,
-        bienImmoblilier: action.payload,
+        bienImmoblilier: (<BienImmobilierActions>action).payload,
       };
     case BienImmobilierActionsTypes.GET_ALL_BIENS_ERROR:
       return {
         ...state,
         dataState: BienImmobilierStateEnum.ERROR,
-        errorMessage: action.payload,
+        errorMessage: (<BienImmobilierActions>action).payload,
       };
     default:
       return { ...state };

@@ -11,7 +11,7 @@ import {
 } from './bienimmobilier.actions';
 
 @Injectable()
-export class BienVillaEffects {
+export class BienEffects {
   constructor(private apiService: ApiService, private effectActions: Actions) {}
   getAllBienseffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
