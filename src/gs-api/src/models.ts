@@ -32,6 +32,7 @@ export { PaysDto } from './models/pays-dto';
 export { Quartier } from './models/quartier';
 export { QuartierDto } from './models/quartier-dto';
 export { Role } from './models/role';
+export { RoleRequestDto } from './models/role-request-dto';
 export { Site } from './models/site';
 export { SiteRequestDto } from './models/site-request-dto';
 export { SiteResponseDto } from './models/site-response-dto';
