@@ -6,7 +6,6 @@
     <div class="col-md-4 text-right">
       <app-boutton-action></app-boutton-action>
     </div>
-
   </div>
   <div class="col">
     <div class="row">
@@ -14,7 +13,7 @@
         <h5><i class="fas fa-asterisk blue-color"></i>&nbsp;Filtre</h5>
       </div>
     </div>
-    <hr style="margin-top: 0;">
+    <hr style="margin-top: 0" />
     <div class="row mb-3">
       <div class="col-md-3">
         <label>Ville</label>
@@ -42,130 +41,67 @@
         </select>
       </div>
       <div class="col-md-3 mt-4">
-          <button type="button" class="mb-sm btn btn-primary mr-1">Valider appel</button>
-          <button type="button" class="mb-sm btn btn-success mr-1">Rappel d'appel</button>
-
+        <button type="button" class="mb-sm btn btn-primary mr-1">
+          Valider appel
+        </button>
+        <button type="button" class="mb-sm btn btn-success mr-1">
+          Rappel d'appel
+        </button>
       </div>
     </div>
 
     <div class="row">
       <div class="col">
-        <h5><i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des biens immobiliers</h5>
+        <h5>
+          <i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des biens
+          immobiliers
+        </h5>
       </div>
     </div>
-    <hr style="margin-top: 0;">
+    <hr style="margin-top: 0" />
     <!-- main content -->
-    <div class="tab-content" id="myTabContent">
-      <!-- user table -->
-      <div class="tab-pane fade show active" id="users">
-        <table class="table table-hover m-3 p-3">
-          <thead class="table-borderless">
-            <tr class="text-center mt-3">
-              <th>Photo</th>
-              <th>User ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="text-center">
-              <td>
-                <img height="40" width="40" src="assets/nassmam.jpg" class="rounded-circle img-fluid img-thumbnail"
-                  alt="" />
-              </td>
-              <td>I2547185</td>
-              <td>zrango</td>
-              <td>nasaire</td>
-              <td>+2250103833350</td>
-              <td>zrangonazaire@gmail.com</td>
-              <td>
-                <span>Active</span>
-              </td>
-              <td class="">
-                <div class="btn-group">
-                  <button class="btn btn-outline-info"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
-                </div>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <td>
-                <img height="40" width="40" src="assets/zolo.jpg" class="rounded-circle img-fluid img-thumbnail"
-                  alt="" />
-              </td>
-              <td>I2547185</td>
-              <td>Bossoh</td>
-              <td>Michel</td>
-              <td>+2250777880885</td>
-              <td>michel.bossoh@outlook.fr</td>
-              <td>
-                <span>Active</span>
-              </td>
-              <td class="">
-                <div class="btn-group">
-                  <button class="btn btn-outline-info"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="text-center">
-              <td>
-                <img height="40" width="40" src="assets/nassmam.jpg" class="rounded-circle img-fluid img-thumbnail"
-                  alt="" />
-              </td>
-              <td>I2547185</td>
-              <td>zrango</td>
-              <td>nasaire</td>
-              <td>+2250103833350</td>
-              <td>zrangonazaire@gmail.com</td>
-              <td>
-                <span>Active</span>
-              </td>
-              <td class="">
-                <div class="btn-group">
-                  <button class="btn btn-outline-info"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="text-center">
-              <td>
-                <img height="40" width="40" src="assets/zolo.jpg" class="rounded-circle img-fluid img-thumbnail"
-                  alt="" />
-              </td>
-              <td>I2547185</td>
-              <td>Bossoh</td>
-              <td>Michel</td>
-              <td>+2250777880885</td>
-              <td>michel.bossoh@outlook.fr</td>
-              <td>
-                <span>Active</span>
-              </td>
-              <td class="">
-                <div class="btn-group">
-                  <button class="btn btn-outline-info"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-    </div>
-
+    <ng-container
+      *ngIf="bienState$ | async as state"
+      [ngSwitch]="state.dataState"
+    >
+      <ng-container *ngSwitchCase="BienImmobilierStateEnum.INITIAL">
+        <div class="p-2">Initialisation des données</div>
+      </ng-container>
+      <ng-container *ngSwitchCase="BienImmobilierStateEnum.LOADING">
+        <div class="p-2">Chargement des données...</div>
+        <ng-container *ngSwitchCase="BienImmobilierStateEnum.LOADED">
+          <div class="tab-content" id="myTabContent">
+            <!-- user table -->
+            <div class="tab-pane fade show active" id="users">
+              <table class="table table-hover m-3 p-3">
+                <thead class="table-borderless">
+                  <tr class="text-center mt-3">
+                    <th>Photo</th>
+                    <th>User ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchCase="BienImmobilierStateEnum.ERROR">
+          <div class="p-2">
+            L'Erreur suivante c'est produite : {{ state.errorMessage }}
+          </div>
+        </ng-container>
+      </ng-container>
+    </ng-container>
   </div>
   <div class="row mb-3">
-    <div class=" col-md-12 text-center">
+    <div class="col-md-12 text-center">
       <app-pagination></app-pagination>
     </div>
   </div>
-
 </div>
-
