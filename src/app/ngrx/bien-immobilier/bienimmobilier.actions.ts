@@ -1,7 +1,7 @@
 //CREER LES DIFFERENTES TYPES D'ACTION QUI VONT DECLANCHER LES EVENE,ENT DANS LE
 
 import { Action } from '@ngrx/store';
-import { type } from 'os';
+
 import { Bienimmobilier, BienImmobilierDto } from 'src/gs-api/src/models';
 
 //STORE
