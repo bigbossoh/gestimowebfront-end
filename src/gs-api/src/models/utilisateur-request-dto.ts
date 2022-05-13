@@ -1,7 +1,9 @@
 /* tslint:disable */
+import { RoleRequestDto } from './role-request-dto';
 export interface UtilisateurRequestDto {
   id?: number;
   idAgence?: number;
+  utilisateurIdApp?: string;
   nom?: string;
   prenom?: string;
   email?: string;
@@ -20,11 +22,12 @@ export interface UtilisateurRequestDto {
   lastLoginDate?: string;
   lastLoginDateDisplay?: string;
   joinDate?: string;
-  roleUsed?: number;
+  roleUsed?: string;
   authorities?: Array<string>;
   agenceDto?: number;
+  roleRequestDto?: RoleRequestDto;
   userCreate?: number;
   active?: boolean;
-  nonLocked?: boolean;
   activated?: boolean;
+  nonLocked?: boolean;
 }
