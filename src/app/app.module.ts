@@ -49,6 +49,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { bienReducer } from './ngrx/bien-immobilier/bienimmobilier.reducer';
 import { BienEffects } from './ngrx/bien-immobilier/bienimmobilier.effects';
+import { PagePaiementComponent } from './pages/reglement/page-paiement/page-paiement.component';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { BienEffects } from './ngrx/bien-immobilier/bienimmobilier.effects';
     PageBauxLoyersComponent,
     AppDetailBailComponent,
     AppDetailBailLoyerComponent,
+    PagePaiementComponent,
   ],
   imports: [
     FormsModule,

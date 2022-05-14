@@ -38,4 +38,5 @@ export interface Utilisateur {
   active?: boolean;
   activated?: boolean;
   nonLocked?: boolean;
+  
 }
