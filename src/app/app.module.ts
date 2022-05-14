@@ -49,7 +49,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { bienReducer } from './ngrx/bien-immobilier/bienimmobilier.reducer';
 import { BienEffects } from './ngrx/bien-immobilier/bienimmobilier.effects';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,6 +93,7 @@ import { BienEffects } from './ngrx/bien-immobilier/bienimmobilier.effects';
   imports: [
     FormsModule,
     BrowserModule,
+    MatDialogModule,
     AppRoutingModule,
     HttpClientModule,
     NoticationModule,
@@ -99,6 +101,7 @@ import { BienEffects } from './ngrx/bien-immobilier/bienimmobilier.effects';
     StoreModule.forRoot({ biensState: bienReducer }),
     EffectsModule.forRoot([BienEffects]),
     StoreDevtoolsModule.instrument(),
+    BrowserAnimationsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
