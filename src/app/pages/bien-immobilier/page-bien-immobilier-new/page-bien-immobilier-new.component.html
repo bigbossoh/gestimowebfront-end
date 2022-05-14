@@ -32,21 +32,92 @@
         <div class="card-body">
           <form>
             <!-- Form Group (username)-->
+
             <div class="mb-3">
-              <label class="small mb-1" for="inputUsername">Site</label>
-              <div class="form-group">
-                <select
-                  name="roleUsed"
-                  required
-                  ngModel="ROLE_USER"
-                  class="form-control"
-                >
-                  <option value="GERANT">GERANT</option>
-                  <option value="PROPRIETAIRE">PROPRIETAIRE</option>
-                  <option value="SUPERVISEUR">SUPERVISEUR</option>
-                  <option value="SUPER_SUPERVISEUR">SUPER_SUPERVISEUR</option>
-                </select>
-              </div>
+              <ng-container
+                *ngIf="siteState$ | async as state"
+                [ngSwitch]="state.dataState"
+              >
+                <ng-container *ngSwitchCase="SiteStateEnum.INITIAL">
+                  <div class="p-2">Initialisation des données</div>
+                </ng-container>
+                <ng-container *ngSwitchCase="SiteStateEnum.ERROR">
+                  <div class="p-2">
+                    Une erreur est survenue : {{ state.errorMessage }}
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="SiteStateEnum.LOADED">
+                  <label class="small mb-1" for="inputUsername">Site</label>
+                  <div class="form-group">
+                    <select
+                      ngModel
+                      name="SiteBien"
+                      id="SiteBien"
+                      class="form-control"
+                    >
+                      <option [value]="null">Sélection un Site</option>
+                      <option [value]="sit.id" *ngFor="let sit of state.sites">
+                        {{ sit.abrSite }}
+                      </option>
+                    </select>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+            <!-- LISTES DES PROPRIETAIRES -->
+            <div class="mb-3">
+              <ng-container
+                *ngIf="utilisateurState$ | async as state"
+                [ngSwitch]="state.dataState"
+              >
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.INITIAL">
+                  <div class="p-2">Initialisation des données</div>
+                </ng-container>
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.ERROR">
+                  <div class="p-2">
+                    Une erreur est survenue : {{ state.errorMessage }}
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
+                  <label class="small mb-1" for="inputUsername"
+                    >Propriétaire</label
+                  >
+                  <div class="form-group">
+                    <select
+                      ngModel
+                      name="username"
+                      id="username"
+                      class="form-control"
+                    >
+                      <option [value]="null">Sélection un Propriétaire</option>
+                      <option
+                        [value]="utilis.id"
+                        *ngFor="let utilis of state.utlisisateurs"
+                      >
+                        {{ utilis.nom }} {{ utilis.prenom }}
+                      </option>
+                    </select>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+            <!-- TYPE DE BIEN  -->
+            <!-- LISTES DES PROPRIETAIRES -->
+            <div class="mb-3">
+              <label class="small mb-1" for="inputUsername"
+                >Type de biens</label
+              >
+              <select
+                [(ngModel)]="ngselectBin"
+                name="biens"
+                id="biens"
+                class="form-control"
+              >
+                <option [value]="10">Sélection un Type de Bien</option>
+                <option [value]="biens" *ngFor="let biens of listTypeBiens">
+                  {{ biens }}
+                </option>
+              </select>
             </div>
             <!-- Form Row-->
             <div class="row gx-3 mb-3">

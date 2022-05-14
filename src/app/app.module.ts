@@ -51,6 +51,12 @@ import { bienReducer } from './ngrx/bien-immobilier/bienimmobilier.reducer';
 import { BienEffects } from './ngrx/bien-immobilier/bienimmobilier.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { siteReducer } from './ngrx/site/site.reducer';
+import { SiteEffects } from './ngrx/site/site.effects';
+import { CommonModule } from '@angular/common';
+import { PageBienImmobilierNewComponent } from './pages/bien-immobilier/page-bien-immobilier-new/page-bien-immobilier-new.component';
+import { UtilisateurEffects } from './ngrx/utulisateur/utilisateur.effects';
+import { utilisateurReducer } from './ngrx/utulisateur/utlisateur.reducer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,6 +90,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     PageGrandCompteComponent,
     PageListeUtilisateursComponent,
     PaginationComponent,
+    PageBienImmobilierNewComponent,
     AppDetailBiensSiteComponent,
     AppDetailBiensImmobilliersComponent,
     PageBauxLoyersComponent,
@@ -98,8 +105,12 @@ import { MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     NoticationModule,
     HighchartsChartModule,
-    StoreModule.forRoot({ biensState: bienReducer }),
-    EffectsModule.forRoot([BienEffects]),
+    StoreModule.forRoot({
+      biensState: bienReducer,
+      siteState: siteReducer,
+      utilisateurState: utilisateurReducer,
+    }),
+    EffectsModule.forRoot([BienEffects, SiteEffects, UtilisateurEffects]),
     StoreDevtoolsModule.instrument(),
     BrowserAnimationsModule,
   ],
