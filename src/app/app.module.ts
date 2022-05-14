@@ -96,6 +96,7 @@ import { utilisateurReducer } from './ngrx/utulisateur/utlisateur.reducer';
     PageBauxLoyersComponent,
     AppDetailBailComponent,
     AppDetailBailLoyerComponent,
+    PagePaiementComponent,
   ],
   imports: [
     FormsModule,

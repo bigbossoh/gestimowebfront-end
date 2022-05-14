@@ -24,6 +24,7 @@ import { PageGrandCompteComponent } from './pages/comptabilite/page-grand-compte
 import { PageListeUtilisateursComponent } from './pages/utilisateurs/page-liste-utilisateurs/page-liste-utilisateurs.component';
 import { PageBauxLoyersComponent } from './pages/baux/page-baux-loyers/page-baux-loyers.component';
 import { ApplicationGuardService } from './services/guard/application-guard.service';
+import { PagePaiementComponent } from './pages/reglement/page-paiement/page-paiement.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,11 @@ const routes: Routes = [
     {
       path:'sites',
     component:PageSiteComponent,
+    canActivate:[ApplicationGuardService]
+    },
+    {
+      path:'paiement',
+    component:PagePaiementComponent,
     canActivate:[ApplicationGuardService]
     }
     ,
