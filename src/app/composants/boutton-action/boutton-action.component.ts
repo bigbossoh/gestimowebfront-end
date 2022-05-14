@@ -17,7 +17,7 @@ export class BouttonActionComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
   openDialog(): void {
     const dialolRef = this.dialog.open(PageBienImmobilierNewComponent, {
-      // width: '250px',
+      //  width: '1024px',
     });
   }
   ngOnInit(): void {}
