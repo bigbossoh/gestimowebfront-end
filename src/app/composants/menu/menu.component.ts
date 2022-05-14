@@ -178,6 +178,12 @@ export class MenuComponent implements OnInit {
         url: 'reglement-individuel'
       },
       {
+        id: '73',
+        titre: "Règlement",
+        icon: 'fas fa-toolbox',
+        url: 'paiement'
+      },
+      {
         id: '72',
         titre: "Règlement groupé",
         icon: 'fas fa-toolbox',

@@ -11,6 +11,7 @@ import { HttpClient,HttpErrorResponse,HttpResponse } from '@angular/common/http'
   providedIn: 'root'
 })
 export class UserService {
+
   private token?: string | null;
   private loggedInUsername?: string | null;
   private jwtHelper = new JwtHelperService();
@@ -63,7 +64,7 @@ export class UserService {
   //   return this.apiService.login(authRequestDto);
   // }
   public login(authRequestDto:AuthRequestDto):Observable<any>{
-    return this.http.post<Utilisateur>(`${this.apiService.rootUrl}gestimoweb/api/v1/auth/login`,authRequestDto,{observe:'response'});
+    return this.http.post<UtilisateurRequestDto>(`${this.apiService.rootUrl}gestimoweb/api/v1/auth/login`,authRequestDto,{observe:'response'});
   }
 
   public getUsers():Observable<any | HttpErrorResponse>{
@@ -78,13 +79,32 @@ export class UserService {
   // public deleteUser(username :String):Observable<CustomHttpResponse| HttpErrorResponse>{
   //   return this.http.delete<CustomHttpResponse>(`${this.host}/ums/api/v1/user/${username}`);
   // }
+  public addUsersToLocalCache(users:UtilisateurRequestDto[]): void {
+    localStorage.setItem('users', JSON.stringify(users));
+  }
 
-   public addUserToLocalCache(user: Utilisateur): void {
+   public addUserToLocalCache(user: UtilisateurRequestDto): void {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  public getUserFromLocalCache(): Utilisateur {
+  public getUserFromLocalCache(): UtilisateurRequestDto {
     return JSON.parse(localStorage.getItem('user')!);
+  }
+  public getUsersFromLocalCache(): UtilisateurRequestDto[] {
+    return JSON.parse(localStorage.getItem('users')!);
+
+  }
+  public createUserFormDate(loggedId: string, user: UtilisateurRequestDto): FormData {
+    const formData = new FormData();
+    formData.append('id', loggedId);
+    formData.append('firstName', user.nom!);
+    formData.append('lastName', user.prenom!);
+    formData.append('username', user.username!);
+    formData.append('email', user.email!);
+    formData.append('role', user.roleUsed!);
+    formData.append('isActive', JSON.stringify(user.active));
+    formData.append('isNonLocked', JSON.stringify(user.nonLocked));
+    return formData;
   }
 
 }
