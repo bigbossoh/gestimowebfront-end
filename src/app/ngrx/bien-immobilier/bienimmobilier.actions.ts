@@ -6,9 +6,9 @@ import { Bienimmobilier, BienImmobilierDto } from 'src/gs-api/src/models';
 
 //STORE
 export enum BienImmobilierActionsTypes {
-  GET_ALL_BIENS = '[Bienimmobilier] Get All Biens Immobilier',
-  GET_ALL_BIENS_SUCCES = '[Bienimmobilier] Get All Biens Immobilier Succes',
-  GET_ALL_BIENS_ERROR = '[Bienimmobilier] Get All Biens Immobilier Error',
+  GET_ALL_BIENS = '[BienImmobilierDto] Get All Biens Immobilier',
+  GET_ALL_BIENS_SUCCES = '[BienImmobilierDto] Get All Biens Immobilier Succes',
+  GET_ALL_BIENS_ERROR = '[BienImmobilierDto] Get All Biens Immobilier Error',
 }
 // CREER LES DIFFERENTES ACTIONS
 export class GetAllBiensActions implements Action {
