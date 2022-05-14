@@ -6,9 +6,9 @@ import { SiteResponseDto } from 'src/gs-api/src/models';
 
 //STORE
 export enum SiteActionsTypes {
-  GET_ALL_SITES = '[SiteResponseDto] Get All Biens Immobilier',
-  GET_ALL_SITES_SUCCES = '[SiteResponseDto] Get All Biens Immobilier Succes',
-  GET_ALL_SITES_ERROR = '[SiteResponseDto] Get All Biens Immobilier Error',
+  GET_ALL_SITES = '[SiteResponseDto] Get All Sites',
+  GET_ALL_SITES_SUCCES = '[SiteResponseDto] Get All Sites Succes',
+  GET_ALL_SITES_ERROR = '[SiteResponseDto] Get All Sites Error',
 }
 // CREER LES DIFFERENTES ACTIONS
 export class GetAllSitesActions implements Action {
@@ -24,7 +24,7 @@ export class GetAllSitesActionsError implements Action {
   type: SiteActionsTypes = SiteActionsTypes.GET_ALL_SITES_ERROR;
   constructor(public payload: string) {}
 }
-export type BienImmobilierActions =
+export type SiteActions =
   | GetAllSitesActions
   | GetAllSitesActionsError
   | GetAllSitesActionsSuccess;
