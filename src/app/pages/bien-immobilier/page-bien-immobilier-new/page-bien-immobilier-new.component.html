@@ -234,6 +234,207 @@
               Valider
             </button>
           </form>
+          <!-- FORM POUR VILLA -->
+          <form
+            *ngIf="villaForm && ngselecttypeBien == 'Villa'"
+            [formGroup]="villaForm"
+          >
+            <div class="mb-3">
+              <ng-container
+                *ngIf="utilisateurState$ | async as state"
+                [ngSwitch]="state.dataState"
+              >
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.INITIAL">
+                  <div class="p-2">Initialisation des données</div>
+                </ng-container>
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.ERROR">
+                  <div class="p-2">
+                    Une erreur est survenue : {{ state.errorMessage }}
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
+                  <label class="small mb-1" for="inputUsername"
+                    >Propriétaire</label
+                  >
+                  <div class="form-group">
+                    <select
+                      formControlName="idUtilisateur"
+                      name="idUtilisateur"
+                      id="username"
+                      class="form-control"
+                    >
+                      <option [value]="0">Sélection un Propriétaire</option>
+                      <option
+                        [value]="utilis.id"
+                        *ngFor="let utilis of state.utlisisateurs"
+                      >
+                        {{ utilis.nom }} {{ utilis.prenom }}
+                      </option>
+                    </select>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+            <div class="mb-3">
+              <ng-container
+                *ngIf="siteState$ | async as state"
+                [ngSwitch]="state.dataState"
+              >
+                <ng-container *ngSwitchCase="SiteStateEnum.INITIAL">
+                  <div class="p-2">Initialisation des données</div>
+                </ng-container>
+                <ng-container *ngSwitchCase="SiteStateEnum.ERROR">
+                  <div class="p-2">
+                    Une Erreur est survenue : {{ state.errorMessage }}
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="SiteStateEnum.LOADED">
+                  <label class="small mb-1" for="inputUsername">Site</label>
+                  <div class="form-group">
+                    <select
+                      formControlName="idSite"
+                      name="idSite"
+                      class="form-control"
+                    >
+                      <option [value]="0">Sélection un Site</option>
+                      <option [value]="sit.id" *ngFor="let sit of state.sites">
+                        {{ sit.abrSite }}
+                      </option>
+                    </select>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+
+            <div class="row gx-3 mb-3">
+              <!-- Form Group (organization name)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputOrgName">Désignation</label>
+                <input
+                  formControlName="nomBien"
+                  class="form-control"
+                  name="nomVilla"
+                  type="text"
+                />
+              </div>
+              <!-- Form Group (location)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLocation">Statut</label>
+                <input
+                  formControlName="statutBien"
+                  class="form-control"
+                  name="inputLocation"
+                  type="text"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputOrgName">Description</label>
+                <input
+                  formControlName="description"
+                  class="form-control"
+                  name="description"
+                  type="text"
+                />
+              </div>
+              <!-- Form Group (location)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLocation"
+                  >Nombre de Pièces</label
+                >
+                <input
+                  formControlName="nbrePiece"
+                  class="form-control"
+                  type="number"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLocation">Superficie</label>
+                <input
+                  formControlName="superficieBien"
+                  class="form-control"
+                  name="superficieBien"
+                  type="number"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLocation"
+                  >Nombre de salons</label
+                >
+                <input
+                  formControlName="nbrSalonVilla"
+                  class="form-control"
+                  name="nbrSalonVilla"
+                  type="number"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLocation"
+                  >Nombre de Chambre</label
+                >
+                <input
+                  formControlName="nbrChambreVilla"
+                  class="form-control"
+                  name="nbrChambreVilla"
+                  type="number"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLocation"
+                  >Nombre de salle d'eau</label
+                >
+                <input
+                  formControlName="nbrSalleEauVilla"
+                  class="form-control"
+                  name="nbrSalleEauVilla"
+                  type="number"
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLocation"
+                  >Combien de Voiture our le garage</label
+                >
+                <input
+                  formControlName="nbreVoitureGarageVilla"
+                  class="form-control"
+                  name="nbreVoitureGarageVilla"
+                  type="number"
+                />
+              </div>
+              <div>
+                <div class="form-check form-check-inline">
+                  <input
+                    mdbCheckbox
+                    class="form-check-input"
+                    type="checkbox"
+                    id="occupied"
+                    formControlName="occupied"
+                  />
+                  <label class="form-check-label" for="inlineCheckbox1"
+                    >Occupé</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    mdbCheckbox
+                    class="form-check-input"
+                    type="checkbox"
+                    name="archived"
+                    formControlName="archived"
+                  />
+                  <label class="form-check-label" for="inlineCheckbox2"
+                    >Archivé</label
+                  >
+                </div>
+              </div>
+            </div>
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="onSaveVilla()"
+            >
+              Valider
+            </button>
+          </form>
           <!-- FORM POUR LES STUDIOS -->
           <form
             *ngIf="studioform && ngselecttypeBien == 'Studio'"
