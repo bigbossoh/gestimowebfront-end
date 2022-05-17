@@ -30,10 +30,194 @@
       <div class="card mb-4">
         <div class="card-header">Informations sur le Bien Immobilier</div>
         <div class="card-body">
-          <form>
-            <!-- Form Group (username)-->
-
+          <form *ngIf="formGroup" [formGroup]="formGroup">
             <div class="mb-3">
+              <label class="small mb-1" for="inputUsername"
+                >Type de biens</label
+              >
+              <select
+                [(ngModel)]="ngselecttypeBien"
+                formControlName="idTypeBien"
+                name="idTypeBien"
+                id="idTypeBien"
+                class="form-control"
+              >
+                <option [value]="20000">Sélection un Type de Bien</option>
+                <option [value]="biens" *ngFor="let biens of listTypeBiens">
+                  {{ biens }}
+                </option>
+              </select>
+            </div>
+            <ng-container [ngSwitch]="ngselecttypeBien">
+              <ng-container *ngSwitchCase="listTypeBiens[0]">
+                <div class="p-2">Appartement</div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="listTypeBiens[1]">
+                <div class="p-2">Etage</div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="listTypeBiens[2]">
+                <div class="p-2">Immeuble</div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="listTypeBiens[3]">
+                <div class="p-2">Magasin</div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="listTypeBiens[4]">
+                <div class="p-2">Studio</div>
+              </ng-container>
+              <ng-container *ngSwitchCase="listTypeBiens[5]">
+                <div class="p-2">Villa</div>
+              </ng-container>
+            </ng-container>
+          </form>
+          <!-- FORM POUR LES STUDIOS -->
+          <form
+            *ngIf="studioform && ngselecttypeBien == 'Studio'"
+            [formGroup]="studioform"
+          >
+            <div class="row gx-3 mb-3">
+              <!-- Form Group (first name)-->
+              <div class="col-md-6">
+                <ng-container
+                  *ngIf="immeubleState$ | async as state"
+                  [ngSwitch]="state.dataState"
+                >
+                  <ng-container *ngSwitchCase="ImmeubleStateEnum.INITIAL">
+                    <div class="p-2">Initialisation des données</div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="ImmeubleStateEnum.ERROR">
+                    <div class="p-2">
+                      Errure : {{ state.errorMessage | json }}
+                    </div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADING">
+                    <div class="p-2">Chargement des données...</div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADED">
+                    <label class="small mb-1" for="inputFirstName"
+                      >Immeuble</label
+                    >
+                    <select
+                      (change)="findEtageByImmeuble(1)"
+                      formControlName="idImmeuble"
+                      name="idImmeuble"
+                      class="form-control"
+                    >
+                      <option [value]="0">Sélection un Immeuble</option>
+                      <option [value]="0">Aucun Immeuble</option>
+                      <option
+                        [value]="immeub.id"
+                        *ngFor="let immeub of state.immeubles"
+                      >
+                        {{ immeub.abrvNomImmeuble }}
+                      </option>
+                      <option></option>
+                    </select>
+                  </ng-container>
+                </ng-container>
+              </div>
+              <!-- Form Group (last name)-->
+              <div class="col-md-6">
+                <ng-container
+                  *ngIf="etageState$ | async as state"
+                  [ngSwitch]="state.dataState"
+                >
+                  <ng-container *ngSwitchCase="ImmeubleStateEnum.INITIAL">
+                    <div class="p-2">Initialisation des données</div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADING">
+                    <div class="p-2">Chargementes données...</div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="ImmeubleStateEnum.ERROR">
+                    <div class="p-2">erreur : {{ state.errorMessage }}</div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADED">
+                    <label class="small mb-1" for="inputLastName">Etage</label>
+                    <select
+                      formControlName="idEtage"
+                      name="idEtage"
+                      class="form-control"
+                    >
+                      <option [value]="0">Sélection un Etage</option>
+                      <option [value]="0">Aucun Etage</option>
+                      <option [value]="eta.id" *ngFor="let eta of state.etages">
+                        {{ eta.abrvEtage }}
+                      </option>
+
+                      <option></option>
+                    </select>
+                  </ng-container>
+                </ng-container>
+              </div>
+              <div class="row gx-3 mb-3">
+                <!-- Form Group (organization name)-->
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputOrgName"
+                    >Désignation</label
+                  >
+                  <input
+                    formControlName="nomStudio"
+                    class="form-control"
+                    name="nomEtage"
+                    type="text"
+                    placeholder="Saisir le nom du Studio"
+                    value="Start Bootstrap"
+                  />
+                </div>
+                <!-- Form Group (location)-->
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputLocation"
+                    >Description</label
+                  >
+                  <input
+                    formControlName="descStudio"
+                    class="form-control"
+                    name="inputLocation"
+                    type="text"
+                    placeholder="Decrire le Studio"
+                    value="San Francisco, CA"
+                  />
+                </div>
+              </div>
+            </div>
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="onSaveEtage()"
+            >
+              Valider
+            </button>
+          </form>
+          <!-- FORM POUR LES ETAGES -->
+          <form
+            *ngIf="etageForm && ngselecttypeBien == 'Etage'"
+            [formGroup]="etageForm"
+          >
+            <!-- Form Group (username)-->
+            <!-- <input
+              name="idAgence"
+              hidden="true"
+              formControlName="idAgence"
+              class="form-control"
+              id="id"
+              type="text"
+              placeholder="Enter your organization name"
+              value="Start Bootstrap"
+            /> -->
+            <!-- <input
+              name="id"
+              hidden="true"
+              formControlName="id"
+              class="form-control"
+              id="id"
+              type="text"
+              placeholder="Enter your organization name"
+              value="Start Bootstrap"
+            /> -->
+            <!-- <div class="mb-3">
               <ng-container
                 *ngIf="siteState$ | async as state"
                 [ngSwitch]="state.dataState"
@@ -43,19 +227,18 @@
                 </ng-container>
                 <ng-container *ngSwitchCase="SiteStateEnum.ERROR">
                   <div class="p-2">
-                    Une erreur est survenue : {{ state.errorMessage }}
+                    Une Erreur est survenue : {{ state.errorMessage }}
                   </div>
                 </ng-container>
                 <ng-container *ngSwitchCase="SiteStateEnum.LOADED">
                   <label class="small mb-1" for="inputUsername">Site</label>
                   <div class="form-group">
                     <select
-                      ngModel
-                      name="SiteBien"
-                      id="SiteBien"
+                      formControlName="idSite"
+                      name="idSite"
                       class="form-control"
                     >
-                      <option [value]="null">Sélection un Site</option>
+                      <option [value]="0">Sélection un Site</option>
                       <option [value]="sit.id" *ngFor="let sit of state.sites">
                         {{ sit.abrSite }}
                       </option>
@@ -63,9 +246,9 @@
                   </div>
                 </ng-container>
               </ng-container>
-            </div>
+            </div> -->
             <!-- LISTES DES PROPRIETAIRES -->
-            <div class="mb-3">
+            <!-- <div class="mb-3">
               <ng-container
                 *ngIf="utilisateurState$ | async as state"
                 [ngSwitch]="state.dataState"
@@ -84,12 +267,12 @@
                   >
                   <div class="form-group">
                     <select
-                      ngModel
-                      name="username"
+                      formControlName="idUtilisateur"
+                      name="idUtilisateur"
                       id="username"
                       class="form-control"
                     >
-                      <option [value]="null">Sélection un Propriétaire</option>
+                      <option [value]="0">Sélection un Propriétaire</option>
                       <option
                         [value]="utilis.id"
                         *ngFor="let utilis of state.utlisisateurs"
@@ -100,96 +283,157 @@
                   </div>
                 </ng-container>
               </ng-container>
-            </div>
+            </div> -->
             <!-- TYPE DE BIEN  -->
             <!-- LISTES DES PROPRIETAIRES -->
-            <div class="mb-3">
+            <!-- <div class="mb-3">
               <label class="small mb-1" for="inputUsername"
                 >Type de biens</label
               >
               <select
-                [(ngModel)]="ngselectBin"
-                name="biens"
-                id="biens"
+                [(ngModel)]="ngselecttypeBien"
+                formControlName="idTypeBien"
+                name="idTypeBien"
+                id="idTypeBien"
                 class="form-control"
               >
-                <option [value]="10">Sélection un Type de Bien</option>
+                <option [value]="20000">Sélection un Type de Bien</option>
                 <option [value]="biens" *ngFor="let biens of listTypeBiens">
                   {{ biens }}
                 </option>
               </select>
-            </div>
+            </div> -->
+            <!-- <ng-container [ngSwitch]="ngselecttypeBien">
+              <ng-container *ngSwitchCase="listTypeBiens[0]">
+                <div class="p-2">Appartement</div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="listTypeBiens[1]">
+                <div class="p-2">Etage</div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="listTypeBiens[2]">
+                <div class="p-2">Immeuble</div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="listTypeBiens[3]">
+                <div class="p-2">Magasin</div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="listTypeBiens[4]">
+                <div class="p-2">Studio</div>
+              </ng-container>
+              <ng-container *ngSwitchCase="listTypeBiens[5]">
+                <div class="p-2">Villa</div>
+              </ng-container>
+            </ng-container> -->
             <!-- Form Row-->
             <div class="row gx-3 mb-3">
               <!-- Form Group (first name)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputFirstName"
-                  >First name</label
+                <ng-container
+                  *ngIf="immeubleState$ | async as state"
+                  [ngSwitch]="state.dataState"
                 >
-                <input
-                  class="form-control"
-                  id="inputFirstName"
-                  type="text"
-                  placeholder="Enter your first name"
-                  value="Valerie"
-                />
+                  <ng-container *ngSwitchCase="ImmeubleStateEnum.INITIAL">
+                    <div class="p-2">Initialisation des données</div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="ImmeubleStateEnum.ERROR">
+                    <div class="p-2">
+                      Errure : {{ state.errorMessage | json }}
+                    </div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADING">
+                    <div class="p-2">Chargement des données...</div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADED">
+                    <label class="small mb-1" for="inputFirstName"
+                      >Immeuble</label
+                    >
+                    <select
+                      formControlName="idImmeuble"
+                      name="idImmeuble"
+                      class="form-control"
+                    >
+                      <option [value]="0">Sélection un Immeuble</option>
+                      <option [value]="0">Aucun Immeuble</option>
+                      <option
+                        [value]="immeub.id"
+                        *ngFor="let immeub of state.immeubles"
+                      >
+                        {{ immeub.abrvNomImmeuble }}
+                      </option>
+                      <option></option>
+                    </select>
+                  </ng-container>
+                </ng-container>
               </div>
               <!-- Form Group (last name)-->
-              <div class="col-md-6">
-                <label class="small mb-1" for="inputLastName">Last name</label>
-                <input
+              <!-- <div class="col-md-6">
+                <label class="small mb-1" for="inputLastName">Etage</label>
+                <select
+                  formControlName="idEtage"
+                  name="idEtage"
                   class="form-control"
-                  id="inputLastName"
-                  type="text"
-                  placeholder="Enter your last name"
-                  value="Luna"
-                />
-              </div>
+                >
+                  <option [value]="0">Sélection un Etage</option>
+                  <option [value]="0">Aucun Etage</option>
+
+                  <option></option>
+                </select>
+              </div> -->
             </div>
             <!-- Form Row        -->
             <div class="row gx-3 mb-3">
               <!-- Form Group (organization name)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputOrgName"
-                  >Organization name</label
-                >
+                <label class="small mb-1" for="inputOrgName">Désignation</label>
                 <input
+                  formControlName="nomEtage"
                   class="form-control"
-                  id="inputOrgName"
+                  name="nomEtage"
                   type="text"
-                  placeholder="Enter your organization name"
+                  placeholder="Saisir le nom du Bien Immobilier"
                   value="Start Bootstrap"
                 />
               </div>
               <!-- Form Group (location)-->
-              <div class="col-md-6">
-                <label class="small mb-1" for="inputLocation">Location</label>
+              <!-- <div class="col-md-6">
+                <label class="small mb-1" for="inputLocation"
+                  >Description</label
+                >
                 <input
                   class="form-control"
                   id="inputLocation"
                   type="text"
-                  placeholder="Enter your location"
+                  placeholder="Decrir le Bien Immobilier"
                   value="San Francisco, CA"
                 />
-              </div>
+              </div> -->
             </div>
             <!-- Form Group (email address)-->
-            <div class="mb-3">
-              <label class="small mb-1" for="inputEmailAddress"
-                >Email address</label
+            <!-- <div class="mb-3">
+              <label class="checkbox mb-1" for="garageVilla">
+                Avec Garage</label
               >
               <input
                 class="form-control"
-                id="inputEmailAddress"
-                type="email"
-                placeholder="Enter your email address"
-                value="name@example.com"
+                formControlName="garageVilla"
+                name="garageVilla"
+                type="checkbox"
               />
-            </div>
+              <label class="checkbox mb-1" for="garageVilla"> Occupée</label>
+              <input
+                class="form-control"
+                formControlName="occupied"
+                name="occupied"
+                type="checkbox"
+              />
+            </div> -->
             <!-- Form Row-->
             <div class="row gx-3 mb-3">
               <!-- Form Group (phone number)-->
-              <div class="col-md-6">
+              <!-- <div class="col-md-6">
                 <label class="small mb-1" for="inputPhone">Phone number</label>
                 <input
                   class="form-control"
@@ -198,9 +442,9 @@
                   placeholder="Enter your phone number"
                   value="555-123-4567"
                 />
-              </div>
+              </div> -->
               <!-- Form Group (birthday)-->
-              <div class="col-md-6">
+              <!-- <div class="col-md-6">
                 <label class="small mb-1" for="inputBirthday">Birthday</label>
                 <input
                   class="form-control"
@@ -210,10 +454,16 @@
                   placeholder="Enter your birthday"
                   value="06/10/1988"
                 />
-              </div>
+              </div> -->
             </div>
             <!-- Save changes button-->
-            <button class="btn btn-primary" type="button">Save changes</button>
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="onSaveEtage()"
+            >
+              Valider
+            </button>
           </form>
         </div>
       </div>

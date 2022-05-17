@@ -12,14 +12,14 @@ import {
 
 @Injectable()
 export class BienEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions) {}
+  constructor(private apiService: ApiService, private effectActions: Actions) { }
   getAllBienseffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(BienImmobilierActionsTypes.GET_ALL_BIENS),
       mergeMap((action) => {
         return this.apiService.findAllBien().pipe(
           map((biens) => new GetAllBiensActionsSuccess(biens)),
-          catchError((err) => of(new GetAllBiensActionsError(err)))
+          catchError((err) => of(new GetAllBiensActionsError(err.message)))
         );
       })
     )
