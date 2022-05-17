@@ -8,6 +8,9 @@ import {
   ImmeublesActionsTypes,
   GetAllImmeublesActionsError,
   GetAllImmeublesActionsSuccess,
+  ImmeublesActions,
+  SaveImmeublesActionsSuccess,
+  SaveImmeublesActionsError,
 } from './immeuble.actions';
 
 @Injectable()
@@ -20,6 +23,18 @@ export class ImmeubleEffects {
         return this.apiService.findAllImmeuble().pipe(
           map((immeubles) => new GetAllImmeublesActionsSuccess(immeubles)),
           catchError((err) => of(new GetAllImmeublesActionsError(err.message)))
+        );
+      })
+    )
+  );
+  //SAVE EFFECTS
+  saveImmeubleEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(ImmeublesActionsTypes.SAVE_IMMEUBLES),
+      mergeMap((action: ImmeublesActions) => {
+        return this.apiService.saveImmeuble(action.payload).pipe(
+          map((immeuble) => new SaveImmeublesActionsSuccess(immeuble)),
+          catchError((err) => of(new SaveImmeublesActionsError(err.message)))
         );
       })
     )
