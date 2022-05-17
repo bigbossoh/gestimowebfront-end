@@ -13,7 +13,7 @@ import {
 
 @Injectable()
 export class UtilisateurEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions) {}
+  constructor(private apiService: ApiService, private effectActions: Actions) { }
   getAllBienseffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(UtilisateurActionsTypes.GET_ALL_PROPRIETAIRES),
@@ -23,7 +23,7 @@ export class UtilisateurEffects {
             (proprietaires) =>
               new GetAllProprietairesActionsSuccess(proprietaires)
           ),
-          catchError((err) => of(new GetAllBiensActionsError(err)))
+          catchError((err) => of(new GetAllBiensActionsError(err.message)))
         );
       })
     )

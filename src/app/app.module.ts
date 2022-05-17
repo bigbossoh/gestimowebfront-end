@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -57,6 +57,10 @@ import { CommonModule } from '@angular/common';
 import { PageBienImmobilierNewComponent } from './pages/bien-immobilier/page-bien-immobilier-new/page-bien-immobilier-new.component';
 import { UtilisateurEffects } from './ngrx/utulisateur/utilisateur.effects';
 import { utilisateurReducer } from './ngrx/utulisateur/utlisateur.reducer';
+import { ImmeubleEffects } from './ngrx/immeuble/immeuble.effects';
+import { immeubleReducer } from './ngrx/immeuble/immeuble.reducer';
+import { EtageEffects } from './ngrx/etage/etage.effects';
+import { etageByImmeubeReducer } from './ngrx/etage/etage.reducer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -105,12 +109,15 @@ import { utilisateurReducer } from './ngrx/utulisateur/utlisateur.reducer';
     HttpClientModule,
     NoticationModule,
     HighchartsChartModule,
+    ReactiveFormsModule,
     StoreModule.forRoot({
       biensState: bienReducer,
       siteState: siteReducer,
       utilisateurState: utilisateurReducer,
+      immeubleState: immeubleReducer,
+      etageByImmeubeState: etageByImmeubeReducer
     }),
-    EffectsModule.forRoot([BienEffects, SiteEffects, UtilisateurEffects]),
+    EffectsModule.forRoot([BienEffects, EtageEffects, SiteEffects, UtilisateurEffects, ImmeubleEffects]),
     StoreDevtoolsModule.instrument(),
     BrowserAnimationsModule,
   ],
@@ -119,4 +126,4 @@ import { utilisateurReducer } from './ngrx/utulisateur/utlisateur.reducer';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
