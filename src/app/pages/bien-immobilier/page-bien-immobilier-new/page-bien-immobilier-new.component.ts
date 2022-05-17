@@ -22,6 +22,8 @@ import {
   UtilisteurState,
   UtilisteurStateEnum,
 } from 'src/app/ngrx/utulisateur/utlisateur.reducer';
+import { SaveVillaActions } from 'src/app/ngrx/villa/villa.action';
+import { VillaState, VillaStateEnum } from 'src/app/ngrx/villa/villa.reducer';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { AppartementDto, ImmeubleDto, MagasinDto, SiteResponseDto, StudioDto, VillaDto } from 'src/gs-api/src/models';
 
@@ -38,6 +40,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
   appartementForm?: FormGroup;
   magasinForm?: FormGroup;
   immeubleForm?: FormGroup;
+  villaForm?: FormGroup;
 
 
   ngselecttypeBien = '20000';
@@ -52,7 +55,10 @@ export class PageBienImmobilierNewComponent implements OnInit {
   immeubleState$: Observable<ImmeubleState> | null = null;
   siteState$: Observable<SiteState> | null = null;
   utilisateurState$: Observable<UtilisteurState> | null = null;
+  villaState$: Observable<VillaState> | null = null;
 
+
+  readonly VillaStateEnum = VillaStateEnum;
   readonly MagasinStateEnum = MagasinStateEnum;
   readonly AppartementStateEnum = AppartementStateEnum;
   readonly StudioStateEnum = StudioStateEnum;
@@ -131,6 +137,16 @@ export class PageBienImmobilierNewComponent implements OnInit {
       this.sendErrorNotification(NotificationType.ERROR, 'Echec')
     }
   }
+  onSaveVilla() {
+
+    this.store.dispatch(new SaveVillaActions(this.villaForm?.value))
+    this.villaState$ = this.store.pipe(map((state) => state.villaState))
+    if (this.villaState$) {
+      this.sendErrorNotification(NotificationType.SUCCESS, 'Enregistrement réussi')
+    } else {
+      this.sendErrorNotification(NotificationType.ERROR, 'Echec')
+    }
+  }
   onSaveImmeuble() {
 
     this.store.dispatch(new SaveImmeublesActions(this.immeubleForm?.value))
@@ -156,6 +172,28 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.immeubleState$ = this.store.pipe(map((state) => state.immeubleState));
     this.ngselecttypeBien = '10';
 
+    this.villaForm = this.fb.group({
+      id: [0],
+      idAgence: [0],
+      nbrChambreVilla: [0],
+      nbrePiece: [0],
+      nbrSalonVilla: [0],
+      nbrSalleEauVilla: [0],
+      nomVilla: [""],
+      abrvVilla: ["VILLA"],
+      garageVilla: [false],
+      nbreVoitureGarageVilla: [0],
+      numBien: [0],
+      statutBien: [""],
+      abrvBienimmobilier: ["VILLA"],
+      description: [""],
+      nomBien: [""],
+      superficieBien: [0],
+      idSite: [0],
+      idUtilisateur: [0],
+      occupied: [false],
+      archived: [false]
+    })
     this.immeubleForm = this.fb.group({
       id: [0],
       numBien: [0],
