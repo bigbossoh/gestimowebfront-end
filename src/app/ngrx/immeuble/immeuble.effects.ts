@@ -5,21 +5,21 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
 import {
-  SiteActionsTypes,
-  GetAllSitesActionsError,
-  GetAllSitesActionsSuccess,
-} from './site.actions';
+  ImmeublesActionsTypes,
+  GetAllImmeublesActionsError,
+  GetAllImmeublesActionsSuccess,
+} from './immeuble.actions';
 
 @Injectable()
-export class SiteEffects {
+export class ImmeubleEffects {
   constructor(private apiService: ApiService, private effectActions: Actions) { }
   getAllBienseffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
-      ofType(SiteActionsTypes.GET_ALL_SITES),
+      ofType(ImmeublesActionsTypes.GET_ALL_IMMEUBLES),
       mergeMap((action) => {
-        return this.apiService.findAllSites().pipe(
-          map((sites) => new GetAllSitesActionsSuccess(sites)),
-          catchError((err) => of(new GetAllSitesActionsError(err.message)))
+        return this.apiService.findAllImmeuble().pipe(
+          map((immeubles) => new GetAllImmeublesActionsSuccess(immeubles)),
+          catchError((err) => of(new GetAllImmeublesActionsError(err.message)))
         );
       })
     )
