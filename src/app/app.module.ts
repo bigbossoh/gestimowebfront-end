@@ -70,6 +70,8 @@ import { magasinReducer } from './ngrx/magasin/magasin.reducer';
 import { MagasinEffects } from './ngrx/magasin/magasin.effects';
 import { villaReducer } from './ngrx/villa/villa.reducer';
 import { VillaEffects } from './ngrx/villa/villa.effects';
+import { villeReducer } from './ngrx/ville/ville.reducer';
+import { VilleEffects } from './ngrx/ville/ville.effects';
 @NgModule({
   declarations: [
     AppComponent,
@@ -129,11 +131,12 @@ import { VillaEffects } from './ngrx/villa/villa.effects';
       studioState: studioReducer,
       appartementState: appartementReducer,
       magasinState: magasinReducer,
-      villaState: villaReducer
+      villaState: villaReducer,
+      villeState: villeReducer
     }),
     EffectsModule.forRoot([StudioEffects, BienEffects, EtageEffects,
       SiteEffects, UtilisateurEffects, ImmeubleEffects,
-      AppartementEffects, MagasinEffects, VillaEffects]),
+      AppartementEffects, MagasinEffects, VillaEffects, VilleEffects]),
     StoreDevtoolsModule.instrument(),
     BrowserAnimationsModule,
   ],
