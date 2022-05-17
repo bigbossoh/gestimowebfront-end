@@ -61,6 +61,13 @@ import { ImmeubleEffects } from './ngrx/immeuble/immeuble.effects';
 import { immeubleReducer } from './ngrx/immeuble/immeuble.reducer';
 import { EtageEffects } from './ngrx/etage/etage.effects';
 import { etageByImmeubeReducer } from './ngrx/etage/etage.reducer';
+import { PagePaiementComponent } from './pages/reglement/page-paiement/page-paiement.component';
+import { studioReducer } from './ngrx/studio/studio.reducer';
+import { StudioEffects } from './ngrx/studio/studio.effects';
+import { AppartementEffects } from './ngrx/appartement/appartement.effects';
+import { appartementReducer } from './ngrx/appartement/appartement.reducer';
+import { magasinReducer } from './ngrx/magasin/magasin.reducer';
+import { MagasinEffects } from './ngrx/magasin/magasin.effects';
 @NgModule({
   declarations: [
     AppComponent,
@@ -116,9 +123,12 @@ import { etageByImmeubeReducer } from './ngrx/etage/etage.reducer';
       siteState: siteReducer,
       utilisateurState: utilisateurReducer,
       immeubleState: immeubleReducer,
-      etageByImmeubeState: etageByImmeubeReducer
+      etageByImmeubeState: etageByImmeubeReducer,
+      studioState: studioReducer,
+      appartementState: appartementReducer,
+      magasinState: magasinReducer
     }),
-    EffectsModule.forRoot([BienEffects, EtageEffects, SiteEffects, UtilisateurEffects, ImmeubleEffects]),
+    EffectsModule.forRoot([StudioEffects, BienEffects, EtageEffects, SiteEffects, UtilisateurEffects, ImmeubleEffects, AppartementEffects, MagasinEffects]),
     StoreDevtoolsModule.instrument(),
     BrowserAnimationsModule,
   ],

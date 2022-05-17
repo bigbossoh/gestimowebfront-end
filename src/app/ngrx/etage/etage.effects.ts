@@ -31,7 +31,7 @@ export class EtageEffects {
     )
   );
   //SAVE EFFECTS
-  saveEffect: Observable<Action> = createEffect(() =>
+  saveStudioEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(EtagesActionsTypes.SAVE_ETAGE),
       mergeMap((action: EtagesActions) => {

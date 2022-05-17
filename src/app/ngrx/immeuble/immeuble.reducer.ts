@@ -39,6 +39,23 @@ export function immeubleReducer(
         dataState: ImmeubleStateEnum.ERROR,
         errorMessage: (<ImmeublesActions>action).payload,
       };
+    //SAVE IMMEUBLE
+    case ImmeublesActionsTypes.SAVE_IMMEUBLES:
+      return { ...state, dataState: ImmeubleStateEnum.LOADING };
+    case ImmeublesActionsTypes.SAVE_IMMEUBLES_SUCCES:
+      let imm: ImmeubleDto[] = [...state.immeubles];
+      imm.push((<ImmeublesActions>action).payload)
+      return {
+        ...state,
+        dataState: ImmeubleStateEnum.LOADED,
+        immeubles: imm
+      };
+    case ImmeublesActionsTypes.SAVE_IMMEUBLES_ERROR:
+      return {
+        ...state,
+        dataState: ImmeubleStateEnum.ERROR,
+        errorMessage: (<ImmeublesActions>action).payload,
+      };
     default:
       return { ...state };
   }
