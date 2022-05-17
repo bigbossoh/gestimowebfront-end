@@ -5,4 +5,5 @@ export interface EtageDto {
   numEtage?: number;
   idImmeuble?: number;
   abrvEtage?: string;
+
 }
