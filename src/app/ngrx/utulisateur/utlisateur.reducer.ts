@@ -43,6 +43,21 @@ export function utilisateurReducer(
         dataState: UtilisteurStateEnum.ERROR,
         errorMessage: (<UtilisateurActions>action).payload,
       };
+    // GET ALL LOCATIRES
+    case UtilisateurActionsTypes.GET_ALL_LOCATAIRES:
+      return { ...state, dataState: UtilisteurStateEnum.LOADING };
+    case UtilisateurActionsTypes.GET_ALL_LOCATAIRES_SUCCES:
+      return {
+        ...state,
+        dataState: UtilisteurStateEnum.LOADED,
+        utlisisateurs: (<UtilisateurActions>action).payload,
+      };
+    case UtilisateurActionsTypes.GET_ALL_LOCATAIRES_ERROR:
+      return {
+        ...state,
+        dataState: UtilisteurStateEnum.ERROR,
+        errorMessage: (<UtilisateurActions>action).payload,
+      };
     default:
       return { ...state };
   }
