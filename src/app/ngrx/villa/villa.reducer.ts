@@ -34,7 +34,7 @@ export function villaReducer(
     case VillaActionsTypes.SAVE_VILLA:
       return { ...state, dataState: VillaStateEnum.LOADING };
     case VillaActionsTypes.SAVE_VILLA_SUCCES:
-      let vill: StudioDto[] = [...state.villas];
+      let vill: VillaDto[] = [...state.villas];
       vill.push((<VillaActions>action).payload)
       return {
         ...state,
@@ -42,6 +42,21 @@ export function villaReducer(
         villas: vill
       };
     case VillaActionsTypes.SAVE_VILLA_ERROR:
+      return {
+        ...state,
+        dataState: VillaStateEnum.ERROR,
+        errorMessage: (<VillaActions>action).payload,
+      };
+    // GET ALL VILLA
+    case VillaActionsTypes.GET_ALL_VILLA:
+      return { ...state, dataState: VillaStateEnum.LOADING };
+    case VillaActionsTypes.GET_ALL_VILLA_SUCCES:
+      return {
+        ...state,
+        dataState: VillaStateEnum.LOADED,
+        villas: (<VillaActions>action).payload,
+      };
+    case VillaActionsTypes.GET_ALL_VILLA_ERROR:
       return {
         ...state,
         dataState: VillaStateEnum.ERROR,
