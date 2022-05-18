@@ -72,6 +72,9 @@ import { villaReducer } from './ngrx/villa/villa.reducer';
 import { VillaEffects } from './ngrx/villa/villa.effects';
 import { villeReducer } from './ngrx/ville/ville.reducer';
 import { VilleEffects } from './ngrx/ville/ville.effects';
+import { communeReducer } from './ngrx/commune/commune.reducer';
+import { Communeffects as CommunEffects } from './ngrx/commune/commune.effects';
+import { ActionButtonBienComponent } from './pages/bien-immobilier/bien-immobilier/action-button-bien/action-button-bien.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -112,6 +115,7 @@ import { VilleEffects } from './ngrx/ville/ville.effects';
     AppDetailBailComponent,
     AppDetailBailLoyerComponent,
     PagePaiementComponent,
+    ActionButtonBienComponent
   ],
   imports: [
     FormsModule,
@@ -132,11 +136,12 @@ import { VilleEffects } from './ngrx/ville/ville.effects';
       appartementState: appartementReducer,
       magasinState: magasinReducer,
       villaState: villaReducer,
-      villeState: villeReducer
+      villeState: villeReducer,
+      communeState: communeReducer
     }),
     EffectsModule.forRoot([StudioEffects, BienEffects, EtageEffects,
       SiteEffects, UtilisateurEffects, ImmeubleEffects,
-      AppartementEffects, MagasinEffects, VillaEffects, VilleEffects]),
+      AppartementEffects, MagasinEffects, VillaEffects, VilleEffects, CommunEffects]),
     StoreDevtoolsModule.instrument(),
     BrowserAnimationsModule,
   ],
