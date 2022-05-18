@@ -1,73 +1,92 @@
-<div class="row mb-1 mr-0 custom-border">
-  <div class="col-md-1 custom-border-right p-1 text-center mb-1 mt-1 ">
-    <img src="assets/sitegeo.png" width="100px" height="100px">
-  </div>
+<ng-container *ngIf="siteState$ | async as state" [ngSwitch]="state.dataState">
+  <ng-container *ngSwitchCase="SiteStateEnum.INITIAL">
+    <div class="p-2">Initialisation des données</div>
+  </ng-container>
+  <ng-container *ngSwitchCase="SiteStateEnum.ERROR">
+    <div class="p-2">Erreur : {{ state.errorMessage }}</div>
+  </ng-container>
+  <ng-container *ngSwitchCase="SiteStateEnum.LOADED">
+    <div *ngFor="let site of state.sites">
+      <div class="row mb-1 mr-0 custom-border">
+        <div class="col-md-1 custom-border-right p-1 text-center mb-1 mt-1">
+          <img src="assets/sitegeo.png" width="100px" height="100px" />
+        </div>
 
-<!--  Details article-->
-  <div class="col-md-5 custom-border-right mb-1 mt-2 p-0 ">
-    <div class="col">
-      <div class="row">
-        <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
-        <div class="col-md-11">Code Site : CI-ABJ-KOUM-PROD</div>
-      </div>
-      <div class="row">
-        <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
-        <div class="col-md-11">Nom du site : Côte d'Ivoire-Abidjan-Koumassi-Prodomo</div>
-      </div>
-      <div class="row">
-        <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
-        <div class="col-md-11">Date de création : 02-04-2022 </div>
-      </div>
-      <div class="row">
-        <div class="col-md-1"><i class="fas fa-plug blue-color"></i></div>
-        <div class="col-md-11">Nombre de biens associé(s): 12</div>
-      </div>
-    </div>
-  </div>
+        <!--  Details article-->
+        <div class="col-md-5 custom-border-right mb-1 mt-2 p-0">
+          <div class="col">
+            <div class="row">
+              <div class="col-md-1">
+                <i class="fas fa-info-circle blue-color"></i>
+              </div>
+              <div class="col-md-11">Code Site : {{ site.abrSite }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-1">
+                <i class="fas fa-info-circle blue-color"></i>
+              </div>
+              <div class="col-md-11">Nom du site : {{ site.nomSite }}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-1">
+                <i class="fas fa-info-circle blue-color"></i>
+              </div>
+              <div class="col-md-11">
+                Date de création : A ajouter dans le DTO
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-1"><i class="fas fa-plug blue-color"></i></div>
+              <div class="col-md-11">
+                Nombre de biens associé(s): Creer un controller pour sa
+              </div>
+            </div>
+          </div>
+        </div>
 
-<!--  details categorie-->
-  <div class="col-md-3 custom-border-right mb-1 mt-1 ">
-    <div class="row">
-      <div class="col-md-2">
-        <i class="fas fa-building blue-color"></i>
-      </div>
-      <div class="col-md-10">
-        <div class="row">
-          <div class="col-md-12 p-0">Quartier: Prodomo</div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <i class="fas fa-building blue-color"></i>
-      </div>
-      <div class="col-md-10">
-        <div class="row">
-          <div class="col-md-12 p-0">Commune: Koumassi</div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <i class="fas fa-city blue-color"></i>
-      </div>
-      <div class="col-md-10">
-        <div class="row">
-          <div class="col-md-12 p-0">Ville: Abidjan</div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <i class="fas fa-building blue-color"></i>
-      </div>
-      <div class="col-md-10">
-        <div class="row ">
-          <div class="col-md-12 p-0">Pays: Côte d'Ivoire</div>
-        </div>
-      </div>
-    </div>
-    <!-- <div class="row">
+        <!--  details categorie-->
+        <div class="col-md-3 custom-border-right mb-1 mt-1">
+          <div class="row">
+            <div class="col-md-2">
+              <i class="fas fa-building blue-color"></i>
+            </div>
+            <div class="col-md-10">
+              <div class="row">
+                <div class="col-md-12 p-0">Quartier: Creer un controller</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+              <i class="fas fa-building blue-color"></i>
+            </div>
+            <div class="col-md-10">
+              <div class="row">
+                <div class="col-md-12 p-0">Commune: Creer un controller</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+              <i class="fas fa-city blue-color"></i>
+            </div>
+            <div class="col-md-10">
+              <div class="row">
+                <div class="col-md-12 p-0">Ville: Creer un controller</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+              <i class="fas fa-building blue-color"></i>
+            </div>
+            <div class="col-md-10">
+              <div class="row">
+                <div class="col-md-12 p-0">Pays: Creer un controller</div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="row">
       <div class="col-md-2">
         <i class="fas fa-building blue-color"></i>
       </div>
@@ -77,7 +96,7 @@
         </div>
       </div>
     </div> -->
-    <!-- <div class="row">
+          <!-- <div class="row">
       <div class="col-md-2">
         <i class="fas fa-building blue-color"></i>
       </div>
@@ -87,31 +106,33 @@
         </div>
       </div>
     </div> -->
-  </div>
+        </div>
 
-<!--  boutons action-->
-  <div class="col-md-3 mb-1 mt-1 ">
-    <div class="row">
-      <div class="col-md-4">
-        <button type="button" class="btn btn-link" >
-          <i class="fas fa-pencil-alt"></i>&nbsp;Modifier
-        </button>
-      </div>
-      <div class="col-md-4">
-        <button type="button" class="btn btn-link text-danger" data-toggle="modal">
-          <i class="fas fa-trash-alt"></i>&nbsp;Supprimer
-        </button>
-      </div>
-      <div class="col-md-4">
-        <button type="button" class="btn btn-link ">
-          <i class="far fa-list-alt"></i>&nbsp;Details
-        </button>
+        <!--  boutons action-->
+        <div class="col-md-3 mb-1 mt-1">
+          <div class="row">
+            <div class="col-md-4">
+              <button type="button" class="btn btn-link">
+                <i class="fas fa-pencil-alt"></i>&nbsp;Modifier
+              </button>
+            </div>
+            <div class="col-md-4">
+              <button
+                type="button"
+                class="btn btn-link text-danger"
+                data-toggle="modal"
+              >
+                <i class="fas fa-trash-alt"></i>&nbsp;Supprimer
+              </button>
+            </div>
+            <div class="col-md-4">
+              <button type="button" class="btn btn-link">
+                <i class="far fa-list-alt"></i>&nbsp;Details
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
-
-
-
-
+  </ng-container>
+</ng-container>
