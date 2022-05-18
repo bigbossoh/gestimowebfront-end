@@ -4,7 +4,7 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
-import { MagasinActions, MagasinActionsTypes, SaveMagasinActionsSuccess, SaveMagasintActionsError } from './magasin.actions';
+import { GetAllMagasinActionsSuccess, GetAllMagasintActionsError, MagasinActions, MagasinActionsTypes, SaveMagasinActionsSuccess, SaveMagasintActionsError } from './magasin.actions';
 
 @Injectable()
 export class MagasinEffects {
@@ -18,6 +18,21 @@ export class MagasinEffects {
         return this.apiService.saveMagasin(action.payload).pipe(
           map((magasin) => new SaveMagasinActionsSuccess(magasin)),
           catchError((err) => of(new SaveMagasintActionsError(err.message)))
+        );
+      })
+    )
+  );
+  //LISTE DES MAGASINS
+  getAllVillasEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(MagasinActionsTypes.GET_ALL_MAGASIN),
+      mergeMap((action) => {
+        return this.apiService.findAllMagasin().pipe(
+          map(
+            (magasin) =>
+              new GetAllMagasinActionsSuccess(magasin)
+          ),
+          catchError((err) => of(new GetAllMagasintActionsError(err.message)))
         );
       })
     )
