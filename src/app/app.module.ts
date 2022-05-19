@@ -58,6 +58,27 @@ import { PageBienImmobilierNewComponent } from './pages/bien-immobilier/page-bie
 import { UtilisateurEffects } from './ngrx/utulisateur/utilisateur.effects';
 import { utilisateurReducer } from './ngrx/utulisateur/utlisateur.reducer';
 import { PagePaiementComponent } from './pages/reglement/page-paiement/page-paiement.component';
+import { ActionButtonBienComponent } from './pages/bien-immobilier/bien-immobilier/action-button-bien/action-button-bien.component';
+import { BouttonActionBauxComponent } from './pages/baux/boutton-action-baux/boutton-action-baux.component';
+import { PageBauxNewComponent } from './pages/baux/page-baux-new/page-baux-new.component';
+import { immeubleReducer } from './ngrx/immeuble/immeuble.reducer';
+import { etageByImmeubeReducer } from './ngrx/etage/etage.reducer';
+import { studioReducer } from './ngrx/studio/studio.reducer';
+import { appartementReducer } from './ngrx/appartement/appartement.reducer';
+import { magasinReducer } from './ngrx/magasin/magasin.reducer';
+import { villaReducer } from './ngrx/villa/villa.reducer';
+import { villeReducer } from './ngrx/ville/ville.reducer';
+import { communeReducer } from './ngrx/commune/commune.reducer';
+import { bailvillaReducer } from './ngrx/bail-villa/bailvilla.reducer';
+import { StudioEffects } from './ngrx/studio/studio.effects';
+import { EtageEffects } from './ngrx/etage/etage.effects';
+import { BailVillaEffects } from './ngrx/bail-villa/bailvilla.effects';
+import { VilleEffects } from './ngrx/ville/ville.effects';
+import { AppartementEffects } from './ngrx/appartement/appartement.effects';
+import { ImmeubleEffects } from './ngrx/immeuble/immeuble.effects';
+import { MagasinEffects } from './ngrx/magasin/magasin.effects';
+import { VillaEffects } from './ngrx/villa/villa.effects';
+import { Communeffects } from './ngrx/commune/commune.effects';
 @NgModule({
   declarations: [
     AppComponent,
@@ -129,7 +150,7 @@ import { PagePaiementComponent } from './pages/reglement/page-paiement/page-paie
     EffectsModule.forRoot([StudioEffects, BienEffects, EtageEffects,
       SiteEffects, UtilisateurEffects, ImmeubleEffects,
       AppartementEffects, MagasinEffects, VillaEffects,
-      VilleEffects, CommunEffects, BailVillaEffects]),
+      VilleEffects, Communeffects, BailVillaEffects]),
     StoreDevtoolsModule.instrument(),
     BrowserAnimationsModule,
   ],
