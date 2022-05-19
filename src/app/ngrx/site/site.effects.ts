@@ -12,14 +12,14 @@ import {
 
 @Injectable()
 export class SiteEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions) {}
+  constructor(private apiService: ApiService, private effectActions: Actions) { }
   getAllBienseffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(SiteActionsTypes.GET_ALL_SITES),
       mergeMap((action) => {
         return this.apiService.findAllSites().pipe(
           map((sites) => new GetAllSitesActionsSuccess(sites)),
-          catchError((err) => of(new GetAllSitesActionsError(err)))
+          catchError((err) => of(new GetAllSitesActionsError(err.message)))
         );
       })
     )

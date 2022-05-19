@@ -14,13 +14,13 @@ import { PageBienImmobilierNewComponent } from 'src/app/pages/bien-immobilier/pa
 export class BouttonActionComponent implements OnInit {
   // @Output()
   // clickEvent = new EventEmitter();
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) { }
   openDialog(): void {
-    const dialolRef = this.dialog.open(PageBienImmobilierNewComponent, {
-      //  width: '1024px',
-    });
+    //const dialolRef = this.dialog.open(PageBienImmobilierNewComponent, {
+    //  width: '1024px',
+    //  });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   bouttonNouveauClick(): void {
     // this.clickEvent.emit();
   }
