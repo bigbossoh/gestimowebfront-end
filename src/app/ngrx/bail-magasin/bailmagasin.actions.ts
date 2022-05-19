@@ -3,7 +3,7 @@
 import { Action } from '@ngrx/store';
 
 import { BailMagasinDto, BailVillaDto } from 'src/gs-api/src/models';
-import { BailVillaEffects } from '../bail-villa/bailvilla.effects';
+
 
 //STORE
 export enum BailMagasinActionsTypes {
