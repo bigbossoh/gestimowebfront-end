@@ -79,6 +79,8 @@ import { BouttonActionBauxComponent } from './pages/baux/boutton-action-baux/bou
 import { PageBauxNewComponent } from './pages/baux/page-baux-new/page-baux-new.component';
 import { bailvillaReducer } from './ngrx/bail-villa/bailvilla.reducer';
 import { BailVillaEffects } from './ngrx/bail-villa/bailvilla.effects';
+import { bailMagasinReducer } from './ngrx/bail-magasin/bailmagasin.reducer';
+import { BailMagasinEffects } from './ngrx/bail-magasin/bailmagasin.effects';
 @NgModule({
   declarations: [
     AppComponent,
@@ -133,6 +135,7 @@ import { BailVillaEffects } from './ngrx/bail-villa/bailvilla.effects';
     HighchartsChartModule,
     ReactiveFormsModule,
     StoreModule.forRoot({
+      bailMagasinState: bailMagasinReducer,
       biensState: bienReducer,
       siteState: siteReducer,
       utilisateurState: utilisateurReducer,
@@ -149,7 +152,7 @@ import { BailVillaEffects } from './ngrx/bail-villa/bailvilla.effects';
     EffectsModule.forRoot([StudioEffects, BienEffects, EtageEffects,
       SiteEffects, UtilisateurEffects, ImmeubleEffects,
       AppartementEffects, MagasinEffects, VillaEffects,
-      VilleEffects, CommunEffects, BailVillaEffects]),
+      VilleEffects, CommunEffects, BailVillaEffects, BailMagasinEffects]),
     StoreDevtoolsModule.instrument(),
     BrowserAnimationsModule,
   ],

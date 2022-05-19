@@ -11,7 +11,7 @@ export enum MagasinStateEnum {
   INITIAL = 'Initial',
   NEW = 'New',
   EDIT = 'Edit',
-  LOADEDBYIMMEUNLE = 'LoadedByImmeuble'
+
 
 }
 export interface MagasinState {
@@ -47,7 +47,8 @@ export function magasinReducer(
         dataState: MagasinStateEnum.ERROR,
         errorMessage: (<MagasinActions>action).payload,
       };
-    // GET ALL VILLA
+
+    // GET ALL MAGASINS
     case MagasinActionsTypes.GET_ALL_MAGASIN:
       return { ...state, dataState: MagasinStateEnum.LOADING };
     case MagasinActionsTypes.GET_ALL_MAGASIN_SUCCES:
