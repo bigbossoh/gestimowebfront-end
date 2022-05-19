@@ -4,7 +4,7 @@
       <h1>Liste des biens immobiliers</h1>
     </div>
     <div class="col-md-4 text-right">
-      <app-boutton-action></app-boutton-action>
+      <app-action-button-bien></app-action-button-bien>
     </div>
   </div>
   <div class="col">
@@ -16,21 +16,45 @@
     <hr style="margin-top: 0" />
     <div class="row mb-3">
       <div class="col-md-3">
-        <label>Ville</label>
-        <select id="modele" name="typeClim" class="form-control">
-          <option value="0">selectionnez une ville</option>
-          <option value="Janvier 2022">Abidjan</option>
-          <option value="Février 2022">Aboisso</option>
-        </select>
+        <ng-container
+          *ngIf="villeState$ | async as state"
+          [ngSwitch]="state.dataState"
+        >
+          <ng-container *ngSwitchCase="VilleStateEnum.ERROR">
+            <div class="p-2">Erreur : {{ state.errorMessage }}</div>
+          </ng-container>
+          <ng-container *ngSwitchCase="VilleStateEnum.LOADED">
+            <label>Ville</label>
+            <select
+              id="modele"
+              name="typeClim"
+              class="form-control"
+              (change)="findCommuneByPays($event)"
+            >
+              <option [value]="vil.id" *ngFor="let vil of state.villes">
+                {{ vil.nomVille }}
+              </option>
+            </select>
+          </ng-container>
+        </ng-container>
       </div>
       <div class="col-md-3">
-        <label>Commune</label>
-        <select id="modele" name="typeClim" class="form-control">
-          <option value="0">selectionnez une commune</option>
-          <option value="Janvier 2022">Cocody</option>
-          <option value="Février 2022">Koumassi</option>
-          <option value="Mars 2022">Yopougon</option>
-        </select>
+        <ng-container
+          *ngIf="commeState$ | async as state"
+          [ngSwitch]="state.dataState"
+        >
+          <ng-container *ngSwitchCase="CommunesStateEnum.ERROR">
+            <div class="p-2">Erreur : {{ state.errorMessage }}</div>
+          </ng-container>
+          <ng-container *ngSwitchCase="CommunesStateEnum.LOADED">
+            <label>Commune</label>
+            <select id="modele" name="typeClim" class="form-control">
+              <option [value]="comm.id" *ngFor="let comm of state.communes">
+                {{ comm.nomCommune }}
+              </option>
+            </select>
+          </ng-container>
+        </ng-container>
       </div>
       <div class="col-md-3">
         <label>Type de bien</label>
@@ -74,17 +98,43 @@
             <table class="table table-hover m-3 p-3">
               <thead class="table-borderless">
                 <tr class="text-center mt-3">
-                  <th>Photo</th>
-                  <th>User ID</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Username</th>
-                  <th>Email</th>
+                  <th>N°</th>
+                  <th>Code</th>
+                  <th>Propriétaire</th>
+                  <th>Site</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody>
+                <tr
+                  class="text-center"
+                  *ngFor="let biens of state.bienImmoblilier"
+                >
+                  <td>
+                    {{ biens.id }}
+                  </td>
+                  <td>{{ biens.abrvBienimmobilier }}</td>
+                  <td>{{ biens.utilisateur }}</td>
+                  <td>{{ biens.site }}</td>
+                  <td *ngIf="biens.occupied" style="color: red">Occupé</td>
+                  <td *ngIf="!biens.occupied" style="color: blue">Libre</td>
+
+                  <td class="">
+                    <div class="btn-group">
+                      <button
+                        class="btn btn-outline-info"
+                        (click)="onEditdele(biens.id)"
+                      >
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-outline-danger">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
