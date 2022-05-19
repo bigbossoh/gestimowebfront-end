@@ -4,6 +4,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
+import { SaveBailMagasinActions } from 'src/app/ngrx/bail-magasin/bailmagasin.actions';
+import { BailMagasinState } from 'src/app/ngrx/bail-magasin/bailmagasin.reducer';
 import { SaveBailVillaActions } from 'src/app/ngrx/bail-villa/bailvilla.actions';
 import { BailVillaState } from 'src/app/ngrx/bail-villa/bailvilla.reducer';
 import { GetAllMagasinActions } from 'src/app/ngrx/magasin/magasin.actions';
@@ -30,7 +32,9 @@ export class PageBauxNewComponent implements OnInit {
   utilisateurState$: Observable<UtilisteurState> | null = null;
   villaState$: Observable<VillaState> | null = null;
   magasinState$: Observable<MagasinState> | null = null;
+
   bailvillaState$: Observable<BailVillaState> | null = null;
+  bailMagasinState$: Observable<BailMagasinState> | null = null;
 
   readonly UtilisteurStateEnum = UtilisteurStateEnum;
   readonly VillaStateEnum = VillaStateEnum;
@@ -55,6 +59,19 @@ export class PageBauxNewComponent implements OnInit {
       this.notificationService.notify(notificationType, 'An error occurred. Please try again.');
     }
   }
+  //SAVE BAIL MAGASIN
+  onSaveBailMagasin() {
+    this.store.dispatch(new SaveBailMagasinActions(this.bailMagainForm?.value))
+    this.bailMagasinState$ = this.store.pipe(map((state) => state.bailMagasinState))
+    console.warn(this.bailMagasinState$);
+
+    if (this.bailMagasinState$) {
+      this.sendErrorNotification(NotificationType.SUCCESS, 'Enregistrement réussi')
+    } else {
+      this.sendErrorNotification(NotificationType.ERROR, 'Echec')
+    }
+  }
+  //SAVE BAIL VILLA
   onSaveBailVilla() {
 
     this.store.dispatch(new SaveBailVillaActions(this.bailvillaForm?.value))
@@ -83,6 +100,7 @@ export class PageBauxNewComponent implements OnInit {
     this.magasinState$ = this.store.pipe(
       map((state) => state.magasinState)
     );
+
     this.formGroup = this.fb.group({
       idTypeContrat: [""]
     });
