@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -57,6 +57,7 @@ import { CommonModule } from '@angular/common';
 import { PageBienImmobilierNewComponent } from './pages/bien-immobilier/page-bien-immobilier-new/page-bien-immobilier-new.component';
 import { UtilisateurEffects } from './ngrx/utulisateur/utilisateur.effects';
 import { utilisateurReducer } from './ngrx/utulisateur/utlisateur.reducer';
+import { PagePaiementComponent } from './pages/reglement/page-paiement/page-paiement.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -100,6 +101,7 @@ import { utilisateurReducer } from './ngrx/utulisateur/utlisateur.reducer';
   ],
   imports: [
     FormsModule,
+    ReactiveFormsModule,
     BrowserModule,
     MatDialogModule,
     AppRoutingModule,
