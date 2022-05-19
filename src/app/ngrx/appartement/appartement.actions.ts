@@ -10,6 +10,9 @@ export enum AppartementctionsTypes {
   SAVE_APPARTEMENT_SUCCES = '[AppartementDto] Get Save AppartementSucces',
   SAVE_APPARTEMENT_ERROR = '[AppartementDto] Get Save Appartement Error',
 
+  GET_ALL_APPARTEMENT = '[AppartementDto] Get All AppartementDto',
+  GET_ALL_APPARTEMENT_SUCCES = '[AppartementDto] Get All AppartementDto Succes',
+  GET_ALL_APPARTEMENT_ERROR = '[AppartementDto] Get All AppartementDto Error',
 
 }
 // CREER LES DIFFERENTES ACTIONS
@@ -29,7 +32,27 @@ export class SaveAppartementActionsError implements Action {
   constructor(public payload: string) { }
 }
 
+// GET ALL APPARTEMENT
+export class GetAllAppartementActions implements Action {
+  type: AppartementctionsTypes = AppartementctionsTypes.GET_ALL_APPARTEMENT;
+  constructor(public payload: any) { }
+}
+
+export class GetAllAppartementActionsSuccess implements Action {
+  type: AppartementctionsTypes =
+    AppartementctionsTypes.GET_ALL_APPARTEMENT_SUCCES;
+  constructor(public payload: AppartementDto[]) { }
+}
+export class GetAllAppartementActionsError implements Action {
+  type: AppartementctionsTypes =
+    AppartementctionsTypes.GET_ALL_APPARTEMENT_ERROR;
+  constructor(public payload: string) { }
+}
+
 export type AppartementActions =
   | SaveAppartementActions
   | SaveAppartementActionsSuccess
   | SaveAppartementActionsError
+  | GetAllAppartementActions
+  | GetAllAppartementActionsError
+  | GetAllAppartementActionsSuccess

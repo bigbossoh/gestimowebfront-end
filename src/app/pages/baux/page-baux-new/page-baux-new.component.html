@@ -441,32 +441,35 @@
             <div class="form-group">
               <div class="col-sm-9">
                 <ng-container
-                  *ngIf="villaState$ | async as state"
+                  *ngIf="appartementState$ | async as state"
                   [ngSwitch]="state.dataState"
                 >
-                  <ng-container *ngSwitchCase="VillaStateEnum.INITIAL">
+                  <ng-container *ngSwitchCase="AppartementStateEnum.INITIAL">
                     <div class="p-2">Initialisation des données</div>
                   </ng-container>
-                  <ng-container *ngSwitchCase="VillaStateEnum.ERROR">
+                  <ng-container *ngSwitchCase="AppartementStateEnum.ERROR">
                     <div class="p-2">
                       Une erreur est survenue : {{ state.errorMessage }}
                     </div>
                   </ng-container>
-                  <ng-container *ngSwitchCase="VillaStateEnum.LOADED">
+                  <ng-container *ngSwitchCase="AppartementStateEnum.LOADED">
                     <label class="big mb-6" for="inputUsername"
                       >Choisir un appartement</label
                     >
                     <div class="form-group">
                       <select
-                        formControlName="idVilla"
+                        formControlName="idAppartement"
                         name="idVilla"
                         class="form-select form-select-lg mb3"
                       >
+                        {{
+                          state | json
+                        }}
                         <option
-                          [value]="villa.id"
-                          *ngFor="let villa of state.villas"
+                          [value]="appar.id"
+                          *ngFor="let appar of state.appartements"
                         >
-                          {{ villa.abrvVilla }}
+                          {{ appar.abrvNomApp }}
                         </option>
                       </select>
                     </div>
@@ -558,7 +561,7 @@
             <button
               class="btn btn-primary"
               type="button"
-              (click)="onSaveBailVilla()"
+              (click)="onSaveBailAppartement()"
             >
               Valider
             </button>
@@ -606,32 +609,32 @@
             <div class="form-group">
               <div class="col-sm-9">
                 <ng-container
-                  *ngIf="villaState$ | async as state"
+                  *ngIf="studioState$ | async as state"
                   [ngSwitch]="state.dataState"
                 >
-                  <ng-container *ngSwitchCase="VillaStateEnum.INITIAL">
+                  <ng-container *ngSwitchCase="StudioStateEnum.INITIAL">
                     <div class="p-2">Initialisation des données</div>
                   </ng-container>
-                  <ng-container *ngSwitchCase="VillaStateEnum.ERROR">
+                  <ng-container *ngSwitchCase="StudioStateEnum.ERROR">
                     <div class="p-2">
                       Une erreur est survenue : {{ state.errorMessage }}
                     </div>
                   </ng-container>
-                  <ng-container *ngSwitchCase="VillaStateEnum.LOADED">
+                  <ng-container *ngSwitchCase="StudioStateEnum.LOADED">
                     <label class="big mb-6" for="inputUsername"
                       >Choisir le Studio</label
                     >
                     <div class="form-group">
                       <select
-                        formControlName="idVilla"
-                        name="idVilla"
+                        formControlName="idStudio"
+                        name="idStudio"
                         class="form-select form-select-lg mb3"
                       >
                         <option
-                          [value]="villa.id"
-                          *ngFor="let villa of state.villas"
+                          [value]="stud.id"
+                          *ngFor="let stud of state.studios"
                         >
-                          {{ villa.abrvVilla }}
+                          {{ stud.abrvNomStudio }}
                         </option>
                       </select>
                     </div>
@@ -723,7 +726,7 @@
             <button
               class="btn btn-primary"
               type="button"
-              (click)="onSaveBailVilla()"
+              (click)="onSaveBailStudio()"
             >
               Valider
             </button>
