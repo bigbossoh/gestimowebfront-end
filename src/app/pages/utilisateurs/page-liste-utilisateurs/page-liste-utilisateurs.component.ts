@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
@@ -16,6 +17,7 @@ import { Utilisateur } from '../../../../gs-api/src/models/utilisateur';
   styleUrls: ['./page-liste-utilisateurs.component.css']
 })
 export class PageListeUtilisateursComponent implements OnInit , OnDestroy {
+  // public registerForm!: FormGroup;
   public users?: UtilisateurRequestDto[];
   public user?: UtilisateurRequestDto;
   public editUser?: UtilisateurRequestDto;
@@ -36,6 +38,19 @@ export class PageListeUtilisateursComponent implements OnInit , OnDestroy {
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
     this.getUsers(true);
+    
+    // this.registerForm=new FormGroup({
+    //   genre: new FormControl(),
+    //   nom: new FormControl(),
+    //   prenom:new FormControl(),
+    //   email:new FormControl(),
+    //   username:new FormControl(),
+    //   password:new FormControl(),
+    //   roleUsed:new FormControl(),
+    //   active:new FormControl(true),
+    //   notLocked:new FormControl(true),
+
+    // })
   }
 
     public getUsers(showNotification: boolean): void {
@@ -68,24 +83,28 @@ export class PageListeUtilisateursComponent implements OnInit , OnDestroy {
     public saveNewUser(): void {
       this.clickButton('new-user-save');
     }
-
+   // public onAddNewUser(): void {}
     public onAddNewUser(userForm: UtilisateurRequestDto): void {
-     // console.log("Im in inadduser fonction ",this.user,this.user?.id);
+      console.log("User logged information ",this.user,this.user?.id);
+      if(Array.isArray(this.user)){
+        console.log("You must logout");
+        return
 
+      }
      userForm.userCreate=this.user?.id;
      userForm.agenceDto=this.user?.idAgence;
     userForm.mobile=userForm.username;
     userForm.idAgence=this.user?.idAgence;
     userForm.id=0;
 
-    //  console.log("adding new user",userForm);
+      console.log("adding new user",userForm);
       this.subscriptions.push(
         this.userService.addUser(userForm).subscribe(
           (response: any) => {
             this.clickButton('new-user-close');
             this.getUsers(true);
 
-            //userForm.reset();
+
             this.sendErrorNotification(NotificationType.SUCCESS, `${response.firstName} ${response.lastName} added successfully`);
 
           },
@@ -98,6 +117,7 @@ export class PageListeUtilisateursComponent implements OnInit , OnDestroy {
         )
         );
     }
+
     public onUpdateUser():void{
       console.log("we are going to update the user ", this.editUser);
 
