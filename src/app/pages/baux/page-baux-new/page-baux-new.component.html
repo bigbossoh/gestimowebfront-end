@@ -1,0 +1,735 @@
+<div class="container-xl px-4 mt-4">
+  <!-- Account page navigation-->
+
+  <hr class="mt-0 mb-4" />
+  <div class="row">
+    <div class="col-xl-4">
+      <!-- Profile picture card-->
+      <div class="card mb-4 mb-xl-0">
+        <div class="card-header">Profile Picture</div>
+        <div class="card-body text-center">
+          <!-- Profile picture image-->
+          <img
+            class="img-account-profile rounded-circle mb-2"
+            src="http://bootdey.com/img/Content/avatar/avatar1.png"
+            alt=""
+          />
+          <!-- Profile picture help block-->
+          <div class="small font-italic text-muted mb-4">
+            JPG or PNG no larger than 5 MB
+          </div>
+          <!-- Profile picture upload button-->
+          <button class="btn btn-primary" type="button">
+            Upload new image
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-8">
+      <!-- Account details card-->
+      <div class="card mb-4">
+        <div class="card-header">Account Details</div>
+        <div class="card-body">
+          <form *ngIf="formGroup" [formGroup]="formGroup">
+            <div class="mb-3">
+              <label class="small mb-3" for="inputUsername"
+                >Type de Contrat</label
+              >
+              <select
+                [(ngModel)]="ngSelectTypeContrat"
+                formControlName="idTypeContrat"
+                name="idTypeContrat"
+                class="form-select form-select-lg mb-1"
+              >
+                <option [value]="20000">Sélection un Type de Bien</option>
+                <option [value]="biens" *ngFor="let biens of listTypeContrat">
+                  {{ biens }}
+                </option>
+              </select>
+            </div>
+
+            <ng-container [ngSwitch]="ngSelectTypeContrat">
+              <ng-container *ngSwitchCase="listTypeContrat[0]">
+                <div class="p-2">Appartement</div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="listTypeContrat[1]">
+                <div class="p-2">Magasin</div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="listTypeContrat[2]">
+                <div class="p-2">Studio</div>
+              </ng-container>
+              <ng-container *ngSwitchCase="listTypeContrat[3]">
+                <div class="p-2">Villa</div>
+              </ng-container>
+            </ng-container>
+          </form>
+          <!-- FORM BAIL VILLA -->
+          <form
+            *ngIf="bailvillaForm && ngSelectTypeContrat == 'Bail Villa'"
+            [formGroup]="bailvillaForm"
+          >
+            <!-- Form Group (username)-->
+            <div class="mb-3">
+              <label class="small mb-1" for="inputUsername">Locataire</label>
+              <ng-container
+                *ngIf="utilisateurState$ | async as state"
+                [ngSwitch]="state.dataState"
+              >
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.INITIAL">
+                  <div class="p-2">Initialisation des données</div>
+                </ng-container>
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.ERROR">
+                  <div class="p-2">
+                    Une erreur est survenue : {{ state.errorMessage }}
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
+                  <div class="form-group">
+                    <select
+                      formControlName="idUtilisateur"
+                      name="idUtilisateur"
+                      id="username"
+                      class="form-select form-select-lg mb3"
+                    >
+                      <option [value]="0">Sélection un Locataire</option>
+                      <option
+                        [value]="utilis.id"
+                        *ngFor="let utilis of state.utlisisateurs"
+                      >
+                        {{ utilis.nom }} {{ utilis.prenom }}
+                      </option>
+                    </select>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-9">
+                <ng-container
+                  *ngIf="villaState$ | async as state"
+                  [ngSwitch]="state.dataState"
+                >
+                  <ng-container *ngSwitchCase="VillaStateEnum.INITIAL">
+                    <div class="p-2">Initialisation des données</div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="VillaStateEnum.ERROR">
+                    <div class="p-2">
+                      Une erreur est survenue : {{ state.errorMessage }}
+                    </div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="VillaStateEnum.LOADED">
+                    <label class="big mb-6" for="inputUsername"
+                      >Choisir la Villa</label
+                    >
+                    <div class="form-group">
+                      <select
+                        formControlName="idVilla"
+                        name="idVilla"
+                        class="form-select form-select-lg mb3"
+                      >
+                        <option
+                          [value]="villa.id"
+                          *ngFor="let villa of state.villas"
+                        >
+                          {{ villa.abrvVilla }}
+                        </option>
+                      </select>
+                    </div>
+                  </ng-container>
+                </ng-container>
+                <p class="help-block">As it appears on the card</p>
+              </div>
+            </div>
+            <!-- Form Row-->
+            <div class="row gx-3 mb-3">
+              <!-- Form Group (first name)-->
+              <div class="col-md-6">
+                <label class="big mb-1" for="inputFirstName">Désignation</label>
+                <input
+                  formControlName="designationBail"
+                  class="form-control"
+                  id="designationBail"
+                  type="text"
+                />
+              </div>
+              <!-- Form Group (last name)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLastName">Loyer</label>
+                <input
+                  formControlName="nouveauMontantLoyer"
+                  class="form-control"
+                  id="inputLastName"
+                  type="number"
+                />
+              </div>
+            </div>
+            <!-- Form Row        -->
+            <div class="row gx-3 mb-3">
+              <!-- Form Group (organization name)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputOrgName"
+                  >Nombre de mois de caution</label
+                >
+                <input
+                  formControlName="nbreMoisCautionBail"
+                  class="form-control"
+                  id="nbreMoisCautionBail"
+                  type="number"
+                />
+              </div>
+              <!-- Form Group (location)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLocation"
+                  >Montant caution</label
+                >
+                <input
+                  formControlName="montantCautionBail"
+                  class="form-control"
+                  id="inputLocation"
+                  type="number"
+                />
+              </div>
+            </div>
+
+            <!-- Form Row-->
+            <div class="row gx-3 mb-3">
+              <!-- Form Group (phone number)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputPhone"
+                  >Début du contrat</label
+                >
+                <input
+                  class="form-control"
+                  id="inputPhone"
+                  type="date"
+                  formControlName="dateDebut"
+                />
+              </div>
+              <!-- Form Group (birthday)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputBirthday"
+                  >Date de fin</label
+                >
+                <input
+                  formControlName="dateFin"
+                  class="form-control"
+                  id="inputBirthday"
+                  type="date"
+                  name="birthday"
+                />
+              </div>
+            </div>
+            <!-- Save changes button-->
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="onSaveBailVilla()"
+            >
+              Valider
+            </button>
+          </form>
+          <!-- FORM BAIL MAGASIN -->
+          <form
+            *ngIf="bailMagainForm && ngSelectTypeContrat == 'Bail Magasin'"
+            [formGroup]="bailMagainForm"
+          >
+            <!-- Form Group (username)-->
+            <div class="mb-3">
+              <label class="small mb-1" for="inputUsername">Locataire</label>
+              <ng-container
+                *ngIf="utilisateurState$ | async as state"
+                [ngSwitch]="state.dataState"
+              >
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.INITIAL">
+                  <div class="p-2">Initialisation des données</div>
+                </ng-container>
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.ERROR">
+                  <div class="p-2">
+                    Une erreur est survenue : {{ state.errorMessage }}
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
+                  <div class="form-group">
+                    <select
+                      formControlName="idUtilisateur"
+                      name="idUtilisateur"
+                      id="username"
+                      class="form-select form-select-lg mb3"
+                    >
+                      <option [value]="0">Sélection un Locataire</option>
+                      <option
+                        [value]="utilis.id"
+                        *ngFor="let utilis of state.utlisisateurs"
+                      >
+                        {{ utilis.nom }} {{ utilis.prenom }}
+                      </option>
+                    </select>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-9">
+                <ng-container
+                  *ngIf="magasinState$ | async as state"
+                  [ngSwitch]="state.dataState"
+                >
+                  <ng-container *ngSwitchCase="MagasinStateEnum.INITIAL">
+                    <div class="p-2">Initialisation des données</div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="MagasinStateEnum.ERROR">
+                    <div class="p-2">
+                      Une erreur est survenue : {{ state.errorMessage }}
+                    </div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="MagasinStateEnum.LOADED">
+                    <label class="big mb-6 lable lablel-default"
+                      >Choisir le Magasin</label
+                    >
+                    <div class="form-group">
+                      <select
+                        formControlName="idMagasin"
+                        name="idMagasin"
+                        class="form-select form-select-lg mb3"
+                      >
+                        <option
+                          [value]="mag.id"
+                          *ngFor="let mag of state.magasins"
+                        >
+                          1+ {{ mag.abrvNomMagasin }} +2
+                        </option>
+                      </select>
+                      {{ state.magasins | json }}
+                    </div>
+                  </ng-container>
+                </ng-container>
+                <p class="help-block">As it appears on the card</p>
+              </div>
+            </div>
+            <!-- Form Row-->
+            <div class="row gx-3 mb-3">
+              <!-- Form Group (first name)-->
+              <div class="col-md-6">
+                <label class="big mb-1" for="inputFirstName">Désignation</label>
+                <input
+                  formControlName="designationBail"
+                  class="form-control"
+                  id="designationBail"
+                  type="text"
+                />
+              </div>
+              <!-- Form Group (last name)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLastName">Loyer</label>
+                <input
+                  formControlName="nouveauMontantLoyer"
+                  class="form-control"
+                  id="inputLastName"
+                  type="number"
+                />
+              </div>
+            </div>
+            <!-- Form Row        -->
+            <div class="row gx-3 mb-3">
+              <!-- Form Group (organization name)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputOrgName"
+                  >Nombre de mois de caution</label
+                >
+                <input
+                  formControlName="nbreMoisCautionBail"
+                  class="form-control"
+                  id="nbreMoisCautionBail"
+                  type="number"
+                />
+              </div>
+              <!-- Form Group (location)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLocation"
+                  >Montant caution</label
+                >
+                <input
+                  formControlName="montantCautionBail"
+                  class="form-control"
+                  id="inputLocation"
+                  type="number"
+                />
+              </div>
+            </div>
+
+            <!-- Form Row-->
+            <div class="row gx-3 mb-3">
+              <!-- Form Group (phone number)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputPhone"
+                  >Début du contrat</label
+                >
+                <input
+                  class="form-control"
+                  id="inputPhone"
+                  type="date"
+                  formControlName="dateDebut"
+                />
+              </div>
+              <!-- Form Group (birthday)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputBirthday"
+                  >Date de fin</label
+                >
+                <input
+                  formControlName="dateFin"
+                  class="form-control"
+                  id="inputBirthday"
+                  type="date"
+                  name="birthday"
+                />
+              </div>
+            </div>
+            <!-- Save changes button-->
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="onSaveBailVilla()"
+            >
+              Valider
+            </button>
+          </form>
+          <!-- FORM BAIL APPAREMENT -->
+          <form
+            *ngIf="
+              bailAppartementForm && ngSelectTypeContrat == 'Bail Appartement'
+            "
+            [formGroup]="bailAppartementForm"
+          >
+            <!-- Form Group (username)-->
+            <div class="mb-3">
+              <label class="small mb-1" for="inputUsername">Locataire</label>
+              <ng-container
+                *ngIf="utilisateurState$ | async as state"
+                [ngSwitch]="state.dataState"
+              >
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.INITIAL">
+                  <div class="p-2">Initialisation des données</div>
+                </ng-container>
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.ERROR">
+                  <div class="p-2">
+                    Une erreur est survenue : {{ state.errorMessage }}
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
+                  <div class="form-group">
+                    <select
+                      formControlName="idUtilisateur"
+                      name="idUtilisateur"
+                      id="username"
+                      class="form-select form-select-lg mb3"
+                    >
+                      <option [value]="0">Sélection un Locataire</option>
+                      <option
+                        [value]="utilis.id"
+                        *ngFor="let utilis of state.utlisisateurs"
+                      >
+                        {{ utilis.nom }} {{ utilis.prenom }}
+                      </option>
+                    </select>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-9">
+                <ng-container
+                  *ngIf="villaState$ | async as state"
+                  [ngSwitch]="state.dataState"
+                >
+                  <ng-container *ngSwitchCase="VillaStateEnum.INITIAL">
+                    <div class="p-2">Initialisation des données</div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="VillaStateEnum.ERROR">
+                    <div class="p-2">
+                      Une erreur est survenue : {{ state.errorMessage }}
+                    </div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="VillaStateEnum.LOADED">
+                    <label class="big mb-6" for="inputUsername"
+                      >Choisir la Villa</label
+                    >
+                    <div class="form-group">
+                      <select
+                        formControlName="idVilla"
+                        name="idVilla"
+                        class="form-select form-select-lg mb3"
+                      >
+                        <option
+                          [value]="villa.id"
+                          *ngFor="let villa of state.villas"
+                        >
+                          {{ villa.abrvVilla }}
+                        </option>
+                      </select>
+                    </div>
+                  </ng-container>
+                </ng-container>
+                <p class="help-block">As it appears on the card</p>
+              </div>
+            </div>
+            <!-- Form Row-->
+            <div class="row gx-3 mb-3">
+              <!-- Form Group (first name)-->
+              <div class="col-md-6">
+                <label class="big mb-1" for="inputFirstName">Désignation</label>
+                <input
+                  formControlName="designationBail"
+                  class="form-control"
+                  id="designationBail"
+                  type="text"
+                />
+              </div>
+              <!-- Form Group (last name)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLastName">Loyer</label>
+                <input
+                  formControlName="nouveauMontantLoyer"
+                  class="form-control"
+                  id="inputLastName"
+                  type="number"
+                />
+              </div>
+            </div>
+            <!-- Form Row        -->
+            <div class="row gx-3 mb-3">
+              <!-- Form Group (organization name)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputOrgName"
+                  >Nombre de mois de caution</label
+                >
+                <input
+                  formControlName="nbreMoisCautionBail"
+                  class="form-control"
+                  id="nbreMoisCautionBail"
+                  type="number"
+                />
+              </div>
+              <!-- Form Group (location)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLocation"
+                  >Montant caution</label
+                >
+                <input
+                  formControlName="montantCautionBail"
+                  class="form-control"
+                  id="inputLocation"
+                  type="number"
+                />
+              </div>
+            </div>
+
+            <!-- Form Row-->
+            <div class="row gx-3 mb-3">
+              <!-- Form Group (phone number)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputPhone"
+                  >Début du contrat</label
+                >
+                <input
+                  class="form-control"
+                  id="inputPhone"
+                  type="date"
+                  formControlName="dateDebut"
+                />
+              </div>
+              <!-- Form Group (birthday)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputBirthday"
+                  >Date de fin</label
+                >
+                <input
+                  formControlName="dateFin"
+                  class="form-control"
+                  id="inputBirthday"
+                  type="date"
+                  name="birthday"
+                />
+              </div>
+            </div>
+            <!-- Save changes button-->
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="onSaveBailVilla()"
+            >
+              Valider
+            </button>
+          </form>
+          <!-- FORM BAIL STUDIO -->
+          <form
+            *ngIf="bailStudioForm && ngSelectTypeContrat == 'Bail Studio'"
+            [formGroup]="bailStudioForm"
+          >
+            <!-- Form Group (username)-->
+            <div class="mb-3">
+              <label class="small mb-1" for="inputUsername">Locataire</label>
+              <ng-container
+                *ngIf="utilisateurState$ | async as state"
+                [ngSwitch]="state.dataState"
+              >
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.INITIAL">
+                  <div class="p-2">Initialisation des données</div>
+                </ng-container>
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.ERROR">
+                  <div class="p-2">
+                    Une erreur est survenue : {{ state.errorMessage }}
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
+                  <div class="form-group">
+                    <select
+                      formControlName="idUtilisateur"
+                      name="idUtilisateur"
+                      id="username"
+                      class="form-select form-select-lg mb3"
+                    >
+                      <option [value]="0">Sélection un Locataire</option>
+                      <option
+                        [value]="utilis.id"
+                        *ngFor="let utilis of state.utlisisateurs"
+                      >
+                        {{ utilis.nom }} {{ utilis.prenom }}
+                      </option>
+                    </select>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-9">
+                <ng-container
+                  *ngIf="villaState$ | async as state"
+                  [ngSwitch]="state.dataState"
+                >
+                  <ng-container *ngSwitchCase="VillaStateEnum.INITIAL">
+                    <div class="p-2">Initialisation des données</div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="VillaStateEnum.ERROR">
+                    <div class="p-2">
+                      Une erreur est survenue : {{ state.errorMessage }}
+                    </div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="VillaStateEnum.LOADED">
+                    <label class="big mb-6" for="inputUsername"
+                      >Choisir la Villa</label
+                    >
+                    <div class="form-group">
+                      <select
+                        formControlName="idVilla"
+                        name="idVilla"
+                        class="form-select form-select-lg mb3"
+                      >
+                        <option
+                          [value]="villa.id"
+                          *ngFor="let villa of state.villas"
+                        >
+                          {{ villa.abrvVilla }}
+                        </option>
+                      </select>
+                    </div>
+                  </ng-container>
+                </ng-container>
+                <p class="help-block">As it appears on the card</p>
+              </div>
+            </div>
+            <!-- Form Row-->
+            <div class="row gx-3 mb-3">
+              <!-- Form Group (first name)-->
+              <div class="col-md-6">
+                <label class="big mb-1" for="inputFirstName">Désignation</label>
+                <input
+                  formControlName="designationBail"
+                  class="form-control"
+                  id="designationBail"
+                  type="text"
+                />
+              </div>
+              <!-- Form Group (last name)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLastName">Loyer</label>
+                <input
+                  formControlName="nouveauMontantLoyer"
+                  class="form-control"
+                  id="inputLastName"
+                  type="number"
+                />
+              </div>
+            </div>
+            <!-- Form Row        -->
+            <div class="row gx-3 mb-3">
+              <!-- Form Group (organization name)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputOrgName"
+                  >Nombre de mois de caution</label
+                >
+                <input
+                  formControlName="nbreMoisCautionBail"
+                  class="form-control"
+                  id="nbreMoisCautionBail"
+                  type="number"
+                />
+              </div>
+              <!-- Form Group (location)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputLocation"
+                  >Montant caution</label
+                >
+                <input
+                  formControlName="montantCautionBail"
+                  class="form-control"
+                  id="inputLocation"
+                  type="number"
+                />
+              </div>
+            </div>
+
+            <!-- Form Row-->
+            <div class="row gx-3 mb-3">
+              <!-- Form Group (phone number)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputPhone"
+                  >Début du contrat</label
+                >
+                <input
+                  class="form-control"
+                  id="inputPhone"
+                  type="date"
+                  formControlName="dateDebut"
+                />
+              </div>
+              <!-- Form Group (birthday)-->
+              <div class="col-md-6">
+                <label class="small mb-1" for="inputBirthday"
+                  >Date de fin</label
+                >
+                <input
+                  formControlName="dateFin"
+                  class="form-control"
+                  id="inputBirthday"
+                  type="date"
+                  name="birthday"
+                />
+              </div>
+            </div>
+            <!-- Save changes button-->
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="onSaveBailVilla()"
+            >
+              Valider
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

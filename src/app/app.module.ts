@@ -98,6 +98,9 @@ import { PagePaiementComponent } from './pages/reglement/page-paiement/page-paie
     AppDetailBailComponent,
     AppDetailBailLoyerComponent,
     PagePaiementComponent,
+    ActionButtonBienComponent,
+    BouttonActionBauxComponent,
+    PageBauxNewComponent
   ],
   imports: [
     FormsModule,
@@ -108,12 +111,25 @@ import { PagePaiementComponent } from './pages/reglement/page-paiement/page-paie
     HttpClientModule,
     NoticationModule,
     HighchartsChartModule,
+    ReactiveFormsModule,
     StoreModule.forRoot({
       biensState: bienReducer,
       siteState: siteReducer,
       utilisateurState: utilisateurReducer,
+      immeubleState: immeubleReducer,
+      etageByImmeubeState: etageByImmeubeReducer,
+      studioState: studioReducer,
+      appartementState: appartementReducer,
+      magasinState: magasinReducer,
+      villaState: villaReducer,
+      villeState: villeReducer,
+      communeState: communeReducer,
+      bailvillaState: bailvillaReducer
     }),
-    EffectsModule.forRoot([BienEffects, SiteEffects, UtilisateurEffects]),
+    EffectsModule.forRoot([StudioEffects, BienEffects, EtageEffects,
+      SiteEffects, UtilisateurEffects, ImmeubleEffects,
+      AppartementEffects, MagasinEffects, VillaEffects,
+      VilleEffects, CommunEffects, BailVillaEffects]),
     StoreDevtoolsModule.instrument(),
     BrowserAnimationsModule,
   ],
@@ -122,4 +138,4 @@ import { PagePaiementComponent } from './pages/reglement/page-paiement/page-paie
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
