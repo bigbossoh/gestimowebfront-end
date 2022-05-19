@@ -47,6 +47,21 @@ export function studioReducer(
         dataState: StudioStateEnum.ERROR,
         errorMessage: (<StudioActions>action).payload,
       };
+    // GET ALL VILLA
+    case StudioActionsTypes.GET_ALL_STUDIO:
+      return { ...state, dataState: StudioStateEnum.LOADING };
+    case StudioActionsTypes.GET_ALL_STUDIO_SUCCES:
+      return {
+        ...state,
+        dataState: StudioStateEnum.LOADED,
+        studios: (<StudioActions>action).payload,
+      };
+    case StudioActionsTypes.GET_ALL_STUDIO_ERROR:
+      return {
+        ...state,
+        dataState: StudioStateEnum.ERROR,
+        errorMessage: (<StudioActions>action).payload,
+      };
     default:
       return { ...state };
   }

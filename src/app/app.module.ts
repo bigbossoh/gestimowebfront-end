@@ -81,6 +81,10 @@ import { VillaEffects } from './ngrx/villa/villa.effects';
 import { Communeffects } from './ngrx/commune/commune.effects';
 import { BailMagasinEffects } from './ngrx/bail-magasin/bailmagasin.effects';
 import { bailMagasinReducer } from './ngrx/bail-magasin/bailmagasin.reducer';
+import { BailAppartementEffects } from './ngrx/bail-appartement/bailappartement.effects';
+import { bailAppartementReducer } from './ngrx/bail-appartement/bailappartement.reducer';
+import { bailStudioReducer } from './ngrx/bail-studio/bailvilla.reducer';
+import { BailStudioEffects } from './ngrx/bail-studio/bailstudio.effects';
 
 @NgModule({
   declarations: [
@@ -149,13 +153,16 @@ import { bailMagasinReducer } from './ngrx/bail-magasin/bailmagasin.reducer';
       villaState: villaReducer,
       villeState: villeReducer,
       communeState: communeReducer,
-      bailvillaState: bailvillaReducer
+      bailvillaState: bailvillaReducer,
+      bailAppartementState: bailAppartementReducer,
+      bailStudioState: bailStudioReducer
 
     }),
     EffectsModule.forRoot([StudioEffects, BienEffects, EtageEffects,
       SiteEffects, UtilisateurEffects, ImmeubleEffects,
       AppartementEffects, MagasinEffects, VillaEffects,
-      VilleEffects, Communeffects, BailVillaEffects, BailMagasinEffects]),
+      VilleEffects, Communeffects, BailVillaEffects, BailMagasinEffects,
+      BailAppartementEffects, BailStudioEffects]),
 
     StoreDevtoolsModule.instrument(),
     BrowserAnimationsModule,
