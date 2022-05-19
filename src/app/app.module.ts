@@ -79,6 +79,9 @@ import { ImmeubleEffects } from './ngrx/immeuble/immeuble.effects';
 import { MagasinEffects } from './ngrx/magasin/magasin.effects';
 import { VillaEffects } from './ngrx/villa/villa.effects';
 import { Communeffects } from './ngrx/commune/commune.effects';
+import { BailMagasinEffects } from './ngrx/bail-magasin/bailmagasin.effects';
+import { bailMagasinReducer } from './ngrx/bail-magasin/bailmagasin.reducer';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -134,6 +137,7 @@ import { Communeffects } from './ngrx/commune/commune.effects';
     HighchartsChartModule,
     ReactiveFormsModule,
     StoreModule.forRoot({
+      bailMagasinState: bailMagasinReducer,
       biensState: bienReducer,
       siteState: siteReducer,
       utilisateurState: utilisateurReducer,
@@ -146,11 +150,13 @@ import { Communeffects } from './ngrx/commune/commune.effects';
       villeState: villeReducer,
       communeState: communeReducer,
       bailvillaState: bailvillaReducer
+
     }),
     EffectsModule.forRoot([StudioEffects, BienEffects, EtageEffects,
       SiteEffects, UtilisateurEffects, ImmeubleEffects,
       AppartementEffects, MagasinEffects, VillaEffects,
-      VilleEffects, Communeffects, BailVillaEffects]),
+      VilleEffects, Communeffects, BailVillaEffects, BailMagasinEffects]),
+
     StoreDevtoolsModule.instrument(),
     BrowserAnimationsModule,
   ],

@@ -7,7 +7,7 @@ import { MagasinDto } from 'src/gs-api/src/models';
 //STORE
 export enum MagasinActionsTypes {
   SAVE_MAGASIN = '[MagasinDto] Get Save Magasin',
-  SAVE_MAGASIN_SUCCES = '[MagasinDto] Get All Magasin Succes',
+  SAVE_MAGASIN_SUCCES = '[MagasinDto] Get save Magasin Succes',
   SAVE_MAGASIN_ERROR = '[MagasinDto] Get Save Magasin Error',
 
   GET_ALL_MAGASIN = '[MagasinDto] Get All Magasin',

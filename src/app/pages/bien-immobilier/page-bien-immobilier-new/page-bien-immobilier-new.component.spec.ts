@@ -8,9 +8,9 @@ describe('PageBienImmobilierNewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PageBienImmobilierNewComponent ]
+      declarations: [PageBienImmobilierNewComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
