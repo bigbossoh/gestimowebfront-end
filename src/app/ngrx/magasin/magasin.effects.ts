@@ -23,7 +23,7 @@ export class MagasinEffects {
     )
   );
   //LISTE DES MAGASINS
-  getAllVillasEffect: Observable<Action> = createEffect(() =>
+  getAllMagasinsEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(MagasinActionsTypes.GET_ALL_MAGASIN),
       mergeMap((action) => {
