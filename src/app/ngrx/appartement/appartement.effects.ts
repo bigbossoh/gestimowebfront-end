@@ -4,7 +4,7 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
-import { AppartementActions, AppartementctionsTypes as AppartementActionsTypes, SaveAppartementActionsError, SaveAppartementActionsSuccess } from './appartement.actions';
+import { AppartementActions, AppartementctionsTypes as AppartementActionsTypes, GetAllAppartementActionsError, GetAllAppartementActionsSuccess, SaveAppartementActionsError, SaveAppartementActionsSuccess } from './appartement.actions';
 
 @Injectable()
 export class AppartementEffects {
@@ -18,6 +18,21 @@ export class AppartementEffects {
         return this.apiService.saveAppartement(action.payload).pipe(
           map((appart) => new SaveAppartementActionsSuccess(appart)),
           catchError((err) => of(new SaveAppartementActionsError(err.message)))
+        );
+      })
+    )
+  );
+  //LISTE DES APPARTEMENT
+  getAllMagasinsEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(AppartementActionsTypes.GET_ALL_APPARTEMENT),
+      mergeMap((action) => {
+        return this.apiService.findAllAppartement().pipe(
+          map(
+            (appartement) =>
+              new GetAllAppartementActionsSuccess(appartement)
+          ),
+          catchError((err) => of(new GetAllAppartementActionsError(err.message)))
         );
       })
     )
