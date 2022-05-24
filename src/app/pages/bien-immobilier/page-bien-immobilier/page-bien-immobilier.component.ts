@@ -34,6 +34,11 @@ export class PageBienImmobilierComponent implements OnInit {
     this.store.dispatch(new GetAllVilleAsActions({}));
     this.villeState$ = this.store.pipe(map((state) => state.villeState));
   }
+  onActionEvent(event: any) {
+    console.log(event);
+
+    this.ngOnInit();
+  }
   onEditdele(id: any) { }
   findCommuneByPays(pays: any) {
     this.store.dispatch(new GetAllCommunesByVilleActions(pays.target.value));
