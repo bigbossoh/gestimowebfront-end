@@ -4,7 +4,9 @@
       <h1>Liste des biens immobiliers</h1>
     </div>
     <div class="col-md-4 text-right">
-      <app-action-button-bien></app-action-button-bien>
+      <app-action-button-bien
+        (bienImmobilierEmmiter)="onActionEvent($event)"
+      ></app-action-button-bien>
     </div>
   </div>
   <div class="col">

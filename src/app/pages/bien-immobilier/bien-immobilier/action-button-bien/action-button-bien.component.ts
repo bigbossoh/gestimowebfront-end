@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+
 import { PageBienImmobilierNewComponent } from '../../page-bien-immobilier-new/page-bien-immobilier-new.component';
 
 @Component({
@@ -9,12 +10,17 @@ import { PageBienImmobilierNewComponent } from '../../page-bien-immobilier-new/p
 })
 export class ActionButtonBienComponent implements OnInit {
 
-
+  @Output() bienImmobilierEmmiter: EventEmitter<any> = new EventEmitter();
 
   constructor(public dialog: MatDialog) { }
   openDialog(): void {
     const dialolRef = this.dialog.open(PageBienImmobilierNewComponent, {
       //  width: '1024px',
+    });
+    dialolRef.afterClosed().subscribe(() => {
+      console.log("On  a fermer le formulaire de bien");
+
+      this.bienImmobilierEmmiter.emit("SAVE_BIENS")
     });
   }
   ngOnInit(): void { }
