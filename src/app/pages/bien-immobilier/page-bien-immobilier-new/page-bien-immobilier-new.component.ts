@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -66,6 +66,8 @@ export class PageBienImmobilierNewComponent implements OnInit {
   readonly UtilisteurStateEnum = UtilisteurStateEnum;
   readonly SiteStateEnum = SiteStateEnum;
 
+
+  @Output() eventEmitter: EventEmitter<any> = new EventEmitter();
   constructor(private store: Store<any>, private fb: FormBuilder, private notificationService: NotificationService) {
     this.listTypeBiens = [
       'Appartement',
