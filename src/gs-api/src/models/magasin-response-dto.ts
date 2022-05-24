@@ -1,5 +1,6 @@
 /* tslint:disable */
-export interface MagasinDto {
+import { Utilisateur } from './utilisateur';
+export interface MagasinResponseDto {
   id?: number;
   idAgence?: number;
   numBien?: number;
@@ -11,9 +12,7 @@ export interface MagasinDto {
   abrvNomMagasin?: string;
   nmbrPieceMagasin?: number;
   nomMagasin?: string;
-  idEtage?: number;
-  idSite?: number;
-  idUtilisateur?: number;
+  utilisateur?: Utilisateur;
   archived?: boolean;
   occupied?: boolean;
   underBuildingMagasin?: boolean;

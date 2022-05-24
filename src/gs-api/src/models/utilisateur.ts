@@ -3,6 +3,7 @@ import { AgenceImmobiliere } from './agence-immobiliere';
 import { Role } from './role';
 import { Operation } from './operation';
 import { Encaissement } from './encaissement';
+import { Bienimmobilier } from './bienimmobilier';
 export interface Utilisateur {
   id?: number;
   idAgence?: number;
@@ -35,8 +36,8 @@ export interface Utilisateur {
   userCreate?: Utilisateur;
   operationUser?: Array<Operation>;
   encaissementsUtilisateur?: Array<Encaissement>;
+  biensUtilisateur?: Array<Bienimmobilier>;
   active?: boolean;
   activated?: boolean;
   nonLocked?: boolean;
-  
 }

@@ -22,6 +22,6 @@ export interface Magasin {
   etageMagasin?: Etage;
   operationsMagasin?: Array<Operation>;
   underBuildingMagasin?: boolean;
-  occupied?: boolean;
   archived?: boolean;
+  occupied?: boolean;
 }

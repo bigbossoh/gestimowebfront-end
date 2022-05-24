@@ -18,6 +18,6 @@ export interface VillaDto {
   superficieBien?: number;
   idSite?: number;
   idUtilisateur?: number;
-  occupied?: boolean;
   archived?: boolean;
+  occupied?: boolean;
 }

@@ -24,6 +24,6 @@ export interface Villa {
   garageVilla?: boolean;
   nbreVoitureGarageVilla?: number;
   operationsVilla?: Array<Operation>;
-  occupied?: boolean;
   archived?: boolean;
+  occupied?: boolean;
 }
