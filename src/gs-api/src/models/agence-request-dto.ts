@@ -1,5 +1,4 @@
 /* tslint:disable */
-import { UtilisateurRequestDto } from './utilisateur-request-dto';
 export interface AgenceRequestDto {
   id?: number;
   idAgence?: number;
@@ -12,5 +11,8 @@ export interface AgenceRequestDto {
   regimeFiscaleAgence?: string;
   faxAgence?: string;
   sigleAgence?: string;
-  utilisateurCreateur?: UtilisateurRequestDto;
+  idUtilisateurCreateur?: number;
+  motdepasse?: string;
+  nomPrenomGerant?: string;
+  active?: boolean;
 }
