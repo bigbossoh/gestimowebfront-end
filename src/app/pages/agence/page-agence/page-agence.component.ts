@@ -5,6 +5,9 @@ import { AgenceRequestDto } from '../../../../gs-api/src/models/agence-request-d
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { UserService } from '../../../services/user/user.service';
+import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 
 @Component({
   selector: 'app-page-agence',
@@ -12,18 +15,41 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./page-agence.component.css']
 })
 export class PageAgenceComponent implements OnInit {
-
+  public user?:UtilisateurRequestDto;
   public agences?: AgenceRequestDto[];
   public agence?: AgenceRequestDto;
   public editAgence?: AgenceRequestDto;
   private subscriptions: Subscription[] = [];
   public refreshing?: boolean;
+  agenceRegisterForm!:FormGroup;
 
-  constructor(private agenceService:AgenceService,
-    private notificationService: NotificationService) { }
+  constructor(
+    private agenceService:AgenceService,
+    private userService:UserService,
+    private notificationService: NotificationService,
+    private fb:FormBuilder) { }
 
   ngOnInit(): void {
+    this.user = this.userService.getUserFromLocalCache();
     this.getAllAgences(true);
+    this.agenceRegisterForm=this.fb.group({
+      id: [''],
+  idAgence: [''],
+  nomAgence: [''],
+  telAgence: [''],
+  compteContribuable: [''],
+  capital: [''],
+  emailAgence: [''],
+  mobileAgence: [''],
+  regimeFiscaleAgence: [''],
+  faxAgence: [''],
+  sigleAgence: [''],
+  idUtilisateurCreateur: [''],
+   motdepasse: [''],
+   nomPrenomGerant: [''],
+    active: [true]
+    })
+
   }
 
   public getAllAgences(showNotification: boolean): void {
@@ -46,6 +72,37 @@ export class PageAgenceComponent implements OnInit {
     );
 
   }
+  private clickButton(buttonId: string): void {
+    document.getElementById(buttonId)!.click();
+  }
+  public saveAgence():void{
+
+    this.agenceRegisterForm.patchValue({
+      idUtilisateurCreateur:this.user?.id
+    }
+    )
+
+   console.log("this is cool ",this.agenceRegisterForm.value);
+     this.subscriptions.push(
+       this.agenceService.onPostAgence(this.agenceRegisterForm.value).subscribe(
+         (response: any) => {
+        console.log(response);
+         console.log("this is cool ",this.agenceRegisterForm.value);
+         this.clickButton('closeAgenceButton');
+         this.getAllAgences(false);
+         this.agenceRegisterForm.reset();
+         this.sendErrorNotification(NotificationType.SUCCESS, `${this.agenceRegisterForm.get('nomAgence')} added successfully`);
+         },
+         (errorResponse: HttpErrorResponse) => {
+           console.log(errorResponse);
+
+           this.sendErrorNotification(NotificationType.ERROR, errorResponse.error.message);
+
+         }
+       )
+       )
+       ;
+   }
   private sendErrorNotification(notificationType: NotificationType, message: string): void {
     if (message) {
       this.notificationService.notify(notificationType, message);
