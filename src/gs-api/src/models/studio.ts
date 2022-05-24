@@ -1,4 +1,6 @@
 /* tslint:disable */
+import { Site } from './site';
+import { Utilisateur } from './utilisateur';
 import { Etage } from './etage';
 import { Operation } from './operation';
 export interface Studio {
@@ -6,6 +8,14 @@ export interface Studio {
   idAgence?: number;
   creationDate?: number;
   lastModifiedDate?: number;
+  numBien?: number;
+  statutBien?: string;
+  abrvBienimmobilier?: string;
+  description?: string;
+  nomBien?: string;
+  superficieBien?: number;
+  site?: Site;
+  utilisateur?: Utilisateur;
   descStudio?: string;
   numeroStudio?: number;
   abrvNomStudio?: string;
@@ -14,4 +24,5 @@ export interface Studio {
   statutStudio?: string;
   etageStudio?: Etage;
   operationsStudio?: Array<Operation>;
+  archived?: boolean;
 }
