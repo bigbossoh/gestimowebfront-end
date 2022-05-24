@@ -12,16 +12,20 @@ import { PageBienImmobilierNewComponent } from 'src/app/pages/bien-immobilier/pa
   styleUrls: ['./boutton-action.component.css'],
 })
 export class BouttonActionComponent implements OnInit {
-  // @Output()
-  // clickEvent = new EventEmitter();
+  @Output()
+  clickEvent = new EventEmitter();
   constructor(public dialog: MatDialog) { }
   openDialog(): void {
     //const dialolRef = this.dialog.open(PageBienImmobilierNewComponent, {
     //  width: '1024px',
     //  });
+    //console.log("bouttonNouveauClick()");
+    this.clickEvent.emit();
   }
   ngOnInit(): void { }
-  bouttonNouveauClick(): void {
-    // this.clickEvent.emit();
-  }
+  // bouttonNouveauClick(): void {
+
+
+  //   this.clickEvent.emit();
+  // }
 }

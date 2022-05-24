@@ -1,4 +1,3 @@
-
 <div class="col">
   <div class="row m-3">
     <div class="col-md-8 p-0">
@@ -10,261 +9,340 @@
 
   </div>
   <div class="col">
-<!-- main content -->
-<div class="tab-content" id="myTabContent">
-  <!-- user table -->
-  <div class="tab-pane fade show active" id="users">
-   <div class="mb-3 float-left">
-     <div class="col btn-group">
-       <div class="row md-12">
-        <form class="form-inline mr-2">
-          <input name="searchTerm" #searchInput="ngModel" class="form-control" ngModel
-           type="search" placeholder="Recherche utilisateurs...">
-       </form>
-        <button  type="button" class="btn btn-info" data-toggle="modal" data-target="#addUserModal">
-          <i class="fa fa-plus"></i>&nbsp;New User
-        </button>
-      </div>
-
-     </div>
-   </div>
-     <table class="table table-hover m-3 p-3">
-      <thead class="table-borderless">
-       <tr class="text-center mt-3">
-         <th>Photo</th>
-         <th>User ID</th>
-         <th>First Name</th>
-         <th>Last Name</th>
-         <th>Username</th>
-         <th>Email</th>
-         <th>Status</th>
-         <th>Actions</th>
-       </tr>
-     </thead>
-      <tbody *ngFor="let agence of agences">
-        <tr class="text-center">
-          <td >
-            <img height="40" width="40" src="assets/nassmam.jpg" class="rounded-circle img-fluid img-thumbnail" alt=""/>
-          </td>
-          <td >{{agence.id}}</td>
-          <td >{{agence.nomAgence}}</td>
-          <td >{{agence.sigleAgence}}</td>
-          <td >{{agence.mobileAgence}}</td>
-          <td >{{agence.emailAgence}}</td>
-          <td>
-            <span>Active</span>
-          </td>
-          <td class="">
-            <div class="btn-group">
-              <button class="btn btn-outline-info" ><i class="fas fa-edit"></i></button>
-              <button class="btn btn-outline-danger" ><i class="fas fa-trash"></i></button>
-            </div>
-          </td>
-        </tr>
-     </tbody>
-    </table>
-  <!-- End user table -->
-</div>
-
-
-
-<button [hidden]="true" type="button" id="openUserInfo" data-toggle="modal" data-target="#viewUserModal">
-</button>
-<button [hidden]="true" type="button" id="openUserEdit" data-toggle="modal" data-target="#editUserModal">
-</button>
- <!-- modal user info -->
-
-
-
-
-
-
-<!-- model add user -->
-<div class="modal draggable fade bd-example-modal-xl" id="addUserModal" tabindex="-1" role="dialog"
-aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-<div class="modal-dialog modal-xl" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title text-center">Nouveau Utilisateur système</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <div>
-         <form #newUserForm="ngForm" >
-
-<div class="container">
-<div class="row flex-lg-nowrap">
-<!-- <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
-<div class="card p-3">
-<div class="e-navlist e-navlist--active-bg">
-<ul class="nav">
-  <li class="nav-item"><a class="nav-link px-2 active" href="#"><i class="fa fa-fw fa-bar-chart mr-1"></i><span>Overview</span></a></li>
-  <li class="nav-item"><a class="nav-link px-2" href="https://www.bootdey.com/snippets/view/bs4-crud-users" target="__blank"><i class="fa fa-fw fa-th mr-1"></i><span>CRUD</span></a></li>
-  <li class="nav-item"><a class="nav-link px-2" href="https://www.bootdey.com/snippets/view/bs4-edit-profile-page" target="__blank"><i class="fa fa-fw fa-cog mr-1"></i><span>Settings</span></a></li>
-</ul>
-</div>
-</div>
-</div> -->
-
-<div class="col">
-<div class="row">
-<div class="col mb-3">
-<div class="card">
-  <div class="card-body">
-    <div class="e-profile">
-      <div class="row">
-        <!--
-        <div class="col-12 col-sm-auto mb-3">
-          <div class="mx-auto" style="width: 140px;">
-
-          </div>
-        </div>
-
-         <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
-          <div class="text-center text-sm-left mb-2 mb-sm-0">
-            <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">John Smith</h4>
-            <p class="mb-0">@johnny.s</p>
-            <div class="text-muted"><small>Last seen 2 hours ago</small></div>
-            <div class="mt-2">
-              <button class="btn btn-primary" type="button">
-                <i class="fa fa-fw fa-camera"></i>
-                <span>Change Photo</span>
+    <!-- main content -->
+    <div class="tab-content" id="myTabContent">
+      <!-- user table -->
+      <div class="tab-pane fade show active" id="users">
+        <div class="mb-3 float-left">
+          <div class="col btn-group">
+            <div class="row md-12">
+              <form class="form-inline mr-2">
+                <input name="searchTerm" #searchInput="ngModel" class="form-control" ngModel type="search"
+                  placeholder="Recherche utilisateurs...">
+              </form>
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addUserModal">
+                <i class="fa fa-plus"></i>&nbsp;New User
               </button>
             </div>
+
           </div>
-          <div class="text-center text-sm-right">
-            <span class="badge badge-secondary">administrator</span>
-            <div class="text-muted"><small>Joined 09 Dec 2017</small></div>
-          </div>
-        </div> -->
+        </div>
+        <table class="table table-hover m-3 p-3">
+          <thead class="table-borderless">
+            <tr class="text-center mt-3">
+              <th>Photo</th>
+              <th>User ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let agence of agences">
+            <tr class="text-center">
+              <td>
+                <img height="40" width="40" src="assets/nassmam.jpg" class="rounded-circle img-fluid img-thumbnail"
+                  alt="" />
+              </td>
+              <td>{{agence.id}}</td>
+              <td>{{agence.nomAgence}}</td>
+              <td>{{agence.sigleAgence}}</td>
+              <td>{{agence.mobileAgence}}</td>
+              <td>{{agence.emailAgence}}</td>
+              <td>
+                <span>Active</span>
+              </td>
+              <td class="">
+                <div class="btn-group">
+                  <button class="btn btn-outline-info"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- End user table -->
       </div>
-      <ul class="nav nav-tabs">
-        <li class="nav-item"><a href="" class="active nav-link">Settings</a></li>
-      </ul>
-      <div class="tab-content pt-3">
-        <div class="tab-pane active">
-          <form class="form" novalidate="">
-            <div class="row">
-              <div class="col">
-                <div class="row">
-                  <div class="col">
-                    <div class="form-group">
-                      <label>Full Name</label>
-                      <input class="form-control" type="text" name="name" placeholder="John Smith" value="John Smith">
-                    </div>
-                  </div>
-                  <div class="col">
-                    <div class="form-group">
-                      <label>Username</label>
-                      <input class="form-control" type="text" name="username" placeholder="johnny.s" value="johnny.s">
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div class="form-group">
-                      <label>Email</label>
-                      <input class="form-control" type="text" placeholder="user@example.com">
-                    </div>
-                  </div>
-                </div>
 
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12 col-sm-6 mb-3">
-                <div class="mb-2"><b>Change Password</b></div>
-                <div class="row">
-                  <div class="col">
-                    <div class="form-group">
-                      <label>Current Password</label>
-                      <input class="form-control" type="password" placeholder="••••••">
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div class="form-group">
-                      <label>New Password</label>
-                      <input class="form-control" type="password" placeholder="••••••">
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div class="form-group">
-                      <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
-                      <input class="form-control" type="password" placeholder="••••••"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                <div class="mb-2"><b>Keeping in Touch</b></div>
-                <div class="row">
-                  <div class="col">
-                    <label>Email Notifications</label>
-                    <div class="custom-controls-stacked px-2">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
-                        <label class="custom-control-label" for="notifications-blog">Blog posts</label>
-                      </div>
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
-                        <label class="custom-control-label" for="notifications-news">Newsletter</label>
-                      </div>
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
-                        <label class="custom-control-label" for="notifications-offers">Personal Offers</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col d-flex justify-content-end">
-                <button class="btn btn-primary" type="submit">Save Changes</button>
-              </div>
-            </div>
-          </form>
 
+
+      <button [hidden]="true" type="button" id="openUserInfo" data-toggle="modal" data-target="#viewUserModal">
+      </button>
+      <button [hidden]="true" type="button" id="openUserEdit" data-toggle="modal" data-target="#editUserModal">
+      </button>
+      <!-- modal user info -->
+
+
+
+
+
+
+      <!-- model add user -->
+      <div class="modal draggable fade bd-example-modal-xl" id="addUserModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-center">Nouvelle Agence</h5>
+              <div>
+                <pre>
+                  <pre>{{agenceRegisterForm.value |json}}</pre>
+                </pre>
+              </div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div>
+                <form>
+
+                  <div class="container">
+                    <div class="row flex-lg-nowrap">
+                                           <div class="col">
+                        <div class="row">
+                          <div class="col mb-3">
+                            <div class="card">
+                              <div class="card-body p-2">
+                                <div class="e-profile">
+                                  <div class="row">
+
+                                  </div>
+
+                                  <div class="tab-content pt-1">
+                                    <div class="tab-pane active">
+                                      <form (ngSubmit)="saveAgence()" [formGroup]="agenceRegisterForm" >
+                                        <div class="row">
+                                          <div class="col">
+                                            <div class="mb-2 text-primary"><i class="fas fa-asterisk"></i><b> Denomination sociale de l'agence</b></div>
+                                            <div class="row">
+                                              <div class="col-md-4">
+                                                <div class="form-group">
+                                                  <label>Nom Agence</label>
+                                                  <input
+                                                  class="form-control"
+                                                  type="text"
+                                                  placeholder="Nom Agence"
+                                                  formControlName="nomAgence"
+                                                    >
+                                                </div>
+                                              </div>
+                                              <div class="col-md-4">
+                                                <div class="form-group">
+                                                  <label>Sigle </label>
+                                                  <input
+                                                  class="form-control"
+                                                  type="text"
+                                                  placeholder="Sigle"
+                                                  formControlName="sigleAgence"
+                                                    >
+                                                </div>
+                                              </div>
+                                              <div class="col-md-4">
+                                                <div class="form-group">
+                                                  <label>Nom du gérant</label>
+                                                  <input
+                                                  class="form-control"
+                                                  type="text"
+                                                  placeholder="Nom du gérant"
+                                                  formControlName="nomPrenomGerant"
+                                                    >
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="mb-2 text-primary"><i class="fas fa-asterisk"></i><b> Contact Agence</b></div>
+                                            <div class="row">
+
+                                              <div class="col-md-4">
+                                                <div class="form-group">
+                                                  <label>Mobile</label>
+                                                  <input
+                                                  class="form-control"
+                                                  type="text"
+                                                  placeholder="Mobile"
+                                                  formControlName="mobileAgence"
+                                                    >
+                                                </div>
+                                              </div>
+                                              <div class="col-md-4">
+                                                <div class="form-group">
+                                                  <label>Telephone</label>
+                                                  <input
+                                                  class="form-control"
+                                                  type="text"
+                                                  placeholder="Telephone"
+                                                  formControlName="telAgence"
+                                                    >
+                                                </div>
+                                              </div>
+                                              <div class="col-md-4">
+                                                <div class="form-group">
+                                                  <label>Email</label>
+                                                  <input
+                                                  class="form-control"
+                                                  type="text"
+                                                  placeholder="Email"
+                                                  formControlName="emailAgence"
+                                                    >
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="mb-2 text-primary"><i class="fas fa-asterisk"></i><b> Information complémentaire</b></div>
+                                            <div class="row">
+
+                                              <div class="col-md-4">
+                                                <div class="form-group">
+                                                  <label>Compte contribuable</label>
+                                                  <input
+                                                  class="form-control"
+                                                  type="text"
+                                                  placeholder="Compte contribuable"
+                                                  formControlName="compteContribuable"
+                                                    >
+                                                </div>
+                                              </div>
+                                              <div class="col-md-4">
+                                                <div class="form-group">
+                                                  <label>Regime fiscale</label>
+                                                  <input
+                                                  class="form-control"
+                                                  type="text"
+                                                  placeholder="Regime fiscale"
+                                                  formControlName="regimeFiscaleAgence"
+                                                    >
+                                                </div>
+                                              </div>
+                                              <div class="col-md-4">
+                                                <div class="form-group">
+                                                  <label>Capital</label>
+                                                  <input
+                                                  class="form-control"
+                                                  type="text"
+                                                  placeholder="Capital"
+                                                  formControlName="capital"
+                                                    >
+                                                </div>
+                                              </div>
+                                            </div>
+
+
+
+
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col-12 col-sm-6 mb-3">
+                                            <div class="mb-2 text-primary"><i class="fas fa-asterisk"></i><b> Gestion du Mot de passe</b></div>
+                                            <div class="row">
+                                              <div class="col-sm-6">
+                                                <div class="form-group">
+                                                  <label>Nouveau mot de passe</label>
+                                                  <input
+                                                  class="form-control"
+                                                  type="password"
+                                                  placeholder="••••••"
+                                                  formControlName="motdepasse">
+                                                </div>
+                                              </div>
+                                              <div class="col-sm-6">
+                                                <div class="form-group">
+                                                  <label>Confirmer le mot de passe</label>
+                                                  <input
+                                                  class="form-control"
+                                                  type="password"
+                                                  placeholder="••••••"
+                                                  >
+                                                </div>
+                                              </div>
+                                            </div>
+
+                                          </div>
+                                          <div class="col-12 col-sm-5 offset-sm-1 mb-3">
+                                            <div class="mb-2 text-primary"><i class="fas fa-asterisk"></i><b> Rester connecter</b></div>
+                                            <div class="row">
+                                              <div class="col">
+                                                <label>Utilisateur actif ?</label>
+                                                <div class="custom-controls-stacked px-2">
+                                                  <div class="custom-control custom-checkbox">
+                                                    <input
+                                                    type="checkbox"
+                                                    class="custom-control-input"
+                                                     checked=""
+                                                     formControlName="active">
+                                                    <label class="custom-control-label" for="notifications-blog">
+                                                      Actif
+                                                    </label>
+                                                  </div>
+                                                  <!-- <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                      id="notifications-news" checked="">
+                                                    <label class="custom-control-label"
+                                                      for="notifications-news">Newsletter</label>
+                                                  </div> -->
+
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                          <div class="col d-flex justify-content-end">
+                                            <!-- <button class="btn btn-primary mr-2"  id="closeEditUserModalButton" type="submit">
+                                              <i class="fas fa-ban"></i>
+                                              Annuler
+                                            </button> -->
+                                            <button
+                                            type="button"
+                                            class="btn btn-primary mr-2"
+                                            data-dismiss="modal"
+                                            id="closeAgenceButton">
+                                            <i class="fas fa-ban"></i>
+                                            Close
+                                          </button>
+                                            <button
+                                            class="btn btn-primary"
+                                            type="submit"
+                                            [disabled]="!agenceRegisterForm.valid"
+                                            >
+                                              <i class="fas fa-save"></i>
+                                              Enregistrer
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </form>
+
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+
+
+
+
+
     </div>
-  </div>
-</div>
-</div>
-</div>
-
-</div>
-</div>
-</div>
- </form>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-
-
-
-
-
-</div>
 
   </div>
   <div class="row mb-3">
     <div class=" col-md-12 text-center">
-        <app-pagination></app-pagination>
+      <app-pagination></app-pagination>
     </div>
   </div>
 
 </div>
-
-
-
-
-
