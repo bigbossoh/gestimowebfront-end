@@ -85,6 +85,7 @@ import { BailAppartementEffects } from './ngrx/bail-appartement/bailappartement.
 import { bailAppartementReducer } from './ngrx/bail-appartement/bailappartement.reducer';
 import { bailStudioReducer } from './ngrx/bail-studio/bailvilla.reducer';
 import { BailStudioEffects } from './ngrx/bail-studio/bailstudio.effects';
+import { PageNewSiteComponent } from './pages/site/page-new-site/page-new-site.component';
 
 @NgModule({
   declarations: [
@@ -128,7 +129,8 @@ import { BailStudioEffects } from './ngrx/bail-studio/bailstudio.effects';
     PagePaiementComponent,
     ActionButtonBienComponent,
     BouttonActionBauxComponent,
-    PageBauxNewComponent
+    PageBauxNewComponent,
+    PageNewSiteComponent
   ],
   imports: [
     FormsModule,

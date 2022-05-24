@@ -11,7 +11,7 @@
   <div class="col-md-4">
     <div class="row">
       <div class="col-md-7 text-right">
-        <span>Bonjour,&nbsp;xxxxxxxxxxxxxxxxxx</span>
+        <span>Bonjour,&nbsp;{{user?.nom}} &nbsp;{{user?.prenom}}</span>
       </div>
       <div class="col-md-5 ">
         <!-- <a href="javascript:void(0);" [routerLink]="['/profil']">
@@ -20,7 +20,7 @@
         <div class="btn-group ">
           <button type="button" class="btn btn-secondary btn-sm dropdown-toggle"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span>{{connectedUser.nom}}&nbsp;{{connectedUser.prenom}}</span>
+          <!-- <span>{{user?.nom}} &nbsp;{{user?.prenom}}</span> -->
           </button>
           <div class="dropdown-menu ">
             <a class="dropdown-item" href="javascript:void(0);" [routerLink]="['/profil']"
