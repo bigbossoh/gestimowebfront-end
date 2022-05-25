@@ -1,8 +1,9 @@
 /* tslint:disable */
-export interface CommuneDto {
+import { VilleDto } from './ville-dto';
+export interface CommuneResponseDto {
   id?: number;
   idAgence?: number;
   abrvCommune?: string;
   nomCommune?: string;
-  idVille?: number;
+  villeDto?: VilleDto;
 }

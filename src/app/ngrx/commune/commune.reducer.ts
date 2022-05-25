@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { BienImmobilierDto, CommuneDto, EtageDto, ImmeubleDto } from 'src/gs-api/src/models';
+import { BienImmobilierDto, CommuneRequestDto, EtageDto, ImmeubleDto } from 'src/gs-api/src/models';
 import {
   CommunesActions,
   CommunesActionsTypes,
@@ -15,7 +15,7 @@ export enum CommunesStateEnum {
 
 }
 export interface CommunesState {
-  communes: CommuneDto[];
+  communes: CommuneRequestDto[];
   errorMessage: string;
   dataState: CommunesStateEnum;
 }
