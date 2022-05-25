@@ -2,7 +2,7 @@
 
 import { Action } from '@ngrx/store';
 
-import { CommuneDto } from 'src/gs-api/src/models';
+import { CommuneRequestDto } from 'src/gs-api/src/models';
 
 //STORE
 export enum CommunesActionsTypes {

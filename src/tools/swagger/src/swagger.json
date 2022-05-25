@@ -715,7 +715,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/CommuneDto"
+                "$ref" : "#/definitions/CommuneRequestDto"
               }
             }
           }
@@ -756,7 +756,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/CommuneDto"
+              "$ref" : "#/definitions/CommuneRequestDto"
             }
           }
         }
@@ -778,7 +778,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/CommuneDto"
+                "$ref" : "#/definitions/CommuneRequestDto"
               }
             }
           }
@@ -798,7 +798,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/CommuneDto"
+              "$ref" : "#/definitions/CommuneRequestDto"
             }
           }
         }
@@ -812,14 +812,14 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/CommuneDto"
+            "$ref" : "#/definitions/CommuneRequestDto"
           }
         } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/CommuneDto"
+              "$ref" : "#/definitions/CommuneRequestDto"
             }
           }
         }
@@ -1335,7 +1335,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/QuartierDto"
+                "$ref" : "#/definitions/QuartierRequestDto"
               }
             }
           }
@@ -1376,7 +1376,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/QuartierDto"
+              "$ref" : "#/definitions/QuartierRequestDto"
             }
           }
         }
@@ -1398,7 +1398,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/QuartierDto"
+                "$ref" : "#/definitions/QuartierRequestDto"
               }
             }
           }
@@ -1418,7 +1418,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/QuartierDto"
+              "$ref" : "#/definitions/QuartierRequestDto"
             }
           }
         }
@@ -1432,14 +1432,14 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/QuartierDto"
+            "$ref" : "#/definitions/QuartierRequestDto"
           }
         } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/QuartierDto"
+              "$ref" : "#/definitions/QuartierRequestDto"
             }
           }
         }
@@ -2840,7 +2840,7 @@
         }
       }
     },
-    "CommuneDto" : {
+    "CommuneRequestDto" : {
       "type" : "object",
       "properties" : {
         "id" : {
@@ -2860,6 +2860,28 @@
         "idVille" : {
           "type" : "integer",
           "format" : "int64"
+        }
+      }
+    },
+    "CommuneResponseDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrvCommune" : {
+          "type" : "string"
+        },
+        "nomCommune" : {
+          "type" : "string"
+        },
+        "villeDto" : {
+          "$ref" : "#/definitions/VilleDto"
         }
       }
     },
@@ -3131,10 +3153,10 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "occupied" : {
+        "garrage" : {
           "type" : "boolean"
         },
-        "garrage" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -3575,7 +3597,7 @@
         }
       }
     },
-    "QuartierDto" : {
+    "QuartierRequestDto" : {
       "type" : "object",
       "properties" : {
         "id" : {
@@ -3591,6 +3613,28 @@
         "idCommune" : {
           "type" : "integer",
           "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "QuartierResponseDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrvQuartier" : {
+          "type" : "string"
+        },
+        "nomQuartier" : {
+          "type" : "string"
+        },
+        "communeResponseDto" : {
+          "$ref" : "#/definitions/CommuneResponseDto"
         },
         "idAgence" : {
           "type" : "integer",
@@ -3720,9 +3764,8 @@
         "nomSite" : {
           "type" : "string"
         },
-        "idQuartier" : {
-          "type" : "integer",
-          "format" : "int64"
+        "quartierResponseDto" : {
+          "$ref" : "#/definitions/QuartierResponseDto"
         }
       }
     },
