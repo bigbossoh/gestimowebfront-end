@@ -4,7 +4,7 @@
       <h1>Liste des baux</h1>
     </div>
     <div class="col-md-4 text-right">
-      <app-boutton-action-baux></app-boutton-action-baux>
+      <app-boutton-action-baux (bauxEmmitter)="onActionEmmit($event)"></app-boutton-action-baux>
     </div>
   </div>
   <div class="col">
@@ -54,146 +54,65 @@
       </div>
     </div>
     <hr style="margin-top: 0" />
-    <!-- main content -->
-    <div class="tab-content" id="myTabContent">
-      <!-- user table -->
-      <div class="tab-pane fade show active" id="users">
-        <table class="table table-hover m-3 p-3">
-          <thead class="table-borderless">
-            <tr class="text-center mt-3">
-              <th>Code bail</th>
-              <th>Date debut</th>
-              <th>Date fin/th></th>
-              <th>Last Name</th>
-              <th>Montant loyer</th>
-              <th>Montant caution</th>
-              <th>Bail en cours</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="text-center">
-              <td>
-                <img
-                  height="40"
-                  width="40"
-                  src="assets/nassmam.jpg"
-                  class="rounded-circle img-fluid img-thumbnail"
-                  alt=""
-                />
-              </td>
-              <td>I2547185</td>
-              <td>zrango</td>
-              <td>nasaire</td>
-              <td>+2250103833350</td>
-              <td>zrangonazaire@gmail.com</td>
-              <td>
-                <span>Active</span>
-              </td>
-              <td class="">
-                <div class="btn-group">
-                  <button class="btn btn-outline-info">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="btn btn-outline-danger">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <td>
-                <img
-                  height="40"
-                  width="40"
-                  src="assets/zolo.jpg"
-                  class="rounded-circle img-fluid img-thumbnail"
-                  alt=""
-                />
-              </td>
-              <td>I2547185</td>
-              <td>Bossoh</td>
-              <td>Michel</td>
-              <td>+2250777880885</td>
-              <td>michel.bossoh@outlook.fr</td>
-              <td>
-                <span>Active</span>
-              </td>
-              <td class="">
-                <div class="btn-group">
-                  <button class="btn btn-outline-info">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="btn btn-outline-danger">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="text-center">
-              <td>
-                <img
-                  height="40"
-                  width="40"
-                  src="assets/nassmam.jpg"
-                  class="rounded-circle img-fluid img-thumbnail"
-                  alt=""
-                />
-              </td>
-              <td>I2547185</td>
-              <td>zrango</td>
-              <td>nasaire</td>
-              <td>+2250103833350</td>
-              <td>zrangonazaire@gmail.com</td>
-              <td>
-                <span>Active</span>
-              </td>
-              <td class="">
-                <div class="btn-group">
-                  <button class="btn btn-outline-info">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="btn btn-outline-danger">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
-
-            <tr class="text-center">
-              <td>
-                <img
-                  height="40"
-                  width="40"
-                  src="assets/zolo.jpg"
-                  class="rounded-circle img-fluid img-thumbnail"
-                  alt=""
-                />
-              </td>
-              <td>I2547185</td>
-              <td>Bossoh</td>
-              <td>Michel</td>
-              <td>+2250777880885</td>
-              <td>michel.bossoh@outlook.fr</td>
-              <td>
-                <span>Active</span>
-              </td>
-              <td class="">
-                <div class="btn-group">
-                  <button class="btn btn-outline-info">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="btn btn-outline-danger">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <ng-container
+      *ngIf="bauxState$ | async as state"
+      [ngSwitch]="state.dataState"
+    >
+      <ng-container *ngSwitchCase="BauxStateEnum.ERROR">
+        <div class="p-2">Erreur : {{ state.errorMessage }}</div>
+      </ng-container>
+      <ng-container *ngSwitchCase="BauxStateEnum.LOADING">
+        <div class="p-2">Chargement des données...</div>
+      </ng-container>
+      <ng-container *ngSwitchCase="BauxStateEnum.LOADED">
+        <!-- main content -->
+        <div class="tab-content" id="myTabContent">
+          <!-- user table -->
+          <div class="tab-pane fade show active" id="users">
+            <table class="table table-hover m-3 p-3">
+              <thead class="table-borderless">
+                <tr class="text-center mt-3">
+                  <th>Code bail</th>
+                  <th>Date debut</th>
+                  <th>Date fin</th>
+                  <th>Bien immobilier</th>
+                  <th>Montant loyer</th>
+                  <th>Montant caution</th>
+                  <th>Bail en cours</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="text-center" *ngFor="let bail of state.baux">
+                  <td>{{ bail.id }}</td>
+                  <td>{{ bail.dateDebut }}</td>
+                  <td>{{ bail.dateFin }}</td>
+                  <td>{{ bail.bienImmobilierOperation }}</td>
+                  <td>
+                    {{ bail.montantCautionBail }}
+                  </td>
+                  <td>{{ bail.montantCautionBail }}</td>
+                  <td>
+                    <span *ngIf="bail.archiveBail">Archivé</span>
+                    <span *ngIf="!bail.archiveBail">Actif</span>
+                  </td>
+                  <td class="">
+                    <div class="btn-group">
+                      <button class="btn btn-outline-info">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-outline-danger">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
   </div>
   <div class="row mb-3">
     <div class="col-md-12 text-center">

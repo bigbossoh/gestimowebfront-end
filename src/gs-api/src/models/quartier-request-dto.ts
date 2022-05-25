@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface QuartierDto {
+export interface QuartierRequestDto {
   id?: number;
   abrvQuartier?: string;
   nomQuartier?: string;
