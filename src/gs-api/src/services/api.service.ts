@@ -19,14 +19,14 @@ import { BailMagasinDto } from '../models/bail-magasin-dto';
 import { BailStudioDto } from '../models/bail-studio-dto';
 import { BailVillaDto } from '../models/bail-villa-dto';
 import { BienImmobilierDto } from '../models/bien-immobilier-dto';
-import { CommuneDto } from '../models/commune-dto';
+import { CommuneRequestDto } from '../models/commune-request-dto';
 import { EspeceEncaissementDto } from '../models/espece-encaissement-dto';
 import { EtageDto } from '../models/etage-dto';
 import { ImmeubleDto } from '../models/immeuble-dto';
 import { MagasinResponseDto } from '../models/magasin-response-dto';
 import { MagasinDto } from '../models/magasin-dto';
 import { PaysDto } from '../models/pays-dto';
-import { QuartierDto } from '../models/quartier-dto';
+import { QuartierRequestDto } from '../models/quartier-request-dto';
 import { SiteResponseDto } from '../models/site-response-dto';
 import { SiteRequestDto } from '../models/site-request-dto';
 import { StudioDto } from '../models/studio-dto';
@@ -1422,7 +1422,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAllCommuneResponse(): __Observable<__StrictHttpResponse<Array<CommuneDto>>> {
+  findAllCommuneResponse(): __Observable<__StrictHttpResponse<Array<CommuneRequestDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1439,16 +1439,16 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<CommuneDto>>;
+        return _r as __StrictHttpResponse<Array<CommuneRequestDto>>;
       })
     );
   }
   /**
    * @return successful operation
    */
-  findAllCommune(): __Observable<Array<CommuneDto>> {
+  findAllCommune(): __Observable<Array<CommuneRequestDto>> {
     return this.findAllCommuneResponse().pipe(
-      __map(_r => _r.body as Array<CommuneDto>)
+      __map(_r => _r.body as Array<CommuneRequestDto>)
     );
   }
 
@@ -1492,7 +1492,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findCommuneByIDResponse(id: number): __Observable<__StrictHttpResponse<CommuneDto>> {
+  findCommuneByIDResponse(id: number): __Observable<__StrictHttpResponse<CommuneRequestDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1510,7 +1510,7 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<CommuneDto>;
+        return _r as __StrictHttpResponse<CommuneRequestDto>;
       })
     );
   }
@@ -1518,9 +1518,9 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findCommuneByID(id: number): __Observable<CommuneDto> {
+  findCommuneByID(id: number): __Observable<CommuneRequestDto> {
     return this.findCommuneByIDResponse(id).pipe(
-      __map(_r => _r.body as CommuneDto)
+      __map(_r => _r.body as CommuneRequestDto)
     );
   }
 
@@ -1528,7 +1528,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findCommuneByIdPaysResponse(id: number): __Observable<__StrictHttpResponse<Array<CommuneDto>>> {
+  findCommuneByIdPaysResponse(id: number): __Observable<__StrictHttpResponse<Array<CommuneRequestDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1546,7 +1546,7 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<CommuneDto>>;
+        return _r as __StrictHttpResponse<Array<CommuneRequestDto>>;
       })
     );
   }
@@ -1554,9 +1554,9 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findCommuneByIdPays(id: number): __Observable<Array<CommuneDto>> {
+  findCommuneByIdPays(id: number): __Observable<Array<CommuneRequestDto>> {
     return this.findCommuneByIdPaysResponse(id).pipe(
-      __map(_r => _r.body as Array<CommuneDto>)
+      __map(_r => _r.body as Array<CommuneRequestDto>)
     );
   }
 
@@ -1564,7 +1564,7 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findCommuneByNameResponse(name: string): __Observable<__StrictHttpResponse<CommuneDto>> {
+  findCommuneByNameResponse(name: string): __Observable<__StrictHttpResponse<CommuneRequestDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1582,7 +1582,7 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<CommuneDto>;
+        return _r as __StrictHttpResponse<CommuneRequestDto>;
       })
     );
   }
@@ -1590,9 +1590,9 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findCommuneByName(name: string): __Observable<CommuneDto> {
+  findCommuneByName(name: string): __Observable<CommuneRequestDto> {
     return this.findCommuneByNameResponse(name).pipe(
-      __map(_r => _r.body as CommuneDto)
+      __map(_r => _r.body as CommuneRequestDto)
     );
   }
 
@@ -1600,7 +1600,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveCommuneResponse(body?: CommuneDto): __Observable<__StrictHttpResponse<CommuneDto>> {
+  saveCommuneResponse(body?: CommuneRequestDto): __Observable<__StrictHttpResponse<CommuneRequestDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1618,7 +1618,7 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<CommuneDto>;
+        return _r as __StrictHttpResponse<CommuneRequestDto>;
       })
     );
   }
@@ -1626,9 +1626,9 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveCommune(body?: CommuneDto): __Observable<CommuneDto> {
+  saveCommune(body?: CommuneRequestDto): __Observable<CommuneRequestDto> {
     return this.saveCommuneResponse(body).pipe(
-      __map(_r => _r.body as CommuneDto)
+      __map(_r => _r.body as CommuneRequestDto)
     );
   }
 
@@ -2523,7 +2523,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAllQuartiersResponse(): __Observable<__StrictHttpResponse<Array<QuartierDto>>> {
+  findAllQuartiersResponse(): __Observable<__StrictHttpResponse<Array<QuartierRequestDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2540,16 +2540,16 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<QuartierDto>>;
+        return _r as __StrictHttpResponse<Array<QuartierRequestDto>>;
       })
     );
   }
   /**
    * @return successful operation
    */
-  findAllQuartiers(): __Observable<Array<QuartierDto>> {
+  findAllQuartiers(): __Observable<Array<QuartierRequestDto>> {
     return this.findAllQuartiersResponse().pipe(
-      __map(_r => _r.body as Array<QuartierDto>)
+      __map(_r => _r.body as Array<QuartierRequestDto>)
     );
   }
 
@@ -2593,7 +2593,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIDQuartiersResponse(id: number): __Observable<__StrictHttpResponse<QuartierDto>> {
+  findByIDQuartiersResponse(id: number): __Observable<__StrictHttpResponse<QuartierRequestDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2611,7 +2611,7 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<QuartierDto>;
+        return _r as __StrictHttpResponse<QuartierRequestDto>;
       })
     );
   }
@@ -2619,9 +2619,9 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIDQuartiers(id: number): __Observable<QuartierDto> {
+  findByIDQuartiers(id: number): __Observable<QuartierRequestDto> {
     return this.findByIDQuartiersResponse(id).pipe(
-      __map(_r => _r.body as QuartierDto)
+      __map(_r => _r.body as QuartierRequestDto)
     );
   }
 
@@ -2629,7 +2629,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findAllQuartierByIdCommuneResponse(id: number): __Observable<__StrictHttpResponse<Array<QuartierDto>>> {
+  findAllQuartierByIdCommuneResponse(id: number): __Observable<__StrictHttpResponse<Array<QuartierRequestDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2647,7 +2647,7 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<QuartierDto>>;
+        return _r as __StrictHttpResponse<Array<QuartierRequestDto>>;
       })
     );
   }
@@ -2655,9 +2655,9 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findAllQuartierByIdCommune(id: number): __Observable<Array<QuartierDto>> {
+  findAllQuartierByIdCommune(id: number): __Observable<Array<QuartierRequestDto>> {
     return this.findAllQuartierByIdCommuneResponse(id).pipe(
-      __map(_r => _r.body as Array<QuartierDto>)
+      __map(_r => _r.body as Array<QuartierRequestDto>)
     );
   }
 
@@ -2665,7 +2665,7 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByNameQuartierResponse(name: string): __Observable<__StrictHttpResponse<QuartierDto>> {
+  findByNameQuartierResponse(name: string): __Observable<__StrictHttpResponse<QuartierRequestDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2683,7 +2683,7 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<QuartierDto>;
+        return _r as __StrictHttpResponse<QuartierRequestDto>;
       })
     );
   }
@@ -2691,9 +2691,9 @@ class ApiService extends __BaseService {
    * @param name undefined
    * @return successful operation
    */
-  findByNameQuartier(name: string): __Observable<QuartierDto> {
+  findByNameQuartier(name: string): __Observable<QuartierRequestDto> {
     return this.findByNameQuartierResponse(name).pipe(
-      __map(_r => _r.body as QuartierDto)
+      __map(_r => _r.body as QuartierRequestDto)
     );
   }
 
@@ -2701,7 +2701,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveQuartierResponse(body?: QuartierDto): __Observable<__StrictHttpResponse<QuartierDto>> {
+  saveQuartierResponse(body?: QuartierRequestDto): __Observable<__StrictHttpResponse<QuartierRequestDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2719,7 +2719,7 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<QuartierDto>;
+        return _r as __StrictHttpResponse<QuartierRequestDto>;
       })
     );
   }
@@ -2727,9 +2727,9 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveQuartier(body?: QuartierDto): __Observable<QuartierDto> {
+  saveQuartier(body?: QuartierRequestDto): __Observable<QuartierRequestDto> {
     return this.saveQuartierResponse(body).pipe(
-      __map(_r => _r.body as QuartierDto)
+      __map(_r => _r.body as QuartierRequestDto)
     );
   }
 
