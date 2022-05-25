@@ -7,6 +7,8 @@ import { SiteState, SiteStateEnum } from 'src/app/ngrx/site/site.reducer';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PageNewSiteComponent } from '../page-new-site/page-new-site.component';
+import { SiteResponseDto } from 'src/gs-api/src/models';
+
 
 
 @Component({
@@ -15,7 +17,9 @@ import { PageNewSiteComponent } from '../page-new-site/page-new-site.component';
   styleUrls: ['./page-site.component.css']
 })
 export class PageSiteComponent implements OnInit {
-
+  totalLigne:number=0;
+  counter:Observable<SiteResponseDto[]> | null=null;
+  page:number=1;
 
   siteState$: Observable<SiteState> | null = null;
 
@@ -28,6 +32,9 @@ export class PageSiteComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(new GetAllSitesActions({}));
     this.siteState$ = this.store.pipe(map((state) => state.siteState));
+    this.counter=this.store.select('sites')
+    console.log("liste des sites ",this.counter);
+
   }
   nouveauSite():void{
     // this.router.navigate(['nouvellesociete']);

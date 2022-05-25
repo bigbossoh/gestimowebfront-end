@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { ApiService } from 'src/gs-api/src/services';
 
 @Component({
   selector: 'app-page-new-site',
@@ -10,12 +11,13 @@ export class PageNewSiteComponent implements OnInit {
 
   siteRegisterForm!:FormGroup;
 
-  constructor( ) { }
+  constructor(private apiService:ApiService ) { }
 
   ngOnInit(): void {
   }
 
   public findAllVille():void{
+    
   //   this.bienService.findAll()
   // .subscribe(listBien=>{
   //   this.listeBienDto=listBien;
