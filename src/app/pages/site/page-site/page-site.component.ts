@@ -32,7 +32,7 @@ export class PageSiteComponent implements OnInit {
   nouveauSite():void{
     // this.router.navigate(['nouvellesociete']);
     const dialolRef = this.dialog.open(PageNewSiteComponent, {
-       width: '1200px',
+       width: '800px',
     });
 
   }
