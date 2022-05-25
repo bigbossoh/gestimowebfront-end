@@ -6,7 +6,7 @@ import { SiteResponseDto } from 'src/gs-api/src/models';
 
 //STORE
 export enum SiteActionsTypes {
-  GET_ALL_SITES = '[SiteResponseDto] Get All Sites',
+  GET_ALL_SITES = '[SiteResponseDto] Get All Sites ?',
   GET_ALL_SITES_SUCCES = '[SiteResponseDto] Get All Sites Succes',
   GET_ALL_SITES_ERROR = '[SiteResponseDto] Get All Sites Error',
 }
