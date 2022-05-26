@@ -88,6 +88,8 @@ import { BailStudioEffects } from './ngrx/bail-studio/bailstudio.effects';
 import { PageNewSiteComponent } from './pages/site/page-new-site/page-new-site.component';
 import { bauxReducer } from './ngrx/baux/baux.reducer';
 import { BauxEffects } from './ngrx/baux/baux.effects';
+import { AppelLoyerEffects } from './ngrx/appelloyer/appelloyer.effects';
+import { appelLoyerReducer } from './ngrx/appelloyer/appelloyer.reducer';
 
 @NgModule({
   declarations: [
@@ -160,14 +162,15 @@ import { BauxEffects } from './ngrx/baux/baux.effects';
       bailvillaState: bailvillaReducer,
       bailAppartementState: bailAppartementReducer,
       bailStudioState: bailStudioReducer,
-      bauxState: bauxReducer
+      bauxState: bauxReducer,
+      appelLoyerState: appelLoyerReducer
 
     }),
     EffectsModule.forRoot([StudioEffects, BienEffects, EtageEffects,
       SiteEffects, UtilisateurEffects, ImmeubleEffects,
       AppartementEffects, MagasinEffects, VillaEffects,
       VilleEffects, Communeffects, BailVillaEffects, BailMagasinEffects,
-      BailAppartementEffects, BailStudioEffects, BauxEffects]),
+      BailAppartementEffects, BailStudioEffects, BauxEffects, AppelLoyerEffects]),
 
     StoreDevtoolsModule.instrument(),
     BrowserAnimationsModule,
