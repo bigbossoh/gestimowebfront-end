@@ -10,6 +10,7 @@ import { map as __map, filter as __filter } from 'rxjs/operators';
 import { AgenceResponseDto } from '../models/agence-response-dto';
 import { AgenceRequestDto } from '../models/agence-request-dto';
 import { AppartementDto } from '../models/appartement-dto';
+import { AppelLoyerDto } from '../models/appel-loyer-dto';
 import { AppelLoyerRequestDto } from '../models/appel-loyer-request-dto';
 import { Utilisateur } from '../models/utilisateur';
 import { AuthRequestDto } from '../models/auth-request-dto';
@@ -25,6 +26,7 @@ import { EtageDto } from '../models/etage-dto';
 import { ImmeubleDto } from '../models/immeuble-dto';
 import { MagasinResponseDto } from '../models/magasin-response-dto';
 import { MagasinDto } from '../models/magasin-dto';
+import { MontantLoyerBailDto } from '../models/montant-loyer-bail-dto';
 import { PaysDto } from '../models/pays-dto';
 import { QuartierRequestDto } from '../models/quartier-request-dto';
 import { SiteResponseDto } from '../models/site-response-dto';
@@ -48,6 +50,7 @@ class ApiService extends __BaseService {
   static readonly findByIdEtageAppartementPath = 'gestimoweb/api/v1/appartement/findByIdEtage/{id}';
   static readonly findByNameAppartementPath = 'gestimoweb/api/v1/appartement/findByName/{name}';
   static readonly saveAppartementPath = 'gestimoweb/api/v1/appartement/save';
+  static readonly listDesLoyersParBailPath = 'gestimoweb/api/v1/appelloyer/findAppelsByBail/{id}';
   static readonly saveAppelLoyersPath = 'gestimoweb/api/v1/appelloyer/save';
   static readonly verifyAccountPath = 'gestimoweb/api/v1/auth/accountVerification/{token}';
   static readonly loginPath = 'gestimoweb/api/v1/auth/login';
@@ -98,6 +101,7 @@ class ApiService extends __BaseService {
   static readonly findByNameMagasinDtoPath = 'gestimoweb/api/v1/magasin/findByName/{name}';
   static readonly findByIDMagasinPath = 'gestimoweb/api/v1/magasin/findmagasinById/{id}';
   static readonly saveMagasinPath = 'gestimoweb/api/v1/magasin/save';
+  static readonly findByIDQuartiersPath = 'gestimoweb/api/v1/montantloyerbail/findMontantByBail/{id}';
   static readonly findAllPaysPath = 'gestimoweb/api/v1/pays/all';
   static readonly deletePaysPath = 'gestimoweb/api/v1/pays/delete/{id}';
   static readonly findPaysByIDPath = 'gestimoweb/api/v1/pays/findById/{id}';
@@ -106,7 +110,7 @@ class ApiService extends __BaseService {
   static readonly sampleQuitancePath = 'gestimoweb/api/v1/print/quittance/{id}';
   static readonly findAllQuartiersPath = 'gestimoweb/api/v1/quartier/all';
   static readonly deleteQuartierPath = 'gestimoweb/api/v1/quartier/delete/{id}';
-  static readonly findByIDQuartiersPath = 'gestimoweb/api/v1/quartier/findById/{id}';
+  static readonly findByIDQuartiers_1Path = 'gestimoweb/api/v1/quartier/findById/{id}';
   static readonly findAllQuartierByIdCommunePath = 'gestimoweb/api/v1/quartier/findByIdCommune/{id}';
   static readonly findByNameQuartierPath = 'gestimoweb/api/v1/quartier/findByName/{name}';
   static readonly saveQuartierPath = 'gestimoweb/api/v1/quartier/save';
@@ -534,6 +538,42 @@ class ApiService extends __BaseService {
   saveAppartement(body?: AppartementDto): __Observable<AppartementDto> {
     return this.saveAppartementResponse(body).pipe(
       __map(_r => _r.body as AppartementDto)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  listDesLoyersParBailResponse(id: number): __Observable<__StrictHttpResponse<Array<AppelLoyerDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/findAppelsByBail/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<AppelLoyerDto>>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  listDesLoyersParBail(id: number): __Observable<Array<AppelLoyerDto>> {
+    return this.listDesLoyersParBailResponse(id).pipe(
+      __map(_r => _r.body as Array<AppelLoyerDto>)
     );
   }
 
@@ -2308,6 +2348,42 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findByIDQuartiersResponse(id: number): __Observable<__StrictHttpResponse<Array<MontantLoyerBailDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/montantloyerbail/findMontantByBail/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<MontantLoyerBailDto>>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findByIDQuartiers(id: number): __Observable<Array<MontantLoyerBailDto>> {
+    return this.findByIDQuartiersResponse(id).pipe(
+      __map(_r => _r.body as Array<MontantLoyerBailDto>)
+    );
+  }
+
+  /**
    * @return successful operation
    */
   findAllPaysResponse(): __Observable<__StrictHttpResponse<Array<PaysDto>>> {
@@ -2593,7 +2669,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIDQuartiersResponse(id: number): __Observable<__StrictHttpResponse<QuartierRequestDto>> {
+  findByIDQuartiers_1Response(id: number): __Observable<__StrictHttpResponse<QuartierRequestDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2619,8 +2695,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIDQuartiers(id: number): __Observable<QuartierRequestDto> {
-    return this.findByIDQuartiersResponse(id).pipe(
+  findByIDQuartiers_1(id: number): __Observable<QuartierRequestDto> {
+    return this.findByIDQuartiers_1Response(id).pipe(
       __map(_r => _r.body as QuartierRequestDto)
     );
   }
