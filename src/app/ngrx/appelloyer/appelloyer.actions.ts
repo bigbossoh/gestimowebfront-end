@@ -2,7 +2,7 @@
 
 import { Action } from '@ngrx/store';
 
-import { AppelLoyer } from 'src/gs-api/src/models';
+import { AppelLoyer, AppelLoyerDto } from 'src/gs-api/src/models';
 
 //STORE
 export enum AppelLoyerctionsTypes {
@@ -24,7 +24,7 @@ export class GetAllAppelLoyerActions implements Action {
 export class GetAllAppelLoyerActionsSuccess implements Action {
   type: AppelLoyerctionsTypes =
     AppelLoyerctionsTypes.GET_ALL_APPELLOYER_SUCCES;
-  constructor(public payload: AppelLoyer[]) { }
+  constructor(public payload: AppelLoyerDto[]) { }
 }
 export class GetAllAppelLoyerActionsError implements Action {
   type: AppelLoyerctionsTypes =
