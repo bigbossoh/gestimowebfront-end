@@ -6,6 +6,7 @@ export interface OperationDto {
   lastModifiedDate?: number;
   dateDebut?: string;
   dateFin?: string;
+  utilisateurOperation?: string;
   bienImmobilierOperation?: string;
   designationBail?: string;
   abrvCodeBail?: string;
