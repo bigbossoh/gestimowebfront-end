@@ -226,6 +226,29 @@
         }
       }
     },
+    "gestimoweb/api/v1/appelloyer/findAppelsByBail/{id}" : {
+      "get" : {
+        "operationId" : "listDesLoyersParBail",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AppelLoyerDto"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/appelloyer/save" : {
       "post" : {
         "operationId" : "saveAppelLoyers",
@@ -1201,6 +1224,29 @@
             "description" : "successful operation",
             "schema" : {
               "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/montantloyerbail/findMontantByBail/{id}" : {
+      "get" : {
+        "operationId" : "findByIDQuartiers",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/MontantLoyerBailDto"
+              }
             }
           }
         }
@@ -2337,6 +2383,63 @@
         }
       }
     },
+    "AppelLoyerDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "periodeAppelLoyer" : {
+          "type" : "string"
+        },
+        "statusAppelLoyer" : {
+          "type" : "string"
+        },
+        "datePaiementPrevuAppelLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateDebutMoisAppelLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateFinMoisAppelLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "anneeAppelLoyer" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "moisChiffreAppelLoyer" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "descAppelLoyer" : {
+          "type" : "string"
+        },
+        "soldeAppelLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "montantBailLPeriode" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "bailLocationAppelLoyer" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "solderAppelLoyer" : {
+          "type" : "boolean"
+        }
+      }
+    },
     "AppelLoyerRequestDto" : {
       "type" : "object",
       "properties" : {
@@ -3153,10 +3256,10 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "garrage" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "garrage" : {
           "type" : "boolean"
         }
       }
@@ -3406,6 +3509,50 @@
         }
       }
     },
+    "MontantLoyerBailDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "ancienMontantLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nouveauMontantLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "debutLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "finLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "statusLoyer" : {
+          "type" : "boolean"
+        },
+        "tauxLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "montantAugmentation" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "bailLocation" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
     "Operation" : {
       "type" : "object",
       "properties" : {
@@ -3479,6 +3626,9 @@
         "dateFin" : {
           "type" : "string",
           "format" : "date"
+        },
+        "utilisateurOperation" : {
+          "type" : "string"
         },
         "bienImmobilierOperation" : {
           "type" : "string"
