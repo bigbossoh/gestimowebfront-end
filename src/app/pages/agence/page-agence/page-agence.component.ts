@@ -5,7 +5,7 @@ import { AgenceRequestDto } from '../../../../gs-api/src/models/agence-request-d
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
 import { HttpErrorResponse } from '@angular/common/http';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, RequiredValidator, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 
@@ -35,18 +35,18 @@ export class PageAgenceComponent implements OnInit {
     this.agenceRegisterForm=this.fb.group({
       id: [''],
   idAgence: [''],
-  nomAgence: [''],
+  nomAgence: ['',[Validators.required]],
   telAgence: [''],
   compteContribuable: [''],
   capital: [''],
-  emailAgence: [''],
-  mobileAgence: [''],
+  emailAgence: ['',[Validators.required]],
+  mobileAgence: ['',[Validators.required]],
   regimeFiscaleAgence: [''],
   faxAgence: [''],
   sigleAgence: [''],
   idUtilisateurCreateur: [''],
    motdepasse: [''],
-   nomPrenomGerant: [''],
+   nomPrenomGerant: ['',[Validators.required]],
     active: [true]
     })
 
@@ -82,7 +82,7 @@ export class PageAgenceComponent implements OnInit {
     }
     )
 
-   console.log("this is cool ",this.agenceRegisterForm.value);
+  // console.log("this is cool ",this.agenceRegisterForm.value);
      this.subscriptions.push(
        this.agenceService.onPostAgence(this.agenceRegisterForm.value).subscribe(
          (response: any) => {
