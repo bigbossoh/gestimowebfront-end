@@ -40,7 +40,7 @@
               <th>Photo</th>
               <th>ID</th>
               <th>Nom</th>
-              <th>Prénoms</th>
+              <th>rôle</th>
               <th>Login</th>
               <th>Email</th>
               <th>Status</th>
@@ -55,7 +55,7 @@
               </td>
               <td (click)="onSelectUser(appUser)">{{appUser.utilisateurIdApp}}</td>
               <td (click)="onSelectUser(appUser)">{{appUser.nom}}</td>
-              <td (click)="onSelectUser(appUser)">{{appUser.prenom}}</td>
+              <td (click)="onSelectUser(appUser)">{{appUser.roleUsed?.substring(appUser.roleUsed!.indexOf('_') + 1)}}</td>
               <td (click)="onSelectUser(appUser)">{{appUser.username}}</td>
               <td (click)="onSelectUser(appUser)">{{appUser.email}}</td>
               <td>

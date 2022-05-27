@@ -24,7 +24,8 @@ import {
 import { SaveVillaActions } from 'src/app/ngrx/villa/villa.action';
 import { VillaState, VillaStateEnum } from 'src/app/ngrx/villa/villa.reducer';
 import { NotificationService } from 'src/app/services/notification/notification.service';
-import { AppartementDto, ImmeubleDto, MagasinDto, SiteResponseDto, StudioDto, VillaDto } from 'src/gs-api/src/models';
+import { UserService } from 'src/app/services/user/user.service';
+import { AppartementDto, ImmeubleDto, MagasinDto, SiteResponseDto, StudioDto, UtilisateurRequestDto, VillaDto } from 'src/gs-api/src/models';
 
 @Component({
   selector: 'app-page-bien-immobilier-new',
@@ -55,7 +56,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
   siteState$: Observable<SiteState> | null = null;
   utilisateurState$: Observable<UtilisteurState> | null = null;
   villaState$: Observable<VillaState> | null = null;
-
+  public user?:UtilisateurRequestDto;
 
   readonly VillaStateEnum = VillaStateEnum;
   readonly MagasinStateEnum = MagasinStateEnum;
@@ -68,7 +69,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
 
 
   @Output() eventEmitter: EventEmitter<any> = new EventEmitter();
-  constructor(private store: Store<any>, private fb: FormBuilder, private notificationService: NotificationService) {
+  constructor(private store: Store<any>, private fb: FormBuilder,private userService:UserService, private notificationService: NotificationService) {
     this.listTypeBiens = [
       'Appartement',
       'Etage',
@@ -140,6 +141,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
     }
   }
   onSaveVilla() {
+    console.log("les valuers de la villa ",this.villaForm?.value);
 
     this.store.dispatch(new SaveVillaActions(this.villaForm?.value))
     this.villaState$ = this.store.pipe(map((state) => state.villaState))
@@ -162,8 +164,10 @@ export class PageBienImmobilierNewComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+
     this.store.dispatch(new GetAllSitesActions({}));
     this.siteState$ = this.store.pipe(map((state) => state.siteState));
+    this.user = this.userService.getUserFromLocalCache();
 
     this.store.dispatch(new GetAllProprietairesActions({}));
     this.utilisateurState$ = this.store.pipe(
@@ -176,7 +180,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
 
     this.villaForm = this.fb.group({
       id: [0],
-      idAgence: [0],
+      idAgence: [this.user?.idAgence],
       nbrChambreVilla: [0],
       nbrePiece: [0],
       nbrSalonVilla: [0],
@@ -199,7 +203,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.immeubleForm = this.fb.group({
       id: [0],
       numBien: [0],
-      idAgence: [0],
+      idAgence: [this.user?.idAgence],
       statutBien: [""],
       denominationBien: [""],
       nomBien: [""],
@@ -217,7 +221,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
     })
     this.magasinForm = this.fb.group({
       id: [0],
-      idAgence: [0],
+      idAgence: [this.user?.idAgence],
       numBien: [0],
       statutBien: [''],
       abrvBienimmobilier: ['MAGASIN'],
@@ -269,7 +273,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
       idTypeBien: [0],
       //VILLA
       id: [0],
-      idAgence: [0],
+      idAgence: [this.user?.idAgence],
       nbrChambreVilla: [0],
       nbrePiece: [0],
       nbrSalonVilla: [],

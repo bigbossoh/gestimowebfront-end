@@ -38,7 +38,7 @@ export class PageListeUtilisateursComponent implements OnInit , OnDestroy {
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
     this.getUsers(true);
-    
+
     // this.registerForm=new FormGroup({
     //   genre: new FormControl(),
     //   nom: new FormControl(),

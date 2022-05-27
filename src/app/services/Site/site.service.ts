@@ -12,6 +12,15 @@ export class SiteService {
   public getAllSites():Observable<Array<any> | HttpErrorResponse>{
     return this.apiService.findAllSites();
   }
+  // public getAllVilles():Observable<Array<any> | HttpErrorResponse>{
+  //   return this.apiService.findAllVilles();
+  // }
+  public getAll():Observable<Array<any> | HttpErrorResponse>{
+    return this.apiService.findAllVilles();
+  }
+  public getAllVilles():Observable<Array<any> | HttpErrorResponse>{
+    return this.apiService.findAllVilles();
+  }
   // public onPostSite(any):Observable<any>{
   //   return this.apiService.authenticateAgence(agenceDto);
   // }

@@ -23,6 +23,8 @@ import { UtilisteurState, UtilisteurStateEnum } from 'src/app/ngrx/utulisateur/u
 import { GetAllVillaActions } from 'src/app/ngrx/villa/villa.action';
 import { VillaState, VillaStateEnum } from 'src/app/ngrx/villa/villa.reducer';
 import { NotificationService } from 'src/app/services/notification/notification.service';
+import { UserService } from 'src/app/services/user/user.service';
+import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 
 @Component({
   selector: 'app-page-baux-new',
@@ -36,6 +38,7 @@ export class PageBauxNewComponent implements OnInit {
   bailMagainForm?: FormGroup;
   bailStudioForm?: FormGroup;
   bailAppartementForm?: FormGroup;
+  public user?:UtilisateurRequestDto;
 
   utilisateurState$: Observable<UtilisteurState> | null = null;
   villaState$: Observable<VillaState> | null = null;
@@ -57,7 +60,7 @@ export class PageBauxNewComponent implements OnInit {
 
   ngSelectTypeContrat = "Bail";
   listTypeContrat: string[] = [];
-  constructor(private fb: FormBuilder, private store: Store<any>, private notificationService: NotificationService) {
+  constructor(private fb: FormBuilder, private store: Store<any>,  private userService:UserService, private notificationService: NotificationService) {
     this.listTypeContrat = [
       'Bail Appartement',
       'Bail Magasin',
@@ -113,6 +116,7 @@ export class PageBauxNewComponent implements OnInit {
   }
   //SAVE BAIL VILLA
   onSaveBailVilla() {
+  console.log(this.bailvillaForm?.value);
 
     this.store.dispatch(new SaveBailVillaActions(this.bailvillaForm?.value))
     this.bailvillaState$ = this.store.pipe(map((state) => state.bailvillaState))
@@ -125,6 +129,7 @@ export class PageBauxNewComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+    this.user = this.userService.getUserFromLocalCache();
     //GET ALL STUDIO
     this.store.dispatch(new GetAllStudioActions({}));
     this.studioState$ = this.store.pipe(
@@ -157,7 +162,7 @@ export class PageBauxNewComponent implements OnInit {
     //FORM POUR BAIL STUDIO
     this.bailStudioForm = this.fb.group({
       id: [0],
-      idAgence: [1],
+      idAgence: [this.user?.idAgence],
       designationBail: [""],
       abrvCodeBail: ['BAIL-STUDIO'],
       enCoursBail: [true],
@@ -173,7 +178,7 @@ export class PageBauxNewComponent implements OnInit {
     //FORM POUR APPARTEMENT
     this.bailAppartementForm = this.fb.group({
       id: [0],
-      idAgence: [1],
+      idAgence: [this.user?.idAgence],
       designationBail: [""],
       abrvCodeBail: ['BAIL-APPARTEMENT'],
       enCoursBail: [true],
@@ -189,7 +194,7 @@ export class PageBauxNewComponent implements OnInit {
     //FORM POUR BAIL VILLA
     this.bailvillaForm = this.fb.group({
       id: [0],
-      idAgence: [1],
+      idAgence: [this.user?.idAgence],
       designationBail: [""],
       abrvCodeBail: ['BAIL-VILLA'],
       enCoursBail: [true],
@@ -205,7 +210,7 @@ export class PageBauxNewComponent implements OnInit {
     //FORM BAIL POUR MAGASIN
     this.bailMagainForm = this.fb.group({
       id: [0],
-      idAgence: [1],
+      idAgence: [this.user?.idAgence],
       designationBail: [""],
       abrvCodeBail: ['BAIL-MAGASIN'],
       enCoursBail: [true],
