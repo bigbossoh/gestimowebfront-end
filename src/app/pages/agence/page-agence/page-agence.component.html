@@ -86,11 +86,11 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title text-center">Nouvelle Agence</h5>
-              <div>
+              <!-- <div>
                 <pre>
                   <pre>{{agenceRegisterForm.value |json}}</pre>
                 </pre>
-              </div>
+              </div> -->
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -126,7 +126,18 @@
                                                   type="text"
                                                   placeholder="Nom Agence"
                                                   formControlName="nomAgence"
+                                                  required
+                                                  [ngClass]="{
+                                                    'is-invalid':agenceRegisterForm.get('nomAgence')?.touched
+                                                    &&
+                                                    !agenceRegisterForm.get('nomAgence')?.valid
+                                                  }"
                                                     >
+                                                    <div class="invalid-feedback">
+                                                      <span *ngIf="agenceRegisterForm.get('nomAgence')?.errors?.required">
+                                                        Entrez le nom de l'agence
+                                                      </span>
+                                                    </div>
                                                 </div>
                                               </div>
                                               <div class="col-md-4">
@@ -148,7 +159,18 @@
                                                   type="text"
                                                   placeholder="Nom du gérant"
                                                   formControlName="nomPrenomGerant"
+                                                  required
+                                                  [ngClass]="{
+                                                    'is-invalid':agenceRegisterForm.get('nomPrenomGerant')?.touched
+                                                    &&
+                                                    !agenceRegisterForm.get('nomPrenomGerant')?.valid
+                                                  }"
                                                     >
+                                                    <div class="invalid-feedback">
+                                                      <span *ngIf="agenceRegisterForm.get('mobileAgence')?.errors?.required">
+                                                        Entrez le nom du gérant
+                                                      </span>
+                                                    </div>
                                                 </div>
                                               </div>
                                             </div>
@@ -163,7 +185,19 @@
                                                   type="text"
                                                   placeholder="Mobile"
                                                   formControlName="mobileAgence"
+                                                  required
+
+                                                  [ngClass]="{
+                                                    'is-invalid':agenceRegisterForm.get('mobileAgence')?.touched
+                                                    &&
+                                                    !agenceRegisterForm.get('mobileAgence')?.valid
+                                                  }"
                                                     >
+                                                    <div class="invalid-feedback">
+                                                      <span *ngIf="agenceRegisterForm.get('mobileAgence')?.errors?.required">
+                                                        Entrez un mobile
+                                                      </span>
+                                                    </div>
                                                 </div>
                                               </div>
                                               <div class="col-md-4">
@@ -185,7 +219,19 @@
                                                   type="text"
                                                   placeholder="Email"
                                                   formControlName="emailAgence"
+                                                  required
+                                                  email
+                                                  [ngClass]="{
+                                                    'is-invalid':agenceRegisterForm.get('emailAgence')?.touched
+                                                    &&
+                                                    !agenceRegisterForm.get('emailAgence')?.valid
+                                                  }"
                                                     >
+                                                    <div class="invalid-feedback">
+                                                      <span *ngIf="agenceRegisterForm.get('emailAgence')?.errors?.required">
+                                                        Entrez un mobile
+                                                      </span>
+                                                    </div>
                                                 </div>
                                               </div>
                                             </div>
@@ -242,8 +288,21 @@
                                                   <input
                                                   class="form-control"
                                                   type="password"
-                                                  placeholder="••••••"
-                                                  formControlName="motdepasse">
+                                                  placeholder="•"
+                                                  formControlName="motdepasse"
+                                                  required
+
+                                                  [ngClass]="{
+                                                    'is-invalid':agenceRegisterForm.get('motdepasse')?.touched
+                                                    &&
+                                                    !agenceRegisterForm.get('motdepasse')?.valid
+                                                  }"
+                                                    >
+                                                    <div class="invalid-feedback">
+                                                      <span *ngIf="agenceRegisterForm.get('motdepasse')?.errors?.required">
+                                                        Entrez un mobile
+                                                      </span>
+                                                    </div>
                                                 </div>
                                               </div>
                                               <div class="col-sm-6">
@@ -252,8 +311,13 @@
                                                   <input
                                                   class="form-control"
                                                   type="password"
-                                                  placeholder="••••••"
-                                                  >
+                                                  placeholder="•"
+                                                   >
+                                                    <!-- <div class="invalid-feedback">
+                                                      <span *ngIf="agenceRegisterForm.get('emailAgence')?.errors?.required">
+                                                        Entrez un mobile
+                                                      </span>
+                                                    </div> -->
                                                 </div>
                                               </div>
                                             </div>

@@ -6,22 +6,15 @@
     <div class="col-xl-4">
       <!-- Profile picture card-->
       <div class="card mb-4 mb-xl-0">
-        <div class="card-header">Profile Picture</div>
+        <div class="card-header">Image d'illustration</div>
         <div class="card-body text-center">
           <!-- Profile picture image-->
           <img
             class="img-account-profile rounded-circle mb-2"
-            src="http://bootdey.com/img/Content/avatar/avatar1.png"
-            alt=""
+            src="assets/contrat.jpg" width="120px" height="120px"
+            alt="contrat"
           />
-          <!-- Profile picture help block-->
-          <div class="small font-italic text-muted mb-4">
-            JPG or PNG no larger than 5 MB
-          </div>
-          <!-- Profile picture upload button-->
-          <button class="btn btn-primary" type="button">
-            Upload new image
-          </button>
+
         </div>
       </div>
     </div>
@@ -39,7 +32,7 @@
                 [(ngModel)]="ngSelectTypeContrat"
                 formControlName="idTypeContrat"
                 name="idTypeContrat"
-                class="form-select form-select-lg mb-1"
+                class="form-control"
               >
                 <option [value]="20000">Sélection un Type de Bien</option>
                 <option [value]="biens" *ngFor="let biens of listTypeContrat">
@@ -91,7 +84,7 @@
                       formControlName="idUtilisateur"
                       name="idUtilisateur"
                       id="username"
-                      class="form-select form-select-lg mb3"
+                      class="form-control"
                     >
                       <option [value]="0">Sélection un Locataire</option>
                       <option
@@ -127,7 +120,7 @@
                       <select
                         formControlName="idVilla"
                         name="idVilla"
-                        class="form-select form-select-lg mb3"
+                        class="form-control"
                       >
                         <option
                           [value]="villa.id"

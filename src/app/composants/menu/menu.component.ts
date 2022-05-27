@@ -107,12 +107,12 @@ export class MenuComponent implements OnInit {
     icon: 'fas fa-city',
     url: '',
     sousMenu: [
-      {
-        id: '41',
-        titre: "biens par site",
-        icon: '',
-        url: 'bien-par-site'
-      },
+      // {
+      //   id: '41',
+      //   titre: "biens par site",
+      //   icon: '',
+      //   url: 'bien-par-site'
+      // },
       {
         id: '42',
         titre: "biens immobiliers",
