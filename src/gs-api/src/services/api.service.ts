@@ -21,6 +21,7 @@ import { BailStudioDto } from '../models/bail-studio-dto';
 import { BailVillaDto } from '../models/bail-villa-dto';
 import { BienImmobilierDto } from '../models/bien-immobilier-dto';
 import { CommuneRequestDto } from '../models/commune-request-dto';
+import { CommuneResponseDto } from '../models/commune-response-dto';
 import { EspeceEncaissementDto } from '../models/espece-encaissement-dto';
 import { EtageDto } from '../models/etage-dto';
 import { ImmeubleDto } from '../models/immeuble-dto';
@@ -50,7 +51,7 @@ class ApiService extends __BaseService {
   static readonly findByIdEtageAppartementPath = 'gestimoweb/api/v1/appartement/findByIdEtage/{id}';
   static readonly findByNameAppartementPath = 'gestimoweb/api/v1/appartement/findByName/{name}';
   static readonly saveAppartementPath = 'gestimoweb/api/v1/appartement/save';
-  static readonly listDesLoyersParBailPath = 'gestimoweb/api/v1/appelloyer/findAppelsByBail/{id}';
+  static readonly listDesLoyersParBailPath = 'gestimoweb/api/v1/appelloyer/findAppelsByIdBail/{id}';
   static readonly saveAppelLoyersPath = 'gestimoweb/api/v1/appelloyer/save';
   static readonly verifyAccountPath = 'gestimoweb/api/v1/auth/accountVerification/{token}';
   static readonly loginPath = 'gestimoweb/api/v1/auth/login';
@@ -552,7 +553,7 @@ class ApiService extends __BaseService {
 
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/appelloyer/findAppelsByBail/${id}`,
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/findAppelsByIdBail/${id}`,
       __body,
       {
         headers: __headers,
@@ -1568,7 +1569,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findCommuneByIdPaysResponse(id: number): __Observable<__StrictHttpResponse<Array<CommuneRequestDto>>> {
+  findCommuneByIdPaysResponse(id: number): __Observable<__StrictHttpResponse<Array<CommuneResponseDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1586,7 +1587,7 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<CommuneRequestDto>>;
+        return _r as __StrictHttpResponse<Array<CommuneResponseDto>>;
       })
     );
   }
@@ -1594,9 +1595,9 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findCommuneByIdPays(id: number): __Observable<Array<CommuneRequestDto>> {
+  findCommuneByIdPays(id: number): __Observable<Array<CommuneResponseDto>> {
     return this.findCommuneByIdPaysResponse(id).pipe(
-      __map(_r => _r.body as Array<CommuneRequestDto>)
+      __map(_r => _r.body as Array<CommuneResponseDto>)
     );
   }
 
