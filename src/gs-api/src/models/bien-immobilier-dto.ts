@@ -9,6 +9,6 @@ export interface BienImmobilierDto {
   superficieBien?: number;
   site?: string;
   utilisateur?: string;
-  archived?: boolean;
   occupied?: boolean;
+  archived?: boolean;
 }
