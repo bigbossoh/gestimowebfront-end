@@ -13,7 +13,7 @@ export interface MagasinResponseDto {
   nmbrPieceMagasin?: number;
   nomMagasin?: string;
   utilisateur?: Utilisateur;
-  archived?: boolean;
   occupied?: boolean;
+  archived?: boolean;
   underBuildingMagasin?: boolean;
 }

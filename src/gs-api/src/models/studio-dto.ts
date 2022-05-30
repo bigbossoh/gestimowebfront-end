@@ -15,6 +15,6 @@ export interface StudioDto {
   idSite?: number;
   idEtage?: number;
   idUtilisateur?: number;
-  archived?: boolean;
   occupied?: boolean;
+  archived?: boolean;
 }

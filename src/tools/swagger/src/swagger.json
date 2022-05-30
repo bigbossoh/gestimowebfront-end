@@ -226,7 +226,7 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/findAppelsByBail/{id}" : {
+    "gestimoweb/api/v1/appelloyer/findAppelsByIdBail/{id}" : {
       "get" : {
         "operationId" : "listDesLoyersParBail",
         "parameters" : [ {
@@ -801,7 +801,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/CommuneRequestDto"
+                "$ref" : "#/definitions/CommuneResponseDto"
               }
             }
           }
@@ -2798,10 +2798,10 @@
         "utilisateur" : {
           "type" : "string"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -2851,10 +2851,10 @@
         "utilisateur" : {
           "$ref" : "#/definitions/Utilisateur"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -3191,10 +3191,10 @@
         "garrage" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -3256,10 +3256,10 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "occupied" : {
+        "garrage" : {
           "type" : "boolean"
         },
-        "garrage" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -3331,10 +3331,10 @@
         "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -3392,10 +3392,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         },
         "underBuildingMagasin" : {
@@ -3447,10 +3447,10 @@
         "utilisateur" : {
           "$ref" : "#/definitions/Utilisateur"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         },
         "underBuildingMagasin" : {
@@ -4053,10 +4053,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -4381,10 +4381,10 @@
             "$ref" : "#/definitions/Operation"
           }
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -4457,10 +4457,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
