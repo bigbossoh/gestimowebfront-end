@@ -1,21 +1,39 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
 import { SaveAppartementActions } from 'src/app/ngrx/appartement/appartement.actions';
-import { AppartementState, AppartementStateEnum } from 'src/app/ngrx/appartement/appartement.reducer';
-import { GetAllEtagesByImmeubleActions, SaveEtageActions } from 'src/app/ngrx/etage/etage.actions';
+import {
+  AppartementState,
+  AppartementStateEnum,
+} from 'src/app/ngrx/appartement/appartement.reducer';
+import {
+  GetAllEtagesByImmeubleActions,
+  SaveEtageActions,
+} from 'src/app/ngrx/etage/etage.actions';
 import { EtagesState, EtagesStateEnum } from 'src/app/ngrx/etage/etage.reducer';
-import { GetAllImmeublesActions, SaveImmeublesActions } from 'src/app/ngrx/immeuble/immeuble.actions';
-import { ImmeubleState, ImmeubleStateEnum } from 'src/app/ngrx/immeuble/immeuble.reducer';
+import {
+  GetAllImmeublesActions,
+  SaveImmeublesActions,
+} from 'src/app/ngrx/immeuble/immeuble.actions';
+import {
+  ImmeubleState,
+  ImmeubleStateEnum,
+} from 'src/app/ngrx/immeuble/immeuble.reducer';
 import { SaveMagasinActions } from 'src/app/ngrx/magasin/magasin.actions';
-import { MagasinState, MagasinStateEnum } from 'src/app/ngrx/magasin/magasin.reducer';
+import {
+  MagasinState,
+  MagasinStateEnum,
+} from 'src/app/ngrx/magasin/magasin.reducer';
 import { GetAllSitesActions } from 'src/app/ngrx/site/site.actions';
 import { SiteState, SiteStateEnum } from 'src/app/ngrx/site/site.reducer';
 import { SaveStudioActions } from 'src/app/ngrx/studio/studio.actions';
-import { StudioState, StudioStateEnum } from 'src/app/ngrx/studio/studio.reducer';
+import {
+  StudioState,
+  StudioStateEnum,
+} from 'src/app/ngrx/studio/studio.reducer';
 import { GetAllProprietairesActions } from 'src/app/ngrx/utulisateur/utilisateur.actions';
 import {
   UtilisteurState,
@@ -25,7 +43,15 @@ import { SaveVillaActions } from 'src/app/ngrx/villa/villa.action';
 import { VillaState, VillaStateEnum } from 'src/app/ngrx/villa/villa.reducer';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { UserService } from 'src/app/services/user/user.service';
-import { AppartementDto, ImmeubleDto, MagasinDto, SiteResponseDto, StudioDto, UtilisateurRequestDto, VillaDto } from 'src/gs-api/src/models';
+import {
+  AppartementDto,
+  ImmeubleDto,
+  MagasinDto,
+  SiteResponseDto,
+  StudioDto,
+  UtilisateurRequestDto,
+  VillaDto,
+} from 'src/gs-api/src/models';
 
 @Component({
   selector: 'app-page-bien-immobilier-new',
@@ -42,7 +68,6 @@ export class PageBienImmobilierNewComponent implements OnInit {
   immeubleForm?: FormGroup;
   villaForm?: FormGroup;
 
-
   ngselecttypeBien = '20000';
   ngIelecttypeImm = 0;
 
@@ -56,7 +81,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
   siteState$: Observable<SiteState> | null = null;
   utilisateurState$: Observable<UtilisteurState> | null = null;
   villaState$: Observable<VillaState> | null = null;
-  public user?:UtilisateurRequestDto;
+  public user?: UtilisateurRequestDto;
 
   readonly VillaStateEnum = VillaStateEnum;
   readonly MagasinStateEnum = MagasinStateEnum;
@@ -67,9 +92,14 @@ export class PageBienImmobilierNewComponent implements OnInit {
   readonly UtilisteurStateEnum = UtilisteurStateEnum;
   readonly SiteStateEnum = SiteStateEnum;
 
-
   @Output() eventEmitter: EventEmitter<any> = new EventEmitter();
-  constructor(private store: Store<any>, private fb: FormBuilder,private userService:UserService, private notificationService: NotificationService) {
+  submitted: boolean = false;
+  constructor(
+    private store: Store<any>,
+    private fb: FormBuilder,
+    private userService: UserService,
+    private notificationService: NotificationService
+  ) {
     this.listTypeBiens = [
       'Appartement',
       'Etage',
@@ -77,94 +107,122 @@ export class PageBienImmobilierNewComponent implements OnInit {
       'Magasin',
       'Studio',
       'Villa',
-
     ];
   }
   findEtageByImmeuble(immeuble: any) {
-    this.store.dispatch(new GetAllEtagesByImmeubleActions(immeuble.target.value));
-    this.etageState$ = this.store.pipe(map((state) => state.etageByImmeubeState),)
-
+    this.store.dispatch(
+      new GetAllEtagesByImmeubleActions(immeuble.target.value)
+    );
+    this.etageState$ = this.store.pipe(
+      map((state) => state.etageByImmeubeState)
+    );
   }
-  private sendErrorNotification(notificationType: NotificationType, message: string): void {
+  private sendErrorNotification(
+    notificationType: NotificationType,
+    message: string
+  ): void {
     if (message) {
       this.notificationService.notify(notificationType, message);
     } else {
-      this.notificationService.notify(notificationType, 'An error occurred. Please try again.');
+      this.notificationService.notify(
+        notificationType,
+        'An error occurred. Please try again.'
+      );
     }
   }
   onSaveStudio() {
-
-    this.store.dispatch(new SaveStudioActions(this.studioform?.value))
-    this.studioState$ = this.store.pipe(map((state) => state.studioState))
+    this.store.dispatch(new SaveStudioActions(this.studioform?.value));
+    this.studioState$ = this.store.pipe(map((state) => state.studioState));
     console.warn(this.studioState$);
 
     if (this.studioState$) {
-      this.sendErrorNotification(NotificationType.SUCCESS, 'Enregistrement réussi')
+      this.sendErrorNotification(
+        NotificationType.SUCCESS,
+        'Enregistrement réussi'
+      );
     } else {
-      this.sendErrorNotification(NotificationType.ERROR, 'Echec')
+      this.sendErrorNotification(NotificationType.ERROR, 'Echec');
     }
   }
   onSaveMagasin() {
-
-    this.store.dispatch(new SaveMagasinActions(this.magasinForm?.value))
-    this.magasinState$ = this.store.pipe(map((state) => state.magasinState))
+    this.store.dispatch(new SaveMagasinActions(this.magasinForm?.value));
+    this.magasinState$ = this.store.pipe(map((state) => state.magasinState));
     console.warn(this.magasinState$);
 
     if (this.etageState$) {
-      this.sendErrorNotification(NotificationType.SUCCESS, 'Enregistrement réussi')
+      this.sendErrorNotification(
+        NotificationType.SUCCESS,
+        'Enregistrement réussi'
+      );
     } else {
-      this.sendErrorNotification(NotificationType.ERROR, 'Echec')
+      this.sendErrorNotification(NotificationType.ERROR, 'Echec');
     }
   }
   onSaveAppartement() {
-
-    this.store.dispatch(new SaveAppartementActions(this.appartementForm?.value))
-    this.appartementState$ = this.store.pipe(map((state) => state.appartementState))
-
+    this.submitted = true;
+    if (this.appartementForm?.invalid) {
+      return;
+    }
+    this.store.dispatch(
+      new SaveAppartementActions(this.appartementForm?.value)
+    );
+    this.appartementState$ = this.store.pipe(
+      map((state) => state.appartementState)
+    );
 
     if (this.appartementState$) {
-      this.sendErrorNotification(NotificationType.SUCCESS, 'Enregistrement réussi')
+      this.sendErrorNotification(
+        NotificationType.SUCCESS,
+        'Enregistrement réussi'
+      );
     } else {
-      this.sendErrorNotification(NotificationType.ERROR, 'Echec')
+      this.sendErrorNotification(NotificationType.ERROR, 'Echec');
     }
   }
   onSaveEtage() {
-
-    this.store.dispatch(new SaveEtageActions(this.etageForm?.value))
-    this.etageState$ = this.store.pipe(map((state) => state.etageByImmeubeState))
+    this.store.dispatch(new SaveEtageActions(this.etageForm?.value));
+    this.etageState$ = this.store.pipe(
+      map((state) => state.etageByImmeubeState)
+    );
     console.warn(this.etageState$);
 
     if (this.etageState$) {
-      this.sendErrorNotification(NotificationType.SUCCESS, 'Enregistrement réussi')
+      this.sendErrorNotification(
+        NotificationType.SUCCESS,
+        'Enregistrement réussi'
+      );
     } else {
-      this.sendErrorNotification(NotificationType.ERROR, 'Echec')
+      this.sendErrorNotification(NotificationType.ERROR, 'Echec');
     }
   }
   onSaveVilla() {
-    console.log("les valuers de la villa ",this.villaForm?.value);
+    console.log('les valuers de la villa ', this.villaForm?.value);
 
-    this.store.dispatch(new SaveVillaActions(this.villaForm?.value))
-    this.villaState$ = this.store.pipe(map((state) => state.villaState))
+    this.store.dispatch(new SaveVillaActions(this.villaForm?.value));
+    this.villaState$ = this.store.pipe(map((state) => state.villaState));
     if (this.villaState$) {
-      this.sendErrorNotification(NotificationType.SUCCESS, 'Enregistrement réussi')
+      this.sendErrorNotification(
+        NotificationType.SUCCESS,
+        'Enregistrement réussi'
+      );
     } else {
-      this.sendErrorNotification(NotificationType.ERROR, 'Echec')
+      this.sendErrorNotification(NotificationType.ERROR, 'Echec');
     }
   }
   onSaveImmeuble() {
-
-    this.store.dispatch(new SaveImmeublesActions(this.immeubleForm?.value))
-    this.immeubleState$ = this.store.pipe(map((state) => state.immeubleState))
-
+    this.store.dispatch(new SaveImmeublesActions(this.immeubleForm?.value));
+    this.immeubleState$ = this.store.pipe(map((state) => state.immeubleState));
 
     if (this.immeubleState$) {
-      this.sendErrorNotification(NotificationType.SUCCESS, 'Enregistrement réussi')
+      this.sendErrorNotification(
+        NotificationType.SUCCESS,
+        'Enregistrement réussi'
+      );
     } else {
-      this.sendErrorNotification(NotificationType.ERROR, 'Echec')
+      this.sendErrorNotification(NotificationType.ERROR, 'Echec');
     }
   }
   ngOnInit(): void {
-
     this.store.dispatch(new GetAllSitesActions({}));
     this.siteState$ = this.store.pipe(map((state) => state.siteState));
     this.user = this.userService.getUserFromLocalCache();
@@ -185,40 +243,40 @@ export class PageBienImmobilierNewComponent implements OnInit {
       nbrePiece: [0],
       nbrSalonVilla: [0],
       nbrSalleEauVilla: [0],
-      nomVilla: [""],
-      abrvVilla: ["VILLA"],
+      nomVilla: [''],
+      abrvVilla: ['VILLA'],
       garageVilla: [false],
       nbreVoitureGarageVilla: [0],
       numBien: [0],
-      statutBien: [""],
-      abrvBienimmobilier: ["VILLA"],
-      description: [""],
-      nomBien: [""],
+      statutBien: [''],
+      abrvBienimmobilier: ['VILLA'],
+      description: [''],
+      nomBien: [''],
       superficieBien: [0],
       idSite: [0],
       idUtilisateur: [0],
       occupied: [false],
-      archived: [false]
-    })
+      archived: [false],
+    });
     this.immeubleForm = this.fb.group({
       id: [0],
       numBien: [0],
       idAgence: [this.user?.idAgence],
-      statutBien: [""],
-      denominationBien: [""],
-      nomBien: [""],
-      etatBien: [""],
+      statutBien: [''],
+      denominationBien: [''],
+      nomBien: [''],
+      etatBien: [''],
       superficieBien: [0],
       idSite: [0],
       idUtilisateur: [0],
       nbrEtage: [0],
       nbrePieceImmeuble: [0],
-      abrvNomImmeuble: ["IMMEUBLE"],
-      descriptionImmeuble: [""],
+      abrvNomImmeuble: ['IMMEUBLE'],
+      descriptionImmeuble: [''],
       numeroImmeuble: [0],
       occupied: [false],
-      garrage: [false]
-    })
+      garrage: [false],
+    });
     this.magasinForm = this.fb.group({
       id: [0],
       idAgence: [this.user?.idAgence],
@@ -237,20 +295,20 @@ export class PageBienImmobilierNewComponent implements OnInit {
       underBuildingMagasin: [false],
       occupied: [false],
       archived: [false],
-    })
+    });
     this.appartementForm = this.fb.group({
       id: [0],
-      idEtage: [0],
+      idEtage: [0, Validators.required],
       meubleApp: [false],
-      nbrPieceApp: [0],
-      nbreChambreApp: [0],
-      nbrSalonApp: [0],
-      nbreSalleEauApp: [0],
+      nbrPieceApp: [0, Validators.required],
+      nbreChambreApp: [0, Validators.required],
+      nbrSalonApp: [0, Validators.required],
+      nbreSalleEauApp: [0, Validators.required],
       numeroApp: [0],
       abrvNomApp: ['APPART'],
-      nomApp: [''],
+      nomApp: ['', Validators.required],
       residence: [false],
-    })
+    });
     this.studioform = this.fb.group({
       //STUDIO
       id: [0],
@@ -260,7 +318,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
       abrvNomStudio: ['STUDIO'],
       nomStudio: [''],
       idEtage: [0],
-    })
+    });
     this.etageForm = this.fb.group({
       //ETAGE
       id: [0],
@@ -268,7 +326,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
       numEtage: [0],
       idImmeuble: [0],
       abrvEtage: ['ETAGE'],
-    })
+    });
     this.formGroup = this.fb.group({
       idTypeBien: [0],
       //VILLA
@@ -292,7 +350,6 @@ export class PageBienImmobilierNewComponent implements OnInit {
       idUtilisateur: [0],
       occupied: [false],
 
-
       //APPARTEMENT
 
       //MAGASIN
@@ -309,8 +366,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
       abrvNomImmeuble: [''],
       descriptionImmeuble: [''],
       numeroImmeuble: [0],
-      garrage: [false]
-
+      garrage: [false],
     });
   }
 }

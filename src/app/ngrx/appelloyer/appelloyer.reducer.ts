@@ -1,9 +1,7 @@
 import { Action } from '@ngrx/store';
 import { AppelLoyer, OperationDto } from 'src/gs-api/src/models';
-import {
-  AppelLoyerActions,
-  AppelLoyerctionsTypes,
-} from './appelloyer.actions';
+import { AppelLoyerDto } from '../../../gs-api/src/models/appel-loyer-dto';
+import { AppelLoyerActions, AppelLoyerctionsTypes } from './appelloyer.actions';
 export enum AppelLoyerStateEnum {
   LOADING = 'Loading',
   LOADED = 'Loaded',
@@ -11,11 +9,10 @@ export enum AppelLoyerStateEnum {
   INITIAL = 'Initial',
   NEW = 'New',
   EDIT = 'Edit',
-  LOADEDBYIMMEUNLE = 'LoadedByImmeuble'
-
+  LOADEDBYIMMEUNLE = 'LoadedByImmeuble',
 }
 export interface AppelLoyerState {
-  appelloyers: AppelLoyer[];
+  appelloyers: AppelLoyerDto[];
   errorMessage: string;
   dataState: AppelLoyerStateEnum;
 }
@@ -29,8 +26,6 @@ export function appelLoyerReducer(
   action: Action
 ): AppelLoyerState {
   switch (action.type) {
-
-
     // GET ALL APPARTEMENT
     case AppelLoyerctionsTypes.GET_ALL_APPELLOYER:
       return { ...state, dataState: AppelLoyerStateEnum.LOADING };
