@@ -81,8 +81,6 @@ export class PageAgenceComponent implements OnInit {
       idUtilisateurCreateur:this.user?.id
     }
     )
-
-  // console.log("this is cool ",this.agenceRegisterForm.value);
      this.subscriptions.push(
        this.agenceService.onPostAgence(this.agenceRegisterForm.value).subscribe(
          (response: any) => {

@@ -4,7 +4,7 @@
       <h1>Liste des utilisateurs</h1>
     </div>
     <div class="col-md-4 text-right">
-      <app-boutton-action></app-boutton-action>
+      <app-button-action-utlisateur (utilisateurEmmitter)="onActionEmmit($event)" ></app-button-action-utlisateur>
     </div>
 
   </div>
@@ -47,8 +47,12 @@
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody *ngFor="let appUser of users">
-            <tr class="text-center">
+          <tbody >
+            <tr class="text-center" *ngFor="let appUser of users | paginate: {
+              itemsPerPage: 4,
+              currentPage: page,
+              totalItems:totalRecords
+            }">
               <td>
                 <img height="40" width="40" src="assets/nassmam.jpg" class="rounded-circle img-fluid img-thumbnail"
                   alt="" />
@@ -72,6 +76,9 @@
             </tr>
           </tbody>
         </table>
+        <div class=" col-md-12 text-center">
+          <pagination-controls (pageChange)="page = $event"></pagination-controls>
+        </div>
         <!-- End user table -->
       </div>
       <button [hidden]="true" type="button" id="openUserInfo" data-toggle="modal" data-target="#viewUserModal">
@@ -163,175 +170,7 @@
         </div>
         <!-- End modal user info -->
       </div>
-      <!-- model add user -->
-      <div class="modal draggable fade bd-example-modal-xl" id="addUserModal" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title text-center">Nouveau Utilisateur système</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div>
-                 <form #newUserForm="ngForm" (ngSubmit)="onAddNewUser(newUserForm.value)">
-                 <!-- <form  (ngSubmit)="onAddNewUser()" [formGroup]="registerForm">-->
-                  <div class="container">
-                    <div class="row gutters">
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                    <div class="card h-100">
-                      <div class="card-body">
-                        <div class="account-settings">
-                          <div class="user-profile">
-                            <div class="user-avatar">
-                              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="rounded" height="120" width="120" alt="Maxwell Admin">
-                            </div>
-                            <h5 class="user-name">Yuki Hayashi</h5>
-                            <h6 class="user-email">yuki@Maxwell.com</h6>
-                          </div>
-                          <div class="about">
-                            <h5>Role</h5>
-                            <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    </div>
-                    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-                    <div class="card h-100">
-                      <div class="card-body">
-                        <div class="row gutters">
-                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 class="mb-2 text-primary">Information personnelle Details</h6>
-                            <hr>
-                          </div>
-                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                              <label for="authority">Civilité</label>
-                              <select
-                               name="genre"
-                              required
-                              ngModel
-                              class="form-control"
-                              >
-                                <option value="Monsieur">Monsieur</option>
-                                <option value="Madame">Madame</option>
-                                <option value="SUPER_SUPERVISEUR">Mademoiselle</option>
-                              </select>
-                            </div>
-                          </div>
-
-                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                              <label for="firstName">Nom</label>
-                              <input
-                              type="text"
-                              name="nom"
-                              required
-                              ngModel
-                              class="form-control">
-                            </div>
-                          </div>
-                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                              <label for="lastName">Prénoms</label>
-                              <input type="text"
-                              name="prenom"
-                              required
-                              ngModel
-                              class="form-control">
-                            </div>
-                          </div>
-
-                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                              <label for="username">Login</label>
-                              <input
-                              type="text"
-                              name="username"
-                              required
-                              ngModel
-                              class="form-control">
-                            </div>
-                          </div>
-                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                              <label for="password">Mot de passe</label>
-                              <input type="password" name="password" required ngModel class="form-control">
-                            </div>
-                          </div>
-                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                              <label for="password">Confirmer Mot de passe</label>
-                              <input type="password" name="password" required ngModel class="form-control">
-                            </div>
-                          </div>
-                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                              <label for="email">Email</label>
-                              <input type="email" name="email" required ngModel class="form-control">
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row gutters">
-                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <h6 class="mt-3 mb-2 text-primary">Rôles et droits</h6>
-                          </div>
-                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <div class="form-group">
-                              <label for="authority">Rôle</label>
-                              <select name="roleUsed" required ngModel="ROLE_USER" class="form-control">
-                                <option value="GERANT">GERANT</option>
-                                <option value="LOCATAIRE">LOCATAIRE</option>
-                                <option value="PROPRIETAIRE">PROPRIETAIRE</option>
-                                <option value="SUPERVISEUR">SUPERVISEUR</option>
-                                <option value="SUPER_SUPERVISEUR">SUPER_SUPERVISEUR</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                            <fieldset class="form-group">
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input type="checkbox" name="active" ngModel class="form-check-input">
-                                  Utilisateur actif
-                                </label>
-                              </div>
-                            </fieldset>
-                            <fieldset class="form-group">
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input type="checkbox" name="notLocked" ngModel class="form-check-input">
-                                  Utilisateur non bloqué
-                                </label>
-                              </div>
-                            </fieldset>
-                          </div>
-
-                        </div>
-
-                      </div>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                  <button type="submit" style="display: none;" id="new-user-save"></button>
-                </form>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal" id="new-user-close">Close</button>
-               <button type="button" (click)="saveNewUser()" [disabled]="newUserForm.invalid"
-                class="btn btn-primary">Save changes</button>
-                <!-- <button type="button" (click)="saveNewUser()"
-                class="btn btn-primary">Save changes</button> -->
-            </div>
-          </div>
-        </div>
-        <!-- end model add user [ -->
-      </div>
+      <!--  -->
       <div class="modal draggable fade bd-example-modal-lg" id="editUserModal" tabindex="-1"
   role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -417,10 +256,10 @@
     </div>
 
   </div>
-  <div class="row mb-3">
+  <!-- <div class="row mb-3">
     <div class=" col-md-12 text-center">
       <app-pagination></app-pagination>
     </div>
-  </div>
+  </div> -->
 
 </div>
