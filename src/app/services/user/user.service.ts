@@ -70,15 +70,11 @@ export class UserService {
   public getUsers():Observable<any | HttpErrorResponse>{
     return this.apiService.getAllUtilisateursByOrder();
   }
-  public addUser(formData :UtilisateurRequestDto):Observable<boolean | HttpErrorResponse>{
+  public addUser(formData :UtilisateurRequestDto):Observable<any>{
+    console.log("we into the service adduser method", formData);
     return this.apiService.saveUtilisateur(formData);
   }
-  // public resetPassword(email :string):Observable<CustomHttpResponse | HttpErrorResponse>{
-  //   return this.http.get<CustomHttpResponse>(`${this.host}/ums/api/v1/user/reset-password/${email}`);
-  // }
-  // public deleteUser(username :String):Observable<CustomHttpResponse| HttpErrorResponse>{
-  //   return this.http.delete<CustomHttpResponse>(`${this.host}/ums/api/v1/user/${username}`);
-  // }
+
   public addUsersToLocalCache(users:UtilisateurRequestDto[]): void {
     localStorage.setItem('users', JSON.stringify(users));
   }
