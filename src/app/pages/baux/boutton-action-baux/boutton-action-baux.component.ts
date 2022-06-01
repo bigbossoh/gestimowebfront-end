@@ -11,6 +11,7 @@ export class BouttonActionBauxComponent implements OnInit {
 
   @Output() bauxEmmitter: EventEmitter<any> = new EventEmitter();
   constructor(public dialog: MatDialog) { }
+  
   openDialog(): void {
     const dialolRef = this.dialog.open(PageBauxNewComponent, {
 
