@@ -1,0 +1,273 @@
+<form (ngSubmit)="saveNewUser()" [formGroup]="newUserForm">
+  <div class="modal-content">
+
+    <div class="modal-body">
+      <div>
+
+        <div class="row gutters">
+          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+            <div class="card h-100">
+              <div class="card-body text-center">
+                <div class="account-settings">
+                  <div class="user-profile">
+                    <div class="user-avatar">
+                      <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="rounded" height="120"
+                        width="120" alt="Maxwell Admin">
+                    </div>
+                    <h5 class="user-name">{{nomProfil}} {{nomPrenom}}</h5>
+                    <h6 class="user-email"></h6>
+                  </div>
+                  <div class="about">
+                    <h5>Role</h5>
+                    <!-- <div>
+                      <pre>
+                        <pre>{{newUserForm.value |json}}</pre>
+                      </pre>
+                    </div> -->
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+            <div class="card h-100">
+              <div class="card-body">
+
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                      aria-controls="home" aria-selected="true">Information personnelle</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                      aria-controls="profile" aria-selected="false">Information additionelle</a>
+                  </li>
+
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                    <div class="row gutters">
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label for="authority">Rôle</label>
+                          <select name="roleUsed" required formControlName="roleUsed" class="form-control">
+                            <option value="GERANT">GERANT</option>
+                            <option value="LOCATAIRE">LOCATAIRE</option>
+                            <option value="PROPRIETAIRE">PROPRIETAIRE</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label for="authority">Civilité</label>
+                          <select name="genre" required formControlName="genre" class="form-control">
+                            <option value="Monsieur">Monsieur</option>
+                            <option value="Madame">Madame</option>
+                            <option value="Mademoiselle">Mademoiselle</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label for="firstName">Nom</label>
+                          <input type="text" name="nom" [(ngModel)]="nomProfil" formControlName="nom" required
+                            class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label for="lastName">Prénoms</label>
+                          <input type="text" name="prenom" [(ngModel)]="nomPrenom" formControlName="prenom"
+                            ngModel class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label for="username">Login/Mobile</label>
+                          <input type="text" name="username" required formControlName="username" ngModel
+                            class="form-control"
+                            [ngClass]="{
+                              'is-invalid':newUserForm.get('username')?.touched
+                              &&
+                              !newUserForm.get('usernaame')?.valid
+                            }"
+                              >
+                              <div class="invalid-feedback">
+                                <span *ngIf="newUserForm.get('username')?.errors?.required">
+                                  Entrez le numéro de téléphone
+                                </span>
+                                <span *ngIf="newUserForm.get('username')?.errors?.minlength">
+                                  Le numéro de téléphone doit avoir au mininum 9 charactères
+                                </span>
+                                <span *ngIf="newUserForm.get('username')?.errors?.maxlength">
+                                  Le numéro de téléphone doit avoir au maxinim 12 charactères
+                                </span>
+                              </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label for="password">Mot de passe</label>
+                          <input type="password" name="password" required formControlName="password"
+                            class="form-control"
+                            [ngClass]="{
+                              'is-invalid':newUserForm.get('password')?.touched
+                              &&
+                              !newUserForm.get('password')?.valid
+                            }"
+                              >
+                              <div class="invalid-feedback">
+                                <span *ngIf="newUserForm.get('password')?.errors?.required">
+                                  Entrez un mot de passe
+                                </span>
+                              </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label for="repassword">Confirmer Mot de passe</label>
+                          <input type="password" name="repassword" required formControlName="repassword"
+                            class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label for="email">Email</label>
+                          <input type="email"
+                          name="email"
+                          required
+                          formControlName="email"
+                          class="form-control"
+                          [ngClass]="{
+                            'is-invalid':newUserForm.get('email')?.touched
+                            &&
+                            !newUserForm.get('email')?.valid
+                          }"
+                            >
+                            <div class="invalid-feedback">
+                              <span *ngIf="newUserForm.get('email')?.errors?.required">
+                                Entrez un email valid
+                              </span>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <fieldset class="form-group">
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input type="checkbox" name="active" formControlName="active" class="form-check-input">
+                              Utilisateur actif
+                            </label>
+                          </div>
+                        </fieldset>
+                        <fieldset class="form-group">
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input type="checkbox" name="notLocked" formControlName="nonLocked"
+                                class="form-check-input">
+                              Utilisateur non bloqué
+                            </label>
+                          </div>
+                        </fieldset>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="row mt-3">
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label for="password">Type de pièce d'identité:</label>
+                          <select name="typePieceIdentite"  formControlName="typePieceIdentite"
+                            class="form-control">
+                            <option value="CNI">CNI</option>
+                            <option value="PASSPORT">PASSPORT</option>
+                            <option value="ATTESTATION D'IDENTITE">ATTESTATION D'IDENTITE</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label for="email">N° Pièce</label>
+                          <input type="text" name="numeroPieceIdentite"  formControlName="numeroPieceIdentite"
+                            class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label for="dateDeNaissance">Date de naissance</label>
+                          <input type="date" name="dateDeNaissance"  formControlName="dateDeNaissance"
+                            class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label for="lieuNaissance">Lieu de naissance</label>
+                          <input type="lieuNaissance" name="lieuNaissance"  formControlName="lieuNaissance"
+                            class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label for="dateDebutPiece">Date debut</label>
+                          <input type="date" name="dateDebutPiece"  formControlName="dateDebutPiece"
+                            class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label for="dateFinPiece">Date de fin</label>
+                          <input type="date" name="dateFinPiece"  formControlName="dateFinPiece"
+                            class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                          <label for="Nationalité">Nationalité</label>
+                          <select name="nationality" class="form-control" formControlName="nationalité">
+                            <option value="">-- Selectionnez un --</option>
+                            <option value="Ivoirien">Ivoirien</option>
+                            <option value="Français">Français</option>
+                            <option value="Nigérian">Nigérian</option>
+                            <option value="Burkinabé">Burkinabé</option>
+                            <option value="Togolais">Togolais</option>
+                            <option value="Beninois">Beninois</option>
+                          </select>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-footer">
+      <!-- <button type="button" class="btn btn-danger"  data-dismiss="modal" id="closeUserButton"></button>><i class="fas fa-cancel"></i>Close</button> -->
+
+      <button class="btn btn-danger mr-2" mat-button mat-dialog-close><i class="fas fa-ban"></i>
+        Fermer</button>
+      <button type="submit" class="btn btn-primary" mat-button [mat-dialog-close]="true" [disabled]="!newUserForm.valid"><i
+          class="fas fa-save"></i>
+        Enregistrer
+      </button>
+    </div>
+  </div>
+</form>

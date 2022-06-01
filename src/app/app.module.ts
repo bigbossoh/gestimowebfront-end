@@ -90,7 +90,9 @@ import { bauxReducer } from './ngrx/baux/baux.reducer';
 import { BauxEffects } from './ngrx/baux/baux.effects';
 import { AppelLoyerEffects } from './ngrx/appelloyer/appelloyer.effects';
 import { appelLoyerReducer } from './ngrx/appelloyer/appelloyer.reducer';
-
+import { PageNewUtilisateurComponent } from './pages/utilisateurs/page-new-utilisateur/page-new-utilisateur.component';
+import { ButtonActionUtlisateurComponent } from './pages/utilisateurs/button-action-utlisateur/button-action-utlisateur.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -134,7 +136,9 @@ import { appelLoyerReducer } from './ngrx/appelloyer/appelloyer.reducer';
     ActionButtonBienComponent,
     BouttonActionBauxComponent,
     PageBauxNewComponent,
-    PageNewSiteComponent
+    PageNewSiteComponent,
+    PageNewUtilisateurComponent,
+    ButtonActionUtlisateurComponent
   ],
   imports: [
     FormsModule,
@@ -143,6 +147,7 @@ import { appelLoyerReducer } from './ngrx/appelloyer/appelloyer.reducer';
     MatDialogModule,
     AppRoutingModule,
     HttpClientModule,
+    NgxPaginationModule,
     NoticationModule,
     HighchartsChartModule,
     ReactiveFormsModule,
