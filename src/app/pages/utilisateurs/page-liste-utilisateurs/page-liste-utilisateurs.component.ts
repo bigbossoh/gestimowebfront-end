@@ -18,7 +18,7 @@ import { Utilisateur } from '../../../../gs-api/src/models/utilisateur';
 })
 export class PageListeUtilisateursComponent implements OnInit , OnDestroy {
   // public registerForm!: FormGroup;
-  public users?: UtilisateurRequestDto[];
+  public users!: UtilisateurRequestDto[];
   public user?: UtilisateurRequestDto;
   public editUser?: UtilisateurRequestDto;
   public refreshing?: boolean;
@@ -28,6 +28,8 @@ export class PageListeUtilisateursComponent implements OnInit , OnDestroy {
   private subscriptions: Subscription[] = [];
   private currentUsername?: string | null;
   private currentIdUser?: number | null;
+  public totalRecords:number | undefined;
+public page:number=1
 
 
   constructor(private router: Router,
@@ -60,6 +62,7 @@ export class PageListeUtilisateursComponent implements OnInit , OnDestroy {
           (response: any) => {
             this.userService.addUsersToLocalCache(response);
             this.users = response;
+            this.totalRecords=response.length
             this.refreshing = false;
             if (showNotification) {
               this.sendErrorNotification(NotificationType.SUCCESS, `${response.length} utilisateur(s) chargé(s) avec succès.`);
@@ -166,6 +169,10 @@ export class PageListeUtilisateursComponent implements OnInit , OnDestroy {
       } else {
         this.notificationService.notify(notificationType, 'An error occurred. Please try again.');
       }
+    }
+
+    onActionEmmit($event: any) {
+      this.ngOnInit();
     }
 
   ngOnDestroy(): void {
