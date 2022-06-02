@@ -150,22 +150,29 @@
             <div class="mb-3">
               <ng-container *ngIf="utilisateurState$ | async as state" [ngSwitch]="state.dataState">
                 <ng-container *ngSwitchCase="UtilisteurStateEnum.INITIAL">
-                  <div class="p-2">Initialisation des données</div>
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
                 </ng-container>
                 <ng-container *ngSwitchCase="UtilisteurStateEnum.ERROR">
-                  <div class="p-2">
-                    Une erreur est survenue : {{ state.errorMessage }}
+                  <div class="p-2 invalid-feedback">
+                    Une erreur est survenue
                   </div>
                 </ng-container>
                 <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
                   <label class="small mb-1" for="inputUsername">Propriétaire</label>
                   <div class="form-group">
-                    <select formControlName="idUtilisateur" name="idUtilisateur" id="username" class="form-control">
-                      <option [value]="0">Sélection un Propriétaire</option>
+                    <select formControlName="idUtilisateur" name="idUtilisateur" id="username" [(ngModel)]="userVilla"
+                      class="form-control form-control-lg w-auto"
+                      [ngClass]="{'is-invalid':submitted&& (villaForm.controls.idUtilisateur.errors || userVilla=='')}">
+                      <option [value]="">Sélection un Propriétaire</option>
                       <option [value]="utilis.id" *ngFor="let utilis of state.utlisisateurs">
                         {{ utilis.nom }} {{ utilis.prenom }}
                       </option>
                     </select>
+                    <div *ngIf="submitted&& villaForm.controls.idUtilisateur.errors" class="invalid-feedback">
+                      <div *ngIf=" villaForm.controls.idUtilisateur.errors.required">*Champ obligatoire</div>
+                    </div>
                   </div>
                 </ng-container>
               </ng-container>
@@ -173,22 +180,28 @@
             <div class="mb-3">
               <ng-container *ngIf="siteState$ | async as state" [ngSwitch]="state.dataState">
                 <ng-container *ngSwitchCase="SiteStateEnum.INITIAL">
-                  <div class="p-2">Initialisation des données</div>
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
                 </ng-container>
                 <ng-container *ngSwitchCase="SiteStateEnum.ERROR">
-                  <div class="p-2">
-                    Une Erreur est survenue : {{ state.errorMessage }}
+                  <div class="p-2 invalid-feedback">
+                    Une Erreur est survenue
                   </div>
                 </ng-container>
                 <ng-container *ngSwitchCase="SiteStateEnum.LOADED">
                   <label class="small mb-1" for="inputUsername">Site</label>
                   <div class="form-group">
-                    <select formControlName="idSite" name="idSite" class="form-control">
-                      <option [value]="0">Sélection un Site</option>
+                    <select formControlName="idSite" name="idSite" class="form-control form-control-lg w-auto"
+                      [ngClass]="{'is-invalid':submitted&& (villaForm.controls.idSite.errors ||villaForm.controls['idSite'].value=='')}">
+                      <option [value]="">Sélection un Site</option>
                       <option [value]="sit.id" *ngFor="let sit of state.sites">
-                        {{ sit.abrSite }}
+                        {{ sit.nomSite }}
                       </option>
                     </select>
+                    <div *ngIf="submitted&& villaForm.controls.idSite.errors" class="invalid-feedback">
+                      <div *ngIf=" villaForm.controls.idSite.errors.required">*Champ obligatoire</div>
+                    </div>
                   </div>
                 </ng-container>
               </ng-container>
@@ -198,16 +211,21 @@
               <!-- Form Group (organization name)-->
               <div class="col-md-6">
                 <label class="small mb-1" for="inputOrgName">Désignation</label>
-                <input formControlName="nomBien" class="form-control" name="nomVilla" type="text" />
+                <input formControlName="nomVilla" class="form-control" name="nomVilla" type="text"
+                  [ngClass]="{'is-invalid':submitted&& villaForm.controls.nomVilla.errors }" />
+                <div *ngIf="submitted&& villaForm.controls.nomVilla.errors" class="invalid-feedback">
+                  <div *ngIf=" villaForm.controls.nomVilla.errors.required">*Champ obligatoire</div>
+                </div>
               </div>
               <!-- Form Group (location)-->
-              <div class="col-md-6">
+              <!-- <div class="col-md-6">
                 <label class="small mb-1" for="inputLocation">Statut</label>
                 <input formControlName="statutBien" class="form-control" name="inputLocation" type="text" />
-              </div>
+              </div> -->
               <div class="col-md-6">
                 <label class="small mb-1" for="inputOrgName">Description</label>
-                <input formControlName="description" class="form-control" name="description" type="text" />
+                <textarea rows="3" formControlName="description" class="form-control" name="description"
+                  type="text"></textarea>
               </div>
               <!-- Form Group (location)-->
               <div class="col-md-6">
@@ -259,15 +277,19 @@
               <div class="col-md-6">
                 <ng-container *ngIf="immeubleState$ | async as state" [ngSwitch]="state.dataState">
                   <ng-container *ngSwitchCase="ImmeubleStateEnum.INITIAL">
-                    <div class="p-2">Initialisation des données</div>
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
                   </ng-container>
                   <ng-container *ngSwitchCase="ImmeubleStateEnum.ERROR">
-                    <div class="p-2">
-                      Errure : {{ state.errorMessage | json }}
+                    <div class="p-2 invalid-feedback">
+                      Errure : Aucun Immeuble
                     </div>
                   </ng-container>
                   <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADING">
-                    <div class="p-2">Chargement des données...</div>
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
                   </ng-container>
                   <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADED">
                     <label class="small mb-1" for="inputFirstName">Immeuble</label>
@@ -286,17 +308,15 @@
               <!-- Form Group (last name)-->
               <div class="col-md-6">
                 <ng-container *ngIf="etageState$ | async as state" [ngSwitch]="state.dataState">
-                  <ng-container *ngSwitchCase="ImmeubleStateEnum.INITIAL">
-                    <div class="p-2">Initialisation des données</div>
-                  </ng-container>
+
                   <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADING">
                     <div class="p-2">Chargementes données...</div>
                   </ng-container>
                   <ng-container *ngSwitchCase="ImmeubleStateEnum.ERROR">
-                    <div class="p-2">erreur : {{ state.errorMessage }}</div>
+                    <div class="p-2 invalid-feedback">Aucun Immeuble</div>
                   </ng-container>
                   <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADED">
-                    <label class="small mb-1" for="inputLastName">Etage</label>
+                    <label class="small mb-1 w-auto" for="inputLastName">Etage</label>
                     <select formControlName="idEtage" name="idEtage" class="form-control">
                       <option [value]="0">Sélection un Etage</option>
                       <option [value]="0">Aucun Etage</option>
@@ -314,13 +334,17 @@
                 <div class="col-md-6">
                   <label class="small mb-1" for="inputOrgName">Désignation</label>
                   <input formControlName="nomStudio" class="form-control" name="nomEtage" type="text"
-                    placeholder="Saisir le nom du Studio" value="Start Bootstrap" />
+                    placeholder="Saisir le nom du Studio"
+                    [ngClass]="{'is-invalid':submitted&& studioform.controls.nomStudio.errors}" />
+                  <div *ngIf="submitted&& studioform.controls.nomStudio.errors" class="invalid-feedback">
+                    <div *ngIf=" studioform.controls.nomStudio.errors.required">*Champ obligatoire</div>
+                  </div>
                 </div>
                 <!-- Form Group (location)-->
                 <div class="col-md-6">
                   <label class="small mb-1" for="inputLocation">Description</label>
-                  <input formControlName="descStudio" class="form-control" name="inputLocation" type="text"
-                    placeholder="Decrire le Studio" value="San Francisco, CA" />
+                  <textarea rows="3" formControlName="descStudio" class="form-control" name="inputLocation" type="text"
+                    placeholder="Decrire le Studio"></textarea>
                 </div>
               </div>
             </div>
@@ -458,16 +482,22 @@
               <div class="col-md-6">
                 <label class="small mb-1" for="inputOrgName">Désignation</label>
                 <input formControlName="nomMagasin" class="form-control" name="nomEtage" type="text"
-                  placeholder="Saisir le nom du Studio" value="Start Bootstrap" />
+                  [ngClass]="{'is-invalid':submitted&& magasinForm.controls.nomMagasin.errors}"
+                  placeholder="Saisir le nom du Magasin" value="Start Bootstrap" />
+                <div *ngIf="submitted&& magasinForm.controls.nomMagasin.errors" class="invalid-feedback">
+                  <div *ngIf=" magasinForm.controls.nomMagasin.errors.required">* Champ obligatoire
+                  </div>
+                </div>
               </div>
               <!-- Form Group (location)-->
-              <div class="col-md-6">
+              <!-- <div class="col-md-6">
                 <label class="small mb-1" for="inputLocation">Statut</label>
                 <input formControlName="statutBien" class="form-control" name="inputLocation" type="text" />
-              </div>
+              </div> -->
               <div class="col-md-6">
                 <label class="small mb-1" for="inputOrgName">Description</label>
-                <input formControlName="description" class="form-control" name="description" type="text" />
+                <textarea rows="3" formControlName="description" class="form-control" name="description"
+                  type="text"></textarea>
               </div>
               <!-- Form Group (location)-->
               <div class="col-md-6">
