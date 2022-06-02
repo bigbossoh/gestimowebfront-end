@@ -4,9 +4,7 @@
       <h1>Liste des biens immobiliers</h1>
     </div>
     <div class="col-md-4 text-right">
-      <app-action-button-bien
-        (bienImmobilierEmmiter)="onActionEvent($event)"
-      ></app-action-button-bien>
+      <app-action-button-bien (bienImmobilierEmmiter)="onActionEvent($event)"></app-action-button-bien>
     </div>
   </div>
   <div class="col">
@@ -18,21 +16,13 @@
     <hr style="margin-top: 0" />
     <div class="row mb-3">
       <div class="col-md-3">
-        <ng-container
-          *ngIf="villeState$ | async as state"
-          [ngSwitch]="state.dataState"
-        >
+        <ng-container *ngIf="villeState$ | async as state" [ngSwitch]="state.dataState">
           <ng-container *ngSwitchCase="VilleStateEnum.ERROR">
-            <div class="p-2">Erreur : {{ state.errorMessage }}</div>
+            <div class="p-2 invalid-feedback">Erreur est survenue</div>
           </ng-container>
           <ng-container *ngSwitchCase="VilleStateEnum.LOADED">
             <label>Ville</label>
-            <select
-              id="modele"
-              name="typeClim"
-              class="form-control"
-              (change)="findCommuneByPays($event)"
-            >
+            <select id="modele" name="typeClim" class="form-control" (change)="findCommuneByPays($event)">
               <option [value]="vil.id" *ngFor="let vil of state.villes">
                 {{ vil.nomVille }}
               </option>
@@ -41,12 +31,9 @@
         </ng-container>
       </div>
       <div class="col-md-3">
-        <ng-container
-          *ngIf="commeState$ | async as state"
-          [ngSwitch]="state.dataState"
-        >
+        <ng-container *ngIf="commeState$ | async as state" [ngSwitch]="state.dataState">
           <ng-container *ngSwitchCase="CommunesStateEnum.ERROR">
-            <div class="p-2">Erreur : {{ state.errorMessage }}</div>
+            <div class="p-2 invalid-feedback">Erreur est survenue</div>
           </ng-container>
           <ng-container *ngSwitchCase="CommunesStateEnum.LOADED">
             <label>Commune</label>
@@ -86,10 +73,7 @@
     </div>
     <hr style="margin-top: 0" />
     <!-- main content -->
-    <ng-container
-      *ngIf="bienState$ | async as state"
-      [ngSwitch]="state.dataState"
-    >
+    <ng-container *ngIf="bienState$ | async as state" [ngSwitch]="state.dataState">
       <ng-container *ngSwitchCase="BienImmobilierStateEnum.INITIAL">
         <div class="p-2">Initialisation des données</div>
       </ng-container>
@@ -109,10 +93,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr
-                  class="text-center"
-                  *ngFor="let biens of state.bienImmoblilier"
-                >
+                <tr class="text-center" *ngFor="let biens of state.bienImmoblilier">
                   <td>
                     {{ biens.id }}
                   </td>
@@ -124,10 +105,7 @@
 
                   <td class="">
                     <div class="btn-group">
-                      <button
-                        class="btn btn-outline-info"
-                        (click)="onEditdele(biens.id)"
-                      >
+                      <button class="btn btn-outline-info" (click)="onEditdele(biens.id)">
                         <i class="fas fa-edit"></i>
                       </button>
                       <button class="btn btn-outline-danger">
@@ -142,7 +120,9 @@
         </div>
       </ng-container>
       <ng-container *ngSwitchCase="BienImmobilierStateEnum.LOADING">
-        <div class="p-2">Chargement des données...</div>
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
       </ng-container>
 
       <ng-container *ngSwitchCase="BienImmobilierStateEnum.ERROR">
