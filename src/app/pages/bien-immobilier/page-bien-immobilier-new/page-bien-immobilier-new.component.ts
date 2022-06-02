@@ -64,7 +64,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
 
   ngselecttypeBien = '20000';
   ngIelecttypeImm = 0;
-
+  userVilla = '';
   listTypeBiens: string[] = [];
 
   magasinState$: Observable<MagasinState> | null = null;
@@ -124,18 +124,13 @@ export class PageBienImmobilierNewComponent implements OnInit {
     }
   }
   onSaveStudio() {
+    this.submitted = true;
+    if (this.studioform?.invalid) {
+      return;
+    }
+    this.submitted = false;
     this.store.dispatch(new SaveStudioActions(this.studioform?.value));
     this.studioState$ = this.store.pipe(map((state) => state.studioState));
-    console.warn(this.studioState$);
-
-    if (this.studioState$) {
-      this.sendErrorNotification(
-        NotificationType.SUCCESS,
-        'Enregistrement réussi'
-      );
-    } else {
-      this.sendErrorNotification(NotificationType.ERROR, 'Echec');
-    }
   }
   onSaveMagasin() {
     this.submitted = true;
@@ -169,28 +164,15 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.etageState$ = this.store.pipe(
       map((state) => state.etageByImmeubeState)
     );
-    console.warn(this.etageState$);
-
-    if (this.etageState$) {
-      this.sendErrorNotification(
-        NotificationType.SUCCESS,
-        'Enregistrement réussi'
-      );
-    } else {
-      this.sendErrorNotification(NotificationType.ERROR, 'Echec');
-    }
   }
   onSaveVilla() {
+    this.submitted = true;
+    if (this.villaForm?.invalid) {
+      return;
+    }
+    this.submitted = false;
     this.store.dispatch(new SaveVillaActions(this.villaForm?.value));
     this.villaState$ = this.store.pipe(map((state) => state.villaState));
-    if (this.villaState$) {
-      this.sendErrorNotification(
-        NotificationType.SUCCESS,
-        'Enregistrement réussi'
-      );
-    } else {
-      this.sendErrorNotification(NotificationType.ERROR, 'Echec');
-    }
   }
   onSaveImmeuble() {
     this.submitted = true;
@@ -200,15 +182,6 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.submitted = false;
     this.store.dispatch(new SaveImmeublesActions(this.immeubleForm?.value));
     this.immeubleState$ = this.store.pipe(map((state) => state.immeubleState));
-
-    if (this.immeubleState$) {
-      this.sendErrorNotification(
-        NotificationType.SUCCESS,
-        'Enregistrement réussi'
-      );
-    } else {
-      this.sendErrorNotification(NotificationType.ERROR, 'Echec');
-    }
   }
   ngOnInit(): void {
     this.store.dispatch(new GetAllSitesActions({}));
@@ -231,7 +204,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
       nbrePiece: [0],
       nbrSalonVilla: [0],
       nbrSalleEauVilla: [0],
-      nomVilla: [''],
+      nomVilla: ['', Validators.required],
       abrvVilla: ['VILLA'],
       garageVilla: [false],
       nbreVoitureGarageVilla: [0],
@@ -241,8 +214,8 @@ export class PageBienImmobilierNewComponent implements OnInit {
       description: [''],
       nomBien: [''],
       superficieBien: [0],
-      idSite: [0],
-      idUtilisateur: [0],
+      idSite: ['', Validators.required],
+      idUtilisateur: ['', Validators.required],
       occupied: [false],
       archived: [false],
     });
@@ -304,7 +277,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
       descStudio: [''],
       numeroStudio: [0],
       abrvNomStudio: ['STUDIO'],
-      nomStudio: [''],
+      nomStudio: ['', Validators.required],
       idEtage: [0],
     });
     this.etageForm = this.fb.group({
