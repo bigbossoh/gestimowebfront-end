@@ -24,14 +24,16 @@
             </div>
             <<<<<<< HEAD <div id="collapseOne{{ item.id }}" class="collapse" aria-labelledby="headingOne"
               [attr.data-parent]="'#accordionExample' + item.id" style="max-height: 300px; overflow-y: scroll">
-              <ng-container *ngIf="appelloyerState$ | async as stateAppel" [ngSwitch]="state.dataState">
-                <ng-container *ngSwitchCase="BauxStateEnum.LOADED">
-                  <div class="card-body">
+
+              <div class="card-body">
+                <ng-container *ngIf="appelloyerState$ | async as stateAppel" [ngSwitch]="state.dataState">
+                  <ng-container *ngSwitchCase="BauxStateEnum.LOADED">
                     <app-app-detail-bail-loyer [appelLoyerDto]="appel" *ngFor="let appel of stateAppel.appelloyers">
                     </app-app-detail-bail-loyer>
-                  </div>
+                  </ng-container>
                 </ng-container>
-              </ng-container>
+              </div>
+
 
               =======
 
