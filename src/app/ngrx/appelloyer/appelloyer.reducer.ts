@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { AppelLoyer, OperationDto } from 'src/gs-api/src/models';
 import { AppelLoyerActions, AppelLoyerctionsTypes } from './appelloyer.actions';
+import { AppelLoyerDto } from '../../../gs-api/src/models/appel-loyer-dto';
 export enum AppelLoyerStateEnum {
   LOADING = 'Loading',
   LOADED = 'Loaded',
@@ -11,7 +12,7 @@ export enum AppelLoyerStateEnum {
   LOADEDBYIMMEUNLE = 'LoadedByImmeuble',
 }
 export interface AppelLoyerState {
-  appelloyers: AppelLoyer[];
+  appelloyers: AppelLoyerDto[];
   errorMessage: string;
   dataState: AppelLoyerStateEnum;
 }

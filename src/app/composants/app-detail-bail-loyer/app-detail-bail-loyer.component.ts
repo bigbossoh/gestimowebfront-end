@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GetAllAppelLoyerActions } from 'src/app/ngrx/appelloyer/appelloyer.actions';
 import { AppelLoyerState } from 'src/app/ngrx/appelloyer/appelloyer.reducer';
-
+import { AppelLoyerDto } from '../../../gs-api/src/models/appel-loyer-dto';
 
 @Component({
   selector: 'app-app-detail-bail-loyer',
@@ -13,7 +13,8 @@ import { AppelLoyerState } from 'src/app/ngrx/appelloyer/appelloyer.reducer';
   styleUrls: ['./app-detail-bail-loyer.component.css'],
 })
 export class AppDetailBailLoyerComponent implements OnInit {
-  @Input() idBail: number | undefined;
+  @Input() appelLoyerDto!: AppelLoyerDto;
+  idBail: number | undefined;
   appelStore$: Observable<AppelLoyerState> | null = null;
   constructor(private store: Store<any>) {}
 
