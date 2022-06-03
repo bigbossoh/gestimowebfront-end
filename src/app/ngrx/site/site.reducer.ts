@@ -8,6 +8,7 @@ export enum SiteStateEnum {
   INITIAL = 'Initial',
 }
 export interface SiteState {
+
   sites: SiteResponseDto[];
   errorMessage: string;
   dataState: SiteStateEnum;
@@ -23,7 +24,8 @@ export function siteReducer(
 ): SiteState {
   switch (action.type) {
     case SiteActionsTypes.GET_ALL_SITES:
-      return { ...state, dataState: SiteStateEnum.LOADING };
+      return { ...state,
+         dataState: SiteStateEnum.LOADING };
     case SiteActionsTypes.GET_ALL_SITES_SUCCES:
       return {
         ...state,

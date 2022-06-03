@@ -22,7 +22,7 @@ export class ImmeubleEffects {
       mergeMap((action) => {
         return this.apiService.findAllImmeuble().pipe(
           map((immeubles) => new GetAllImmeublesActionsSuccess(immeubles)),
-          catchError((err) => of(new GetAllImmeublesActionsError(err.message)))
+          catchError((err) => of(new GetAllImmeublesActionsError(err.message.messages)))
         );
       })
     )
