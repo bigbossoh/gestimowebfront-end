@@ -25,7 +25,7 @@ export class EtageEffects {
       mergeMap((action: EtagesActions) => {
         return this.apiService.findEtageByIdPays(action.payload).pipe(
           map((immeubles) => new GetAllEtagesByImmeubleActionsSuccess(immeubles)),
-          catchError((err) => of(new GetAllEtagesByImmeubleActionsError(err.message)))
+          catchError((err) => of(new GetAllEtagesByImmeubleActionsError(err.error.errors)))
         );
       })
     )
@@ -37,7 +37,7 @@ export class EtageEffects {
       mergeMap((action: EtagesActions) => {
         return this.apiService.saveEtage(action.payload).pipe(
           map((etage) => new SaveEtageActionsSuccess(etage)),
-          catchError((err) => of(new SaveEtageActionsError(err.message)))
+          catchError((err) => of(new SaveEtageActionsError(err.error.errors)))
         );
       })
     )
