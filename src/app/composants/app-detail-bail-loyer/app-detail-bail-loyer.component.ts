@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -19,9 +18,9 @@ export class AppDetailBailLoyerComponent implements OnInit {
   constructor(private store: Store<any>) {}
 
   ngOnInit(): void {
-    if (this.idBail == 1) {
-      this.store.dispatch(new GetAllAppelLoyerActions(this.idBail));
-      this.appelStore$ = this.store.pipe(map((state) => state.appelLoyerState));
-    }
+    // if (this.idBail == 1) {
+    //   this.store.dispatch(new GetAllAppelLoyerActions(this.idBail));
+    //   this.appelStore$ = this.store.pipe(map((state) => state.appelLoyerState));
+    // }
   }
 }
