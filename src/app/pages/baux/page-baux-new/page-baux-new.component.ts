@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
 import { GetAllAppartementActions } from 'src/app/ngrx/appartement/appartement.actions';
-import { AppartementState, AppartementStateEnum } from 'src/app/ngrx/appartement/appartement.reducer';
+import {
+  AppartementState,
+  AppartementStateEnum,
+} from 'src/app/ngrx/appartement/appartement.reducer';
 import { SaveBailAppartementActions } from 'src/app/ngrx/bail-appartement/bailappartement.actions';
 import { BailAppartementState } from 'src/app/ngrx/bail-appartement/bailappartement.reducer';
 import { SaveBailMagasinActions } from 'src/app/ngrx/bail-magasin/bailmagasin.actions';
@@ -15,11 +18,20 @@ import { BailStudioState } from 'src/app/ngrx/bail-studio/bailvilla.reducer';
 import { SaveBailVillaActions } from 'src/app/ngrx/bail-villa/bailvilla.actions';
 import { BailVillaState } from 'src/app/ngrx/bail-villa/bailvilla.reducer';
 import { GetAllMagasinActions } from 'src/app/ngrx/magasin/magasin.actions';
-import { MagasinState, MagasinStateEnum } from 'src/app/ngrx/magasin/magasin.reducer';
+import {
+  MagasinState,
+  MagasinStateEnum,
+} from 'src/app/ngrx/magasin/magasin.reducer';
 import { GetAllStudioActions } from 'src/app/ngrx/studio/studio.actions';
-import { StudioState, StudioStateEnum } from 'src/app/ngrx/studio/studio.reducer';
+import {
+  StudioState,
+  StudioStateEnum,
+} from 'src/app/ngrx/studio/studio.reducer';
 import { GetAllLocatairesActions } from 'src/app/ngrx/utulisateur/utilisateur.actions';
-import { UtilisteurState, UtilisteurStateEnum } from 'src/app/ngrx/utulisateur/utlisateur.reducer';
+import {
+  UtilisteurState,
+  UtilisteurStateEnum,
+} from 'src/app/ngrx/utulisateur/utlisateur.reducer';
 import { GetAllVillaActions } from 'src/app/ngrx/villa/villa.action';
 import { VillaState, VillaStateEnum } from 'src/app/ngrx/villa/villa.reducer';
 import { NotificationService } from 'src/app/services/notification/notification.service';
@@ -29,16 +41,19 @@ import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 @Component({
   selector: 'app-page-baux-new',
   templateUrl: './page-baux-new.component.html',
-  styleUrls: ['./page-baux-new.component.css']
+  styleUrls: ['./page-baux-new.component.css'],
 })
 export class PageBauxNewComponent implements OnInit {
-
+  submitted = false;
+  nombreMoisCaution = 0;
+  montantLoyer = 0;
+  montantCaution = 0;
   formGroup?: FormGroup;
   bailvillaForm?: FormGroup;
   bailMagainForm?: FormGroup;
   bailStudioForm?: FormGroup;
   bailAppartementForm?: FormGroup;
-  public user?:UtilisateurRequestDto;
+  public user?: UtilisateurRequestDto;
 
   utilisateurState$: Observable<UtilisteurState> | null = null;
   villaState$: Observable<VillaState> | null = null;
@@ -57,84 +72,103 @@ export class PageBauxNewComponent implements OnInit {
   readonly AppartementStateEnum = AppartementStateEnum;
   readonly StudioStateEnum = StudioStateEnum;
 
-
-  ngSelectTypeContrat = "Bail";
+  ngSelectTypeContrat = 'Bail';
   listTypeContrat: string[] = [];
-  constructor(private fb: FormBuilder, private store: Store<any>,  private userService:UserService, private notificationService: NotificationService) {
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<any>,
+    private userService: UserService,
+    private notificationService: NotificationService
+  ) {
     this.listTypeContrat = [
       'Bail Appartement',
       'Bail Magasin',
       'Bail Studio',
       'Bail Villa',
-
     ];
   }
-  private sendErrorNotification(notificationType: NotificationType, message: string): void {
+  private sendErrorNotification(
+    notificationType: NotificationType,
+    message: string
+  ): void {
     if (message) {
       this.notificationService.notify(notificationType, message);
     } else {
-      this.notificationService.notify(notificationType, 'An error occurred. Please try again.');
+      this.notificationService.notify(
+        notificationType,
+        'An error occurred. Please try again.'
+      );
     }
+  }
+  calculMontan() {
+    this.montantCaution = 0;
+    this.montantCaution = this.montantLoyer * this.nombreMoisCaution;
   }
   //SAVE BAIL STUDIO
   onSaveBailStudio() {
+    this.submitted = true;
+    if (this.bailStudioForm?.invalid) {
+      return;
+    }
+    this.submitted = false;
+    this.store.dispatch(new SaveBailStudioActions(this.bailStudioForm?.value));
+    this.bailStudiotState$ = this.store.pipe(
+      map((state) => state.bailStudioState)
+    );
 
-    this.store.dispatch(new SaveBailStudioActions(this.bailStudioForm?.value))
-    this.bailStudiotState$ = this.store.pipe(map((state) => state.bailStudioState))
-
-    alert(' BAIL STUDIO')
+    alert(' BAIL STUDIO');
     if (this.bailStudiotState$) {
-      this.sendErrorNotification(NotificationType.SUCCESS, 'Enregistrement réussi')
+      this.sendErrorNotification(
+        NotificationType.SUCCESS,
+        'Enregistrement réussi'
+      );
     } else {
-      this.sendErrorNotification(NotificationType.ERROR, 'Echec')
+      this.sendErrorNotification(NotificationType.ERROR, 'Echec');
     }
   }
   //SAVE BAIL APPARTEMENT
   onSaveBailAppartement() {
-
-    this.store.dispatch(new SaveBailAppartementActions(this.bailAppartementForm?.value))
-    this.bailAppartementState$ = this.store.pipe(map((state) => state.bailAppartementState))
-    console.warn(this.bailAppartementState$);
-    alert(' BAIL APPARTEMENT')
-    if (this.bailAppartementState$) {
-      this.sendErrorNotification(NotificationType.SUCCESS, 'Enregistrement réussi')
-    } else {
-      this.sendErrorNotification(NotificationType.ERROR, 'Echec')
+    this.submitted = true;
+    if (this.bailAppartementForm?.invalid) {
+      return;
     }
+    this.submitted = false;
+    this.store.dispatch(
+      new SaveBailAppartementActions(this.bailAppartementForm?.value)
+    );
+    this.bailAppartementState$ = this.store.pipe(
+      map((state) => state.bailAppartementState)
+    );
   }
   //SAVE BAIL MAGASIN
   onSaveBailMagasin() {
-    this.store.dispatch(new SaveBailMagasinActions(this.bailMagainForm?.value))
-    this.bailMagasinState$ = this.store.pipe(map((state) => state.bailMagasinState))
-    console.warn(this.bailMagasinState$);
-
-    if (this.bailMagasinState$) {
-      this.sendErrorNotification(NotificationType.SUCCESS, 'Enregistrement réussi')
-    } else {
-      this.sendErrorNotification(NotificationType.ERROR, 'Echec')
+    this.submitted = true;
+    if (this.bailMagainForm?.invalid) {
+      return;
     }
+    this.submitted = false;
+    this.store.dispatch(new SaveBailMagasinActions(this.bailMagainForm?.value));
+    this.bailMagasinState$ = this.store.pipe(
+      map((state) => state.bailMagasinState)
+    );
   }
   //SAVE BAIL VILLA
   onSaveBailVilla() {
-  console.log(this.bailvillaForm?.value);
-
-    this.store.dispatch(new SaveBailVillaActions(this.bailvillaForm?.value))
-    this.bailvillaState$ = this.store.pipe(map((state) => state.bailvillaState))
-    console.warn(this.bailvillaState$);
-
-    if (this.bailvillaState$) {
-      this.sendErrorNotification(NotificationType.SUCCESS, 'Enregistrement réussi')
-    } else {
-      this.sendErrorNotification(NotificationType.ERROR, 'Echec')
+    this.submitted = true;
+    if (this.bailvillaForm?.invalid) {
+      return;
     }
+    this.submitted = false;
+    this.store.dispatch(new SaveBailVillaActions(this.bailvillaForm?.value));
+    this.bailvillaState$ = this.store.pipe(
+      map((state) => state.bailvillaState)
+    );
   }
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
     //GET ALL STUDIO
     this.store.dispatch(new GetAllStudioActions({}));
-    this.studioState$ = this.store.pipe(
-      map((state) => state.studioState)
-    );
+    this.studioState$ = this.store.pipe(map((state) => state.studioState));
     //GET ALL APPARTEMENT
     this.store.dispatch(new GetAllAppartementActions({}));
     this.appartementState$ = this.store.pipe(
@@ -147,82 +181,77 @@ export class PageBauxNewComponent implements OnInit {
     );
     //GET ALL VILLA
     this.store.dispatch(new GetAllVillaActions({}));
-    this.villaState$ = this.store.pipe(
-      map((state) => state.villaState)
-    );
+    this.villaState$ = this.store.pipe(map((state) => state.villaState));
     //GET ALL MAGASIN
     this.store.dispatch(new GetAllMagasinActions({}));
-    this.magasinState$ = this.store.pipe(
-      map((state) => state.magasinState)
-    );
+    this.magasinState$ = this.store.pipe(map((state) => state.magasinState));
 
     this.formGroup = this.fb.group({
-      idTypeContrat: [""]
+      idTypeContrat: [''],
     });
     //FORM POUR BAIL STUDIO
     this.bailStudioForm = this.fb.group({
       id: [0],
       idAgence: [this.user?.idAgence],
-      designationBail: [""],
+      designationBail: ['', Validators.required],
       abrvCodeBail: ['BAIL-STUDIO'],
       enCoursBail: [true],
       archiveBail: [false],
       montantCautionBail: [0],
       nbreMoisCautionBail: [0],
-      nouveauMontantLoyer: [0],
-      dateDebut: [""],
-      dateFin: [""],
-      idStudio: [0],
-      idUtilisateur: [0]
+      nouveauMontantLoyer: ['', Validators.required],
+      dateDebut: ['', Validators.required],
+      dateFin: ['', Validators.required],
+      idStudio: ['', Validators.required],
+      idUtilisateur: ['', Validators.required],
     });
     //FORM POUR APPARTEMENT
     this.bailAppartementForm = this.fb.group({
       id: [0],
       idAgence: [this.user?.idAgence],
-      designationBail: [""],
+      designationBail: ['', Validators.required],
       abrvCodeBail: ['BAIL-APPARTEMENT'],
       enCoursBail: [true],
       archiveBail: [false],
       montantCautionBail: [0],
       nbreMoisCautionBail: [0],
-      nouveauMontantLoyer: [0],
-      dateDebut: [""],
-      dateFin: [""],
-      idAppartement: [0],
-      idUtilisateur: [0]
+      nouveauMontantLoyer: [0, Validators.required],
+      dateDebut: ['', Validators.required],
+      dateFin: ['', Validators.required],
+      idAppartement: ['', Validators.required],
+      idUtilisateur: ['', Validators.required],
     });
     //FORM POUR BAIL VILLA
     this.bailvillaForm = this.fb.group({
       id: [0],
       idAgence: [this.user?.idAgence],
-      designationBail: [""],
+      designationBail: ['', Validators.required],
       abrvCodeBail: ['BAIL-VILLA'],
       enCoursBail: [true],
       archiveBail: [false],
       montantCautionBail: [0],
       nbreMoisCautionBail: [0],
-      nouveauMontantLoyer: [0],
-      dateDebut: [""],
-      dateFin: [""],
-      idVilla: [0],
-      idUtilisateur: [0]
+      nouveauMontantLoyer: [0, Validators.required],
+      dateDebut: ['', Validators.required],
+      dateFin: ['', Validators.required],
+      idVilla: ['', Validators.required],
+      idUtilisateur: ['', Validators.required],
     });
     //FORM BAIL POUR MAGASIN
     this.bailMagainForm = this.fb.group({
       id: [0],
       idAgence: [this.user?.idAgence],
-      designationBail: [""],
+      designationBail: ['', Validators.required],
       abrvCodeBail: ['BAIL-MAGASIN'],
       enCoursBail: [true],
       archiveBail: [false],
       montantCautionBail: [0],
       nbreMoisCautionBail: [0],
-      nouveauMontantLoyer: [0],
-      dateDebut: [""],
-      dateFin: [""],
-      idMagasin: [0],
-      idUtilisateur: [0]
+      nouveauMontantLoyer: [0, Validators.required],
+      dateDebut: ['', Validators.required],
+      dateFin: ['', Validators.required],
+      idMagasin: ['', Validators.required],
+      idUtilisateur: ['', Validators.required],
     });
   }
-
 }
