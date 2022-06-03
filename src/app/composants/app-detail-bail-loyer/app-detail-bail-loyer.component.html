@@ -1,19 +1,19 @@
 <div class="row mb-1 mr-0 custom-border">
   <div class="col-md-2 custom-border-right p-1 text-center mb-1 mt-1 ">
-    <div class="col-md-11">Periode : Janvier 2022</div>
+    <div class="col-md-11">Periode : {{appelLoyerDto?.periodeAppelLoyer |date:'MM-yyyy'}}</div>
   </div>
 
-<!--  Details article-->
+  <!--  Details article-->
   <div class="col-md-4 custom-border-right mb-1 mt-1 ">
     <div class="col">
       <div class="row">
         <div class="col-md-1"><i class="fas fa-info-circle blue-color"></i></div>
-        <div class="col-md-11">Locataire: Kolou Bonaventure</div>
+        <div class="col-md-11">Loyer :{{appelLoyerDto?.montantBailLPeriode}}</div>
       </div>
     </div>
   </div>
 
-<!--  details categorie-->
+  <!--  details categorie-->
   <div class="col-md-3 custom-border-right mb-1 mt-1 ">
     <div class="row">
       <div class="col-md-2">
@@ -22,7 +22,7 @@
       </div>
       <div class="col-md-10">
         <div class="row">
-          <div class="col-md-12">Montant Loyer: 150 000 </div>
+          <div class="col-md-12">Solde: {{appelLoyerDto?.soldeAppelLoyer}} </div>
         </div>
       </div>
     </div>
@@ -49,7 +49,3 @@
     </div>
   </div>
 </div>
-
-
-
-
