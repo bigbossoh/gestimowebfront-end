@@ -12,7 +12,7 @@ export enum AppelLoyerStateEnum {
   LOADEDBYIMMEUNLE = 'LoadedByImmeuble',
 }
 export interface AppelLoyerState {
-  appelloyers: AppelLoyer[];
+  appelloyers: AppelLoyerDto[];
   errorMessage: string;
   dataState: AppelLoyerStateEnum;
 }
