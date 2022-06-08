@@ -93,6 +93,8 @@ import { appelLoyerReducer } from './ngrx/appelloyer/appelloyer.reducer';
 import { PageNewUtilisateurComponent } from './pages/utilisateurs/page-new-utilisateur/page-new-utilisateur.component';
 import { ButtonActionUtlisateurComponent } from './pages/utilisateurs/button-action-utlisateur/button-action-utlisateur.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
@@ -138,10 +140,12 @@ import { NgxPaginationModule } from 'ngx-pagination';
     PageBauxNewComponent,
     PageNewSiteComponent,
     PageNewUtilisateurComponent,
-    ButtonActionUtlisateurComponent
+    ButtonActionUtlisateurComponent,
   ],
   imports: [
     FormsModule,
+    MatTableModule,
+    MatIconModule,
     ReactiveFormsModule,
     BrowserModule,
     MatDialogModule,
@@ -168,14 +172,27 @@ import { NgxPaginationModule } from 'ngx-pagination';
       bailAppartementState: bailAppartementReducer,
       bailStudioState: bailStudioReducer,
       bauxState: bauxReducer,
-      appelLoyerState: appelLoyerReducer
-
+      appelLoyerState: appelLoyerReducer,
     }),
-    EffectsModule.forRoot([StudioEffects, BienEffects, EtageEffects,
-      SiteEffects, UtilisateurEffects, ImmeubleEffects,
-      AppartementEffects, MagasinEffects, VillaEffects,
-      VilleEffects, Communeffects, BailVillaEffects, BailMagasinEffects,
-      BailAppartementEffects, BailStudioEffects, BauxEffects, AppelLoyerEffects]),
+    EffectsModule.forRoot([
+      StudioEffects,
+      BienEffects,
+      EtageEffects,
+      SiteEffects,
+      UtilisateurEffects,
+      ImmeubleEffects,
+      AppartementEffects,
+      MagasinEffects,
+      VillaEffects,
+      VilleEffects,
+      Communeffects,
+      BailVillaEffects,
+      BailMagasinEffects,
+      BailAppartementEffects,
+      BailStudioEffects,
+      BauxEffects,
+      AppelLoyerEffects,
+    ]),
 
     StoreDevtoolsModule.instrument(),
     BrowserAnimationsModule,
@@ -185,4 +202,4 @@ import { NgxPaginationModule } from 'ngx-pagination';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
