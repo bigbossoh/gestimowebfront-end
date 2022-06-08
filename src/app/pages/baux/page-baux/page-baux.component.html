@@ -18,11 +18,7 @@
       <div class="col-md-1">
         <label>Bail Actif</label>
         <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <input
-          type="checkbox"
-          class="form-check-input"
-          name="verificationControleGeneral"
-        />
+        <input type="checkbox" class="form-check-input" name="verificationControleGeneral" />
       </div>
       <div class="col-md-4">
         <label>Commune</label>
@@ -54,10 +50,7 @@
       </div>
     </div>
     <hr style="margin-top: 0" />
-    <ng-container
-      *ngIf="bauxState$ | async as state"
-      [ngSwitch]="state.dataState"
-    >
+    <ng-container *ngIf="bauxState$ | async as state" [ngSwitch]="state.dataState">
       <ng-container *ngSwitchCase="BauxStateEnum.ERROR">
         <div class="p-2">Erreur : {{ state.errorMessage }}</div>
       </ng-container>
@@ -65,11 +58,83 @@
         <div class="p-2">Chargement des données...</div>
       </ng-container>
       <ng-container *ngSwitchCase="BauxStateEnum.LOADED">
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="users">
+            <table [dataSource]="state.baux" mat-table multiTemplateDataRows class="mat-elevation-z8">
+              <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+                <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                <td mat-cell *matCellDef="let element">
+                  <div *ngIf="column=='Bien immobilier'">
+                    {{element.bienImmobilierOperation}}
+                  </div>
+                  <div *ngIf="column=='Code bail'">
+                    {{element.abrvCodeBail}}
+                  </div>
+                  <div *ngIf="column=='debut'">
+                    {{element.dateDebut|date:'dd-MM-yyyy'}}
+                  </div>
+                  <div *ngIf="column=='fin'">
+                    {{element.dateFin|date:'dd-MM-yyyy'}}
+                  </div>
+                  <div *ngIf="column=='Nombre de mois de Caution'">
+                    {{element.nbreMoisCautionBail}}
+                  </div>
+                  <div *ngIf="column=='Montant Caution'">
+                    {{element.montantCautionBail}}
+                  </div>
+
+                  <div *ngIf="column=='Bail en cours'">
+                    <span *ngIf="element.archiveBail==true">Archivé</span>
+                    <span *ngIf="element.archiveBail==false">Actif</span>
+                  </div>
+
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="expand">
+                <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button aria-label="expand row"
+                    (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+                    <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+                    <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+              <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+              <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+                  <div class="example-element-detail"
+                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                    <div class="example-element-diagram">
+                      <div class="example-element-position"> {{element.position}} </div>
+                      <div class="example-element-symbol"> {{element.symbol}} </div>
+                      <div class="example-element-name"> {{element.name}} </div>
+                      <div class="example-element-weight"> {{element.weight}} </div>
+                    </div>
+                    <div class="example-element-description">
+                      {{element.description}}
+                      <span class="example-element-description-attribution"> -- Wikipedia </span>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+              <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row"
+                [class.example-expanded-row]="expandedElement === element"
+                (click)="expandedElement = expandedElement === element ? null : element">
+              </tr>
+              <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+            </table>
+          </div>
+        </div>
         <!-- main content -->
         <div class="tab-content" id="myTabContent">
           <!-- user table -->
           <div class="tab-pane fade show active" id="users">
-            <table class="table table-hover m-3 p-3">
+            <!--           <table class="table table-hover m-3 p-3">
               <thead class="table-borderless">
                 <tr class="text-center mt-3">
                   <th>Code bail</th>
@@ -108,7 +173,7 @@
                   </td>
                 </tr>
               </tbody>
-            </table>
+            </table> -->
           </div>
         </div>
       </ng-container>
