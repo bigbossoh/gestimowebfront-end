@@ -52,18 +52,29 @@
     <hr style="margin-top: 0" />
     <ng-container *ngIf="bauxState$ | async as state" [ngSwitch]="state.dataState">
       <ng-container *ngSwitchCase="BauxStateEnum.ERROR">
-        <div class="p-2">Erreur : {{ state.errorMessage }}</div>
+        <div class="p-2">Une erreur est survenue.</div>
       </ng-container>
       <ng-container *ngSwitchCase="BauxStateEnum.LOADING">
-        <div class="p-2">Chargement des données...</div>
+        <mat-spinner></mat-spinner>
       </ng-container>
       <ng-container *ngSwitchCase="BauxStateEnum.LOADED">
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="users">
             <table [dataSource]="state.baux" mat-table multiTemplateDataRows class="mat-elevation-z8 ">
+
+              <ng-container matColumnDef="expand">
+                <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button aria-label="expand row"
+                    (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation();chargerAppels(element.id)">
+                    <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
+                    <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
               <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
                 <th mat-header-cell *matHeaderCellDef class="text-center thick"> {{column}} </th>
-                <td mat-cell *matCellDef="let element" (click)="chargerAppels(element.id)">
+                <td mat-cell *matCellDef="let element" (click)="chargerAppels(element.id)" class="thc">
                   <div *ngIf="column=='Bien immobilier'">
                     {{element.bienImmobilierOperation}}
                   </div>
@@ -84,19 +95,22 @@
                   </div>
 
                   <div *ngIf="column=='Bail en cours'">
-                    <span *ngIf="element.archiveBail==true">Archivé</span>
-                    <span *ngIf="element.archiveBail==false">Actif</span>
+                    <span *ngIf="element.archiveBail==true">
+                      <mat-icon>lock</mat-icon>
+                    </span>
+
+                    <span *ngIf="element.archiveBail==false">
+                      <i class="fa fa-unlock-alt" aria-hidden="true" style='color: green'></i>
+
+                    </span>
                   </div>
 
                   <div *ngIf="column=='Actions'">
                     <section>
-
                       <div class="example-button-row text-center">
-
                         <button mat-raised-button color="primary" class="mr-2">Detail</button>
                         <button mat-raised-button color="accent" class="mr-2">Modication</button>
                         <button mat-raised-button color="warn">Modifier montant loyer</button>
-
                       </div>
                     </section>
                   </div>
@@ -104,16 +118,6 @@
                 </td>
               </ng-container>
 
-              <ng-container matColumnDef="expand">
-                <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
-                <td mat-cell *matCellDef="let element">
-                  <button mat-icon-button aria-label="expand row"
-                    (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation();chargerAppels(element.id)">
-                    <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
-                    <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
-                  </button>
-                </td>
-              </ng-container>
 
               <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
               <ng-container matColumnDef="expandedDetail">
