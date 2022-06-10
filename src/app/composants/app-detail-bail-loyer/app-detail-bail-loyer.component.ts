@@ -12,15 +12,15 @@ import { AppelLoyerDto } from '../../../gs-api/src/models/appel-loyer-dto';
   styleUrls: ['./app-detail-bail-loyer.component.css'],
 })
 export class AppDetailBailLoyerComponent implements OnInit {
-  @Input() appelLoyerDto!: AppelLoyerDto;
+  @Input() appelLoyerDto!: AppelLoyerDto[];
   idBail: number | undefined;
   appelStore$: Observable<AppelLoyerState> | null = null;
   constructor(private store: Store<any>) {}
 
   ngOnInit(): void {
-    // if (this.idBail == 1) {
-    //   this.store.dispatch(new GetAllAppelLoyerActions(this.idBail));
-    //   this.appelStore$ = this.store.pipe(map((state) => state.appelLoyerState));
-    // }
+    if (this.idBail == 1) {
+      this.store.dispatch(new GetAllAppelLoyerActions(this.idBail));
+      this.appelStore$ = this.store.pipe(map((state) => state.appelLoyerState));
+    }
   }
 }

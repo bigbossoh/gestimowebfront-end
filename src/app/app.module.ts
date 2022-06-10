@@ -95,6 +95,8 @@ import { ButtonActionUtlisateurComponent } from './pages/utilisateurs/button-act
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [
     AppComponent,
@@ -144,8 +146,10 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   imports: [
     FormsModule,
+    MatButtonModule,
     MatTableModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     BrowserModule,
     MatDialogModule,
