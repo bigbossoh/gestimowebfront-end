@@ -128,7 +128,9 @@ export class PageBienImmobilierNewComponent implements OnInit {
     if (this.studioform?.invalid) {
       return;
     }
+
     this.submitted = false;
+    alert('ici')
     this.store.dispatch(new SaveStudioActions(this.studioform?.value));
     this.studioState$ = this.store.pipe(map((state) => state.studioState));
   }
@@ -271,14 +273,29 @@ export class PageBienImmobilierNewComponent implements OnInit {
       residence: [false],
     });
     this.studioform = this.fb.group({
-      //STUDIO
       id: [0],
-      idImmeuble: [0],
+      idAgence: [this.user?.idAgence],
+      numBien: [0],
+      statutBien: [''],
+      abrvBienimmobilier: ['STUDIO'],
+      description: [''],
+      nomBien: [''],
+      superficieBien: [0],
       descStudio: [''],
       numeroStudio: [0],
       abrvNomStudio: ['STUDIO'],
       nomStudio: ['', Validators.required],
+      idSite: ['0'],
       idEtage: [0],
+      idUtilisateur: ['', Validators.required],
+      occupied: [false],
+      archived: [false],
+
+
+
+
+
+
     });
     this.etageForm = this.fb.group({
       //ETAGE

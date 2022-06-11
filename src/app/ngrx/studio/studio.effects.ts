@@ -4,11 +4,18 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
-import { GetAllStudioActionsSuccess, GetAllStudioctionsError, SaveStudioActionsSuccess, SaveStudioctionsError, StudioActions, StudioActionsTypes } from './studio.actions';
+import {
+  GetAllStudioLibreActionsSuccess,
+  GetAllStudioLibreActionsError,
+  SaveStudioActionsSuccess,
+  SaveStudioctionsError,
+  StudioActions,
+  StudioActionsTypes,
+} from './studio.actions';
 
 @Injectable()
 export class StudioEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions) { }
+  constructor(private apiService: ApiService, private effectActions: Actions) {}
 
   //SAVE EFFECTS
   saveStudioEffect: Observable<Action> = createEffect(() =>
@@ -25,14 +32,13 @@ export class StudioEffects {
   //LISTE DES VILLA
   getAllStudioEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
-      ofType(StudioActionsTypes.GET_ALL_STUDIO),
+      ofType(StudioActionsTypes.GET_ALL_STUDIO_LIBRE),
       mergeMap((action) => {
-        return this.apiService.findAllStudios().pipe(
-          map(
-            (studios) =>
-              new GetAllStudioActionsSuccess(studios)
-          ),
-          catchError((err) => of(new GetAllStudioctionsError(err.message)))
+        return this.apiService.findAllStudiosLibre().pipe(
+          map((studios) => new GetAllStudioLibreActionsSuccess(studios)),
+          catchError((err) =>
+            of(new GetAllStudioLibreActionsError(err.message))
+          )
         );
       })
     )

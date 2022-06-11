@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
-import { GetAllAppartementActions } from 'src/app/ngrx/appartement/appartement.actions';
+import { GetAllAppartementLibreActions } from 'src/app/ngrx/appartement/appartement.actions';
 import {
   AppartementState,
   AppartementStateEnum,
@@ -17,12 +17,12 @@ import { SaveBailStudioActions } from 'src/app/ngrx/bail-studio/bailstudio.actio
 import { BailStudioState } from 'src/app/ngrx/bail-studio/bailvilla.reducer';
 import { SaveBailVillaActions } from 'src/app/ngrx/bail-villa/bailvilla.actions';
 import { BailVillaState } from 'src/app/ngrx/bail-villa/bailvilla.reducer';
-import { GetAllMagasinActions } from 'src/app/ngrx/magasin/magasin.actions';
+import { GetAllMagasinLibreActions } from 'src/app/ngrx/magasin/magasin.actions';
 import {
   MagasinState,
   MagasinStateEnum,
 } from 'src/app/ngrx/magasin/magasin.reducer';
-import { GetAllStudioActions } from 'src/app/ngrx/studio/studio.actions';
+import { GetAllStudioLibreActions } from 'src/app/ngrx/studio/studio.actions';
 import {
   StudioState,
   StudioStateEnum,
@@ -32,7 +32,7 @@ import {
   UtilisteurState,
   UtilisteurStateEnum,
 } from 'src/app/ngrx/utulisateur/utlisateur.reducer';
-import { GetAllVillaActions } from 'src/app/ngrx/villa/villa.action';
+import { GetAllVillaLibreActions } from 'src/app/ngrx/villa/villa.action';
 import { VillaState, VillaStateEnum } from 'src/app/ngrx/villa/villa.reducer';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -167,10 +167,10 @@ export class PageBauxNewComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
     //GET ALL STUDIO
-    this.store.dispatch(new GetAllStudioActions({}));
+    this.store.dispatch(new GetAllStudioLibreActions({}));
     this.studioState$ = this.store.pipe(map((state) => state.studioState));
     //GET ALL APPARTEMENT
-    this.store.dispatch(new GetAllAppartementActions({}));
+    this.store.dispatch(new GetAllAppartementLibreActions({}));
     this.appartementState$ = this.store.pipe(
       map((state) => state.appartementState)
     );
@@ -180,10 +180,10 @@ export class PageBauxNewComponent implements OnInit {
       map((state) => state.utilisateurState)
     );
     //GET ALL VILLA
-    this.store.dispatch(new GetAllVillaActions({}));
+    this.store.dispatch(new GetAllVillaLibreActions({}));
     this.villaState$ = this.store.pipe(map((state) => state.villaState));
     //GET ALL MAGASIN
-    this.store.dispatch(new GetAllMagasinActions({}));
+    this.store.dispatch(new GetAllMagasinLibreActions({}));
     this.magasinState$ = this.store.pipe(map((state) => state.magasinState));
 
     this.formGroup = this.fb.group({

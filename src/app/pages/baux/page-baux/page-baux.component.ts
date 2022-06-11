@@ -34,11 +34,12 @@ import {
 })
 export class PageBauxComponent implements OnInit {
   columnsToDisplay = [
+
     'Code bail',
+    'Locataire',
     'debut',
     'fin',
     'Bien immobilier',
-    'Nombre de mois de Caution',
     'Montant Caution',
     'Bail en cours',
     'Actions',

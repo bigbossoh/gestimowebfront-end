@@ -87,10 +87,10 @@
                   <div *ngIf="column=='fin'">
                     {{element.dateFin|date:'dd-MM-yyyy'}}
                   </div>
-                  <div *ngIf="column=='Nombre de mois de Caution'">
-                    {{element.nbreMoisCautionBail}}
+                  <div *ngIf="column=='Locataire'" class="text-primary">
+                    <mat-icon>person</mat-icon>  {{element.utilisateurOperation}}
                   </div>
-                  <div *ngIf="column=='Montant Caution'">
+                  <div *ngIf="column=='Montant Caution'" >
                     {{element.montantCautionBail}}
                   </div>
 

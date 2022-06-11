@@ -1,9 +1,13 @@
 import { Action } from '@ngrx/store';
-import { AppartementDto, BienImmobilierDto, EtageDto, ImmeubleDto, MagasinDto, StudioDto } from 'src/gs-api/src/models';
 import {
-  MagasinActions,
-  MagasinActionsTypes,
-} from './magasin.actions';
+  AppartementDto,
+  BienImmobilierDto,
+  EtageDto,
+  ImmeubleDto,
+  MagasinDto,
+  StudioDto,
+} from 'src/gs-api/src/models';
+import { MagasinActions, MagasinActionsTypes } from './magasin.actions';
 export enum MagasinStateEnum {
   LOADING = 'Loading',
   LOADED = 'Loaded',
@@ -11,8 +15,6 @@ export enum MagasinStateEnum {
   INITIAL = 'Initial',
   NEW = 'New',
   EDIT = 'Edit',
-
-
 }
 export interface MagasinState {
   magasins: MagasinDto[];
@@ -29,17 +31,16 @@ export function magasinReducer(
   action: Action
 ): MagasinState {
   switch (action.type) {
-
     //SAVE MAGASIN
     case MagasinActionsTypes.SAVE_MAGASIN:
       return { ...state, dataState: MagasinStateEnum.LOADING };
     case MagasinActionsTypes.SAVE_MAGASIN_SUCCES:
       let maga: MagasinDto[] = [...state.magasins];
-      maga.push((<MagasinActions>action).payload)
+      maga.push((<MagasinActions>action).payload);
       return {
         ...state,
         dataState: MagasinStateEnum.LOADED,
-        magasins: maga
+        magasins: maga,
       };
     case MagasinActionsTypes.SAVE_MAGASIN_ERROR:
       return {
@@ -49,15 +50,15 @@ export function magasinReducer(
       };
 
     // GET ALL MAGASINS
-    case MagasinActionsTypes.GET_ALL_MAGASIN:
+    case MagasinActionsTypes.GET_ALL_MAGASIN_LIBRE:
       return { ...state, dataState: MagasinStateEnum.LOADING };
-    case MagasinActionsTypes.GET_ALL_MAGASIN_SUCCES:
+    case MagasinActionsTypes.GET_ALL_MAGASIN_LIBRE_SUCCES:
       return {
         ...state,
         dataState: MagasinStateEnum.LOADED,
         magasins: (<MagasinActions>action).payload,
       };
-    case MagasinActionsTypes.GET_ALL_MAGASIN_ERROR:
+    case MagasinActionsTypes.GET_ALL_MAGASIN_LIBRE_ERROR:
       return {
         ...state,
         dataState: MagasinStateEnum.ERROR,

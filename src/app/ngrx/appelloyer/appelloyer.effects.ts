@@ -5,8 +5,8 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
 import {
-  GetAllAppartementActionsError,
-  GetAllAppartementActionsSuccess,
+  GetAllAppartementLibreActionsError,
+  GetAllAppartementLibreActionsSuccess,
 } from '../appartement/appartement.actions';
 import {
   AppelLoyerctionsTypes,

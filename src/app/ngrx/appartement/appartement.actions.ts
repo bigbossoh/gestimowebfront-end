@@ -10,49 +10,47 @@ export enum AppartementctionsTypes {
   SAVE_APPARTEMENT_SUCCES = '[AppartementDto] Get Save AppartementSucces',
   SAVE_APPARTEMENT_ERROR = '[AppartementDto] Get Save Appartement Error',
 
-  GET_ALL_APPARTEMENT = '[AppartementDto] Get All AppartementDto',
-  GET_ALL_APPARTEMENT_SUCCES = '[AppartementDto] Get All AppartementDto Succes',
-  GET_ALL_APPARTEMENT_ERROR = '[AppartementDto] Get All AppartementDto Error',
-
+  GET_ALL_APPARTEMENT_LIBRE = '[AppartementDto] Get All AppartementDto',
+  GET_ALL_APPARTEMENT_LIBRE_SUCCES = '[AppartementDto] Get All AppartementDto Succes',
+  GET_ALL_APPARTEMENT_LIBRE_ERROR = '[AppartementDto] Get All AppartementDto Error',
 }
 // CREER LES DIFFERENTES ACTIONS
 export class SaveAppartementActions implements Action {
   type: AppartementctionsTypes = AppartementctionsTypes.SAVE_APPARTEMENT;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {}
 }
 
 export class SaveAppartementActionsSuccess implements Action {
-  type: AppartementctionsTypes =
-    AppartementctionsTypes.SAVE_APPARTEMENT_SUCCES;
-  constructor(public payload: AppartementDto) { }
+  type: AppartementctionsTypes = AppartementctionsTypes.SAVE_APPARTEMENT_SUCCES;
+  constructor(public payload: AppartementDto) {}
 }
 export class SaveAppartementActionsError implements Action {
-  type: AppartementctionsTypes =
-    AppartementctionsTypes.SAVE_APPARTEMENT_ERROR;
-  constructor(public payload: string) { }
+  type: AppartementctionsTypes = AppartementctionsTypes.SAVE_APPARTEMENT_ERROR;
+  constructor(public payload: string) {}
 }
 
 // GET ALL APPARTEMENT
-export class GetAllAppartementActions implements Action {
-  type: AppartementctionsTypes = AppartementctionsTypes.GET_ALL_APPARTEMENT;
-  constructor(public payload: any) { }
+export class GetAllAppartementLibreActions implements Action {
+  type: AppartementctionsTypes =
+    AppartementctionsTypes.GET_ALL_APPARTEMENT_LIBRE;
+  constructor(public payload: any) {}
 }
 
-export class GetAllAppartementActionsSuccess implements Action {
+export class GetAllAppartementLibreActionsSuccess implements Action {
   type: AppartementctionsTypes =
-    AppartementctionsTypes.GET_ALL_APPARTEMENT_SUCCES;
-  constructor(public payload: AppartementDto[]) { }
+    AppartementctionsTypes.GET_ALL_APPARTEMENT_LIBRE_SUCCES;
+  constructor(public payload: AppartementDto[]) {}
 }
-export class GetAllAppartementActionsError implements Action {
+export class GetAllAppartementLibreActionsError implements Action {
   type: AppartementctionsTypes =
-    AppartementctionsTypes.GET_ALL_APPARTEMENT_ERROR;
-  constructor(public payload: string) { }
+    AppartementctionsTypes.GET_ALL_APPARTEMENT_LIBRE_ERROR;
+  constructor(public payload: string) {}
 }
 
 export type AppartementActions =
   | SaveAppartementActions
   | SaveAppartementActionsSuccess
   | SaveAppartementActionsError
-  | GetAllAppartementActions
-  | GetAllAppartementActionsError
-  | GetAllAppartementActionsSuccess
+  | GetAllAppartementLibreActions
+  | GetAllAppartementLibreActionsError
+  | GetAllAppartementLibreActionsSuccess;

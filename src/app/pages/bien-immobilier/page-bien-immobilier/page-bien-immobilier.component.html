@@ -100,8 +100,8 @@
                   <td>{{ biens.abrvBienimmobilier }}</td>
                   <td>{{ biens.utilisateur }}</td>
                   <td>{{ biens.site }}</td>
-                  <td *ngIf="biens.occupied" style="color: red">Occupé</td>
-                  <td *ngIf="!biens.occupied" style="color: blue">Libre</td>
+                  <td *ngIf="biens.occupied" style="color: red"><i class="fa-solid fa-door-closed"></i></td>
+                  <td *ngIf="!biens.occupied" style="color: blue"><i class="fas fa-door-open"></i></td>
 
                   <td class="">
                     <div class="btn-group">

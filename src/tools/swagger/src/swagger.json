@@ -123,6 +123,22 @@
         }
       }
     },
+    "gestimoweb/api/v1/appartement/alllibre" : {
+      "get" : {
+        "operationId" : "findAllAppartementLibre",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AppartementDto"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/appartement/delete/{id}" : {
       "delete" : {
         "operationId" : "deleteAppartement",
@@ -1123,6 +1139,22 @@
         }
       }
     },
+    "gestimoweb/api/v1/magasin/alllibre" : {
+      "get" : {
+        "operationId" : "findAllMagasinLibre",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/MagasinResponseDto"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/magasin/findAllMagasinByIdEtage/{id}" : {
       "get" : {
         "operationId" : "findAllMagasinByEtage",
@@ -1603,6 +1635,22 @@
         }
       }
     },
+    "gestimoweb/api/v1/studio/alllibre" : {
+      "get" : {
+        "operationId" : "findAllStudiosLibre",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/StudioDto"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/studio/delete/{id}" : {
       "delete" : {
         "operationId" : "deleteStudio",
@@ -1868,6 +1916,22 @@
     "gestimoweb/api/v1/villa/all" : {
       "get" : {
         "operationId" : "findAllVilla",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/VillaDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/villa/alllibre" : {
+      "get" : {
+        "operationId" : "findAllVillaLibre",
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -2293,6 +2357,9 @@
         "nbreSalleEauApp" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "occupied" : {
+          "type" : "boolean"
         },
         "numeroApp" : {
           "type" : "integer",
@@ -4188,10 +4255,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -4293,10 +4360,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }

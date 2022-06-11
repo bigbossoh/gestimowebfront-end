@@ -1,9 +1,11 @@
 import { Action } from '@ngrx/store';
-import { BienImmobilierDto, EtageDto, ImmeubleDto, StudioDto } from 'src/gs-api/src/models';
 import {
-  StudioActions,
-  StudioActionsTypes,
-} from './studio.actions';
+  BienImmobilierDto,
+  EtageDto,
+  ImmeubleDto,
+  StudioDto,
+} from 'src/gs-api/src/models';
+import { StudioActions, StudioActionsTypes } from './studio.actions';
 export enum StudioStateEnum {
   LOADING = 'Loading',
   LOADED = 'Loaded',
@@ -11,8 +13,7 @@ export enum StudioStateEnum {
   INITIAL = 'Initial',
   NEW = 'New',
   EDIT = 'Edit',
-  LOADEDBYIMMEUNLE = 'LoadedByImmeuble'
-
+  LOADEDBYIMMEUNLE = 'LoadedByImmeuble',
 }
 export interface StudioState {
   studios: any;
@@ -29,17 +30,16 @@ export function studioReducer(
   action: Action
 ): StudioState {
   switch (action.type) {
-
     //SAVE ETAGE
     case StudioActionsTypes.SAVE_STUDIO:
       return { ...state, dataState: StudioStateEnum.LOADING };
     case StudioActionsTypes.SAVE_STUDIO_SUCCES:
       let stud: StudioDto[] = [...state.studios];
-      stud.push((<StudioActions>action).payload)
+      stud.push((<StudioActions>action).payload);
       return {
         ...state,
         dataState: StudioStateEnum.LOADED,
-        studios: stud
+        studios: stud,
       };
     case StudioActionsTypes.SAVE_STUDIO_ERROR:
       return {
@@ -48,15 +48,15 @@ export function studioReducer(
         errorMessage: (<StudioActions>action).payload,
       };
     // GET ALL VILLA
-    case StudioActionsTypes.GET_ALL_STUDIO:
+    case StudioActionsTypes.GET_ALL_STUDIO_LIBRE:
       return { ...state, dataState: StudioStateEnum.LOADING };
-    case StudioActionsTypes.GET_ALL_STUDIO_SUCCES:
+    case StudioActionsTypes.GET_ALL_STUDIO_LIBRE_SUCCES:
       return {
         ...state,
         dataState: StudioStateEnum.LOADED,
         studios: (<StudioActions>action).payload,
       };
-    case StudioActionsTypes.GET_ALL_STUDIO_ERROR:
+    case StudioActionsTypes.GET_ALL_STUDIO_LIBRE_ERROR:
       return {
         ...state,
         dataState: StudioStateEnum.ERROR,

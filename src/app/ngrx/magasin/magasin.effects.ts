@@ -4,11 +4,18 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
-import { GetAllMagasinActionsSuccess, GetAllMagasintActionsError, MagasinActions, MagasinActionsTypes, SaveMagasinActionsSuccess, SaveMagasintActionsError } from './magasin.actions';
+import {
+  GetAllMagasinLibreActionsSuccess,
+  GetAllMagasinLibreActionsError,
+  MagasinActions,
+  MagasinActionsTypes,
+  SaveMagasinActionsSuccess,
+  SaveMagasintActionsError,
+} from './magasin.actions';
 
 @Injectable()
 export class MagasinEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions) { }
+  constructor(private apiService: ApiService, private effectActions: Actions) {}
 
   //SAVE EFFECTS
   saveMagasinEffect: Observable<Action> = createEffect(() =>
@@ -25,14 +32,13 @@ export class MagasinEffects {
   //LISTE DES MAGASINS
   getAllMagasinsEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
-      ofType(MagasinActionsTypes.GET_ALL_MAGASIN),
+      ofType(MagasinActionsTypes.GET_ALL_MAGASIN_LIBRE),
       mergeMap((action) => {
-        return this.apiService.findAllMagasin().pipe(
-          map(
-            (magasin) =>
-              new GetAllMagasinActionsSuccess(magasin)
-          ),
-          catchError((err) => of(new GetAllMagasintActionsError(err.message)))
+        return this.apiService.findAllMagasinLibre().pipe(
+          map((magasin) => new GetAllMagasinLibreActionsSuccess(magasin)),
+          catchError((err) =>
+            of(new GetAllMagasinLibreActionsError(err.message))
+          )
         );
       })
     )

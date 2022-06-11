@@ -12,7 +12,7 @@
     "gs-api:create-dist": "mkdir -p tools/swagger/dist && mkdir -p tools/swagger/src",
     "gs-api:download": "cp /Users/miche/Documents/Projet\\ JEE/GestimoSpringBackend/target/GestimoSpringBackend-0.0.1-SNAPSHOT.jar ./tools/swagger/dist && cp /Users/miche/Documents/Projet\\ JEE/GestimoSpringBackend/target/swagger.json ./tools/swagger/src",
     "gs-api:extract": "node ./src/tools/swagger/src/swagger.json 0.0.1-SNAPSHOT",
-    "gs-api:swagger-gen": "ng-swagger-gen -i /src/tools/swagger/src/swagger.json -o src/gs-api/src"
+    "gs-api:swagger-gen": "ng-swagger-gen -i ./src/tools/swagger/src/swagger.json -o src/gs-api/src"
   },
   "private": true,
   "dependencies": {

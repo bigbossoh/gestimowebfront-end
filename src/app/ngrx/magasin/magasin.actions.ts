@@ -10,49 +10,43 @@ export enum MagasinActionsTypes {
   SAVE_MAGASIN_SUCCES = '[MagasinDto] Get save Magasin Succes',
   SAVE_MAGASIN_ERROR = '[MagasinDto] Get Save Magasin Error',
 
-  GET_ALL_MAGASIN = '[MagasinDto] Get All Magasin',
-  GET_ALL_MAGASIN_SUCCES = '[MagasinDto] Get All Magasin Succes',
-  GET_ALL_MAGASIN_ERROR = '[MagasinDto] Get All Magasin Error',
-
-
+  GET_ALL_MAGASIN_LIBRE = '[MagasinDto] Get All Magasin',
+  GET_ALL_MAGASIN_LIBRE_SUCCES = '[MagasinDto] Get All Magasin Succes',
+  GET_ALL_MAGASIN_LIBRE_ERROR = '[MagasinDto] Get All Magasin Error',
 }
 // CREER LES DIFFERENTES ACTIONS
 export class SaveMagasinActions implements Action {
   type: MagasinActionsTypes = MagasinActionsTypes.SAVE_MAGASIN;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {}
 }
 
 export class SaveMagasinActionsSuccess implements Action {
-  type: MagasinActionsTypes =
-    MagasinActionsTypes.SAVE_MAGASIN_SUCCES;
-  constructor(public payload: boolean) { }
+  type: MagasinActionsTypes = MagasinActionsTypes.SAVE_MAGASIN_SUCCES;
+  constructor(public payload: boolean) {}
 }
 export class SaveMagasintActionsError implements Action {
-  type: MagasinActionsTypes =
-    MagasinActionsTypes.SAVE_MAGASIN_ERROR;
-  constructor(public payload: string) { }
+  type: MagasinActionsTypes = MagasinActionsTypes.SAVE_MAGASIN_ERROR;
+  constructor(public payload: string) {}
 }
 
-// CGET ALL MGASIN
-export class GetAllMagasinActions implements Action {
-  type: MagasinActionsTypes = MagasinActionsTypes.GET_ALL_MAGASIN;
-  constructor(public payload: any) { }
+// GET ALL MGASIN
+export class GetAllMagasinLibreActions implements Action {
+  type: MagasinActionsTypes = MagasinActionsTypes.GET_ALL_MAGASIN_LIBRE;
+  constructor(public payload: any) {}
 }
 
-export class GetAllMagasinActionsSuccess implements Action {
-  type: MagasinActionsTypes =
-    MagasinActionsTypes.GET_ALL_MAGASIN_SUCCES;
-  constructor(public payload: MagasinDto[]) { }
+export class GetAllMagasinLibreActionsSuccess implements Action {
+  type: MagasinActionsTypes = MagasinActionsTypes.GET_ALL_MAGASIN_LIBRE_SUCCES;
+  constructor(public payload: MagasinDto[]) {}
 }
-export class GetAllMagasintActionsError implements Action {
-  type: MagasinActionsTypes =
-    MagasinActionsTypes.GET_ALL_MAGASIN_ERROR;
-  constructor(public payload: string) { }
+export class GetAllMagasinLibreActionsError implements Action {
+  type: MagasinActionsTypes = MagasinActionsTypes.GET_ALL_MAGASIN_LIBRE_ERROR;
+  constructor(public payload: string) {}
 }
 export type MagasinActions =
   | SaveMagasinActions
   | SaveMagasinActionsSuccess
   | SaveMagasintActionsError
-  | GetAllMagasinActions
-  | GetAllMagasinActionsSuccess
-  | GetAllMagasintActionsError
+  | GetAllMagasinLibreActions
+  | GetAllMagasinLibreActionsSuccess
+  | GetAllMagasinLibreActionsError;

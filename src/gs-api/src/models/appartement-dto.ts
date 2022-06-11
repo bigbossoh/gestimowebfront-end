@@ -6,6 +6,7 @@ export interface AppartementDto {
   nbreChambreApp?: number;
   nbreSalonApp?: number;
   nbreSalleEauApp?: number;
+  occupied?: boolean;
   numeroApp?: number;
   abrvNomApp?: string;
   nomApp?: string;

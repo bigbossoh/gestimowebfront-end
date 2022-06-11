@@ -1,5 +1,11 @@
 import { Action } from '@ngrx/store';
-import { AppartementDto, BienImmobilierDto, EtageDto, ImmeubleDto, StudioDto } from 'src/gs-api/src/models';
+import {
+  AppartementDto,
+  BienImmobilierDto,
+  EtageDto,
+  ImmeubleDto,
+  StudioDto,
+} from 'src/gs-api/src/models';
 import {
   AppartementActions,
   AppartementctionsTypes,
@@ -11,8 +17,7 @@ export enum AppartementStateEnum {
   INITIAL = 'Initial',
   NEW = 'New',
   EDIT = 'Edit',
-  LOADEDBYIMMEUNLE = 'LoadedByImmeuble'
-
+  LOADEDBYIMMEUNLE = 'LoadedByImmeuble',
 }
 export interface AppartementState {
   appartements: AppartementDto[];
@@ -29,17 +34,16 @@ export function appartementReducer(
   action: Action
 ): AppartementState {
   switch (action.type) {
-
     //SAVE ETAGE
     case AppartementctionsTypes.SAVE_APPARTEMENT:
       return { ...state, dataState: AppartementStateEnum.LOADING };
     case AppartementctionsTypes.SAVE_APPARTEMENT_SUCCES:
       let appart: AppartementDto[] = [...state.appartements];
-      appart.push((<AppartementActions>action).payload)
+      appart.push((<AppartementActions>action).payload);
       return {
         ...state,
         dataState: AppartementStateEnum.LOADED,
-        appartements: appart
+        appartements: appart,
       };
     case AppartementctionsTypes.SAVE_APPARTEMENT_ERROR:
       return {
@@ -49,15 +53,15 @@ export function appartementReducer(
       };
 
     // GET ALL APPARTEMENT
-    case AppartementctionsTypes.GET_ALL_APPARTEMENT:
+    case AppartementctionsTypes.GET_ALL_APPARTEMENT_LIBRE:
       return { ...state, dataState: AppartementStateEnum.LOADING };
-    case AppartementctionsTypes.GET_ALL_APPARTEMENT_SUCCES:
+    case AppartementctionsTypes.GET_ALL_APPARTEMENT_LIBRE_SUCCES:
       return {
         ...state,
         dataState: AppartementStateEnum.LOADED,
         appartements: (<AppartementActions>action).payload,
       };
-    case AppartementctionsTypes.GET_ALL_APPARTEMENT_ERROR:
+    case AppartementctionsTypes.GET_ALL_APPARTEMENT_LIBRE_ERROR:
       return {
         ...state,
         dataState: AppartementStateEnum.ERROR,

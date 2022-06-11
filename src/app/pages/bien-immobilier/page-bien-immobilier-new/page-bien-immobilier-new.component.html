@@ -272,6 +272,35 @@
           </form>
           <!-- FORM POUR LES STUDIOS -->
           <form *ngIf="studioform && ngselecttypeBien == 'Studio'" [formGroup]="studioform">
+            <div class="mb-3">
+              <ng-container *ngIf="utilisateurState$ | async as state" [ngSwitch]="state.dataState">
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.INITIAL">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.ERROR">
+                  <div class="p-2 invalid-feedback">
+                    Une erreur est survenue lors du chargement de la listes des propriétaires
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
+                  <label class="small mb-1" for="inputUsername">Propriétaire</label>
+                  <div class="form-group">
+                    <select formControlName="idUtilisateur" name="idUtilisateur" id="username" class="form-control"
+                      [ngClass]="{'is-invalid':submitted&& (studioform.controls.idUtilisateur.errors ||studioform.controls['idUtilisateur'].value=='')}">
+                      <option [value]="">Sélection un Propriétaire</option>
+                      <option [value]="utilis.id" *ngFor="let utilis of state.utlisisateurs">
+                        {{ utilis.nom }} {{ utilis.prenom }}
+                      </option>
+                    </select>
+                    <div *ngIf="submitted&& studioform.controls.idUtilisateur.errors" class="invalid-feedback">
+                      <div *ngIf=" studioform.controls.idUtilisateur.errors.required">*Champ obligatoire</div>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
             <div class="row gx-3 mb-3">
               <!-- Form Group (first name)-->
               <div class="col-md-6">
