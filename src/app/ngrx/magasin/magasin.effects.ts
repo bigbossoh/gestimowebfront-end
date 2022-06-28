@@ -4,6 +4,7 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
+import { GetAllMagasinActionsSuccess, GetAllMagasinActionsError } from './magasin.actions';
 import {
   GetAllMagasinLibreActionsSuccess,
   GetAllMagasinLibreActionsError,
@@ -29,8 +30,8 @@ export class MagasinEffects {
       })
     )
   );
-  //LISTE DES MAGASINS
-  getAllMagasinsEffect: Observable<Action> = createEffect(() =>
+  //LISTE DES MAGASINS LIBRES
+  getAllMagasinsLibreEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(MagasinActionsTypes.GET_ALL_MAGASIN_LIBRE),
       mergeMap((action) => {
@@ -38,6 +39,20 @@ export class MagasinEffects {
           map((magasin) => new GetAllMagasinLibreActionsSuccess(magasin)),
           catchError((err) =>
             of(new GetAllMagasinLibreActionsError(err.message))
+          )
+        );
+      })
+    )
+  );
+    //LISTE DES MAGASINS
+    getAllMagasinsEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(MagasinActionsTypes.GET_ALL_MAGASIN),
+      mergeMap((action) => {
+        return this.apiService.findAllMagasin().pipe(
+          map((magasin) => new GetAllMagasinActionsSuccess(magasin)),
+          catchError((err) =>
+            of(new GetAllMagasinActionsError(err.message))
           )
         );
       })

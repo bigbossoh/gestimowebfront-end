@@ -10,9 +10,13 @@ export enum StudioActionsTypes {
   SAVE_STUDIO_SUCCES = '[StudioDto] Get save Studio Succes',
   SAVE_STUDIO_ERROR = '[StudioDto] Get save Studio Error',
 
-  GET_ALL_STUDIO_LIBRE = '[StudioDto] Get All StudioDto',
-  GET_ALL_STUDIO_LIBRE_SUCCES = '[StudioDto] Get All StudioDto Succes',
-  GET_ALL_STUDIO_LIBRE_ERROR = '[StudioDto] Get All StudioDto Error',
+  GET_ALL_STUDIO_LIBRE = '[StudioDto] Get All StudioDto LIBRE',
+  GET_ALL_STUDIO_LIBRE_SUCCES = '[StudioDto] Get All StudioDto Succes LIBRE',
+  GET_ALL_STUDIO_LIBRE_ERROR = '[StudioDto] Get All StudioDto Error LIBRE',
+
+  GET_ALL_STUDIO = '[StudioDto] Get All StudioDto',
+  GET_ALL_STUDIO_SUCCES = '[StudioDto] Get All StudioDto Succes',
+  GET_ALL_STUDIO_ERROR = '[StudioDto] Get All StudioDto Error',
 }
 // CREER LES DIFFERENTES ACTIONS
 export class SaveStudioActions implements Action {
@@ -28,7 +32,7 @@ export class SaveStudioctionsError implements Action {
   type: StudioActionsTypes = StudioActionsTypes.SAVE_STUDIO_ERROR;
   constructor(public payload: string) {}
 }
-// CREER LES DIFFERENTES ACTIONS
+// CREER LES DIFFERENTES ACTIONS LIBRES
 export class GetAllStudioLibreActions implements Action {
   type: StudioActionsTypes = StudioActionsTypes.GET_ALL_STUDIO_LIBRE;
   constructor(public payload: any) {}
@@ -42,10 +46,30 @@ export class GetAllStudioLibreActionsError implements Action {
   type: StudioActionsTypes = StudioActionsTypes.GET_ALL_STUDIO_LIBRE_ERROR;
   constructor(public payload: string) {}
 }
+
+// CREER LES DIFFERENTES ACTIONS
+export class GetAllStudioActions implements Action {
+  type: StudioActionsTypes = StudioActionsTypes.GET_ALL_STUDIO;
+  constructor(public payload: any) {}
+}
+
+export class GetAllStudioActionsSuccess implements Action {
+  type: StudioActionsTypes = StudioActionsTypes.GET_ALL_STUDIO_SUCCES;
+  constructor(public payload: StudioDto[]) {}
+}
+export class GetAllStudioActionsError implements Action {
+  type: StudioActionsTypes = StudioActionsTypes.GET_ALL_STUDIO_ERROR;
+  constructor(public payload: string) {}
+}
 export type StudioActions =
   | SaveStudioActionsSuccess
   | SaveStudioctionsError
   | SaveStudioActions
+
   | GetAllStudioLibreActions
   | GetAllStudioLibreActionsSuccess
-  | GetAllStudioLibreActionsError;
+  | GetAllStudioLibreActionsError
+
+  | GetAllStudioActions
+  | GetAllStudioActionsSuccess
+  | GetAllStudioActionsError;

@@ -49,7 +49,7 @@ export function magasinReducer(
         errorMessage: (<MagasinActions>action).payload,
       };
 
-    // GET ALL MAGASINS
+    // GET ALL MAGASINS LIBRES
     case MagasinActionsTypes.GET_ALL_MAGASIN_LIBRE:
       return { ...state, dataState: MagasinStateEnum.LOADING };
     case MagasinActionsTypes.GET_ALL_MAGASIN_LIBRE_SUCCES:
@@ -64,6 +64,21 @@ export function magasinReducer(
         dataState: MagasinStateEnum.ERROR,
         errorMessage: (<MagasinActions>action).payload,
       };
+      // GET ALL MAGASINS
+      case MagasinActionsTypes.GET_ALL_MAGASIN:
+        return { ...state, dataState: MagasinStateEnum.LOADING };
+      case MagasinActionsTypes.GET_ALL_MAGASIN_SUCCES:
+        return {
+          ...state,
+          dataState: MagasinStateEnum.LOADED,
+          magasins: (<MagasinActions>action).payload,
+        };
+      case MagasinActionsTypes.GET_ALL_MAGASIN_ERROR:
+        return {
+          ...state,
+          dataState: MagasinStateEnum.ERROR,
+          errorMessage: (<MagasinActions>action).payload,
+        };
     default:
       return { ...state };
   }

@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
 import { GetAllBiensActionsSuccess } from '../bien-immobilier/bienimmobilier.actions';
+import { GetAllVillaActionsSuccess, GetAllVillaActionsError } from './villa.action';
 import {
   GetAllVillaLibreActionsError,
   GetAllVillaLibreActionsSuccess,
@@ -30,14 +31,26 @@ export class VillaEffects {
       })
     )
   );
-  //LISTE DES VILLA
-  getAllVillasEffect: Observable<Action> = createEffect(() =>
+  //LISTE DES VILLA  LIBRE
+  getAllVillasLibreEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(VillaActionsTypes.GET_ALL_VILLA_LIBRE),
       mergeMap((action) => {
         return this.apiService.findAllVillaLibre().pipe(
           map((villas) => new GetAllVillaLibreActionsSuccess(villas)),
           catchError((err) => of(new GetAllVillaLibreActionsError(err.message)))
+        );
+      })
+    )
+  );
+    //LISTE DES VILLA
+    getAllVillasEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(VillaActionsTypes.GET_ALL_VILLA),
+      mergeMap((action) => {
+        return this.apiService.findAllVilla().pipe(
+          map((villas) => new GetAllVillaActionsSuccess(villas)),
+          catchError((err) => of(new GetAllVillaActionsError(err.message)))
         );
       })
     )

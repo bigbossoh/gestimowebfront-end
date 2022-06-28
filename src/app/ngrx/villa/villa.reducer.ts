@@ -48,7 +48,7 @@ export function villaReducer(
         dataState: VillaStateEnum.ERROR,
         errorMessage: (<VillaActions>action).payload,
       };
-    // GET ALL VILLA
+    // GET ALL VILLA LIBRES
     case VillaActionsTypes.GET_ALL_VILLA_LIBRE:
       return { ...state, dataState: VillaStateEnum.LOADING };
     case VillaActionsTypes.GET_ALL_VILLA_LIBRE_SUCCES:
@@ -63,6 +63,22 @@ export function villaReducer(
         dataState: VillaStateEnum.ERROR,
         errorMessage: (<VillaActions>action).payload,
       };
+
+       // GET ALL VILLA
+       case VillaActionsTypes.GET_ALL_VILLA:
+        return { ...state, dataState: VillaStateEnum.LOADING };
+      case VillaActionsTypes.GET_ALL_VILLA_SUCCES:
+        return {
+          ...state,
+          dataState: VillaStateEnum.LOADED,
+          villas: (<VillaActions>action).payload,
+        };
+      case VillaActionsTypes.GET_ALL_VILLA_ERROR:
+        return {
+          ...state,
+          dataState: VillaStateEnum.ERROR,
+          errorMessage: (<VillaActions>action).payload,
+        };
     default:
       return { ...state };
   }
