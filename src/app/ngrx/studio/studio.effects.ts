@@ -4,6 +4,7 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
+import { GetAllStudioActionsSuccess, GetAllStudioActionsError } from './studio.actions';
 import {
   GetAllStudioLibreActionsSuccess,
   GetAllStudioLibreActionsError,
@@ -29,8 +30,8 @@ export class StudioEffects {
       })
     )
   );
-  //LISTE DES VILLA
-  getAllStudioEffect: Observable<Action> = createEffect(() =>
+  //LISTE DES STUDIO
+  getAllStudioLibreEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(StudioActionsTypes.GET_ALL_STUDIO_LIBRE),
       mergeMap((action) => {
@@ -38,6 +39,20 @@ export class StudioEffects {
           map((studios) => new GetAllStudioLibreActionsSuccess(studios)),
           catchError((err) =>
             of(new GetAllStudioLibreActionsError(err.message))
+          )
+        );
+      })
+    )
+  );
+    //LISTE DES STUDIO
+    getAllStudioEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(StudioActionsTypes.GET_ALL_STUDIO),
+      mergeMap((action) => {
+        return this.apiService.findAllStudios().pipe(
+          map((studios) => new GetAllStudioActionsSuccess(studios)),
+          catchError((err) =>
+            of(new GetAllStudioActionsError(err.message))
           )
         );
       })

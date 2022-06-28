@@ -95,8 +95,12 @@ import { ButtonActionUtlisateurComponent } from './pages/utilisateurs/button-act
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import {MatAccordion} from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 @NgModule({
   declarations: [
     AppComponent,
@@ -148,14 +152,17 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     MatButtonModule,
     MatTableModule,
+    MatExpansionModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    MatFormFieldModule,
     ReactiveFormsModule,
     BrowserModule,
     MatDialogModule,
     AppRoutingModule,
     HttpClientModule,
     NgxPaginationModule,
+    MatDatepickerModule,
     NoticationModule,
     HighchartsChartModule,
     ReactiveFormsModule,

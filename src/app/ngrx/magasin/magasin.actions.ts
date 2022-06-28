@@ -10,9 +10,13 @@ export enum MagasinActionsTypes {
   SAVE_MAGASIN_SUCCES = '[MagasinDto] Get save Magasin Succes',
   SAVE_MAGASIN_ERROR = '[MagasinDto] Get Save Magasin Error',
 
-  GET_ALL_MAGASIN_LIBRE = '[MagasinDto] Get All Magasin',
-  GET_ALL_MAGASIN_LIBRE_SUCCES = '[MagasinDto] Get All Magasin Succes',
-  GET_ALL_MAGASIN_LIBRE_ERROR = '[MagasinDto] Get All Magasin Error',
+  GET_ALL_MAGASIN_LIBRE = '[MagasinDto] Get All Magasin Libre',
+  GET_ALL_MAGASIN_LIBRE_SUCCES = '[MagasinDto] Get All Magasin Libre Succes',
+  GET_ALL_MAGASIN_LIBRE_ERROR = '[MagasinDto] Get All Magasin Libre Error',
+
+  GET_ALL_MAGASIN = '[MagasinDto] Get All Magasin',
+  GET_ALL_MAGASIN_SUCCES = '[MagasinDto] Get All Magasin Succes',
+  GET_ALL_MAGASIN_ERROR = '[MagasinDto] Get All Magasin Error',
 }
 // CREER LES DIFFERENTES ACTIONS
 export class SaveMagasinActions implements Action {
@@ -29,7 +33,7 @@ export class SaveMagasintActionsError implements Action {
   constructor(public payload: string) {}
 }
 
-// GET ALL MGASIN
+// GET ALL MGASIN LIBRE
 export class GetAllMagasinLibreActions implements Action {
   type: MagasinActionsTypes = MagasinActionsTypes.GET_ALL_MAGASIN_LIBRE;
   constructor(public payload: any) {}
@@ -43,10 +47,30 @@ export class GetAllMagasinLibreActionsError implements Action {
   type: MagasinActionsTypes = MagasinActionsTypes.GET_ALL_MAGASIN_LIBRE_ERROR;
   constructor(public payload: string) {}
 }
+
+// GET ALL MGASIN LIBRE
+export class GetAllMagasinActions implements Action {
+  type: MagasinActionsTypes = MagasinActionsTypes.GET_ALL_MAGASIN;
+  constructor(public payload: any) {}
+}
+
+export class GetAllMagasinActionsSuccess implements Action {
+  type: MagasinActionsTypes = MagasinActionsTypes.GET_ALL_MAGASIN_SUCCES;
+  constructor(public payload: MagasinDto[]) {}
+}
+export class GetAllMagasinActionsError implements Action {
+  type: MagasinActionsTypes = MagasinActionsTypes.GET_ALL_MAGASIN_ERROR;
+  constructor(public payload: string) {}
+}
 export type MagasinActions =
   | SaveMagasinActions
   | SaveMagasinActionsSuccess
   | SaveMagasintActionsError
+
   | GetAllMagasinLibreActions
   | GetAllMagasinLibreActionsSuccess
-  | GetAllMagasinLibreActionsError;
+  | GetAllMagasinLibreActionsError
+
+  | GetAllMagasinActions
+  | GetAllMagasinActionsSuccess
+  | GetAllMagasinActionsError;

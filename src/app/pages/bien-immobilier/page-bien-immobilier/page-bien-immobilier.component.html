@@ -73,52 +73,161 @@
     </div>
     <hr style="margin-top: 0" />
     <!-- main content -->
-    <ng-container *ngIf="bienState$ | async as state" [ngSwitch]="state.dataState">
-      <ng-container *ngSwitchCase="BienImmobilierStateEnum.INITIAL">
-        <div class="p-2">Initialisation des données</div>
-      </ng-container>
-      <ng-container *ngSwitchCase="BienImmobilierStateEnum.LOADED">
-        <div class="tab-content" id="myTabContent">
-          <!-- user table -->
-          <div class="tab-pane fade show active" id="users">
-            <table class="table table-hover m-3 p-3">
-              <thead class="table-borderless">
-                <tr class="text-center mt-3">
-                  <th>N°</th>
-                  <th>Code</th>
-                  <th>Propriétaire</th>
-                  <th>Site</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="text-center" *ngFor="let biens of state.bienImmoblilier">
-                  <td>
-                    {{ biens.id }}
-                  </td>
-                  <td>{{ biens.abrvBienimmobilier }}</td>
-                  <td>{{ biens.utilisateur }}</td>
-                  <td>{{ biens.site }}</td>
-                  <td *ngIf="biens.occupied" style="color: red"><i class="fa-solid fa-door-closed"></i></td>
-                  <td *ngIf="!biens.occupied" style="color: blue"><i class="fas fa-door-open"></i></td>
 
-                  <td class="">
-                    <div class="btn-group">
-                      <button class="btn btn-outline-info" (click)="onEditdele(biens.id)">
-                        <i class="fas fa-edit"></i>
-                      </button>
-                      <button class="btn btn-outline-danger">
-                        <i class="fas fa-trash"></i>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+
+
+    <ng-container *ngIf="bienState$ | async as state" [ngSwitch]="state.dataState">
+
+
+      <div class="tab-content" id="myTabContent">
+        <!-- user table -->
+        <div class="tab-pane fade show active" id="users">
+          <table class="table table-hover m-3 p-3">
+            <thead class="table-borderless">
+              <tr class="text-center mt-3">
+
+                <th>Code</th>
+                <th>Propriétaire</th>
+                <th>Site</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Les appartements -->
+              <ng-container *ngIf="appartementState$ | async as appartementState"
+                [ngSwitch]="appartementState.dataState">
+                <ng-container ng-container *ngSwitchCase="AppartementEnum.INITIAL">
+
+                </ng-container>
+                <ng-container ng-container *ngSwitchCase="AppartementEnum.LOADED">
+                  <tr class="text-center" *ngFor="let appart of appartementState.appartements">
+
+                    <td>{{ appart.abrvNomApp }}</td>
+                    <td>{{ appart.nbreChambreApp }}</td>
+                    <td>{{ appart.abrvNomApp }}</td>
+                    <td *ngIf="appart.occupied" style="color: red"><i class="fa-solid fa-door-closed"></i></td>
+                    <td *ngIf="!appart.occupied" style="color: blue"><i class="fas fa-door-open"></i></td>
+
+                    <td class="">
+                      <div class="btn-group">
+                        <button class="btn btn-outline-info" (click)="onEditdele(appart.id)">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-outline-danger">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+                <ng-container ng-container *ngSwitchCase="AppartementEnum.ERROR">
+                  <div class="p-2">
+                    L'Erreur suivante c'est produite : {{ appartementState.errorMessage }}
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Les Magasins -->
+              <ng-container *ngIf="magasinState$ | async as magasinState" [ngSwitch]="magasinState.dataState">
+                <ng-container ng-container *ngSwitchCase="AppartementEnum.INITIAL">
+
+                </ng-container>
+                <ng-container ng-container *ngSwitchCase="AppartementEnum.LOADED">
+                  <tr class="text-center" *ngFor="let maga of magasinState.magasins">
+
+                    <td>{{ maga.abrvBienimmobilier }}</td>
+                    <td>{{ maga.abrvNomMagasin }}</td>
+                    <td>{{ maga.abrvNomMagasin }}</td>
+                    <td *ngIf="maga.occupied" style="color: red"><i class="fa-solid fa-door-closed"></i></td>
+                    <td *ngIf="!maga.occupied" style="color: blue"><i class="fas fa-door-open"></i></td>
+
+                    <td class="">
+                      <div class="btn-group">
+                        <button class="btn btn-outline-info" (click)="onEditdele(maga.id)">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-outline-danger">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+                <ng-container ng-container *ngSwitchCase="AppartementEnum.ERROR">
+                  <div class="p-2">
+                    L'Erreur suivante c'est produite : {{ magasinState.errorMessage }}
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Les studios -->
+              <ng-container *ngIf="studioState$ | async as studioState" [ngSwitch]="studioState.dataState">
+                <ng-container ng-container *ngSwitchCase="StudioStateEnum.INITIAL">
+
+                </ng-container>
+                <ng-container ng-container *ngSwitchCase="StudioStateEnum.LOADED">
+                  <tr class="text-center" *ngFor="let studio of studioState.studios">
+
+                    <td>{{ studio.abrvNomApp }}</td>
+                    <td>{{ studio.nbreChambreApp }}</td>
+                    <td>{{ studio.abrvNomApp }}</td>
+                    <td *ngIf="studio.occupied" style="color: red"><i class="fa-solid fa-door-closed"></i></td>
+                    <td *ngIf="!studio.occupied" style="color: blue"><i class="fas fa-door-open"></i></td>
+
+                    <td class="">
+                      <div class="btn-group">
+                        <button class="btn btn-outline-info" (click)="onEditdele(studio.id)">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-outline-danger">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+                <ng-container ng-container *ngSwitchCase="StudioStateEnum.ERROR">
+                  <div class="p-2">
+                    L'Erreur suivante c'est produite : {{ studioState.errorMessage }}
+                  </div>
+                </ng-container>
+              </ng-container>
+              <!-- Les villas -->
+              <ng-container *ngIf="villaState$ | async as villaState" [ngSwitch]="villaState.dataState">
+                <ng-container ng-container *ngSwitchCase="AppartementEnum.INITIAL">
+
+                </ng-container>
+                <ng-container ng-container *ngSwitchCase="AppartementEnum.LOADED">
+                  <tr class="text-center" *ngFor="let villa of villaState.villas">
+
+                    <td>{{ villa.abrvBienimmobilier }}</td>
+                    <td>{{ villa.nbrSalonVilla }}</td>
+                    <td>{{ villa.abrvVilla }}</td>
+                    <td *ngIf="villa.occupied" style="color: red"><i class="fa-solid fa-door-closed"></i></td>
+                    <td *ngIf="!villa.occupied" style="color: blue"><i class="fas fa-door-open"></i></td>
+
+                    <td class="">
+                      <div class="btn-group">
+                        <button class="btn btn-outline-info" (click)="onEditdele(villa.id)">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-outline-danger">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+                <ng-container ng-container *ngSwitchCase="AppartementEnum.ERROR">
+                  <div class="p-2">
+                    L'Erreur suivante c'est produite : {{ villaState.errorMessage }}
+                  </div>
+                </ng-container>
+              </ng-container>
+            </tbody>
+          </table>
         </div>
-      </ng-container>
+      </div>
+
       <ng-container *ngSwitchCase="BienImmobilierStateEnum.LOADING">
         <div class="spinner-border text-primary" role="status">
           <span class="sr-only">Loading...</span>

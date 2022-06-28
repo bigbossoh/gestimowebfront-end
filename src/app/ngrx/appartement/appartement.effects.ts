@@ -4,6 +4,7 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
+import { GetAllAppartementActionsSuccess, GetAllAppartementActionsError } from './appartement.actions';
 import {
   AppartementActions,
   AppartementctionsTypes as AppartementActionsTypes,
@@ -29,8 +30,8 @@ export class AppartementEffects {
       })
     )
   );
-  //LISTE DES APPARTEMENT
-  getAllMagasinsEffect: Observable<Action> = createEffect(() =>
+  //LISTE DES APPARTEMENT LIBRE
+  getAllAppartementLibreEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(AppartementActionsTypes.GET_ALL_APPARTEMENT_LIBRE),
       mergeMap((action) => {
@@ -41,6 +42,23 @@ export class AppartementEffects {
           ),
           catchError((err) =>
             of(new GetAllAppartementLibreActionsError(err.message))
+          )
+        );
+      })
+    )
+  );
+    //LISTE DES APPARTEMENT
+    getAllAppartementEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(AppartementActionsTypes.GET_ALL_APPARTEMENT),
+      mergeMap((action) => {
+        return this.apiService.findAllAppartement().pipe(
+          map(
+            (appartement) =>
+              new GetAllAppartementActionsSuccess(appartement)
+          ),
+          catchError((err) =>
+            of(new GetAllAppartementActionsError(err.message))
           )
         );
       })
