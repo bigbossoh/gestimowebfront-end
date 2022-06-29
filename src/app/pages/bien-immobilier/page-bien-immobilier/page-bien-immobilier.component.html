@@ -85,7 +85,7 @@
           <table class="table table-hover m-3 p-3">
             <thead class="table-borderless">
               <tr class="text-center mt-3">
-
+                <th>Id</th>
                 <th>Code</th>
                 <th>Propriétaire</th>
                 <th>Site</th>
@@ -102,7 +102,7 @@
                 </ng-container>
                 <ng-container ng-container *ngSwitchCase="AppartementEnum.LOADED">
                   <tr class="text-center" *ngFor="let appart of appartementState.appartements">
-
+                    <td>{{ appart.id }}</td>
                     <td>{{ appart.abrvNomApp }}</td>
                     <td>{{ appart.nbreChambreApp }}</td>
                     <td>{{ appart.abrvNomApp }}</td>
@@ -134,7 +134,7 @@
                 </ng-container>
                 <ng-container ng-container *ngSwitchCase="AppartementEnum.LOADED">
                   <tr class="text-center" *ngFor="let maga of magasinState.magasins">
-
+                    <td>{{ maga.id }}</td>
                     <td>{{ maga.abrvBienimmobilier }}</td>
                     <td>{{ maga.abrvNomMagasin }}</td>
                     <td>{{ maga.abrvNomMagasin }}</td>
@@ -166,7 +166,7 @@
                 </ng-container>
                 <ng-container ng-container *ngSwitchCase="StudioStateEnum.LOADED">
                   <tr class="text-center" *ngFor="let studio of studioState.studios">
-
+                    <td>{{ studio.id }}</td>
                     <td>{{ studio.abrvNomApp }}</td>
                     <td>{{ studio.nbreChambreApp }}</td>
                     <td>{{ studio.abrvNomApp }}</td>
@@ -198,7 +198,7 @@
                 </ng-container>
                 <ng-container ng-container *ngSwitchCase="AppartementEnum.LOADED">
                   <tr class="text-center" *ngFor="let villa of villaState.villas">
-
+                    <td>{{ villa.id }}</td>
                     <td>{{ villa.abrvBienimmobilier }}</td>
                     <td>{{ villa.nbrSalonVilla }}</td>
                     <td>{{ villa.abrvVilla }}</td>
