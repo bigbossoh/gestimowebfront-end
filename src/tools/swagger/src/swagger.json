@@ -2375,6 +2375,9 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "proprietaire" : {
+          "type" : "string"
+        },
         "residence" : {
           "type" : "boolean"
         }
@@ -3323,10 +3326,10 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "garrage" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "garrage" : {
           "type" : "boolean"
         }
       }
@@ -3459,13 +3462,13 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "underBuildingMagasin" : {
+          "type" : "boolean"
+        },
         "occupied" : {
           "type" : "boolean"
         },
         "archived" : {
-          "type" : "boolean"
-        },
-        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -3514,13 +3517,16 @@
         "utilisateur" : {
           "$ref" : "#/definitions/Utilisateur"
         },
+        "proprietaire" : {
+          "type" : "string"
+        },
+        "underBuildingMagasin" : {
+          "type" : "boolean"
+        },
         "occupied" : {
           "type" : "boolean"
         },
         "archived" : {
-          "type" : "boolean"
-        },
-        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -4120,6 +4126,9 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "proprietaire" : {
+          "type" : "string"
+        },
         "occupied" : {
           "type" : "boolean"
         },
@@ -4255,10 +4264,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -4360,10 +4369,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -4523,6 +4532,9 @@
         "idUtilisateur" : {
           "type" : "integer",
           "format" : "int64"
+        },
+        "proprietaire" : {
+          "type" : "string"
         },
         "occupied" : {
           "type" : "boolean"

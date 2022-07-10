@@ -11,5 +11,6 @@ export interface AppartementDto {
   abrvNomApp?: string;
   nomApp?: string;
   idEtage?: number;
+  proprietaire?: string;
   residence?: boolean;
 }

@@ -104,7 +104,7 @@
                   <tr class="text-center" *ngFor="let appart of appartementState.appartements">
                     <td>{{ appart.id }}</td>
                     <td>{{ appart.abrvNomApp }}</td>
-                    <td>{{ appart.nbreChambreApp }}</td>
+                    <td>{{ appart.proprietaire }}</td>
                     <td>{{ appart.abrvNomApp }}</td>
                     <td *ngIf="appart.occupied" style="color: red"><i class="fa-solid fa-door-closed"></i></td>
                     <td *ngIf="!appart.occupied" style="color: blue"><i class="fas fa-door-open"></i></td>
@@ -136,7 +136,7 @@
                   <tr class="text-center" *ngFor="let maga of magasinState.magasins">
                     <td>{{ maga.id }}</td>
                     <td>{{ maga.abrvBienimmobilier }}</td>
-                    <td>{{ maga.abrvNomMagasin }}</td>
+                    <td>{{ maga.proprietaire }}</td>
                     <td>{{ maga.abrvNomMagasin }}</td>
                     <td *ngIf="maga.occupied" style="color: red"><i class="fa-solid fa-door-closed"></i></td>
                     <td *ngIf="!maga.occupied" style="color: blue"><i class="fas fa-door-open"></i></td>
@@ -168,7 +168,7 @@
                   <tr class="text-center" *ngFor="let studio of studioState.studios">
                     <td>{{ studio.id }}</td>
                     <td>{{ studio.abrvNomApp }}</td>
-                    <td>{{ studio.nbreChambreApp }}</td>
+                    <td>{{ studio.proprietaire }}</td>
                     <td>{{ studio.abrvNomApp }}</td>
                     <td *ngIf="studio.occupied" style="color: red"><i class="fa-solid fa-door-closed"></i></td>
                     <td *ngIf="!studio.occupied" style="color: blue"><i class="fas fa-door-open"></i></td>
@@ -200,7 +200,7 @@
                   <tr class="text-center" *ngFor="let villa of villaState.villas">
                     <td>{{ villa.id }}</td>
                     <td>{{ villa.abrvBienimmobilier }}</td>
-                    <td>{{ villa.nbrSalonVilla }}</td>
+                    <td>{{ villa.proprietaire }}</td>
                     <td>{{ villa.abrvVilla }}</td>
                     <td *ngIf="villa.occupied" style="color: red"><i class="fa-solid fa-door-closed"></i></td>
                     <td *ngIf="!villa.occupied" style="color: blue"><i class="fas fa-door-open"></i></td>
