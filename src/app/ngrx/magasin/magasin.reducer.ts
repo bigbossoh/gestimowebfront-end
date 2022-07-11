@@ -8,6 +8,7 @@ import {
   StudioDto,
 } from 'src/gs-api/src/models';
 import { MagasinActions, MagasinActionsTypes } from './magasin.actions';
+import { MagasinResponseDto } from '../../../gs-api/src/models/magasin-response-dto';
 export enum MagasinStateEnum {
   LOADING = 'Loading',
   LOADED = 'Loaded',
@@ -17,7 +18,7 @@ export enum MagasinStateEnum {
   EDIT = 'Edit',
 }
 export interface MagasinState {
-  magasins: MagasinDto[];
+  magasins: MagasinResponseDto[];
   errorMessage: string;
   dataState: MagasinStateEnum;
 }
