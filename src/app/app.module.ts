@@ -101,6 +101,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { ModifLoyerBailComponent } from './pages/baux/modif-loyer-bail/modif-loyer-bail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -147,6 +148,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     PageNewSiteComponent,
     PageNewUtilisateurComponent,
     ButtonActionUtlisateurComponent,
+    ModifLoyerBailComponent
   ],
   imports: [
     FormsModule,
