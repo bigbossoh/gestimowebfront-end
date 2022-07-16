@@ -99,7 +99,7 @@
                     </span>
 
                     <span *ngIf="element.archiveBail==false">
-                      <i class="fa fa-unlock-alt" aria-hidden="true" style='color: green'></i>
+                      <i class="fas fa-check-circle" aria-hidden="true" style='color: green'></i>
 
                     </span>
                   </div>
@@ -107,9 +107,9 @@
                   <div *ngIf="column=='Actions'">
                     <section>
                       <div class="example-button-row text-center">
-                        <button mat-raised-button color="primary" class="mr-2">Detail</button>
-                        <button mat-raised-button color="accent" class="mr-2">Modication</button>
-                        <button mat-raised-button color="warn">Modifier montant loyer</button>
+                        <button mat-raised-button color="primary" class="mr-2" (click)="onDetailClick(state.baux);(expandedElement  === element ? null : element); $event.stopPropagation();chargerAppels(element.id)">Detail</button>
+                        <button mat-raised-button color="accent" class="mr-2" (click)="onModifClick(state.baux);(expandedElement  === element ? null : element); $event.stopPropagation();chargerAppels(element.id)">Modication</button>
+                        <button mat-raised-button color="warn" (click)="onDeleteClick(state.baux);(expandedElement  === element ? null : element); $event.stopPropagation();chargerAppels(element.id);openModifMontantDialog(element.id)">Modifier montant loyer</button>
                       </div>
                     </section>
                   </div>

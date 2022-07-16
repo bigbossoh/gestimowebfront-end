@@ -1,0 +1,23 @@
+<form *ngIf="formGroup" [formGroup]="formGroup">
+  <label for="basic-url">Nouveau Montant Loyer</label>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">$</span>
+    </div>
+
+    <input formControlName="montantLoyer" type="number"
+    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
+    class="form-control" aria-label="Amount (to the nearest dollar)"
+    [ngClass]="{'is-invalid':submitted&& formGroup.controls.montantLoyer.errors}">
+    <div class="input-group-append">
+      <span class="input-group-text">.00</span>
+    </div>
+    <div *ngIf="submitted&& formGroup.controls.montantLoyer.errors" class="invalid-feedback">
+      <div *ngIf=" formGroup.controls.montantLoyer.errors.required">* Champ obligatoire
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary" type="button" (click)="onSubmit()">
+    Valider
+  </button>
+</form>

@@ -6,6 +6,7 @@ import { GetAllOperationActions } from 'src/app/ngrx/baux/baux.actions';
 import { BauxState, BauxStateEnum } from 'src/app/ngrx/baux/baux.reducer';
 import { OperationDto } from '../../../../gs-api/src/models/operation-dto';
 import { GetAllAppelLoyerActions } from '../../../ngrx/appelloyer/appelloyer.actions';
+import { Operation } from '../../../../gs-api/src/models/operation';
 import {
   AppelLoyerState,
   AppelLoyerStateEnum,
@@ -17,6 +18,13 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { MatDialog } from '@angular/material/dialog';
+import { ModifLoyerBailComponent } from '../modif-loyer-bail/modif-loyer-bail.component';
+
+export interface DialogData {
+
+  id: number;
+}
 @Component({
   selector: 'app-page-baux',
   templateUrl: './page-baux.component.html',
@@ -45,7 +53,7 @@ export class PageBauxComponent implements OnInit {
     'Actions',
   ];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
-  expandedElement!: OperationDto;
+  expandedElement?: OperationDto;
   ELEMENT_DATA: OperationDto[] = [];
   dataSource = this.ELEMENT_DATA;
 
@@ -55,14 +63,34 @@ export class PageBauxComponent implements OnInit {
   readonly BauxStateEnum = BauxStateEnum;
   readonly AppelLoyerStateEnum = AppelLoyerStateEnum;
 
-  constructor(private store: Store<any>) {}
+  constructor(public dialog: MatDialog,private store: Store<any>) {}
+  openModifMontantDialog(loyer: number): void {
+    console.log(loyer);
 
+    const dialolRef = this.dialog.open(ModifLoyerBailComponent, {
+      data:{id:loyer}
+    });
+    dialolRef.afterClosed().subscribe(() => {
+      console.log('On  a fermer le formulaire de Baux');
+
+    });
+  }
   ngOnInit(): void {
     this.store.dispatch(new GetAllOperationActions({}));
     this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
   }
   onActionEmmit($event: any) {
     this.ngOnInit();
+  }
+  onDetailClick(state: any) {
+
+  }
+
+  onModifClick(state: any) {
+
+  }
+  onDeleteClick(state: any) {
+
   }
   chargerAppels(evt: any) {
     this.store.dispatch(new GetAllAppelLoyerActions(evt));
