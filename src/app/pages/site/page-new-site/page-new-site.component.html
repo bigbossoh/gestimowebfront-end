@@ -22,7 +22,7 @@
                                     <ng-container *ngSwitchCase="VilleStateEnum.LOADED">
                                       <label>Selectionnez une Ville</label>
                                       <select class="form-control" (change)="changeCity($any($event.target).value)">
-                                       <option value="">Aucune</option>
+                                        <option value="">Aucune</option>
                                         <option [value]="ville.id" *ngFor="let ville of state.villes">
                                           {{ ville.nomVille }}
                                         </option>
@@ -41,7 +41,8 @@
                                       </ng-container>
                                       <ng-container *ngIf="state.communes.length!=0">
                                         <label>Selectionnez une Commune</label>
-                                        <select class="form-control"  (change)="changeCommune($any($event.target).value)">
+                                        <select class="form-control"
+                                          (change)="changeCommune($any($event.target).value)">
                                           <option [value]="commune.id" *ngFor="let commune of state.communes">
                                             {{ commune.nomCommune }}
                                           </option>
@@ -86,12 +87,13 @@
                           </div>
                           <div class="row">
                             <div class="col d-flex justify-content-end">
-                              <button type="button" class="btn btn-danger mr-2" data-dismiss="modal"
+                              <button type="button" class="btn btn-danger mr-2" data-dismiss="modal" (click)="onClose()"
                                 id="closeAgenceButton">
                                 <i class="fas fa-ban"></i>
                                 Close
                               </button>
-                              <button class="btn btn-primary" type="submit" [disabled]="!siteRegisterForm.valid" (click)="saveSite()">
+                              <button class="btn btn-primary" type="submit" [disabled]="!siteRegisterForm.valid"
+                                (click)="saveSite()">
                                 <i class="fas fa-save"></i>
                                 Enregistrer
                               </button>
