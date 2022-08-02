@@ -102,6 +102,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ModifLoyerBailComponent } from './pages/baux/modif-loyer-bail/modif-loyer-bail.component';
+import { quartierReducer } from './ngrx/quartier/quartier.reducer';
+import { Quartierffects } from './ngrx/quartier/quartier.effects';
 @NgModule({
   declarations: [
     AppComponent,
@@ -186,6 +188,7 @@ import { ModifLoyerBailComponent } from './pages/baux/modif-loyer-bail/modif-loy
       bailStudioState: bailStudioReducer,
       bauxState: bauxReducer,
       appelLoyerState: appelLoyerReducer,
+      quartierState:quartierReducer
     }),
     EffectsModule.forRoot([
       StudioEffects,
@@ -205,6 +208,7 @@ import { ModifLoyerBailComponent } from './pages/baux/modif-loyer-bail/modif-loy
       BailStudioEffects,
       BauxEffects,
       AppelLoyerEffects,
+      Quartierffects
     ]),
 
     StoreDevtoolsModule.instrument(),

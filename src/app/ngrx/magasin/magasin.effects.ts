@@ -34,7 +34,7 @@ export class MagasinEffects {
   getAllMagasinsLibreEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(MagasinActionsTypes.GET_ALL_MAGASIN_LIBRE),
-      mergeMap((action) => {
+      mergeMap(() => {
         return this.apiService.findAllMagasinLibre().pipe(
           map((magasin) => new GetAllMagasinLibreActionsSuccess(magasin)),
           catchError((err) =>

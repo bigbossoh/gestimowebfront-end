@@ -9,38 +9,37 @@ import { Router } from '@angular/router';
 import { PageNewSiteComponent } from '../page-new-site/page-new-site.component';
 import { SiteResponseDto } from 'src/gs-api/src/models';
 
-
-
 @Component({
   selector: 'app-page-site',
   templateUrl: './page-site.component.html',
-  styleUrls: ['./page-site.component.css']
+  styleUrls: ['./page-site.component.css'],
 })
 export class PageSiteComponent implements OnInit {
-  totalLigne:number=0;
-  counter:Observable<SiteResponseDto[]> | null=null;
-  page:number=1;
+  totalLigne: number = 0;
+  counter: Observable<SiteResponseDto[]> | null = null;
+  page: number = 1;
 
   siteState$: Observable<SiteState> | null = null;
 
   readonly SiteStateEnum = SiteStateEnum;
 
+  constructor(
+    private store: Store<any>,
+    private router: Router,
+    public dialog: MatDialog
+  ) {}
 
-
-  constructor(private store: Store<any>,private router:Router,public dialog: MatDialog) { }
-
-  ngOnInit(): void {
+  ngOnInit() {
     this.store.dispatch(new GetAllSitesActions({}));
     this.siteState$ = this.store.pipe(map((state) => state.siteState));
-    this.counter=this.store.select('sites')
-    console.log("liste des sites ",this.counter);
-
+    this.counter = this.store.select('sites');
   }
-  nouveauSite():void{
+  nouveauSite(): void {
     // this.router.navigate(['nouvellesociete']);
     const dialolRef = this.dialog.open(PageNewSiteComponent, {
-       width: '800px',
+      width: '800px',
     });
-
+    alert('Bonsoire');
+    this.ngOnInit();
   }
 }

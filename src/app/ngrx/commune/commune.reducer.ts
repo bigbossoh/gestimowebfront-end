@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { BienImmobilierDto, CommuneRequestDto, EtageDto, ImmeubleDto } from 'src/gs-api/src/models';
+import { CommuneRequestDto } from 'src/gs-api/src/models';
 import {
   CommunesActions,
   CommunesActionsTypes,

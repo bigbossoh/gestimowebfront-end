@@ -4,6 +4,7 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
+import { SiteActions, CreateNewSiteActionSuccess, CreateNewSiteActionError } from './site.actions';
 import {
   SiteActionsTypes,
   GetAllSitesActionsError,
@@ -13,7 +14,7 @@ import {
 @Injectable()
 export class SiteEffects {
   constructor(private apiService: ApiService, private effectActions: Actions) { }
-  getAllBienseffect: Observable<Action> = createEffect(() =>
+  getAllSitesEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(SiteActionsTypes.GET_ALL_SITES),
       mergeMap((action) => {
@@ -24,4 +25,15 @@ export class SiteEffects {
       })
     )
   );
+  createNewSiteEffect: Observable<Action> = createEffect(() =>
+  this.effectActions.pipe(
+    ofType(SiteActionsTypes.CREATE_NEW_SITE),
+    mergeMap((action:SiteActions) => {
+      return this.apiService.saveSite(action.payload).pipe(
+        map((sites) => new CreateNewSiteActionSuccess(sites)),
+        catchError((err) => of(new CreateNewSiteActionError(err.message)))
+      );
+    })
+  )
+);
 }

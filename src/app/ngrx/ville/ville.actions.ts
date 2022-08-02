@@ -6,30 +6,26 @@ import { VilleDto } from 'src/gs-api/src/models';
 
 //STORE
 export enum VillesActionsTypes {
-  GET_ALL_VILLES = '[VilleDto] Get All VILLA',
-  GET_ALL_VILLES_SUCCES = '[VilleDto] Get All VILLA Succes',
-  GET_ALL_VILLES_ERROR = '[VilleDto] Get All VILLA Error',
-
+  GET_ALL_VILLES = '[VilleDto] Get All VILLE',
+  GET_ALL_VILLES_SUCCES = '[VilleDto] Get All VILLE Succes',
+  GET_ALL_VILLES_ERROR = '[VilleDto] Get All VILLE Error',
 }
 // CREER LES DIFFERENTES ACTIONS
-export class GetAllVilleAsActions implements Action {
+export class GetAllVilleActions implements Action {
   type: VillesActionsTypes = VillesActionsTypes.GET_ALL_VILLES;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {}
 }
 
 export class GetAllVilleActionsSuccess implements Action {
-  type: VillesActionsTypes =
-    VillesActionsTypes.GET_ALL_VILLES_SUCCES;
-  constructor(public payload: VilleDto[]) { }
+  type: VillesActionsTypes = VillesActionsTypes.GET_ALL_VILLES_SUCCES;
+  constructor(public payload: VilleDto[]) {}
 }
 export class GetAllVillesActionsError implements Action {
-  type: VillesActionsTypes =
-    VillesActionsTypes.GET_ALL_VILLES_ERROR;
-  constructor(public payload: string) { }
+  type: VillesActionsTypes = VillesActionsTypes.GET_ALL_VILLES_ERROR;
+  constructor(public payload: string) {}
 }
 
 export type VillesActions =
-  | GetAllVilleAsActions
+  | GetAllVilleActions
   | GetAllVilleActionsSuccess
-  | GetAllVillesActionsError
-  ;
+  | GetAllVillesActionsError;
