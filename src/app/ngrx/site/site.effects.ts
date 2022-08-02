@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
 import { SiteActions, CreateNewSiteActionSuccess, CreateNewSiteActionError } from './site.actions';
+import { NotificationService } from '../../services/notification/notification.service';
+import { NotificationType } from '../../enum/natification-type.enum';
 import {
   SiteActionsTypes,
   GetAllSitesActionsError,
@@ -13,11 +15,11 @@ import {
 
 @Injectable()
 export class SiteEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions) { }
+  constructor(private apiService: ApiService, private effectActions: Actions, private notificationService: NotificationService,) { }
   getAllSitesEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(SiteActionsTypes.GET_ALL_SITES),
-      mergeMap((action) => {
+      mergeMap(() => {
         return this.apiService.findAllSites().pipe(
           map((sites) => new GetAllSitesActionsSuccess(sites)),
           catchError((err) => of(new GetAllSitesActionsError(err.message)))
@@ -33,7 +35,21 @@ export class SiteEffects {
         map((sites) => new CreateNewSiteActionSuccess(sites)),
         catchError((err) => of(new CreateNewSiteActionError(err.message)))
       );
+    }),
+    tap(( bookCollection) => {
+      if (bookCollection.payload ==true) {
+        this.sendErrorNotification(NotificationType.SUCCESS,'Création du site éffectué avec succes!');
+      } else {
+        this.sendErrorNotification(NotificationType.ERROR,'');
+      }
     })
   )
-);
+  );
+  private sendErrorNotification(notificationType: NotificationType, message: string): void {
+    if (message) {
+      this.notificationService.notify(notificationType, message);
+    } else {
+      this.notificationService.notify(notificationType, 'An error occurred. Please try again.');
+    }
+  }
 }

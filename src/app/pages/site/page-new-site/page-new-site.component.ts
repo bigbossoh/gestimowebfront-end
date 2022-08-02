@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { VilleStateEnum, VilleState } from '../../../ngrx/ville/ville.reducer';
@@ -13,6 +13,8 @@ import { UserService } from '../../../services/user/user.service';
 import { UtilisateurRequestDto } from '../../../../gs-api/src/models/utilisateur-request-dto';
 import { CreateNewSiteAction } from '../../../ngrx/site/site.actions';
 import { SiteStateEnum, SiteState } from '../../../ngrx/site/site.reducer';
+import { SiteResponseDto } from '../../../../gs-api/src/models/site-response-dto';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-page-new-site',
@@ -24,7 +26,7 @@ export class PageNewSiteComponent implements OnInit {
 
   villeState$: Observable<VilleState> | null = null;
   readonly VilleStateEnum = VilleStateEnum;
-
+  siteDto: SiteResponseDto[]  | null = null;
   siteState$: Observable<SiteState> | null = null;
   readonly SiteStateEnum = SiteStateEnum;
 
@@ -37,7 +39,8 @@ export class PageNewSiteComponent implements OnInit {
   siteRegisterForm!: FormGroup;
 
   user?: UtilisateurRequestDto;
-  constructor(private store: Store<any>, private fb: FormBuilder,private userService:UserService) {}
+  constructor(private store: Store<any>, private fb: FormBuilder, private userService: UserService,
+    public dialogRef: MatDialogRef<PageNewSiteComponent>,) { }
 
   ngOnInit(): void {
     this.store.dispatch(new GetAllVilleActions({}));
@@ -45,22 +48,20 @@ export class PageNewSiteComponent implements OnInit {
     this.user = this.userService.getUserFromLocalCache();
     this.siteRegisterForm = this.fb.group({
       id: [0],
-      idQuartier: [0],
+      idQuartier: [0,Validators.required],
       idAgence: [this.user?.idAgence]
     });
     this.changeCity(0);
   }
-
+  onClose() {  this.dialogRef.close(); }
   public saveSite() {
     this.submitted = true;
     if (this.siteRegisterForm?.invalid) {
       return;
     }
-    console.warn(this.siteRegisterForm.value);
-
     this.submitted = false;
     this.store.dispatch(new CreateNewSiteAction(this.siteRegisterForm?.value));
-    this.siteState$ = this.store.pipe(map((state) => state.siteState));
+    this.dialogRef.close();
 
   }
 
