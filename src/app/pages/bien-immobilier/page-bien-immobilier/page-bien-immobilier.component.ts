@@ -13,7 +13,7 @@ import {
   CommunesState,
   CommunesStateEnum,
 } from 'src/app/ngrx/commune/commune.reducer';
-import { GetAllVilleAsActions } from 'src/app/ngrx/ville/ville.actions';
+import { GetAllVilleActions } from 'src/app/ngrx/ville/ville.actions';
 import { VilleState, VilleStateEnum } from 'src/app/ngrx/ville/ville.reducer';
 import { GetAllAppartementActions } from '../../../ngrx/appartement/appartement.actions';
 import {
@@ -80,7 +80,7 @@ export class PageBienImmobilierComponent implements OnInit {
     this.bienState$ = this.store.pipe(map((state) => state.biensState));
 
     //RECUPERER LES VILLES
-    this.store.dispatch(new GetAllVilleAsActions({}));
+    this.store.dispatch(new GetAllVilleActions({}));
     this.villeState$ = this.store.pipe(map((state) => state.villeState));
   }
   onActionEvent(event: any) {

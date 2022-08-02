@@ -62,6 +62,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
   immeubleForm?: FormGroup;
   villaForm?: FormGroup;
 
+
   ngselecttypeBien = '20000';
   ngIelecttypeImm = 0;
   userVilla = '';
@@ -130,7 +131,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
     }
 
     this.submitted = false;
-    alert('ici')
+
     this.store.dispatch(new SaveStudioActions(this.studioform?.value));
     this.studioState$ = this.store.pipe(map((state) => state.studioState));
   }
