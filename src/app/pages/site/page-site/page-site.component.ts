@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PageNewSiteComponent } from '../page-new-site/page-new-site.component';
 import { SiteResponseDto } from 'src/gs-api/src/models';
+import { DeleteSiteAction } from '../../../ngrx/site/site.actions';
 
 @Component({
   selector: 'app-page-site',
@@ -25,7 +26,6 @@ export class PageSiteComponent implements OnInit {
 
   constructor(
     private store: Store<any>,
-    private router: Router,
     public dialog: MatDialog
   ) {}
 
@@ -41,4 +41,5 @@ export class PageSiteComponent implements OnInit {
     });
     dialolRef.afterClosed().subscribe(() => this.ngOnInit());
   }
+
 }

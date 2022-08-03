@@ -5,9 +5,15 @@ import { Observable } from 'rxjs';
 import { VilleStateEnum, VilleState } from '../../../ngrx/ville/ville.reducer';
 import { GetAllVilleActions } from '../../../ngrx/ville/ville.actions';
 import { map } from 'rxjs/operators';
-import { CommunesState, CommunesStateEnum } from '../../../ngrx/commune/commune.reducer';
+import {
+  CommunesState,
+  CommunesStateEnum,
+} from '../../../ngrx/commune/commune.reducer';
 import { GetAllCommunesByVilleActions } from '../../../ngrx/commune/commune.actions';
-import { QuartiersState, QuartierStateEnum } from '../../../ngrx/quartier/quartier.reducer';
+import {
+  QuartiersState,
+  QuartierStateEnum,
+} from '../../../ngrx/quartier/quartier.reducer';
 import { GetAllQuartierByCommuneActions } from '../../../ngrx/quartier/quartier.actions';
 import { UserService } from '../../../services/user/user.service';
 import { UtilisateurRequestDto } from '../../../../gs-api/src/models/utilisateur-request-dto';
@@ -26,7 +32,7 @@ export class PageNewSiteComponent implements OnInit {
 
   villeState$: Observable<VilleState> | null = null;
   readonly VilleStateEnum = VilleStateEnum;
-  siteDto: SiteResponseDto[]  | null = null;
+  siteDto: SiteResponseDto[] | null = null;
   siteState$: Observable<SiteState> | null = null;
   readonly SiteStateEnum = SiteStateEnum;
 
@@ -39,8 +45,12 @@ export class PageNewSiteComponent implements OnInit {
   siteRegisterForm!: FormGroup;
 
   user?: UtilisateurRequestDto;
-  constructor(private store: Store<any>, private fb: FormBuilder, private userService: UserService,
-    public dialogRef: MatDialogRef<PageNewSiteComponent>,) { }
+  constructor(
+    private store: Store<any>,
+    private fb: FormBuilder,
+    private userService: UserService,
+    public dialogRef: MatDialogRef<PageNewSiteComponent>
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(new GetAllVilleActions({}));
@@ -48,12 +58,14 @@ export class PageNewSiteComponent implements OnInit {
     this.user = this.userService.getUserFromLocalCache();
     this.siteRegisterForm = this.fb.group({
       id: [0],
-      idQuartier: [0,Validators.required],
-      idAgence: [this.user?.idAgence]
+      idQuartier: [0, Validators.required],
+      idAgence: [this.user?.idAgence],
     });
     this.changeCity(0);
   }
-  onClose() {  this.dialogRef.close(); }
+  onClose() {
+    this.dialogRef.close();
+  }
   public saveSite() {
     this.submitted = true;
     if (this.siteRegisterForm?.invalid) {
@@ -61,12 +73,11 @@ export class PageNewSiteComponent implements OnInit {
     }
     this.submitted = false;
     this.store.dispatch(new CreateNewSiteAction(this.siteRegisterForm?.value));
-    this.dialogRef.close();
-
+    this.onClose();
   }
 
   public changeCity(idVille: number) {
-     this.store.dispatch(new GetAllCommunesByVilleActions(idVille));
+    this.store.dispatch(new GetAllCommunesByVilleActions(idVille));
     this.communeState$ = this.store.pipe(map((state) => state.communeState));
   }
   changeCommune(idCommune: number) {

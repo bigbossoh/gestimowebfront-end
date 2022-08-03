@@ -4,7 +4,7 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
-import { SiteActions, CreateNewSiteActionSuccess, CreateNewSiteActionError } from './site.actions';
+import { SiteActions, CreateNewSiteActionSuccess, CreateNewSiteActionError, DeleteSiteAction, DeleteSiteActionSuccess, DeleteSiteActionError } from './site.actions';
 import { NotificationService } from '../../services/notification/notification.service';
 import { NotificationType } from '../../enum/natification-type.enum';
 import {
@@ -45,6 +45,27 @@ export class SiteEffects {
     })
   )
   );
+// DELETE EFFECTS
+deleteSiteEffect: Observable<Action> = createEffect(() =>
+this.effectActions.pipe(
+  ofType(SiteActionsTypes.DELETE_SITE),
+  mergeMap((action: SiteActions) =>
+  {
+    return this.apiService.deleteSite(action.payload).pipe(
+      map((sites) => new DeleteSiteActionSuccess(sites)),
+      catchError((err) => of(new DeleteSiteActionError(err.message)))
+    );
+  }),
+  tap(( bookCollection) => {
+    if (bookCollection.payload ==true) {
+      this.sendErrorNotification(NotificationType.SUCCESS,'Supression du site éffectué avec succes!');
+    } else {
+      this.sendErrorNotification(NotificationType.ERROR,'');
+    }
+  })
+)
+);
+  //MESSAGE NOTIFICATION
   private sendErrorNotification(notificationType: NotificationType, message: string): void {
     if (message) {
       this.notificationService.notify(notificationType, message);

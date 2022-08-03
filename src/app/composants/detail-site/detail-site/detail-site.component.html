@@ -118,9 +118,9 @@
             </div>
             <div class="col-md-4">
               <button
-                type="button"
                 class="btn btn-link text-danger"
                 data-toggle="modal"
+                (click)="deleteSite(site.id, site.nomSite)"
               >
                 <i class="fas fa-trash-alt"></i>&nbsp;Supprimer
               </button>
