@@ -8,7 +8,6 @@ export enum SiteStateEnum {
   INITIAL = 'Initial',
 }
 export interface SiteState {
-
   sites: SiteResponseDto[];
   errorMessage: string;
   dataState: SiteStateEnum;
@@ -24,8 +23,7 @@ export function siteReducer(
 ): SiteState {
   switch (action.type) {
     case SiteActionsTypes.GET_ALL_SITES:
-      return { ...state,
-         dataState: SiteStateEnum.LOADING };
+      return { ...state, dataState: SiteStateEnum.LOADING };
     case SiteActionsTypes.GET_ALL_SITES_SUCCES:
       return {
         ...state,
@@ -38,6 +36,38 @@ export function siteReducer(
         dataState: SiteStateEnum.ERROR,
         errorMessage: (<SiteActions>action).payload,
       };
+    //CREATE SITE
+    case SiteActionsTypes.CREATE_NEW_SITE:
+      return { ...state, dataState: SiteStateEnum.LOADING };
+    case SiteActionsTypes.CREATE_NEW_SITE:
+      return {
+        ...state,
+        dataState: SiteStateEnum.LOADED,
+        sites: (<SiteActions>action).payload,
+      };
+    case SiteActionsTypes.CREATE_NEW_SITE_ERROR:
+      return {
+        ...state,
+        dataState: SiteStateEnum.ERROR,
+        errorMessage: (<SiteActions>action).payload,
+      };
+    
+    // DELETE SITE
+    case SiteActionsTypes.DELETE_SITE:
+      return { ...state, dataState: SiteStateEnum.LOADING };
+    case SiteActionsTypes.DELETE_SITE_SUCCES:
+      return {
+        ...state,
+        dataState: SiteStateEnum.LOADED,
+        sites: (<SiteActions>action).payload,
+      };
+    case SiteActionsTypes.DELETE_SITE_ERROR:
+      return {
+        ...state,
+        dataState: SiteStateEnum.ERROR,
+        errorMessage: (<SiteActions>action).payload,
+      };
+
     default:
       return { ...state };
   }
