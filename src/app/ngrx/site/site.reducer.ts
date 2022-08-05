@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { BienImmobilierDto, SiteResponseDto } from 'src/gs-api/src/models';
 import { SiteActionsTypes, SiteActions } from './site.actions';
+import { SiteRequestDto } from '../../../gs-api/src/models/site-request-dto';
 export enum SiteStateEnum {
   LOADING = 'Loading',
   LOADED = 'Loaded',
@@ -39,11 +40,18 @@ export function siteReducer(
     //CREATE SITE
     case SiteActionsTypes.CREATE_NEW_SITE:
       return { ...state, dataState: SiteStateEnum.LOADING };
-    case SiteActionsTypes.CREATE_NEW_SITE:
+    case SiteActionsTypes.CREATE_NEW_SITE_SUCCES:
+      let siteSave:SiteResponseDto=(<SiteActions>action).payload;
+      let currentSiteListe = [...state.sites];
+      currentSiteListe.push(siteSave);
+      console.log('Cuurente is');
+      console.log(currentSiteListe);
+
+
       return {
         ...state,
         dataState: SiteStateEnum.LOADED,
-        sites: (<SiteActions>action).payload,
+        sites: currentSiteListe,
       };
     case SiteActionsTypes.CREATE_NEW_SITE_ERROR:
       return {
@@ -51,15 +59,21 @@ export function siteReducer(
         dataState: SiteStateEnum.ERROR,
         errorMessage: (<SiteActions>action).payload,
       };
-    
+
     // DELETE SITE
     case SiteActionsTypes.DELETE_SITE:
       return { ...state, dataState: SiteStateEnum.LOADING };
     case SiteActionsTypes.DELETE_SITE_SUCCES:
+      let siteDele: SiteRequestDto = (<SiteActions>action).payload;
+      console.log('le deklete is');
+      console.log(siteDele);
+      let index = state.sites.indexOf(siteDele);
+      let listSites = [...state.sites];
+      listSites.splice(index, 1);
       return {
         ...state,
         dataState: SiteStateEnum.LOADED,
-        sites: (<SiteActions>action).payload,
+        sites: listSites,
       };
     case SiteActionsTypes.DELETE_SITE_ERROR:
       return {

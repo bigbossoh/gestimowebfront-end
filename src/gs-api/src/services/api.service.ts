@@ -121,7 +121,8 @@ class ApiService extends __BaseService {
   static readonly deleteSitePath = 'gestimoweb/api/v1/sites/delete/{id}';
   static readonly findSiteByIDPath = 'gestimoweb/api/v1/sites/findById/{id}';
   static readonly findSiteByNamePath = 'gestimoweb/api/v1/sites/findByName/{name}';
-  static readonly saveSitePath = 'gestimoweb/api/v1/sites/save';
+  static readonly savePath = 'gestimoweb/api/v1/sites/save';
+  static readonly saveSitePath = 'gestimoweb/api/v1/sites/savesite';
   static readonly findAllStudiosPath = 'gestimoweb/api/v1/studio/all';
   static readonly findAllStudiosLibrePath = 'gestimoweb/api/v1/studio/alllibre';
   static readonly deleteStudioPath = 'gestimoweb/api/v1/studio/delete/{id}';
@@ -3025,7 +3026,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveSiteResponse(body?: SiteRequestDto): __Observable<__StrictHttpResponse<boolean>> {
+  saveResponse(body?: SiteRequestDto): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3051,9 +3052,45 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveSite(body?: SiteRequestDto): __Observable<boolean> {
-    return this.saveSiteResponse(body).pipe(
+  save(body?: SiteRequestDto): __Observable<boolean> {
+    return this.saveResponse(body).pipe(
       __map(_r => _r.body as boolean)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveSiteResponse(body?: SiteRequestDto): __Observable<__StrictHttpResponse<SiteResponseDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/sites/savesite`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<SiteResponseDto>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveSite(body?: SiteRequestDto): __Observable<SiteResponseDto> {
+    return this.saveSiteResponse(body).pipe(
+      __map(_r => _r.body as SiteResponseDto)
     );
   }
 
