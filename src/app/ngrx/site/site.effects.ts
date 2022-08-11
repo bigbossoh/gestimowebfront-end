@@ -37,7 +37,7 @@ export class SiteEffects {
       );
     }),
     tap(( bookCollection) => {
-      if (bookCollection.payload ==true) {
+      if (bookCollection.payload !=null) {
         this.sendErrorNotification(NotificationType.SUCCESS,'Création du site éffectué avec succes!');
       } else {
         this.sendErrorNotification(NotificationType.ERROR,'');

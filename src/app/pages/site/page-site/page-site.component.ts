@@ -39,7 +39,7 @@ export class PageSiteComponent implements OnInit {
     const dialolRef = this.dialog.open(PageNewSiteComponent, {
       width: '800px',
     });
-    dialolRef.afterClosed().subscribe(() => this.ngOnInit());
+    //dialolRef.afterClosed().subscribe(() => this.ngOnInit());
   }
 
 }

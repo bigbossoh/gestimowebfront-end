@@ -1600,7 +1600,7 @@
     },
     "gestimoweb/api/v1/sites/save" : {
       "post" : {
-        "operationId" : "saveSite",
+        "operationId" : "save",
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -1614,6 +1614,27 @@
             "description" : "successful operation",
             "schema" : {
               "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/sites/savesite" : {
+      "post" : {
+        "operationId" : "saveSite",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/SiteRequestDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/SiteResponseDto"
             }
           }
         }
@@ -3462,10 +3483,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
         "archived" : {
@@ -3520,10 +3541,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
         "archived" : {

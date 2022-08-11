@@ -47,7 +47,7 @@ export class CreateNewSiteAction implements Action {
 
 export class CreateNewSiteActionSuccess implements Action {
   type: SiteActionsTypes = SiteActionsTypes.CREATE_NEW_SITE_SUCCES;
-  constructor(public payload: boolean) {}
+  constructor(public payload: SiteResponseDto) {}
 }
 export class CreateNewSiteActionError implements Action {
   type: SiteActionsTypes = SiteActionsTypes.CREATE_NEW_SITE_ERROR;
