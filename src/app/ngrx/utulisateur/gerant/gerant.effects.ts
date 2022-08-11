@@ -24,15 +24,10 @@ export class GerantEffects{
       );
     }),
     tap((gerant)=>{
-      //console.log(gerant.payload.indexOf('Error'));
-//console.log("-------------------------------------");
-
       if(gerant.payload.indexOf('Error') < 0){
-        //console.log(gerant.payload );
-
-        this.sendErrorNotification(NotificationType.SUCCESS,'La liste des données a été chargées avec succès')
+        this.sendErrorNotification(NotificationType.SUCCESS,'La liste des gérants a été chargées avec succès')
       }else{
-        this.sendErrorNotification(NotificationType.ERROR,'Une error a été rencontré')
+        this.sendErrorNotification(NotificationType.ERROR,'Une erreur a été rencontré')
       }
     })
   ))
