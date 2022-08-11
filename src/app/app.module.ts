@@ -104,7 +104,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ModifLoyerBailComponent } from './pages/baux/modif-loyer-bail/modif-loyer-bail.component';
 import { quartierReducer } from './ngrx/quartier/quartier.reducer';
 import { Quartierffects } from './ngrx/quartier/quartier.effects';
-import { ToastrModule } from 'ngx-toastr';
+//import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -172,7 +172,7 @@ import { ToastrModule } from 'ngx-toastr';
     NoticationModule,
     HighchartsChartModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot(),
+    //ToastrModule.forRoot(),
     StoreModule.forRoot({
       bailMagasinState: bailMagasinReducer,
       biensState: bienReducer,
