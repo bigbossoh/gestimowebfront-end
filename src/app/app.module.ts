@@ -104,6 +104,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ModifLoyerBailComponent } from './pages/baux/modif-loyer-bail/modif-loyer-bail.component';
 import { quartierReducer } from './ngrx/quartier/quartier.reducer';
 import { Quartierffects } from './ngrx/quartier/quartier.effects';
+import { GerantEffects } from './ngrx/utulisateur/gerant/gerant.effects';
+import { gerantReducer } from './ngrx/utulisateur/gerant/gerant.reducer';
 //import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
@@ -191,7 +193,8 @@ import { Quartierffects } from './ngrx/quartier/quartier.effects';
       bailStudioState: bailStudioReducer,
       bauxState: bauxReducer,
       appelLoyerState: appelLoyerReducer,
-      quartierState:quartierReducer
+      quartierState:quartierReducer,
+      gerantState:gerantReducer
     }),
     EffectsModule.forRoot([
       StudioEffects,
@@ -211,7 +214,8 @@ import { Quartierffects } from './ngrx/quartier/quartier.effects';
       BailStudioEffects,
       BauxEffects,
       AppelLoyerEffects,
-      Quartierffects
+      Quartierffects,
+      GerantEffects
     ]),
 
     StoreDevtoolsModule.instrument(),
