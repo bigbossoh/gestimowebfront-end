@@ -25,6 +25,8 @@ import { PageListeUtilisateursComponent } from './pages/utilisateurs/page-liste-
 import { PageBauxLoyersComponent } from './pages/baux/page-baux-loyers/page-baux-loyers.component';
 import { ApplicationGuardService } from './services/guard/application-guard.service';
 import { PagePaiementComponent } from './pages/reglement/page-paiement/page-paiement.component';
+import { PageImmeubleComponent } from './pages/bien-immobilier/immeuble/page-immeuble/page-immeuble.component';
+import { PageEtageComponent } from './pages/bien-immobilier/page-etage/page-etage/page-etage.component';
 
 const routes: Routes = [
   {
@@ -158,6 +160,16 @@ const routes: Routes = [
     {
       path:'liste-utilisateurs',
       component:PageListeUtilisateursComponent,
+      canActivate:[ApplicationGuardService]
+    },
+    {
+      path:'liste-immeubles',
+      component:PageImmeubleComponent,
+      canActivate:[ApplicationGuardService]
+    },
+    {
+      path:'liste-etages',
+      component:PageEtageComponent,
       canActivate:[ApplicationGuardService]
     }
 

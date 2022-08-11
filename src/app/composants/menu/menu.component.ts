@@ -243,6 +243,22 @@ export class MenuComponent implements OnInit {
         icon: 'fas fa-users',
         url: 'liste-utilisateurs'
       }
+      ,
+      {
+        id: '93',
+        titre: 'Gestions des immeubles',
+        icon: 'fas fa-hotel',
+        url: 'liste-immeubles'
+
+      }
+      ,
+      {
+        id: '94',
+        titre: 'Gestions des étages',
+        icon: 'fas fa-door-open',
+        url: 'liste-etages',
+
+      }
     ]
   }
 
