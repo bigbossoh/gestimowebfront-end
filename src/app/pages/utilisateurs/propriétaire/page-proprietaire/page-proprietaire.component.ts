@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { GetAllProprietairesActions } from 'src/app/ngrx/utulisateur/utilisateur.actions';
+import { UtilisteurState, UtilisteurStateEnum } from 'src/app/ngrx/utulisateur/utlisateur.reducer';
 
 @Component({
   selector: 'app-page-proprietaire',
@@ -7,9 +12,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageProprietaireComponent implements OnInit {
 
-  constructor() { }
+  proprietaireState$: Observable<UtilisteurState> | null=null;
+  readonly UtilisteurStateEnum=UtilisteurStateEnum;
+  constructor(private store: Store<any>) { }
 
   ngOnInit(): void {
-  }
+    this.store.dispatch(new GetAllProprietairesActions({}));
+    this.proprietaireState$=this.store.pipe(
+      map((state)=>state.proprietaireState)
+      );
+    }
 
 }

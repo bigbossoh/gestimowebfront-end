@@ -17,6 +17,7 @@ import {
 @Injectable()
 export class UtilisateurEffects {
   constructor(private apiService: ApiService, private effectActions: Actions,private notificationService:NotificationService) { }
+  //LISTE DES PROPRIETAIRES
   getAllProprietairesEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(UtilisateurActionsTypes.GET_ALL_PROPRIETAIRES),

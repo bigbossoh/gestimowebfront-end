@@ -23,7 +23,7 @@ export class PageLocataireComponent implements OnInit {
 
 
       map((state)=>
-      
+
       state.locataireState)
     );
   }
