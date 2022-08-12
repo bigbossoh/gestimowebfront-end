@@ -1,7 +1,5 @@
 import { Action } from '@ngrx/store';
 import {
-  BienImmobilierDto,
-  SiteResponseDto,
   UtilisateurRequestDto,
 } from 'src/gs-api/src/models';
 import {

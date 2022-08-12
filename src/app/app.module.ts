@@ -194,7 +194,9 @@ import { gerantReducer } from './ngrx/utulisateur/gerant/gerant.reducer';
       bauxState: bauxReducer,
       appelLoyerState: appelLoyerReducer,
       quartierState:quartierReducer,
-      gerantState:gerantReducer
+      gerantState:gerantReducer,
+      locataireState:utilisateurReducer,
+      proprietaireState:utilisateurReducer
     }),
     EffectsModule.forRoot([
       StudioEffects,
