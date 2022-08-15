@@ -44,6 +44,8 @@ export class PageNewSiteComponent implements OnInit {
 
   siteRegisterForm!: FormGroup;
 
+  villeModel = '';
+  quartierModel = '';
   user?: UtilisateurRequestDto;
   constructor(
     private store: Store<any>,
@@ -58,7 +60,7 @@ export class PageNewSiteComponent implements OnInit {
     this.user = this.userService.getUserFromLocalCache();
     this.siteRegisterForm = this.fb.group({
       id: [0],
-      idQuartier: [0, Validators.required],
+      idQuartier: [null, Validators.required],
       idAgence: [this.user?.idAgence],
     });
     this.changeCity(0);
@@ -68,7 +70,9 @@ export class PageNewSiteComponent implements OnInit {
   }
   public saveSite() {
     this.submitted = true;
-    if (this.siteRegisterForm?.invalid) {
+
+    console.warn(this.siteRegisterForm.value);
+    if (this.siteRegisterForm.invalid) {
       return;
     }
     this.submitted = false;
@@ -83,5 +87,13 @@ export class PageNewSiteComponent implements OnInit {
   changeCommune(idCommune: number) {
     this.store.dispatch(new GetAllQuartierByCommuneActions(idCommune));
     this.quartierState$ = this.store.pipe(map((state) => state.quartierState));
+  }
+  quartierChange(c: any) {
+    this.quartierModel = c[0].abrvQuartier;
+  }
+  villeChange(v: any) {
+    console.log(v);
+
+    //this.villeModel = v[0]
   }
 }

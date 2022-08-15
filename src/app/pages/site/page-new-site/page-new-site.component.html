@@ -28,6 +28,16 @@
                                         </option>
                                       </select>
                                     </ng-container>
+                                    <ng-container *ngSwitchCase="VilleStateEnum.LOADING">
+                                      <div class="spinner-border text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="VilleStateEnum.ERROR">
+                                      <div class="p-2 invalid-feedback">
+                                        Une Erreur est survenue lors du chargement des sites
+                                      </div>
+                                    </ng-container>
                                   </ng-container>
                                 </div>
                               </div>
@@ -41,17 +51,26 @@
                                       </ng-container>
                                       <ng-container *ngIf="state.communes.length!=0">
                                         <label>Selectionnez une Commune</label>
-                                        <select class="form-control"
+                                        <select class="form-control" [(ngModel)]="villeModel"
                                           (change)="changeCommune($any($event.target).value)">
                                           <option [value]="commune.id" *ngFor="let commune of state.communes">
                                             {{ commune.nomCommune }}
                                           </option>
                                         </select>
+
                                       </ng-container>
 
                                     </ng-container>
                                     <ng-container *ngSwitchCase="CommunesStateEnum.ERROR">
                                       {{state.errorMessage}}
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="CommunesStateEnum.LOADING">
+                                      {{state.errorMessage}}
+                                    </ng-container>
+                                    <ng-container *ngSwitchCase="SiteStateEnum.LOADING">
+                                      <div class="spinner-border text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
                                     </ng-container>
                                   </ng-container>
                                 </div>
@@ -66,22 +85,32 @@
                                       </ng-container>
                                       <ng-container *ngIf="state.quartiers.length!=0">
                                         <label>Selectionnez un Quartier</label>
-                                        <select class="form-control" formControlName="idQuartier">
+                                        <select class="form-control" formControlName="idQuartier" (change)="quartierChange(state.quartiers)">
                                           <option [value]="quartier.id" *ngFor="let quartier of state.quartiers">
                                             {{ quartier.nomQuartier }}
                                           </option>
                                         </select>
+                                        <div *ngIf="submitted&& siteRegisterForm.controls.idQuartier.errors" class="invalid-feedback">
+                                          <div *ngIf=" siteRegisterForm.controls.idQuartier.errors.required">*Champ obligatoire</div>
+                                        </div>
                                       </ng-container>
 
                                     </ng-container>
                                     <ng-container *ngSwitchCase="QuartierStateEnum.ERROR">
                                       {{state.errorMessage}}
                                     </ng-container>
+                                    <ng-container *ngSwitchCase="QuartierStateEnum.LOADING">
+                                      <div class="spinner-border text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                    </ng-container>
                                   </ng-container>
 
                                 </div>
                               </div>
-                              <!-- </div> -->
+<div>
+  {{villeModel}}-{{quartierModel}}
+</div>
 
                             </div>
                           </div>
@@ -92,7 +121,7 @@
                                 <i class="fas fa-ban"></i>
                                 Close
                               </button>
-                              <button class="btn btn-primary" type="submit" [disabled]="!siteRegisterForm.valid">
+                              <button class="btn btn-primary" type="submit" [disabled]="!siteRegisterForm.valid" >
                                 <i class="fas fa-save"></i>
                                 Enregistrer
                               </button>
@@ -103,18 +132,14 @@
                       </div>
                     </div>
                   </div>
-                  <!-- Fin Card body  -->
-                  <!-- </div> -->
-                  <!-- Fin Card  -->
-                  <!-- </div> -->
+
                 </div>
               </div>
 
             </div>
           </div>
         </div>
-        <!-- </form> -->
-        <!-- </div> -->
+
       </div>
     </form>
 
