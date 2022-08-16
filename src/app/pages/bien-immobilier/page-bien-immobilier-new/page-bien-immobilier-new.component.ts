@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -92,12 +93,11 @@ export class PageBienImmobilierNewComponent implements OnInit {
     private store: Store<any>,
     private fb: FormBuilder,
     private userService: UserService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    public dialogRef: MatDialogRef<PageBienImmobilierNewComponent>
   ) {
     this.listTypeBiens = [
       'Appartement',
-      'Etage',
-      'Immeuble',
       'Magasin',
       'Studio',
       'Villa',
@@ -124,6 +124,9 @@ export class PageBienImmobilierNewComponent implements OnInit {
       );
     }
   }
+  onClose() {
+    this.dialogRef.close();
+  }
   onSaveStudio() {
     this.submitted = true;
     if (this.studioform?.invalid) {
@@ -134,6 +137,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
 
     this.store.dispatch(new SaveStudioActions(this.studioform?.value));
     this.studioState$ = this.store.pipe(map((state) => state.studioState));
+    this.onClose();
   }
   onSaveMagasin() {
     this.submitted = true;
@@ -143,6 +147,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.submitted = false;
     this.store.dispatch(new SaveMagasinActions(this.magasinForm?.value));
     this.magasinState$ = this.store.pipe(map((state) => state.magasinState));
+    this.onClose();
   }
   onSaveAppartement() {
     this.submitted = true;
@@ -156,6 +161,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.appartementState$ = this.store.pipe(
       map((state) => state.appartementState)
     );
+    this.onClose();
   }
   onSaveEtage() {
     this.submitted = true;
@@ -167,6 +173,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.etageState$ = this.store.pipe(
       map((state) => state.etageByImmeubeState)
     );
+    this.onClose();
   }
   onSaveVilla() {
     this.submitted = true;
@@ -176,6 +183,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.submitted = false;
     this.store.dispatch(new SaveVillaActions(this.villaForm?.value));
     this.villaState$ = this.store.pipe(map((state) => state.villaState));
+    this.onClose();
   }
   onSaveImmeuble() {
     this.submitted = true;
@@ -185,6 +193,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.submitted = false;
     this.store.dispatch(new SaveImmeublesActions(this.immeubleForm?.value));
     this.immeubleState$ = this.store.pipe(map((state) => state.immeubleState));
+    this.onClose();
   }
   ngOnInit(): void {
     this.store.dispatch(new GetAllSitesActions({}));

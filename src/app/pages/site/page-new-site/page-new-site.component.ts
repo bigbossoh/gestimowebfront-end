@@ -92,8 +92,6 @@ export class PageNewSiteComponent implements OnInit {
     this.quartierModel = c[0].abrvQuartier;
   }
   villeChange(v: any) {
-    console.log(v);
-
-    //this.villeModel = v[0]
+      //this.villeModel = v[0]
   }
 }

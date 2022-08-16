@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
+import { NotificationType } from 'src/app/enum/natification-type.enum';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 import { ApiService } from 'src/gs-api/src/services';
 import { GetAllBiensActionsSuccess } from '../bien-immobilier/bienimmobilier.actions';
 import { GetAllVillaActionsSuccess, GetAllVillaActionsError } from './villa.action';
@@ -17,7 +19,7 @@ import {
 
 @Injectable()
 export class VillaEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions) {}
+  constructor(private apiService: ApiService, private effectActions: Actions,private notificationService: NotificationService) {}
 
   //SAVE EFFECTS
   saveVillaEffect: Observable<Action> = createEffect(() =>
@@ -28,7 +30,15 @@ export class VillaEffects {
           map((villa) => new SaveVillaActionsSuccess(villa)),
           catchError((err) => of(new SaveVillaActionsError(err.message)))
         );
+      }),
+      tap(( bookCollection) => {
+        if (bookCollection.payload ==true) {
+          this.sendErrorNotification(NotificationType.SUCCESS,'Création de la Villa  éffectuée avec succes!');
+        } else {
+          this.sendErrorNotification(NotificationType.ERROR,'');
+        }
       })
+
     )
   );
   //LISTE DES VILLA  LIBRE
@@ -55,4 +65,13 @@ export class VillaEffects {
       })
     )
   );
+
+    //MESSAGE NOTIFICATION
+    private sendErrorNotification(notificationType: NotificationType, message: string): void {
+      if (message) {
+        this.notificationService.notify(notificationType, message);
+      } else {
+        this.notificationService.notify(notificationType, 'An error occurred. Please try again.');
+      }
+    }
 }

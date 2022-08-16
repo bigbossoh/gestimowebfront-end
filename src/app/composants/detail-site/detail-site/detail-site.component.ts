@@ -24,6 +24,7 @@ export class DetailSiteComponent implements OnInit {
   deleteSite(idSite: any, nomSite: any) {
     if (confirm('Vouvez-vous supprimer le site : ' + nomSite)) {
       this.store.dispatch(new DeleteSiteAction(idSite));
+      this.ngOnInit();
     }
   }
 }

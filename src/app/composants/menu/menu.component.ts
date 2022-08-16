@@ -272,10 +272,14 @@ constructor(
 ngOnInit(): void {
 }
 navigate(menu:Menu): void {
+
   if(this.lastSelectedMenu){
     this.lastSelectedMenu.active=false;
   }
   menu.active=true;
+  console.log(menu.url);
+  console.log(menu);
+
   this.lastSelectedMenu=menu;
   this.router.navigate([menu.url]);
 
