@@ -103,7 +103,7 @@ export class PageListeUtilisateursComponent implements OnInit {
     userForm.idAgence = this.user?.idAgence;
     userForm.id = 0;
 
-    console.log('adding new user', userForm);
+    //console.log('adding new user', userForm);
     this.subscriptions.push(
       this.userService.addUser(userForm).subscribe(
         (response: any) => {
@@ -195,6 +195,8 @@ export class PageListeUtilisateursComponent implements OnInit {
   }
 
   onActionEmmit($event: any) {
+    console.log("we are here");
+
     this.ngOnInit();
   }
 
