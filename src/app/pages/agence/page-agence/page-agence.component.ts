@@ -8,6 +8,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FormGroup, FormBuilder, RequiredValidator, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
+import { Store } from '@ngrx/store';
+import { SaveAgenceActions } from '../../../ngrx/agence/agence.actions';
 
 @Component({
   selector: 'app-page-agence',
@@ -27,13 +29,14 @@ export class PageAgenceComponent implements OnInit {
     private agenceService:AgenceService,
     private userService:UserService,
     private notificationService: NotificationService,
+    private store:Store<any>,
     private fb:FormBuilder) { }
 
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
     this.getAllAgences(true);
     this.agenceRegisterForm=this.fb.group({
-      id: [''],
+      id: [0],
   idAgence: [''],
   nomAgence: ['',[Validators.required]],
   telAgence: [''],
@@ -74,6 +77,17 @@ export class PageAgenceComponent implements OnInit {
   }
   private clickButton(buttonId: string): void {
     document.getElementById(buttonId)!.click();
+  }
+  saveNgrsAgence(){
+    this.agenceRegisterForm.patchValue({
+      idUtilisateurCreateur:this.user?.id
+    })
+
+         console.log("this is cool ",this.agenceRegisterForm.value);
+        // this.clickButton('closeAgenceButton');
+         //this.getAllAgences(false);
+        // this.agenceRegisterForm.reset();
+    this.store.dispatch(new SaveAgenceActions(this.agenceRegisterForm.value));
   }
   public saveAgence():void{
 

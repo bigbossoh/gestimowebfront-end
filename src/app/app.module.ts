@@ -106,7 +106,9 @@ import { quartierReducer } from './ngrx/quartier/quartier.reducer';
 import { Quartierffects } from './ngrx/quartier/quartier.effects';
 import { GerantEffects } from './ngrx/utulisateur/gerant/gerant.effects';
 import { gerantReducer } from './ngrx/utulisateur/gerant/gerant.reducer';
+import { agenceReducer } from './ngrx/agence/agence.reducer';
 //import { ToastrModule } from 'ngx-toastr';
+import { AgenceEffects } from './ngrx/agence/agence.effects';
 @NgModule({
   declarations: [
     AppComponent,
@@ -196,11 +198,13 @@ import { gerantReducer } from './ngrx/utulisateur/gerant/gerant.reducer';
       quartierState:quartierReducer,
       gerantState:gerantReducer,
       locataireState:utilisateurReducer,
-      proprietaireState:utilisateurReducer
+      proprietaireState:utilisateurReducer,
+      agenceState:agenceReducer
     }),
     EffectsModule.forRoot([
       StudioEffects,
       BienEffects,
+      AgenceEffects,
       EtageEffects,
       SiteEffects,
       UtilisateurEffects,
