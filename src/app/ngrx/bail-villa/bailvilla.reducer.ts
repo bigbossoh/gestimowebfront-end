@@ -34,12 +34,12 @@ export function bailvillaReducer(
     case BailVillaActionsTypes.SAVE_BAIL_VILLA:
       return { ...state, dataState: BailVillaStateEnum.LOADING };
     case BailVillaActionsTypes.SAVE_BAIL_VILLA_SUCCES:
-      let bvilla: BailVillaDto[] = [...state.bailvillas];
-      bvilla.push((<BailVillaActions>action).payload)
+     // let bvilla: BailVillaDto[] = [...state.bailvillas];
+     // bvilla.push((<BailVillaActions>action).payload)
       return {
         ...state,
         dataState: BailVillaStateEnum.LOADED,
-        bailvillas: bvilla
+       // bailvillas: bvilla
       };
     case BailVillaActionsTypes.SAVE_BAIL_VILLA_ERROR:
       return {
