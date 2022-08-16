@@ -13,29 +13,53 @@
                   <div class="e-profile">
                     <div class="tab-content pt-1">
                       <div class="tab-pane active">
-                        <form (ngSubmit)="saveSite()" [formGroup]="siteRegisterForm">
+                        <form
+                          (ngSubmit)="saveSite()"
+                          [formGroup]="siteRegisterForm"
+                        >
                           <div class="row">
                             <div class="col">
                               <div class="col">
                                 <div class="form-group">
-                                  <ng-container *ngIf="villeState$ | async as state" [ngSwitch]="state.dataState">
-                                    <ng-container *ngSwitchCase="VilleStateEnum.LOADED">
+                                  <ng-container
+                                    *ngIf="villeState$ | async as state"
+                                    [ngSwitch]="state.dataState"
+                                  >
+                                    <ng-container
+                                      *ngSwitchCase="VilleStateEnum.LOADED"
+                                    >
                                       <label>Selectionnez une Ville</label>
-                                      <select class="form-control" (change)="changeCity($any($event.target).value)">
+                                      <select
+                                        class="form-control"
+                                        (change)="
+                                          changeCity($any($event.target).value)
+                                        "
+                                      >
                                         <option value="">Aucune</option>
-                                        <option [value]="ville.id" *ngFor="let ville of state.villes">
+                                        <option
+                                          [value]="ville.id"
+                                          *ngFor="let ville of state.villes"
+                                        >
                                           {{ ville.nomVille }}
                                         </option>
                                       </select>
                                     </ng-container>
-                                    <ng-container *ngSwitchCase="VilleStateEnum.LOADING">
-                                      <div class="spinner-border text-primary" role="status">
+                                    <ng-container
+                                      *ngSwitchCase="VilleStateEnum.LOADING"
+                                    >
+                                      <div
+                                        class="spinner-border text-primary"
+                                        role="status"
+                                      >
                                         <span class="sr-only">Loading...</span>
                                       </div>
                                     </ng-container>
-                                    <ng-container *ngSwitchCase="VilleStateEnum.ERROR">
+                                    <ng-container
+                                      *ngSwitchCase="VilleStateEnum.ERROR"
+                                    >
                                       <div class="p-2 invalid-feedback">
-                                        Une Erreur est survenue lors du chargement des sites
+                                        Une Erreur est survenue lors du
+                                        chargement des sites
                                       </div>
                                     </ng-container>
                                   </ng-container>
@@ -44,31 +68,59 @@
                               <div class="col">
                                 <!-- Selection de commune -->
                                 <div class="form-group">
-                                  <ng-container *ngIf="communeState$| async as state" [ngSwitch]="state.dataState">
-                                    <ng-container *ngSwitchCase="CommunesStateEnum.LOADED">
-                                      <ng-container *ngIf="state.communes.length==0">
+                                  <ng-container
+                                    *ngIf="communeState$ | async as state"
+                                    [ngSwitch]="state.dataState"
+                                  >
+                                    <ng-container
+                                      *ngSwitchCase="CommunesStateEnum.LOADED"
+                                    >
+                                      <ng-container
+                                        *ngIf="state.communes.length == 0"
+                                      >
                                         Aucune Commune disponible
                                       </ng-container>
-                                      <ng-container *ngIf="state.communes.length!=0">
+                                      <ng-container
+                                        *ngIf="state.communes.length != 0"
+                                      >
                                         <label>Selectionnez une Commune</label>
-                                        <select class="form-control" [(ngModel)]="villeModel"
-                                          (change)="changeCommune($any($event.target).value)">
-                                          <option [value]="commune.id" *ngFor="let commune of state.communes">
+                                        <select
+                                          class="form-control"
+                                          [(ngModel)]="villeModel"
+                                          (change)="
+                                            changeCommune(
+                                              $any($event.target).value
+                                            )
+                                          "
+                                        >
+                                          <option
+                                            [value]="commune.id"
+                                            *ngFor="
+                                              let commune of state.communes
+                                            "
+                                          >
                                             {{ commune.nomCommune }}
                                           </option>
                                         </select>
-
                                       </ng-container>
-
                                     </ng-container>
-                                    <ng-container *ngSwitchCase="CommunesStateEnum.ERROR">
-                                      {{state.errorMessage}}
+                                    <ng-container
+                                      *ngSwitchCase="CommunesStateEnum.ERROR"
+                                    >
+                                      {{ state.errorMessage }}
                                     </ng-container>
-                                    <ng-container *ngSwitchCase="CommunesStateEnum.LOADING">
-                                      {{state.errorMessage}}
+                                    <ng-container
+                                      *ngSwitchCase="CommunesStateEnum.LOADING"
+                                    >
+                                      {{ state.errorMessage }}
                                     </ng-container>
-                                    <ng-container *ngSwitchCase="SiteStateEnum.LOADING">
-                                      <div class="spinner-border text-primary" role="status">
+                                    <ng-container
+                                      *ngSwitchCase="SiteStateEnum.LOADING"
+                                    >
+                                      <div
+                                        class="spinner-border text-primary"
+                                        role="status"
+                                      >
                                         <span class="sr-only">Loading...</span>
                                       </div>
                                     </ng-container>
@@ -78,70 +130,110 @@
                               <div class="col">
                                 <div class="form-group">
                                   <!-- Selection de quartier -->
-                                  <ng-container *ngIf="quartierState$| async as state" [ngSwitch]="state.dataState">
-                                    <ng-container *ngSwitchCase="QuartierStateEnum.LOADED">
-                                      <ng-container *ngIf="state.quartiers.length==0">
+                                  <ng-container
+                                    *ngIf="quartierState$ | async as state"
+                                    [ngSwitch]="state.dataState"
+                                  >
+                                    <ng-container
+                                      *ngSwitchCase="QuartierStateEnum.LOADED"
+                                    >
+                                      <ng-container
+                                        *ngIf="state.quartiers.length == 0"
+                                      >
                                         Aucune Quartier disponible
                                       </ng-container>
-                                      <ng-container *ngIf="state.quartiers.length!=0">
+                                      <ng-container
+                                        *ngIf="state.quartiers.length != 0"
+                                      >
                                         <label>Selectionnez un Quartier</label>
-                                        <select class="form-control" formControlName="idQuartier" (change)="quartierChange(state.quartiers)">
-                                          <option [value]="quartier.id" *ngFor="let quartier of state.quartiers">
+                                        <select
+                                          class="form-control"
+                                          formControlName="idQuartier"
+                                          (change)="
+                                            quartierChange(state.quartiers)
+                                          "
+                                        >
+                                          <option
+                                            [value]="quartier.id"
+                                            *ngFor="
+                                              let quartier of state.quartiers
+                                            "
+                                          >
                                             {{ quartier.nomQuartier }}
                                           </option>
                                         </select>
-                                        <div *ngIf="submitted&& siteRegisterForm.controls.idQuartier.errors" class="invalid-feedback">
-                                          <div *ngIf=" siteRegisterForm.controls.idQuartier.errors.required">*Champ obligatoire</div>
+                                        <div
+                                          *ngIf="
+                                            submitted &&
+                                            siteRegisterForm.controls.idQuartier
+                                              .errors
+                                          "
+                                          class="invalid-feedback"
+                                        >
+                                          <div
+                                            *ngIf="
+                                              siteRegisterForm.controls
+                                                .idQuartier.errors.required
+                                            "
+                                          >
+                                            *Champ obligatoire
+                                          </div>
                                         </div>
                                       </ng-container>
-
                                     </ng-container>
-                                    <ng-container *ngSwitchCase="QuartierStateEnum.ERROR">
-                                      {{state.errorMessage}}
+                                    <ng-container
+                                      *ngSwitchCase="QuartierStateEnum.ERROR"
+                                    >
+                                      {{ state.errorMessage }}
                                     </ng-container>
-                                    <ng-container *ngSwitchCase="QuartierStateEnum.LOADING">
-                                      <div class="spinner-border text-primary" role="status">
+                                    <ng-container
+                                      *ngSwitchCase="QuartierStateEnum.LOADING"
+                                    >
+                                      <div
+                                        class="spinner-border text-primary"
+                                        role="status"
+                                      >
                                         <span class="sr-only">Loading...</span>
                                       </div>
                                     </ng-container>
                                   </ng-container>
-
                                 </div>
                               </div>
-<div>
-  {{villeModel}}-{{quartierModel}}
-</div>
-
+                              <div>{{ villeModel }}-{{ quartierModel }}</div>
                             </div>
                           </div>
                           <div class="row">
                             <div class="col d-flex justify-content-end">
-                              <button type="button" class="btn btn-danger mr-2" data-dismiss="modal" (click)="onClose()"
-                                id="closeAgenceButton">
+                              <button
+                                type="button"
+                                class="btn btn-danger mr-2"
+                                data-dismiss="modal"
+                                (click)="onClose()"
+                                id="closeAgenceButton"
+                              >
                                 <i class="fas fa-ban"></i>
                                 Close
                               </button>
-                              <button class="btn btn-primary" type="submit" [disabled]="!siteRegisterForm.valid" >
+                              <button
+                                class="btn btn-primary"
+                                type="submit"
+                                [disabled]="!siteRegisterForm.valid"
+                              >
                                 <i class="fas fa-save"></i>
                                 Enregistrer
                               </button>
                             </div>
                           </div>
                         </form>
-
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
-
             </div>
           </div>
         </div>
-
       </div>
     </form>
-
   </div>
 </div>
