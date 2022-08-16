@@ -195,7 +195,7 @@ export class PageListeUtilisateursComponent implements OnInit {
   }
 
   onActionEmmit($event: any) {
-    console.log("we are here");
+    //console.log("we are here");
 
     this.ngOnInit();
   }
