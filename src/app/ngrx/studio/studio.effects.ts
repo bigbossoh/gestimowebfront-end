@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap,tap } from 'rxjs/operators';
+import { NotificationType } from 'src/app/enum/natification-type.enum';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 import { ApiService } from 'src/gs-api/src/services';
 import { GetAllStudioActionsSuccess, GetAllStudioActionsError } from './studio.actions';
 import {
@@ -16,7 +18,7 @@ import {
 
 @Injectable()
 export class StudioEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions) {}
+  constructor(private apiService: ApiService, private effectActions: Actions, private notificationService: NotificationService) {}
 
   //SAVE EFFECTS
   saveStudioEffect: Observable<Action> = createEffect(() =>
@@ -27,6 +29,17 @@ export class StudioEffects {
           map((studio) => new SaveStudioActionsSuccess(studio)),
           catchError((err) => of(new SaveStudioctionsError(err.message)))
         );
+      })
+      ,
+      tap((studioCollection) => {
+        if (studioCollection.payload ==true) {
+          this.sendErrorNotification(
+            NotificationType.SUCCESS,
+            'Création du site éffectué avec succes!'
+          );
+        } else {
+          this.sendErrorNotification(NotificationType.ERROR, '');
+        }
       })
     )
   );
@@ -58,4 +71,12 @@ export class StudioEffects {
       })
     )
   );
+    //MESSAGE NOTIFICATION
+    private sendErrorNotification(notificationType: NotificationType, message: string): void {
+      if (message) {
+        this.notificationService.notify(notificationType, message);
+      } else {
+        this.notificationService.notify(notificationType, 'An error occurred. Please try again.');
+      }
+    }
 }

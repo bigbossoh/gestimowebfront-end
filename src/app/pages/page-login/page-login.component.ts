@@ -13,7 +13,7 @@ import { AuthRequestDto } from 'src/gs-api/src/models';
   templateUrl: './page-login.component.html',
   styleUrls: ['./page-login.component.css']
 })
-export class PageLoginComponent implements OnInit, OnDestroy {
+export class PageLoginComponent implements OnInit {
   public showLoading?: boolean;
   private subscriptions: Subscription[] = [];
 
@@ -63,8 +63,8 @@ export class PageLoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
-  }
+  // ngOnDestroy(): void {
+  //   this.subscriptions.forEach(sub => sub.unsubscribe());
+  // }
 
 }

@@ -129,10 +129,10 @@
               </ng-container>
               <!-- Les Magasins -->
               <ng-container *ngIf="magasinState$ | async as magasinState" [ngSwitch]="magasinState.dataState">
-                <ng-container ng-container *ngSwitchCase="AppartementEnum.INITIAL">
-
+                <ng-container ng-container *ngSwitchCase="MagasinStateEnum.LOADING">
+abidjan 2
                 </ng-container>
-                <ng-container ng-container *ngSwitchCase="AppartementEnum.LOADED">
+                <ng-container ng-container *ngSwitchCase="MagasinStateEnum.LOADED">
                   <tr class="text-center" *ngFor="let maga of magasinState.magasins">
                     <td>{{ maga.id }}</td>
                     <td>{{ maga.abrvBienimmobilier }}</td>
@@ -153,7 +153,7 @@
                     </td>
                   </tr>
                 </ng-container>
-                <ng-container ng-container *ngSwitchCase="AppartementEnum.ERROR">
+                <ng-container ng-container *ngSwitchCase="MagasinStateEnum.ERROR">
                   <div class="p-2">
                     L'Erreur suivante c'est produite : {{ magasinState.errorMessage }}
                   </div>
@@ -161,8 +161,8 @@
               </ng-container>
               <!-- Les studios -->
               <ng-container *ngIf="studioState$ | async as studioState" [ngSwitch]="studioState.dataState">
-                <ng-container ng-container *ngSwitchCase="StudioStateEnum.INITIAL">
-
+                <ng-container ng-container *ngSwitchCase="StudioStateEnum.LOADING">
+abidjan 1
                 </ng-container>
                 <ng-container ng-container *ngSwitchCase="StudioStateEnum.LOADED">
                   <tr class="text-center" *ngFor="let studio of studioState.studios">
@@ -193,10 +193,10 @@
               </ng-container>
               <!-- Les villas -->
               <ng-container *ngIf="villaState$ | async as villaState" [ngSwitch]="villaState.dataState">
-                <ng-container ng-container *ngSwitchCase="AppartementEnum.INITIAL">
-
+                <ng-container ng-container *ngSwitchCase="VillaStateEnum.LOADING">
+abidjan 3
                 </ng-container>
-                <ng-container ng-container *ngSwitchCase="AppartementEnum.LOADED">
+                <ng-container ng-container *ngSwitchCase="VillaStateEnum.LOADED">
                   <tr class="text-center" *ngFor="let villa of villaState.villas">
                     <td>{{ villa.id }}</td>
                     <td>{{ villa.abrvBienimmobilier }}</td>
@@ -217,7 +217,7 @@
                     </td>
                   </tr>
                 </ng-container>
-                <ng-container ng-container *ngSwitchCase="AppartementEnum.ERROR">
+                <ng-container ng-container *ngSwitchCase="VillaStateEnum.ERROR">
                   <div class="p-2">
                     L'Erreur suivante c'est produite : {{ villaState.errorMessage }}
                   </div>
