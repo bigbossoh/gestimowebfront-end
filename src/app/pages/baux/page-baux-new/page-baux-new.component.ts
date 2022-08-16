@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -78,7 +79,8 @@ export class PageBauxNewComponent implements OnInit {
     private fb: FormBuilder,
     private store: Store<any>,
     private userService: UserService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    public dialogRef: MatDialogRef<PageBauxNewComponent>
   ) {
     this.listTypeContrat = [
       'Bail Appartement',
@@ -125,6 +127,7 @@ export class PageBauxNewComponent implements OnInit {
     } else {
       this.sendErrorNotification(NotificationType.ERROR, 'Echec');
     }
+    this.onClose();
   }
   //SAVE BAIL APPARTEMENT
   onSaveBailAppartement() {
@@ -139,6 +142,7 @@ export class PageBauxNewComponent implements OnInit {
     this.bailAppartementState$ = this.store.pipe(
       map((state) => state.bailAppartementState)
     );
+    this.onClose();
   }
   //SAVE BAIL MAGASIN
   onSaveBailMagasin() {
@@ -151,6 +155,10 @@ export class PageBauxNewComponent implements OnInit {
     this.bailMagasinState$ = this.store.pipe(
       map((state) => state.bailMagasinState)
     );
+    this.onClose();
+  }
+  onClose() {
+    this.dialogRef.close();
   }
   //SAVE BAIL VILLA
   onSaveBailVilla() {
@@ -163,6 +171,7 @@ export class PageBauxNewComponent implements OnInit {
     this.bailvillaState$ = this.store.pipe(
       map((state) => state.bailvillaState)
     );
+this.onClose();
   }
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
