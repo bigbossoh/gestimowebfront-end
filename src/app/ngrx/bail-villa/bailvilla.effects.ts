@@ -24,9 +24,9 @@ export class BailVillaEffects {
       }),
       tap((studioCollection) => {
 
-        console.log("Paylof",studioCollection.payload);
-
-        if (studioCollection.payload == null) {
+        console.log("Paylof",studioCollection.payload.valueOf());
+        console.log("Paylof string",studioCollection.payload.toString());
+        if (studioCollection.payload != null) {
           this.sendErrorNotification(
             NotificationType.SUCCESS,
             'Création du Bail immobilier éffectuée avec succes!'
