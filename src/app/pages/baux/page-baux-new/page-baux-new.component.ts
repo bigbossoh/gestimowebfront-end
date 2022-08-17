@@ -85,7 +85,7 @@ export class PageBauxNewComponent implements OnInit {
     this.listTypeContrat = [
       'Bail Appartement',
       'Bail Magasin',
-      'Bail Studio',
+      // 'Bail Studio',
       'Bail Villa',
     ];
   }

@@ -99,7 +99,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.listTypeBiens = [
       'Appartement',
       'Magasin',
-      'Studio',
+      // 'Studio',
       'Villa',
     ];
   }
