@@ -65,9 +65,7 @@ export class PageBauxComponent implements OnInit {
 
   constructor(public dialog: MatDialog,private store: Store<any>) {}
   openModifMontantDialog(loyer: number): void {
-    console.log(loyer);
-
-    const dialolRef = this.dialog.open(ModifLoyerBailComponent, {
+     const dialolRef = this.dialog.open(ModifLoyerBailComponent, {
       data:{id:loyer}
     });
     dialolRef.afterClosed().subscribe(() => {
