@@ -62,6 +62,11 @@ export class AgenceEffects {
       );
     }),
     tap((resultat) => {
+      console.log("Les agences");
+
+
+      console.warn(resultat.payload);
+
       if (resultat.payload != []) {
         this.sendErrorNotification(
           NotificationType.SUCCESS,

@@ -1,0 +1,341 @@
+<div class="tab-content pt-1">
+  <div class="tab-pane active">
+    <form
+      (ngSubmit)="saveNgrsAgence()"
+      [formGroup]="agenceRegisterForm"
+    >
+      <div class="row">
+        <div class="col">
+          <div class="mb-2 text-primary">
+            <i class="fas fa-asterisk"></i
+            ><b>
+              Denomination sociale de
+              l'agence</b
+            >
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Nom Agence</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Nom Agence"
+                  formControlName="nomAgence"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                      agenceRegisterForm.get(
+                        'nomAgence'
+                      )?.touched &&
+                      !agenceRegisterForm.get(
+                        'nomAgence'
+                      )?.valid
+                  }"
+                />
+                <div class="invalid-feedback">
+                  <span
+                    *ngIf="
+                      agenceRegisterForm.get(
+                        'nomAgence'
+                      )?.errors?.required
+                    "
+                  >
+                    Entrez le nom de l'agence
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Sigle </label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Sigle"
+                  formControlName="sigleAgence"
+                />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Nom du gérant</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Nom du gérant"
+                  formControlName="nomPrenomGerant"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                      agenceRegisterForm.get(
+                        'nomPrenomGerant'
+                      )?.touched &&
+                      !agenceRegisterForm.get(
+                        'nomPrenomGerant'
+                      )?.valid
+                  }"
+                />
+                <div class="invalid-feedback">
+                  <span
+                    *ngIf="
+                      agenceRegisterForm.get(
+                        'mobileAgence'
+                      )?.errors?.required
+                    "
+                  >
+                    Entrez le nom du gérant
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-2 text-primary">
+            <i class="fas fa-asterisk"></i
+            ><b> Contact Agence</b>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Mobile</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Mobile"
+                  formControlName="mobileAgence"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                      agenceRegisterForm.get(
+                        'mobileAgence'
+                      )?.touched &&
+                      !agenceRegisterForm.get(
+                        'mobileAgence'
+                      )?.valid
+                  }"
+                />
+                <div class="invalid-feedback">
+                  <span
+                    *ngIf="
+                      agenceRegisterForm.get(
+                        'mobileAgence'
+                      )?.errors?.required
+                    "
+                  >
+                    Entrez un mobile
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Telephone</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Telephone"
+                  formControlName="telAgence"
+                />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Email</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Email"
+                  formControlName="emailAgence"
+                  required
+                  email
+                  [ngClass]="{
+                    'is-invalid':
+                      agenceRegisterForm.get(
+                        'emailAgence'
+                      )?.touched &&
+                      !agenceRegisterForm.get(
+                        'emailAgence'
+                      )?.valid
+                  }"
+                />
+                <div class="invalid-feedback">
+                  <span
+                    *ngIf="
+                      agenceRegisterForm.get(
+                        'emailAgence'
+                      )?.errors?.required
+                    "
+                  >
+                    Entrez un mobile
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mb-2 text-primary">
+            <i class="fas fa-asterisk"></i
+            ><b>
+              Information complémentaire</b
+            >
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label
+                  >Compte contribuable</label
+                >
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Compte contribuable"
+                  formControlName="compteContribuable"
+                />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Regime fiscale</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Regime fiscale"
+                  formControlName="regimeFiscaleAgence"
+                />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Capital</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  placeholder="Capital"
+                  formControlName="capital"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm-6 mb-3">
+          <div class="mb-2 text-primary">
+            <i class="fas fa-asterisk"></i
+            ><b> Gestion du Mot de passe</b>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label
+                  >Nouveau mot de passe</label
+                >
+                <input
+                  class="form-control"
+                  type="password"
+                  placeholder="•"
+                  formControlName="motdepasse"
+                  required
+                  [ngClass]="{
+                    'is-invalid':
+                      agenceRegisterForm.get(
+                        'motdepasse'
+                      )?.touched &&
+                      !agenceRegisterForm.get(
+                        'motdepasse'
+                      )?.valid
+                  }"
+                />
+                <div class="invalid-feedback">
+                  <span
+                    *ngIf="
+                      agenceRegisterForm.get(
+                        'motdepasse'
+                      )?.errors?.required
+                    "
+                  >
+                    Entrez un mobile
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label
+                  >Confirmer le mot de
+                  passe</label
+                >
+                <input
+                  class="form-control"
+                  type="password"
+                  placeholder="•"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 col-sm-5 offset-sm-1 mb-3"
+        >
+          <div class="mb-2 text-primary">
+            <i class="fas fa-asterisk"></i
+            ><b> Rester connecter</b>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label
+                >Utilisateur actif ?</label
+              >
+              <div
+                class="custom-controls-stacked px-2"
+              >
+                <div
+                  class="custom-control custom-checkbox"
+                >
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    checked=""
+                    formControlName="active"
+                  />
+                  <label
+                    class="custom-control-label"
+                    for="notifications-blog"
+                  >
+                    Actif
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col d-flex justify-content-end"
+        >
+          <button
+            type="button"
+            class="btn btn-primary mr-2"
+            data-dismiss="modal"
+            id="closeAgenceButton"
+          >
+            <i class="fas fa-ban"></i>
+            Close
+          </button>
+          <button
+          class="close"
+          data-dismiss="modal"
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="
+              !agenceRegisterForm.valid
+            "
+          >
+            <i class="fas fa-save"></i>
+            Enregistrer
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -169,6 +169,12 @@
                   </div>
                 </ng-container>
                 <ng-container ng-container *ngSwitchCase="StudioStateEnum.LOADED">
+                 Loaded....
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </ng-container>
+                <ng-container ng-container *ngSwitchCase="StudioStateEnum.LOADED">
                   <tr class="text-center" *ngFor="let studio of studioState.studios">
                     <td>{{ studio.id }}</td>
                     <td>{{ studio.abrvNomApp }}</td>

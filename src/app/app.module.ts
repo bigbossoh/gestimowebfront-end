@@ -109,6 +109,7 @@ import { gerantReducer } from './ngrx/utulisateur/gerant/gerant.reducer';
 import { agenceReducer } from './ngrx/agence/agence.reducer';
 //import { ToastrModule } from 'ngx-toastr';
 import { AgenceEffects } from './ngrx/agence/agence.effects';
+import { AgenceNewComponent } from './pages/agence/agence-new/agence-new.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -155,7 +156,8 @@ import { AgenceEffects } from './ngrx/agence/agence.effects';
     PageNewSiteComponent,
     PageNewUtilisateurComponent,
     ButtonActionUtlisateurComponent,
-    ModifLoyerBailComponent
+    ModifLoyerBailComponent,
+    AgenceNewComponent
   ],
   imports: [
     FormsModule,
