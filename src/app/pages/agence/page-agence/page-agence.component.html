@@ -6,7 +6,6 @@
     <div class="col-md-4 text-right">
       <app-boutton-action></app-boutton-action>
     </div>
-
   </div>
   <div class="col">
     <!-- main content -->
@@ -17,14 +16,24 @@
           <div class="col btn-group">
             <div class="row md-12">
               <form class="form-inline mr-2">
-                <input name="searchTerm" #searchInput="ngModel" class="form-control" ngModel type="search"
-                  placeholder="Recherche utilisateurs...">
+                <input
+                  name="searchTerm"
+                  #searchInput="ngModel"
+                  class="form-control"
+                  ngModel
+                  type="search"
+                  placeholder="Recherche utilisateurs..."
+                />
               </form>
-              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addUserModal">
-                <i class="fa fa-plus"></i>&nbsp;New User
+              <button
+                type="button"
+                class="btn btn-info"
+                data-toggle="modal"
+                data-target="#addUserModal"
+              >
+                <em class="fa fa-plus"></em>&nbsp;New User
               </button>
             </div>
-
           </div>
         </div>
         <table class="table table-hover m-3 p-3">
@@ -32,343 +41,448 @@
             <tr class="text-center mt-3">
               <th>Photo</th>
               <th>User ID</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
+              <th>Nom Agence</th>
+              <th>Sigle</th>
+              <th>Téléphone</th>
               <th>Email</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody *ngFor="let agence of agences">
-            <tr class="text-center">
-              <td>
-                <img height="40" width="40" src="assets/nassmam.jpg" class="rounded-circle img-fluid img-thumbnail"
-                  alt="" />
-              </td>
-              <td>{{agence.id}}</td>
-              <td>{{agence.nomAgence}}</td>
-              <td>{{agence.sigleAgence}}</td>
-              <td>{{agence.mobileAgence}}</td>
-              <td>{{agence.emailAgence}}</td>
-              <td>
-                <span>Active</span>
-              </td>
-              <td class="">
-                <div class="btn-group">
-                  <button class="btn btn-outline-info"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
+          <ng-container *ngIf="getAgenceState$ | async as state" [ngSwitch]="state.dataState">
+            <ng-container *ngSwitchCase="AgenceStateEnum.LOADED">
+              <tbody *ngFor="let agence of state.agences">
+                <tr class="text-center">
+                  <td>
+                    <img
+                      height="40"
+                      width="40"
+                      src="assets/nassmam.jpg"
+                      class="rounded-circle img-fluid img-thumbnail"
+                      alt=""
+                    />
+                  </td>
+                  <td>{{ agence.id }}</td>
+                  <td>{{ agence.nomAgence }}</td>
+                  <td>{{ agence.sigleAgence }}</td>
+
+                  <td>{{ agence.telAgence }}</td>
+                  <td>{{ agence.emailAgence }}</td>
+                  <td>
+                    <span>Active</span>
+                  </td>
+                  <td class="">
+                    <div class="btn-group">
+                      <button class="btn btn-outline-info">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-outline-danger">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </ng-container>
+            <ng-container *ngSwitchCase="AgenceStateEnum.ERROR">
+              erreur....
+            </ng-container>
+            <ng-container *ngSwitchCase="AgenceStateEnum.LOADED">
+              Loadind....
+            </ng-container>
+            <ng-container ng-container *ngSwitchCase="AgenceStateEnum.LOADING">
+              <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </ng-container>
+
+          </ng-container>
         </table>
         <!-- End user table -->
       </div>
 
-
-
-      <button [hidden]="true" type="button" id="openUserInfo" data-toggle="modal" data-target="#viewUserModal">
-      </button>
-      <button [hidden]="true" type="button" id="openUserEdit" data-toggle="modal" data-target="#editUserModal">
-      </button>
+      <button
+        [hidden]="true"
+        type="button"
+        id="openUserInfo"
+        data-toggle="modal"
+        data-target="#viewUserModal"
+      ></button>
+      <button
+        [hidden]="true"
+        type="button"
+        id="openUserEdit"
+        data-toggle="modal"
+        data-target="#editUserModal"
+      ></button>
       <!-- modal user info -->
 
-
-
-
-
-
       <!-- model add user -->
-      <div class="modal draggable fade bd-example-modal-xl" id="addUserModal" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div
+        class="modal draggable fade bd-example-modal-xl"
+        id="addUserModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
         <div class="modal-dialog modal-xl" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title text-center">Nouvelle Agence</h5>
-              <!-- <div>
-                <pre>
-                  <pre>{{agenceRegisterForm.value |json}}</pre>
-                </pre>
-              </div> -->
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
               <div>
                 <form>
-
                   <div class="container">
                     <div class="row flex-lg-nowrap">
-                                           <div class="col">
+                      <div class="col">
                         <div class="row">
                           <div class="col mb-3">
                             <div class="card">
                               <div class="card-body p-2">
                                 <div class="e-profile">
-                                  <div class="row">
-
-                                  </div>
+                                  <div class="row"></div>
 
                                   <div class="tab-content pt-1">
                                     <div class="tab-pane active">
-                                      <form (ngSubmit)="saveNgrsAgence()" [formGroup]="agenceRegisterForm">
+                                      <form
+                                        (ngSubmit)="saveNgrsAgence()"
+                                        [formGroup]="agenceRegisterForm"
+                                      >
                                         <div class="row">
                                           <div class="col">
-                                            <div class="mb-2 text-primary"><i class="fas fa-asterisk"></i><b> Denomination sociale de l'agence</b></div>
+                                            <div class="mb-2 text-primary">
+                                              <i class="fas fa-asterisk"></i
+                                              ><b>
+                                                Denomination sociale de
+                                                l'agence</b
+                                              >
+                                            </div>
                                             <div class="row">
                                               <div class="col-md-4">
                                                 <div class="form-group">
                                                   <label>Nom Agence</label>
                                                   <input
-                                                  class="form-control"
-                                                  type="text"
-                                                  placeholder="Nom Agence"
-                                                  formControlName="nomAgence"
-                                                  required
-                                                  [ngClass]="{
-                                                    'is-invalid':agenceRegisterForm.get('nomAgence')?.touched
-                                                    &&
-                                                    !agenceRegisterForm.get('nomAgence')?.valid
-                                                  }"
+                                                    class="form-control"
+                                                    type="text"
+                                                    placeholder="Nom Agence"
+                                                    formControlName="nomAgence"
+                                                    required
+                                                    [ngClass]="{
+                                                      'is-invalid':
+                                                        agenceRegisterForm.get(
+                                                          'nomAgence'
+                                                        )?.touched &&
+                                                        !agenceRegisterForm.get(
+                                                          'nomAgence'
+                                                        )?.valid
+                                                    }"
+                                                  />
+                                                  <div class="invalid-feedback">
+                                                    <span
+                                                      *ngIf="
+                                                        agenceRegisterForm.get(
+                                                          'nomAgence'
+                                                        )?.errors?.required
+                                                      "
                                                     >
-                                                    <div class="invalid-feedback">
-                                                      <span *ngIf="agenceRegisterForm.get('nomAgence')?.errors?.required">
-                                                        Entrez le nom de l'agence
-                                                      </span>
-                                                    </div>
+                                                      Entrez le nom de l'agence
+                                                    </span>
+                                                  </div>
                                                 </div>
                                               </div>
                                               <div class="col-md-4">
                                                 <div class="form-group">
                                                   <label>Sigle </label>
                                                   <input
-                                                  class="form-control"
-                                                  type="text"
-                                                  placeholder="Sigle"
-                                                  formControlName="sigleAgence"
-                                                    >
+                                                    class="form-control"
+                                                    type="text"
+                                                    placeholder="Sigle"
+                                                    formControlName="sigleAgence"
+                                                  />
                                                 </div>
                                               </div>
                                               <div class="col-md-4">
                                                 <div class="form-group">
                                                   <label>Nom du gérant</label>
                                                   <input
-                                                  class="form-control"
-                                                  type="text"
-                                                  placeholder="Nom du gérant"
-                                                  formControlName="nomPrenomGerant"
-                                                  required
-                                                  [ngClass]="{
-                                                    'is-invalid':agenceRegisterForm.get('nomPrenomGerant')?.touched
-                                                    &&
-                                                    !agenceRegisterForm.get('nomPrenomGerant')?.valid
-                                                  }"
+                                                    class="form-control"
+                                                    type="text"
+                                                    placeholder="Nom du gérant"
+                                                    formControlName="nomPrenomGerant"
+                                                    required
+                                                    [ngClass]="{
+                                                      'is-invalid':
+                                                        agenceRegisterForm.get(
+                                                          'nomPrenomGerant'
+                                                        )?.touched &&
+                                                        !agenceRegisterForm.get(
+                                                          'nomPrenomGerant'
+                                                        )?.valid
+                                                    }"
+                                                  />
+                                                  <div class="invalid-feedback">
+                                                    <span
+                                                      *ngIf="
+                                                        agenceRegisterForm.get(
+                                                          'mobileAgence'
+                                                        )?.errors?.required
+                                                      "
                                                     >
-                                                    <div class="invalid-feedback">
-                                                      <span *ngIf="agenceRegisterForm.get('mobileAgence')?.errors?.required">
-                                                        Entrez le nom du gérant
-                                                      </span>
-                                                    </div>
+                                                      Entrez le nom du gérant
+                                                    </span>
+                                                  </div>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="mb-2 text-primary"><i class="fas fa-asterisk"></i><b> Contact Agence</b></div>
+                                            <div class="mb-2 text-primary">
+                                              <i class="fas fa-asterisk"></i
+                                              ><b> Contact Agence</b>
+                                            </div>
                                             <div class="row">
-
                                               <div class="col-md-4">
                                                 <div class="form-group">
                                                   <label>Mobile</label>
                                                   <input
-                                                  class="form-control"
-                                                  type="text"
-                                                  placeholder="Mobile"
-                                                  formControlName="mobileAgence"
-                                                  required
-
-                                                  [ngClass]="{
-                                                    'is-invalid':agenceRegisterForm.get('mobileAgence')?.touched
-                                                    &&
-                                                    !agenceRegisterForm.get('mobileAgence')?.valid
-                                                  }"
+                                                    class="form-control"
+                                                    type="text"
+                                                    placeholder="Mobile"
+                                                    formControlName="mobileAgence"
+                                                    required
+                                                    [ngClass]="{
+                                                      'is-invalid':
+                                                        agenceRegisterForm.get(
+                                                          'mobileAgence'
+                                                        )?.touched &&
+                                                        !agenceRegisterForm.get(
+                                                          'mobileAgence'
+                                                        )?.valid
+                                                    }"
+                                                  />
+                                                  <div class="invalid-feedback">
+                                                    <span
+                                                      *ngIf="
+                                                        agenceRegisterForm.get(
+                                                          'mobileAgence'
+                                                        )?.errors?.required
+                                                      "
                                                     >
-                                                    <div class="invalid-feedback">
-                                                      <span *ngIf="agenceRegisterForm.get('mobileAgence')?.errors?.required">
-                                                        Entrez un mobile
-                                                      </span>
-                                                    </div>
+                                                      Entrez un mobile
+                                                    </span>
+                                                  </div>
                                                 </div>
                                               </div>
                                               <div class="col-md-4">
                                                 <div class="form-group">
                                                   <label>Telephone</label>
                                                   <input
-                                                  class="form-control"
-                                                  type="text"
-                                                  placeholder="Telephone"
-                                                  formControlName="telAgence"
-                                                    >
+                                                    class="form-control"
+                                                    type="text"
+                                                    placeholder="Telephone"
+                                                    formControlName="telAgence"
+                                                  />
                                                 </div>
                                               </div>
                                               <div class="col-md-4">
                                                 <div class="form-group">
                                                   <label>Email</label>
                                                   <input
-                                                  class="form-control"
-                                                  type="text"
-                                                  placeholder="Email"
-                                                  formControlName="emailAgence"
-                                                  required
-                                                  email
-                                                  [ngClass]="{
-                                                    'is-invalid':agenceRegisterForm.get('emailAgence')?.touched
-                                                    &&
-                                                    !agenceRegisterForm.get('emailAgence')?.valid
-                                                  }"
+                                                    class="form-control"
+                                                    type="text"
+                                                    placeholder="Email"
+                                                    formControlName="emailAgence"
+                                                    required
+                                                    email
+                                                    [ngClass]="{
+                                                      'is-invalid':
+                                                        agenceRegisterForm.get(
+                                                          'emailAgence'
+                                                        )?.touched &&
+                                                        !agenceRegisterForm.get(
+                                                          'emailAgence'
+                                                        )?.valid
+                                                    }"
+                                                  />
+                                                  <div class="invalid-feedback">
+                                                    <span
+                                                      *ngIf="
+                                                        agenceRegisterForm.get(
+                                                          'emailAgence'
+                                                        )?.errors?.required
+                                                      "
                                                     >
-                                                    <div class="invalid-feedback">
-                                                      <span *ngIf="agenceRegisterForm.get('emailAgence')?.errors?.required">
-                                                        Entrez un mobile
-                                                      </span>
-                                                    </div>
+                                                      Entrez un mobile
+                                                    </span>
+                                                  </div>
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="mb-2 text-primary"><i class="fas fa-asterisk"></i><b> Information complémentaire</b></div>
+                                            <div class="mb-2 text-primary">
+                                              <i class="fas fa-asterisk"></i
+                                              ><b>
+                                                Information complémentaire</b
+                                              >
+                                            </div>
                                             <div class="row">
-
                                               <div class="col-md-4">
                                                 <div class="form-group">
-                                                  <label>Compte contribuable</label>
+                                                  <label
+                                                    >Compte contribuable</label
+                                                  >
                                                   <input
-                                                  class="form-control"
-                                                  type="text"
-                                                  placeholder="Compte contribuable"
-                                                  formControlName="compteContribuable"
-                                                    >
+                                                    class="form-control"
+                                                    type="text"
+                                                    placeholder="Compte contribuable"
+                                                    formControlName="compteContribuable"
+                                                  />
                                                 </div>
                                               </div>
                                               <div class="col-md-4">
                                                 <div class="form-group">
                                                   <label>Regime fiscale</label>
                                                   <input
-                                                  class="form-control"
-                                                  type="text"
-                                                  placeholder="Regime fiscale"
-                                                  formControlName="regimeFiscaleAgence"
-                                                    >
+                                                    class="form-control"
+                                                    type="text"
+                                                    placeholder="Regime fiscale"
+                                                    formControlName="regimeFiscaleAgence"
+                                                  />
                                                 </div>
                                               </div>
                                               <div class="col-md-4">
                                                 <div class="form-group">
                                                   <label>Capital</label>
                                                   <input
-                                                  class="form-control"
-                                                  type="text"
-                                                  placeholder="Capital"
-                                                  formControlName="capital"
-                                                    >
+                                                    class="form-control"
+                                                    type="text"
+                                                    placeholder="Capital"
+                                                    formControlName="capital"
+                                                  />
                                                 </div>
                                               </div>
                                             </div>
-
-
-
-
                                           </div>
                                         </div>
                                         <div class="row">
                                           <div class="col-12 col-sm-6 mb-3">
-                                            <div class="mb-2 text-primary"><i class="fas fa-asterisk"></i><b> Gestion du Mot de passe</b></div>
+                                            <div class="mb-2 text-primary">
+                                              <i class="fas fa-asterisk"></i
+                                              ><b> Gestion du Mot de passe</b>
+                                            </div>
                                             <div class="row">
                                               <div class="col-sm-6">
                                                 <div class="form-group">
-                                                  <label>Nouveau mot de passe</label>
+                                                  <label
+                                                    >Nouveau mot de passe</label
+                                                  >
                                                   <input
-                                                  class="form-control"
-                                                  type="password"
-                                                  placeholder="•"
-                                                  formControlName="motdepasse"
-                                                  required
-
-                                                  [ngClass]="{
-                                                    'is-invalid':agenceRegisterForm.get('motdepasse')?.touched
-                                                    &&
-                                                    !agenceRegisterForm.get('motdepasse')?.valid
-                                                  }"
+                                                    class="form-control"
+                                                    type="password"
+                                                    placeholder="•"
+                                                    formControlName="motdepasse"
+                                                    required
+                                                    [ngClass]="{
+                                                      'is-invalid':
+                                                        agenceRegisterForm.get(
+                                                          'motdepasse'
+                                                        )?.touched &&
+                                                        !agenceRegisterForm.get(
+                                                          'motdepasse'
+                                                        )?.valid
+                                                    }"
+                                                  />
+                                                  <div class="invalid-feedback">
+                                                    <span
+                                                      *ngIf="
+                                                        agenceRegisterForm.get(
+                                                          'motdepasse'
+                                                        )?.errors?.required
+                                                      "
                                                     >
-                                                    <div class="invalid-feedback">
-                                                      <span *ngIf="agenceRegisterForm.get('motdepasse')?.errors?.required">
-                                                        Entrez un mobile
-                                                      </span>
-                                                    </div>
+                                                      Entrez un mobile
+                                                    </span>
+                                                  </div>
                                                 </div>
                                               </div>
                                               <div class="col-sm-6">
                                                 <div class="form-group">
-                                                  <label>Confirmer le mot de passe</label>
+                                                  <label
+                                                    >Confirmer le mot de
+                                                    passe</label
+                                                  >
                                                   <input
-                                                  class="form-control"
-                                                  type="password"
-                                                  placeholder="•"
-                                                   >
-                                                    <!-- <div class="invalid-feedback">
-                                                      <span *ngIf="agenceRegisterForm.get('emailAgence')?.errors?.required">
-                                                        Entrez un mobile
-                                                      </span>
-                                                    </div> -->
+                                                    class="form-control"
+                                                    type="password"
+                                                    placeholder="•"
+                                                  />
                                                 </div>
                                               </div>
                                             </div>
-
                                           </div>
-                                          <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                                            <div class="mb-2 text-primary"><i class="fas fa-asterisk"></i><b> Rester connecter</b></div>
+                                          <div
+                                            class="col-12 col-sm-5 offset-sm-1 mb-3"
+                                          >
+                                            <div class="mb-2 text-primary">
+                                              <i class="fas fa-asterisk"></i
+                                              ><b> Rester connecter</b>
+                                            </div>
                                             <div class="row">
                                               <div class="col">
-                                                <label>Utilisateur actif ?</label>
-                                                <div class="custom-controls-stacked px-2">
-                                                  <div class="custom-control custom-checkbox">
+                                                <label
+                                                  >Utilisateur actif ?</label
+                                                >
+                                                <div
+                                                  class="custom-controls-stacked px-2"
+                                                >
+                                                  <div
+                                                    class="custom-control custom-checkbox"
+                                                  >
                                                     <input
-                                                    type="checkbox"
-                                                    class="custom-control-input"
-                                                     checked=""
-                                                     formControlName="active">
-                                                    <label class="custom-control-label" for="notifications-blog">
+                                                      type="checkbox"
+                                                      class="custom-control-input"
+                                                      checked=""
+                                                      formControlName="active"
+                                                    />
+                                                    <label
+                                                      class="custom-control-label"
+                                                      for="notifications-blog"
+                                                    >
                                                       Actif
                                                     </label>
                                                   </div>
-                                                  <!-- <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                      id="notifications-news" checked="">
-                                                    <label class="custom-control-label"
-                                                      for="notifications-news">Newsletter</label>
-                                                  </div> -->
-
                                                 </div>
                                               </div>
                                             </div>
                                           </div>
                                         </div>
                                         <div class="row">
-                                          <div class="col d-flex justify-content-end">
-                                            <!-- <button class="btn btn-primary mr-2"  id="closeEditUserModalButton" type="submit">
+                                          <div
+                                            class="col d-flex justify-content-end"
+                                          >
+                                            <button
+                                              type="button"
+                                              class="btn btn-primary mr-2"
+                                              data-dismiss="modal"
+                                              id="closeAgenceButton"
+                                            >
                                               <i class="fas fa-ban"></i>
-                                              Annuler
-                                            </button> -->
+                                              Close
+                                            </button>
                                             <button
-                                            type="button"
-                                            class="btn btn-primary mr-2"
-                                            data-dismiss="modal"
-                                            id="closeAgenceButton">
-                                            <i class="fas fa-ban"></i>
-                                            Close
-                                          </button>
-                                            <button
-                                            class="btn btn-primary"
-                                            type="submit"
-                                            [disabled]="!agenceRegisterForm.valid"
+                                              class="btn btn-primary"
+                                              type="submit"
+                                              [disabled]="
+                                                !agenceRegisterForm.valid
+                                              "
                                             >
                                               <i class="fas fa-save"></i>
                                               Enregistrer
@@ -376,7 +490,6 @@
                                           </div>
                                         </div>
                                       </form>
-
                                     </div>
                                   </div>
                                 </div>
@@ -384,7 +497,6 @@
                             </div>
                           </div>
                         </div>
-
                       </div>
                     </div>
                   </div>
@@ -394,19 +506,11 @@
           </div>
         </div>
       </div>
-
-
-
-
-
-
     </div>
-
   </div>
   <div class="row mb-3">
-    <div class=" col-md-12 text-center">
+    <div class="col-md-12 text-center">
       <app-pagination></app-pagination>
     </div>
   </div>
-
 </div>

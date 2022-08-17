@@ -3,7 +3,7 @@
 
 import { Action } from '@ngrx/store';
 
-import { AgenceRequestDto } from 'src/gs-api/src/models';
+import { AgenceRequestDto, AgenceResponseDto } from 'src/gs-api/src/models';
 
 //STORE
 
@@ -13,7 +13,7 @@ export enum AgenceActionsType {
   SAVE_AGENCE_SUCCES = '[AgenceRequestDto] Get Save AppartementSucces',
   SAVE_AGENCE_ERROR = '[AgenceRequestDto] Get Save Appartement Error',
 
-  GET_ALL_AGENCE_LIBRE = '[AppartementDto] Get All AppartementDto Libre',
+  GET_ALL_AGENCE = '[AppartementDto] Get All AppartementDto Libre',
   GET_ALL_AGENCE_SUCCES = '[AppartementDto] Get All AppartementDto Libre Succes',
   GET_ALL_AGENCE_ERROR = '[AppartementDto] Get All AppartementDto Libre Error',
 
@@ -33,10 +33,26 @@ export class SaveAgenceActionsError implements Action {
   constructor(public payload: string) {}
 }
 
-// GET ALL APPARTEMENT LIBRE
+// GET ALL AGENCES
+// CREER LES DIFFERENTES ACTIONS
+export class GetAllAgenceActions implements Action {
+  type: AgenceActionsType = AgenceActionsType.GET_ALL_AGENCE;
+  constructor(public payload: any) {}
+}
 
+export class GetAllAgenceActionsSuccess implements Action {
+  type: AgenceActionsType = AgenceActionsType.GET_ALL_AGENCE_SUCCES;
+  constructor(public payload: AgenceResponseDto[]) {}
+}
+export class GetAllAgenceActionsError implements Action {
+  type: AgenceActionsType = AgenceActionsType.GET_ALL_AGENCE_ERROR;
+  constructor(public payload: string) {}
+}
 export type AgenceActions =
   | SaveAgenceActions
   | SaveAgenceActionsSuccess
   | SaveAgenceActionsError
+  |GetAllAgenceActions
+  |GetAllAgenceActionsSuccess
+  |GetAllAgenceActionsError;
 
