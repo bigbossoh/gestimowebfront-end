@@ -48,6 +48,23 @@ export function agenceReducer(
         errorMessage: (<AgenceActions>action).payload,
       };
       //remaining all agence
+
+      //SAVE ETAGE
+    case AgenceActionsType.GET_ALL_AGENCE:
+    return { ...state, dataState: AgenceStateEnum.LOADING };
+  case AgenceActionsType.GET_ALL_AGENCE_SUCCES:
+
+    return {
+      ...state,
+      dataState: AgenceStateEnum.LOADED,
+    agences:(<AgenceActions>action).payload
+    };
+  case AgenceActionsType.GET_ALL_AGENCE_ERROR:
+    return {
+      ...state,
+      dataState: AgenceStateEnum.ERROR,
+      errorMessage: (<AgenceActions>action).payload,
+    };
     default:
       return { ...state };
   }

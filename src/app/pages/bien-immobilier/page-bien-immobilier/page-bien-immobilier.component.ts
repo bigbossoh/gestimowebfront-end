@@ -90,5 +90,6 @@ export class PageBienImmobilierComponent implements OnInit {
   findCommuneByPays(pays: any) {
     this.store.dispatch(new GetAllCommunesByVilleActions(pays.target.value));
     this.commeState$ = this.store.pipe(map((state) => state.communeState));
+    this.ngOnInit();
   }
 }
