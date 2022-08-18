@@ -13,15 +13,15 @@ export enum AgenceActionsType {
   SAVE_AGENCE_SUCCES = '[AgenceRequestDto] Get Save AppartementSucces',
   SAVE_AGENCE_ERROR = '[AgenceRequestDto] Get Save Appartement Error',
 
-  GET_ALL_AGENCE = '[AppartementDto] Get All AppartementDto Libre',
-  GET_ALL_AGENCE_SUCCES = '[AppartementDto] Get All AppartementDto Libre Succes',
-  GET_ALL_AGENCE_ERROR = '[AppartementDto] Get All AppartementDto Libre Error',
+  GET_ALL_AGENCE = '[AgenceResponseDto] Get All AgenceResponseDto Libre',
+  GET_ALL_AGENCE_SUCCES = '[AgenceResponseDto] Get All AgenceResponseDto Libre Succes',
+  GET_ALL_AGENCE_ERROR = '[AgenceResponseDto] Get All AgenceResponseDto Libre Error',
 
 }
 // CREER LES DIFFERENTES ACTIONS
 export class SaveAgenceActions implements Action {
   type: AgenceActionsType = AgenceActionsType.SAVE_AGENCE;
-  constructor(public payload: any) {}
+  constructor(public payload: AgenceRequestDto) {}
 }
 
 export class SaveAgenceActionsSuccess implements Action {

@@ -44,6 +44,7 @@ export class AgenceNewComponent implements OnInit {
   }
   onClose() {
     this.dialogRef.close();
+
   }
   saveNgrsAgence() {
     this.agenceRegisterForm.patchValue({
