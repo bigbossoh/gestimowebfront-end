@@ -35,11 +35,16 @@ export function agenceReducer(
     case AgenceActionsType.SAVE_AGENCE:
       return { ...state, dataState: AgenceStateEnum.LOADING };
     case AgenceActionsType.SAVE_AGENCE_SUCCES:
-
+      let agenceSave:AgenceResponseDto=(<AgenceActions>action).payload;
+      let currentAgenceListe = [...state.agences];
+     // currentAgenceListe.push(agenceSave);
+      console.log('Cuurente is');
+      console.log(currentAgenceListe);
       return {
         ...state,
         dataState: AgenceStateEnum.LOADED,
         retourSave: true,
+agences:currentAgenceListe
       };
     case AgenceActionsType.SAVE_AGENCE_ERROR:
       return {

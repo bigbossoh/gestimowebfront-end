@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AgenceRequestDto } from '../../../../gs-api/src/models/agence-request-dto';
 import { Observable } from 'rxjs';
-import {
-  FormGroup,
-} from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { Store } from '@ngrx/store';
-import {
-  GetAllAgenceActions,
-} from '../../../ngrx/agence/agence.actions';
+import { GetAllAgenceActions } from '../../../ngrx/agence/agence.actions';
 import {
   AgenceBdState,
   AgenceStateEnum,
@@ -43,9 +39,12 @@ export class PageAgenceComponent implements OnInit {
   onCreateAgence() {
     const dialogref = this.dialog.open(AgenceNewComponent);
     dialogref.afterClosed().subscribe(() => {
-      console.log('On  a fermer le formulaire de Baux');
-      this.store.dispatch(new GetAllAgenceActions({}));
-      this.getAgenceState$ = this.store.pipe(map((state) => state.agenceState));
+
+      // this.store.dispatch(new GetAllAgenceActions({}));
+      // this.getAgenceState$ = this.store.pipe(map((state) => state.agenceState));
+      // console.log('Le state est :');
+      // console.log(this.getAgenceState$);
+       this.ngOnInit();
     });
   }
 }

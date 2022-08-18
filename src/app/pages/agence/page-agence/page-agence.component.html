@@ -16,20 +16,10 @@
           <div class="col btn-group">
             <div class="row md-12">
               <form class="form-inline mr-2">
-                <input
-                  name="searchTerm"
-                  #searchInput="ngModel"
-                  class="form-control"
-                  ngModel
-                  type="search"
-                  placeholder="Recherche utilisateurs..."
-                />
+                <input name="searchTerm" #searchInput="ngModel" class="form-control" ngModel type="search"
+                  placeholder="Recherche utilisateurs..." />
               </form>
-              <button
-                type="button"
-                class="btn btn-info"
-                (click)="onCreateAgence()"
-              >
+              <button type="button" class="btn btn-info" (click)="onCreateAgence()">
                 <em class="fa fa-plus"></em>&nbsp;Nouvelle Agence
               </button>
             </div>
@@ -53,13 +43,8 @@
               <tbody *ngFor="let agence of state.agences">
                 <tr class="text-center">
                   <td>
-                    <img
-                      height="40"
-                      width="40"
-                      src="assets/nassmam.jpg"
-                      class="rounded-circle img-fluid img-thumbnail"
-                      alt=""
-                    />
+                    <img height="40" width="40" src="assets/nassmam.jpg" class="rounded-circle img-fluid img-thumbnail"
+                      alt="" />
                   </td>
                   <td>{{ agence.id }}</td>
                   <td>{{ agence.nomAgence }}</td>
@@ -84,9 +69,6 @@
             </ng-container>
             <ng-container *ngSwitchCase="AgenceStateEnum.ERROR">
               erreur....
-            </ng-container>
-            <ng-container *ngSwitchCase="AgenceStateEnum.LOADED">
-              Loaded....
             </ng-container>
             <ng-container ng-container *ngSwitchCase="AgenceStateEnum.LOADING">
               <div class="spinner-border text-primary" role="status">
