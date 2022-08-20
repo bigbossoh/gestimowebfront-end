@@ -28,100 +28,57 @@
 
      </div>
    </div>
-     <table class="table table-hover m-3 p-3">
-      <thead class="table-borderless">
-       <tr class="text-center mt-3">
-         <th>Photo</th>
-         <th>User ID</th>
-         <th>First Name</th>
-         <th>Last Name</th>
-         <th>Username</th>
-         <th>Email</th>
-         <th>Status</th>
-         <th>Actions</th>
-       </tr>
-     </thead>
-      <tbody >
-        <tr class="text-center">
-          <td >
-            <img height="40" width="40" src="assets/nassmam.jpg" class="rounded-circle img-fluid img-thumbnail" alt=""/>
-          </td>
-          <td >I2547185</td>
-          <td >zrango</td>
-          <td >nasaire</td>
-          <td >+2250103833350</td>
-          <td >zrangonazaire@gmail.com</td>
-          <td>
-            <span>Active</span>
-          </td>
-          <td class="">
-            <div class="btn-group">
-              <button class="btn btn-outline-info" ><i class="fas fa-edit"></i></button>
-              <button class="btn btn-outline-danger" ><i class="fas fa-trash"></i></button>
-            </div>
-          </td>
-        </tr>
-       <tr class="text-center">
-         <td >
-           <img height="40" width="40" src="assets/zolo.jpg" class="rounded-circle img-fluid img-thumbnail" alt=""/>
-         </td>
-         <td >I2547185</td>
-         <td >Bossoh</td>
-         <td >Michel</td>
-         <td >+2250777880885</td>
-         <td >michel.bossoh@outlook.fr</td>
-         <td >
-           <span >Active</span>
-         </td>
-         <td class="">
-           <div class="btn-group">
-             <button class="btn btn-outline-info" ><i class="fas fa-edit"></i></button>
-             <button class="btn btn-outline-danger" ><i class="fas fa-trash"></i></button>
-           </div>
-         </td>
-       </tr>
+   <div>
+    <ng-container *ngIf="superviseurState$ | async as state" [ngSwitch]="state.dataState">
+      <ng-container *ngSwitchCase="SuperviseurStateEnum.ERROR">
+        <div class="p-2 invalid-feedback">error...</div>
+      </ng-container>
+      <ng-container *ngSwitchCase="SuperviseurStateEnum.LOADING">
+        <div class="p-2"> les données sont en chargement ...</div>
+      </ng-container>
+      <ng-container *ngSwitchCase="SuperviseurStateEnum.LOADED">
+        <table class="table table-hover m-3 p-3">
+          <thead class="table-borderless">
+           <tr class="text-center mt-3">
+             <th>Photo</th>
+             <th>User ID</th>
+             <th>Nom prénoms</th>
+             <th>Nom utilisateur</th>
+             <th>Contact</th>
+             <th>Email</th>
+             <th>Status</th>
+             <th>Actions</th>
+           </tr>
+         </thead>
+          <tbody >
+            <tr class="text-center" *ngFor="let superviseur of state.superviseurs" >
+              <td >
+                <img height="40" width="40" src="assets/nassmam.jpg" class="rounded-circle img-fluid img-thumbnail" alt=""/>
+              </td>
+              <td >{{superviseur.utilisateurIdApp}}</td>
+              <td >{{superviseur.nom}} {{superviseur.prenom}}</td>
+              <td >{{superviseur.username}}</td>
+              <td >{{superviseur.mobile}}</td>
+              <td >{{superviseur.email}}</td>
+              <td>
+                <div class="">Status:
+                  <span [hidden]="!superviseur.active" class="badge badge-success">Active</span>
+                  <span [hidden]="superviseur.active" class="badge badge-danger">Inactive</span>
+                </div>
+              </td>
+              <td class="">
+                <div class="btn-group">
+                  <button class="btn btn-outline-info" ><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-outline-danger" ><i class="fas fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+         </tbody>
+        </table>
+      </ng-container>
+    </ng-container>
 
-       <tr class="text-center">
-        <td >
-          <img height="40" width="40" src="assets/nassmam.jpg" class="rounded-circle img-fluid img-thumbnail" alt=""/>
-        </td>
-        <td >I2547185</td>
-        <td >zrango</td>
-        <td >nasaire</td>
-        <td >+2250103833350</td>
-        <td >zrangonazaire@gmail.com</td>
-        <td>
-          <span>Active</span>
-        </td>
-        <td class="">
-          <div class="btn-group">
-            <button class="btn btn-outline-info" ><i class="fas fa-edit"></i></button>
-            <button class="btn btn-outline-danger" ><i class="fas fa-trash"></i></button>
-          </div>
-        </td>
-      </tr>
-
-      <tr class="text-center">
-        <td >
-          <img height="40" width="40" src="assets/zolo.jpg" class="rounded-circle img-fluid img-thumbnail" alt=""/>
-        </td>
-        <td >I2547185</td>
-        <td >Bossoh</td>
-        <td >Michel</td>
-        <td >+2250777880885</td>
-        <td >michel.bossoh@outlook.fr</td>
-        <td >
-          <span >Active</span>
-        </td>
-        <td class="">
-          <div class="btn-group">
-            <button class="btn btn-outline-info" ><i class="fas fa-edit"></i></button>
-            <button class="btn btn-outline-danger" ><i class="fas fa-trash"></i></button>
-          </div>
-        </td>
-      </tr>
-     </tbody>
-    </table>
+   </div>
  </div>
 
 </div>
