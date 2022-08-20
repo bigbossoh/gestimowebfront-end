@@ -110,6 +110,8 @@ import { agenceReducer } from './ngrx/agence/agence.reducer';
 //import { ToastrModule } from 'ngx-toastr';
 import { AgenceEffects } from './ngrx/agence/agence.effects';
 import { AgenceNewComponent } from './pages/agence/agence-new/agence-new.component';
+import { superviseurReducer } from './ngrx/utulisateur/superviseur/superviseur.reducer';
+import { SuperviseurEffects } from './ngrx/utulisateur/superviseur/superviseur.effect';
 @NgModule({
   declarations: [
     AppComponent,
@@ -201,7 +203,8 @@ import { AgenceNewComponent } from './pages/agence/agence-new/agence-new.compone
       gerantState:gerantReducer,
       locataireState:utilisateurReducer,
       proprietaireState:utilisateurReducer,
-      agenceState:agenceReducer
+      agenceState:agenceReducer,
+      superviseurState:superviseurReducer
     }),
     EffectsModule.forRoot([
       StudioEffects,
@@ -223,7 +226,8 @@ import { AgenceNewComponent } from './pages/agence/agence-new/agence-new.compone
       BauxEffects,
       AppelLoyerEffects,
       Quartierffects,
-      GerantEffects
+      GerantEffects,
+      SuperviseurEffects
     ]),
 
     StoreDevtoolsModule.instrument(),
