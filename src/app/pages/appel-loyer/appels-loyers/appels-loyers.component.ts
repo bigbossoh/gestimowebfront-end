@@ -14,8 +14,13 @@ export class AppelsLoyersComponent implements OnInit {
   ngOnInit(): void {}
   printQuittance(p: string) {
     console.log(p);
-    this.printService.printQuittanceByPeriode(p).subscribe(response => {
-      alert('Fait')
+
+    this.printService.printQuittanceByPeriode(p).subscribe((data) => {
+      console.log(data);
+
+      const fileURL = URL.createObjectURL(data);
+    
+      window.open(fileURL);
     })
   }
 }
