@@ -4,6 +4,7 @@ import { Utilisateur } from './utilisateur';
 export interface Bienimmobilier {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
   numBien?: number;
@@ -14,6 +15,6 @@ export interface Bienimmobilier {
   superficieBien?: number;
   site?: Site;
   utilisateur?: Utilisateur;
-  occupied?: boolean;
   archived?: boolean;
+  occupied?: boolean;
 }

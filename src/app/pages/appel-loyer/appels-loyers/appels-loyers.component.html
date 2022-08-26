@@ -18,11 +18,11 @@
     <div class="row mb-3">
       <div class="col-md-3">
         <label>Période</label>
-        <select id="modele" name="typeClim" class="form-control">
-          <option value="0">selectionnez une période</option>
-          <option value="Janvier 2022">Janvier 2022</option>
-          <option value="Février 2022">Février 2022</option>
-          <option value="Mars 2022">Mars 2022</option>
+        <select id="modele" name="typeClim" class="form-control" [(ngModel)]="periodePrint">
+          <option value="0">Sélectionnez une période </option>
+          <option value="2022-09">Septembre 2022</option>
+          <option value="2022-10">Octobre 2022</option>
+          <option value="2022-11">Novembre 2022</option>
         </select>
       </div>
       <div class="col-md-3">
@@ -41,7 +41,7 @@
     <div class="row mb-3 ">
       <div class="col panel-body text-right">
 
-        <button type="button" class="mb-sm btn btn-primary mr-1">Valider appel</button>
+        <button type="button" class="mb-sm btn btn-primary mr-1" (click)="printQuittance(periodePrint)">Imprimer les appels</button>
         <button type="button" class="mb-sm btn btn-success mr-1">Rappel d'appel</button>
         <button type="button" class="mb-sm btn btn-info mr-1">Loyers soldés</button>
       </div>

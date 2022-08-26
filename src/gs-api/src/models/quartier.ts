@@ -4,6 +4,7 @@ import { Site } from './site';
 export interface Quartier {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
   abrvQuartier?: string;

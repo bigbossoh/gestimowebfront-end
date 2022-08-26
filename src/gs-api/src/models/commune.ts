@@ -4,6 +4,7 @@ import { Quartier } from './quartier';
 export interface Commune {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
   abrvCommune?: string;

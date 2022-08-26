@@ -6,6 +6,7 @@ import { Operation } from './operation';
 export interface Magasin {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
   numBien?: number;
@@ -22,6 +23,6 @@ export interface Magasin {
   etageMagasin?: Etage;
   operationsMagasin?: Array<Operation>;
   underBuildingMagasin?: boolean;
-  occupied?: boolean;
   archived?: boolean;
+  occupied?: boolean;
 }

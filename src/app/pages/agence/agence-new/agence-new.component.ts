@@ -13,7 +13,7 @@ import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 })
 export class AgenceNewComponent implements OnInit {
   agenceRegisterForm!: FormGroup;
-  public user?: UtilisateurRequestDto;
+      public user?: UtilisateurRequestDto;
   constructor(
     private store: Store<any>,
     private fb: FormBuilder,

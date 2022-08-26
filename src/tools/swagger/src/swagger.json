@@ -1404,6 +1404,26 @@
         }
       }
     },
+    "gestimoweb/api/v1/print/quittancegrouper/{periode}" : {
+      "get" : {
+        "operationId" : "quittancePeriode",
+        "produces" : [ "application/pdf" ],
+        "parameters" : [ {
+          "name" : "periode",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/quartier/all" : {
       "get" : {
         "operationId" : "findAllQuartiers",
@@ -2132,64 +2152,6 @@
     }
   },
   "definitions" : {
-    "AgenceImmobiliere" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "idAgence" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "creationDate" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "lastModifiedDate" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "nomAgence" : {
-          "type" : "string"
-        },
-        "telAgence" : {
-          "type" : "string"
-        },
-        "compteContribuable" : {
-          "type" : "string"
-        },
-        "capital" : {
-          "type" : "number",
-          "format" : "double"
-        },
-        "emailAgence" : {
-          "type" : "string"
-        },
-        "mobileAgence" : {
-          "type" : "string"
-        },
-        "regimeFiscaleAgence" : {
-          "type" : "string"
-        },
-        "faxAgence" : {
-          "type" : "string"
-        },
-        "sigleAgence" : {
-          "type" : "string"
-        },
-        "utilisateurs" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Utilisateur"
-          }
-        },
-        "createur" : {
-          "$ref" : "#/definitions/Utilisateur"
-        }
-      }
-    },
     "AgenceRequestDto" : {
       "type" : "object",
       "properties" : {
@@ -2279,9 +2241,6 @@
         },
         "sigleAgence" : {
           "type" : "string"
-        },
-        "utilisateurRequestDto" : {
-          "$ref" : "#/definitions/UtilisateurRequestDto"
         }
       }
     },
@@ -2293,6 +2252,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -2412,6 +2375,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -2620,6 +2587,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -2889,10 +2860,10 @@
         "utilisateur" : {
           "type" : "string"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -2905,6 +2876,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -2942,10 +2917,10 @@
         "utilisateur" : {
           "$ref" : "#/definitions/Utilisateur"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -2958,6 +2933,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -3006,6 +2985,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -3090,6 +3073,10 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "creationDate" : {
           "type" : "integer",
           "format" : "int64"
@@ -3143,6 +3130,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -3221,6 +3212,10 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "creationDate" : {
           "type" : "integer",
           "format" : "int64"
@@ -3282,10 +3277,10 @@
         "garrage" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -3366,6 +3361,10 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "creationDate" : {
           "type" : "integer",
           "format" : "int64"
@@ -3422,10 +3421,10 @@
         "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -3483,13 +3482,13 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "occupied" : {
-          "type" : "boolean"
-        },
         "underBuildingMagasin" : {
           "type" : "boolean"
         },
         "archived" : {
+          "type" : "boolean"
+        },
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -3541,13 +3540,13 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
-          "type" : "boolean"
-        },
         "underBuildingMagasin" : {
           "type" : "boolean"
         },
         "archived" : {
+          "type" : "boolean"
+        },
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -3560,6 +3559,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -3655,6 +3658,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -3764,6 +3771,10 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "creationDate" : {
           "type" : "integer",
           "format" : "int64"
@@ -3813,6 +3824,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -3897,6 +3912,10 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "creationDate" : {
           "type" : "integer",
           "format" : "int64"
@@ -3946,6 +3965,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -4021,6 +4044,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -4150,10 +4177,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -4166,6 +4193,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -4249,15 +4280,6 @@
             "type" : "string"
           }
         },
-        "agence" : {
-          "$ref" : "#/definitions/AgenceImmobiliere"
-        },
-        "listeAgence" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/AgenceImmobiliere"
-          }
-        },
         "urole" : {
           "$ref" : "#/definitions/Role"
         },
@@ -4285,10 +4307,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -4390,10 +4412,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -4406,6 +4428,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -4478,10 +4504,10 @@
             "$ref" : "#/definitions/Operation"
           }
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -4557,10 +4583,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -4573,6 +4599,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },

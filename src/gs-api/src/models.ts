@@ -1,4 +1,3 @@
-export { AgenceImmobiliere } from './models/agence-immobiliere';
 export { AgenceRequestDto } from './models/agence-request-dto';
 export { AgenceResponseDto } from './models/agence-response-dto';
 export { Appartement } from './models/appartement';

@@ -6,6 +6,7 @@ import { Operation } from './operation';
 export interface Studio {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
   numBien?: number;
