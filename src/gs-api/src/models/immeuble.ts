@@ -5,6 +5,7 @@ import { Etage } from './etage';
 export interface Immeuble {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
   numBien?: number;
@@ -22,6 +23,6 @@ export interface Immeuble {
   numeroImmeuble?: number;
   etages?: Array<Etage>;
   garrage?: boolean;
-  occupied?: boolean;
   archived?: boolean;
+  occupied?: boolean;
 }

@@ -6,6 +6,7 @@ import { Immeuble } from './immeuble';
 export interface Etage {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
   nomEtage?: string;

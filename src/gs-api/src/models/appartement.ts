@@ -4,6 +4,7 @@ import { Operation } from './operation';
 export interface Appartement {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
   meubleApp?: boolean;

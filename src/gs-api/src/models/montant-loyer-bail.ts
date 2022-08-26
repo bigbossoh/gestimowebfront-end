@@ -3,6 +3,7 @@ import { BailLocation } from './bail-location';
 export interface MontantLoyerBail {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
   ancienMontantLoyer?: number;

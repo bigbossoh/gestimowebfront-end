@@ -11,6 +11,7 @@ import { AppelLoyer } from './appel-loyer';
 export interface BailLocation {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
   dateDebut?: string;

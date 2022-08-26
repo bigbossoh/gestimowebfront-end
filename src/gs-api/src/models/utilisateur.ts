@@ -1,5 +1,4 @@
 /* tslint:disable */
-import { AgenceImmobiliere } from './agence-immobiliere';
 import { Role } from './role';
 import { Operation } from './operation';
 import { Encaissement } from './encaissement';
@@ -7,6 +6,7 @@ import { Bienimmobilier } from './bienimmobilier';
 export interface Utilisateur {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
   utilisateurIdApp?: string;
@@ -30,14 +30,12 @@ export interface Utilisateur {
   joinDate?: string;
   roleUsed?: string;
   authorities?: Array<string>;
-  agence?: AgenceImmobiliere;
-  listeAgence?: Array<AgenceImmobiliere>;
   urole?: Role;
   userCreate?: Utilisateur;
   operationUser?: Array<Operation>;
   encaissementsUtilisateur?: Array<Encaissement>;
   biensUtilisateur?: Array<Bienimmobilier>;
   active?: boolean;
-  activated?: boolean;
   nonLocked?: boolean;
+  activated?: boolean;
 }

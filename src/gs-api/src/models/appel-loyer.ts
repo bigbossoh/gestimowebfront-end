@@ -4,6 +4,7 @@ import { Encaissement } from './encaissement';
 export interface AppelLoyer {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
   periodeAppelLoyer?: string;

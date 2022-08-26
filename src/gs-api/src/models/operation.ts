@@ -8,6 +8,7 @@ import { Villa } from './villa';
 export interface Operation {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
   dateDebut?: string;

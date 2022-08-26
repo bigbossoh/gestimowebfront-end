@@ -14,7 +14,7 @@ export interface MagasinDto {
   idEtage?: number;
   idSite?: number;
   idUtilisateur?: number;
-  occupied?: boolean;
   underBuildingMagasin?: boolean;
   archived?: boolean;
+  occupied?: boolean;
 }

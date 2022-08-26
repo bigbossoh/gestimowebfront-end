@@ -112,6 +112,8 @@ import { AgenceEffects } from './ngrx/agence/agence.effects';
 import { AgenceNewComponent } from './pages/agence/agence-new/agence-new.component';
 import { superviseurReducer } from './ngrx/utulisateur/superviseur/superviseur.reducer';
 import { SuperviseurEffects } from './ngrx/utulisateur/superviseur/superviseur.effect';
+import { quittanceAppelReducer } from './ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.reducer';
+import { QuittanceAppelLoyerEffects } from './ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.effect';
 @NgModule({
   declarations: [
     AppComponent,
@@ -204,7 +206,8 @@ import { SuperviseurEffects } from './ngrx/utulisateur/superviseur/superviseur.e
       locataireState:utilisateurReducer,
       proprietaireState:utilisateurReducer,
       agenceState:agenceReducer,
-      superviseurState:superviseurReducer
+      superviseurState: superviseurReducer,
+      quittanceAppelState:quittanceAppelReducer
     }),
     EffectsModule.forRoot([
       StudioEffects,
@@ -227,7 +230,8 @@ import { SuperviseurEffects } from './ngrx/utulisateur/superviseur/superviseur.e
       AppelLoyerEffects,
       Quartierffects,
       GerantEffects,
-      SuperviseurEffects
+      SuperviseurEffects,
+      QuittanceAppelLoyerEffects
     ]),
 
     StoreDevtoolsModule.instrument(),

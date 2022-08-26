@@ -111,6 +111,7 @@ class ApiService extends __BaseService {
   static readonly findPaysByNamePath = 'gestimoweb/api/v1/pays/findByName/{name}';
   static readonly savePaysPath = 'gestimoweb/api/v1/pays/save';
   static readonly sampleQuitancePath = 'gestimoweb/api/v1/print/quittance/{id}';
+  static readonly quittancePeriodePath = 'gestimoweb/api/v1/print/quittancegrouper/{periode}';
   static readonly findAllQuartiersPath = 'gestimoweb/api/v1/quartier/all';
   static readonly deleteQuartierPath = 'gestimoweb/api/v1/quartier/delete/{id}';
   static readonly findByIDQuartiers_1Path = 'gestimoweb/api/v1/quartier/findById/{id}';
@@ -2665,6 +2666,42 @@ class ApiService extends __BaseService {
   sampleQuitance(id: number): __Observable<Array<string>> {
     return this.sampleQuitanceResponse(id).pipe(
       __map(_r => _r.body as Array<string>)
+    );
+  }
+
+  /**
+   * @param periode undefined
+   * @return successful operation
+   */
+  quittancePeriodeResponse(periode: string): __Observable<__StrictHttpResponse<string>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/print/quittancegrouper/${periode}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<string>;
+      })
+    );
+  }
+  /**
+   * @param periode undefined
+   * @return successful operation
+   */
+  quittancePeriode(periode: string): __Observable<string> {
+    return this.quittancePeriodeResponse(periode).pipe(
+      __map(_r => _r.body as string)
     );
   }
 

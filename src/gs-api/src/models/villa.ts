@@ -5,6 +5,7 @@ import { Operation } from './operation';
 export interface Villa {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
   numBien?: number;
@@ -24,6 +25,6 @@ export interface Villa {
   garageVilla?: boolean;
   nbreVoitureGarageVilla?: number;
   operationsVilla?: Array<Operation>;
-  occupied?: boolean;
   archived?: boolean;
+  occupied?: boolean;
 }
