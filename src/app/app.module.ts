@@ -116,6 +116,8 @@ import { ActionButtonEtageComponent } from './composants/action-button-etage/act
 import { ActionButtonImmeubleComponent } from './composants/action-button-immeuble/action-button-immeuble.component';
 import { PageImmeubleNewComponent } from './pages/bien-immobilier/page-immeuble-new/page-immeuble-new.component';
 import { PageEtageNewComponent } from './pages/bien-immobilier/page-etage-new/page-etage-new.component';
+import { anneeReducer } from './ngrx/annee/annee.reducer';
+import { AnneeEffects } from './ngrx/annee/annee.effets';
 @NgModule({
   declarations: [
     PageImmeubleComponent,
@@ -215,9 +217,11 @@ import { PageEtageNewComponent } from './pages/bien-immobilier/page-etage-new/pa
       proprietaireState:utilisateurReducer,
       agenceState:agenceReducer,
       superviseurState: superviseurReducer,
-      quittanceAppelState:quittanceAppelReducer
+      quittanceAppelState: quittanceAppelReducer,
+      anneeState:anneeReducer
     }),
     EffectsModule.forRoot([
+      AnneeEffects,
       StudioEffects,
       BienEffects,
       AgenceEffects,
