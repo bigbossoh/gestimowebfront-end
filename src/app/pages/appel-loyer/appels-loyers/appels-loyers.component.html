@@ -86,7 +86,8 @@
 
 
                   <td>
-                    <span *ngIf="appel.solderAppelLoyer">Active</span>
+                    <span [hidden]="appel.solderAppelLoyer" class="badge badge-success">Payé</span>
+                    <span [hidden]="!appel.solderAppelLoyer" class="badge badge-danger">Impayé</span>
                   </td>
                   <td class="">
                     <div class="btn-group">
