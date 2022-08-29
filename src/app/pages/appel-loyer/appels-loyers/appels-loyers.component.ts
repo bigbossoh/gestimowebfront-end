@@ -2,7 +2,7 @@ import { AppelLoyerState } from 'src/app/ngrx/appelloyer/appelloyer.reducer';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { PrintServiceService } from '../../../services/Print/print-service.service';
-import { GetAllAppelLoyerByPeriodeActions } from '../../../ngrx/appelloyer/appelloyer.actions';
+import { GetAllAppelLoyerAnneeActions, GetAllAppelLoyerByPeriodeActions } from '../../../ngrx/appelloyer/appelloyer.actions';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppelLoyerStateEnum } from '../../../ngrx/appelloyer/appelloyer.reducer';
@@ -18,6 +18,9 @@ import { GetAllAnneeActions } from '../../../ngrx/annee/annee.actions';
 export class AppelsLoyersComponent implements OnInit {
   appelState$: Observable<AppelLoyerState> | null = null;
   anneeState$: Observable<AnneeState> | null = null;
+  periodeAppelState$: Observable<AppelLoyerState> | null = null;
+
+
 
   readonly AnneeStateEnum = AnneeStateEnum;
 
@@ -37,6 +40,11 @@ export class AppelsLoyersComponent implements OnInit {
     console.log(p);
     this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(p));
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
+  }
+  getAppelByAnnee(a:string){
+
+    this.store.dispatch(new GetAllAppelLoyerAnneeActions(a));
+    this.periodeAppelState$ = this.store.pipe(map((state) => state.appelLoyerState));
   }
   printQuittance(p: string) {
     console.log(p);
