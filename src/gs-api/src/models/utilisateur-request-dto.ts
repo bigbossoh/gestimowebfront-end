@@ -28,6 +28,6 @@ export interface UtilisateurRequestDto {
   roleRequestDto?: RoleRequestDto;
   userCreate?: number;
   active?: boolean;
-  nonLocked?: boolean;
   activated?: boolean;
+  nonLocked?: boolean;
 }

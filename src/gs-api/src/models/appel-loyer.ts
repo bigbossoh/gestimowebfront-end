@@ -8,12 +8,14 @@ export interface AppelLoyer {
   creationDate?: number;
   lastModifiedDate?: number;
   periodeAppelLoyer?: string;
+  periodeLettre?: string;
   statusAppelLoyer?: string;
   datePaiementPrevuAppelLoyer?: string;
   dateDebutMoisAppelLoyer?: string;
   dateFinMoisAppelLoyer?: string;
   anneeAppelLoyer?: number;
   moisChiffreAppelLoyer?: number;
+  moisUniquementLettre?: string;
   descAppelLoyer?: string;
   montantBailLPeriode?: number;
   soldeAppelLoyer?: number;
