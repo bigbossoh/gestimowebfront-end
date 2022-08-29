@@ -242,6 +242,110 @@
         }
       }
     },
+    "gestimoweb/api/v1/appelloyer/findAllAppelloyerByPeriode/{periode}" : {
+      "get" : {
+        "operationId" : "AppelLoyersParPeriode",
+        "parameters" : [ {
+          "name" : "periode",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AppelLoyersFactureDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appelloyer/findAllAppelsLoyer" : {
+      "get" : {
+        "operationId" : "listTousAppelsLoyers",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AppelLoyersFactureDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appelloyer/findAllPeriodeByAnnee/{annee}" : {
+      "get" : {
+        "operationId" : "findAllPeriodeByAnnee",
+        "parameters" : [ {
+          "name" : "annee",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appelloyer/findAllPeriodeChiffreEtLettreByAnnee/{annee}" : {
+      "get" : {
+        "operationId" : "findAllPeriodeChiffreEtLettreByAnnee",
+        "parameters" : [ {
+          "name" : "annee",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AnneeAppelLoyersDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appelloyer/findAppelloyer/{id}" : {
+      "get" : {
+        "operationId" : "AppelLoyersParId",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/AppelLoyersFactureDto"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/appelloyer/findAppelsByIdBail/{id}" : {
       "get" : {
         "operationId" : "listDesLoyersParBail",
@@ -259,6 +363,23 @@
               "type" : "array",
               "items" : {
                 "$ref" : "#/definitions/AppelLoyerDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appelloyer/listOfDistinctAnneeAppel" : {
+      "get" : {
+        "operationId" : "listOfDistinctAnneeAppel",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "integer",
+                "format" : "int32"
               }
             }
           }
@@ -1418,7 +1539,11 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "string"
+              "type" : "array",
+              "items" : {
+                "type" : "string",
+                "format" : "byte"
+              }
             }
           }
         }
@@ -2244,6 +2369,17 @@
         }
       }
     },
+    "AnneeAppelLoyersDto" : {
+      "type" : "object",
+      "properties" : {
+        "periodeLettre" : {
+          "type" : "string"
+        },
+        "periodeAppelLoyer" : {
+          "type" : "string"
+        }
+      }
+    },
     "Appartement" : {
       "type" : "object",
       "properties" : {
@@ -2393,6 +2529,9 @@
         "periodeAppelLoyer" : {
           "type" : "string"
         },
+        "periodeLettre" : {
+          "type" : "string"
+        },
         "statusAppelLoyer" : {
           "type" : "string"
         },
@@ -2415,6 +2554,9 @@
         "moisChiffreAppelLoyer" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "moisUniquementLettre" : {
+          "type" : "string"
         },
         "descAppelLoyer" : {
           "type" : "string"
@@ -2512,6 +2654,124 @@
         "montantLoyerEnCours" : {
           "type" : "number",
           "format" : "double"
+        }
+      }
+    },
+    "AppelLoyersFactureDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "periodeAppelLoyer" : {
+          "type" : "string"
+        },
+        "statusAppelLoyer" : {
+          "type" : "string"
+        },
+        "datePaiementPrevuAppelLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateDebutMoisAppelLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateFinMoisAppelLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "periodeLettre" : {
+          "type" : "string"
+        },
+        "moisUniquementLettre" : {
+          "type" : "string"
+        },
+        "anneeAppelLoyer" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "moisChiffreAppelLoyer" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "descAppelLoyer" : {
+          "type" : "string"
+        },
+        "montantBailLPeriode" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "soldeAppelLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nomLocataire" : {
+          "type" : "string"
+        },
+        "prenomLocataire" : {
+          "type" : "string"
+        },
+        "genreLocataire" : {
+          "type" : "string"
+        },
+        "nomAgence" : {
+          "type" : "string"
+        },
+        "telAgence" : {
+          "type" : "string"
+        },
+        "compteContribuableAgence" : {
+          "type" : "string"
+        },
+        "emailAgence" : {
+          "type" : "string"
+        },
+        "mobileAgence" : {
+          "type" : "string"
+        },
+        "regimeFiscaleAgence" : {
+          "type" : "string"
+        },
+        "faxAgence" : {
+          "type" : "string"
+        },
+        "sigleAgence" : {
+          "type" : "string"
+        },
+        "bienImmobilierFullName" : {
+          "type" : "string"
+        },
+        "abrvBienimmobilier" : {
+          "type" : "string"
+        },
+        "nomPropietaire" : {
+          "type" : "string"
+        },
+        "prenomPropietaire" : {
+          "type" : "string"
+        },
+        "genrePropietaire" : {
+          "type" : "string"
+        },
+        "abrvCodeBail" : {
+          "type" : "string"
+        },
+        "nouveauMontantLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "solderAppelLoyer" : {
+          "type" : "boolean"
         }
       }
     },
@@ -3342,10 +3602,10 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "occupied" : {
+        "garrage" : {
           "type" : "boolean"
         },
-        "garrage" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -3482,10 +3742,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "underBuildingMagasin" : {
+        "archived" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
         "occupied" : {
@@ -3540,10 +3800,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "archived" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
         "occupied" : {
@@ -4307,10 +4567,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -4412,10 +4672,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }

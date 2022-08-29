@@ -127,7 +127,7 @@
                   </div>
                 </ng-container>
               </ng-container>
-              <!-- Les Magasins -->
+              <!-- Les Magasins --> 
               <ng-container *ngIf="magasinState$ | async as magasinState" [ngSwitch]="magasinState.dataState">
                 <ng-container ng-container *ngSwitchCase="MagasinStateEnum.LOADING">
                   <div class="spinner-border text-primary" role="status">

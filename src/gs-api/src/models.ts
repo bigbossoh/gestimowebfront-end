@@ -1,10 +1,12 @@
 export { AgenceRequestDto } from './models/agence-request-dto';
 export { AgenceResponseDto } from './models/agence-response-dto';
+export { AnneeAppelLoyersDto } from './models/annee-appel-loyers-dto';
 export { Appartement } from './models/appartement';
 export { AppartementDto } from './models/appartement-dto';
 export { AppelLoyer } from './models/appel-loyer';
 export { AppelLoyerDto } from './models/appel-loyer-dto';
 export { AppelLoyerRequestDto } from './models/appel-loyer-request-dto';
+export { AppelLoyersFactureDto } from './models/appel-loyers-facture-dto';
 export { AuthRequestDto } from './models/auth-request-dto';
 export { BailAppartementDto } from './models/bail-appartement-dto';
 export { BailLocation } from './models/bail-location';
