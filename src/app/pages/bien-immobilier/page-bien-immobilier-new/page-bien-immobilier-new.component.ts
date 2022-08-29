@@ -127,6 +127,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
   onClose() {
     this.dialogRef.close();
   }
+  
   onSaveStudio() {
     this.submitted = true;
     if (this.studioform?.invalid) {
