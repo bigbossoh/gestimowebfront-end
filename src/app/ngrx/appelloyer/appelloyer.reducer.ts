@@ -3,6 +3,7 @@ import { AppelLoyer, OperationDto } from 'src/gs-api/src/models';
 import { AppelLoyerActions, AppelLoyerctionsTypes } from './appelloyer.actions';
 import { AppelLoyerDto } from '../../../gs-api/src/models/appel-loyer-dto';
 import { AppelLoyersFactureDto } from '../../../gs-api/src/models/appel-loyers-facture-dto';
+import { AnneeAppelLoyersDto } from '../../../gs-api/src/models/annee-appel-loyers-dto';
 export enum AppelLoyerStateEnum {
   LOADING = 'Loading',
   LOADED = 'Loaded',
@@ -14,11 +15,13 @@ export enum AppelLoyerStateEnum {
 }
 export interface AppelLoyerState {
   appelloyers: AppelLoyersFactureDto[];
+  annees: AnneeAppelLoyersDto[];
   errorMessage: string;
   dataState: AppelLoyerStateEnum;
 }
 const initState: AppelLoyerState = {
   appelloyers: [],
+  annees:[],
   errorMessage: '',
   dataState: AppelLoyerStateEnum.INITIAL,
 };
@@ -57,7 +60,24 @@ export function appelLoyerReducer(
             ...state,
             dataState: AppelLoyerStateEnum.ERROR,
             errorMessage: (<AppelLoyerActions>action).payload,
-          };
+      };
+
+          // GET ALL APPEL LOYER ANNEE
+          case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_ANNEE:
+            return { ...state, dataState: AppelLoyerStateEnum.LOADING };
+          case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_ANNEE_SUCCES:
+            return {
+              ...state,
+              dataState: AppelLoyerStateEnum.LOADED,
+              annees: (<AppelLoyerActions>action).payload,
+            };
+          case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_ANNEE_ERROR:
+            return {
+              ...state,
+              dataState: AppelLoyerStateEnum.ERROR,
+              errorMessage: (<AppelLoyerActions>action).payload,
+        };
+
     default:
       return { ...state };
   }

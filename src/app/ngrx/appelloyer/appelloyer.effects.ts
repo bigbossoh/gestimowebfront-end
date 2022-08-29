@@ -4,7 +4,7 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
-import { GetAllAppelLoyerByPeriodeActionsSuccess, GetAllAppelLoyerByPeriodeActionsError } from './appelloyer.actions';
+import { GetAllAppelLoyerByPeriodeActionsSuccess, GetAllAppelLoyerByPeriodeActionsError, GetAllAppelLoyerAnneeActionsSuccess, GetAllAppelLoyerAnneeActionsError } from './appelloyer.actions';
 import {
   GetAllAppartementLibreActionsError,
   GetAllAppartementLibreActionsSuccess,
@@ -45,5 +45,18 @@ export class AppelLoyerEffects {
       })
     )
   );
+//LISTE DES APPEL LOYER
+getAllAppelByAnneeEffect: Observable<Action> = createEffect(() =>
+this.effectActions.pipe(
+  ofType(AppelLoyerctionsTypes.GET_ALL_APPELLOYER_ANNEE),
+  mergeMap((action:AppelLoyerActions) => {
+    return this.apiService.findAllPeriodeChiffreEtLettreByAnnee(action.payload).pipe(
+      map((annees) => new GetAllAppelLoyerAnneeActionsSuccess(annees)),
+      catchError((err) => of(new GetAllAppelLoyerAnneeActionsError(err.message)))
+    );
+  })
+)
+);
+
 
 }

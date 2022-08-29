@@ -1,12 +1,18 @@
+import { EtagesState } from 'src/app/ngrx/etage/etage.reducer';
 import { AppelLoyersFactureDto } from './../../../gs-api/src/models/appel-loyers-facture-dto';
 //CREER LES DIFFERENTES TYPES D'ACTION QUI VONT DECLANCHER LES EVENE,ENT DANS LE
 
 import { Action } from '@ngrx/store';
 
-import { AppelLoyer, AppelLoyerDto } from 'src/gs-api/src/models';
+import { AppelLoyerDto } from 'src/gs-api/src/models';
+import { AnneeAppelLoyersDto } from '../../../gs-api/src/models/annee-appel-loyers-dto';
 
 //STORE
 export enum AppelLoyerctionsTypes {
+
+  GET_ALL_APPELLOYER_ANNEE = '[AppelLoyer] Get All AppelLoyer Année',
+  GET_ALL_APPELLOYER_ANNEE_SUCCES = '[AppelLoyer] Get All AppelLoyer Années Succes',
+  GET_ALL_APPELLOYER_ANNEE_ERROR = '[AppelLoyer] Get All AppelLoyer AnnéEtagesState Error',
 
 
   GET_ALL_APPELLOYER = '[AppelLoyer] Get All AppelLoyer',
@@ -54,6 +60,23 @@ export class GetAllAppelLoyerByPeriodeActionsError implements Action {
     AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_PERIODE_ERROR;
   constructor(public payload: string) { }
 }
+// GET ALL APPEL LOYER ANNEE
+export class GetAllAppelLoyerAnneeActions implements Action {
+  type: AppelLoyerctionsTypes = AppelLoyerctionsTypes.GET_ALL_APPELLOYER_ANNEE;
+  constructor(public payload: string) { }
+}
+
+export class GetAllAppelLoyerAnneeActionsSuccess implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_ALL_APPELLOYER_ANNEE_SUCCES;
+  constructor(public payload: AnneeAppelLoyersDto[]) { }
+}
+export class GetAllAppelLoyerAnneeActionsError implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_ALL_APPELLOYER_ANNEE_ERROR;
+  constructor(public payload: string) { }
+}
+
 export type AppelLoyerActions =
 
   | GetAllAppelLoyerActions
@@ -61,4 +84,8 @@ export type AppelLoyerActions =
   | GetAllAppelLoyerActionsSuccess
   |GetAllAppelLoyerByPeriodeActions
   |GetAllAppelLoyerByPeriodeActionsSuccess
-  |GetAllAppelLoyerByPeriodeActionsError;
+  | GetAllAppelLoyerByPeriodeActionsError
+  |GetAllAppelLoyerAnneeActions
+  |GetAllAppelLoyerAnneeActionsError
+  |GetAllAppelLoyerAnneeActionsError
+  ;
