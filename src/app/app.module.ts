@@ -42,7 +42,6 @@ import { AppDetailBailComponent } from './composants/app-detail-bail/app-detail-
 import { AppDetailBailLoyerComponent } from './composants/app-detail-bail-loyer/app-detail-bail-loyer.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NoticationModule } from './notification.module';
-import { NotificationService } from './services/notification/notification.service';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -53,7 +52,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { siteReducer } from './ngrx/site/site.reducer';
 import { SiteEffects } from './ngrx/site/site.effects';
-import { CommonModule } from '@angular/common';
 import { PageBienImmobilierNewComponent } from './pages/bien-immobilier/page-bien-immobilier-new/page-bien-immobilier-new.component';
 import { UtilisateurEffects } from './ngrx/utulisateur/utilisateur.effects';
 import { utilisateurReducer } from './ngrx/utulisateur/utlisateur.reducer';
@@ -95,7 +93,6 @@ import { ButtonActionUtlisateurComponent } from './pages/utilisateurs/button-act
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import {MatAccordion} from '@angular/material/expansion';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import {MatExpansionModule} from '@angular/material/expansion';
@@ -107,15 +104,26 @@ import { Quartierffects } from './ngrx/quartier/quartier.effects';
 import { GerantEffects } from './ngrx/utulisateur/gerant/gerant.effects';
 import { gerantReducer } from './ngrx/utulisateur/gerant/gerant.reducer';
 import { agenceReducer } from './ngrx/agence/agence.reducer';
-//import { ToastrModule } from 'ngx-toastr';
 import { AgenceEffects } from './ngrx/agence/agence.effects';
 import { AgenceNewComponent } from './pages/agence/agence-new/agence-new.component';
 import { superviseurReducer } from './ngrx/utulisateur/superviseur/superviseur.reducer';
 import { SuperviseurEffects } from './ngrx/utulisateur/superviseur/superviseur.effect';
 import { quittanceAppelReducer } from './ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.reducer';
 import { QuittanceAppelLoyerEffects } from './ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.effect';
+import { PageEtageComponent } from './pages/bien-immobilier/page-etage/page-etage/page-etage.component';
+import { PageImmeubleComponent } from './pages/bien-immobilier/immeuble/page-immeuble/page-immeuble.component';
+import { ActionButtonEtageComponent } from './composants/action-button-etage/action-button-etage.component';
+import { ActionButtonImmeubleComponent } from './composants/action-button-immeuble/action-button-immeuble.component';
+import { PageImmeubleNewComponent } from './pages/bien-immobilier/page-immeuble-new/page-immeuble-new.component';
+import { PageEtageNewComponent } from './pages/bien-immobilier/page-etage-new/page-etage-new.component';
 @NgModule({
   declarations: [
+    PageImmeubleComponent,
+    PageImmeubleNewComponent,
+    PageEtageNewComponent,
+    ActionButtonEtageComponent,
+    ActionButtonImmeubleComponent,
+    PageEtageComponent,
     AppComponent,
     PageLoginComponent,
     PageDashboardComponent,

@@ -18,8 +18,6 @@ export class ActionButtonBienComponent implements OnInit {
       //  width: '1024px',
     });
     dialolRef.afterClosed().subscribe(() => {
-      console.log("On  a fermer le formulaire de bien");
-
       this.bienImmobilierEmmiter.emit("SAVE_BIENS")
     });
   }

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PageBienImmobilierComponent } from './page-bien-immobilier.component';
+import { PageImmeubleNewComponent } from './page-immeuble-new.component';
 
-describe('PageBienImmobilierComponent', () => {
-  let component: PageBienImmobilierComponent;
-  let fixture: ComponentFixture<PageBienImmobilierComponent>;
+describe('PageImmeubleNewComponent', () => {
+  let component: PageImmeubleNewComponent;
+  let fixture: ComponentFixture<PageImmeubleNewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PageBienImmobilierComponent ]
+      declarations: [ PageImmeubleNewComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PageBienImmobilierComponent);
+    fixture = TestBed.createComponent(PageImmeubleNewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

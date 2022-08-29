@@ -16,16 +16,9 @@ export class BouttonActionComponent implements OnInit {
   clickEvent = new EventEmitter();
   constructor(public dialog: MatDialog) { }
   openDialog(): void {
-    //const dialolRef = this.dialog.open(PageBienImmobilierNewComponent, {
-    //  width: '1024px',
-    //  });
-    //console.log("bouttonNouveauClick()");
+
     this.clickEvent.emit();
   }
   ngOnInit(): void { }
-  // bouttonNouveauClick(): void {
 
-
-  //   this.clickEvent.emit();
-  // }
 }
