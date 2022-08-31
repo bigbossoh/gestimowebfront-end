@@ -32,8 +32,8 @@
             </ng-container>
             <ng-container *ngSwitchCase="AnneeStateEnum.LOADED">
 
-              <select id="modele" name="typeClim" class="form-control" [(ngModel)]="periodePrint" #selection
-                (change)="getAppelByAnnee(selection.value)">
+              <select id="modele" name="typeClim" class="form-control"  #selectionAnnee
+                (change)="getAppelByAnnee(selectionAnnee.value)">
                 <option [value]="0">Sélectionnez une période </option>
                 <option [value]="annee" *ngFor="let annee of anneeState.annees">{{annee}}</option>
 
@@ -58,9 +58,8 @@
           </ng-container>
           <ng-container *ngSwitchCase="AnneeStateEnum.LOADED ">
             <select id="modele" name="typeClim" class="form-control" [(ngModel)]="periodePrint" #selection
-              (change)="getAppelByPeriode(selection.value)">
-              <option [value]="0">Sélectionnez une période </option>
-              <option [value]="annee.periodeAppelLoyer" *ngFor="let annee of periodeState.annees">{{annee.periodeLettre}}
+              (change)="getAppelByPeriode(periodePrint)">
+              <option [value]="annee.periodeAppelLoyer" *ngFor="let annee of periodeState.anneesAppel">{{annee.periodeLettre}}
               </option>
 
             </select>
@@ -73,7 +72,7 @@
 
       <div class="col-md-3">
         <label>Du </label>
-        <input type="Date" class="form-control" placeholder="Contrat" name="dateAchat">
+        <input type="Date" class="form-control" placeholder="Contrat" name="dateAchat" [(ngModel)]="finBail">
       </div>
       <div class="col-md-3">
         <label>Au</label>
@@ -84,8 +83,7 @@
         <input type="Date" class="form-control" placeholder="Contrat" name="dateAchat">
       </div>
       <div class="col-md-3 text-center">
-        <!-- <label>Date limite</label> -->
-        <!-- <input type="Date" class="form-control" placeholder="Contrat" name="dateAchat"> -->
+
         <button type="button" class="mb-sm btn btn-primary mr-2 " (click)="printQuittance(periodePrint)">
           Imprimer
         </button>
@@ -94,13 +92,7 @@
         </button> -->
       </div>
     </div>
-    <!-- <div class="row mb-3 ">
-      <div class="col panel-body text-right">
 
-
-        <button type="button" class="mb-sm btn btn-info mr-1">Loyers soldés</button>
-      </div>
-    </div> -->
     <div class="row">
       <div class="col">
         <h5><i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des loyers impayés</h5>
@@ -123,22 +115,20 @@
             </tr>
           </thead>
           <tbody>
-            <ng-container *ngIf="appelState$ | async as appelState" [ngSwitch]="appelState.dataState">
+            <ng-container *ngIf="appelState$ | async as appelState" [ngSwitch]="appelState.dataState" >
               <ng-container ng-container *ngSwitchCase="AppelLoyerStateEnum.LOADING">
                 <div class="spinner-border text-primary" role="status">
                   <span class="sr-only">Loading...</span>
                 </div>
               </ng-container>
               <ng-container ng-container *ngSwitchCase="AppelLoyerStateEnum.LOADED">
-                <tr class="text-center" *ngFor="let appel of appelState.appelloyers">
+                <tr class="text-center" *ngFor="let appel of appelState.appelloyers" >
 
                   <td>{{appel.periodeLettre}}</td>
                   <td> {{appel.nomLocataire}} {{appel.prenomLocataire}}/{{appel.bienImmobilierFullName}}</td>
                   <td>{{appel.nouveauMontantLoyer}}</td>
-
-
                   <td>
-                    <span [hidden]="!appel.solderAppelLoyer" class="badge badge-success">Payé</span>
+                    <span [hidden]="!appel.solderAppelLoyer" [(ngModel)]="finBail" class="badge badge-success">Payé</span>
                     <span [hidden]="appel.solderAppelLoyer" class="badge badge-danger">Impayé</span>
                   </td>
                   <td class="">
@@ -150,7 +140,7 @@
                 </tr>
               </ng-container>
               <ng-container ng-container *ngSwitchCase="AppelLoyerStateEnum.ERROR">
-                ERREUR
+                Erreur
               </ng-container>
             </ng-container>
 

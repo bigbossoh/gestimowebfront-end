@@ -26,34 +26,33 @@ export class AppelsLoyersComponent implements OnInit {
 
   readonly AppelLoyerStateEnum = AppelLoyerStateEnum;
   periodePrint = '';
-  defauldPeriode='2022-09'
-  constructor(private store: Store<any>,private printService:PrintServiceService) {}
-  ngOnInit(): void {
+  debutBail='';
+  finBail='';
+  datePaysBail='';
+  defauldPeriode='';
 
+  constructor(private store: Store<any>, private printService: PrintServiceService) {
     this.store.dispatch(new GetAllAnneeActions({}));
     this.anneeState$ = this.store.pipe(map((state) => state.anneeState));
-
-    this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(this.defauldPeriode));
+  }
+  ngOnInit(): void {
+    this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(''));
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
   }
   getAppelByPeriode(p: string) {
-    console.log(p);
+   
     this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(p));
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
   }
   getAppelByAnnee(a:string){
-
     this.store.dispatch(new GetAllAppelLoyerAnneeActions(a));
     this.periodeAppelState$ = this.store.pipe(map((state) => state.appelLoyerState));
   }
+
   printQuittance(p: string) {
-    console.log(p);
 
     this.printService.printQuittanceByPeriode(p).subscribe((data) => {
-      console.log(data);
-
-      const fileURL = URL.createObjectURL(data);
-
+           const fileURL = URL.createObjectURL(data);
       window.open(fileURL);
     })
   }

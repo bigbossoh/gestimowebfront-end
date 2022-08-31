@@ -15,13 +15,13 @@ export enum AppelLoyerStateEnum {
 }
 export interface AppelLoyerState {
   appelloyers: AppelLoyersFactureDto[];
-  annees: AnneeAppelLoyersDto[];
+  anneesAppel: AnneeAppelLoyersDto[];
   errorMessage: string;
   dataState: AppelLoyerStateEnum;
 }
 const initState: AppelLoyerState = {
   appelloyers: [],
-  annees:[],
+  anneesAppel:[],
   errorMessage: '',
   dataState: AppelLoyerStateEnum.INITIAL,
 };
@@ -69,7 +69,7 @@ export function appelLoyerReducer(
             return {
               ...state,
               dataState: AppelLoyerStateEnum.LOADED,
-              annees: (<AppelLoyerActions>action).payload,
+              anneesAppel: (<AppelLoyerActions>action).payload,
             };
           case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_ANNEE_ERROR:
             return {
