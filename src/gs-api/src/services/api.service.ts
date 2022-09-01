@@ -92,6 +92,8 @@ class ApiService extends __BaseService {
   static readonly findCommuneByIdPaysPath = 'gestimoweb/api/v1/commune/findByIdVille/{id}';
   static readonly findCommuneByNamePath = 'gestimoweb/api/v1/commune/findByName/{name}';
   static readonly saveCommunePath = 'gestimoweb/api/v1/commune/save';
+  static readonly sendMailGrouperWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendmailgrouper/{periode}';
+  static readonly sendMailQuittanceWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendquittancebymail/{id}';
   static readonly saveEspeceEncaissementPath = 'gestimoweb/api/v1/especeencaissement/save';
   static readonly findAllEtagePath = 'gestimoweb/api/v1/etage/all';
   static readonly deleteEtagePath = 'gestimoweb/api/v1/etage/delete/{id}';
@@ -1927,6 +1929,78 @@ class ApiService extends __BaseService {
   saveCommune(body?: CommuneRequestDto): __Observable<CommuneRequestDto> {
     return this.saveCommuneResponse(body).pipe(
       __map(_r => _r.body as CommuneRequestDto)
+    );
+  }
+
+  /**
+   * @param periode undefined
+   * @return successful operation
+   */
+  sendMailGrouperWithAttachmentResponse(periode: string): __Observable<__StrictHttpResponse<boolean>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/envoimail/sendmailgrouper/${periode}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: (_r as HttpResponse<any>).body === 'true' }) as __StrictHttpResponse<boolean>
+      })
+    );
+  }
+  /**
+   * @param periode undefined
+   * @return successful operation
+   */
+  sendMailGrouperWithAttachment(periode: string): __Observable<boolean> {
+    return this.sendMailGrouperWithAttachmentResponse(periode).pipe(
+      __map(_r => _r.body as boolean)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  sendMailQuittanceWithAttachmentResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/envoimail/sendquittancebymail/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: (_r as HttpResponse<any>).body === 'true' }) as __StrictHttpResponse<boolean>
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  sendMailQuittanceWithAttachment(id: number): __Observable<boolean> {
+    return this.sendMailQuittanceWithAttachmentResponse(id).pipe(
+      __map(_r => _r.body as boolean)
     );
   }
 

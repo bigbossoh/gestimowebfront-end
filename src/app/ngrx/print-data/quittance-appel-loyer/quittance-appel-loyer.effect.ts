@@ -11,16 +11,17 @@ import {
   PrintQuittanceLoyerActionsError,
 } from './quittance-appel-loyer.action';
 import { map, mergeMap, catchError, tap } from 'rxjs/operators';
+import { PrintServiceService } from '../../../services/Print/print-service.service';
 
 
 @Injectable()
 export class QuittanceAppelLoyerEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions) {}
+  constructor(private apiService: PrintServiceService, private effectActions: Actions) {}
   printQuittanceAppelLoyerEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(QuittanceAppelLoyerActionsType.PRINT_QUITTANCE),
       mergeMap((action: QuittanceAppelLoyerActions) => {
-        return this.apiService.quittancePeriode(action.payload)
+        return this.apiService.printQuittanceByPeriode(action.payload)
           .pipe(
 
             map(
@@ -36,12 +37,12 @@ export class QuittanceAppelLoyerEffects {
         // let fileURL = URL.createObjectURL(file);
         console.log('***** Le resultat est *********');
         console.log(resultat);
-        console.log(resultat.payload.indexOf('probleme'));
-       // console.log(fileURL);
 
-        if (resultat.payload.indexOf('probleme') < 0) {
-         // window.open(fileURL);
-         alert('Good !');
+       // console.log(fileURL);
+      
+        if (resultat.payload.size > 0) {
+          const fileURL = URL.createObjectURL(resultat.payload);
+          window.open(fileURL);
         } else {
           alert('Erreur lor du telechagement !');
         }

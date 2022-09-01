@@ -8,6 +8,8 @@ import { map } from 'rxjs/operators';
 import { AppelLoyerStateEnum } from '../../../ngrx/appelloyer/appelloyer.reducer';
 import { AnneeState, AnneeStateEnum } from '../../../ngrx/annee/annee.reducer';
 import { GetAllAnneeActions } from '../../../ngrx/annee/annee.actions';
+import { QuittanceLoyerState, QuittanceloyerStateEnum } from '../../../ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.reducer';
+import { QuittanceAppelLoyerActions, PrintQuittanceLoyerActions } from '../../../ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.action';
 
 
 @Component({
@@ -19,8 +21,8 @@ export class AppelsLoyersComponent implements OnInit {
   appelState$: Observable<AppelLoyerState> | null = null;
   anneeState$: Observable<AnneeState> | null = null;
   periodeAppelState$: Observable<AppelLoyerState> | null = null;
-
-
+  ptQuittance$:  Observable<QuittanceLoyerState> | null = null;
+  readonly QuittanceloyerStateEnum = QuittanceloyerStateEnum;
 
   readonly AnneeStateEnum = AnneeStateEnum;
 
@@ -30,7 +32,7 @@ export class AppelsLoyersComponent implements OnInit {
   finBail='';
   datePaysBail='';
   defauldPeriode='';
-
+  ngSelect = 1;
   constructor(private store: Store<any>, private printService: PrintServiceService) {
     this.store.dispatch(new GetAllAnneeActions({}));
     this.anneeState$ = this.store.pipe(map((state) => state.anneeState));
@@ -40,7 +42,7 @@ export class AppelsLoyersComponent implements OnInit {
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
   }
   getAppelByPeriode(p: string) {
-   
+
     this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(p));
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
   }
@@ -51,9 +53,12 @@ export class AppelsLoyersComponent implements OnInit {
 
   printQuittance(p: string) {
 
-    this.printService.printQuittanceByPeriode(p).subscribe((data) => {
-           const fileURL = URL.createObjectURL(data);
-      window.open(fileURL);
-    })
+    this.store.dispatch(new PrintQuittanceLoyerActions(p));
+    this.ptQuittance$ = this.store.pipe(map((state) => state.quittanceAppelState));
+
+    // this.printService.printQuittanceByPeriode(p).subscribe((data) => {
+    //        const fileURL = URL.createObjectURL(data);
+    //   window.open(fileURL);
+    // })
   }
 }

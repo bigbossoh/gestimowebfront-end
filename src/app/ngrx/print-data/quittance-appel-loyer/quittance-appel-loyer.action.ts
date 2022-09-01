@@ -1,7 +1,5 @@
 import { Action } from '@ngrx/store';
 
-
-
 export enum QuittanceAppelLoyerActionsType {
   PRINT_QUITTANCE = '[quittance_appel_loyer] load quittance',
   PRINT_QUITTANCE_SUCCES = '[quittance_appel_loyer] load quittance succes',
@@ -11,7 +9,7 @@ export enum QuittanceAppelLoyerActionsType {
 export class PrintQuittanceLoyerActions implements Action {
   type: QuittanceAppelLoyerActionsType =
     QuittanceAppelLoyerActionsType.PRINT_QUITTANCE;
-  constructor(public payload: any) {}
+  constructor(public payload: string) {}
 }
 
 export class PrintQuittanceLoyerActionsSuccess implements Action {

@@ -985,6 +985,45 @@
         }
       }
     },
+    "gestimoweb/api/v1/envoimail/sendmailgrouper/{periode}" : {
+      "post" : {
+        "operationId" : "sendMailGrouperWithAttachment",
+        "parameters" : [ {
+          "name" : "periode",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/envoimail/sendquittancebymail/{id}" : {
+      "post" : {
+        "operationId" : "sendMailQuittanceWithAttachment",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/especeencaissement/save" : {
       "post" : {
         "operationId" : "saveEspeceEncaissement",
@@ -2724,6 +2763,9 @@
         "genreLocataire" : {
           "type" : "string"
         },
+        "mailLocataire" : {
+          "type" : "string"
+        },
         "nomAgence" : {
           "type" : "string"
         },
@@ -2761,6 +2803,9 @@
           "type" : "string"
         },
         "genrePropietaire" : {
+          "type" : "string"
+        },
+        "mailProprietaire" : {
           "type" : "string"
         },
         "abrvCodeBail" : {
@@ -3602,10 +3647,10 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "garrage" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "garrage" : {
           "type" : "boolean"
         }
       }
@@ -3745,10 +3790,10 @@
         "archived" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -3803,10 +3848,10 @@
         "archived" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
