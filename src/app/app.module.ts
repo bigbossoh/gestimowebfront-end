@@ -118,6 +118,8 @@ import { PageImmeubleNewComponent } from './pages/bien-immobilier/page-immeuble-
 import { PageEtageNewComponent } from './pages/bien-immobilier/page-etage-new/page-etage-new.component';
 import { anneeReducer } from './ngrx/annee/annee.reducer';
 import { AnneeEffects } from './ngrx/annee/annee.effets';
+import { mailReducer, MailState } from './ngrx/mail/mail.reducer';
+import { MailEffect } from './ngrx/mail/mail.effects';
 @NgModule({
   declarations: [
     PageImmeubleComponent,
@@ -218,10 +220,12 @@ import { AnneeEffects } from './ngrx/annee/annee.effets';
       agenceState:agenceReducer,
       superviseurState: superviseurReducer,
       quittanceAppelState: quittanceAppelReducer,
-      anneeState:anneeReducer
+      anneeState: anneeReducer,
+      MailState:mailReducer
     }),
     EffectsModule.forRoot([
       AnneeEffects,
+      MailEffect,
       StudioEffects,
       BienEffects,
       AgenceEffects,

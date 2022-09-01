@@ -15,6 +15,6 @@ export interface MagasinResponseDto {
   utilisateur?: Utilisateur;
   proprietaire?: string;
   archived?: boolean;
-  underBuildingMagasin?: boolean;
   occupied?: boolean;
+  underBuildingMagasin?: boolean;
 }
