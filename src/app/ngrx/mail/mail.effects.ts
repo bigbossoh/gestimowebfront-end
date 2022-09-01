@@ -12,6 +12,7 @@ import {
 } from './mail.action';
 import { NotificationType } from '../../enum/natification-type.enum';
 import { NotificationService } from '../../services/notification/notification.service';
+import { SendQuittanceIndividuelActionsSuccess, SendQuittanceIndividuelActionsError } from './mail.action';
 
 @Injectable()
 export class MailEffect {
@@ -20,8 +21,8 @@ export class MailEffect {
     private effectActions: Actions,
     private notificationService: NotificationService
   ) {}
-  //SAVE EFFECTS
-  saveMagasinEffect: Observable<Action> = createEffect(() =>
+  //SEND MAIL GROUPEE
+  sendMailGrouperEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(SendQuittanceByMailActionsType.SEND_QUITTANCE_GROUPER_BY_MAIL),
       mergeMap((action: SendMailActions) => {
@@ -49,6 +50,36 @@ export class MailEffect {
       })
     )
   );
+
+   // SEND MAIL INDIVIDUEL
+   sendMailIndividuelEffect: Observable<Action> = createEffect(() =>
+   this.effectActions.pipe(
+     ofType(SendQuittanceByMailActionsType.SEND_QUITTANCE_INDIVIDUEL),
+     mergeMap((action: SendMailActions) => {
+       return this.apiService
+         .sendMailQuittanceWithAttachment(action.payload)
+         .pipe(
+           map((mails) => new SendQuittanceIndividuelActionsSuccess(mails)),
+           catchError((err) =>
+             of(new SendQuittanceIndividuelActionsError(err.message))
+           )
+         );
+     }),
+     tap((resultat) => {
+       if (resultat.payload == true) {
+         this.sendErrorNotification(
+           NotificationType.SUCCESS,
+           'Mail envoyé avec succès !'
+         );
+       } else {
+         this.sendErrorNotification(
+           NotificationType.ERROR,
+           'Certains mail ne sont pas envoyé'
+         );
+       }
+     })
+   )
+ );
 
   private sendErrorNotification(
     notificationType: NotificationType,

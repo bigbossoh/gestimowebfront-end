@@ -221,7 +221,7 @@ import { MailEffect } from './ngrx/mail/mail.effects';
       superviseurState: superviseurReducer,
       quittanceAppelState: quittanceAppelReducer,
       anneeState: anneeReducer,
-      MailState:mailReducer
+      mailState:mailReducer
     }),
     EffectsModule.forRoot([
       AnneeEffects,
