@@ -86,6 +86,4 @@ export type AppelLoyerActions =
   |GetAllAppelLoyerByPeriodeActionsSuccess
   | GetAllAppelLoyerByPeriodeActionsError
   |GetAllAppelLoyerAnneeActions
-  |GetAllAppelLoyerAnneeActionsError
-  |GetAllAppelLoyerAnneeActionsError
-  ;
+  |GetAllAppelLoyerAnneeActionsError;

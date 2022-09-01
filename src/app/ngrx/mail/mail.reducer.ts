@@ -26,6 +26,7 @@ export function mailReducer(
   action: Action
 ): MailState {
   switch (action.type) {
+   //SEND MAIL GROUPER
     case SendQuittanceByMailActionsType.SEND_QUITTANCE_GROUPER_BY_MAIL:
       return { ...state, dataState: MailStateEnum.INITIAL };
     case SendQuittanceByMailActionsType.SEND_QUITTANCE_GROUPER_BY_MAIL_SUCCES:
@@ -40,6 +41,23 @@ export function mailReducer(
         dataState: MailStateEnum.ERROR,
         mails: (<SendMailActions>action).payload,
       };
+
+      //SEND MAIL INDIVIDUEL
+      case SendQuittanceByMailActionsType.SEND_QUITTANCE_INDIVIDUEL:
+        return { ...state, dataState: MailStateEnum.INITIAL };
+      case SendQuittanceByMailActionsType.SEND_QUITTANCE_INDIVIDUEL_SUCCES:
+        return {
+          ...state,
+          dataState: MailStateEnum.LOADED,
+          mails: (<SendMailActions>action).payload,
+        };
+      case SendQuittanceByMailActionsType.SEND_QUITTANCE_INDIVIDUEL_ERROR:
+        return {
+          ...state,
+          dataState: MailStateEnum.ERROR,
+          mails: (<SendMailActions>action).payload,
+      };
+    
     default:
       return { ...state };
   }
