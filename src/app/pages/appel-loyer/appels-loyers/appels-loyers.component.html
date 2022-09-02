@@ -94,12 +94,7 @@
               <ng-container  *ngSwitchCase="QuittanceloyerStateEnum.Requested">
                 Chargement des données ...
               </ng-container>
-              <!-- <ng-container  *ngSwitchCase="QuittanceloyerStateEnum.Started">
-                 données Chargé...
-              </ng-container> -->
-              <ng-container  *ngSwitchCase="QuittanceloyerStateEnum.Failed">
-                Erreur ...
-              </ng-container>
+
             </ng-container>
             <button type="button" class="mb-sm btn btn-success mr-1" (click)="sendQuittanceGrouper(periodePrint)">
               Envoi
