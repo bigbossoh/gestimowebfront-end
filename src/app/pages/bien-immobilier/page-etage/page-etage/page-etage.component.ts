@@ -50,7 +50,7 @@ export class PageEtageComponent implements OnInit {
     this.etageState$ = this.store.pipe(map((state) => state.etageState));
   }
   onActionEvent(event: any) {
-    this.ngOnInit();
+    //this.ngOnInit();
   }
   onEditdele(id: any) {}
   findCommuneByPays(pays: any) {
