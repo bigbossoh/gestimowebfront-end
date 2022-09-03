@@ -39,8 +39,12 @@ export class ImmeubleEffects {
           catchError((err) => of(new SaveImmeublesActionsError(err.message)))
         );
       }),
-      tap(( bookCollection) => {
-        if (bookCollection.payload ==true) {
+      tap((bookCollection) => {
+        console.log('Les collection sont avec le payload :');
+        console.log(bookCollection.type);
+
+
+        if (bookCollection.payload !=null) {
           this.sendErrorNotification(NotificationType.SUCCESS,"Création de l'Immeuble éffectué avec succes!");
         } else {
           this.sendErrorNotification(NotificationType.ERROR,'');

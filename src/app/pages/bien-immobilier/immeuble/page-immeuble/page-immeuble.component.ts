@@ -33,7 +33,7 @@ export class PageImmeubleComponent implements OnInit {
        this.bienState$ = this.store.pipe(map((state) => state.biensState));
        // RECUPERR LES ETAGES
        this.store.dispatch(new GetAllImmeublesActions({}));
-       this.immeubleState$ = this.store.pipe(map((state) => state.etageState));
+       this.immeubleState$ = this.store.pipe(map((state) => state.immeubleState));
   }
 
 }
