@@ -102,9 +102,9 @@
                 <ng-container ng-container *ngSwitchCase="ImmeubleStateEnum.LOADED">
                   <tr class="text-center" *ngFor="let immeuble of immeubleState.immeubles">
                     <td>{{ immeuble.id }}</td>
-                    <td>{{ immeuble.numBien }}</td>
                     <td>{{ immeuble.abrvNomImmeuble }}</td>
-                    <td>{{ immeuble.nomBien }}</td>
+                    <td>{{ immeuble.idUtilisateur }}</td>
+
                     <td class="">
                       <div class="btn-group">
                         <button class="btn btn-outline-info" >

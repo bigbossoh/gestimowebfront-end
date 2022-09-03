@@ -127,7 +127,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
   onClose() {
     this.dialogRef.close();
   }
-  
+
   onSaveStudio() {
     this.submitted = true;
     if (this.studioform?.invalid) {
@@ -197,6 +197,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.onClose();
   }
   ngOnInit(): void {
+    this.user = this.userService.getUserFromLocalCache();
     this.store.dispatch(new GetAllSitesActions({}));
     this.siteState$ = this.store.pipe(map((state) => state.siteState));
     this.user = this.userService.getUserFromLocalCache();
@@ -232,6 +233,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
       occupied: [false],
       archived: [false],
     });
+
     this.immeubleForm = this.fb.group({
       id: [0],
       numBien: [0],

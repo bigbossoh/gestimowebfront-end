@@ -22,120 +22,104 @@
     <div class="col-md-8">
       <!-- Account details card-->
       <div class="card mb-4">
-
-        <div class="card-header font-weight-bold" >
-          Informations sur le Bien l'Etage
+        <div class="card-header font-weight-bold">
+          Informations sur l'Immeuble
         </div>
         <div class="card-body">
-
           <!-- FORM POUR APPARTEMENT -->
-          <form
-            *ngIf="immeubleForm"
-            [formGroup]="immeubleForm"
-          >
+          <form *ngIf="immeubleForm" [formGroup]="immeubleForm">
             <div class="row gx-3 mb-3">
               <div class="col-md-6">
                 <ng-container
-                  *ngIf="immeubleState$ | async as state"
-                  [ngSwitch]="state.dataState"
+                  *ngIf="siteState$ | async as siteState"
+                  [ngSwitch]="siteState.dataState"
                 >
-                  <ng-container *ngSwitchCase="ImmeubleStateEnum.INITIAL">
-                    <div class="spinner-border text-primary" role="status">
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="ImmeubleStateEnum.ERROR">
-                    <div class="p-2">
-                      Erreur: {{ state.errorMessage | json }}
-                    </div>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADING">
-                    <div class="spinner-border text-primary" role="status">
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADED">
-                    <label class="small mb-1" for="inputFirstName"
-                      >Immeuble</label
-                    >
-                    <select
 
-                      formControlName="idImmeuble"
+                  <ng-container *ngSwitchCase="SiteStateEnum.ERROR">
+                    <div class="p-2">
+                      Erreur: {{ siteState.errorMessage | json }}
+                    </div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="SiteStateEnum.LOADING">
+                    <div class="spinner-border text-primary" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="SiteStateEnum.LOADED">
+                    <label class="big mb-1" for="inputFirstName">Site</label>
+                    <select
+                      formControlName="idSite"
                       name="idImmeuble"
                       class="form-control form-control-lg"
                       [ngClass]="{
                         'is-invalid':
-                          submitted &&
-                          immeubleForm.controls.idImmeuble.errors
+                          submitted && immeubleForm.controls.idSite.errors
                       }"
                     >
-                      <option [value]="0">Sélection un Immeuble</option>
-                      <option [value]="0">Aucun Immeuble</option>
+                      <option [value]="0">Sélection un Site</option>
+                      <option [value]="0">Aucun Site</option>
                       <option
-                        [value]="immeub.id"
-                        *ngFor="let immeub of state.immeubles"
+                        [value]="site.id"
+                        *ngFor="let site of siteState.sites"
                       >
-                        {{ immeub.abrvNomImmeuble }}
+                        {{ site.nomSite }}
                       </option>
                     </select>
-
-
                   </ng-container>
                 </ng-container>
               </div>
               <div class="col-md-6">
                 <ng-container
-                  *ngIf="immeubleState$ | async as immeubleState"
-                  [ngSwitch]="immeubleState.dataState"
-                >
-                  <ng-container *ngSwitchCase="ImmeubleStateEnum.INITIAL">
-                    <div class="spinner-border text-primary" role="status">
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADING">
-                    <div class="spinner-border text-primary" role="status">
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="ImmeubleStateEnum.ERROR">
-                    <div class="p-2">
-                      Erreur : {{ immeubleState.errorMessage }}
-                    </div>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADED">
-                    <label class="small mb-1" for="inputLastName">Etage</label>
+                *ngIf="utilisateurState$ | async as state"
+                [ngSwitch]="state.dataState"
+              >
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.INITIAL">
+                  <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.ERROR">
+                  <div class="p-2 invalid-feedback">
+                    Une erreur est survenue
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
+                  <label class="small mb-1" for="inputUsername"
+                    >Propriétaire</label
+                  >
+                  <div class="form-group">
                     <select
-                      formControlName="idEtage"
-                      name="idEtage"
-                      class="form-control form-control-lg w-auto"
+                      formControlName="idUtilisateur"
+                                         class="form-control form-control-lg w-auto"
                       [ngClass]="{
                         'is-invalid':
-                          submitted && immeubleForm.controls.idEtage.errors
+                          submitted &&
+                          immeubleForm.controls.idUtilisateur.errors
                       }"
                     >
-                      <option [value]="">Aucun Etage</option>
+                      <option [value]="">Sélection un Propriétaire</option>
                       <option
-                        [value]="immeuble.id"
-                        *ngFor="let immeuble of immeubleState.immeubles"
+                        [value]="utilis.id"
+                        *ngFor="let utilis of state.utlisisateurs"
                       >
-                        {{ immeuble.id }}
+                        {{ utilis.nom }} {{ utilis.prenom }}
                       </option>
                     </select>
                     <div
                       *ngIf="
-                        submitted && immeubleForm.controls.idEtage.errors
+                        submitted && immeubleForm.controls.idUtilisateur.errors
                       "
                       class="invalid-feedback"
                     >
                       <div
-                        *ngIf="immeubleForm.controls.idEtage.errors.required"
+                        *ngIf="immeubleForm.controls.idUtilisateur.errors.required"
                       >
-                        * Veuillez saisir un étage
+                        *Champ obligatoire
                       </div>
                     </div>
-                  </ng-container>
+                  </div>
                 </ng-container>
+              </ng-container>
               </div>
               <div class="row gx-3 mb-3">
                 <!-- Form Group (organization name)-->
@@ -144,9 +128,9 @@
                     >Désignation</label
                   >
                   <input
-                    formControlName="nomApp"
+                    formControlName="nomBien"
                     class="form-control"
-                    name="nomApp"
+
                     type="text"
                     [ngClass]="{
                       'is-invalid':
@@ -158,9 +142,7 @@
                     *ngIf="submitted && immeubleForm.controls.nomApp.errors"
                     class="invalid-feedback"
                   >
-                    <div
-                      *ngIf="immeubleForm.controls.nomApp.errors.required"
-                    >
+                    <div *ngIf="immeubleForm.controls.nomApp.errors.required">
                       *Champ obligatoire
                     </div>
                   </div>
@@ -169,75 +151,26 @@
                 <!-- Form Group (location)-->
                 <div class="col-md-6">
                   <label class="small mb-1" for="inputLocation"
-                    >Nombre de Pièces</label
+                    >Description  </label
+                  >
+                  <textarea class="form-control" rows="3" formControlName="descriptionImmeuble" ></textarea>
+
+                </div>
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputLocation"
+                    >Nombre d'étages </label
                   >
                   <input
-                    formControlName="nbrPieceApp"
+                    formControlName="nbrEtage"
                     class="form-control"
                     name="inputLocation"
                     type="number"
                   />
                 </div>
                 <div class="col-md-6">
-                  <label class="small mb-1" for="inputLocation"
-                    >Nombre de Chambres</label
-                  >
-                  <input
-                    formControlName="nbreChambreApp"
-                    class="form-control"
-                    name="inputLocation"
-                    type="number"
-                  />
+
                 </div>
                 <div class="col-md-6">
-                  <label class="small mb-1" for="inputLocation"
-                    >Nombre de Salons</label
-                  >
-                  <input
-                    formControlName="nbrSalonApp"
-                    class="form-control"
-                    name="inputLocation"
-                    type="number"
-                  />
-                </div>
-                <div class="col-md-6">
-                  <label class="small mb-1" for="inputLocation"
-                    >Nombre de Salle d'eau</label
-                  >
-                  <input
-                    formControlName="nbreSalleEauApp"
-                    class="form-control"
-                    name="inputLocation"
-                    type="number"
-                  />
-                </div>
-                <!-- Default checkbox -->
-                <div class="form-check">
-                  <input
-                    formControlName="meubleApp"
-                    mdbCheckbox
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="flexCheckDefault"
-                  />
-                  <label class="form-check-label" for="flexCheckDefault">
-                    Meublé
-                  </label>
-                </div>
-                <!-- Checked checkbox -->
-                <div class="form-check">
-                  <input
-                    formControlName="residence"
-                    mdbCheckbox
-                    class="form-check-input"
-                    type="checkbox"
-                    value=""
-                    id="flexCheckChecked"
-                  />
-                  <label class="form-check-label" for="flexCheckChecked">
-                    Est une résidence
-                  </label>
                 </div>
               </div>
             </div>
