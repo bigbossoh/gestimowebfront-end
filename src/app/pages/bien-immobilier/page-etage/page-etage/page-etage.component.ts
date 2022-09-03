@@ -1,12 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AppartementState } from 'src/app/ngrx/appartement/appartement.reducer';
-import { MagasinState } from 'src/app/ngrx/magasin/magasin.reducer';
-import { StudioState } from 'src/app/ngrx/studio/studio.reducer';
-import {
-  VillaState,
-  VillaStateEnum,
-} from '../../../../ngrx/villa/villa.reducer';
 import {
   BienImmobilierState,
   BienImmobilierStateEnum,
@@ -19,9 +12,6 @@ import {
   CommunesState,
   CommunesStateEnum,
 } from '../../../../ngrx/commune/commune.reducer';
-import { AppartementStateEnum } from '../../../../ngrx/appartement/appartement.reducer';
-import { MagasinStateEnum } from '../../../../ngrx/magasin/magasin.reducer';
-import { StudioStateEnum } from '../../../../ngrx/studio/studio.reducer';
 import { GetAllCommunesByVilleActions } from '../../../../ngrx/commune/commune.actions';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -30,7 +20,6 @@ import {
   EtagesStateEnum,
 } from '../../../../ngrx/etage/etage.reducer';
 import { GetAllEtagesActions } from '../../../../ngrx/etage/etage.actions';
-import { state } from '@angular/animations';
 import { GetAllBiensActions } from '../../../../ngrx/bien-immobilier/bienimmobilier.actions';
 
 @Component({
