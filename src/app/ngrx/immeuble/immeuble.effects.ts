@@ -18,11 +18,11 @@ import {
 @Injectable()
 export class ImmeubleEffects {
   constructor(private apiService: ApiService, private effectActions: Actions,private notificationService: NotificationService) { }
-  getAllBienseffect: Observable<Action> = createEffect(() =>
+  getAllImmeubleffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(ImmeublesActionsTypes.GET_ALL_IMMEUBLES),
       mergeMap((action) => {
-        return this.apiService.findAllImmeuble().pipe(
+        return this.apiService.affichageDesImmeubles().pipe(
           map((immeubles) => new GetAllImmeublesActionsSuccess(immeubles)),
           catchError((err) => of(new GetAllImmeublesActionsError(err.message.messages)))
         );

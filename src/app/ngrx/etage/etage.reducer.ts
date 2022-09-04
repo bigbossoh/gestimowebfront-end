@@ -29,6 +29,8 @@ export function etageByImmeubeReducer(
   action: Action
 ): EtagesState {
   switch (action.type) {
+
+    //GET ALL ETAGES
     case EtagesActionsTypes.GET_ALL_ETAGES:
       return { ...state, dataState: EtagesStateEnum.LOADING };
     case EtagesActionsTypes.GET_ALL_ETAGES_SUCCES:

@@ -13,12 +13,13 @@ export interface AppelLoyersFactureDto {
   anneeAppelLoyer?: number;
   moisChiffreAppelLoyer?: number;
   descAppelLoyer?: string;
-  montantBailLPeriode?: number;
+  montantLoyerBailLPeriode?: number;
   soldeAppelLoyer?: number;
   nomLocataire?: string;
   prenomLocataire?: string;
   genreLocataire?: string;
-  mailLocataire?: string;
+  emailLocatire?: string;
+  idLocataire?: number;
   nomAgence?: string;
   telAgence?: string;
   compteContribuableAgence?: string;
@@ -33,6 +34,7 @@ export interface AppelLoyersFactureDto {
   prenomPropietaire?: string;
   genrePropietaire?: string;
   mailProprietaire?: string;
+  idBailLocation?: number;
   abrvCodeBail?: string;
   nouveauMontantLoyer?: number;
   solderAppelLoyer?: boolean;

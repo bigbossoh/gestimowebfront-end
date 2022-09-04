@@ -201,7 +201,7 @@ import { MailEffect } from './ngrx/mail/mail.effects';
       siteState: siteReducer,
       utilisateurState: utilisateurReducer,
       immeubleState: immeubleReducer,
-      etageByImmeubeState: etageByImmeubeReducer,
+      etageState: etageByImmeubeReducer,
       studioState: studioReducer,
       appartementState: appartementReducer,
       magasinState: magasinReducer,

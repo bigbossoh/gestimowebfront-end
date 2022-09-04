@@ -369,6 +369,29 @@
         }
       }
     },
+    "gestimoweb/api/v1/appelloyer/findAppelsImpayerByIdBail/{id}" : {
+      "get" : {
+        "operationId" : "listDesLoyersImpayerParBail",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AppelLoyersFactureDto"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/appelloyer/listOfDistinctAnneeAppel" : {
       "get" : {
         "operationId" : "listOfDistinctAnneeAppel",
@@ -985,6 +1008,64 @@
         }
       }
     },
+    "gestimoweb/api/v1/encaissement/findAllEncaissementPrincipal" : {
+      "get" : {
+        "operationId" : "listTousEncaissementsPrincipal",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/EncaissementPrincipalDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/encaissement/saveencaissement" : {
+      "post" : {
+        "operationId" : "saveCommune",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/EncaissementPayloadDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/encaissement/totalencaissement/{id}" : {
+      "get" : {
+        "operationId" : "totalencaissementParIdAppelLoyer",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "number",
+              "format" : "double"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/envoimail/sendmailgrouper/{periode}" : {
       "post" : {
         "operationId" : "sendMailGrouperWithAttachment",
@@ -1159,6 +1240,22 @@
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/EtageDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/immeuble/affichetoutlesimmeubles" : {
+      "get" : {
+        "operationId" : "affichageDesImmeubles",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ImmeubleAfficheDto"
+              }
             }
           }
         }
@@ -2600,7 +2697,7 @@
         "descAppelLoyer" : {
           "type" : "string"
         },
-        "montantBailLPeriode" : {
+        "montantLoyerBailLPeriode" : {
           "type" : "number",
           "format" : "double"
         },
@@ -2746,7 +2843,7 @@
         "descAppelLoyer" : {
           "type" : "string"
         },
-        "montantBailLPeriode" : {
+        "montantLoyerBailLPeriode" : {
           "type" : "number",
           "format" : "double"
         },
@@ -2763,8 +2860,12 @@
         "genreLocataire" : {
           "type" : "string"
         },
-        "mailLocataire" : {
+        "emailLocatire" : {
           "type" : "string"
+        },
+        "idLocataire" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "nomAgence" : {
           "type" : "string"
@@ -2807,6 +2908,10 @@
         },
         "mailProprietaire" : {
           "type" : "string"
+        },
+        "idBailLocation" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "abrvCodeBail" : {
           "type" : "string"
@@ -3165,10 +3270,10 @@
         "utilisateur" : {
           "type" : "string"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -3222,10 +3327,10 @@
         "utilisateur" : {
           "$ref" : "#/definitions/Utilisateur"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -3406,6 +3511,81 @@
         }
       }
     },
+    "EncaissementPayloadDto" : {
+      "type" : "object",
+      "properties" : {
+        "idAppelLoyer" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "modePaiement" : {
+          "type" : "string",
+          "enum" : [ "ESPESE_MAGISER", "ESPECE_SEVEINVEST", "CHEQUE_ECOBANK_MAGISER", "CHEQUE_GTBANK_SEVEINVEST", "VIREMENT_ECOBANK_MAGISER", "VIREMENT_GTBANK_SEVEINVEST", "MOBILE_MONEY_MAGISER", "MOBILE_MONEY_SEVEINVEST" ]
+        },
+        "operationType" : {
+          "type" : "string",
+          "enum" : [ "CREDIT", "DEBIT" ]
+        },
+        "montantEncaissement" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "intituleDepense" : {
+          "type" : "string"
+        },
+        "entiteOperation" : {
+          "type" : "string",
+          "enum" : [ "MAGISER", "SEVEINVEST" ]
+        }
+      }
+    },
+    "EncaissementPrincipalDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "modePaiement" : {
+          "type" : "string",
+          "enum" : [ "ESPESE_MAGISER", "ESPECE_SEVEINVEST", "CHEQUE_ECOBANK_MAGISER", "CHEQUE_GTBANK_SEVEINVEST", "VIREMENT_ECOBANK_MAGISER", "VIREMENT_GTBANK_SEVEINVEST", "MOBILE_MONEY_MAGISER", "MOBILE_MONEY_SEVEINVEST" ]
+        },
+        "operationType" : {
+          "type" : "string",
+          "enum" : [ "CREDIT", "DEBIT" ]
+        },
+        "dateEncaissement" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "montantEncaissement" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "intituleDepense" : {
+          "type" : "string"
+        },
+        "entiteOperation" : {
+          "type" : "string",
+          "enum" : [ "MAGISER", "SEVEINVEST" ]
+        },
+        "appelLoyersFactureDto" : {
+          "$ref" : "#/definitions/AppelLoyersFactureDto"
+        }
+      }
+    },
     "EspeceEncaissementDto" : {
       "type" : "object",
       "properties" : {
@@ -3582,10 +3762,42 @@
         "garrage" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "ImmeubleAfficheDto" : {
+      "type" : "object",
+      "properties" : {
+        "nbrEtage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbrePieceImmeuble" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "abrvNomImmeuble" : {
+          "type" : "string"
+        },
+        "descriptionImmeuble" : {
+          "type" : "string"
+        },
+        "numeroImmeuble" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nomPropio" : {
+          "type" : "string"
+        },
+        "prenomProprio" : {
+          "type" : "string"
+        },
+        "garrage" : {
           "type" : "boolean"
         }
       }
@@ -3647,10 +3859,10 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "occupied" : {
+        "garrage" : {
           "type" : "boolean"
         },
-        "garrage" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -3726,10 +3938,10 @@
         "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -3787,13 +3999,13 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "archived" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
         "occupied" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -3845,13 +4057,13 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "archived" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
         "occupied" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -4482,10 +4694,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -4809,10 +5021,10 @@
             "$ref" : "#/definitions/Operation"
           }
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -4888,10 +5100,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }

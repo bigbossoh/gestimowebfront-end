@@ -24,8 +24,11 @@ import { BailVillaDto } from '../models/bail-villa-dto';
 import { BienImmobilierDto } from '../models/bien-immobilier-dto';
 import { CommuneRequestDto } from '../models/commune-request-dto';
 import { CommuneResponseDto } from '../models/commune-response-dto';
+import { EncaissementPrincipalDTO } from '../models/encaissement-principal-dto';
+import { EncaissementPayloadDto } from '../models/encaissement-payload-dto';
 import { EspeceEncaissementDto } from '../models/espece-encaissement-dto';
 import { EtageDto } from '../models/etage-dto';
+import { ImmeubleAfficheDto } from '../models/immeuble-affiche-dto';
 import { ImmeubleDto } from '../models/immeuble-dto';
 import { MagasinResponseDto } from '../models/magasin-response-dto';
 import { MagasinDto } from '../models/magasin-dto';
@@ -60,6 +63,7 @@ class ApiService extends __BaseService {
   static readonly findAllPeriodeChiffreEtLettreByAnneePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeChiffreEtLettreByAnnee/{annee}';
   static readonly AppelLoyersParIdPath = 'gestimoweb/api/v1/appelloyer/findAppelloyer/{id}';
   static readonly listDesLoyersParBailPath = 'gestimoweb/api/v1/appelloyer/findAppelsByIdBail/{id}';
+  static readonly listDesLoyersImpayerParBailPath = 'gestimoweb/api/v1/appelloyer/findAppelsImpayerByIdBail/{id}';
   static readonly listOfDistinctAnneeAppelPath = 'gestimoweb/api/v1/appelloyer/listOfDistinctAnneeAppel';
   static readonly saveAppelLoyersPath = 'gestimoweb/api/v1/appelloyer/save';
   static readonly verifyAccountPath = 'gestimoweb/api/v1/auth/accountVerification/{token}';
@@ -92,6 +96,9 @@ class ApiService extends __BaseService {
   static readonly findCommuneByIdPaysPath = 'gestimoweb/api/v1/commune/findByIdVille/{id}';
   static readonly findCommuneByNamePath = 'gestimoweb/api/v1/commune/findByName/{name}';
   static readonly saveCommunePath = 'gestimoweb/api/v1/commune/save';
+  static readonly listTousEncaissementsPrincipalPath = 'gestimoweb/api/v1/encaissement/findAllEncaissementPrincipal';
+  static readonly saveCommune_1Path = 'gestimoweb/api/v1/encaissement/saveencaissement';
+  static readonly totalencaissementParIdAppelLoyerPath = 'gestimoweb/api/v1/encaissement/totalencaissement/{id}';
   static readonly sendMailGrouperWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendmailgrouper/{periode}';
   static readonly sendMailQuittanceWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendquittancebymail/{id}';
   static readonly saveEspeceEncaissementPath = 'gestimoweb/api/v1/especeencaissement/save';
@@ -101,6 +108,7 @@ class ApiService extends __BaseService {
   static readonly findEtageByIdPaysPath = 'gestimoweb/api/v1/etage/findByIdImmeuble/{id}';
   static readonly findEtageByNamePath = 'gestimoweb/api/v1/etage/findByName/{name}';
   static readonly saveEtagePath = 'gestimoweb/api/v1/etage/save';
+  static readonly affichageDesImmeublesPath = 'gestimoweb/api/v1/immeuble/affichetoutlesimmeubles';
   static readonly findAllImmeublePath = 'gestimoweb/api/v1/immeuble/all';
   static readonly deleteImmeublePath = 'gestimoweb/api/v1/immeuble/deleteImmeuble/{id}';
   static readonly findImmeubleByIDPath = 'gestimoweb/api/v1/immeuble/findById/{id}';
@@ -801,6 +809,42 @@ class ApiService extends __BaseService {
   listDesLoyersParBail(id: number): __Observable<Array<AppelLoyerDto>> {
     return this.listDesLoyersParBailResponse(id).pipe(
       __map(_r => _r.body as Array<AppelLoyerDto>)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  listDesLoyersImpayerParBailResponse(id: number): __Observable<__StrictHttpResponse<Array<AppelLoyersFactureDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/findAppelsImpayerByIdBail/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<AppelLoyersFactureDto>>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  listDesLoyersImpayerParBail(id: number): __Observable<Array<AppelLoyersFactureDto>> {
+    return this.listDesLoyersImpayerParBailResponse(id).pipe(
+      __map(_r => _r.body as Array<AppelLoyersFactureDto>)
     );
   }
 
@@ -1933,6 +1977,111 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @return successful operation
+   */
+  listTousEncaissementsPrincipalResponse(): __Observable<__StrictHttpResponse<Array<EncaissementPrincipalDTO>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/encaissement/findAllEncaissementPrincipal`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<EncaissementPrincipalDTO>>;
+      })
+    );
+  }
+  /**
+   * @return successful operation
+   */
+  listTousEncaissementsPrincipal(): __Observable<Array<EncaissementPrincipalDTO>> {
+    return this.listTousEncaissementsPrincipalResponse().pipe(
+      __map(_r => _r.body as Array<EncaissementPrincipalDTO>)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveCommune_1Response(body?: EncaissementPayloadDto): __Observable<__StrictHttpResponse<boolean>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/encaissement/saveencaissement`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: (_r as HttpResponse<any>).body === 'true' }) as __StrictHttpResponse<boolean>
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveCommune_1(body?: EncaissementPayloadDto): __Observable<boolean> {
+    return this.saveCommune_1Response(body).pipe(
+      __map(_r => _r.body as boolean)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  totalencaissementParIdAppelLoyerResponse(id: number): __Observable<__StrictHttpResponse<number>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/encaissement/totalencaissement/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: parseFloat((_r as HttpResponse<any>).body as string) }) as __StrictHttpResponse<number>
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  totalencaissementParIdAppelLoyer(id: number): __Observable<number> {
+    return this.totalencaissementParIdAppelLoyerResponse(id).pipe(
+      __map(_r => _r.body as number)
+    );
+  }
+
+  /**
    * @param periode undefined
    * @return successful operation
    */
@@ -2250,6 +2399,39 @@ class ApiService extends __BaseService {
   saveEtage(body?: EtageDto): __Observable<EtageDto> {
     return this.saveEtageResponse(body).pipe(
       __map(_r => _r.body as EtageDto)
+    );
+  }
+
+  /**
+   * @return successful operation
+   */
+  affichageDesImmeublesResponse(): __Observable<__StrictHttpResponse<Array<ImmeubleAfficheDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/immeuble/affichetoutlesimmeubles`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<ImmeubleAfficheDto>>;
+      })
+    );
+  }
+  /**
+   * @return successful operation
+   */
+  affichageDesImmeubles(): __Observable<Array<ImmeubleAfficheDto>> {
+    return this.affichageDesImmeublesResponse().pipe(
+      __map(_r => _r.body as Array<ImmeubleAfficheDto>)
     );
   }
 

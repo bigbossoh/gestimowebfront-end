@@ -73,12 +73,7 @@
     </div>
     <hr style="margin-top: 0" />
     <!-- main content -->
-
-
-
     <ng-container *ngIf="bienState$ | async as state" [ngSwitch]="state.dataState">
-
-
       <div class="tab-content" id="myTabContent">
         <!-- user table -->
         <div class="tab-pane fade show active" id="users">
@@ -101,9 +96,9 @@
                 </ng-container>
                 <ng-container ng-container *ngSwitchCase="ImmeubleStateEnum.LOADED">
                   <tr class="text-center" *ngFor="let immeuble of immeubleState.immeubles">
-                    <td>{{ immeuble.id }}</td>
+                    <td>{{ immeuble.numeroImmeuble }}</td>
                     <td>{{ immeuble.abrvNomImmeuble }}</td>
-                    <td>{{ immeuble.idUtilisateur }}</td>
+                    <td>{{ immeuble.nomPropio }} {{ immeuble.prenomProprio }}</td>
 
                     <td class="">
                       <div class="btn-group">

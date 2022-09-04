@@ -1,3 +1,4 @@
+import { ImmeubleAfficheDto } from './../../../gs-api/src/models/immeuble-affiche-dto';
 //CREER LES DIFFERENTES TYPES D'ACTION QUI VONT DECLANCHER LES EVENE,ENT DANS LE
 
 import { Action } from '@ngrx/store';
@@ -24,7 +25,7 @@ export class GetAllImmeublesActions implements Action {
 export class GetAllImmeublesActionsSuccess implements Action {
   type: ImmeublesActionsTypes =
     ImmeublesActionsTypes.GET_ALL_IMMEUBLES_SUCCES;
-  constructor(public payload: ImmeubleDto[]) { }
+  constructor(public payload: ImmeubleAfficheDto[]) { }
 }
 export class GetAllImmeublesActionsError implements Action {
   type: ImmeublesActionsTypes =
@@ -41,7 +42,7 @@ export class SaveImmeublesActions implements Action {
 export class SaveImmeublesActionsSuccess implements Action {
   type: ImmeublesActionsTypes =
     ImmeublesActionsTypes.SAVE_IMMEUBLES_SUCCES;
-  constructor(public payload: ImmeubleDto) { }
+  constructor(public payload: ImmeubleAfficheDto) { }
 }
 export class SaveImmeublesActionsError implements Action {
   type: ImmeublesActionsTypes =
