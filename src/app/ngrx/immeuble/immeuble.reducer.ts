@@ -1,3 +1,4 @@
+import { ImmeubleAfficheDto } from './../../../gs-api/src/models/immeuble-affiche-dto';
 import { Action } from '@ngrx/store';
 import { BienImmobilierDto, ImmeubleDto } from 'src/gs-api/src/models';
 import {
@@ -11,7 +12,7 @@ export enum ImmeubleStateEnum {
   INITIAL = 'Initial',
 }
 export interface ImmeubleState {
-  immeubles: ImmeubleDto[];
+  immeubles: ImmeubleAfficheDto[];
   errorMessage: string;
   dataState: ImmeubleStateEnum;
 }

@@ -19,6 +19,6 @@ export interface VillaDto {
   idSite?: number;
   idUtilisateur?: number;
   proprietaire?: string;
-  archived?: boolean;
   occupied?: boolean;
+  archived?: boolean;
 }

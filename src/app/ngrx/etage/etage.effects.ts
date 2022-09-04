@@ -42,12 +42,12 @@ export class EtageEffects {
       ofType(EtagesActionsTypes.GET_ALL_ETAGES),
       mergeMap(() => {
         return this.apiService.findAllEtage().pipe(
-          map((immeubles) => new GetAllEtagesActionsSuccess(immeubles)),
+          map((etages) => new GetAllEtagesActionsSuccess(etages)),
           catchError((err) => of(new GetAllEtagesActionsError(err.error.errors)))
         );
       }),
       tap((resultat) => {
-        if (resultat.payload.indexOf("Error") < 0) {
+        if (resultat.payload!=null) {
           this.sendErrorNotification(
             NotificationType.ERROR,
             resultat.payload.toString()

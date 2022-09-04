@@ -15,6 +15,6 @@ export interface Bienimmobilier {
   superficieBien?: number;
   site?: Site;
   utilisateur?: Utilisateur;
-  archived?: boolean;
   occupied?: boolean;
+  archived?: boolean;
 }

@@ -17,7 +17,7 @@ export interface AppelLoyer {
   moisChiffreAppelLoyer?: number;
   moisUniquementLettre?: string;
   descAppelLoyer?: string;
-  montantBailLPeriode?: number;
+  montantLoyerBailLPeriode?: number;
   soldeAppelLoyer?: number;
   bailLocationAppelLoyer?: BailLocation;
   encaissementsAppelLoyer?: Array<Encaissement>;
