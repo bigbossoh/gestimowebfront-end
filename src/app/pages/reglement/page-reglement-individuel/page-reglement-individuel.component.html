@@ -3,96 +3,135 @@
     <div class="col-md-8 p-0">
       <h1>Règlement Individuel des loyers</h1>
     </div>
-    <div class="col-md-4 text-right">
-
-    </div>
-
+    <div class="col-md-4 text-right"></div>
   </div>
-  <div class="col">
-    <div class="row">
-      <div class="col">
-        <h5><i class="fas fa-asterisk blue-color"></i>&nbsp;Paramètre de règlement</h5>
-      </div>
-    </div>
-    <hr style="margin-top: 0;">
-    <div class="row mb-3">
-      <div class="col-md-3">
-        <label>Locataires</label>
-        <select id="modele" name="typeClim" class="form-control">
-          <option value="0">selectionnez une locataire</option>
-          <option value="Janvier 2022">Konan Martinien</option>
-          <option value="Février 2022">Kouamé Marcel</option>
-          <option value="Mars 2022">Zrango Nacel</option>
-        </select>
-      </div>
-      <div class="col-md-3">
-        <label>Bien immobilier</label>
-        <select id="modele" name="typeClim" class="form-control">
-          <option value="0">selectionnez un bien</option>
-          <option value="Janvier 2022">Villa-001</option>
-          <option value="Février 2022">Appartement-002</option>
-          <option value="Mars 2022">Magasin-001</option>
-        </select>
-      </div>
-      <div class="col-md-3">
-        <label>Période</label>
-        <select id="modele" name="typeClim" class="form-control">
-          <option value="0">selectionnez une période</option>
-          <option value="Janvier 2022">Janvier 2022</option>
-          <option value="Février 2022">Février 2022</option>
-          <option value="Mars 2022">Mars 2022</option>
-        </select>
-      </div>
-      <div class="col-md-3">
-        <label>Mode de règlement</label>
-        <select id="modele" name="typeClim" class="form-control">
-          <option value="0">selectionnez un mode de règlement</option>
-          <option value="Janvier 2022">Espèce</option>
-          <option value="Février 2022">Money Electronique</option>
-          <option value="Mars 2022">Transfert</option>
-        </select>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <h5><i class="fas fa-asterisk blue-color"></i>&nbsp;Montant de règlement</h5>
-      </div>
-    </div>
-    <hr style="margin-top: 0;">
-    <div class="row mb-3">
-      <div class="col-md-3">
-        <label>Montant encaissé</label>
-        <input type="text" class="form-control" placeholder="Montant encaissé" name="MontantEncaissé" >
-      </div>
-      <div class="col-md-3">
-        <label>Solde loyer</label>
-        <input type="text" class="form-control" placeholder="Solde loyer" name="SoldeLoyer" >
-      </div>
-      <div class="col-md-3">
-        <label>Montant du loyer</label>
-        <input type="text" class="form-control" placeholder="SMontant loyer" name="MontnatLoyer" >
-      </div>
-      <div class="col-md-3">
 
-        <label>Status du loyer</label>
-        <br>
-        <h4><span class="badge badge badge-secondary badge-success">Soldé</span></h4>&nbsp;
+
+  <div class="col">
+    <form *ngIf="encaissementform" [formGroup]="encaissementform">
+      <div class="row">
+        <div class="col">
+          <h5>
+            <i class="fas fa-asterisk blue-color"></i>&nbsp;Paramètre de règlement
+          </h5>
+        </div>
       </div>
-    </div>
-    <div class="row mb-3 ">
-      <div class="col panel-body text-right">
-        <button type="button" class="mb-sm btn btn-primary mr-1">
-          Encaisser
-        </button>
-        <button type="button" class="mb-sm btn btn-danger mr-1">Annuler</button>
+      <hr style="margin-top: 0" />
+      <div class="row mb-3">
+        <div class="col-md-3">
+          <ng-container
+            *ngIf="locataireState$ | async as locataireState"
+            [ngSwitch]="locataireState.dataState"
+          >
+            <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADING">
+              <mat-spinner></mat-spinner>
+            </ng-container>
+            <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
+              <label>Locataires</label>
+              <select id="modele" name="typeClim" class="form-control">
+                <option
+                  value="locataire.id"
+                  *ngFor="let locataire of locataireState.utlisisateurs"
+                >
+                  {{ locataire.nom }} {{ locataire.prenom }}
+                </option>
+              </select>
+            </ng-container>
+          </ng-container>
+        </div>
+        <div class="col-md-3">
+          <label>Bien immobilier</label>
+          <select id="modele" name="typeClim" class="form-control">
+            <option value="0">selectionnez un bien</option>
+            <option value="Janvier 2022">Villa-001</option>
+            <option value="Février 2022">Appartement-002</option>
+            <option value="Mars 2022">Magasin-001</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label>Période</label>
+          <select id="modele" name="typeClim" class="form-control">
+            <option value="0">selectionnez une période</option>
+            <option value="Janvier 2022">Janvier 2022</option>
+            <option value="Février 2022">Février 2022</option>
+            <option value="Mars 2022">Mars 2022</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label>Mode de règlement</label>
+          <select id="modele" name="typeClim" class="form-control" formControlName="modePaiement">
+             <option value="ESPESE_MAGISER">Espèce</option>
+            <option value="MOBILE_MONEY_MAGISER">Money Electronique</option>
+            <option value="CHEQUE_ECOBANK_MAGISER">Chèque</option>
+            <option value="VIREMENT_ECOBANK_MAGISER">Virement Banquaire</option>
+          </select>
+        </div>
       </div>
-    </div>
+      <div class="row">
+        <div class="col">
+          <h5>
+            <i class="fas fa-asterisk blue-color"></i>&nbsp;Montant de règlement
+          </h5>
+        </div>
+      </div>
+      <hr style="margin-top: 0" />
+      <div class="row mb-3">
+        <div class="col-md-3">
+          <label>Montant encaissé</label>
+          <input
+          formControlName="montantEncaissement"
+            type="text"
+            class="form-control"
+            placeholder="Montant encaissé"
+            name="MontantEncaissé"
+          />
+        </div>
+        <div class="col-md-3">
+          <label>Solde loyer</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Solde loyer"
+            name="SoldeLoyer"
+          />
+        </div>
+        <div class="col-md-3">
+          <label>Montant du loyer</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="SMontant loyer"
+            name="MontnatLoyer"
+          />
+        </div>
+        <div class="col-md-3">
+          <label>Status du loyer</label>
+          <br />
+          <h4>
+            <span class="badge badge badge-secondary badge-success">Soldé</span>
+          </h4>
+          &nbsp;
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col panel-body text-right">
+          <button type="button" class="mb-sm btn btn-primary mr-1" (click)="onSaveEncaissement()">
+            Encaisser
+          </button>
+          <button type="button" class="mb-sm btn btn-danger mr-1">Annuler</button>
+        </div>
+      </div>
+    </form>
+
     <div class="row">
       <div class="col">
-        <h5><i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des loyers</h5>
+        <h5>
+          <i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des loyers
+        </h5>
       </div>
     </div>
-    <hr>
+    <hr />
+
     <!-- main content -->
     <div class="tab-content" id="myTabContent">
       <!-- user table -->
@@ -113,8 +152,13 @@
           <tbody>
             <tr class="text-center">
               <td>
-                <img height="40" width="40" src="assets/nassmam.jpg" class="rounded-circle img-fluid img-thumbnail"
-                  alt="" />
+                <img
+                  height="40"
+                  width="40"
+                  src="assets/nassmam.jpg"
+                  class="rounded-circle img-fluid img-thumbnail"
+                  alt=""
+                />
               </td>
               <td>I2547185</td>
               <td>zrango</td>
@@ -126,15 +170,24 @@
               </td>
               <td class="">
                 <div class="btn-group">
-                  <button class="btn btn-outline-info"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                  <button class="btn btn-outline-info">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-outline-danger">
+                    <i class="fas fa-trash"></i>
+                  </button>
                 </div>
               </td>
             </tr>
             <tr class="text-center">
               <td>
-                <img height="40" width="40" src="assets/zolo.jpg" class="rounded-circle img-fluid img-thumbnail"
-                  alt="" />
+                <img
+                  height="40"
+                  width="40"
+                  src="assets/zolo.jpg"
+                  class="rounded-circle img-fluid img-thumbnail"
+                  alt=""
+                />
               </td>
               <td>I2547185</td>
               <td>Bossoh</td>
@@ -146,16 +199,25 @@
               </td>
               <td class="">
                 <div class="btn-group">
-                  <button class="btn btn-outline-info"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                  <button class="btn btn-outline-info">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-outline-danger">
+                    <i class="fas fa-trash"></i>
+                  </button>
                 </div>
               </td>
             </tr>
 
             <tr class="text-center">
               <td>
-                <img height="40" width="40" src="assets/nassmam.jpg" class="rounded-circle img-fluid img-thumbnail"
-                  alt="" />
+                <img
+                  height="40"
+                  width="40"
+                  src="assets/nassmam.jpg"
+                  class="rounded-circle img-fluid img-thumbnail"
+                  alt=""
+                />
               </td>
               <td>I2547185</td>
               <td>zrango</td>
@@ -167,16 +229,25 @@
               </td>
               <td class="">
                 <div class="btn-group">
-                  <button class="btn btn-outline-info"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                  <button class="btn btn-outline-info">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-outline-danger">
+                    <i class="fas fa-trash"></i>
+                  </button>
                 </div>
               </td>
             </tr>
 
             <tr class="text-center">
               <td>
-                <img height="40" width="40" src="assets/zolo.jpg" class="rounded-circle img-fluid img-thumbnail"
-                  alt="" />
+                <img
+                  height="40"
+                  width="40"
+                  src="assets/zolo.jpg"
+                  class="rounded-circle img-fluid img-thumbnail"
+                  alt=""
+                />
               </td>
               <td>I2547185</td>
               <td>Bossoh</td>
@@ -188,23 +259,23 @@
               </td>
               <td class="">
                 <div class="btn-group">
-                  <button class="btn btn-outline-info"><i class="fas fa-edit"></i></button>
-                  <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                  <button class="btn btn-outline-info">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-outline-danger">
+                    <i class="fas fa-trash"></i>
+                  </button>
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-
     </div>
-
   </div>
   <div class="row mb-3">
-    <div class=" col-md-12 text-center">
+    <div class="col-md-12 text-center">
       <app-pagination></app-pagination>
     </div>
   </div>
-
 </div>
-
