@@ -120,6 +120,8 @@ import { anneeReducer } from './ngrx/annee/annee.reducer';
 import { AnneeEffects } from './ngrx/annee/annee.effets';
 import { mailReducer, MailState } from './ngrx/mail/mail.reducer';
 import { MailEffect } from './ngrx/mail/mail.effects';
+import { Encaissementffects } from './ngrx/reglement/reglement.effects';
+import { encaissementReducer } from './ngrx/reglement/reglement.reducer';
 @NgModule({
   declarations: [
     PageImmeubleComponent,
@@ -221,7 +223,8 @@ import { MailEffect } from './ngrx/mail/mail.effects';
       superviseurState: superviseurReducer,
       quittanceAppelState: quittanceAppelReducer,
       anneeState: anneeReducer,
-      mailState:mailReducer
+      mailState: mailReducer,
+      encaissementState:encaissementReducer
     }),
     EffectsModule.forRoot([
       AnneeEffects,
@@ -247,7 +250,8 @@ import { MailEffect } from './ngrx/mail/mail.effects';
       Quartierffects,
       GerantEffects,
       SuperviseurEffects,
-      QuittanceAppelLoyerEffects
+      QuittanceAppelLoyerEffects,
+      Encaissementffects
     ]),
 
     StoreDevtoolsModule.instrument(),

@@ -7,5 +7,5 @@ export interface ImmeubleAfficheDto {
   numeroImmeuble?: number;
   nomPropio?: string;
   prenomProprio?: string;
-  garrage?: boolean; 
+  garrage?: boolean;
 }

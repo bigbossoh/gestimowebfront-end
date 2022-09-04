@@ -1026,7 +1026,7 @@
     },
     "gestimoweb/api/v1/encaissement/saveencaissement" : {
       "post" : {
-        "operationId" : "saveCommune",
+        "operationId" : "saveEncaissement",
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -3859,10 +3859,10 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "garrage" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "garrage" : {
           "type" : "boolean"
         }
       }

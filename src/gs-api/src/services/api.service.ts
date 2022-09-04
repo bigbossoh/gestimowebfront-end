@@ -97,7 +97,7 @@ class ApiService extends __BaseService {
   static readonly findCommuneByNamePath = 'gestimoweb/api/v1/commune/findByName/{name}';
   static readonly saveCommunePath = 'gestimoweb/api/v1/commune/save';
   static readonly listTousEncaissementsPrincipalPath = 'gestimoweb/api/v1/encaissement/findAllEncaissementPrincipal';
-  static readonly saveCommune_1Path = 'gestimoweb/api/v1/encaissement/saveencaissement';
+  static readonly saveEncaissementPath = 'gestimoweb/api/v1/encaissement/saveencaissement';
   static readonly totalencaissementParIdAppelLoyerPath = 'gestimoweb/api/v1/encaissement/totalencaissement/{id}';
   static readonly sendMailGrouperWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendmailgrouper/{periode}';
   static readonly sendMailQuittanceWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendquittancebymail/{id}';
@@ -2013,7 +2013,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveCommune_1Response(body?: EncaissementPayloadDto): __Observable<__StrictHttpResponse<boolean>> {
+  saveEncaissementResponse(body?: EncaissementPayloadDto): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2039,8 +2039,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveCommune_1(body?: EncaissementPayloadDto): __Observable<boolean> {
-    return this.saveCommune_1Response(body).pipe(
+  saveEncaissement(body?: EncaissementPayloadDto): __Observable<boolean> {
+    return this.saveEncaissementResponse(body).pipe(
       __map(_r => _r.body as boolean)
     );
   }
