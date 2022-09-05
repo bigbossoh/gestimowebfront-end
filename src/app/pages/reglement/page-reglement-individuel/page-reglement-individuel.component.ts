@@ -38,12 +38,19 @@ export class PageReglementIndividuelComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.user = this.userService.getUserFromLocalCache();
+    console.log("Le user id est  est ");
+
+    console.log(this.user.id);
+
     //GET ALL LOCATAIRE
     this.store.dispatch(new GetAllLocatairesActions({}));
     this.locataireState$ = this.store.pipe(
       map((state) => state.utilisateurState)
     );
     this.encaissementform = this.fb.group({
+      idAgence: [this.user.idAgence],
+      idCreateur:[this.user.id],
       idAppelLoyer: [4],
       modePaiement: ['ESPESE_MAGISER'],
       operationType: ['CREDIT'],
@@ -57,6 +64,10 @@ export class PageReglementIndividuelComponent implements OnInit {
     if (this.encaissementform?.invalid) {
       return;
     }
+    console.log("le formulaire est le suivant : ");
+
+    console.log(this.encaissementform?.value);
+
     this.submitted = false;
     this.store.dispatch(
       new SaveEncaissementActions(this.encaissementform?.value)

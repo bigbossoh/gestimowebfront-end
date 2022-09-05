@@ -3270,10 +3270,10 @@
         "utilisateur" : {
           "type" : "string"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -3327,10 +3327,10 @@
         "utilisateur" : {
           "$ref" : "#/definitions/Utilisateur"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -3514,6 +3514,14 @@
     "EncaissementPayloadDto" : {
       "type" : "object",
       "properties" : {
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "idAppelLoyer" : {
           "type" : "integer",
           "format" : "int64"
@@ -3762,10 +3770,10 @@
         "garrage" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -3938,10 +3946,10 @@
         "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -3999,13 +4007,13 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "underBuildingMagasin" : {
+        "archived" : {
           "type" : "boolean"
         },
         "occupied" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -4057,13 +4065,13 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "archived" : {
           "type" : "boolean"
         },
         "occupied" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -4694,10 +4702,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -4824,10 +4832,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -4929,10 +4937,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -5021,10 +5029,10 @@
             "$ref" : "#/definitions/Operation"
           }
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -5100,10 +5108,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
