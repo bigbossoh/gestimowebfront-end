@@ -74,11 +74,11 @@
               <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
                 <th mat-header-cell *matHeaderCellDef class="text-center thick"> {{column}} </th>
                 <td mat-cell *matCellDef="let element" (click)="chargerAppels(element.id)" class="th-class">
-                  <div *ngIf="column=='Bien immobilier'">
+                  <!-- <div *ngIf="column=='Bien immobilier'">
                     {{element.bienImmobilierOperation}}
-                  </div>
+                  </div> -->
                   <div *ngIf="column=='Code bail'">
-                    {{element.abrvCodeBail}}
+                    {{element.utilisateurOperation}} / {{element.bienImmobilierOperation}}
                   </div>
                   <div *ngIf="column=='debut'">
                     {{element.dateDebut|date:'dd-MM-yyyy'}}
@@ -94,22 +94,27 @@
                   </div>
 
                   <div *ngIf="column=='Bail en cours'">
-                    <span *ngIf="element.archiveBail==true" style='color: red'>
+                    <span *ngIf="element.enCoursBail==false" style='color: red'>
                       <mat-icon>lock</mat-icon>
                     </span>
 
-                    <span *ngIf="element.archiveBail==false">
+                    <span *ngIf="element.enCoursBail==true">
                       <i class="fas fa-check-circle" aria-hidden="true" style='color: green'></i>
-
                     </span>
                   </div>
 
                   <div *ngIf="column=='Actions'">
                     <section>
                       <div class="example-button-row text-center">
-                        <button mat-raised-button color="primary" class="mr-2" (click)="onDetailClick(state.baux);(expandedElement  === element ? null : element); $event.stopPropagation();chargerAppels(element.id)">Detail</button>
-                        <button mat-raised-button color="accent" class="mr-2" (click)="onModifClick(state.baux);(expandedElement  === element ? null : element); $event.stopPropagation();chargerAppels(element.id)">Modication</button>
-                        <button mat-raised-button color="warn" (click)="onDeleteClick(state.baux);(expandedElement  === element ? null : element); $event.stopPropagation();chargerAppels(element.id);openModifMontantDialog(element.id)">Modifier montant loyer</button>
+                        <button mat-raised-button color="primary" class="mr-2"
+                          (click)="onDetailClick(state.baux);(expandedElement  === element ? null : element); $event.stopPropagation();chargerAppels(element.id)">Detail</button>
+                        <button mat-raised-button color="accent" class="mr-2"
+                          (click)="onModifClick(state.baux);(expandedElement  === element ? null : element); $event.stopPropagation();chargerAppels(element.id)">Modication</button>
+                        <button mat-raised-button color="primary" class="mr-2"
+                          (click)="onClotureBail(element.id,element.abrvCodeBail);(expandedElement  === element ? null : element); $event.stopPropagation();chargerAppels(element.id)">Cloture</button>
+                        <button mat-raised-button color="warn"
+                          (click)="onDeleteClick(state.baux);(expandedElement  === element ? null : element); $event.stopPropagation();chargerAppels(element.id);openModifMontantDialog(element.id)">Modifier
+                          montant loyer</button>
                       </div>
                     </section>
                   </div>
@@ -129,7 +134,7 @@
                           <mat-spinner></mat-spinner>
                         </ng-container>
                         <ng-container *ngSwitchCase="AppelLoyerStateEnum.ERROR">
-
+                          Une erreur est survenue. Veuillez consulter l'administrateur
                         </ng-container>
                         <ng-container *ngSwitchCase="AppelLoyerStateEnum.LOADED">
 

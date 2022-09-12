@@ -2,6 +2,7 @@
 export interface VillaDto {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   nbrChambreVilla?: number;
   nbrePiece?: number;
   nbrSalonVilla?: number;
@@ -19,6 +20,6 @@ export interface VillaDto {
   idSite?: number;
   idUtilisateur?: number;
   proprietaire?: string;
-  archived?: boolean;
   occupied?: boolean;
+  archived?: boolean;
 }

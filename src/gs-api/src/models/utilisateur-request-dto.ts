@@ -3,6 +3,7 @@ import { RoleRequestDto } from './role-request-dto';
 export interface UtilisateurRequestDto {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   utilisateurIdApp?: string;
   nom?: string;
   prenom?: string;
@@ -28,6 +29,6 @@ export interface UtilisateurRequestDto {
   roleRequestDto?: RoleRequestDto;
   userCreate?: number;
   active?: boolean;
-  nonLocked?: boolean;
   activated?: boolean;
+  nonLocked?: boolean;
 }

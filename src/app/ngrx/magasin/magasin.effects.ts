@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
+import { NotificationType } from 'src/app/enum/natification-type.enum';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 import { ApiService } from 'src/gs-api/src/services';
 import { GetAllMagasinActionsSuccess, GetAllMagasinActionsError } from './magasin.actions';
 import {
@@ -16,17 +18,32 @@ import {
 
 @Injectable()
 export class MagasinEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions) {}
+  constructor(private apiService: ApiService, private effectActions: Actions
+    , private notificationService: NotificationService) { }
 
   //SAVE EFFECTS
   saveMagasinEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(MagasinActionsTypes.SAVE_MAGASIN),
       mergeMap((action: MagasinActions) => {
-        return this.apiService.saveMagasin(action.payload).pipe(
+        return this.apiService.saveMagasinReturnDto(action.payload).pipe(
           map((magasin) => new SaveMagasinActionsSuccess(magasin)),
           catchError((err) => of(new SaveMagasintActionsError(err.message)))
         );
+      }),
+      tap((resultat) => {
+        console.log('Resultats Effects save Magasin', resultat);
+        if (resultat.payload != null) {
+          this.sendErrorNotification(
+            NotificationType.SUCCESS,
+            "La création du Magasin a été effectuée avec succès"
+          );
+        } else {
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            'Une erreur a été rencontrée'
+          );
+        }
       })
     )
   );
@@ -44,8 +61,8 @@ export class MagasinEffects {
       })
     )
   );
-    //LISTE DES MAGASINS
-    getAllMagasinsEffect: Observable<Action> = createEffect(() =>
+  //LISTE DES MAGASINS
+  getAllMagasinsEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(MagasinActionsTypes.GET_ALL_MAGASIN),
       mergeMap((action) => {
@@ -58,4 +75,17 @@ export class MagasinEffects {
       })
     )
   );
+  private sendErrorNotification(
+    notificationType: NotificationType,
+    message: string
+  ): void {
+    if (message) {
+      this.notificationService.notify(notificationType, message);
+    } else {
+      this.notificationService.notify(
+        notificationType,
+        'An error occurred. Please try again.'
+      );
+    }
+  }
 }

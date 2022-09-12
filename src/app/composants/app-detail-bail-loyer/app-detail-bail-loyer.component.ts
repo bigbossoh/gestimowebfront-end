@@ -18,6 +18,10 @@ export class AppDetailBailLoyerComponent implements OnInit {
   constructor(private store: Store<any>) {}
 
   ngOnInit(): void {
+    console.log("le dto est le suivant");
+    console.log(this.appelLoyerDto);
+    
+    
     if (this.idBail == 1) {
       this.store.dispatch(new GetAllAppelLoyerActions(this.idBail));
       this.appelStore$ = this.store.pipe(map((state) => state.appelLoyerState));

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
 import { GetAllAppartementActionsSuccess, GetAllAppartementActionsError } from './appartement.actions';
 import {
@@ -16,7 +16,7 @@ import {
 
 @Injectable()
 export class AppartementEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions) {}
+  constructor(private apiService: ApiService, private effectActions: Actions) { }
 
   //SAVE EFFECTS
   saveAppartementEffect: Observable<Action> = createEffect(() =>
@@ -47,11 +47,11 @@ export class AppartementEffects {
       })
     )
   );
-    //LISTE DES APPARTEMENT
-    getAllAppartementEffect: Observable<Action> = createEffect(() =>
+  //LISTE DES APPARTEMENT
+  getAllAppartementEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(AppartementActionsTypes.GET_ALL_APPARTEMENT),
-      mergeMap((action) => {
+      mergeMap(() => {
         return this.apiService.findAllAppartement().pipe(
           map(
             (appartement) =>
@@ -61,6 +61,16 @@ export class AppartementEffects {
             of(new GetAllAppartementActionsError(err.message))
           )
         );
+      }), tap((resultat) => {
+        console.log("Le resultat est le suivant");
+        console.log(resultat);
+        
+        
+        if (resultat.payload != null) {
+
+        } else {
+
+        }
       })
     )
   );

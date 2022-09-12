@@ -38,4 +38,5 @@ export interface AppelLoyersFactureDto {
   abrvCodeBail?: string;
   nouveauMontantLoyer?: number;
   solderAppelLoyer?: boolean;
+  cloturer?: boolean;
 }

@@ -38,9 +38,9 @@
               <th>Actions</th>
             </tr>
           </thead>
-          <ng-container *ngIf="getAgenceState$ | async as state" [ngSwitch]="state.dataState">
+          <ng-container *ngIf="getAgenceState$ | async as agenceState" [ngSwitch]="agenceState.dataState">
             <ng-container *ngSwitchCase="AgenceStateEnum.LOADED">
-              <tbody *ngFor="let agence of state.agences">
+              <tbody *ngFor="let agence of agenceState.agences">
                 <tr class="text-center">
                   <td>
                     <img height="40" width="40" src="assets/nassmam.jpg" class="rounded-circle img-fluid img-thumbnail"

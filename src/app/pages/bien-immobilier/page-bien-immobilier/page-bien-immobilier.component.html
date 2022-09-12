@@ -76,9 +76,7 @@
 
 
 
-    <ng-container *ngIf="bienState$ | async as state" [ngSwitch]="state.dataState">
-
-
+    <ng-container *ngIf="bienState$ | async as bienState" [ngSwitch]="bienState.dataState">
       <div class="tab-content" id="myTabContent">
         <!-- user table -->
         <div class="tab-pane fade show active" id="users">
@@ -97,18 +95,16 @@
               <!-- Les appartements -->
               <ng-container *ngIf="appartementState$ | async as appartementState"
                 [ngSwitch]="appartementState.dataState">
-                <ng-container ng-container *ngSwitchCase="AppartementEnum.INITIAL">
-
-                </ng-container>
                 <ng-container ng-container *ngSwitchCase="AppartementEnum.LOADED">
                   <tr class="text-center" *ngFor="let appart of appartementState.appartements">
                     <td>{{ appart.id }}</td>
                     <td>{{ appart.abrvNomApp }}</td>
                     <td>{{ appart.proprietaire }}</td>
                     <td>{{ appart.abrvNomApp }}</td>
-                    <td *ngIf="appart.occupied" style="color: red"><i class="fa-solid fa-door-closed"></i></td>
-                    <td *ngIf="!appart.occupied" style="color: blue"><i class="fas fa-door-open"></i></td>
-
+                    <td>
+                      <span [hidden]="appart.occupied" class="badge badge-success">Libre</span>
+                      <span [hidden]="!appart.occupied" class="badge badge-danger">Occupé</span>
+                    </td>
                     <td class="">
                       <div class="btn-group">
                         <button class="btn btn-outline-info" (click)="onEditdele(appart.id)">
@@ -127,7 +123,7 @@
                   </div>
                 </ng-container>
               </ng-container>
-              <!-- Les Magasins --> 
+              <!-- Les Magasins -->
               <ng-container *ngIf="magasinState$ | async as magasinState" [ngSwitch]="magasinState.dataState">
                 <ng-container ng-container *ngSwitchCase="MagasinStateEnum.LOADING">
                   <div class="spinner-border text-primary" role="status">
@@ -140,9 +136,11 @@
                     <td>{{ maga.abrvBienimmobilier }}</td>
                     <td>{{ maga.proprietaire }}</td>
                     <td>{{ maga.abrvNomMagasin }}</td>
-                    <td *ngIf="maga.occupied" style="color: red"><i class="fa-solid fa-door-closed"></i></td>
-                    <td *ngIf="!maga.occupied" style="color: blue"><i class="fas fa-door-open"></i></td>
 
+                    <td>
+                      <span [hidden]="maga.occupied" class="badge badge-success">Libre</span>
+                      <span [hidden]="!maga.occupied" class="badge badge-danger">Occupé</span>
+                    </td>
                     <td class="">
                       <div class="btn-group">
                         <button class="btn btn-outline-info" (click)="onEditdele(maga.id)">
@@ -162,14 +160,14 @@
                 </ng-container>
               </ng-container>
               <!-- Les studios -->
-              <ng-container *ngIf="studioState$ | async as studioState" [ngSwitch]="studioState.dataState">
+              <!-- <ng-container *ngIf="studioState$ | async as studioState" [ngSwitch]="studioState.dataState">
                 <ng-container ng-container *ngSwitchCase="StudioStateEnum.LOADING">
                   <div class="spinner-border text-primary" role="status">
+                
                     <span class="sr-only">Loading...</span>
                   </div>
                 </ng-container>
                 <ng-container ng-container *ngSwitchCase="StudioStateEnum.LOADED">
-                 Loaded....
                   <div class="spinner-border text-primary" role="status">
                     <span class="sr-only">Loading...</span>
                   </div>
@@ -200,7 +198,7 @@
                     L'Erreur suivante c'est produite : {{ studioState.errorMessage }}
                   </div>
                 </ng-container>
-              </ng-container>
+              </ng-container> -->
               <!-- Les villas -->
               <ng-container *ngIf="villaState$ | async as villaState" [ngSwitch]="villaState.dataState">
                 <ng-container ng-container *ngSwitchCase="VillaStateEnum.LOADING">
@@ -214,9 +212,10 @@
                     <td>{{ villa.abrvBienimmobilier }}</td>
                     <td>{{ villa.proprietaire }}</td>
                     <td>{{ villa.abrvVilla }}</td>
-                    <td *ngIf="villa.occupied" style="color: red"><i class="fa-solid fa-door-closed"></i></td>
-                    <td *ngIf="!villa.occupied" style="color: blue"><i class="fas fa-door-open"></i></td>
-
+                    <td>
+                      <span [hidden]="villa.occupied" class="badge badge-success">Libre</span>
+                      <span [hidden]="!villa.occupied" class="badge badge-danger">Occupé</span>
+                    </td>
                     <td class="">
                       <div class="btn-group">
                         <button class="btn btn-outline-info" (click)="onEditdele(villa.id)">
@@ -240,15 +239,15 @@
         </div>
       </div>
 
-      <ng-container *ngSwitchCase="BienImmobilierStateEnum.LOADING">
+      <!-- <ng-container *ngSwitchCase="BienImmobilierStateEnum.LOADING">
         <div class="spinner-border text-primary" role="status">
           <span class="sr-only">Loading...</span>
         </div>
-      </ng-container>
+      </ng-container> -->
 
       <ng-container *ngSwitchCase="BienImmobilierStateEnum.ERROR">
         <div class="p-2">
-          L'Erreur suivante c'est produite : {{ state.errorMessage }}
+          L'Erreur suivante c'est produite : {{ bienState.errorMessage }}
         </div>
       </ng-container>
     </ng-container>

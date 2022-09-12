@@ -7,6 +7,9 @@ import { OperationDto } from 'src/gs-api/src/models';
 //STORE
 export enum OperationActionsTypes {
 
+  CLOTURE_BAIL = '[OperationDto] Bail Cloturer',
+  CLOTURE_BAIL_SUCCES = '[OperationDto] Bail Cloturer Succes',
+  CLOTURE_BAIL_ERROR = '[OperationDto] Bail Cloturer Error',
 
   GET_ALL_BAIL = '[OperationDto] Get All OperationDto',
   GET_ALL_BAIL_SUCCES = '[OperationDto] Get All OperationDto Succes',
@@ -15,7 +18,7 @@ export enum OperationActionsTypes {
 }
 
 
-// GET ALL APPARTEMENT
+// GET ALL BAUX
 export class GetAllOperationActions implements Action {
   type: OperationActionsTypes = OperationActionsTypes.GET_ALL_BAIL;
   constructor(public payload: any) { }
@@ -32,8 +35,28 @@ export class GetAllOperationActionsError implements Action {
   constructor(public payload: string) { }
 }
 
-export type operationActions =
+// CLOTURE BAIL
+export class ClotureOperationActions implements Action {
+  type: OperationActionsTypes = OperationActionsTypes.CLOTURE_BAIL;
+  constructor(public payload: number) { }
+}
+
+export class ClotureOperationActionsSuccess implements Action {
+  type: OperationActionsTypes =
+    OperationActionsTypes.CLOTURE_BAIL_SUCCES;
+  constructor(public payload: boolean) { }
+}
+export class ClotureOperationActionsError implements Action {
+  type: OperationActionsTypes =
+    OperationActionsTypes.CLOTURE_BAIL_ERROR;
+  constructor(public payload: string) { }
+}
+
+export type OperationActions =
 
   | GetAllOperationActions
   | GetAllOperationActionsError
   | GetAllOperationActionsSuccess
+  | ClotureOperationActions
+  | ClotureOperationActionsError
+  | ClotureOperationActionsSuccess;

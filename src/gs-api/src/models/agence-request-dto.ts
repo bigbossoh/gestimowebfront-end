@@ -2,6 +2,7 @@
 export interface AgenceRequestDto {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   nomAgence?: string;
   telAgence?: string;
   compteContribuable?: string;

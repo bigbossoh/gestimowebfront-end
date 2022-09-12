@@ -28,6 +28,7 @@ export interface BailLocation {
   archiveBail?: boolean;
   montantCautionBail?: number;
   nbreMoisCautionBail?: number;
+  dateCloture?: string;
   montantLoyerBail?: Array<MontantLoyerBail>;
   charges?: Array<Charges>;
   listAppelsLoyers?: Array<AppelLoyer>;

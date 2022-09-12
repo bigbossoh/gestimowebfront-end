@@ -38,13 +38,16 @@ export class PageAgenceComponent implements OnInit {
   }
   onCreateAgence() {
     const dialogref = this.dialog.open(AgenceNewComponent);
-    dialogref.afterClosed().subscribe(() => {
+ 
 
-      // this.store.dispatch(new GetAllAgenceActions({}));
-      // this.getAgenceState$ = this.store.pipe(map((state) => state.agenceState));
-      // console.log('Le state est :');
-      // console.log(this.getAgenceState$);
-       this.ngOnInit();
-    });
+    
+    // dialogref.afterClosed().subscribe(() => {
+
+    //   // this.store.dispatch(new GetAllAgenceActions({}));
+    //   // this.getAgenceState$ = this.store.pipe(map((state) => state.agenceState));
+    //   // console.log('Le state est :');
+    //   // console.log(this.getAgenceState$);
+    //   // this.ngOnInit();
+    // });
   }
 }

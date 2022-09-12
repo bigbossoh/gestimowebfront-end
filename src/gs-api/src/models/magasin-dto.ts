@@ -2,6 +2,7 @@
 export interface MagasinDto {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   numBien?: number;
   statutBien?: string;
   abrvBienimmobilier?: string;
@@ -14,7 +15,8 @@ export interface MagasinDto {
   idEtage?: number;
   idSite?: number;
   idUtilisateur?: number;
-  archived?: boolean;
-  occupied?: boolean;
+  proprietaire?: string;
   underBuildingMagasin?: boolean;
+  occupied?: boolean;
+  archived?: boolean;
 }

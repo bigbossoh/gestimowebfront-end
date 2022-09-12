@@ -23,6 +23,6 @@ export interface Immeuble {
   numeroImmeuble?: number;
   etages?: Array<Etage>;
   garrage?: boolean;
-  archived?: boolean;
   occupied?: boolean;
+  archived?: boolean;
 }

@@ -1,6 +1,8 @@
 /* tslint:disable */
 export interface BienImmobilierDto {
   id?: number;
+  idAgence?: number;
+  idCreateur?: number;
   numBien?: number;
   statutBien?: string;
   abrvBienimmobilier?: string;
@@ -9,6 +11,6 @@ export interface BienImmobilierDto {
   superficieBien?: number;
   site?: string;
   utilisateur?: string;
-  archived?: boolean;
   occupied?: boolean;
+  archived?: boolean;
 }

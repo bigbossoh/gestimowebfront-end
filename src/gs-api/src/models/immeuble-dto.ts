@@ -3,6 +3,7 @@ export interface ImmeubleDto {
   id?: number;
   numBien?: number;
   idAgence?: number;
+  idCreateur?: number;
   statutBien?: string;
   denominationBien?: string;
   nomBien?: string;
@@ -15,6 +16,6 @@ export interface ImmeubleDto {
   abrvNomImmeuble?: string;
   descriptionImmeuble?: string;
   numeroImmeuble?: number;
-  occupied?: boolean;
   garrage?: boolean;
+  occupied?: boolean;
 }

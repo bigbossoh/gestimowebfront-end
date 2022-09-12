@@ -26,7 +26,7 @@ export class SaveMagasinActions implements Action {
 
 export class SaveMagasinActionsSuccess implements Action {
   type: MagasinActionsTypes = MagasinActionsTypes.SAVE_MAGASIN_SUCCES;
-  constructor(public payload: boolean) {}
+  constructor(public payload: MagasinDto) {}
 }
 export class SaveMagasintActionsError implements Action {
   type: MagasinActionsTypes = MagasinActionsTypes.SAVE_MAGASIN_ERROR;
