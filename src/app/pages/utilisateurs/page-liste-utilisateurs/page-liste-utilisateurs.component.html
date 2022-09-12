@@ -1,7 +1,7 @@
 <div class="col">
   <div class="row m-3">
     <div class="col-md-8 p-0">
-      <h1>Liste des utilisateurs</h1>
+      <h1>Liste des utilisateurs a modifier</h1>
     </div>
     <div class="col-md-4 text-right">
       <app-button-action-utlisateur (utilisateurEmmitter)="onActionEmmit($event)" ></app-button-action-utlisateur>
@@ -207,9 +207,7 @@
                   <input *ngIf="editUser" type="text" name="username" required [(ngModel)]="editUser.username" class="form-control">
                 </div>
               </div>
-
             </div>
-
             <div class="form-group">
               <label for="email">Email</label>
               <input *ngIf="editUser" type="email" name="email"  required [(ngModel)]="editUser.email"
@@ -238,7 +236,7 @@
                   <input *ngIf="editUser" name="locked" type="checkbox" [(ngModel)]="editUser.nonLocked"
                     class="form-check-input">
                   Unlocked
-                  <!-- <small >(read only)</small> -->
+               
                 </label>
               </div>
             </fieldset>
@@ -256,10 +254,5 @@
     </div>
 
   </div>
-  <!-- <div class="row mb-3">
-    <div class=" col-md-12 text-center">
-      <app-pagination></app-pagination>
-    </div>
-  </div> -->
 
 </div>

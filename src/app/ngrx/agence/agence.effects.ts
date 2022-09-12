@@ -36,6 +36,7 @@ export class AgenceEffects {
         );
       }),
       tap((resultat) => {
+        console.log('Resultat effect save Agence', resultat);
         if (resultat.payload == true) {
           this.sendErrorNotification(
             NotificationType.SUCCESS,

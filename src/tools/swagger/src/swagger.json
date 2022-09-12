@@ -20,7 +20,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/AgenceResponseDto"
+                "$ref" : "#/definitions/AgenceImmobilierDTO"
               }
             }
           }
@@ -60,7 +60,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/AgenceResponseDto"
+              "$ref" : "#/definitions/AgenceImmobilierDTO"
             }
           }
         }
@@ -101,7 +101,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "boolean"
+              "$ref" : "#/definitions/AgenceImmobilierDTO"
             }
           }
         }
@@ -237,6 +237,26 @@
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/AppartementDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appelloyer/clotureOfAppelDtoByID/{id}" : {
+      "get" : {
+        "operationId" : "deleteAppelDto",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
             }
           }
         }
@@ -468,6 +488,40 @@
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/Utilisateur"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bail/clotureBail/{id}" : {
+      "get" : {
+        "operationId" : "clotureBail",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bail/nombrebailactif" : {
+      "get" : {
+        "operationId" : "nombrebailactif",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int32"
             }
           }
         }
@@ -1008,6 +1062,52 @@
         }
       }
     },
+    "gestimoweb/api/v1/encaissement/allEncaissementByIdLocatire/{idLocatire}" : {
+      "get" : {
+        "operationId" : "findAllEncaissementByIdLocatire",
+        "parameters" : [ {
+          "name" : "idLocatire",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/EncaissementPrincipalDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/encaissement/allencaissementByIdBien/{id}" : {
+      "get" : {
+        "operationId" : "findAllEncaissementByIdBienImmobilier",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/EncaissementPrincipalDTO"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/encaissement/findAllEncaissementPrincipal" : {
       "get" : {
         "operationId" : "listTousEncaissementsPrincipal",
@@ -1024,6 +1124,26 @@
         }
       }
     },
+    "gestimoweb/api/v1/encaissement/findByIdEncaissement/{id}" : {
+      "get" : {
+        "operationId" : "findByIdEncaissement",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/EncaissementPrincipalDTO"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/encaissement/saveencaissement" : {
       "post" : {
         "operationId" : "saveEncaissement",
@@ -1033,6 +1153,30 @@
           "required" : false,
           "schema" : {
             "$ref" : "#/definitions/EncaissementPayloadDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/encaissement/saveencaissementmasse" : {
+      "post" : {
+        "operationId" : "saveEncaissementMasse",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/EncaissementPayloadDto"
+            }
           }
         } ],
         "responses" : {
@@ -1513,6 +1657,27 @@
             "description" : "successful operation",
             "schema" : {
               "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/magasin/savemagasin" : {
+      "post" : {
+        "operationId" : "saveMagasinReturnDto",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/MagasinDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/MagasinDto"
             }
           }
         }
@@ -2413,6 +2578,47 @@
     }
   },
   "definitions" : {
+    "AgenceImmobilierDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nomAgence" : {
+          "type" : "string"
+        },
+        "telAgence" : {
+          "type" : "string"
+        },
+        "compteContribuable" : {
+          "type" : "string"
+        },
+        "capital" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "emailAgence" : {
+          "type" : "string"
+        },
+        "mobileAgence" : {
+          "type" : "string"
+        },
+        "regimeFiscaleAgence" : {
+          "type" : "string"
+        },
+        "faxAgence" : {
+          "type" : "string"
+        },
+        "sigleAgence" : {
+          "type" : "string"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
     "AgenceRequestDto" : {
       "type" : "object",
       "properties" : {
@@ -2421,6 +2627,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -2595,6 +2805,14 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "meubleApp" : {
           "type" : "boolean"
         },
@@ -2716,6 +2934,9 @@
         },
         "solderAppelLoyer" : {
           "type" : "boolean"
+        },
+        "cloturer" : {
+          "type" : "boolean"
         }
       }
     },
@@ -2727,6 +2948,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -2780,6 +3005,10 @@
       "type" : "object",
       "properties" : {
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -2922,6 +3151,9 @@
         },
         "solderAppelLoyer" : {
           "type" : "boolean"
+        },
+        "cloturer" : {
+          "type" : "boolean"
         }
       }
     },
@@ -2944,6 +3176,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -3058,6 +3294,10 @@
           "type" : "integer",
           "format" : "int32"
         },
+        "dateCloture" : {
+          "type" : "string",
+          "format" : "date"
+        },
         "montantLoyerBail" : {
           "type" : "array",
           "items" : {
@@ -3086,6 +3326,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -3142,6 +3386,10 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "designationBail" : {
           "type" : "string"
         },
@@ -3195,6 +3443,10 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "designationBail" : {
           "type" : "string"
         },
@@ -3244,6 +3496,14 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "numBien" : {
           "type" : "integer",
           "format" : "int64"
@@ -3270,10 +3530,10 @@
         "utilisateur" : {
           "type" : "string"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -3327,10 +3587,10 @@
         "utilisateur" : {
           "$ref" : "#/definitions/Utilisateur"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -3438,6 +3698,10 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "abrvCommune" : {
           "type" : "string"
         },
@@ -3526,6 +3790,10 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "dateEncaissement" : {
+          "type" : "string",
+          "format" : "date"
+        },
         "modePaiement" : {
           "type" : "string",
           "enum" : [ "ESPESE_MAGISER", "ESPECE_SEVEINVEST", "CHEQUE_ECOBANK_MAGISER", "CHEQUE_GTBANK_SEVEINVEST", "VIREMENT_ECOBANK_MAGISER", "VIREMENT_GTBANK_SEVEINVEST", "MOBILE_MONEY_MAGISER", "MOBILE_MONEY_SEVEINVEST" ]
@@ -3558,11 +3826,11 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "creationDate" : {
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
-        "idCreateur" : {
+        "creationDate" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -3678,6 +3946,14 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "nomEtage" : {
           "type" : "string"
         },
@@ -3770,10 +4046,10 @@
         "garrage" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -3825,6 +4101,10 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "statutBien" : {
           "type" : "string"
         },
@@ -3867,10 +4147,10 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "occupied" : {
+        "garrage" : {
           "type" : "boolean"
         },
-        "garrage" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -3946,10 +4226,10 @@
         "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -3962,6 +4242,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -4007,13 +4291,16 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "archived" : {
+        "proprietaire" : {
+          "type" : "string"
+        },
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
         "occupied" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -4065,13 +4352,13 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "archived" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
         "occupied" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -4139,6 +4426,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -4237,6 +4528,10 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "creationDate" : {
           "type" : "integer",
           "format" : "int64"
@@ -4329,15 +4624,19 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "abrvPays" : {
           "type" : "string"
         },
         "nomPays" : {
           "type" : "string"
-        },
-        "idAgence" : {
-          "type" : "integer",
-          "format" : "int64"
         }
       }
     },
@@ -4388,6 +4687,14 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "abrvQuartier" : {
           "type" : "string"
         },
@@ -4395,10 +4702,6 @@
           "type" : "string"
         },
         "idCommune" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "idAgence" : {
           "type" : "integer",
           "format" : "int64"
         }
@@ -4470,15 +4773,19 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "roleName" : {
           "type" : "string"
         },
         "descriptionRole" : {
           "type" : "string"
-        },
-        "idAgence" : {
-          "type" : "integer",
-          "format" : "int64"
         }
       }
     },
@@ -4529,11 +4836,15 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "idQuartier" : {
+        "idAgence" : {
           "type" : "integer",
           "format" : "int64"
         },
-        "idAgence" : {
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idQuartier" : {
           "type" : "integer",
           "format" : "int64"
         }
@@ -4654,6 +4965,10 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "numBien" : {
           "type" : "integer",
           "format" : "int64"
@@ -4702,10 +5017,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -4832,10 +5147,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -4848,6 +5163,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -4937,10 +5256,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -5029,10 +5348,10 @@
             "$ref" : "#/definitions/Operation"
           }
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -5045,6 +5364,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -5108,10 +5431,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "archived" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "archived" : {
           "type" : "boolean"
         }
       }
@@ -5164,6 +5487,10 @@
           "format" : "int64"
         },
         "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },

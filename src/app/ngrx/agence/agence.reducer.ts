@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import {
-   AgenceResponseDto
+  AgenceImmobilierDTO,
+  AgenceResponseDto
 } from 'src/gs-api/src/models';
 import {
   AgenceActions,
@@ -15,14 +16,14 @@ export enum AgenceStateEnum {
   EDIT = 'Edit'
 }
 export interface AgenceBdState {
-  agences: AgenceResponseDto[];
-  retourSave:boolean;
+  agences: AgenceImmobilierDTO[];
+  retourSave: boolean;
   errorMessage: string;
   dataState: AgenceStateEnum;
 }
 const initState: AgenceBdState = {
   agences: [],
-  retourSave:false,
+  retourSave: false,
   errorMessage: '',
   dataState: AgenceStateEnum.INITIAL,
 };
@@ -30,21 +31,28 @@ export function agenceReducer(
   state: AgenceBdState = initState,
   action: Action
 ): AgenceBdState {
+  let agenceSave: AgenceResponseDto;
   switch (action.type) {
+
     //SAVE ETAGE
     case AgenceActionsType.SAVE_AGENCE:
+
       return { ...state, dataState: AgenceStateEnum.LOADING };
     case AgenceActionsType.SAVE_AGENCE_SUCCES:
-      let agenceSave:AgenceResponseDto=(<AgenceActions>action).payload;
+      let agenceSave = (<AgenceActions>action).payload;
       let currentAgenceListe = [...state.agences];
-     // currentAgenceListe.push(agenceSave);
+      console.log("New Agence is :");
+      console.log((<AgenceActions>action).payload);
+
+
+      currentAgenceListe.push(agenceSave);
       console.log('Cuurente is');
       console.log(currentAgenceListe);
       return {
         ...state,
         dataState: AgenceStateEnum.LOADED,
         retourSave: true,
-agences:currentAgenceListe
+        agences: currentAgenceListe
       };
     case AgenceActionsType.SAVE_AGENCE_ERROR:
       return {
@@ -52,24 +60,24 @@ agences:currentAgenceListe
         dataState: AgenceStateEnum.ERROR,
         errorMessage: (<AgenceActions>action).payload,
       };
-      //remaining all agence
+    //remaining all agence
 
-      //SAVE ETAGE
+    //SAVE ETAGE
     case AgenceActionsType.GET_ALL_AGENCE:
-    return { ...state, dataState: AgenceStateEnum.LOADING };
-  case AgenceActionsType.GET_ALL_AGENCE_SUCCES:
+      return { ...state, dataState: AgenceStateEnum.LOADING };
+    case AgenceActionsType.GET_ALL_AGENCE_SUCCES:
 
-    return {
-      ...state,
-      dataState: AgenceStateEnum.LOADED,
-    agences:(<AgenceActions>action).payload
-    };
-  case AgenceActionsType.GET_ALL_AGENCE_ERROR:
-    return {
-      ...state,
-      dataState: AgenceStateEnum.ERROR,
-      errorMessage: (<AgenceActions>action).payload,
-    };
+      return {
+        ...state,
+        dataState: AgenceStateEnum.LOADED,
+        agences: (<AgenceActions>action).payload
+      };
+    case AgenceActionsType.GET_ALL_AGENCE_ERROR:
+      return {
+        ...state,
+        dataState: AgenceStateEnum.ERROR,
+        errorMessage: (<AgenceActions>action).payload,
+      };
     default:
       return { ...state };
   }

@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import { OperationDto } from 'src/gs-api/src/models';
 import {
-  operationActions as OperationActions,
+  OperationActions as OperationActions,
   OperationActionsTypes,
 } from './baux.actions';
 export enum BauxStateEnum {
@@ -18,11 +18,13 @@ export interface BauxState {
   baux: OperationDto[];
   errorMessage: string;
   dataState: BauxStateEnum;
+  cloture:boolean
 }
 const initState: BauxState = {
   baux: [],
   errorMessage: '',
   dataState: BauxStateEnum.INITIAL,
+  cloture:false
 };
 export function bauxReducer(
   state: BauxState = initState,
@@ -46,6 +48,22 @@ export function bauxReducer(
         dataState: BauxStateEnum.ERROR,
         errorMessage: (<OperationActions>action).payload,
       };
+//CLOTURER BAIL
+case OperationActionsTypes.CLOTURE_BAIL:
+  return { ...state, dataState: BauxStateEnum.LOADING };
+case OperationActionsTypes.CLOTURE_BAIL_SUCCES:
+  return {
+    ...state,
+    dataState: BauxStateEnum.LOADED,
+    cloture: (<OperationActions>action).payload,
+  };
+case OperationActionsTypes.GET_ALL_BAIL_ERROR:
+  return {
+    ...state,
+    dataState: BauxStateEnum.ERROR,
+    errorMessage: (<OperationActions>action).payload,
+  };
+      
     default:
       return { ...state };
   }

@@ -2,6 +2,7 @@
 export interface AppelLoyerDto {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   periodeAppelLoyer?: string;
   statusAppelLoyer?: string;
   datePaiementPrevuAppelLoyer?: string;

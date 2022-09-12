@@ -2,6 +2,7 @@
 export interface StudioDto {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   numBien?: number;
   statutBien?: string;
   abrvBienimmobilier?: string;
@@ -16,6 +17,6 @@ export interface StudioDto {
   idEtage?: number;
   idUtilisateur?: number;
   proprietaire?: string;
-  archived?: boolean;
   occupied?: boolean;
+  archived?: boolean;
 }

@@ -62,6 +62,7 @@ export class PageNewSiteComponent implements OnInit {
       id: [0],
       idQuartier: [null, Validators.required],
       idAgence: [this.user?.idAgence],
+      idCreateur:[this.user?.id]
     });
     this.changeCity(0);
   }
@@ -92,6 +93,6 @@ export class PageNewSiteComponent implements OnInit {
     this.quartierModel = c[0].abrvQuartier;
   }
   villeChange(v: any) {
-      //this.villeModel = v[0]
+      
   }
 }

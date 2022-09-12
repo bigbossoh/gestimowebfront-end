@@ -3,7 +3,7 @@
 
 import { Action } from '@ngrx/store';
 
-import { AgenceRequestDto, AgenceResponseDto } from 'src/gs-api/src/models';
+import { AgenceImmobilierDTO, AgenceRequestDto, AgenceResponseDto } from 'src/gs-api/src/models';
 
 //STORE
 
@@ -42,7 +42,7 @@ export class GetAllAgenceActions implements Action {
 
 export class GetAllAgenceActionsSuccess implements Action {
   type: AgenceActionsType = AgenceActionsType.GET_ALL_AGENCE_SUCCES;
-  constructor(public payload: AgenceResponseDto[]) {}
+  constructor(public payload: AgenceImmobilierDTO[]) {}
 }
 export class GetAllAgenceActionsError implements Action {
   type: AgenceActionsType = AgenceActionsType.GET_ALL_AGENCE_ERROR;

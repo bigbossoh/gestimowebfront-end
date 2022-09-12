@@ -49,7 +49,6 @@
               </select>
             </div>
           </form>
-          <!-- FORM POUR IMMEUBLE -->
 
           <!-- FORM POUR VILLA -->
           <form
@@ -833,7 +832,7 @@
                   *ngIf="immeubleState$ | async as state"
                   [ngSwitch]="state.dataState"
                 >
-                  <ng-container *ngSwitchCase="ImmeubleStateEnum.INITIAL">
+                  <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADING">
                     <div class="spinner-border text-primary" role="status">
                       <span class="sr-only">Loading...</span>
                     </div>
@@ -853,6 +852,7 @@
                       >Immeuble</label
                     >
                     <select
+                    
                       (change)="findEtageByImmeuble($event)"
                       formControlName="idImmeuble"
                       name="idImmeuble"
@@ -863,8 +863,7 @@
                           appartementForm.controls.idImmeuble.errors
                       }"
                     >
-                      <option [value]="0">Sélection un Immeuble</option>
-                      <option [value]="0">Aucun Immeuble</option>
+                     <option [value]="0">Aucun Immeuble</option>
                       <option
                         [value]="immeub.numeroImmeuble"
                         *ngFor="let immeub of state.immeubles"
@@ -881,7 +880,7 @@
                           appartementForm.controls.idImmeuble.errors.required
                         "
                       >
-                        * Veuillez saisir un étage
+                        * Veuillez saisir un Immeuble
                       </div>
                     </div>
                   </ng-container>
@@ -889,14 +888,10 @@
               </div>
               <div class="col-md-6">
                 <ng-container
-                  *ngIf="etageState$ | async as stateEtage"
-                  [ngSwitch]="stateEtage.dataState"
+                  *ngIf="etageState$ | async as stateState"
+                  [ngSwitch]="stateState.dataState"
                 >
-                  <ng-container *ngSwitchCase="EtagesStateEnum.INITIAL">
-                    <div class="spinner-border text-primary" role="status">
-                      <span class="sr-only">Loading...</span>
-                    </div>
-                  </ng-container>
+              
                   <ng-container *ngSwitchCase="EtagesStateEnum.LOADING">
                     <div class="spinner-border text-primary" role="status">
                       <span class="sr-only">Loading...</span>
@@ -904,7 +899,7 @@
                   </ng-container>
                   <ng-container *ngSwitchCase="EtagesStateEnum.ERROR">
                     <div class="p-2">
-                      Erreur : {{ stateEtage.errorMessage }}
+                      Erreur : {{ stateState.errorMessage }}
                     </div>
                   </ng-container>
                   <ng-container *ngSwitchCase="EtagesStateEnum.LOADED">
@@ -921,7 +916,7 @@
                       <option [value]="">Aucun Etage</option>
                       <option
                         [value]="eta.id"
-                        *ngFor="let eta of stateEtage.etages"
+                        *ngFor="let eta of stateState.etages"
                       >
                         {{ eta.abrvEtage }}
                       </option>

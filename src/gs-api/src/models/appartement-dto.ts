@@ -1,6 +1,8 @@
 /* tslint:disable */
 export interface AppartementDto {
   id?: number;
+  idAgence?: number;
+  idCreateur?: number;
   meubleApp?: boolean;
   nbrPieceApp?: number;
   nbreChambreApp?: number;

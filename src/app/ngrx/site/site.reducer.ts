@@ -64,16 +64,16 @@ export function siteReducer(
     case SiteActionsTypes.DELETE_SITE:
       return { ...state, dataState: SiteStateEnum.LOADING };
     case SiteActionsTypes.DELETE_SITE_SUCCES:
-      //let siteDele: SiteRequestDto = (<SiteActions>action).payload;
-      // console.log('le deklete is');
-      // console.log(siteDele);
-      // let index = state.sites.indexOf(siteDele);
-      // let listSites = [...state.sites];
-      // listSites.splice(index, 1);
+      let siteDele: SiteRequestDto = (<SiteActions>action).payload;
+      console.log('le delete is');
+      console.log(siteDele);
+      let index = state.sites.indexOf(siteDele);
+      let listSites = [...state.sites];
+      listSites.splice(index, 1);
       return {
         ...state,
         dataState: SiteStateEnum.LOADED,
-       // sites: listSites,
+        sites: listSites,
       };
     case SiteActionsTypes.DELETE_SITE_ERROR:
       return {

@@ -83,7 +83,6 @@ export function appartementReducer(
         dataState: AppartementStateEnum.ERROR,
         errorMessage: (<AppartementActions>action).payload,
       };
-
     default:
       return { ...state };
   }

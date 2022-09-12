@@ -29,7 +29,7 @@
                                       *ngSwitchCase="VilleStateEnum.LOADED"
                                     >
                                       <label>Selectionnez une Ville</label>
-                                      <select
+                                      <select #villeModel
                                         class="form-control"
                                         (change)="
                                           changeCity($any($event.target).value)
@@ -84,9 +84,9 @@
                                         *ngIf="state.communes.length != 0"
                                       >
                                         <label>Selectionnez une Commune</label>
-                                        <select
+                                        <select #quartierModel
                                           class="form-control"
-                                          [(ngModel)]="villeModel"
+                                        
                                           (change)="
                                             changeCommune(
                                               $any($event.target).value
@@ -199,7 +199,6 @@
                                   </ng-container>
                                 </div>
                               </div>
-                              <div>{{ villeModel }}-{{ quartierModel }}</div>
                             </div>
                           </div>
                           <div class="row">

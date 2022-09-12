@@ -1,3 +1,4 @@
+export { AgenceImmobilierDTO } from './models/agence-immobilier-dto';
 export { AgenceRequestDto } from './models/agence-request-dto';
 export { AgenceResponseDto } from './models/agence-response-dto';
 export { AnneeAppelLoyersDto } from './models/annee-appel-loyers-dto';

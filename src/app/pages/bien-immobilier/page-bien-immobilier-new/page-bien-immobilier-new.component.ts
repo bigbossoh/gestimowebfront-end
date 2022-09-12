@@ -104,11 +104,13 @@ export class PageBienImmobilierNewComponent implements OnInit {
     ];
   }
   findEtageByImmeuble(immeuble: any) {
+    console.log("le target est le suivant :  "+immeuble.target.value);
+    
     this.store.dispatch(
       new GetAllEtagesByImmeubleActions(immeuble.target.value)
     );
     this.etageState$ = this.store.pipe(
-      map((state) => state.etageByImmeubeState)
+      map((state) => state.etageState)
     );
   }
   private sendErrorNotification(
@@ -141,8 +143,13 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.onClose();
   }
   onSaveMagasin() {
+    alert("On n'est ici")
     this.submitted = true;
     if (this.magasinForm?.invalid) {
+     console.log("Le formulaire n'est pas bon du tout et pourquoi ?");
+     console.log(this.magasinForm?.value);
+     
+     
       return;
     }
     this.submitted = false;
@@ -213,6 +220,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
 
     this.villaForm = this.fb.group({
       id: [0],
+      idCreateur:[this.user?.id],
       idAgence: [this.user?.idAgence],
       nbrChambreVilla: [0],
       nbrePiece: [0],
@@ -238,6 +246,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
       id: [0],
       numBien: [0],
       idAgence: [this.user?.idAgence],
+      idCreateur:[this.user?.id],
       statutBien: [''],
       denominationBien: [],
       nomBien: ['', Validators.required],
@@ -256,11 +265,12 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.magasinForm = this.fb.group({
       id: [0],
       idAgence: [this.user?.idAgence],
+      idCreateur:[this.user?.id],
       numBien: [0],
       statutBien: [''],
       abrvBienimmobilier: ['MAGASIN'],
       description: [''],
-      nomBien: ['', [Validators.required]],
+      nomBien: [''],
       superficieBien: [0],
       abrvNomMagasin: ['MAGASIN'],
       nmbrPieceMagasin: [0],
@@ -274,6 +284,8 @@ export class PageBienImmobilierNewComponent implements OnInit {
     });
     this.appartementForm = this.fb.group({
       id: [0],
+      idAgence: [this.user?.idAgence],
+      idCreateur:[this.user?.id],
       idEtage: [0, [Validators.required]],
       meubleApp: [false],
       nbrPieceApp: [0],
@@ -288,6 +300,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.studioform = this.fb.group({
       id: [0],
       idAgence: [this.user?.idAgence],
+      idCreateur:[this.user?.id],
       numBien: [0],
       statutBien: [''],
       abrvBienimmobilier: ['STUDIO'],
@@ -313,6 +326,8 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.etageForm = this.fb.group({
       //ETAGE
       id: [0],
+      idAgence: [this.user?.idAgence],
+      idCreateur:[this.user?.id],
       nomEtage: ['', Validators.required],
       numEtage: [0],
       idImmeuble: ['', Validators.required],
@@ -323,6 +338,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
       //VILLA
       id: [0],
       idAgence: [this.user?.idAgence],
+      idCreateur:[this.user?.id],
       nbrChambreVilla: [0],
       nbrePiece: [0],
       nbrSalonVilla: [],

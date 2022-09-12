@@ -2,6 +2,7 @@
 export interface BailAppartementDto {
   id?: number;
   idAgence?: number;
+  idCreateur?: number;
   designationBail?: string;
   abrvCodeBail?: string;
   enCoursBail?: boolean;

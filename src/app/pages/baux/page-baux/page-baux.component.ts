@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { GetAllOperationActions } from 'src/app/ngrx/baux/baux.actions';
+import { ClotureOperationActions, GetAllOperationActions } from 'src/app/ngrx/baux/baux.actions';
 import { BauxState, BauxStateEnum } from 'src/app/ngrx/baux/baux.reducer';
 import { OperationDto } from '../../../../gs-api/src/models/operation-dto';
 import { GetAllAppelLoyerActions } from '../../../ngrx/appelloyer/appelloyer.actions';
@@ -22,7 +22,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModifLoyerBailComponent } from '../modif-loyer-bail/modif-loyer-bail.component';
 
 export interface DialogData {
-
   id: number;
 }
 @Component({
@@ -42,12 +41,11 @@ export interface DialogData {
 })
 export class PageBauxComponent implements OnInit {
   columnsToDisplay = [
-
     'Code bail',
-    'Locataire',
+    // 'Locataire',
     'debut',
     'fin',
-    'Bien immobilier',
+    // 'Bien immobilier',
     'Montant Caution',
     'Bail en cours',
     'Actions',
@@ -63,14 +61,13 @@ export class PageBauxComponent implements OnInit {
   readonly BauxStateEnum = BauxStateEnum;
   readonly AppelLoyerStateEnum = AppelLoyerStateEnum;
 
-  constructor(public dialog: MatDialog,private store: Store<any>) {}
+  constructor(public dialog: MatDialog, private store: Store<any>) { }
   openModifMontantDialog(loyer: number): void {
-     const dialolRef = this.dialog.open(ModifLoyerBailComponent, {
-      data:{id:loyer}
+    const dialolRef = this.dialog.open(ModifLoyerBailComponent, {
+      data: { id: loyer }
     });
     dialolRef.afterClosed().subscribe(() => {
       console.log('On  a fermer le formulaire de Baux');
-
     });
   }
   ngOnInit(): void {
@@ -83,6 +80,15 @@ export class PageBauxComponent implements OnInit {
   onDetailClick(state: any) {
 
   }
+  onClotureBail(idBail: any, nomBail: any) {
+    console.log("Le Id est le suivant : " + idBail);
+    if (confirm("Vous allez Cloturer le Bail " + nomBail)) {
+      this.store.dispatch(new ClotureOperationActions(idBail));
+      this.bauxState$ = this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
+    }
+
+
+  }
 
   onModifClick(state: any) {
 
@@ -91,6 +97,9 @@ export class PageBauxComponent implements OnInit {
 
   }
   chargerAppels(evt: any) {
+    console.log("Le event qui a changé c'est celui ci "+evt);
+
+    
     this.store.dispatch(new GetAllAppelLoyerActions(evt));
     this.appelloyerState$ = this.store.pipe(
       map((state) => state.appelLoyerState)

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { SaveAgenceActions } from 'src/app/ngrx/agence/agence.actions';
+import { GetAllAgenceActions, SaveAgenceActions } from 'src/app/ngrx/agence/agence.actions';
 import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 
@@ -26,7 +26,7 @@ export class AgenceNewComponent implements OnInit {
     // this.getAllAgences(true);
     this.agenceRegisterForm = this.fb.group({
       id: [0],
-      idAgence: [''],
+      idAgence: [this.user.idAgence],
       nomAgence: ['', [Validators.required]],
       telAgence: [''],
       compteContribuable: [''],
@@ -50,7 +50,10 @@ export class AgenceNewComponent implements OnInit {
     this.agenceRegisterForm.patchValue({
       idUtilisateurCreateur: this.user?.id,
     });
+    this.store.dispatch(new GetAllAgenceActions({}));
     this.store.dispatch(new SaveAgenceActions(this.agenceRegisterForm.value));
+   
+    
     this.onClose();
   }
 }
