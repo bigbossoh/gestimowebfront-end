@@ -29,7 +29,8 @@ export class PageNewUtilisateurComponent implements OnInit {
     this.user = this.userService.getUserFromLocalCache();
     this.newUserForm = this.fb.group({
       id: [''],
-      idAgence: [''],
+      idAgence: [this.user.idAgence],
+      idCreateur:[this.user.id],
       nom: ['', [Validators.required]],
       prenom: [''],
       email: [

@@ -2,7 +2,7 @@
 
 import { Action } from '@ngrx/store';
 
-import { EtageDto } from 'src/gs-api/src/models';
+import { EtageAfficheDto, EtageDto } from 'src/gs-api/src/models';
 
 //STORE
 export enum EtagesActionsTypes {
@@ -29,7 +29,7 @@ export class GetAllEtagesActions implements Action {
 export class GetAllEtagesActionsSuccess implements Action {
   type: EtagesActionsTypes =
     EtagesActionsTypes.GET_ALL_ETAGES_SUCCES;
-  constructor(public payload: EtageDto[]) { }
+  constructor(public payload: EtageAfficheDto[]) { }
 }
 export class GetAllEtagesActionsError implements Action {
   type: EtagesActionsTypes =
@@ -46,7 +46,7 @@ export class GetAllEtagesByImmeubleActions implements Action {
 export class GetAllEtagesByImmeubleActionsSuccess implements Action {
   type: EtagesActionsTypes =
     EtagesActionsTypes.GET_ALL_ETAGES_BY_IMMEUBLE_SUCCES;
-  constructor(public payload: EtageDto[]) { }
+  constructor(public payload: EtageAfficheDto[]) { }
 }
 export class GetAllEtagesByImmeubleActionsError implements Action {
   type: EtagesActionsTypes =
@@ -57,7 +57,7 @@ export class GetAllEtagesByImmeubleActionsError implements Action {
 
 export class SaveEtageActions implements Action {
   type: EtagesActionsTypes = EtagesActionsTypes.SAVE_ETAGE;
-  constructor(public payload: EtageDto) { }
+  constructor(public payload: EtageAfficheDto) { }
 }
 
 export class SaveEtageActionsSuccess implements Action {

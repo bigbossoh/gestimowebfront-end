@@ -1,5 +1,6 @@
 /* tslint:disable */
 export interface ImmeubleAfficheDto {
+  id?: number;
   nbrEtage?: number;
   nbrePieceImmeuble?: number;
   abrvNomImmeuble?: string;

@@ -112,6 +112,8 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.etageState$ = this.store.pipe(
       map((state) => state.etageState)
     );
+    console.log(this.etageState$);
+    
   }
   private sendErrorNotification(
     notificationType: NotificationType,
@@ -159,6 +161,10 @@ export class PageBienImmobilierNewComponent implements OnInit {
   }
   onSaveAppartement() {
     this.submitted = true;
+    console.log("L'appartement est ");
+    console.log(this.appartementForm?.value);
+    
+    
     if (this.appartementForm?.invalid) {
       return;
     }
@@ -171,18 +177,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
     );
     this.onClose();
   }
-  onSaveEtage() {
-    this.submitted = true;
-    if (this.etageForm?.invalid) {
-      return;
-    }
-    this.submitted = false;
-    this.store.dispatch(new SaveEtageActions(this.etageForm?.value));
-    this.etageState$ = this.store.pipe(
-      map((state) => state.etageByImmeubeState)
-    );
-    this.onClose();
-  }
+
   onSaveVilla() {
     this.submitted = true;
     if (this.villaForm?.invalid) {
@@ -193,16 +188,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.villaState$ = this.store.pipe(map((state) => state.villaState));
     this.onClose();
   }
-  onSaveImmeuble() {
-    this.submitted = true;
-    if (this.immeubleForm?.invalid) {
-      return;
-    }
-    this.submitted = false;
-    this.store.dispatch(new SaveImmeublesActions(this.immeubleForm?.value));
-    this.immeubleState$ = this.store.pipe(map((state) => state.immeubleState));
-    this.onClose();
-  }
+
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
     this.store.dispatch(new GetAllSitesActions({}));

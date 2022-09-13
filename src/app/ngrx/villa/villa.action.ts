@@ -27,7 +27,7 @@ export class SaveVillaActions implements Action {
 
 export class SaveVillaActionsSuccess implements Action {
   type: VillaActionsTypes = VillaActionsTypes.SAVE_VILLA_SUCCES;
-  constructor(public payload: boolean) {}
+  constructor(public payload: VillaDto) {}
 }
 export class SaveVillaActionsError implements Action {
   type: VillaActionsTypes = VillaActionsTypes.SAVE_VILLA_ERROR;
