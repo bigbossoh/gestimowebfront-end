@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { BienImmobilierDto, EtageDto, ImmeubleDto } from 'src/gs-api/src/models';
+import { EtageAfficheDto, EtageDto } from 'src/gs-api/src/models';
 import {
   EtagesActions,
   EtagesActionsTypes,
@@ -15,7 +15,7 @@ export enum EtagesStateEnum {
 
 }
 export interface EtagesState {
-  etages: EtageDto[];
+  etages: EtageAfficheDto[];
   errorMessage: string;
   dataState: EtagesStateEnum;
 }

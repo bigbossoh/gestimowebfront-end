@@ -29,6 +29,7 @@ import { EncaissementPrincipalDTO } from '../models/encaissement-principal-dto';
 import { EncaissementPayloadDto } from '../models/encaissement-payload-dto';
 import { EspeceEncaissementDto } from '../models/espece-encaissement-dto';
 import { EtageDto } from '../models/etage-dto';
+import { EtageAfficheDto } from '../models/etage-affiche-dto';
 import { ImmeubleAfficheDto } from '../models/immeuble-affiche-dto';
 import { ImmeubleDto } from '../models/immeuble-dto';
 import { MagasinResponseDto } from '../models/magasin-response-dto';
@@ -113,7 +114,7 @@ class ApiService extends __BaseService {
   static readonly findAllEtagePath = 'gestimoweb/api/v1/etage/all';
   static readonly deleteEtagePath = 'gestimoweb/api/v1/etage/delete/{id}';
   static readonly findEtageByIDPath = 'gestimoweb/api/v1/etage/findById/{id}';
-  static readonly findEtageByIdPaysPath = 'gestimoweb/api/v1/etage/findByIdImmeuble/{id}';
+  static readonly affichageDesEtageParImmeublePath = 'gestimoweb/api/v1/etage/findByIdImmeuble/{id}';
   static readonly findEtageByNamePath = 'gestimoweb/api/v1/etage/findByName/{name}';
   static readonly saveEtagePath = 'gestimoweb/api/v1/etage/save';
   static readonly affichageDesImmeublesPath = 'gestimoweb/api/v1/immeuble/affichetoutlesimmeubles';
@@ -2556,7 +2557,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findEtageByIdPaysResponse(id: number): __Observable<__StrictHttpResponse<Array<EtageDto>>> {
+  affichageDesEtageParImmeubleResponse(id: number): __Observable<__StrictHttpResponse<Array<EtageAfficheDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2574,7 +2575,7 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<EtageDto>>;
+        return _r as __StrictHttpResponse<Array<EtageAfficheDto>>;
       })
     );
   }
@@ -2582,9 +2583,9 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findEtageByIdPays(id: number): __Observable<Array<EtageDto>> {
-    return this.findEtageByIdPaysResponse(id).pipe(
-      __map(_r => _r.body as Array<EtageDto>)
+  affichageDesEtageParImmeuble(id: number): __Observable<Array<EtageAfficheDto>> {
+    return this.affichageDesEtageParImmeubleResponse(id).pipe(
+      __map(_r => _r.body as Array<EtageAfficheDto>)
     );
   }
 
@@ -2874,7 +2875,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveImmeubleResponse(body?: ImmeubleDto): __Observable<__StrictHttpResponse<ImmeubleDto>> {
+  saveImmeubleResponse(body?: ImmeubleDto): __Observable<__StrictHttpResponse<ImmeubleAfficheDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2892,7 +2893,7 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<ImmeubleDto>;
+        return _r as __StrictHttpResponse<ImmeubleAfficheDto>;
       })
     );
   }
@@ -2900,9 +2901,9 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveImmeuble(body?: ImmeubleDto): __Observable<ImmeubleDto> {
+  saveImmeuble(body?: ImmeubleDto): __Observable<ImmeubleAfficheDto> {
     return this.saveImmeubleResponse(body).pipe(
-      __map(_r => _r.body as ImmeubleDto)
+      __map(_r => _r.body as ImmeubleAfficheDto)
     );
   }
 
@@ -4524,7 +4525,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveVillaResponse(body?: VillaDto): __Observable<__StrictHttpResponse<boolean>> {
+  saveVillaResponse(body?: VillaDto): __Observable<__StrictHttpResponse<VillaDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -4536,13 +4537,13 @@ class ApiService extends __BaseService {
       {
         headers: __headers,
         params: __params,
-        responseType: 'text'
+        responseType: 'json'
       });
 
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return (_r as HttpResponse<any>).clone({ body: (_r as HttpResponse<any>).body === 'true' }) as __StrictHttpResponse<boolean>
+        return _r as __StrictHttpResponse<VillaDto>;
       })
     );
   }
@@ -4550,9 +4551,9 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveVilla(body?: VillaDto): __Observable<boolean> {
+  saveVilla(body?: VillaDto): __Observable<VillaDto> {
     return this.saveVillaResponse(body).pipe(
-      __map(_r => _r.body as boolean)
+      __map(_r => _r.body as VillaDto)
     );
   }
 

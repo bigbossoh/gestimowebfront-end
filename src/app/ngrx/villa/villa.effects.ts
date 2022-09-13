@@ -6,7 +6,6 @@ import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { ApiService } from 'src/gs-api/src/services';
-import { GetAllBiensActionsSuccess } from '../bien-immobilier/bienimmobilier.actions';
 import { GetAllVillaActionsSuccess, GetAllVillaActionsError } from './villa.action';
 import {
   GetAllVillaLibreActionsError,
@@ -32,7 +31,7 @@ export class VillaEffects {
         );
       }),
       tap(( bookCollection) => {
-        if (bookCollection.payload ==true) {
+        if (bookCollection.payload !=null) {
           this.sendErrorNotification(NotificationType.SUCCESS,'Création de la Villa  éffectuée avec succes!');
         } else {
           this.sendErrorNotification(NotificationType.ERROR,'');

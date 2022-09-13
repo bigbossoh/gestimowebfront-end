@@ -9,7 +9,6 @@ import { NotificationService } from '../../services/notification/notification.se
 import {
   EtagesActions,
   EtagesActionsTypes,
-  GetAllEtagesActions,
   GetAllEtagesActionsError,
   GetAllEtagesActionsSuccess,
   GetAllEtagesByImmeubleActionsError,
@@ -28,11 +27,23 @@ export class EtageEffects {
     this.effectActions.pipe(
       ofType(EtagesActionsTypes.GET_ALL_ETAGES_BY_IMMEUBLE),
       mergeMap((action: EtagesActions) => {
-        return this.apiService.findEtageByIdPays(action.payload).pipe(
+        console.log("l'action étage est le suivant");
+        console.log(action.payload);           
+        return this.apiService.affichageDesEtageParImmeuble(action.payload).pipe(
           map((immeubles) => new GetAllEtagesByImmeubleActionsSuccess(immeubles)),
           catchError((err) => of(new GetAllEtagesByImmeubleActionsError(err.error.errors)))
         );
-      })
+      }),
+      tap((resultat) => {
+        console.log("Le resultat pour étage est le suivant : ");
+        console.log(resultat.payload);      
+        
+        if (resultat.payload!=null) {
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            resultat.payload.toString()
+          );
+        } })
     )
   );
 

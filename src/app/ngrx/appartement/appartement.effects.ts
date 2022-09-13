@@ -27,6 +27,15 @@ export class AppartementEffects {
           map((appart) => new SaveAppartementActionsSuccess(appart)),
           catchError((err) => of(new SaveAppartementActionsError(err.message)))
         );
+      }), tap((resultat) => {
+     console.log("Le resultat est le suivant");
+     console.log(resultat.payload);        
+        
+        if (resultat.payload != null) {
+
+        } else {
+
+        }
       })
     )
   );
@@ -61,10 +70,7 @@ export class AppartementEffects {
             of(new GetAllAppartementActionsError(err.message))
           )
         );
-      }), tap((resultat) => {
-        console.log("Le resultat est le suivant");
-        console.log(resultat);
-        
+      }), tap((resultat) => {     
         
         if (resultat.payload != null) {
 

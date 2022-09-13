@@ -16,6 +16,6 @@ export interface ImmeubleDto {
   abrvNomImmeuble?: string;
   descriptionImmeuble?: string;
   numeroImmeuble?: number;
-  garrage?: boolean;
   occupied?: boolean;
+  garrage?: boolean;
 }
