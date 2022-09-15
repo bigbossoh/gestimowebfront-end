@@ -59,13 +59,14 @@ export class PageNewUtilisateurComponent implements OnInit {
 
         ],
       ],
-      password: ['', [Validators.required]],
-      repassword: ['', [Validators.required]],
+
+      password: ['', Validators.required],
+      repassword: ['', Validators.required],
       profileImageUrl: [''],
       lastLoginDate: [''],
       lastLoginDateDisplay: [''],
       joinDate: [''],
-      roleUsed: ['', [Validators.required]],
+      roleUsed: ['', Validators.required],
       // authorities: [''], intrus
       agenceDto: [''],
       //  roleRequestDto: [''], intrus
