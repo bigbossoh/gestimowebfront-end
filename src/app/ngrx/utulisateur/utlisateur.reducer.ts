@@ -56,6 +56,23 @@ export function utilisateurReducer(
         dataState: UtilisteurStateEnum.ERROR,
         errorMessage: (<UtilisateurActions>action).payload,
       };
+// SAVE USER
+case UtilisateurActionsTypes.SAVE_USER:
+  return { ...state, dataState: UtilisteurStateEnum.LOADING };
+case UtilisateurActionsTypes.SAVE_USER_SUCCES:
+  return {
+    ...state,
+    dataState: UtilisteurStateEnum.LOADED,
+    utlisisateurs: (<UtilisateurActions>action).payload,
+  };
+case UtilisateurActionsTypes.SAVE_USER_ERROR:
+  return {
+    ...state,
+    dataState: UtilisteurStateEnum.ERROR,
+    errorMessage: (<UtilisateurActions>action).payload,
+  };
+
+
     default:
       return { ...state };
   }
