@@ -1,6 +1,5 @@
-import { ImmeubleAfficheDto } from './../../../gs-api/src/models/immeuble-affiche-dto';
 import { Action } from '@ngrx/store';
-import { BienImmobilierDto, ImmeubleDto } from 'src/gs-api/src/models';
+import { ImmeubleDto, ImmeubleEtageDto } from 'src/gs-api/src/models';
 import {
   ImmeublesActions,
   ImmeublesActionsTypes,
@@ -12,7 +11,7 @@ export enum ImmeubleStateEnum {
   INITIAL = 'Initial',
 }
 export interface ImmeubleState {
-  immeubles: ImmeubleAfficheDto[];
+  immeubles: ImmeubleEtageDto[];
   errorMessage: string;
   dataState: ImmeubleStateEnum;
 }
@@ -44,7 +43,7 @@ export function immeubleReducer(
     case ImmeublesActionsTypes.SAVE_IMMEUBLES:
       return { ...state, dataState: ImmeubleStateEnum.LOADING };
     case ImmeublesActionsTypes.SAVE_IMMEUBLES_SUCCES:
-      let imm: ImmeubleDto[] = [...state.immeubles];
+      let imm: ImmeubleEtageDto[] = [...state.immeubles];
       imm.push((<ImmeublesActions>action).payload)
       return {
         ...state,

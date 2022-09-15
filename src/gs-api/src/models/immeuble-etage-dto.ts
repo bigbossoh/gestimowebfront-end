@@ -1,9 +1,13 @@
 /* tslint:disable */
-export interface ImmeubleDto {
+export interface ImmeubleEtageDto {
   id?: number;
-  numBien?: number;
   idAgence?: number;
   idCreateur?: number;
+  nbrEtage?: number;
+  nbrePieceImmeuble?: number;
+  abrvNomImmeuble?: string;
+  descriptionImmeuble?: string;
+  numeroImmeuble?: number;
   statutBien?: string;
   denominationBien?: string;
   nomBien?: string;
@@ -11,11 +15,8 @@ export interface ImmeubleDto {
   superficieBien?: number;
   idSite?: number;
   idUtilisateur?: number;
-  nbrEtage?: number;
-  nbrePieceImmeuble?: number;
-  abrvNomImmeuble?: string;
-  descriptionImmeuble?: string;
-  numeroImmeuble?: number;
+  nomPropio?: string;
+  prenomProprio?: string;
   garrage?: boolean;
   occupied?: boolean;
 }

@@ -34,7 +34,7 @@ export class ImmeubleEffects {
     this.effectActions.pipe(
       ofType(ImmeublesActionsTypes.SAVE_IMMEUBLES),
       mergeMap((action: ImmeublesActions) => {
-        return this.apiService.saveImmeuble(action.payload).pipe(
+        return this.apiService.saveImmeubleEtage(action.payload).pipe(
           map((immeuble) => new SaveImmeublesActionsSuccess(immeuble)),
           catchError((err) => of(new SaveImmeublesActionsError(err.message)))
         );

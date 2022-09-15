@@ -32,6 +32,7 @@ import { EtageDto } from '../models/etage-dto';
 import { EtageAfficheDto } from '../models/etage-affiche-dto';
 import { ImmeubleAfficheDto } from '../models/immeuble-affiche-dto';
 import { ImmeubleDto } from '../models/immeuble-dto';
+import { ImmeubleEtageDto } from '../models/immeuble-etage-dto';
 import { MagasinResponseDto } from '../models/magasin-response-dto';
 import { MagasinDto } from '../models/magasin-dto';
 import { MontantLoyerBailDto } from '../models/montant-loyer-bail-dto';
@@ -124,6 +125,7 @@ class ApiService extends __BaseService {
   static readonly findImmeubleByIdSitePath = 'gestimoweb/api/v1/immeuble/findByIdSite/{id}';
   static readonly findImmeubleByNamePath = 'gestimoweb/api/v1/immeuble/findByName/{name}';
   static readonly saveImmeublePath = 'gestimoweb/api/v1/immeuble/save';
+  static readonly saveImmeubleEtagePath = 'gestimoweb/api/v1/immeuble/saveImeubleEtage';
   static readonly findAllMagasinPath = 'gestimoweb/api/v1/magasin/all';
   static readonly findAllMagasinLibrePath = 'gestimoweb/api/v1/magasin/alllibre';
   static readonly findAllMagasinByEtagePath = 'gestimoweb/api/v1/magasin/findAllMagasinByIdEtage/{id}';
@@ -2904,6 +2906,42 @@ class ApiService extends __BaseService {
   saveImmeuble(body?: ImmeubleDto): __Observable<ImmeubleAfficheDto> {
     return this.saveImmeubleResponse(body).pipe(
       __map(_r => _r.body as ImmeubleAfficheDto)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveImmeubleEtageResponse(body?: ImmeubleEtageDto): __Observable<__StrictHttpResponse<ImmeubleEtageDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/immeuble/saveImeubleEtage`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<ImmeubleEtageDto>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveImmeubleEtage(body?: ImmeubleEtageDto): __Observable<ImmeubleEtageDto> {
+    return this.saveImmeubleEtageResponse(body).pipe(
+      __map(_r => _r.body as ImmeubleEtageDto)
     );
   }
 
