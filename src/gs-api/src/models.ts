@@ -30,6 +30,7 @@ export { EtageDto } from './models/etage-dto';
 export { Immeuble } from './models/immeuble';
 export { ImmeubleAfficheDto } from './models/immeuble-affiche-dto';
 export { ImmeubleDto } from './models/immeuble-dto';
+export { ImmeubleEtageDto } from './models/immeuble-etage-dto';
 export { Magasin } from './models/magasin';
 export { MagasinDto } from './models/magasin-dto';
 export { MagasinResponseDto } from './models/magasin-response-dto';

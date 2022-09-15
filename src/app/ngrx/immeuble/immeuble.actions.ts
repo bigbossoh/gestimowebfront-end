@@ -3,7 +3,7 @@ import { ImmeubleAfficheDto } from './../../../gs-api/src/models/immeuble-affich
 
 import { Action } from '@ngrx/store';
 
-import { ImmeubleDto } from 'src/gs-api/src/models';
+import { ImmeubleDto, ImmeubleEtageDto } from 'src/gs-api/src/models';
 
 //STORE
 export enum ImmeublesActionsTypes {
@@ -42,7 +42,7 @@ export class SaveImmeublesActions implements Action {
 export class SaveImmeublesActionsSuccess implements Action {
   type: ImmeublesActionsTypes =
     ImmeublesActionsTypes.SAVE_IMMEUBLES_SUCCES;
-  constructor(public payload: ImmeubleAfficheDto) { }
+  constructor(public payload: ImmeubleEtageDto) { }
 }
 export class SaveImmeublesActionsError implements Action {
   type: ImmeublesActionsTypes =
