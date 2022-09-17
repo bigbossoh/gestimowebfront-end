@@ -50,6 +50,7 @@ import { bienReducer } from './ngrx/bien-immobilier/bienimmobilier.reducer';
 import { BienEffects } from './ngrx/bien-immobilier/bienimmobilier.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatInputModule} from '@angular/material/input';
 import { siteReducer } from './ngrx/site/site.reducer';
 import { SiteEffects } from './ngrx/site/site.effects';
 import { PageBienImmobilierNewComponent } from './pages/bien-immobilier/page-bien-immobilier-new/page-bien-immobilier-new.component';
@@ -122,6 +123,7 @@ import { mailReducer, MailState } from './ngrx/mail/mail.reducer';
 import { MailEffect } from './ngrx/mail/mail.effects';
 import { Encaissementffects } from './ngrx/reglement/reglement.effects';
 import { encaissementReducer } from './ngrx/reglement/reglement.reducer';
+import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
   declarations: [
     PageImmeubleComponent,
@@ -184,8 +186,10 @@ import { encaissementReducer } from './ngrx/reglement/reglement.reducer';
     MatExpansionModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    MatInputModule,
     BrowserAnimationsModule,
     BrowserModule,
     MatDialogModule,
@@ -196,6 +200,7 @@ import { encaissementReducer } from './ngrx/reglement/reglement.reducer';
     NoticationModule,
     HighchartsChartModule,
     ReactiveFormsModule,
+
     //ToastrModule.forRoot(),
     StoreModule.forRoot({
       bailMagasinState: bailMagasinReducer,

@@ -42,10 +42,8 @@ export interface DialogData {
 export class PageBauxComponent implements OnInit {
   columnsToDisplay = [
     'Code bail',
-    // 'Locataire',
     'debut',
     'fin',
-    // 'Bien immobilier',
     'Montant Caution',
     'Bail en cours',
     'Actions',
@@ -99,7 +97,7 @@ export class PageBauxComponent implements OnInit {
   chargerAppels(evt: any) {
     console.log("Le event qui a changé c'est celui ci "+evt);
 
-    
+
     this.store.dispatch(new GetAllAppelLoyerActions(evt));
     this.appelloyerState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
