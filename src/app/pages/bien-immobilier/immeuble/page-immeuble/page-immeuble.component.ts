@@ -15,6 +15,9 @@ import { CommunesState, CommunesStateEnum } from 'src/app/ngrx/commune/commune.r
   styleUrls: ['./page-immeuble.component.css']
 })
 export class PageImmeubleComponent implements OnInit {
+  public totalRecords: number | undefined;
+  public page: number = 1;
+
   villeState$: Observable<VilleState> | null = null;
 
   commeState$: Observable<CommunesState> | null = null;
