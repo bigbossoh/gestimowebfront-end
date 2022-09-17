@@ -16,7 +16,10 @@
     <hr style="margin-top: 0" />
     <div class="row mb-3">
       <div class="col-md-3">
-        <ng-container *ngIf="villeState$ | async as state," [ngSwitch]="state.dataState">
+        <ng-container
+          *ngIf="villeState$ | async as state"
+          [ngSwitch]="state.dataState"
+        >
           <ng-container *ngSwitchCase="VilleStateEnum.ERROR">
             <div class="p-2 invalid-feedback">Erreur est survenue</div>
           </ng-container>
@@ -31,7 +34,10 @@
         </ng-container>
       </div>
       <div class="col-md-3">
-        <ng-container *ngIf="commeState$ | async as state" [ngSwitch]="state.dataState">
+        <ng-container
+          *ngIf="commeState$ | async as state"
+          [ngSwitch]="state.dataState"
+        >
           <ng-container *ngSwitchCase="CommunesStateEnum.ERROR">
             <div class="p-2 invalid-feedback">Erreur est survenue</div>
           </ng-container>
@@ -71,8 +77,94 @@
       </div>
     </div>
     <hr style="margin-top: 0" />
+
+    <div class="example-header">
+      <mat-form-field>
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          #input
+          placeholder="Rechercher un Immeuble"
+        />
+      </mat-form-field>
+    </div>
+    <!-- MAT TABLE AFFICHE -->
+    <ng-container
+      *ngIf="immeubleState$ | async as immeubleState"
+      [ngSwitch]="immeubleState.dataState"
+    >
+      <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADED">
+        <div class="mat-elevation-z8">
+          <mat-table [dataSource]="dataSource!" matSort>
+            <!-- Code colonne -->
+            <ng-container matColumnDef="Code">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Code
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{ row.abrvNomImmeuble }}
+              </mat-cell>
+            </ng-container>
+
+            <!-- Dénomination colonne -->
+            <ng-container matColumnDef="Dénomination">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Dénomination
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{ row.descriptionImmeuble }}
+              </mat-cell>
+            </ng-container>
+
+            <!-- Propriétaire colonne -->
+            <ng-container matColumnDef="Propriétaire">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Propriétaire
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{ row.nomPropio }} {{ row.prenomProprio }}</mat-cell
+              >
+            </ng-container>
+
+            <!-- Actions colonne -->
+            <ng-container matColumnDef="Actions">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Actions
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <div class="btn-group">
+                  <button class="btn btn-outline-info">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-outline-danger">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns">
+            </mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">
+                No data matching the filter "{{ input.value }}"
+              </td>
+            </tr>
+          </mat-table>
+          <mat-paginator
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            aria-label="Select page of users"
+          ></mat-paginator>
+        </div>
+      </ng-container>
+    </ng-container>
+
     <!-- main content -->
-    <ng-container *ngIf="bienState$ | async as state" [ngSwitch]="state.dataState">
+    <ng-container
+      *ngIf="bienState$ | async as state"
+      [ngSwitch]="state.dataState"
+    >
       <div class="tab-content" id="myTabContent">
         <!-- user table -->
         <div class="tab-pane fade show active" id="users">
@@ -87,24 +179,34 @@
             </thead>
             <tbody>
               <!-- Les villas -->
-              <ng-container *ngIf="immeubleState$ | async as immeubleState,paginate: {
-                itemsPerPage: 4,
-                currentPage: page,
-                totalItems:totalRecords
-              }" [ngSwitch]="immeubleState.dataState">
-                <ng-container ng-container *ngSwitchCase="ImmeubleStateEnum.LOADING">
+              <ng-container
+                *ngIf="immeubleState$ | async as immeubleState"
+                [ngSwitch]="immeubleState.dataState"
+              >
+                <ng-container
+                  ng-container
+                  *ngSwitchCase="ImmeubleStateEnum.LOADING"
+                >
                   <div class="spinner-border text-primary" role="status">
                     <span class="sr-only">Loading...</span>
                   </div>
                 </ng-container>
-                <ng-container ng-container *ngSwitchCase="ImmeubleStateEnum.LOADED">
-                  <tr class="text-center" *ngFor="let immeuble of immeubleState.immeubles">
+                <ng-container
+                  ng-container
+                  *ngSwitchCase="ImmeubleStateEnum.LOADED"
+                >
+                  <tr
+                    class="text-center"
+                    *ngFor="let immeuble of immeubleState.immeubles"
+                  >
                     <td>{{ immeuble.numeroImmeuble }}</td>
                     <td>{{ immeuble.abrvNomImmeuble }}</td>
-                    <td>{{ immeuble.nomPropio }} {{ immeuble.prenomProprio }}</td>
+                    <td>
+                      {{ immeuble.nomPropio }} {{ immeuble.prenomProprio }}
+                    </td>
                     <td class="">
                       <div class="btn-group">
-                        <button class="btn btn-outline-info" >
+                        <button class="btn btn-outline-info">
                           <i class="fas fa-edit"></i>
                         </button>
                         <button class="btn btn-outline-danger">
@@ -114,9 +216,13 @@
                     </td>
                   </tr>
                 </ng-container>
-                <ng-container ng-container *ngSwitchCase="ImmeubleStateEnum.ERROR">
+                <ng-container
+                  ng-container
+                  *ngSwitchCase="ImmeubleStateEnum.ERROR"
+                >
                   <div class="p-2">
-                    L'Erreur suivante c'est produite : {{ immeubleState.errorMessage }}
+                    L'Erreur suivante c'est produite :
+                    {{ immeubleState.errorMessage }}
                   </div>
                 </ng-container>
               </ng-container>
@@ -126,9 +232,7 @@
       </div>
 
       <ng-container *ngSwitchCase="BienImmobilierStateEnum.LOADING">
-        <div class="spinner-border text-primary" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
+        <i class="fas fa-sync fa-spin"></i>
       </ng-container>
 
       <ng-container *ngSwitchCase="BienImmobilierStateEnum.ERROR">
@@ -144,3 +248,4 @@
       </div>
     </div>
   </div>
+</div>

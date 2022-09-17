@@ -31,7 +31,6 @@ export class PageListeUtilisateursComponent implements OnInit {
   public page: number = 1;
 
   constructor(
-    private router: Router,
     private userService: UserService,
     private notificationService: NotificationService
   ) {}
@@ -39,20 +38,7 @@ export class PageListeUtilisateursComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
     this.getUsers(true);
-
-    // this.registerForm=new FormGroup({
-    //   genre: new FormControl(),
-    //   nom: new FormControl(),
-    //   prenom:new FormControl(),
-    //   email:new FormControl(),
-    //   username:new FormControl(),
-    //   password:new FormControl(),
-    //   roleUsed:new FormControl(),
-    //   active:new FormControl(true),
-    //   notLocked:new FormControl(true),
-
-    // })
-  }
+   }
 
   public getUsers(showNotification: boolean): void {
     this.refreshing = true;
