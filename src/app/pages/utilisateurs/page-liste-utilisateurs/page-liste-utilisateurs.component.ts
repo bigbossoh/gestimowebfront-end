@@ -16,7 +16,7 @@ import { Utilisateur } from '../../../../gs-api/src/models/utilisateur';
   styleUrls: ['./page-liste-utilisateurs.component.css'],
 })
 export class PageListeUtilisateursComponent implements OnInit {
-  // public registerForm!: FormGroup;
+
   public users!: UtilisateurRequestDto[];
   public user?: UtilisateurRequestDto;
   public editUser?: UtilisateurRequestDto;

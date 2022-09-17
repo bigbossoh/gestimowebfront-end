@@ -1,7 +1,7 @@
 <div class="col">
   <div class="row m-3">
     <div class="col-md-8 p-0">
-      <h1>Liste des Immeubles</h1>
+      <h1>Liste des Immeubles à faire</h1>
     </div>
     <div class="col-md-4 text-right">
       <app-action-button-immeuble></app-action-button-immeuble>
@@ -16,7 +16,7 @@
     <hr style="margin-top: 0" />
     <div class="row mb-3">
       <div class="col-md-3">
-        <ng-container *ngIf="villeState$ | async as state" [ngSwitch]="state.dataState">
+        <ng-container *ngIf="villeState$ | async as state," [ngSwitch]="state.dataState">
           <ng-container *ngSwitchCase="VilleStateEnum.ERROR">
             <div class="p-2 invalid-feedback">Erreur est survenue</div>
           </ng-container>
@@ -66,8 +66,7 @@
     <div class="row">
       <div class="col">
         <h5>
-          <i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des biens
-          immobiliers
+          <i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des immeubles
         </h5>
       </div>
     </div>
@@ -88,7 +87,11 @@
             </thead>
             <tbody>
               <!-- Les villas -->
-              <ng-container *ngIf="immeubleState$ | async as immeubleState" [ngSwitch]="immeubleState.dataState">
+              <ng-container *ngIf="immeubleState$ | async as immeubleState,paginate: {
+                itemsPerPage: 4,
+                currentPage: page,
+                totalItems:totalRecords
+              }" [ngSwitch]="immeubleState.dataState">
                 <ng-container ng-container *ngSwitchCase="ImmeubleStateEnum.LOADING">
                   <div class="spinner-border text-primary" role="status">
                     <span class="sr-only">Loading...</span>
