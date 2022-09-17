@@ -50,8 +50,8 @@
           <tbody >
             <tr class="text-center" *ngFor="let appUser of users | paginate: {
               itemsPerPage: 4,
-              currentPage: 1,
-              totalItems:4
+              currentPage: page,
+              totalItems:totalRecords
             }">
               <td>
                 <img height="40" width="40" src="assets/nassmam.jpg" class="rounded-circle img-fluid img-thumbnail"
