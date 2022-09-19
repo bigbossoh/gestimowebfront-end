@@ -41,13 +41,8 @@ export function agenceReducer(
     case AgenceActionsType.SAVE_AGENCE_SUCCES:
       let agenceSave = (<AgenceActions>action).payload;
       let currentAgenceListe = [...state.agences];
-      console.log("New Agence is :");
-      console.log((<AgenceActions>action).payload);
-
-
-      currentAgenceListe.push(agenceSave);
-      console.log('Cuurente is');
-      console.log(currentAgenceListe);
+       currentAgenceListe.push(agenceSave);
+     
       return {
         ...state,
         dataState: AgenceStateEnum.LOADED,

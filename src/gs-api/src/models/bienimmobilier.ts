@@ -1,5 +1,4 @@
 /* tslint:disable */
-import { Site } from './site';
 import { Utilisateur } from './utilisateur';
 export interface Bienimmobilier {
   id?: number;
@@ -7,14 +6,12 @@ export interface Bienimmobilier {
   idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
-  numBien?: number;
-  statutBien?: string;
-  abrvBienimmobilier?: string;
+  codeAbrvBienImmobilier?: string;
+  nomCompletBienImmobilier?: string;
+  nomBaptiserBienImmobilier?: string;
   description?: string;
-  nomBien?: string;
   superficieBien?: number;
-  site?: Site;
-  utilisateur?: Utilisateur;
-  archived?: boolean;
+  bienMeublerResidence?: boolean;
+  utilisateurProprietaire?: Utilisateur;
   occupied?: boolean;
 }

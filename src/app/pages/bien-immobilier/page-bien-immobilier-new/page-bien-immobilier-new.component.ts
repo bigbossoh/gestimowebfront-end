@@ -30,11 +30,7 @@ import {
 } from 'src/app/ngrx/magasin/magasin.reducer';
 import { GetAllSitesActions } from 'src/app/ngrx/site/site.actions';
 import { SiteState, SiteStateEnum } from 'src/app/ngrx/site/site.reducer';
-import { SaveStudioActions } from 'src/app/ngrx/studio/studio.actions';
-import {
-  StudioState,
-  StudioStateEnum,
-} from 'src/app/ngrx/studio/studio.reducer';
+
 import { GetAllProprietairesActions } from 'src/app/ngrx/utulisateur/utilisateur.actions';
 import {
   UtilisteurState,
@@ -71,7 +67,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
 
   magasinState$: Observable<MagasinState> | null = null;
   appartementState$: Observable<AppartementState> | null = null;
-  studioState$: Observable<StudioState> | null = null;
+
   etageState$: Observable<EtagesState> | null = null;
   immeubleState$: Observable<ImmeubleState> | null = null;
   siteState$: Observable<SiteState> | null = null;
@@ -82,7 +78,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
   readonly VillaStateEnum = VillaStateEnum;
   readonly MagasinStateEnum = MagasinStateEnum;
   readonly AppartementStateEnum = AppartementStateEnum;
-  readonly StudioStateEnum = StudioStateEnum;
+
   readonly EtagesStateEnum = EtagesStateEnum;
   readonly ImmeubleStateEnum = ImmeubleStateEnum;
   readonly UtilisteurStateEnum = UtilisteurStateEnum;
@@ -132,18 +128,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onSaveStudio() {
-    this.submitted = true;
-    if (this.studioform?.invalid) {
-      return;
-    }
-
-    this.submitted = false;
-
-    this.store.dispatch(new SaveStudioActions(this.studioform?.value));
-    this.studioState$ = this.store.pipe(map((state) => state.studioState));
-    this.onClose();
-  }
+ 
   onSaveMagasin() {
     alert("On n'est ici")
     this.submitted = true;

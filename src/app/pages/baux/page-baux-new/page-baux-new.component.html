@@ -69,7 +69,7 @@
                       [ngClass]="{'is-invalid':submitted&& (bailvillaForm.controls.idUtilisateur.errors ||bailvillaForm.controls['idUtilisateur'].value=='')}"
                       formControlName="idUtilisateur" name="idUtilisateur" id="username" class="form-control">
                       <option [value]="0">Sélection un Locataire</option>
-                      <option [value]="utilis.id" *ngFor="let utilis of state.utlisisateurs">
+                      <option [value]="utilis.id" *ngFor="let utilis of state.utilisateurs">
                         {{ utilis.nom }} {{ utilis.prenom }}
                       </option>
                     </select>
@@ -99,7 +99,7 @@
                         [ngClass]="{'is-invalid':submitted&& (bailvillaForm.controls.idVilla.errors ||bailvillaForm.controls['idVilla'].value=='')}"
                         formControlName="idVilla" name="idVilla" class="form-control">
                         <option [value]="villa.id" *ngFor="let villa of state.villas">
-                          {{ villa.abrvVilla }}
+                          {{ villa.nomBaptiserBienImmobilier }}
                         </option>
                       </select>
                       <div *ngIf="submitted&& bailvillaForm.controls.idVilla.errors" class="invalid-feedback">
@@ -190,7 +190,7 @@
                       formControlName="idUtilisateur" name="idUtilisateur" id="username"
                       class="form-select form-select-lg mb3">
                       <option [value]="0">Sélection un Locataire</option>
-                      <option *ngFor="let utilis of state.utlisisateurs" [value]="utilis.id">
+                      <option *ngFor="let utilis of state.utilisateurs" [value]="utilis.id">
                         {{ utilis.nom }} {{ utilis.prenom }}
                       </option>
                     </select>
@@ -220,7 +220,7 @@
                         formControlName="idMagasin" name="idMagasin" class="form-select form-select-lg mb3">
                         <option value="0">Choisir un magasin</option>
                         <option *ngFor="let maga of stateMagasin.magasins" [value]="maga.id">
-                          {{ maga.abrvNomMagasin }}
+                          {{ maga.nomBaptiserBienImmobilier }}
                         </option>
                       </select>
                       <div *ngIf="submitted&& bailMagainForm.controls.idMagasin.errors" class="invalid-feedback">
@@ -313,7 +313,7 @@
                       formControlName="idUtilisateur" name="idUtilisateur" id="username"
                       class="form-select form-select-lg mb3">
                       <option [value]="0">Sélection un Locataire</option>
-                      <option [value]="utilis.id" *ngFor="let utilis of state.utlisisateurs">
+                      <option [value]="utilis.id" *ngFor="let utilis of state.utilisateurs">
                         {{ utilis.nom }} {{ utilis.prenom }}
                       </option>
                     </select>
@@ -343,7 +343,7 @@
                       [ngClass]="{'is-invalid':submitted&& bailAppartementForm.controls.idAppartement.errors }"
                       formControlName="idAppartement" name="idAppartement" class="form-select form-select-lg mb3">
                                                <option [value]="appar.id" *ngFor="let appar of state.appartements">
-                          {{ appar.abrvNomApp }}
+                          {{ appar.nomBaptiserBienImmobilier }}
                         </option>
                       </select>
                       <div *ngIf="submitted&& bailAppartementForm.controls.idAppartement.errors" class="invalid-feedback">
@@ -416,131 +416,7 @@
               Valider
             </button>
           </form>
-          <!-- FORM BAIL STUDIO -->
-          <form *ngIf="bailStudioForm && ngSelectTypeContrat == 'Bail Studio'" [formGroup]="bailStudioForm">
-            <!-- Form Group (username)-->
-            <div class="mb-3">
-              <label class="small mb-1" for="inputUsername">Locataire</label>
-              <ng-container *ngIf="utilisateurState$ | async as state" [ngSwitch]="state.dataState">
-                <ng-container *ngSwitchCase="UtilisteurStateEnum.INITIAL">
-               <mat-spinner>
-               </mat-spinner>
-                </ng-container>
-                <ng-container *ngSwitchCase="UtilisteurStateEnum.ERROR">
-                  <div class="p-2 invalid-feedback">
-                    Une erreur est survenue.
-                  </div>
-                </ng-container>
-                <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
-                  <div class="form-group">
-                    <select
-                    [ngClass]="{'is-invalid':submitted&& bailStudioForm.controls.idUtilisateur.errors }"
-                    formControlName="idUtilisateur" name="idUtilisateur" id="username"
-                      class="form-select form-select-lg mb3">
-                      <option [value]="0">Sélection un Locataire</option>
-                      <option [value]="utilis.id" *ngFor="let utilis of state.utlisisateurs">
-                        {{ utilis.nom }} {{ utilis.prenom }}
-                      </option>
-                    </select>
-                    <div *ngIf="submitted&& bailStudioForm.controls.idUtilisateur.errors" class="invalid-feedback">
-                      <div *ngIf=" bailStudioForm.controls.idUtilisateur.errors.required">*Champ obligatoire</div>
-                    </div>
-                  </div>
-                </ng-container>
-              </ng-container>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-9">
-                <ng-container *ngIf="studioState$ | async as state" [ngSwitch]="state.dataState">
-                  <ng-container *ngSwitchCase="StudioStateEnum.INITIAL">
-                  <mat-spinner>
-                  </mat-spinner>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="StudioStateEnum.ERROR">
-                    <div class="p-2 invalid-feedback">
-                      Une erreur est survenue.
-                    </div>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="StudioStateEnum.LOADED">
-                    <label class="big mb-6" for="inputUsername">Choisir le Studio</label>
-                    <div class="form-group">
-                      <select
-                      [ngClass]="{'is-invalid':submitted&& bailStudioForm.controls.idStudio.errors }"
-                      formControlName="idStudio" name="idStudio" class="form-select form-select-lg mb3">
-                        <option [value]="stud.id" *ngFor="let stud of state.studios">
-                          {{ stud.abrvNomStudio }}
-                        </option>
-                      </select>
-                      <div *ngIf="submitted&& bailStudioForm.controls.idStudio.errors" class="invalid-feedback">
-                        <div *ngIf=" bailStudioForm.controls.idStudio.errors.required">*Champ obligatoire</div>
-                      </div>
-                    </div>
-                  </ng-container>
-                </ng-container>
 
-              </div>
-            </div>
-            <!-- Form Row-->
-            <div class="row gx-3 mb-3">
-              <!-- Form Group (first name)-->
-              <div class="col-md-6">
-                <label class="big mb-1" for="inputFirstName">Désignation</label>
-                <input
-                [ngClass]="{'is-invalid':submitted&& bailStudioForm.controls.designationBail.errors }"
-                formControlName="designationBail" class="form-control" id="designationBail" type="text" />
-                <div *ngIf="submitted&& bailStudioForm.controls.designationBail.errors" class="invalid-feedback">
-                  <div *ngIf=" bailStudioForm.controls.designationBail.errors.required">*Champ obligatoire</div>
-                </div>
-              </div>
-              <!-- Form Group (last name)-->
-              <div class="col-md-6">
-                <label class="small mb-1" for="inputLastName">Loyer</label>
-                <input formControlName="nouveauMontantLoyer" class="form-control" id="inputLastName" type="number" />
-              </div>
-            </div>
-            <!-- Form Row        -->
-            <div class="row gx-3 mb-3">
-              <!-- Form Group (organization name)-->
-              <div class="col-md-6">
-                <label class="small mb-1" for="inputOrgName">Nombre de mois de caution</label>
-                <input formControlName="nbreMoisCautionBail" class="form-control" id="nbreMoisCautionBail"
-                  type="number" />
-              </div>
-              <!-- Form Group (location)-->
-              <div class="col-md-6">
-                <label class="small mb-1" for="inputLocation">Montant caution</label>
-                <input formControlName="montantCautionBail" class="form-control" id="inputLocation" type="number" />
-              </div>
-            </div>
-
-            <!-- Form Row-->
-            <div class="row gx-3 mb-3">
-              <!-- Form Group (phone number)-->
-              <div class="col-md-6">
-                <label class="small mb-1" for="inputPhone">Début du contrat</label>
-                <input
-                [ngClass]="{'is-invalid':submitted&& bailStudioForm.controls.dateDebut.errors }"
-                class="form-control" id="dateDebut" type="date" formControlName="dateDebut" />
-                <div *ngIf="submitted&& bailStudioForm.controls.dateDebut.errors" class="invalid-feedback">
-                  <div *ngIf=" bailStudioForm.controls.dateDebut.errors.required">*Champ obligatoire</div>
-                </div>
-              </div>
-              <!-- Form Group (birthday)-->
-              <div class="col-md-6">
-                <label class="small mb-1" for="inputBirthday">Date de fin</label>
-                <input
-                [ngClass]="{'is-invalid':submitted&& bailStudioForm.controls.dateFin.errors }"
-                formControlName="dateFin" class="form-control" id="inputBirthday" type="date" name="birthday" />
-                <div *ngIf="submitted&& bailStudioForm.controls.dateFin.errors" class="invalid-feedback">
-                  <div *ngIf=" bailStudioForm.controls.dateFin.errors.required">*Champ obligatoire</div>
-                </div>
-              </div>
-            </div>
-            <!-- Save changes button-->
-            <button class="btn btn-primary" type="button" (click)="onSaveBailStudio()">
-              Valider
-            </button>
-          </form>
         </div>
       </div>
     </div>

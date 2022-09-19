@@ -735,102 +735,6 @@
         }
       }
     },
-    "gestimoweb/api/v1/bailsudio/all" : {
-      "get" : {
-        "operationId" : "findAllBailStudio",
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/BailStudioDto"
-              }
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/bailsudio/delete/{id}" : {
-      "delete" : {
-        "operationId" : "deleteBailStudio",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int64"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "boolean"
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/bailsudio/findById/{id}" : {
-      "get" : {
-        "operationId" : "findBailStudioByID",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int64"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/BailStudioDto"
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/bailsudio/findByName/{name}" : {
-      "get" : {
-        "operationId" : "findBailStudioByName",
-        "parameters" : [ {
-          "name" : "name",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/BailStudioDto"
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/bailsudio/save" : {
-      "post" : {
-        "operationId" : "saveBailStudio",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/BailStudioDto"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/BailStudioDto"
-            }
-          }
-        }
-      }
-    },
     "gestimoweb/api/v1/bailvilla/all" : {
       "get" : {
         "operationId" : "findAllBailVilla",
@@ -1503,27 +1407,6 @@
         }
       }
     },
-    "gestimoweb/api/v1/immeuble/save" : {
-      "post" : {
-        "operationId" : "saveImmeuble",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/ImmeubleDto"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/ImmeubleAfficheDto"
-            }
-          }
-        }
-      }
-    },
     "gestimoweb/api/v1/immeuble/saveImeubleEtage" : {
       "post" : {
         "operationId" : "saveImmeubleEtage",
@@ -1657,27 +1540,6 @@
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/MagasinDto"
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/magasin/save" : {
-      "post" : {
-        "operationId" : "saveMagasin",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/MagasinDto"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "boolean"
             }
           }
         }
@@ -2107,141 +1969,6 @@
         }
       }
     },
-    "gestimoweb/api/v1/studio/all" : {
-      "get" : {
-        "operationId" : "findAllStudios",
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/StudioDto"
-              }
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/studio/alllibre" : {
-      "get" : {
-        "operationId" : "findAllStudiosLibre",
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/StudioDto"
-              }
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/studio/delete/{id}" : {
-      "delete" : {
-        "operationId" : "deleteStudio",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int64"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "boolean"
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/studio/findById/{id}" : {
-      "get" : {
-        "operationId" : "findStudioByID",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int64"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/StudioDto"
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/studio/findByIdEtage/{id}" : {
-      "get" : {
-        "operationId" : "findAllStudioByIdPays",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int64"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/StudioDto"
-              }
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/studio/findByName/{name}" : {
-      "get" : {
-        "operationId" : "findStudioByName",
-        "parameters" : [ {
-          "name" : "name",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/StudioDto"
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/studio/save" : {
-      "post" : {
-        "operationId" : "saveStudio",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/StudioDto"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "boolean"
-            }
-          }
-        }
-      }
-    },
     "gestimoweb/api/v1/utilisateur/all" : {
       "get" : {
         "operationId" : "getAllUtilisateursByOrder",
@@ -2251,7 +1978,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/UtilisateurRequestDto"
+                "$ref" : "#/definitions/UtilisateurAfficheDto"
               }
             }
           }
@@ -2267,7 +1994,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/UtilisateurRequestDto"
+                "$ref" : "#/definitions/UtilisateurAfficheDto"
               }
             }
           }
@@ -2341,7 +2068,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/UtilisateurRequestDto"
+                "$ref" : "#/definitions/UtilisateurAfficheDto"
               }
             }
           }
@@ -2357,7 +2084,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/UtilisateurRequestDto"
+                "$ref" : "#/definitions/UtilisateurAfficheDto"
               }
             }
           }
@@ -2379,7 +2106,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "boolean"
+              "$ref" : "#/definitions/UtilisateurAfficheDto"
             }
           }
         }
@@ -2394,7 +2121,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/UtilisateurRequestDto"
+                "$ref" : "#/definitions/UtilisateurAfficheDto"
               }
             }
           }
@@ -2770,8 +2497,27 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "meubleApp" : {
+        "codeAbrvBienImmobilier" : {
+          "type" : "string"
+        },
+        "nomCompletBienImmobilier" : {
+          "type" : "string"
+        },
+        "nomBaptiserBienImmobilier" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "superficieBien" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "bienMeublerResidence" : {
           "type" : "boolean"
+        },
+        "utilisateurProprietaire" : {
+          "$ref" : "#/definitions/Utilisateur"
         },
         "nbrPieceApp" : {
           "type" : "integer",
@@ -2789,24 +2535,9 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "occupied" : {
-          "type" : "boolean"
-        },
-        "statutAppart" : {
-          "type" : "string"
-        },
-        "numeroApp" : {
+        "numApp" : {
           "type" : "integer",
-          "format" : "int32"
-        },
-        "abrvNomApp" : {
-          "type" : "string"
-        },
-        "nomApp" : {
-          "type" : "string"
-        },
-        "etageAppartement" : {
-          "$ref" : "#/definitions/Etage"
+          "format" : "int64"
         },
         "operationsApp" : {
           "type" : "array",
@@ -2814,7 +2545,10 @@
             "$ref" : "#/definitions/Operation"
           }
         },
-        "residence" : {
+        "etageAppartement" : {
+          "$ref" : "#/definitions/Etage"
+        },
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -2834,9 +2568,6 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "meubleApp" : {
-          "type" : "boolean"
-        },
         "nbrPieceApp" : {
           "type" : "integer",
           "format" : "int32"
@@ -2853,27 +2584,37 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "occupied" : {
-          "type" : "boolean"
-        },
-        "numeroApp" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "abrvNomApp" : {
-          "type" : "string"
-        },
-        "nomApp" : {
-          "type" : "string"
-        },
-        "idEtage" : {
+        "numApp" : {
           "type" : "integer",
           "format" : "int64"
         },
-        "proprietaire" : {
+        "idEtageAppartement" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "fullNameProprio" : {
           "type" : "string"
         },
-        "residence" : {
+        "codeAbrvBienImmobilier" : {
+          "type" : "string"
+        },
+        "nomCompletBienImmobilier" : {
+          "type" : "string"
+        },
+        "nomBaptiserBienImmobilier" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "superficieBien" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "bienMeublerResidence" : {
+          "type" : "boolean"
+        },
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -3283,9 +3024,6 @@
         "bienImmobilierOperation" : {
           "$ref" : "#/definitions/Bienimmobilier"
         },
-        "studioBail" : {
-          "$ref" : "#/definitions/Studio"
-        },
         "appartementBail" : {
           "$ref" : "#/definitions/Appartement"
         },
@@ -3396,63 +3134,6 @@
         }
       }
     },
-    "BailStudioDto" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "idAgence" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "idCreateur" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "designationBail" : {
-          "type" : "string"
-        },
-        "abrvCodeBail" : {
-          "type" : "string"
-        },
-        "enCoursBail" : {
-          "type" : "boolean"
-        },
-        "archiveBail" : {
-          "type" : "boolean"
-        },
-        "montantCautionBail" : {
-          "type" : "number",
-          "format" : "double"
-        },
-        "nbreMoisCautionBail" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "nouveauMontantLoyer" : {
-          "type" : "number",
-          "format" : "double"
-        },
-        "dateDebut" : {
-          "type" : "string",
-          "format" : "date"
-        },
-        "dateFin" : {
-          "type" : "string",
-          "format" : "date"
-        },
-        "idStudio" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "idUtilisateur" : {
-          "type" : "integer",
-          "format" : "int64"
-        }
-      }
-    },
     "BailVillaDto" : {
       "type" : "object",
       "properties" : {
@@ -3525,34 +3206,27 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "numBien" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "statutBien" : {
+        "codeAbrvBienImmobilier" : {
           "type" : "string"
         },
-        "abrvBienimmobilier" : {
+        "nomCompletBienImmobilier" : {
+          "type" : "string"
+        },
+        "nomBaptiserBienImmobilier" : {
           "type" : "string"
         },
         "description" : {
-          "type" : "string"
-        },
-        "nomBien" : {
           "type" : "string"
         },
         "superficieBien" : {
           "type" : "number",
           "format" : "double"
         },
-        "site" : {
-          "type" : "string"
+        "bienMeublerResidence" : {
+          "type" : "boolean"
         },
         "utilisateur" : {
           "type" : "string"
-        },
-        "archived" : {
-          "type" : "boolean"
         },
         "occupied" : {
           "type" : "boolean"
@@ -3582,34 +3256,27 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "numBien" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "statutBien" : {
+        "codeAbrvBienImmobilier" : {
           "type" : "string"
         },
-        "abrvBienimmobilier" : {
+        "nomCompletBienImmobilier" : {
+          "type" : "string"
+        },
+        "nomBaptiserBienImmobilier" : {
           "type" : "string"
         },
         "description" : {
-          "type" : "string"
-        },
-        "nomBien" : {
           "type" : "string"
         },
         "superficieBien" : {
           "type" : "number",
           "format" : "double"
         },
-        "site" : {
-          "$ref" : "#/definitions/Site"
-        },
-        "utilisateur" : {
-          "$ref" : "#/definitions/Utilisateur"
-        },
-        "archived" : {
+        "bienMeublerResidence" : {
           "type" : "boolean"
+        },
+        "utilisateurProprietaire" : {
+          "$ref" : "#/definitions/Utilisateur"
         },
         "occupied" : {
           "type" : "boolean"
@@ -3927,10 +3594,20 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "nomEtage" : {
+        "nomCompletEtage" : {
+          "type" : "string"
+        },
+        "codeAbrvEtage" : {
+          "type" : "string"
+        },
+        "nomBaptiserEtage" : {
           "type" : "string"
         },
         "numEtage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nombrePieceSurEtage" : {
           "type" : "integer",
           "format" : "int32"
         },
@@ -3938,12 +3615,6 @@
           "type" : "array",
           "items" : {
             "$ref" : "#/definitions/Appartement"
-          }
-        },
-        "studios" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Studio"
           }
         },
         "magasins" : {
@@ -3954,9 +3625,6 @@
         },
         "immeuble" : {
           "$ref" : "#/definitions/Immeuble"
-        },
-        "abrvEtage" : {
-          "type" : "string"
         }
       }
     },
@@ -4003,9 +3671,6 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "nomEtage" : {
-          "type" : "string"
-        },
         "numEtage" : {
           "type" : "integer",
           "format" : "int32"
@@ -4014,8 +3679,18 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "abrvEtage" : {
+        "nomCompletEtage" : {
           "type" : "string"
+        },
+        "codeAbrvEtage" : {
+          "type" : "string"
+        },
+        "nomBaptiserEtage" : {
+          "type" : "string"
+        },
+        "nombrePieceSurEtage" : {
+          "type" : "integer",
+          "format" : "int32"
         }
       }
     },
@@ -4042,47 +3717,27 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "numBien" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "statutBien" : {
+        "codeNomAbrvImmeuble" : {
           "type" : "string"
         },
-        "abrvBienimmobilier" : {
+        "nomCompletImmeuble" : {
           "type" : "string"
         },
-        "description" : {
-          "type" : "string"
-        },
-        "nomBien" : {
-          "type" : "string"
-        },
-        "superficieBien" : {
-          "type" : "number",
-          "format" : "double"
-        },
-        "site" : {
-          "$ref" : "#/definitions/Site"
-        },
-        "utilisateur" : {
-          "$ref" : "#/definitions/Utilisateur"
-        },
-        "nbrEtage" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "nbrePieceImmeuble" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "abrvNomImmeuble" : {
+        "nomBaptiserImmeuble" : {
           "type" : "string"
         },
         "descriptionImmeuble" : {
           "type" : "string"
         },
-        "numeroImmeuble" : {
+        "numImmeuble" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbrEtage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbrePiecesDansImmeuble" : {
           "type" : "integer",
           "format" : "int32"
         },
@@ -4092,13 +3747,13 @@
             "$ref" : "#/definitions/Etage"
           }
         },
+        "site" : {
+          "$ref" : "#/definitions/Site"
+        },
+        "utilisateurProprietaire" : {
+          "$ref" : "#/definitions/Utilisateur"
+        },
         "garrage" : {
-          "type" : "boolean"
-        },
-        "archived" : {
-          "type" : "boolean"
-        },
-        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -4146,10 +3801,6 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "numBien" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
         "idAgence" : {
           "type" : "integer",
           "format" : "int64"
@@ -4158,21 +3809,29 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "statutBien" : {
+        "codeNomAbrvImmeuble" : {
           "type" : "string"
         },
-        "denominationBien" : {
+        "nomCompletImmeuble" : {
           "type" : "string"
         },
-        "nomBien" : {
+        "nomBaptiserImmeuble" : {
           "type" : "string"
         },
-        "etatBien" : {
+        "descriptionImmeuble" : {
           "type" : "string"
         },
-        "superficieBien" : {
-          "type" : "number",
-          "format" : "double"
+        "numImmeuble" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbrEtage" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nbrePiecesDansImmeuble" : {
+          "type" : "integer",
+          "format" : "int32"
         },
         "idSite" : {
           "type" : "integer",
@@ -4182,28 +3841,7 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "nbrEtage" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "nbrePieceImmeuble" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "abrvNomImmeuble" : {
-          "type" : "string"
-        },
-        "descriptionImmeuble" : {
-          "type" : "string"
-        },
-        "numeroImmeuble" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
         "garrage" : {
-          "type" : "boolean"
-        },
-        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -4223,39 +3861,29 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "nbrEtage" : {
-          "type" : "integer",
-          "format" : "int32"
+        "codeNomAbrvImmeuble" : {
+          "type" : "string"
         },
-        "nbrePieceImmeuble" : {
-          "type" : "integer",
-          "format" : "int32"
+        "nomCompletImmeuble" : {
+          "type" : "string"
         },
-        "abrvNomImmeuble" : {
+        "nomBaptiserImmeuble" : {
           "type" : "string"
         },
         "descriptionImmeuble" : {
           "type" : "string"
         },
-        "numeroImmeuble" : {
+        "numImmeuble" : {
           "type" : "integer",
           "format" : "int32"
         },
-        "statutBien" : {
-          "type" : "string"
+        "nbrEtage" : {
+          "type" : "integer",
+          "format" : "int32"
         },
-        "denominationBien" : {
-          "type" : "string"
-        },
-        "nomBien" : {
-          "type" : "string"
-        },
-        "etatBien" : {
-          "type" : "string"
-        },
-        "superficieBien" : {
-          "type" : "number",
-          "format" : "double"
+        "nbrePiecesDansImmeuble" : {
+          "type" : "integer",
+          "format" : "int32"
         },
         "idSite" : {
           "type" : "integer",
@@ -4272,9 +3900,6 @@
           "type" : "string"
         },
         "garrage" : {
-          "type" : "boolean"
-        },
-        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -4302,41 +3927,35 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "numBien" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "statutBien" : {
+        "codeAbrvBienImmobilier" : {
           "type" : "string"
         },
-        "abrvBienimmobilier" : {
+        "nomCompletBienImmobilier" : {
+          "type" : "string"
+        },
+        "nomBaptiserBienImmobilier" : {
           "type" : "string"
         },
         "description" : {
-          "type" : "string"
-        },
-        "nomBien" : {
           "type" : "string"
         },
         "superficieBien" : {
           "type" : "number",
           "format" : "double"
         },
-        "site" : {
-          "$ref" : "#/definitions/Site"
+        "bienMeublerResidence" : {
+          "type" : "boolean"
         },
-        "utilisateur" : {
+        "utilisateurProprietaire" : {
           "$ref" : "#/definitions/Utilisateur"
         },
-        "nmbrPieceMagasin" : {
+        "nombrePieceMagasin" : {
           "type" : "integer",
           "format" : "int32"
         },
-        "nomMagasin" : {
-          "type" : "string"
-        },
-        "abrvNomMagasin" : {
-          "type" : "string"
+        "numMagasin" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "etageMagasin" : {
           "$ref" : "#/definitions/Etage"
@@ -4347,10 +3966,10 @@
             "$ref" : "#/definitions/Operation"
           }
         },
-        "underBuildingMagasin" : {
-          "type" : "boolean"
+        "site" : {
+          "$ref" : "#/definitions/Site"
         },
-        "archived" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
         "occupied" : {
@@ -4373,35 +3992,32 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "numBien" : {
+        "nombrePieceMagasin" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numMagasin" : {
           "type" : "integer",
           "format" : "int64"
         },
-        "statutBien" : {
+        "codeAbrvBienImmobilier" : {
           "type" : "string"
         },
-        "abrvBienimmobilier" : {
+        "nomCompletBienImmobilier" : {
+          "type" : "string"
+        },
+        "nomBaptiserBienImmobilier" : {
           "type" : "string"
         },
         "description" : {
-          "type" : "string"
-        },
-        "nomBien" : {
           "type" : "string"
         },
         "superficieBien" : {
           "type" : "number",
           "format" : "double"
         },
-        "abrvNomMagasin" : {
-          "type" : "string"
-        },
-        "nmbrPieceMagasin" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "nomMagasin" : {
-          "type" : "string"
+        "bienMeublerResidence" : {
+          "type" : "boolean"
         },
         "idEtage" : {
           "type" : "integer",
@@ -4421,9 +4037,6 @@
         "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "archived" : {
-          "type" : "boolean"
-        },
         "occupied" : {
           "type" : "boolean"
         }
@@ -4440,46 +4053,41 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "numBien" : {
+        "idCreateur" : {
           "type" : "integer",
           "format" : "int64"
         },
-        "statutBien" : {
+        "nombrePieceMagasin" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numMagasin" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "codeAbrvBienImmobilier" : {
           "type" : "string"
         },
-        "abrvBienimmobilier" : {
+        "nomCompletBienImmobilier" : {
+          "type" : "string"
+        },
+        "nomBaptiserBienImmobilier" : {
           "type" : "string"
         },
         "description" : {
-          "type" : "string"
-        },
-        "nomBien" : {
           "type" : "string"
         },
         "superficieBien" : {
           "type" : "number",
           "format" : "double"
         },
-        "abrvNomMagasin" : {
-          "type" : "string"
-        },
-        "nmbrPieceMagasin" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "nomMagasin" : {
-          "type" : "string"
-        },
-        "utilisateur" : {
-          "$ref" : "#/definitions/Utilisateur"
+        "bienMeublerResidence" : {
+          "type" : "boolean"
         },
         "proprietaire" : {
           "type" : "string"
         },
         "underBuildingMagasin" : {
-          "type" : "boolean"
-        },
-        "archived" : {
           "type" : "boolean"
         },
         "occupied" : {
@@ -4626,9 +4234,6 @@
         },
         "bienImmobilierOperation" : {
           "$ref" : "#/definitions/Bienimmobilier"
-        },
-        "studioBail" : {
-          "$ref" : "#/definitions/Studio"
         },
         "appartementBail" : {
           "$ref" : "#/definitions/Appartement"
@@ -4944,12 +4549,6 @@
         },
         "quartier" : {
           "$ref" : "#/definitions/Quartier"
-        },
-        "bienImmobiliers" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Bienimmobilier"
-          }
         }
       }
     },
@@ -4993,159 +4592,6 @@
         },
         "quartierResponseDto" : {
           "$ref" : "#/definitions/QuartierResponseDto"
-        }
-      }
-    },
-    "Studio" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "idAgence" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "idCreateur" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "creationDate" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "lastModifiedDate" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "numBien" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "statutBien" : {
-          "type" : "string"
-        },
-        "abrvBienimmobilier" : {
-          "type" : "string"
-        },
-        "description" : {
-          "type" : "string"
-        },
-        "nomBien" : {
-          "type" : "string"
-        },
-        "superficieBien" : {
-          "type" : "number",
-          "format" : "double"
-        },
-        "site" : {
-          "$ref" : "#/definitions/Site"
-        },
-        "utilisateur" : {
-          "$ref" : "#/definitions/Utilisateur"
-        },
-        "descStudio" : {
-          "type" : "string"
-        },
-        "numeroStudio" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "abrvNomStudio" : {
-          "type" : "string"
-        },
-        "nomStudio" : {
-          "type" : "string"
-        },
-        "occupied" : {
-          "type" : "boolean"
-        },
-        "statutStudio" : {
-          "type" : "string"
-        },
-        "etageStudio" : {
-          "$ref" : "#/definitions/Etage"
-        },
-        "operationsStudio" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/Operation"
-          }
-        },
-        "archived" : {
-          "type" : "boolean"
-        }
-      }
-    },
-    "StudioDto" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "idAgence" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "idCreateur" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "numBien" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "statutBien" : {
-          "type" : "string"
-        },
-        "abrvBienimmobilier" : {
-          "type" : "string"
-        },
-        "description" : {
-          "type" : "string"
-        },
-        "nomBien" : {
-          "type" : "string"
-        },
-        "superficieBien" : {
-          "type" : "number",
-          "format" : "double"
-        },
-        "descStudio" : {
-          "type" : "string"
-        },
-        "numeroStudio" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "abrvNomStudio" : {
-          "type" : "string"
-        },
-        "nomStudio" : {
-          "type" : "string"
-        },
-        "idSite" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "idEtage" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "idUtilisateur" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "proprietaire" : {
-          "type" : "string"
-        },
-        "archived" : {
-          "type" : "boolean"
-        },
-        "occupied" : {
-          "type" : "boolean"
         }
       }
     },
@@ -5267,6 +4713,115 @@
           "items" : {
             "$ref" : "#/definitions/Bienimmobilier"
           }
+        },
+        "active" : {
+          "type" : "boolean"
+        },
+        "activated" : {
+          "type" : "boolean"
+        },
+        "nonLocked" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "UtilisateurAfficheDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "utilisateurIdApp" : {
+          "type" : "string"
+        },
+        "nom" : {
+          "type" : "string"
+        },
+        "prenom" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "mobile" : {
+          "type" : "string"
+        },
+        "dateDeNaissance" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "lieuNaissance" : {
+          "type" : "string"
+        },
+        "typePieceIdentite" : {
+          "type" : "string"
+        },
+        "numeroPieceIdentite" : {
+          "type" : "string"
+        },
+        "dateDebutPiece" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateFinPiece" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "nationalité" : {
+          "type" : "string"
+        },
+        "genre" : {
+          "type" : "string"
+        },
+        "username" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        },
+        "profileImageUrl" : {
+          "type" : "string"
+        },
+        "lastLoginDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "lastLoginDateDisplay" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "joinDate" : {
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "roleUsed" : {
+          "type" : "string"
+        },
+        "authorities" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "agenceDto" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "roleRequestDto" : {
+          "$ref" : "#/definitions/RoleRequestDto"
+        },
+        "userCreate" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "active" : {
           "type" : "boolean"
@@ -5411,37 +4966,33 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "numBien" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "statutBien" : {
+        "codeAbrvBienImmobilier" : {
           "type" : "string"
         },
-        "abrvBienimmobilier" : {
+        "nomCompletBienImmobilier" : {
+          "type" : "string"
+        },
+        "nomBaptiserBienImmobilier" : {
           "type" : "string"
         },
         "description" : {
-          "type" : "string"
-        },
-        "nomBien" : {
           "type" : "string"
         },
         "superficieBien" : {
           "type" : "number",
           "format" : "double"
         },
-        "site" : {
-          "$ref" : "#/definitions/Site"
+        "bienMeublerResidence" : {
+          "type" : "boolean"
         },
-        "utilisateur" : {
+        "utilisateurProprietaire" : {
           "$ref" : "#/definitions/Utilisateur"
         },
-        "nbrChambreVilla" : {
+        "nbrePieceVilla" : {
           "type" : "integer",
           "format" : "int32"
         },
-        "nbrePiece" : {
+        "nbrChambreVilla" : {
           "type" : "integer",
           "format" : "int32"
         },
@@ -5453,18 +5004,12 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "nomVilla" : {
-          "type" : "string"
-        },
-        "abrvVilla" : {
-          "type" : "string"
+        "numVilla" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "garageVilla" : {
           "type" : "boolean"
-        },
-        "nbreVoitureGarageVilla" : {
-          "type" : "integer",
-          "format" : "int32"
         },
         "operationsVilla" : {
           "type" : "array",
@@ -5472,8 +5017,8 @@
             "$ref" : "#/definitions/Operation"
           }
         },
-        "archived" : {
-          "type" : "boolean"
+        "site" : {
+          "$ref" : "#/definitions/Site"
         },
         "occupied" : {
           "type" : "boolean"
@@ -5495,11 +5040,11 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "nbrChambreVilla" : {
+        "nbrePieceVilla" : {
           "type" : "integer",
           "format" : "int32"
         },
-        "nbrePiece" : {
+        "nbrChambreVilla" : {
           "type" : "integer",
           "format" : "int32"
         },
@@ -5511,38 +5056,28 @@
           "type" : "integer",
           "format" : "int32"
         },
-        "nomVilla" : {
-          "type" : "string"
-        },
-        "abrvVilla" : {
-          "type" : "string"
-        },
-        "garageVilla" : {
-          "type" : "boolean"
-        },
-        "nbreVoitureGarageVilla" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "numBien" : {
+        "numVilla" : {
           "type" : "integer",
           "format" : "int64"
         },
-        "statutBien" : {
+        "codeAbrvBienImmobilier" : {
           "type" : "string"
         },
-        "abrvBienimmobilier" : {
+        "nomCompletBienImmobilier" : {
+          "type" : "string"
+        },
+        "nomBaptiserBienImmobilier" : {
           "type" : "string"
         },
         "description" : {
           "type" : "string"
         },
-        "nomBien" : {
-          "type" : "string"
-        },
         "superficieBien" : {
           "type" : "number",
           "format" : "double"
+        },
+        "bienMeublerResidence" : {
+          "type" : "boolean"
         },
         "idSite" : {
           "type" : "integer",
@@ -5554,9 +5089,6 @@
         },
         "proprietaire" : {
           "type" : "string"
-        },
-        "archived" : {
-          "type" : "boolean"
         },
         "occupied" : {
           "type" : "boolean"

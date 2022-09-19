@@ -1,6 +1,5 @@
 /* tslint:disable */
 import { Quartier } from './quartier';
-import { Bienimmobilier } from './bienimmobilier';
 export interface Site {
   id?: number;
   idAgence?: number;
@@ -10,5 +9,4 @@ export interface Site {
   abrSite?: string;
   nomSite?: string;
   quartier?: Quartier;
-  bienImmobiliers?: Array<Bienimmobilier>;
 }

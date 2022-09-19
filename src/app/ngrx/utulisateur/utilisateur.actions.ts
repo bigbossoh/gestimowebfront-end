@@ -17,6 +17,10 @@ export enum UtilisateurActionsTypes {
   SAVE_USER = '[UtilisateurRequestDto] Save User',
   SAVE_USER_SUCCES = '[UtilisateurRequestDto] Save User Succes',
   SAVE_USER_ERROR = '[UtilisateurRequestDto] Save User Error',
+
+  GET_ALL_UTLISATEUR = '[UtilisateurRequestDto] Get All Utilisateur',
+  GET_ALL_UTLISATEUR_SUCCES = '[UtilisateurRequestDto] Get All Utilisateur Succes',
+  GET_ALL_UTLISATEUR_ERROR = '[UtilisateurRequestDto] Get All Utilisateur Error',
 }
 // CREER LES DIFFERENTES ACTIONS
 export class GetAllProprietairesActions implements Action {
@@ -50,7 +54,22 @@ export class GetAllLocatairesActionsError implements Action {
     UtilisateurActionsTypes.GET_ALL_LOCATAIRES_ERROR;
   constructor(public payload: string) {}
 }
+// LISTE DES UTILISATEURS
+export class GetAllUtilisateursActions implements Action {
+  type: UtilisateurActionsTypes = UtilisateurActionsTypes.GET_ALL_UTLISATEUR;
+  constructor(public payload: any) {}
+}
 
+export class GetAllUtilisateursActionsSuccess implements Action {
+  type: UtilisateurActionsTypes =
+    UtilisateurActionsTypes.GET_ALL_UTLISATEUR_SUCCES;
+  constructor(public payload: UtilisateurRequestDto[]) {}
+}
+export class GetAllUtilisateursActionsError implements Action {
+  type: UtilisateurActionsTypes =
+    UtilisateurActionsTypes.GET_ALL_UTLISATEUR_ERROR;
+  constructor(public payload: string) {}
+}
 // SAVE UN UTILISATEUR
 export class SaveUserActions implements Action {
   type: UtilisateurActionsTypes = UtilisateurActionsTypes.SAVE_USER;
@@ -75,4 +94,7 @@ export type UtilisateurActions =
   | GetAllLocatairesActionsSuccess
   | SaveUserActions
   | SaveUserActionsSuccess
-  | SaveUserActionsError;
+  | SaveUserActionsError
+  | GetAllUtilisateursActions
+  | GetAllUtilisateursActionsError
+  |GetAllUtilisateursActionsSuccess;

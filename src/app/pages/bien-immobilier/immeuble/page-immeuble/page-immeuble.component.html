@@ -96,7 +96,8 @@
       <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADED">
         <div class="mat-elevation-z8">
           <mat-paginator
-          [showFirstLastButtons]="true"
+          #matimmeuble
+          showFirstLastButtons
           [pageSizeOptions]="pageSize"
           aria-label="Select page of users"
         ></mat-paginator>
@@ -201,8 +202,8 @@
                     class="text-center"
                     *ngFor="let immeuble of immeubleState.immeubles"
                   >
-                    <td>{{ immeuble.numeroImmeuble }}</td>
-                    <td>{{ immeuble.abrvNomImmeuble }}</td>
+                    <td>{{ immeuble.id }}</td>
+                    <td>{{ immeuble.codeNomAbrvImmeuble }}</td>
                     <td>
                       {{ immeuble.nomPropio }} {{ immeuble.prenomProprio }}
                     </td>

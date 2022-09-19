@@ -1,14 +1,20 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Subscription, Observable } from 'rxjs';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
-import { ApiService } from 'src/gs-api/src/services';
-import { Utilisateur } from '../../../../gs-api/src/models/utilisateur';
+import {
+  UtilisteurState,
+  UtilisteurStateEnum,
+} from '../../../ngrx/utulisateur/utlisateur.reducer';
+import { GetAllUtilisateursActions } from '../../../ngrx/utulisateur/utilisateur.actions';
+import { map } from 'rxjs/operators';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-page-liste-utilisateurs',
@@ -16,6 +22,22 @@ import { Utilisateur } from '../../../../gs-api/src/models/utilisateur';
   styleUrls: ['./page-liste-utilisateurs.component.css'],
 })
 export class PageListeUtilisateursComponent implements OnInit {
+  displayedColumns = [
+    'Photo',
+    'ID',
+    'Nom',
+    'role',
+    'Login',
+    'Email',
+    'Status',
+    'Actions',
+  ];
+
+  dataSource: MatTableDataSource<any> = new MatTableDataSource();
+  pageSize = [1, 5, 10, 15, 20];
+
+  @ViewChild(MatPaginator,{ static: false }) paginatorUser!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   public users!: UtilisateurRequestDto[];
   public user?: UtilisateurRequestDto;
@@ -30,42 +52,37 @@ export class PageListeUtilisateursComponent implements OnInit {
   public totalRecords: number | undefined;
   public page: number = 1;
 
+  utilisateurState$: Observable<UtilisteurState> | null = null;
+  readonly UtilisteurStateEnum = UtilisteurStateEnum;
   constructor(
+    private store: Store<any>,
     private userService: UserService,
     private notificationService: NotificationService
   ) {}
 
-  ngOnInit(): void {
-    this.user = this.userService.getUserFromLocalCache();
-    this.getUsers(true);
-   }
-
-  public getUsers(showNotification: boolean): void {
-    this.refreshing = true;
-    this.subscriptions.push(
-      this.userService.getUsers().subscribe(
-        (response: any) => {
-          this.userService.addUsersToLocalCache(response);
-          this.users = response;
-          this.totalRecords = response.length;
-          this.refreshing = false;
-          if (showNotification) {
-            this.sendErrorNotification(
-              NotificationType.SUCCESS,
-              `${response.length} utilisateur(s) chargé(s) avec succès.`
-            );
-          }
-        },
-        (errorResponse: HttpErrorResponse) => {
-          this.sendErrorNotification(
-            NotificationType.ERROR,
-            errorResponse.error.message
-          );
-          this.refreshing = false;
-        }
-      )
-    );
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
+  ngOnInit() {
+    this.store.dispatch(new GetAllUtilisateursActions({}));
+    this.utilisateurState$ = this.store.pipe(
+      map((state) => state.utilisateurState)
+    );
+    this.store
+      .pipe(map((state) => state.utilisateurState))
+      .subscribe((data) => {
+        this.dataSource.data = data.utilisateurs;
+        this.dataSource.paginator = this.paginatorUser;
+        console.log("La pagination est la suivante : ");
+        console.log(this.paginatorUser)
+
+      });
+  }
+
   public onSelectUser(selectedUser: UtilisateurRequestDto): void {
     this.selectedUser = selectedUser;
     this.clickButton('openUserInfo');
@@ -94,7 +111,7 @@ export class PageListeUtilisateursComponent implements OnInit {
       this.userService.addUser(userForm).subscribe(
         (response: any) => {
           this.clickButton('new-user-close');
-          this.getUsers(true);
+          //  this.getUsers(true);
 
           this.sendErrorNotification(
             NotificationType.SUCCESS,
@@ -121,7 +138,7 @@ export class PageListeUtilisateursComponent implements OnInit {
       this.userService.addUser(this.editUser!).subscribe(
         (response: any) => {
           this.clickButton('closeEditUserModalButton');
-          this.getUsers(false);
+          //  this.getUsers(false);
 
           //userForm.reset();
           this.sendErrorNotification(

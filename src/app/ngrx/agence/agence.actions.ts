@@ -10,7 +10,7 @@ import { AgenceImmobilierDTO, AgenceRequestDto, AgenceResponseDto } from 'src/gs
 export enum AgenceActionsType {
 
   SAVE_AGENCE = '[AgenceRequestDto] Get Save Appartement',
-  SAVE_AGENCE_SUCCES = '[AgenceRequestDto] Get Save AppartementSucces',
+  SAVE_AGENCE_SUCCES = '[AgenceRequestDto] Get Save Appartement Succes',
   SAVE_AGENCE_ERROR = '[AgenceRequestDto] Get Save Appartement Error',
 
   GET_ALL_AGENCE = '[AgenceResponseDto] Get All AgenceResponseDto Libre',
