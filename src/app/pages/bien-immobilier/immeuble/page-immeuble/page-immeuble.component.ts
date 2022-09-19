@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
@@ -31,14 +31,12 @@ export interface ImmeubleData {}
   styleUrls: ['./page-immeuble.component.css'],
 })
 export class PageImmeubleComponent implements OnInit {
-  public totalRecords: number | undefined;
-  public page: number = 1;
-  ELEMENT_DATA: ImmeubleAfficheDto[] = [];
+
   displayedColumns = ['Code', 'Dénomination', 'Propriétaire', 'Actions'];
-  dataSource: MatTableDataSource<ImmeubleAfficheDto> ;
-  pageSize = [5, 10, 15, 20];
-  @ViewChild(MatPaginator) paginator!: MatPaginator ;
-  @ViewChild(MatSort) sort!: MatSort ;
+  dataSource :MatTableDataSource<any> = new MatTableDataSource();
+  pageSize = [2,5, 10, 15, 20];
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   villeState$: Observable<VilleState> | null = null;
 
@@ -50,11 +48,7 @@ export class PageImmeubleComponent implements OnInit {
   readonly ImmeubleStateEnum = ImmeubleStateEnum;
   readonly BienImmobilierStateEnum = BienImmobilierStateEnum;
   readonly CommunesStateEnum = CommunesStateEnum;
-  constructor(private store: Store<any>) {
-    const immeubles= takeImmeuble(this.ELEMENT_DATA);
-
-    this.dataSource = new MatTableDataSource(immeubles);
-  }
+  constructor(private store: Store<any>,private cdr:ChangeDetectorRef) {}
 
   ngOnInit() {
     // RECUPERER LES BIENS
@@ -64,34 +58,29 @@ export class PageImmeubleComponent implements OnInit {
     // RECUPERR LES IMMEUBLES
     this.store.dispatch(new GetAllImmeublesActions({}));
     this.immeubleState$ = this.store.pipe(map((state) => state.immeubleState));
-    this.store.pipe(map((state) => state.immeubleState)).subscribe(data => {
-      console.log("The data is next");
-      this.ELEMENT_DATA = data.immeubles;
-      this.dataSource = data.immeubles;
-      console.log( this.ELEMENT_DATA);
+    this.store.pipe(map((state) => state.immeubleState)).subscribe((data) => {
+      console.log('The data is next pour cette nuit.');
+      this.dataSource.data = data.immeubles;
+      this.dataSource.paginator=this.paginator;
+      console.log(this.dataSource.data);
+      console.log("paginator");
+      console.log(this.paginator);
+
+
     });
   }
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    console.log("LA PAGINATION EST : ");
-    console.log(this.paginator);
+  // ngAfterViewInit():void {
+  //   setTimeout(()=> this.dataSource.paginator = this.paginator);
 
-
-  }
+  //   this.dataSource.sort = this.sort;
+  //   console.log('le short est le suivant : ');
+  //   console.log(this.dataSource.paginator);
+  // }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
   }
-}
-function takeImmeuble(im:ImmeubleAfficheDto[]): ImmeubleAfficheDto[] {
-  console.log("immooo");
-  console.log(im);
-
-
-  return im ;
 }
