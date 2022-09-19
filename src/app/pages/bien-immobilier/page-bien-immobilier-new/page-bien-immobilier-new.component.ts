@@ -105,7 +105,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
   }
   findEtageByImmeuble(immeuble: any) {
     console.log("le target est le suivant :  "+immeuble.target.value);
-    
+
     this.store.dispatch(
       new GetAllEtagesByImmeubleActions(immeuble.target.value)
     );
@@ -113,7 +113,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
       map((state) => state.etageState)
     );
     console.log(this.etageState$);
-    
+
   }
   private sendErrorNotification(
     notificationType: NotificationType,
@@ -150,8 +150,8 @@ export class PageBienImmobilierNewComponent implements OnInit {
     if (this.magasinForm?.invalid) {
      console.log("Le formulaire n'est pas bon du tout et pourquoi ?");
      console.log(this.magasinForm?.value);
-     
-     
+
+
       return;
     }
     this.submitted = false;
@@ -163,8 +163,8 @@ export class PageBienImmobilierNewComponent implements OnInit {
     this.submitted = true;
     console.log("L'appartement est ");
     console.log(this.appartementForm?.value);
-    
-    
+
+
     if (this.appartementForm?.invalid) {
       return;
     }
@@ -302,12 +302,6 @@ export class PageBienImmobilierNewComponent implements OnInit {
       idUtilisateur: ['', Validators.required],
       occupied: [false],
       archived: [false],
-
-
-
-
-
-
     });
     this.etageForm = this.fb.group({
       //ETAGE
