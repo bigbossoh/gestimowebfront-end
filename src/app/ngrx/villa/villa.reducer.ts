@@ -1,9 +1,5 @@
 import { Action } from '@ngrx/store';
 import {
-  BienImmobilierDto,
-  EtageDto,
-  ImmeubleDto,
-  StudioDto,
   VillaDto,
 } from 'src/gs-api/src/models';
 import { VillaActions, VillaActionsTypes } from './villa.action';

@@ -25,11 +25,7 @@ import {
   MagasinStateEnum,
 } from '../../../ngrx/magasin/magasin.reducer';
 import { GetAllMagasinActions } from '../../../ngrx/magasin/magasin.actions';
-import { GetAllStudioActions } from '../../../ngrx/studio/studio.actions';
-import {
-  StudioState,
-  StudioStateEnum,
-} from '../../../ngrx/studio/studio.reducer';
+
 import { VillaState } from 'src/app/ngrx/villa/villa.reducer';
 import { VillaStateEnum } from '../../../ngrx/villa/villa.reducer';
 import { GetAllVillaActions } from '../../../ngrx/villa/villa.action';
@@ -40,7 +36,7 @@ import { GetAllVillaActions } from '../../../ngrx/villa/villa.action';
   styleUrls: ['./page-bien-immobilier.component.css'],
 })
 export class PageBienImmobilierComponent implements OnInit {
-  studioState$: Observable<StudioState> | null = null;
+
   magasinState$: Observable<MagasinState> | null = null;
   appartementState$: Observable<AppartementState> | null = null;
   villaState$: Observable<VillaState> | null = null;
@@ -51,7 +47,7 @@ export class PageBienImmobilierComponent implements OnInit {
 
   readonly AppartementEnum = AppartementStateEnum;
   readonly MagasinStateEnum = MagasinStateEnum;
-  readonly StudioStateEnum = StudioStateEnum;
+
   readonly VillaStateEnum = VillaStateEnum;
 
   readonly VilleStateEnum = VilleStateEnum;
@@ -69,9 +65,7 @@ export class PageBienImmobilierComponent implements OnInit {
     this.store.dispatch(new GetAllMagasinActions({}));
     this.magasinState$ = this.store.pipe(map((state) => state.magasinState));
 
-    // RECUPERER LES STUDIOS DANS LE STORES
-    this.store.dispatch(new GetAllStudioActions({}));
-    this.studioState$ = this.store.pipe(map((state) => state.studioState));
+
     // RECUPERER LES VILLAS DANS LE STORES
     this.store.dispatch(new GetAllVillaActions({}));
     this.villaState$ = this.store.pipe(map((state) => state.villaState));

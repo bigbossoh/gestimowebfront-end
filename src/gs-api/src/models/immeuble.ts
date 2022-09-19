@@ -1,28 +1,22 @@
 /* tslint:disable */
+import { Etage } from './etage';
 import { Site } from './site';
 import { Utilisateur } from './utilisateur';
-import { Etage } from './etage';
 export interface Immeuble {
   id?: number;
   idAgence?: number;
   idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
-  numBien?: number;
-  statutBien?: string;
-  abrvBienimmobilier?: string;
-  description?: string;
-  nomBien?: string;
-  superficieBien?: number;
-  site?: Site;
-  utilisateur?: Utilisateur;
-  nbrEtage?: number;
-  nbrePieceImmeuble?: number;
-  abrvNomImmeuble?: string;
+  codeNomAbrvImmeuble?: string;
+  nomCompletImmeuble?: string;
+  nomBaptiserImmeuble?: string;
   descriptionImmeuble?: string;
-  numeroImmeuble?: number;
+  numImmeuble?: number;
+  nbrEtage?: number;
+  nbrePiecesDansImmeuble?: number;
   etages?: Array<Etage>;
+  site?: Site;
+  utilisateurProprietaire?: Utilisateur;
   garrage?: boolean;
-  archived?: boolean;
-  occupied?: boolean;
 }

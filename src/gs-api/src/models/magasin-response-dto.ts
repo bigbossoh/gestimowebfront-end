@@ -1,20 +1,17 @@
 /* tslint:disable */
-import { Utilisateur } from './utilisateur';
 export interface MagasinResponseDto {
   id?: number;
   idAgence?: number;
-  numBien?: number;
-  statutBien?: string;
-  abrvBienimmobilier?: string;
+  idCreateur?: number;
+  nombrePieceMagasin?: number;
+  numMagasin?: number;
+  codeAbrvBienImmobilier?: string;
+  nomCompletBienImmobilier?: string;
+  nomBaptiserBienImmobilier?: string;
   description?: string;
-  nomBien?: string;
   superficieBien?: number;
-  abrvNomMagasin?: string;
-  nmbrPieceMagasin?: number;
-  nomMagasin?: string;
-  utilisateur?: Utilisateur;
+  bienMeublerResidence?: boolean;
   proprietaire?: string;
   underBuildingMagasin?: boolean;
-  archived?: boolean;
   occupied?: boolean;
 }

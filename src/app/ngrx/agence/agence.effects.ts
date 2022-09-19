@@ -28,8 +28,6 @@ export class AgenceEffects {
     this.effectActions.pipe(
       ofType(AgenceActionsType.SAVE_AGENCE),
       mergeMap((action: AgenceActions) => {
-        console.log('mergemap effect save Agence', action.payload);
-
         return this.apiService.authenticateAgence(action.payload).pipe(
           map((save) => new SaveAgenceActionsSuccess(save)),
           catchError((err) => of(new SaveAgenceActionsError(err.message)))
@@ -37,7 +35,7 @@ export class AgenceEffects {
       }),
       tap((resultat) => {
         console.log("Le resultat est le suivant :");
-        
+
 console.log(resultat.type.indexOf("Succes"));
 
         if (resultat.type.indexOf("Succes")>0) {

@@ -1,12 +1,13 @@
 <div class="col">
   <div class="row m-3">
     <div class="col-md-8 p-0">
-      <h1>Liste des utilisateurs a modifier</h1>
+      <h1>Liste des utilisateurs</h1>
     </div>
     <div class="col-md-4 text-right">
-      <app-button-action-utlisateur (utilisateurEmmitter)="onActionEmmit($event)" ></app-button-action-utlisateur>
+      <app-button-action-utlisateur
+        (utilisateurEmmitter)="onActionEmmit($event)"
+      ></app-button-action-utlisateur>
     </div>
-
   </div>
   <div class="col">
     <!-- main content -->
@@ -17,24 +18,178 @@
           <div class="col btn-group">
             <div class="row md-12">
               <form class="form-inline mr-2">
-                <input name="searchTerm" #searchInput="ngModel" class="form-control" ngModel
-                  (ngModelChange)="searchUsers(searchInput.value)" type="search"
-                  placeholder="Recherche utilisateurs...">
+                <input
+                  name="searchTerm"
+                  #searchInput="ngModel"
+                  class="form-control"
+                  ngModel
+                  (ngModelChange)="searchUsers(searchInput.value)"
+                  type="search"
+                  placeholder="Recherche utilisateurs..."
+                />
               </form>
-              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#addUserModal">
+              <button
+                type="button"
+                class="btn btn-info"
+                data-toggle="modal"
+                data-target="#addUserModal"
+              >
                 <i class="fa fa-plus"></i>&nbsp;New User
               </button>
               <div class="btn-group ml-2">
-                <button type="button" (click)="getUsers(true)" class="btn btn-info">
+                <button type="button" class="btn btn-info">
                   <i *ngIf="refreshing" class="fas fa-sync fa-spin"></i>
                   <i *ngIf="!refreshing" class="fas fa-sync"></i>
                 </button>
               </div>
             </div>
-
           </div>
         </div>
-        <table class="table table-hover m-3 p-3">
+
+        <div class="example-header">
+          <mat-form-field>
+            <input
+              matInput
+              (keyup)="applyFilter($event)"
+              #input
+              placeholder="Rechercher un Utilisateur"
+            />
+          </mat-form-field>
+        </div>
+        <!-- MAT TABLE AFFICHE -->
+        <ng-container
+          *ngIf="utilisateurState$ | async as utilisateurState"
+          [ngSwitch]="utilisateurState.dataState"
+        >
+          <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
+            <div class="mat-elevation-z8">
+              <mat-paginator
+                #paginatorUser
+                showFirstLastButtons
+                [pageSizeOptions]="pageSize"
+
+          aria-label="Select page of immeubles"
+              ></mat-paginator>
+              <mat-table [dataSource]="dataSource" matSort>
+                <!-- Photo colonne -->
+                <ng-container matColumnDef="Photo">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Photo
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <img
+                      height="40"
+                      width="40"
+                      src="assets/nassmam.jpg"
+                      class="rounded-circle img-fluid img-thumbnail"
+                      alt=""
+                    />
+                  </mat-cell>
+                </ng-container>
+
+                <!-- ID colonne -->
+                <ng-container matColumnDef="ID">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    ID
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    {{ row.utilisateurIdApp }}
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Nom colonne -->
+                <ng-container matColumnDef="Nom">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Nom et Prénoms
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    {{ row.nom }}
+                    {{ row.prenom }}
+                  </mat-cell>
+                </ng-container>
+
+                <!-- rôle colonne -->
+                <ng-container matColumnDef="role">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    rôle
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    {{
+                      row.roleUsed?.substring(row.roleUsed!.indexOf("_") + 1)
+                    }}
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Login colonne -->
+                <ng-container matColumnDef="Login">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Login
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    {{ row.username }}
+                  </mat-cell>
+                </ng-container>
+                <!-- Email colonne -->
+                <ng-container matColumnDef="Email">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Email
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    {{ row.email }}
+                  </mat-cell>
+                </ng-container>
+                <!-- Status colonne -->
+                <ng-container matColumnDef="Status">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Status
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <span [hidden]="!row?.active" class="badge badge-success"
+                      >Active</span
+                    >
+                    <span [hidden]="row?.active" class="badge badge-danger"
+                      >Inactive</span
+                    >
+                  </mat-cell>
+                </ng-container>
+                <!-- Actions colonne -->
+                <ng-container matColumnDef="Actions">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Actions
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row">
+                    <td class="">
+                      <div class="btn-group">
+                        <button
+                          class="btn btn-outline-info"
+                          (click)="onEditUser(row.id)"
+                        >
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-outline-danger">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns">
+                </mat-header-row>
+                <mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                ></mat-row>
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell" colspan="4">
+                    Aucune donnée enregistrées "{{ input.value }}"
+                  </td>
+                </tr>
+              </mat-table>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <!-- <table class="table table-hover m-3 p-3">
           <thead class="table-borderless">
             <tr class="text-center mt-3">
               <th>Photo</th>
@@ -47,56 +202,109 @@
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody >
-            <tr class="text-center" *ngFor="let appUser of users | paginate: {
-              itemsPerPage: 4,
-              currentPage: page,
-              totalItems:totalRecords
-              
-            }">
+          <tbody>
+            <tr
+              class="text-center"
+              *ngFor="
+                let appUser of users
+                  | paginate
+                    : {
+                        itemsPerPage: 4,
+                        currentPage: page,
+                        totalItems: totalRecords
+                      }
+              "
+            >
               <td>
-                <img height="40" width="40" src="assets/nassmam.jpg" class="rounded-circle img-fluid img-thumbnail"
-                  alt="" />
+                <img
+                  height="40"
+                  width="40"
+                  src="assets/nassmam.jpg"
+                  class="rounded-circle img-fluid img-thumbnail"
+                  alt=""
+                />
               </td>
-              <td (click)="onSelectUser(appUser)">{{appUser.utilisateurIdApp}}</td>
-              <td (click)="onSelectUser(appUser)">{{appUser.nom}}</td>
-              <td (click)="onSelectUser(appUser)">{{appUser.roleUsed?.substring(appUser.roleUsed!.indexOf('_') + 1)}}</td>
-              <td (click)="onSelectUser(appUser)">{{appUser.username}}</td>
-              <td (click)="onSelectUser(appUser)">{{appUser.email}}</td>
+              <td (click)="onSelectUser(appUser)">
+                {{ appUser.utilisateurIdApp }}
+              </td>
+              <td (click)="onSelectUser(appUser)">{{ appUser.nom }}</td>
+              <td (click)="onSelectUser(appUser)">
+                {{
+                  appUser.roleUsed?.substring(
+                    appUser.roleUsed!.indexOf("_") + 1
+                  )
+                }}
+              </td>
+              <td (click)="onSelectUser(appUser)">{{ appUser.username }}</td>
+              <td (click)="onSelectUser(appUser)">{{ appUser.email }}</td>
               <td>
-                <span [hidden]="!appUser?.active" class="badge badge-success">Active</span>
-                <span [hidden]="appUser?.active" class="badge badge-danger">Inactive</span>
+                <span [hidden]="!appUser?.active" class="badge badge-success"
+                  >Active</span
+                >
+                <span [hidden]="appUser?.active" class="badge badge-danger"
+                  >Inactive</span
+                >
               </td>
               <td class="">
                 <div class="btn-group">
-                  <button class="btn btn-outline-info" (click)="onEditUser(appUser)"><i
-                      class="fas fa-edit"></i></button>
-                  <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                  <button
+                    class="btn btn-outline-info"
+                    (click)="onEditUser(appUser)"
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button class="btn btn-outline-danger">
+                    <i class="fas fa-trash"></i>
+                  </button>
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
-        <div class=" col-md-12 text-center">
-          <pagination-controls (pageChange)="page = $event"></pagination-controls>
-        </div>
+        <div class="col-md-12 text-center">
+          <pagination-controls
+            (pageChange)="page = $event"
+          ></pagination-controls>
+        </div> -->
         <!-- End user table -->
       </div>
-      <button [hidden]="true" type="button" id="openUserInfo" data-toggle="modal" data-target="#viewUserModal">
-      </button>
-      <button [hidden]="true" type="button" id="openUserEdit" data-toggle="modal" data-target="#editUserModal">
-      </button>
+      <button
+        [hidden]="true"
+        type="button"
+        id="openUserInfo"
+        data-toggle="modal"
+        data-target="#viewUserModal"
+      ></button>
+      <button
+        [hidden]="true"
+        type="button"
+        id="openUserEdit"
+        data-toggle="modal"
+        data-target="#editUserModal"
+      ></button>
 
       <!-- modal user info -->
-      <div class="modal fade bd-example-modal-lg" id="viewUserModal" tabindex="-1" role="dialog" aria-labelledby=""
-        aria-hidden="true">
+      <div
+        class="modal fade bd-example-modal-lg"
+        id="viewUserModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby=""
+        aria-hidden="true"
+      >
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title text-center" id="exampleModalLongTitle">{{selectedUser?.nom}}
-                {{selectedUser?.prenom}}
+              <h5 class="modal-title text-center" id="exampleModalLongTitle">
+                {{ selectedUser?.nom }}
+                {{ selectedUser?.prenom }}
               </h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -106,56 +314,100 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col-4 col-sm-auto p-2">
-                        <div class="mx-auto" style="width: 100px;">
-                          <div class="d-flex justify-content-center align-items-center rounded">
-                            <img class="rounded" height="120" width="120" src="assets/nassmam.jpg"
-                              alt="{{selectedUser?.nom}}">
+                        <div class="mx-auto" style="width: 100px">
+                          <div
+                            class="d-flex justify-content-center align-items-center rounded"
+                          >
+                            <img
+                              class="rounded"
+                              height="120"
+                              width="120"
+                              src="assets/nassmam.jpg"
+                              alt="{{ selectedUser?.nom }}"
+                            />
                           </div>
                         </div>
                       </div>
-                      <div class="col-8 d-flex flex-column flex-sm-row justify-content-between p-1">
+                      <div
+                        class="col-8 d-flex flex-column flex-sm-row justify-content-between p-1"
+                      >
                         <div class="text-center text-sm-left mb-sm-0">
-                          <h6 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{selectedUser?.nom}}
-                            {{selectedUser?.prenom}}</h6>
-                          <p class="mb-1">{{selectedUser?.username}}</p>
-                          <div class="">Status:
-                            <span [hidden]="!selectedUser?.active" class="badge badge-success">Active</span>
-                            <span [hidden]="selectedUser?.active" class="badge badge-danger">Inactive</span>
+                          <h6 class="pt-sm-2 pb-1 mb-0 text-nowrap">
+                            {{ selectedUser?.nom }} {{ selectedUser?.prenom }}
+                          </h6>
+                          <p class="mb-1">{{ selectedUser?.username }}</p>
+                          <div class="">
+                            Status:
+                            <span
+                              [hidden]="!selectedUser?.active"
+                              class="badge badge-success"
+                              >Active</span
+                            >
+                            <span
+                              [hidden]="selectedUser?.active"
+                              class="badge badge-danger"
+                              >Inactive</span
+                            >
                           </div>
                           <div class="text-left">
-                            <div class="text-muted"><small>Joined {{selectedUser?.joinDate | date:
-                                'mediumDate'}}</small>
+                            <div class="text-muted">
+                              <small
+                                >Joined
+                                {{
+                                  selectedUser?.joinDate | date: "mediumDate"
+                                }}</small
+                              >
                             </div>
                           </div>
                         </div>
-                        <div *ngIf="selectedUser?.lastLoginDateDisplay" class="text-muted"><small>Last Login:
-                            {{selectedUser?.lastLoginDateDisplay | date: 'medium'}}</small>
+                        <div
+                          *ngIf="selectedUser?.lastLoginDateDisplay"
+                          class="text-muted"
+                        >
+                          <small
+                            >Last Login:
+                            {{
+                              selectedUser?.lastLoginDateDisplay
+                                | date: "medium"
+                            }}</small
+                          >
                         </div>
-
                       </div>
                     </div>
                   </div>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item"></li>
-                    <li class="list-group-item"><i
-                        class="fa fa-id-badge float-right"></i>{{selectedUser?.utilisateurIdApp}}
+                    <li class="list-group-item">
+                      <i class="fa fa-id-badge float-right"></i
+                      >{{ selectedUser?.utilisateurIdApp }}
                     </li>
-                    <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{selectedUser?.email}}
+                    <li class="list-group-item">
+                      <i class="fa fa-envelope float-right"></i
+                      >{{ selectedUser?.email }}
                     </li>
-                    <li class="list-group-item"><i
-                        class="fas fa-shield-alt float-right"></i>{{selectedUser?.roleUsed?.substring(5)}}
-                    <li *ngIf="selectedUser?.lastLoginDateDisplay" class="list-group-item"><i
-                        class="fas fa-sign-in-alt float-right"></i>{{selectedUser?.lastLoginDateDisplay | date:
-                      'medium'}}
+                    <li class="list-group-item">
+                      <i class="fas fa-shield-alt float-right"></i
+                      >{{ selectedUser?.roleUsed?.substring(5) }}
+                    </li>
+
+                    <li
+                      *ngIf="selectedUser?.lastLoginDateDisplay"
+                      class="list-group-item"
+                    >
+                      <i class="fas fa-sign-in-alt float-right"></i
+                      >{{ selectedUser?.lastLoginDateDisplay | date: "medium" }}
                     </li>
                     <li class="list-group-item">
                       <span [hidden]="selectedUser?.nonLocked">
-                        <i class="fa fa-lock float-right" style="color: red;">
+                        <i class="fa fa-lock float-right" style="color: red">
                         </i>
                         Account Locked
                       </span>
                       <span [hidden]="!selectedUser?.nonLocked">
-                        <i class="fa fa-unlock float-right" style="color: green;">
+                        <i
+                          class="fa fa-unlock float-right"
+                          style="color: green"
+                        >
                         </i>
                         Account Unlocked
                       </span>
@@ -165,95 +417,166 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>
         <!-- End modal user info -->
       </div>
       <!--  -->
-      <div class="modal draggable fade bd-example-modal-lg" id="editUserModal" tabindex="-1"
-  role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title text-center">Edit
-
-        </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="">
-          <form #editUserForm="ngForm">
-            <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label for="firstName">Nom</label>
-                  <input *ngIf="editUser"  type="text" name="nom" required [(ngModel)]="editUser.nom" class="form-control">
-                </div>
-              </div>
-              <div class="col-md-8">
-                <div class="form-group">
-                  <label for="lastName">Prénoms</label>
-                  <input *ngIf="editUser" type="text" name="prenom" required [(ngModel)]="editUser.prenom" class="form-control">
-                </div>
+      <div
+        class="modal draggable fade bd-example-modal-lg"
+        id="editUserModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-center">Edit</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="">
+                <form #editUserForm="ngForm">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="firstName">Nom</label>
+                        <input
+                          *ngIf="editUser"
+                          type="text"
+                          name="nom"
+                          required
+                          [(ngModel)]="editUser.nom"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="form-group">
+                        <label for="lastName">Prénoms</label>
+                        <input
+                          *ngIf="editUser"
+                          type="text"
+                          name="prenom"
+                          required
+                          [(ngModel)]="editUser.prenom"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label for="username">Login</label>
+                        <input
+                          *ngIf="editUser"
+                          type="text"
+                          name="username"
+                          required
+                          [(ngModel)]="editUser.username"
+                          class="form-control"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input
+                      *ngIf="editUser"
+                      type="email"
+                      name="email"
+                      required
+                      [(ngModel)]="editUser.email"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="authority">Role</label>
+                    <select
+                      *ngIf="editUser"
+                      name="roleUsed"
+                      required
+                      [(ngModel)]="editUser.roleUsed"
+                      class="form-control"
+                    >
+                      <option value="ROLE_GERANT">GERANT</option>
+                      <option value="ROLE_PROPRIETAIRE">PROPRIETAIRE</option>
+                      <option value="ROLE_SUPERVISEUR">SUPERVISEUR</option>
+                      <option value="ROLE_SUPER_SUPERVISEUR">
+                        SUPER_SUPERVISEUR
+                      </option>
+                    </select>
+                  </div>
+                  <fieldset class="form-group">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input
+                          *ngIf="editUser"
+                          name="active"
+                          type="checkbox"
+                          [(ngModel)]="editUser.active"
+                          class="form-check-input"
+                        />
+                        Acitve
+                        <!-- <small>(read only)</small> -->
+                      </label>
+                    </div>
+                    <div class="form-check disabled">
+                      <label class="form-check-label">
+                        <input
+                          *ngIf="editUser"
+                          name="locked"
+                          type="checkbox"
+                          [(ngModel)]="editUser.nonLocked"
+                          class="form-check-input"
+                        />
+                        Unlocked
+                      </label>
+                    </div>
+                  </fieldset>
+                </form>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="username">Login</label>
-                  <input *ngIf="editUser" type="text" name="username" required [(ngModel)]="editUser.username" class="form-control">
-                </div>
-              </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+                id="closeEditUserModalButton"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                (click)="onUpdateUser()"
+                [disabled]="editUserForm.invalid"
+                class="btn btn-primary"
+              >
+                Save changes
+              </button>
             </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input *ngIf="editUser" type="email" name="email"  required [(ngModel)]="editUser.email"
-                class="form-control">
-            </div>
-            <div  class="form-group">
-              <label for="authority">Role</label>
-              <select *ngIf="editUser" name="roleUsed" required  [(ngModel)]="editUser.roleUsed" class="form-control">
-                <option value="ROLE_GERANT">GERANT</option>
-                <option value="ROLE_PROPRIETAIRE">PROPRIETAIRE</option>
-                <option value="ROLE_SUPERVISEUR">SUPERVISEUR</option>
-                <option value="ROLE_SUPER_SUPERVISEUR">SUPER_SUPERVISEUR</option>
-              </select>
-            </div>
-            <fieldset class="form-group">
-              <div class="form-check">
-                <label class="form-check-label">
-                  <input *ngIf="editUser" name="active" type="checkbox" [(ngModel)]="editUser.active"
-                    class="form-check-input">
-                  Acitve
-                  <!-- <small>(read only)</small> -->
-                </label>
-              </div>
-              <div class="form-check disabled">
-                <label class="form-check-label">
-                  <input *ngIf="editUser" name="locked" type="checkbox" [(ngModel)]="editUser.nonLocked"
-                    class="form-check-input">
-                  Unlocked
-
-                </label>
-              </div>
-            </fieldset>
-          </form>
+          </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeEditUserModalButton">Close</button>
-        <button type="button" (click)="onUpdateUser()" [disabled]="editUserForm.invalid" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-    </div>
       <!-- End of Main content -->
     </div>
-
   </div>
-
 </div>

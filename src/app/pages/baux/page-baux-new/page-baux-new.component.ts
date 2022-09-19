@@ -14,8 +14,6 @@ import { SaveBailAppartementActions } from 'src/app/ngrx/bail-appartement/bailap
 import { BailAppartementState } from 'src/app/ngrx/bail-appartement/bailappartement.reducer';
 import { SaveBailMagasinActions } from 'src/app/ngrx/bail-magasin/bailmagasin.actions';
 import { BailMagasinState } from 'src/app/ngrx/bail-magasin/bailmagasin.reducer';
-import { SaveBailStudioActions } from 'src/app/ngrx/bail-studio/bailstudio.actions';
-import { BailStudioState } from 'src/app/ngrx/bail-studio/bailvilla.reducer';
 import { SaveBailVillaActions } from 'src/app/ngrx/bail-villa/bailvilla.actions';
 import { BailVillaState } from 'src/app/ngrx/bail-villa/bailvilla.reducer';
 import { GetAllMagasinLibreActions } from 'src/app/ngrx/magasin/magasin.actions';
@@ -23,11 +21,7 @@ import {
   MagasinState,
   MagasinStateEnum,
 } from 'src/app/ngrx/magasin/magasin.reducer';
-import { GetAllStudioLibreActions } from 'src/app/ngrx/studio/studio.actions';
-import {
-  StudioState,
-  StudioStateEnum,
-} from 'src/app/ngrx/studio/studio.reducer';
+
 import { GetAllLocatairesActions } from 'src/app/ngrx/utulisateur/utilisateur.actions';
 import {
   UtilisteurState,
@@ -60,18 +54,18 @@ export class PageBauxNewComponent implements OnInit {
   villaState$: Observable<VillaState> | null = null;
   magasinState$: Observable<MagasinState> | null = null;
   appartementState$: Observable<AppartementState> | null = null;
-  studioState$: Observable<StudioState> | null = null;
+
 
   bailvillaState$: Observable<BailVillaState> | null = null;
   bailMagasinState$: Observable<BailMagasinState> | null = null;
   bailAppartementState$: Observable<BailAppartementState> | null = null;
-  bailStudiotState$: Observable<BailStudioState> | null = null;
+
 
   readonly UtilisteurStateEnum = UtilisteurStateEnum;
   readonly VillaStateEnum = VillaStateEnum;
   readonly MagasinStateEnum = MagasinStateEnum;
   readonly AppartementStateEnum = AppartementStateEnum;
-  readonly StudioStateEnum = StudioStateEnum;
+
 
   ngSelectTypeContrat = 'Bail';
   listTypeContrat: string[] = [];
@@ -107,28 +101,28 @@ export class PageBauxNewComponent implements OnInit {
     this.montantCaution = this.montantLoyer * this.nombreMoisCaution;
   }
   //SAVE BAIL STUDIO
-  onSaveBailStudio() {
-    this.submitted = true;
-    if (this.bailStudioForm?.invalid) {
-      return;
-    }
-    this.submitted = false;
-    this.store.dispatch(new SaveBailStudioActions(this.bailStudioForm?.value));
-    this.bailStudiotState$ = this.store.pipe(
-      map((state) => state.bailStudioState)
-    );
+  // onSaveBailStudio() {
+  //   this.submitted = true;
+  //   if (this.bailStudioForm?.invalid) {
+  //     return;
+  //   }
+  //   this.submitted = false;
+  //   this.store.dispatch(new SaveBailStudioActions(this.bailStudioForm?.value));
+  //   this.bailStudiotState$ = this.store.pipe(
+  //     map((state) => state.bailStudioState)
+  //   );
 
-    alert(' BAIL STUDIO');
-    if (this.bailStudiotState$) {
-      this.sendErrorNotification(
-        NotificationType.SUCCESS,
-        'Enregistrement réussi'
-      );
-    } else {
-      this.sendErrorNotification(NotificationType.ERROR, 'Echec');
-    }
-    this.onClose();
-  }
+  //   alert(' BAIL STUDIO');
+  //   if (this.bailStudiotState$) {
+  //     this.sendErrorNotification(
+  //       NotificationType.SUCCESS,
+  //       'Enregistrement réussi'
+  //     );
+  //   } else {
+  //     this.sendErrorNotification(NotificationType.ERROR, 'Echec');
+  //   }
+  //   this.onClose();
+  // }
   //SAVE BAIL APPARTEMENT
   onSaveBailAppartement() {
     this.submitted = true;
@@ -175,9 +169,7 @@ this.onClose();
   }
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
-    //GET ALL STUDIO
-    this.store.dispatch(new GetAllStudioLibreActions({}));
-    this.studioState$ = this.store.pipe(map((state) => state.studioState));
+   
     //GET ALL APPARTEMENT
     this.store.dispatch(new GetAllAppartementLibreActions({}));
     this.appartementState$ = this.store.pipe(

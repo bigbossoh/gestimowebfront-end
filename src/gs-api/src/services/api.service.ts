@@ -20,7 +20,6 @@ import { AuthRequestDto } from '../models/auth-request-dto';
 import { BailAppartementDto } from '../models/bail-appartement-dto';
 import { OperationDto } from '../models/operation-dto';
 import { BailMagasinDto } from '../models/bail-magasin-dto';
-import { BailStudioDto } from '../models/bail-studio-dto';
 import { BailVillaDto } from '../models/bail-villa-dto';
 import { BienImmobilierDto } from '../models/bien-immobilier-dto';
 import { CommuneRequestDto } from '../models/commune-request-dto';
@@ -40,7 +39,7 @@ import { PaysDto } from '../models/pays-dto';
 import { QuartierRequestDto } from '../models/quartier-request-dto';
 import { SiteResponseDto } from '../models/site-response-dto';
 import { SiteRequestDto } from '../models/site-request-dto';
-import { StudioDto } from '../models/studio-dto';
+import { UtilisateurAfficheDto } from '../models/utilisateur-affiche-dto';
 import { UtilisateurRequestDto } from '../models/utilisateur-request-dto';
 import { VillaDto } from '../models/villa-dto';
 import { VilleDto } from '../models/ville-dto';
@@ -85,11 +84,6 @@ class ApiService extends __BaseService {
   static readonly findByIDBailMagasinPath = 'gestimoweb/api/v1/bailmagasin/findById/{id}';
   static readonly findByNameBailMagasinPath = 'gestimoweb/api/v1/bailmagasin/findByName/{name}';
   static readonly saveBailMagasinPath = 'gestimoweb/api/v1/bailmagasin/save';
-  static readonly findAllBailStudioPath = 'gestimoweb/api/v1/bailsudio/all';
-  static readonly deleteBailStudioPath = 'gestimoweb/api/v1/bailsudio/delete/{id}';
-  static readonly findBailStudioByIDPath = 'gestimoweb/api/v1/bailsudio/findById/{id}';
-  static readonly findBailStudioByNamePath = 'gestimoweb/api/v1/bailsudio/findByName/{name}';
-  static readonly saveBailStudioPath = 'gestimoweb/api/v1/bailsudio/save';
   static readonly findAllBailVillaPath = 'gestimoweb/api/v1/bailvilla/all';
   static readonly deleteBailVillaPath = 'gestimoweb/api/v1/bailvilla/delete/{id}';
   static readonly findBailVillaByIDPath = 'gestimoweb/api/v1/bailvilla/findById/{id}';
@@ -124,7 +118,6 @@ class ApiService extends __BaseService {
   static readonly findImmeubleByIDPath = 'gestimoweb/api/v1/immeuble/findById/{id}';
   static readonly findImmeubleByIdSitePath = 'gestimoweb/api/v1/immeuble/findByIdSite/{id}';
   static readonly findImmeubleByNamePath = 'gestimoweb/api/v1/immeuble/findByName/{name}';
-  static readonly saveImmeublePath = 'gestimoweb/api/v1/immeuble/save';
   static readonly saveImmeubleEtagePath = 'gestimoweb/api/v1/immeuble/saveImeubleEtage';
   static readonly findAllMagasinPath = 'gestimoweb/api/v1/magasin/all';
   static readonly findAllMagasinLibrePath = 'gestimoweb/api/v1/magasin/alllibre';
@@ -132,7 +125,6 @@ class ApiService extends __BaseService {
   static readonly findAllMagasinByIdSitePath = 'gestimoweb/api/v1/magasin/findAllMagasinByIdSite/{idSite}';
   static readonly findByNameMagasinDtoPath = 'gestimoweb/api/v1/magasin/findByName/{name}';
   static readonly findByIDMagasinPath = 'gestimoweb/api/v1/magasin/findmagasinById/{id}';
-  static readonly saveMagasinPath = 'gestimoweb/api/v1/magasin/save';
   static readonly saveMagasinReturnDtoPath = 'gestimoweb/api/v1/magasin/savemagasin';
   static readonly findByIDQuartiersPath = 'gestimoweb/api/v1/montantloyerbail/findMontantByBail/{id}';
   static readonly findAllPaysPath = 'gestimoweb/api/v1/pays/all';
@@ -154,13 +146,6 @@ class ApiService extends __BaseService {
   static readonly findSiteByNamePath = 'gestimoweb/api/v1/sites/findByName/{name}';
   static readonly savePath = 'gestimoweb/api/v1/sites/save';
   static readonly saveSitePath = 'gestimoweb/api/v1/sites/savesite';
-  static readonly findAllStudiosPath = 'gestimoweb/api/v1/studio/all';
-  static readonly findAllStudiosLibrePath = 'gestimoweb/api/v1/studio/alllibre';
-  static readonly deleteStudioPath = 'gestimoweb/api/v1/studio/delete/{id}';
-  static readonly findStudioByIDPath = 'gestimoweb/api/v1/studio/findById/{id}';
-  static readonly findAllStudioByIdPaysPath = 'gestimoweb/api/v1/studio/findByIdEtage/{id}';
-  static readonly findStudioByNamePath = 'gestimoweb/api/v1/studio/findByName/{name}';
-  static readonly saveStudioPath = 'gestimoweb/api/v1/studio/save';
   static readonly getAllUtilisateursByOrderPath = 'gestimoweb/api/v1/utilisateur/all';
   static readonly getAllGerantsByOrderPath = 'gestimoweb/api/v1/utilisateur/gerants/all';
   static readonly getUtilisateurByEmailPath = 'gestimoweb/api/v1/utilisateur/getutilisateurbyemail/{email}';
@@ -1496,183 +1481,6 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAllBailStudioResponse(): __Observable<__StrictHttpResponse<Array<BailStudioDto>>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-    let req = new HttpRequest<any>(
-      'GET',
-      this.rootUrl + `gestimoweb/api/v1/bailsudio/all`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<Array<BailStudioDto>>;
-      })
-    );
-  }
-  /**
-   * @return successful operation
-   */
-  findAllBailStudio(): __Observable<Array<BailStudioDto>> {
-    return this.findAllBailStudioResponse().pipe(
-      __map(_r => _r.body as Array<BailStudioDto>)
-    );
-  }
-
-  /**
-   * @param id undefined
-   * @return successful operation
-   */
-  deleteBailStudioResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-
-    let req = new HttpRequest<any>(
-      'DELETE',
-      this.rootUrl + `gestimoweb/api/v1/bailsudio/delete/${id}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'text'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return (_r as HttpResponse<any>).clone({ body: (_r as HttpResponse<any>).body === 'true' }) as __StrictHttpResponse<boolean>
-      })
-    );
-  }
-  /**
-   * @param id undefined
-   * @return successful operation
-   */
-  deleteBailStudio(id: number): __Observable<boolean> {
-    return this.deleteBailStudioResponse(id).pipe(
-      __map(_r => _r.body as boolean)
-    );
-  }
-
-  /**
-   * @param id undefined
-   * @return successful operation
-   */
-  findBailStudioByIDResponse(id: number): __Observable<__StrictHttpResponse<BailStudioDto>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-
-    let req = new HttpRequest<any>(
-      'GET',
-      this.rootUrl + `gestimoweb/api/v1/bailsudio/findById/${id}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<BailStudioDto>;
-      })
-    );
-  }
-  /**
-   * @param id undefined
-   * @return successful operation
-   */
-  findBailStudioByID(id: number): __Observable<BailStudioDto> {
-    return this.findBailStudioByIDResponse(id).pipe(
-      __map(_r => _r.body as BailStudioDto)
-    );
-  }
-
-  /**
-   * @param name undefined
-   * @return successful operation
-   */
-  findBailStudioByNameResponse(name: string): __Observable<__StrictHttpResponse<BailStudioDto>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-
-    let req = new HttpRequest<any>(
-      'GET',
-      this.rootUrl + `gestimoweb/api/v1/bailsudio/findByName/${name}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<BailStudioDto>;
-      })
-    );
-  }
-  /**
-   * @param name undefined
-   * @return successful operation
-   */
-  findBailStudioByName(name: string): __Observable<BailStudioDto> {
-    return this.findBailStudioByNameResponse(name).pipe(
-      __map(_r => _r.body as BailStudioDto)
-    );
-  }
-
-  /**
-   * @param body undefined
-   * @return successful operation
-   */
-  saveBailStudioResponse(body?: BailStudioDto): __Observable<__StrictHttpResponse<BailStudioDto>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-    __body = body;
-    let req = new HttpRequest<any>(
-      'POST',
-      this.rootUrl + `gestimoweb/api/v1/bailsudio/save`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<BailStudioDto>;
-      })
-    );
-  }
-  /**
-   * @param body undefined
-   * @return successful operation
-   */
-  saveBailStudio(body?: BailStudioDto): __Observable<BailStudioDto> {
-    return this.saveBailStudioResponse(body).pipe(
-      __map(_r => _r.body as BailStudioDto)
-    );
-  }
-
-  /**
-   * @return successful operation
-   */
   findAllBailVillaResponse(): __Observable<__StrictHttpResponse<Array<BailVillaDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
@@ -2877,42 +2685,6 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveImmeubleResponse(body?: ImmeubleDto): __Observable<__StrictHttpResponse<ImmeubleAfficheDto>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-    __body = body;
-    let req = new HttpRequest<any>(
-      'POST',
-      this.rootUrl + `gestimoweb/api/v1/immeuble/save`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<ImmeubleAfficheDto>;
-      })
-    );
-  }
-  /**
-   * @param body undefined
-   * @return successful operation
-   */
-  saveImmeuble(body?: ImmeubleDto): __Observable<ImmeubleAfficheDto> {
-    return this.saveImmeubleResponse(body).pipe(
-      __map(_r => _r.body as ImmeubleAfficheDto)
-    );
-  }
-
-  /**
-   * @param body undefined
-   * @return successful operation
-   */
   saveImmeubleEtageResponse(body?: ImmeubleEtageDto): __Observable<__StrictHttpResponse<ImmeubleEtageDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
@@ -3152,42 +2924,6 @@ class ApiService extends __BaseService {
   findByIDMagasin(id: number): __Observable<MagasinDto> {
     return this.findByIDMagasinResponse(id).pipe(
       __map(_r => _r.body as MagasinDto)
-    );
-  }
-
-  /**
-   * @param body undefined
-   * @return successful operation
-   */
-  saveMagasinResponse(body?: MagasinDto): __Observable<__StrictHttpResponse<boolean>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-    __body = body;
-    let req = new HttpRequest<any>(
-      'POST',
-      this.rootUrl + `gestimoweb/api/v1/magasin/save`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'text'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return (_r as HttpResponse<any>).clone({ body: (_r as HttpResponse<any>).body === 'true' }) as __StrictHttpResponse<boolean>
-      })
-    );
-  }
-  /**
-   * @param body undefined
-   * @return successful operation
-   */
-  saveMagasin(body?: MagasinDto): __Observable<boolean> {
-    return this.saveMagasinResponse(body).pipe(
-      __map(_r => _r.body as boolean)
     );
   }
 
@@ -3941,253 +3677,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAllStudiosResponse(): __Observable<__StrictHttpResponse<Array<StudioDto>>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-    let req = new HttpRequest<any>(
-      'GET',
-      this.rootUrl + `gestimoweb/api/v1/studio/all`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<Array<StudioDto>>;
-      })
-    );
-  }
-  /**
-   * @return successful operation
-   */
-  findAllStudios(): __Observable<Array<StudioDto>> {
-    return this.findAllStudiosResponse().pipe(
-      __map(_r => _r.body as Array<StudioDto>)
-    );
-  }
-
-  /**
-   * @return successful operation
-   */
-  findAllStudiosLibreResponse(): __Observable<__StrictHttpResponse<Array<StudioDto>>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-    let req = new HttpRequest<any>(
-      'GET',
-      this.rootUrl + `gestimoweb/api/v1/studio/alllibre`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<Array<StudioDto>>;
-      })
-    );
-  }
-  /**
-   * @return successful operation
-   */
-  findAllStudiosLibre(): __Observable<Array<StudioDto>> {
-    return this.findAllStudiosLibreResponse().pipe(
-      __map(_r => _r.body as Array<StudioDto>)
-    );
-  }
-
-  /**
-   * @param id undefined
-   * @return successful operation
-   */
-  deleteStudioResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-
-    let req = new HttpRequest<any>(
-      'DELETE',
-      this.rootUrl + `gestimoweb/api/v1/studio/delete/${id}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'text'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return (_r as HttpResponse<any>).clone({ body: (_r as HttpResponse<any>).body === 'true' }) as __StrictHttpResponse<boolean>
-      })
-    );
-  }
-  /**
-   * @param id undefined
-   * @return successful operation
-   */
-  deleteStudio(id: number): __Observable<boolean> {
-    return this.deleteStudioResponse(id).pipe(
-      __map(_r => _r.body as boolean)
-    );
-  }
-
-  /**
-   * @param id undefined
-   * @return successful operation
-   */
-  findStudioByIDResponse(id: number): __Observable<__StrictHttpResponse<StudioDto>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-
-    let req = new HttpRequest<any>(
-      'GET',
-      this.rootUrl + `gestimoweb/api/v1/studio/findById/${id}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<StudioDto>;
-      })
-    );
-  }
-  /**
-   * @param id undefined
-   * @return successful operation
-   */
-  findStudioByID(id: number): __Observable<StudioDto> {
-    return this.findStudioByIDResponse(id).pipe(
-      __map(_r => _r.body as StudioDto)
-    );
-  }
-
-  /**
-   * @param id undefined
-   * @return successful operation
-   */
-  findAllStudioByIdPaysResponse(id: number): __Observable<__StrictHttpResponse<Array<StudioDto>>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-
-    let req = new HttpRequest<any>(
-      'GET',
-      this.rootUrl + `gestimoweb/api/v1/studio/findByIdEtage/${id}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<Array<StudioDto>>;
-      })
-    );
-  }
-  /**
-   * @param id undefined
-   * @return successful operation
-   */
-  findAllStudioByIdPays(id: number): __Observable<Array<StudioDto>> {
-    return this.findAllStudioByIdPaysResponse(id).pipe(
-      __map(_r => _r.body as Array<StudioDto>)
-    );
-  }
-
-  /**
-   * @param name undefined
-   * @return successful operation
-   */
-  findStudioByNameResponse(name: string): __Observable<__StrictHttpResponse<StudioDto>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-
-    let req = new HttpRequest<any>(
-      'GET',
-      this.rootUrl + `gestimoweb/api/v1/studio/findByName/${name}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<StudioDto>;
-      })
-    );
-  }
-  /**
-   * @param name undefined
-   * @return successful operation
-   */
-  findStudioByName(name: string): __Observable<StudioDto> {
-    return this.findStudioByNameResponse(name).pipe(
-      __map(_r => _r.body as StudioDto)
-    );
-  }
-
-  /**
-   * @param body undefined
-   * @return successful operation
-   */
-  saveStudioResponse(body?: StudioDto): __Observable<__StrictHttpResponse<boolean>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-    __body = body;
-    let req = new HttpRequest<any>(
-      'POST',
-      this.rootUrl + `gestimoweb/api/v1/studio/save`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'text'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return (_r as HttpResponse<any>).clone({ body: (_r as HttpResponse<any>).body === 'true' }) as __StrictHttpResponse<boolean>
-      })
-    );
-  }
-  /**
-   * @param body undefined
-   * @return successful operation
-   */
-  saveStudio(body?: StudioDto): __Observable<boolean> {
-    return this.saveStudioResponse(body).pipe(
-      __map(_r => _r.body as boolean)
-    );
-  }
-
-  /**
-   * @return successful operation
-   */
-  getAllUtilisateursByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurRequestDto>>> {
+  getAllUtilisateursByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurAfficheDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -4204,23 +3694,23 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<UtilisateurRequestDto>>;
+        return _r as __StrictHttpResponse<Array<UtilisateurAfficheDto>>;
       })
     );
   }
   /**
    * @return successful operation
    */
-  getAllUtilisateursByOrder(): __Observable<Array<UtilisateurRequestDto>> {
+  getAllUtilisateursByOrder(): __Observable<Array<UtilisateurAfficheDto>> {
     return this.getAllUtilisateursByOrderResponse().pipe(
-      __map(_r => _r.body as Array<UtilisateurRequestDto>)
+      __map(_r => _r.body as Array<UtilisateurAfficheDto>)
     );
   }
 
   /**
    * @return successful operation
    */
-  getAllGerantsByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurRequestDto>>> {
+  getAllGerantsByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurAfficheDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -4237,16 +3727,16 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<UtilisateurRequestDto>>;
+        return _r as __StrictHttpResponse<Array<UtilisateurAfficheDto>>;
       })
     );
   }
   /**
    * @return successful operation
    */
-  getAllGerantsByOrder(): __Observable<Array<UtilisateurRequestDto>> {
+  getAllGerantsByOrder(): __Observable<Array<UtilisateurAfficheDto>> {
     return this.getAllGerantsByOrderResponse().pipe(
-      __map(_r => _r.body as Array<UtilisateurRequestDto>)
+      __map(_r => _r.body as Array<UtilisateurAfficheDto>)
     );
   }
 
@@ -4361,7 +3851,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  getAllLocatairesByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurRequestDto>>> {
+  getAllLocatairesByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurAfficheDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -4378,23 +3868,23 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<UtilisateurRequestDto>>;
+        return _r as __StrictHttpResponse<Array<UtilisateurAfficheDto>>;
       })
     );
   }
   /**
    * @return successful operation
    */
-  getAllLocatairesByOrder(): __Observable<Array<UtilisateurRequestDto>> {
+  getAllLocatairesByOrder(): __Observable<Array<UtilisateurAfficheDto>> {
     return this.getAllLocatairesByOrderResponse().pipe(
-      __map(_r => _r.body as Array<UtilisateurRequestDto>)
+      __map(_r => _r.body as Array<UtilisateurAfficheDto>)
     );
   }
 
   /**
    * @return successful operation
    */
-  getAllProprietaireByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurRequestDto>>> {
+  getAllProprietaireByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurAfficheDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -4411,16 +3901,16 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<UtilisateurRequestDto>>;
+        return _r as __StrictHttpResponse<Array<UtilisateurAfficheDto>>;
       })
     );
   }
   /**
    * @return successful operation
    */
-  getAllProprietaireByOrder(): __Observable<Array<UtilisateurRequestDto>> {
+  getAllProprietaireByOrder(): __Observable<Array<UtilisateurAfficheDto>> {
     return this.getAllProprietaireByOrderResponse().pipe(
-      __map(_r => _r.body as Array<UtilisateurRequestDto>)
+      __map(_r => _r.body as Array<UtilisateurAfficheDto>)
     );
   }
 
@@ -4428,7 +3918,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveUtilisateurResponse(body?: UtilisateurRequestDto): __Observable<__StrictHttpResponse<boolean>> {
+  saveUtilisateurResponse(body?: UtilisateurRequestDto): __Observable<__StrictHttpResponse<UtilisateurAfficheDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -4440,13 +3930,13 @@ class ApiService extends __BaseService {
       {
         headers: __headers,
         params: __params,
-        responseType: 'text'
+        responseType: 'json'
       });
 
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return (_r as HttpResponse<any>).clone({ body: (_r as HttpResponse<any>).body === 'true' }) as __StrictHttpResponse<boolean>
+        return _r as __StrictHttpResponse<UtilisateurAfficheDto>;
       })
     );
   }
@@ -4454,16 +3944,16 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveUtilisateur(body?: UtilisateurRequestDto): __Observable<boolean> {
+  saveUtilisateur(body?: UtilisateurRequestDto): __Observable<UtilisateurAfficheDto> {
     return this.saveUtilisateurResponse(body).pipe(
-      __map(_r => _r.body as boolean)
+      __map(_r => _r.body as UtilisateurAfficheDto)
     );
   }
 
   /**
    * @return successful operation
    */
-  getAllSuperviseursByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurRequestDto>>> {
+  getAllSuperviseursByOrderResponse(): __Observable<__StrictHttpResponse<Array<UtilisateurAfficheDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -4480,16 +3970,16 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<UtilisateurRequestDto>>;
+        return _r as __StrictHttpResponse<Array<UtilisateurAfficheDto>>;
       })
     );
   }
   /**
    * @return successful operation
    */
-  getAllSuperviseursByOrder(): __Observable<Array<UtilisateurRequestDto>> {
+  getAllSuperviseursByOrder(): __Observable<Array<UtilisateurAfficheDto>> {
     return this.getAllSuperviseursByOrderResponse().pipe(
-      __map(_r => _r.body as Array<UtilisateurRequestDto>)
+      __map(_r => _r.body as Array<UtilisateurAfficheDto>)
     );
   }
 

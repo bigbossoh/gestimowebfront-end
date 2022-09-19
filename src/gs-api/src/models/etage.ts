@@ -1,6 +1,5 @@
 /* tslint:disable */
 import { Appartement } from './appartement';
-import { Studio } from './studio';
 import { Magasin } from './magasin';
 import { Immeuble } from './immeuble';
 export interface Etage {
@@ -9,11 +8,12 @@ export interface Etage {
   idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
-  nomEtage?: string;
+  nomCompletEtage?: string;
+  codeAbrvEtage?: string;
+  nomBaptiserEtage?: string;
   numEtage?: number;
+  nombrePieceSurEtage?: number;
   appartements?: Array<Appartement>;
-  studios?: Array<Studio>;
   magasins?: Array<Magasin>;
   immeuble?: Immeuble;
-  abrvEtage?: string;
 }

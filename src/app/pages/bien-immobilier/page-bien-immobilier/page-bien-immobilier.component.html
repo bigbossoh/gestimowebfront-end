@@ -98,9 +98,9 @@
                 <ng-container ng-container *ngSwitchCase="AppartementEnum.LOADED">
                   <tr class="text-center" *ngFor="let appart of appartementState.appartements">
                     <td>{{ appart.id }}</td>
-                    <td>{{ appart.abrvNomApp }}</td>
-                    <td>{{ appart.proprietaire }}</td>
-                    <td>{{ appart.abrvNomApp }}</td>
+                    <td>{{ appart.codeAbrvBienImmobilier }}</td>
+                    <td>{{ appart.fullNameProprio }}</td>
+                    <td>{{ appart.nomBaptiserBienImmobilier }}</td>
                     <td>
                       <span [hidden]="appart.occupied" class="badge badge-success">Libre</span>
                       <span [hidden]="!appart.occupied" class="badge badge-danger">Occupé</span>
@@ -133,9 +133,9 @@
                 <ng-container ng-container *ngSwitchCase="MagasinStateEnum.LOADED">
                   <tr class="text-center" *ngFor="let maga of magasinState.magasins">
                     <td>{{ maga.id }}</td>
-                    <td>{{ maga.abrvBienimmobilier }}</td>
+                    <td>{{ maga.codeAbrvBienImmobilier }}</td>
                     <td>{{ maga.proprietaire }}</td>
-                    <td>{{ maga.abrvNomMagasin }}</td>
+                    <td>{{ maga.nomBaptiserBienImmobilier }}</td>
 
                     <td>
                       <span [hidden]="maga.occupied" class="badge badge-success">Libre</span>
@@ -159,47 +159,7 @@
                   </div>
                 </ng-container>
               </ng-container>
-              <!-- Les studios -->
-              <!-- <ng-container *ngIf="studioState$ | async as studioState" [ngSwitch]="studioState.dataState">
-                <ng-container ng-container *ngSwitchCase="StudioStateEnum.LOADING">
-                  <div class="spinner-border text-primary" role="status">
-                
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                </ng-container>
-                <ng-container ng-container *ngSwitchCase="StudioStateEnum.LOADED">
-                  <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                </ng-container>
-                <ng-container ng-container *ngSwitchCase="StudioStateEnum.LOADED">
-                  <tr class="text-center" *ngFor="let studio of studioState.studios">
-                    <td>{{ studio.id }}</td>
-                    <td>{{ studio.abrvNomApp }}</td>
-                    <td>{{ studio.proprietaire }}</td>
-                    <td>{{ studio.abrvNomApp }}</td>
-                    <td *ngIf="studio.occupied" style="color: red"><i class="fa-solid fa-door-closed"></i></td>
-                    <td *ngIf="!studio.occupied" style="color: blue"><i class="fas fa-door-open"></i></td>
-
-                    <td class="">
-                      <div class="btn-group">
-                        <button class="btn btn-outline-info" (click)="onEditdele(studio.id)">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-outline-danger">
-                          <i class="fas fa-trash"></i>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                </ng-container>
-                <ng-container ng-container *ngSwitchCase="StudioStateEnum.ERROR">
-                  <div class="p-2">
-                    L'Erreur suivante c'est produite : {{ studioState.errorMessage }}
-                  </div>
-                </ng-container>
-              </ng-container> -->
-              <!-- Les villas -->
+          
               <ng-container *ngIf="villaState$ | async as villaState" [ngSwitch]="villaState.dataState">
                 <ng-container ng-container *ngSwitchCase="VillaStateEnum.LOADING">
                   <div class="spinner-border text-primary" role="status">
@@ -209,9 +169,9 @@
                 <ng-container ng-container *ngSwitchCase="VillaStateEnum.LOADED">
                   <tr class="text-center" *ngFor="let villa of villaState.villas">
                     <td>{{ villa.id }}</td>
-                    <td>{{ villa.abrvBienimmobilier }}</td>
+                    <td>{{ villa.codeAbrvBienImmobilier }}</td>
                     <td>{{ villa.proprietaire }}</td>
-                    <td>{{ villa.abrvVilla }}</td>
+                    <td>{{ villa.nomBaptiserBienImmobilier }}</td>
                     <td>
                       <span [hidden]="villa.occupied" class="badge badge-success">Libre</span>
                       <span [hidden]="!villa.occupied" class="badge badge-danger">Occupé</span>

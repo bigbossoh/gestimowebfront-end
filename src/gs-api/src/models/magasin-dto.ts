@@ -3,20 +3,18 @@ export interface MagasinDto {
   id?: number;
   idAgence?: number;
   idCreateur?: number;
-  numBien?: number;
-  statutBien?: string;
-  abrvBienimmobilier?: string;
+  nombrePieceMagasin?: number;
+  numMagasin?: number;
+  codeAbrvBienImmobilier?: string;
+  nomCompletBienImmobilier?: string;
+  nomBaptiserBienImmobilier?: string;
   description?: string;
-  nomBien?: string;
   superficieBien?: number;
-  abrvNomMagasin?: string;
-  nmbrPieceMagasin?: number;
-  nomMagasin?: string;
+  bienMeublerResidence?: boolean;
   idEtage?: number;
   idSite?: number;
   idUtilisateur?: number;
   proprietaire?: string;
   underBuildingMagasin?: boolean;
-  archived?: boolean;
   occupied?: boolean;
 }

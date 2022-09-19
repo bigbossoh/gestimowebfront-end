@@ -1,11 +1,6 @@
 import { Action } from '@ngrx/store';
 import {
-  AppartementDto,
-  BienImmobilierDto,
-  EtageDto,
-  ImmeubleDto,
   MagasinDto,
-  StudioDto,
 } from 'src/gs-api/src/models';
 import { MagasinActions, MagasinActionsTypes } from './magasin.actions';
 import { MagasinResponseDto } from '../../../gs-api/src/models/magasin-response-dto';

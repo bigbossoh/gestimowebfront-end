@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { paginationPersonnalise } from './paginationPersonnalise';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PageLoginComponent } from './pages/page-login/page-login.component';
@@ -62,14 +63,14 @@ import { BouttonActionBauxComponent } from './pages/baux/boutton-action-baux/bou
 import { PageBauxNewComponent } from './pages/baux/page-baux-new/page-baux-new.component';
 import { immeubleReducer } from './ngrx/immeuble/immeuble.reducer';
 import { etageByImmeubeReducer } from './ngrx/etage/etage.reducer';
-import { studioReducer } from './ngrx/studio/studio.reducer';
+
 import { appartementReducer } from './ngrx/appartement/appartement.reducer';
 import { magasinReducer } from './ngrx/magasin/magasin.reducer';
 import { villaReducer } from './ngrx/villa/villa.reducer';
 import { villeReducer } from './ngrx/ville/ville.reducer';
 import { communeReducer } from './ngrx/commune/commune.reducer';
 import { bailvillaReducer } from './ngrx/bail-villa/bailvilla.reducer';
-import { StudioEffects } from './ngrx/studio/studio.effects';
+
 import { EtageEffects } from './ngrx/etage/etage.effects';
 import { BailVillaEffects } from './ngrx/bail-villa/bailvilla.effects';
 import { VilleEffects } from './ngrx/ville/ville.effects';
@@ -82,8 +83,7 @@ import { BailMagasinEffects } from './ngrx/bail-magasin/bailmagasin.effects';
 import { bailMagasinReducer } from './ngrx/bail-magasin/bailmagasin.reducer';
 import { BailAppartementEffects } from './ngrx/bail-appartement/bailappartement.effects';
 import { bailAppartementReducer } from './ngrx/bail-appartement/bailappartement.reducer';
-import { bailStudioReducer } from './ngrx/bail-studio/bailvilla.reducer';
-import { BailStudioEffects } from './ngrx/bail-studio/bailstudio.effects';
+
 import { PageNewSiteComponent } from './pages/site/page-new-site/page-new-site.component';
 import { bauxReducer } from './ngrx/baux/baux.reducer';
 import { BauxEffects } from './ngrx/baux/baux.effects';
@@ -209,7 +209,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
       utilisateurState: utilisateurReducer,
       immeubleState: immeubleReducer,
       etageState: etageByImmeubeReducer,
-      studioState: studioReducer,
       appartementState: appartementReducer,
       magasinState: magasinReducer,
       villaState: villaReducer,
@@ -217,7 +216,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
       communeState: communeReducer,
       bailvillaState: bailvillaReducer,
       bailAppartementState: bailAppartementReducer,
-      bailStudioState: bailStudioReducer,
       bauxState: bauxReducer,
       appelLoyerState: appelLoyerReducer,
       quartierState:quartierReducer,
@@ -234,7 +232,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     EffectsModule.forRoot([
       AnneeEffects,
       MailEffect,
-      StudioEffects,
       BienEffects,
       AgenceEffects,
       EtageEffects,
@@ -249,7 +246,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
       BailVillaEffects,
       BailMagasinEffects,
       BailAppartementEffects,
-      BailStudioEffects,
+
       BauxEffects,
       AppelLoyerEffects,
       Quartierffects,
@@ -264,6 +261,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: MatPaginatorIntl, useClass: paginationPersonnalise}
   ],
   bootstrap: [AppComponent],
 })

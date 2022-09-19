@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-import { BailVillaDto, BienImmobilierDto, EtageDto, ImmeubleDto, StudioDto } from 'src/gs-api/src/models';
 import {
   BailVillaActions,
   BailVillaActionsTypes,
