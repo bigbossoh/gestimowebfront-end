@@ -36,8 +36,11 @@ export class AgenceEffects {
         );
       }),
       tap((resultat) => {
-        console.log('Resultat effect save Agence', resultat);
-        if (resultat.payload == true) {
+        console.log("Le resultat est le suivant :");
+        
+console.log(resultat.type.indexOf("Succes"));
+
+        if (resultat.type.indexOf("Succes")>0) {
           this.sendErrorNotification(
             NotificationType.SUCCESS,
             "La création de l'agence a été effectuée avec succès"
@@ -63,7 +66,7 @@ export class AgenceEffects {
       );
     }),
     tap((resultat) => {
-         if (resultat.payload != null) {
+         if (resultat.type.indexOf("Succes")>0) {
         this.sendErrorNotification(
           NotificationType.SUCCESS,
           "Les Agences on été chargées avec succès"
