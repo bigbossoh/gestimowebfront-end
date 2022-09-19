@@ -3,14 +3,12 @@ export interface BienImmobilierDto {
   id?: number;
   idAgence?: number;
   idCreateur?: number;
-  numBien?: number;
-  statutBien?: string;
-  abrvBienimmobilier?: string;
+  codeAbrvBienImmobilier?: string;
+  nomCompletBienImmobilier?: string;
+  nomBaptiserBienImmobilier?: string;
   description?: string;
-  nomBien?: string;
   superficieBien?: number;
-  site?: string;
+  bienMeublerResidence?: boolean;
   utilisateur?: string;
-  archived?: boolean;
   occupied?: boolean;
 }

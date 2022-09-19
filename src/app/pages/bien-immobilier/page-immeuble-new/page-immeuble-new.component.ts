@@ -62,6 +62,8 @@ export class PageImmeubleNewComponent implements OnInit {
       id: [0],
       numBien: [0],
       idAgence: [this.user?.idAgence],
+      idCreateur: [this.user?.id],
+      nomBaptiserImmeuble:[],
       statutBien: [''],
       denominationBien: [],
       nomBien: ['', Validators.required],

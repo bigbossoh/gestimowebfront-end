@@ -1,30 +1,27 @@
 /* tslint:disable */
-import { Site } from './site';
 import { Utilisateur } from './utilisateur';
 import { Operation } from './operation';
+import { Site } from './site';
 export interface Villa {
   id?: number;
   idAgence?: number;
   idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
-  numBien?: number;
-  statutBien?: string;
-  abrvBienimmobilier?: string;
+  codeAbrvBienImmobilier?: string;
+  nomCompletBienImmobilier?: string;
+  nomBaptiserBienImmobilier?: string;
   description?: string;
-  nomBien?: string;
   superficieBien?: number;
-  site?: Site;
-  utilisateur?: Utilisateur;
+  bienMeublerResidence?: boolean;
+  utilisateurProprietaire?: Utilisateur;
+  nbrePieceVilla?: number;
   nbrChambreVilla?: number;
-  nbrePiece?: number;
   nbrSalonVilla?: number;
   nbrSalleEauVilla?: number;
-  nomVilla?: string;
-  abrvVilla?: string;
+  numVilla?: number;
   garageVilla?: boolean;
-  nbreVoitureGarageVilla?: number;
   operationsVilla?: Array<Operation>;
-  archived?: boolean;
+  site?: Site;
   occupied?: boolean;
 }

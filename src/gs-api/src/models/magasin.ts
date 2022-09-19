@@ -1,28 +1,26 @@
 /* tslint:disable */
-import { Site } from './site';
 import { Utilisateur } from './utilisateur';
 import { Etage } from './etage';
 import { Operation } from './operation';
+import { Site } from './site';
 export interface Magasin {
   id?: number;
   idAgence?: number;
   idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
-  numBien?: number;
-  statutBien?: string;
-  abrvBienimmobilier?: string;
+  codeAbrvBienImmobilier?: string;
+  nomCompletBienImmobilier?: string;
+  nomBaptiserBienImmobilier?: string;
   description?: string;
-  nomBien?: string;
   superficieBien?: number;
-  site?: Site;
-  utilisateur?: Utilisateur;
-  nmbrPieceMagasin?: number;
-  nomMagasin?: string;
-  abrvNomMagasin?: string;
+  bienMeublerResidence?: boolean;
+  utilisateurProprietaire?: Utilisateur;
+  nombrePieceMagasin?: number;
+  numMagasin?: number;
   etageMagasin?: Etage;
   operationsMagasin?: Array<Operation>;
+  site?: Site;
   underBuildingMagasin?: boolean;
-  archived?: boolean;
   occupied?: boolean;
 }

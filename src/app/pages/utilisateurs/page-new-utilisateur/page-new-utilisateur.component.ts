@@ -1,11 +1,15 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Subscription, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
+import { SaveUserActions } from '../../../ngrx/utulisateur/utilisateur.actions';
+import { UtilisteurState, UtilisteurStateEnum } from '../../../ngrx/utulisateur/utlisateur.reducer';
 
 @Component({
   selector: 'app-page-new-utilisateur',
@@ -13,13 +17,16 @@ import { UtilisateurRequestDto } from 'src/gs-api/src/models';
   styleUrls: ['./page-new-utilisateur.component.css'],
 })
 export class PageNewUtilisateurComponent implements OnInit {
+  utilisateurState$: Observable<UtilisteurState> | null = null;
+  readonly UtilisteurStateEnum = UtilisteurStateEnum;
   public user?: UtilisateurRequestDto;
   private subscriptions: Subscription[] = [];
   nomProfil = '';
   nomPrenom = '';
   newUserForm!: FormGroup;
-
+  submitted = false;
   constructor(
+    private store:Store<any>,
     private userService: UserService,
     private notificationService: NotificationService,
     private fb: FormBuilder
@@ -81,38 +88,24 @@ export class PageNewUtilisateurComponent implements OnInit {
   }
   onAddNewUser(): void {}
   saveNewUser(): void {
+    this.submitted = true;
     this.newUserForm.patchValue({
-      userCreate: this.user?.id,
-      mobile: this.newUserForm.controls['username'].value,
+      userCreate: this.user?.id
+      , mobile: this.newUserForm.controls['username'].value,
       agenceDto: this.user?.idAgence,
       idAgence: this.user?.idAgence,
-      id: 0,
-    });
-    // console.log("Alerte ",this.newUserForm.value);
-    this.subscriptions.push(
-      this.userService.addUser(this.newUserForm.value).subscribe(
-        (response: any) => {
-          console.log(response);
-          this.clickButton('closeUserButton');
+      id:0
+    })
+    if (this.newUserForm.invalid) {
+      return;
+    }
+    this.submitted = false;
 
-          this.newUserForm.reset();
-
-          this.sendErrorNotification(
-            NotificationType.SUCCESS,
-            `${this.newUserForm.controls['nom'].value} ${this.newUserForm.controls['nom'].value} à été ajouté(e) avec succès`
-          );
-        },
-        (errorResponse: HttpErrorResponse) => {
-          // console.log("l'error response ", errorResponse);
-
-          this.sendErrorNotification(
-            NotificationType.ERROR,
-            errorResponse.error.message
-          );
-          // this.profileImage = null;
-        }
-      )
+    this.store.dispatch(new SaveUserActions(this.newUserForm.value));
+    this.utilisateurState$ = this.store.pipe(
+      map((state) => state.utilisateurState)
     );
+
   }
   private sendErrorNotification(
     notificationType: NotificationType,

@@ -1,7 +1,6 @@
+import { UtilisateurAfficheDto } from './../../../gs-api/src/models/utilisateur-affiche-dto';
 import { Action } from '@ngrx/store';
-import {
-  UtilisateurRequestDto,
-} from 'src/gs-api/src/models';
+import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import {
   UtilisateurActionsTypes,
   UtilisateurActions,
@@ -13,12 +12,12 @@ export enum UtilisteurStateEnum {
   INITIAL = 'Initial',
 }
 export interface UtilisteurState {
-  utlisisateurs: UtilisateurRequestDto[];
+  utilisateurs: UtilisateurAfficheDto[];
   errorMessage: string;
   dataState: UtilisteurStateEnum;
 }
 const initState: UtilisteurState = {
-  utlisisateurs: [],
+  utilisateurs: [],
   errorMessage: '',
   dataState: UtilisteurStateEnum.INITIAL,
 };
@@ -33,7 +32,7 @@ export function utilisateurReducer(
       return {
         ...state,
         dataState: UtilisteurStateEnum.LOADED,
-        utlisisateurs: (<UtilisateurActions>action).payload,
+        utilisateurs: (<UtilisateurActions>action).payload,
       };
     case UtilisateurActionsTypes.GET_ALL_PROPRIETAIRES_ERROR:
       return {
@@ -48,7 +47,7 @@ export function utilisateurReducer(
       return {
         ...state,
         dataState: UtilisteurStateEnum.LOADED,
-        utlisisateurs: (<UtilisateurActions>action).payload,
+        utilisateurs: (<UtilisateurActions>action).payload,
       };
     case UtilisateurActionsTypes.GET_ALL_LOCATAIRES_ERROR:
       return {
@@ -56,22 +55,41 @@ export function utilisateurReducer(
         dataState: UtilisteurStateEnum.ERROR,
         errorMessage: (<UtilisateurActions>action).payload,
       };
-// SAVE USER
-case UtilisateurActionsTypes.SAVE_USER:
-  return { ...state, dataState: UtilisteurStateEnum.LOADING };
-case UtilisateurActionsTypes.SAVE_USER_SUCCES:
-  return {
-    ...state,
-    dataState: UtilisteurStateEnum.LOADED,
-    utlisisateurs: (<UtilisateurActions>action).payload,
-  };
-case UtilisateurActionsTypes.SAVE_USER_ERROR:
-  return {
-    ...state,
-    dataState: UtilisteurStateEnum.ERROR,
-    errorMessage: (<UtilisateurActions>action).payload,
-  };
 
+    // GET ALL UTILISATEURS
+    case UtilisateurActionsTypes.GET_ALL_UTLISATEUR:
+      return { ...state, dataState: UtilisteurStateEnum.LOADING };
+    case UtilisateurActionsTypes.GET_ALL_UTLISATEUR_SUCCES:
+      return {
+        ...state,
+        dataState: UtilisteurStateEnum.LOADED,
+        utilisateurs: (<UtilisateurActions>action).payload,
+      };
+    case UtilisateurActionsTypes.GET_ALL_UTLISATEUR_ERROR:
+      return {
+        ...state,
+        dataState: UtilisteurStateEnum.ERROR,
+        errorMessage: (<UtilisateurActions>action).payload,
+      };
+
+    // SAVE USER
+    case UtilisateurActionsTypes.SAVE_USER:
+      return { ...state, dataState: UtilisteurStateEnum.LOADING };
+    case UtilisateurActionsTypes.SAVE_USER_SUCCES:
+      let userSave = (<UtilisateurActions>action).payload;
+      let currentUserListe = [...state.utilisateurs];
+      currentUserListe.push(userSave);
+      return {
+        ...state,
+        dataState: UtilisteurStateEnum.LOADED,
+        utilisateurs: currentUserListe,
+      };
+    case UtilisateurActionsTypes.SAVE_USER_ERROR:
+      return {
+        ...state,
+        dataState: UtilisteurStateEnum.ERROR,
+        errorMessage: (<UtilisateurActions>action).payload,
+      };
 
     default:
       return { ...state };
