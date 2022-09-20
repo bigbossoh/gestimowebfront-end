@@ -135,10 +135,10 @@ export class PageBienImmobilierNewComponent implements OnInit {
     if (this.magasinForm?.invalid) {
      console.log("Le formulaire n'est pas bon du tout et pourquoi ?");
      console.log(this.magasinForm?.value);
-
-
       return;
     }
+    console.log("Le formulaire est bon du tout et pourquoi ?");
+    console.log(this.magasinForm?.value);
     this.submitted = false;
     this.store.dispatch(new SaveMagasinActions(this.magasinForm?.value));
     this.magasinState$ = this.store.pipe(map((state) => state.magasinState));

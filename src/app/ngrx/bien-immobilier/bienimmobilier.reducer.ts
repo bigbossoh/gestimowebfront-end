@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { BienImmobilierDto } from 'src/gs-api/src/models';
+import { BienImmobilierAffiheDto } from '../../../gs-api/src/models/bien-immobilier-affihe-dto';
 import {
   BienImmobilierActions,
   BienImmobilierActionsTypes,
@@ -12,7 +12,7 @@ export enum BienImmobilierStateEnum {
   NEW = "New"
 }
 export interface BienImmobilierState {
-  bienImmoblilier: BienImmobilierDto[];
+  bienImmoblilier: BienImmobilierAffiheDto[];
   errorMessage: string;
   dataState: BienImmobilierStateEnum;
 }

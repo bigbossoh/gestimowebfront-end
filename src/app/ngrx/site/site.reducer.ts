@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { BienImmobilierDto, SiteResponseDto } from 'src/gs-api/src/models';
+import {  SiteResponseDto } from 'src/gs-api/src/models';
 import { SiteActionsTypes, SiteActions } from './site.actions';
 import { SiteRequestDto } from '../../../gs-api/src/models/site-request-dto';
 export enum SiteStateEnum {

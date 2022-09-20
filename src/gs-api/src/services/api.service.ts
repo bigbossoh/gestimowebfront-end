@@ -21,7 +21,7 @@ import { BailAppartementDto } from '../models/bail-appartement-dto';
 import { OperationDto } from '../models/operation-dto';
 import { BailMagasinDto } from '../models/bail-magasin-dto';
 import { BailVillaDto } from '../models/bail-villa-dto';
-import { BienImmobilierDto } from '../models/bien-immobilier-dto';
+import { BienImmobilierAffiheDto } from '../models/bien-immobilier-affihe-dto';
 import { CommuneRequestDto } from '../models/commune-request-dto';
 import { CommuneResponseDto } from '../models/commune-response-dto';
 import { EncaissementPrincipalDTO } from '../models/encaissement-principal-dto';
@@ -1658,7 +1658,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAllBienResponse(): __Observable<__StrictHttpResponse<Array<BienImmobilierDto>>> {
+  findAllBienResponse(): __Observable<__StrictHttpResponse<Array<BienImmobilierAffiheDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1675,16 +1675,16 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<BienImmobilierDto>>;
+        return _r as __StrictHttpResponse<Array<BienImmobilierAffiheDto>>;
       })
     );
   }
   /**
    * @return successful operation
    */
-  findAllBien(): __Observable<Array<BienImmobilierDto>> {
+  findAllBien(): __Observable<Array<BienImmobilierAffiheDto>> {
     return this.findAllBienResponse().pipe(
-      __map(_r => _r.body as Array<BienImmobilierDto>)
+      __map(_r => _r.body as Array<BienImmobilierAffiheDto>)
     );
   }
 

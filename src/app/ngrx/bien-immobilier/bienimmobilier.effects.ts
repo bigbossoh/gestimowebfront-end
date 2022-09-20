@@ -16,7 +16,7 @@ export class BienEffects {
   getAllBienseffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(BienImmobilierActionsTypes.GET_ALL_BIENS),
-      mergeMap((action) => {
+      mergeMap(() => {
         return this.apiService.findAllBien().pipe(
           map((biens) => new GetAllBiensActionsSuccess(biens)),
           catchError((err) => of(new GetAllBiensActionsError(err.message)))

@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface BienImmobilierDto {
+export interface BienImmobilierAffiheDto {
   id?: number;
   idAgence?: number;
   idCreateur?: number;
@@ -9,6 +9,6 @@ export interface BienImmobilierDto {
   description?: string;
   superficieBien?: number;
   bienMeublerResidence?: boolean;
-  utilisateur?: string;
+  nomPrenomProprio?: string;
   occupied?: boolean;
 }

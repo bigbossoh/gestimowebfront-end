@@ -39,14 +39,14 @@ import { GetAllVillaActions } from '../../../ngrx/villa/villa.action';
   styleUrls: ['./page-bien-immobilier.component.css'],
 })
 export class PageBienImmobilierComponent implements OnInit {
-  displayedColumns = ['Code', 'Propriétaire', 'Dénomination','Status', 'Actions'];
+  displayedColumns = ['Code', 'Denomination', 'Proprietaire','Status', 'Actions'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   pageSize = [2, 5, 10, 15, 20];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
   magasinState$: Observable<MagasinState> | null = null;
+  bienImmobilierState$: Observable<BienImmobilierState> | null = null;
   appartementState$: Observable<AppartementState> | null = null;
   villaState$: Observable<VillaState> | null = null;
 
@@ -64,6 +64,21 @@ export class PageBienImmobilierComponent implements OnInit {
 
   constructor(private store: Store<any>) {}
   ngOnInit(): void {
+    //RECUPERER TOUS LES BIENS
+    this.store.dispatch(new GetAllBiensActions({}));
+    this.bienImmobilierState$ = this.store.pipe(
+      map((state) => state.biensState)
+    );
+    this.store.pipe(
+      map((state) => state.biensState)).subscribe((data) => {
+        this.dataSource.data = data.bienImmoblilier;
+        this.dataSource.paginator = this.paginator;
+        console.log("Les biens sont les suivants : ");
+        console.log( data.bienImmoblilier);
+
+
+      });
+
     // RECUPERER LES APPARTEMENTS DANS LE STORES
     this.store.dispatch(new GetAllAppartementActions({}));
     this.appartementState$ = this.store.pipe(
