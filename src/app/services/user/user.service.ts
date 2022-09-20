@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from 'src/gs-api/src/services';
 import { Router } from '@angular/router';
-import { AuthRequestDto, Utilisateur, UtilisateurRequestDto } from 'src/gs-api/src/models';
+import { AuthRequestDto, UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { StrictHttpResponse } from 'src/gs-api/src/strict-http-response';
-import { HttpClient,HttpErrorResponse,HttpResponse } from '@angular/common/http';
+import { HttpClient,HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'

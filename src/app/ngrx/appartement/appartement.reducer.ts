@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 import {
   AppartementDto,
-  BienImmobilierDto,
+
   EtageDto,
   ImmeubleDto,
 } from 'src/gs-api/src/models';

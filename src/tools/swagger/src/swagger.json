@@ -840,7 +840,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/BienImmobilierDto"
+                "$ref" : "#/definitions/BienImmobilierAffiheDto"
               }
             }
           }
@@ -3191,7 +3191,7 @@
         }
       }
     },
-    "BienImmobilierDto" : {
+    "BienImmobilierAffiheDto" : {
       "type" : "object",
       "properties" : {
         "id" : {
@@ -3225,7 +3225,7 @@
         "bienMeublerResidence" : {
           "type" : "boolean"
         },
-        "utilisateur" : {
+        "nomPrenomProprio" : {
           "type" : "string"
         },
         "occupied" : {
@@ -4034,10 +4034,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -4087,10 +4087,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -4717,10 +4717,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -4826,10 +4826,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -4935,10 +4935,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
