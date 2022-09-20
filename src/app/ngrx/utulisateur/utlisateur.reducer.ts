@@ -79,6 +79,10 @@ export function utilisateurReducer(
       let userSave = (<UtilisateurActions>action).payload;
       let currentUserListe = [...state.utilisateurs];
       currentUserListe.push(userSave);
+      console.log("Current user liste !");
+      console.log(userSave);
+
+
       return {
         ...state,
         dataState: UtilisteurStateEnum.LOADED,

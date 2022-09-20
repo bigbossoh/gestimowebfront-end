@@ -16,5 +16,5 @@ export interface AppartementDto {
   description?: string;
   superficieBien?: number;
   bienMeublerResidence?: boolean;
-  occupied?: boolean; 
+  occupied?: boolean;
 }

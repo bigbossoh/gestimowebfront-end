@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -36,12 +39,17 @@ import { GetAllVillaActions } from '../../../ngrx/villa/villa.action';
   styleUrls: ['./page-bien-immobilier.component.css'],
 })
 export class PageBienImmobilierComponent implements OnInit {
+  displayedColumns = ['Code', 'Propriétaire', 'Dénomination','Status', 'Actions'];
+  dataSource: MatTableDataSource<any> = new MatTableDataSource();
+  pageSize = [2, 5, 10, 15, 20];
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   magasinState$: Observable<MagasinState> | null = null;
   appartementState$: Observable<AppartementState> | null = null;
   villaState$: Observable<VillaState> | null = null;
 
-  bienState$: Observable<BienImmobilierState> | null = null;
   villeState$: Observable<VilleState> | null = null;
   commeState$: Observable<CommunesState> | null = null;
 
@@ -69,13 +77,18 @@ export class PageBienImmobilierComponent implements OnInit {
     // RECUPERER LES VILLAS DANS LE STORES
     this.store.dispatch(new GetAllVillaActions({}));
     this.villaState$ = this.store.pipe(map((state) => state.villaState));
-    // RECUPERER LES BIENS
-    this.store.dispatch(new GetAllBiensActions({}));
-    this.bienState$ = this.store.pipe(map((state) => state.biensState));
+
 
     //RECUPERER LES VILLES
     this.store.dispatch(new GetAllVilleActions({}));
     this.villeState$ = this.store.pipe(map((state) => state.villeState));
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
   onActionEvent(event: any) {
     this.ngOnInit();

@@ -34,7 +34,7 @@ export class PageListeUtilisateursComponent implements OnInit {
   ];
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  pageSize = [1, 5, 10, 15, 20];
+  pageSize = [ 5, 10, 15, 20];
 
   @ViewChild(MatPaginator,{ static: false }) paginatorUser!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
