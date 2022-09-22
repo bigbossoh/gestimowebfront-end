@@ -12,6 +12,7 @@ export interface BailVillaDto {
   nouveauMontantLoyer?: number;
   dateDebut?: string;
   dateFin?: string;
-  idVilla?: number;
-  idUtilisateur?: number;
+  idBienImmobilier?: number;
+  idLocataire?: number;
+  fullNomLocatire?: string;
 }

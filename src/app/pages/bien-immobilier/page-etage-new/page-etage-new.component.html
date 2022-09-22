@@ -66,10 +66,10 @@
                       <option [value]="0">Sélection un Immeuble</option>
                       <option [value]="0">Aucun Immeuble</option>
                       <option
-                        [value]="immeub.numImmeuble"
+                        [value]="immeub.id"
                         *ngFor="let immeub of immeubleState.immeubles"
                       >
-                        {{ immeub.codeNomAbrvImmeuble }}
+                        {{ immeub.abrvNomImmeuble }}
                       </option>
                     </select>
 
