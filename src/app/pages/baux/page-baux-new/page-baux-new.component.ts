@@ -100,32 +100,12 @@ export class PageBauxNewComponent implements OnInit {
     this.montantCaution = 0;
     this.montantCaution = this.montantLoyer * this.nombreMoisCaution;
   }
-  //SAVE BAIL STUDIO
-  // onSaveBailStudio() {
-  //   this.submitted = true;
-  //   if (this.bailStudioForm?.invalid) {
-  //     return;
-  //   }
-  //   this.submitted = false;
-  //   this.store.dispatch(new SaveBailStudioActions(this.bailStudioForm?.value));
-  //   this.bailStudiotState$ = this.store.pipe(
-  //     map((state) => state.bailStudioState)
-  //   );
 
-  //   alert(' BAIL STUDIO');
-  //   if (this.bailStudiotState$) {
-  //     this.sendErrorNotification(
-  //       NotificationType.SUCCESS,
-  //       'Enregistrement réussi'
-  //     );
-  //   } else {
-  //     this.sendErrorNotification(NotificationType.ERROR, 'Echec');
-  //   }
-  //   this.onClose();
-  // }
   //SAVE BAIL APPARTEMENT
   onSaveBailAppartement() {
     this.submitted = true;
+    console.log("Le bail appartement est le suivant : ");
+    console.log(this.bailAppartementForm?.value);
     if (this.bailAppartementForm?.invalid) {
       return;
     }
@@ -169,7 +149,7 @@ this.onClose();
   }
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
-   
+
     //GET ALL APPARTEMENT
     this.store.dispatch(new GetAllAppartementLibreActions({}));
     this.appartementState$ = this.store.pipe(
