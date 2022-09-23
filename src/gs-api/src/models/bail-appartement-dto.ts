@@ -13,5 +13,8 @@ export interface BailAppartementDto {
   dateDebut?: string;
   dateFin?: string;
   idAppartement?: number;
-  idUtilisateur?: number;
+  idLocataire?: number;
+  nomLocataire?: string;
+  idBienImmobilier?: number;
+  codeBien?: string;
 }

@@ -9,9 +9,13 @@
         <div class="card-header">Image d'illustration</div>
         <div class="card-body text-center">
           <!-- Profile picture image-->
-          <img class="img-account-profile rounded-circle mb-2" src="assets/contrat.jpg" width="120px" height="120px"
-            alt="contrat" />
-
+          <img
+            class="img-account-profile rounded-circle mb-2"
+            src="assets/contrat.jpg"
+            width="120px"
+            height="120px"
+            alt="contrat"
+          />
         </div>
       </div>
     </div>
@@ -22,39 +26,34 @@
         <div class="card-body">
           <form *ngIf="formGroup" [formGroup]="formGroup">
             <div class="mb-3">
-              <label class="small mb-3" for="inputUsername">Type de Contrat</label>
-              <select [(ngModel)]="ngSelectTypeContrat" formControlName="idTypeContrat" name="idTypeContrat"
-                class="form-control">
+              <label class="small mb-3" for="inputUsername"
+                >Type de Contrat</label
+              >
+              <select
+                [(ngModel)]="ngSelectTypeContrat"
+                formControlName="idTypeContrat"
+                name="idTypeContrat"
+                class="form-control"
+              >
                 <option [value]="20000">Sélection un Type de Bien</option>
                 <option [value]="biens" *ngFor="let biens of listTypeContrat">
                   {{ biens }}
                 </option>
               </select>
             </div>
-
-            <ng-container [ngSwitch]="ngSelectTypeContrat">
-              <ng-container *ngSwitchCase="listTypeContrat[0]">
-                <div class="p-2">Appartement</div>
-              </ng-container>
-
-              <ng-container *ngSwitchCase="listTypeContrat[1]">
-                <div class="p-2">Magasin</div>
-              </ng-container>
-
-              <ng-container *ngSwitchCase="listTypeContrat[2]">
-                <div class="p-2">Studio</div>
-              </ng-container>
-              <ng-container *ngSwitchCase="listTypeContrat[3]">
-                <div class="p-2">Villa</div>
-              </ng-container>
-            </ng-container>
           </form>
           <!-- FORM BAIL VILLA -->
-          <form *ngIf="bailvillaForm && ngSelectTypeContrat == 'Bail Villa'" [formGroup]="bailvillaForm">
+          <form
+            *ngIf="bailvillaForm && ngSelectTypeContrat == 'Bail Villa'"
+            [formGroup]="bailvillaForm"
+          >
             <!-- Form Group (username)-->
             <div class="mb-3">
               <label class="small mb-1" for="inputUsername">Locataire</label>
-              <ng-container *ngIf="utilisateurState$ | async as state" [ngSwitch]="state.dataState">
+              <ng-container
+                *ngIf="utilisateurState$ | async as state"
+                [ngSwitch]="state.dataState"
+              >
                 <ng-container *ngSwitchCase="UtilisteurStateEnum.INITIAL">
                   <mat-spinner></mat-spinner>
                 </ng-container>
@@ -66,15 +65,38 @@
                 <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
                   <div class="form-group">
                     <select
-                      [ngClass]="{'is-invalid':submitted&& (bailvillaForm.controls.idUtilisateur.errors ||bailvillaForm.controls['idUtilisateur'].value=='')}"
-                      formControlName="idUtilisateur" name="idUtilisateur" id="username" class="form-control">
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          (bailvillaForm.controls.idUtilisateur.errors ||
+                            bailvillaForm.controls['idUtilisateur'].value == '')
+                      }"
+                      formControlName="idUtilisateur"
+                      name="idUtilisateur"
+                      id="username"
+                      class="form-control"
+                    >
                       <option [value]="0">Sélection un Locataire</option>
-                      <option [value]="utilis.id" *ngFor="let utilis of state.utilisateurs">
+                      <option
+                        [value]="utilis.id"
+                        *ngFor="let utilis of state.utilisateurs"
+                      >
                         {{ utilis.nom }} {{ utilis.prenom }}
                       </option>
                     </select>
-                    <div *ngIf="submitted&& bailvillaForm.controls.idUtilisateur.errors" class="invalid-feedback">
-                      <div *ngIf=" bailvillaForm.controls.idUtilisateur.errors.required">*Champ obligatoire</div>
+                    <div
+                      *ngIf="
+                        submitted && bailvillaForm.controls.idUtilisateur.errors
+                      "
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="
+                          bailvillaForm.controls.idUtilisateur.errors.required
+                        "
+                      >
+                        *Champ obligatoire
+                      </div>
                     </div>
                   </div>
                 </ng-container>
@@ -82,10 +104,12 @@
             </div>
             <div class="form-group">
               <div class="col-sm-9">
-                <ng-container *ngIf="villaState$ | async as state" [ngSwitch]="state.dataState">
+                <ng-container
+                  *ngIf="villaState$ | async as state"
+                  [ngSwitch]="state.dataState"
+                >
                   <ng-container *ngSwitchCase="VillaStateEnum.INITIAL">
-                    <mat-spinner>
-                    </mat-spinner>
+                    <mat-spinner> </mat-spinner>
                   </ng-container>
                   <ng-container *ngSwitchCase="VillaStateEnum.ERROR">
                     <div class="p-2 invalid-feedback">
@@ -93,22 +117,43 @@
                     </div>
                   </ng-container>
                   <ng-container *ngSwitchCase="VillaStateEnum.LOADED">
-                    <label class="big mb-6" for="inputUsername">Choisir la Villa</label>
+                    <label class="big mb-6" for="inputUsername"
+                      >Choisir la Villa</label
+                    >
                     <div class="form-group">
                       <select
-                        [ngClass]="{'is-invalid':submitted&& (bailvillaForm.controls.idVilla.errors ||bailvillaForm.controls['idVilla'].value=='')}"
-                        formControlName="idVilla" name="idVilla" class="form-control">
-                        <option [value]="villa.id" *ngFor="let villa of state.villas">
+                        [ngClass]="{
+                          'is-invalid':
+                            submitted &&
+                            (bailvillaForm.controls.idVilla.errors ||
+                              bailvillaForm.controls['idVilla'].value == '')
+                        }"
+                        formControlName="idVilla"
+                        name="idVilla"
+                        class="form-control"
+                      >
+                        <option
+                          [value]="villa.id"
+                          *ngFor="let villa of state.villas"
+                        >
                           {{ villa.nomBaptiserBienImmobilier }}
                         </option>
                       </select>
-                      <div *ngIf="submitted&& bailvillaForm.controls.idVilla.errors" class="invalid-feedback">
-                        <div *ngIf=" bailvillaForm.controls.idVilla.errors.required">*Champ obligatoire</div>
+                      <div
+                        *ngIf="
+                          submitted && bailvillaForm.controls.idVilla.errors
+                        "
+                        class="invalid-feedback"
+                      >
+                        <div
+                          *ngIf="bailvillaForm.controls.idVilla.errors.required"
+                        >
+                          *Champ obligatoire
+                        </div>
                       </div>
                     </div>
                   </ng-container>
                 </ng-container>
-
               </div>
             </div>
             <!-- Form Row-->
@@ -116,30 +161,70 @@
               <!-- Form Group (first name)-->
               <div class="col-md-6">
                 <label class="big mb-1" for="inputFirstName">Désignation</label>
-                <input [ngClass]="{'is-invalid':submitted&& bailvillaForm.controls.designationBail.errors }"
-                  formControlName="designationBail" class="form-control" id="designationBail" type="text" />
-                <div *ngIf="submitted&& bailvillaForm.controls.designationBail.errors" class="invalid-feedback">
-                  <div *ngIf=" bailvillaForm.controls.designationBail.errors.required">*Champ obligatoire</div>
+                <input
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted && bailvillaForm.controls.designationBail.errors
+                  }"
+                  formControlName="designationBail"
+                  class="form-control"
+                  id="designationBail"
+                  type="text"
+                />
+                <div
+                  *ngIf="
+                    submitted && bailvillaForm.controls.designationBail.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      bailvillaForm.controls.designationBail.errors.required
+                    "
+                  >
+                    *Champ obligatoire
+                  </div>
                 </div>
               </div>
               <!-- Form Group (last name)-->
               <div class="col-md-6">
                 <label class="small mb-1" for="inputLastName">Loyer</label>
-                <input formControlName="nouveauMontantLoyer" class="form-control" id="inputLastName" type="number" />
+                <input
+                  formControlName="nouveauMontantLoyer"
+                  class="form-control"
+                  [(ngModel)]="montantLoyerVil"
+                  (ngModelChange)="calculMontantCautionVil()"
+                  type="number"
+                />
               </div>
             </div>
             <!-- Form Row        -->
             <div class="row gx-3 mb-3">
               <!-- Form Group (organization name)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputOrgName">Nombre de mois de caution</label>
-                <input formControlName="nbreMoisCautionBail" class="form-control" id="nbreMoisCautionBail"
-                  type="number" />
+                <label class="small mb-1" for="inputOrgName"
+                  >Nombre de mois de caution</label
+                >
+                <input
+                  formControlName="nbreMoisCautionBail"
+                  class="form-control"
+                  [(ngModel)]="nombreMoisCautionVil"
+                  (ngModelChange)="calculMontantCautionVil()"
+                  type="number"
+                />
               </div>
               <!-- Form Group (location)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputLocation">Montant caution</label>
-                <input formControlName="montantCautionBail" class="form-control" id="inputLocation" type="number" />
+                <label class="small mb-1" for="inputLocation"
+                  >Montant caution</label
+                >
+                <input
+                  formControlName="montantCautionBail"
+                  class="form-control"
+                  [(ngModel)]="montantCautionVil"
+
+                  type="number"
+                />
               </div>
             </div>
 
@@ -147,37 +232,77 @@
             <div class="row gx-3 mb-3">
               <!-- Form Group (phone number)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputPhone">Début du contrat</label>
-                <input [ngClass]="{'is-invalid':submitted&& bailvillaForm.controls.dateDebut.errors }"
-                  class="form-control" id="dateDebut" type="date" formControlName="dateDebut" />
-                <div *ngIf="submitted&& bailvillaForm.controls.dateDebut.errors" class="invalid-feedback">
-                  <div *ngIf=" bailvillaForm.controls.dateDebut.errors.required">*Champ obligatoire</div>
+                <label class="small mb-1" for="inputPhone"
+                  >Début du contrat</label
+                >
+                <input
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted && bailvillaForm.controls.dateDebut.errors
+                  }"
+                  class="form-control"
+                  id="dateDebut"
+                  type="date"
+                  formControlName="dateDebut"
+                />
+                <div
+                  *ngIf="submitted && bailvillaForm.controls.dateDebut.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="bailvillaForm.controls.dateDebut.errors.required">
+                    *Champ obligatoire
+                  </div>
                 </div>
               </div>
               <!-- Form Group (birthday)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputBirthday">Date de fin</label>
-                <input [ngClass]="{'is-invalid':submitted&& bailvillaForm.controls.dateFin.errors }"
-                  formControlName="dateFin" class="form-control" id="inputBirthday" type="date" name="birthday" />
-                <div *ngIf="submitted&& bailvillaForm.controls.dateFin.errors" class="invalid-feedback">
-                  <div *ngIf=" bailvillaForm.controls.dateFin.errors.required">*Champ obligatoire</div>
+                <label class="small mb-1" for="inputBirthday"
+                  >Date de fin</label
+                >
+                <input
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted && bailvillaForm.controls.dateFin.errors
+                  }"
+                  formControlName="dateFin"
+                  class="form-control"
+                  id="inputBirthday"
+                  type="date"
+                  name="birthday"
+                />
+                <div
+                  *ngIf="submitted && bailvillaForm.controls.dateFin.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="bailvillaForm.controls.dateFin.errors.required">
+                    *Champ obligatoire
+                  </div>
                 </div>
               </div>
             </div>
             <!-- Save changes button-->
-            <button class="btn btn-primary" type="button" (click)="onSaveBailVilla()">
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="onSaveBailVilla()"
+            >
               Valider
             </button>
           </form>
           <!-- FORM BAIL MAGASIN -->
-          <form *ngIf="bailMagainForm && ngSelectTypeContrat == 'Bail Magasin'" [formGroup]="bailMagainForm">
+          <form
+            *ngIf="bailMagainForm && ngSelectTypeContrat == 'Bail Magasin'"
+            [formGroup]="bailMagainForm"
+          >
             <!-- Form Group (username)-->
             <div class="mb-3">
               <label class="small mb-1" for="inputUsername">Locataires</label>
-              <ng-container *ngIf="utilisateurState$ | async as state" [ngSwitch]="state.dataState">
+              <ng-container
+                *ngIf="utilisateurState$ | async as state"
+                [ngSwitch]="state.dataState"
+              >
                 <ng-container *ngSwitchCase="UtilisteurStateEnum.INITIAL">
-                  <mat-spinner>
-                  </mat-spinner>
+                  <mat-spinner> </mat-spinner>
                 </ng-container>
                 <ng-container *ngSwitchCase="UtilisteurStateEnum.ERROR">
                   <div class="p-2 invalid-feedback">
@@ -186,16 +311,39 @@
                 </ng-container>
                 <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
                   <div class="form-group">
-                    <select [ngClass]="{'is-invalid':submitted&& bailMagainForm.controls.idUtilisateur.errors }"
-                      formControlName="idUtilisateur" name="idUtilisateur" id="username"
-                      class="form-select form-select-lg mb3">
+                    <select
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          bailMagainForm.controls.idUtilisateur.errors
+                      }"
+                      formControlName="idUtilisateur"
+                      name="idUtilisateur"
+                      id="username"
+                      class="form-select form-select-lg mb3"
+                    >
                       <option [value]="0">Sélection un Locataire</option>
-                      <option *ngFor="let utilis of state.utilisateurs" [value]="utilis.id">
+                      <option
+                        *ngFor="let utilis of state.utilisateurs"
+                        [value]="utilis.id"
+                      >
                         {{ utilis.nom }} {{ utilis.prenom }}
                       </option>
                     </select>
-                    <div *ngIf="submitted&& bailMagainForm.controls.idUtilisateur.errors" class="invalid-feedback">
-                      <div *ngIf=" bailMagainForm.controls.idUtilisateur.errors.required">*Champ obligatoire</div>
+                    <div
+                      *ngIf="
+                        submitted &&
+                        bailMagainForm.controls.idUtilisateur.errors
+                      "
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="
+                          bailMagainForm.controls.idUtilisateur.errors.required
+                        "
+                      >
+                        *Champ obligatoire
+                      </div>
                     </div>
                   </div>
                 </ng-container>
@@ -203,10 +351,12 @@
             </div>
             <div class="form-group">
               <div class="col-sm-9">
-                <ng-container *ngIf="magasinState$ | async as stateMagasin" [ngSwitch]="stateMagasin.dataState">
+                <ng-container
+                  *ngIf="magasinState$ | async as stateMagasin"
+                  [ngSwitch]="stateMagasin.dataState"
+                >
                   <ng-container *ngSwitchCase="MagasinStateEnum.INITIAL">
-                    <mat-spinner>
-                    </mat-spinner>
+                    <mat-spinner> </mat-spinner>
                   </ng-container>
                   <ng-container *ngSwitchCase="MagasinStateEnum.ERROR">
                     <div class="p-2 invalid-feedback">
@@ -214,22 +364,45 @@
                     </div>
                   </ng-container>
                   <ng-container *ngSwitchCase="MagasinStateEnum.LOADED">
-                    <label class="big mb-6 lable lablel-default">Choisir le Magasins pour remplis</label>
+                    <label class="big mb-6 lable lablel-default"
+                      >Choisir le Magasins pour remplis</label
+                    >
                     <div class="form-group">
-                      <select [ngClass]="{'is-invalid':submitted&& bailMagainForm.controls.idMagasin.errors }"
-                        formControlName="idMagasin" name="idMagasin" class="form-select form-select-lg mb3">
+                      <select
+                        [ngClass]="{
+                          'is-invalid':
+                            submitted &&
+                            bailMagainForm.controls.idMagasin.errors
+                        }"
+                        formControlName="idMagasin"
+                        name="idMagasin"
+                        class="form-select form-select-lg mb3"
+                      >
                         <option value="0">Choisir un magasin</option>
-                        <option *ngFor="let maga of stateMagasin.magasins" [value]="maga.id">
+                        <option
+                          *ngFor="let maga of stateMagasin.magasins"
+                          [value]="maga.id"
+                        >
                           {{ maga.nomBaptiserBienImmobilier }}
                         </option>
                       </select>
-                      <div *ngIf="submitted&& bailMagainForm.controls.idMagasin.errors" class="invalid-feedback">
-                        <div *ngIf=" bailMagainForm.controls.idMagasin.errors.required">*Champ obligatoire</div>
+                      <div
+                        *ngIf="
+                          submitted && bailMagainForm.controls.idMagasin.errors
+                        "
+                        class="invalid-feedback"
+                      >
+                        <div
+                          *ngIf="
+                            bailMagainForm.controls.idMagasin.errors.required
+                          "
+                        >
+                          *Champ obligatoire
+                        </div>
                       </div>
                     </div>
                   </ng-container>
                 </ng-container>
-
               </div>
             </div>
             <!-- Form Row-->
@@ -237,30 +410,71 @@
               <!-- Form Group (first name)-->
               <div class="col-md-6">
                 <label class="big mb-1" for="inputFirstName">Désignation</label>
-                <input [ngClass]="{'is-invalid':submitted&& bailMagainForm.controls.designationBail.errors }"
-                  formControlName="designationBail" class="form-control" id="designationBail" type="text" />
-                <div *ngIf="submitted&& bailMagainForm.controls.designationBail.errors" class="invalid-feedback">
-                  <div *ngIf=" bailMagainForm.controls.designationBail.errors.required">*Champ obligatoire</div>
+                <input
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted &&
+                      bailMagainForm.controls.designationBail.errors
+                  }"
+                  formControlName="designationBail"
+                  class="form-control"
+                  id="designationBail"
+                  type="text"
+                />
+                <div
+                  *ngIf="
+                    submitted && bailMagainForm.controls.designationBail.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      bailMagainForm.controls.designationBail.errors.required
+                    "
+                  >
+                    *Champ obligatoire
+                  </div>
                 </div>
               </div>
               <!-- Form Group (last name)-->
               <div class="col-md-6">
                 <label class="small mb-1" for="inputLastName">Loyer</label>
-                <input formControlName="nouveauMontantLoyer" class="form-control" id="inputLastName" type="number" />
+                <input
+                  formControlName="nouveauMontantLoyer"
+                  class="form-control"
+                  [(ngModel)]="montantLoyerMag"
+                  (ngModelChange)="calculMontantCautionMag()"
+                  type="number"
+                />
               </div>
             </div>
             <!-- Form Row        -->
             <div class="row gx-3 mb-3">
               <!-- Form Group (organization name)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputOrgName">Nombre de mois de caution</label>
-                <input formControlName="nbreMoisCautionBail" class="form-control" id="nbreMoisCautionBail"
-                  type="number" />
+                <label class="small mb-1" for="inputOrgName"
+                  >Nombre de mois de caution</label
+                >
+                <input
+                  formControlName="nbreMoisCautionBail"
+                  class="form-control"
+                  [(ngModel)]="nombreMoisCautionMag"
+                  (ngModelChange)="calculMontantCautionMag()"
+                  type="number"
+                />
               </div>
               <!-- Form Group (location)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputLocation">Montant caution</label>
-                <input formControlName="montantCautionBail" class="form-control" id="inputLocation" type="number" />
+                <label class="small mb-1" for="inputLocation"
+                  >Montant caution</label
+                >
+                <input
+                  formControlName="montantCautionBail"
+                  class="form-control"
+                  [(ngModel)]="montantCautionMag"
+
+                  type="number"
+                />
               </div>
             </div>
 
@@ -268,39 +482,81 @@
             <div class="row gx-3 mb-3">
               <!-- Form Group (phone number)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputPhone">Début du contrat</label>
-                <input [ngClass]="{'is-invalid':submitted&& bailMagainForm.controls.dateDebut.errors }"
-                  class="form-control" id="inputPhone" type="date" formControlName="dateDebut" />
-                <div *ngIf="submitted&& bailMagainForm.controls.dateDebut.errors" class="invalid-feedback">
-                  <div *ngIf=" bailMagainForm.controls.dateDebut.errors.required">*Champ obligatoire</div>
+                <label class="small mb-1" for="inputPhone"
+                  >Début du contrat</label
+                >
+                <input
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted && bailMagainForm.controls.dateDebut.errors
+                  }"
+                  class="form-control"
+                  id="inputPhone"
+                  type="date"
+                  formControlName="dateDebut"
+                />
+                <div
+                  *ngIf="submitted && bailMagainForm.controls.dateDebut.errors"
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="bailMagainForm.controls.dateDebut.errors.required"
+                  >
+                    *Champ obligatoire
+                  </div>
                 </div>
               </div>
               <!-- Form Group (birthday)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputBirthday">Date de fin</label>
-                <input [ngClass]="{'is-invalid':submitted&& bailMagainForm.controls.dateFin.errors }"
-                  formControlName="dateFin" class="form-control" id="inputBirthday" type="date" name="birthday" />
-                <div *ngIf="submitted&& bailMagainForm.controls.dateFin.errors" class="invalid-feedback">
-                  <div *ngIf=" bailMagainForm.controls.dateFin.errors.required">*Champ obligatoire</div>
+                <label class="small mb-1" for="inputBirthday"
+                  >Date de fin</label
+                >
+                <input
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted && bailMagainForm.controls.dateFin.errors
+                  }"
+                  formControlName="dateFin"
+                  class="form-control"
+                  id="inputBirthday"
+                  type="date"
+                  name="birthday"
+                />
+                <div
+                  *ngIf="submitted && bailMagainForm.controls.dateFin.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="bailMagainForm.controls.dateFin.errors.required">
+                    *Champ obligatoire
+                  </div>
                 </div>
               </div>
             </div>
             <!-- Save changes button-->
-            <button class="btn btn-primary" type="button" (click)="onSaveBailMagasin()">
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="onSaveBailMagasin()"
+            >
               Valider
             </button>
           </form>
-          <!-- FORM BAIL APPAREMENT -->
-          <form *ngIf="
+          <!-- FORM BAIL APPARTEMENT -->
+          <form
+            *ngIf="
               bailAppartementForm && ngSelectTypeContrat == 'Bail Appartement'
-            " [formGroup]="bailAppartementForm">
+            "
+            [formGroup]="bailAppartementForm"
+          >
             <!-- Form Group (username)-->
             <div class="mb-3">
               <label class="small mb-1" for="inputUsername">Locataire</label>
-              <ng-container *ngIf="utilisateurState$ | async as state" [ngSwitch]="state.dataState">
+              <ng-container
+                *ngIf="utilisateurState$ | async as state"
+                [ngSwitch]="state.dataState"
+              >
                 <ng-container *ngSwitchCase="UtilisteurStateEnum.INITIAL">
-                  <mat-spinner>
-                  </mat-spinner>
+                  <mat-spinner> </mat-spinner>
                 </ng-container>
                 <ng-container *ngSwitchCase="UtilisteurStateEnum.ERROR">
                   <div class="p-2 invalid-feedback">
@@ -308,28 +564,63 @@
                   </div>
                 </ng-container>
                 <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
-                  <div class="form-group">
-                    <select [ngClass]="{'is-invalid':submitted&& bailAppartementForm.controls.idUtilisateur.errors }"
-                      formControlName="idUtilisateur" name="idUtilisateur" id="username"
-                      class="form-select form-select-lg mb3">
+                  <div
+                    class="form-group"
+                    *ngIf="state.utilisateurs.length != 0"
+                  >
+                    <select
+                      [ngClass]="{
+                        'is-invalid':
+                          submitted &&
+                          bailAppartementForm.controls.idAppartement.errors
+                      }"
+                      formControlName="idLocataire"
+                      name="idLocataire"
+                      id="username"
+                      class="form-select form-select-lg mb3"
+                    >
                       <option [value]="0">Sélection un Locataire</option>
-                      <option [value]="utilis.id" *ngFor="let utilis of state.utilisateurs">
+                      <option
+                        [value]="utilis.id"
+                        *ngFor="let utilis of state.utilisateurs"
+                      >
                         {{ utilis.nom }} {{ utilis.prenom }}
                       </option>
                     </select>
-                    <div *ngIf="submitted&& bailAppartementForm.controls.idUtilisateur.errors" class="invalid-feedback">
-                      <div *ngIf=" bailAppartementForm.controls.idUtilisateur.errors.required">*Champ obligatoire</div>
+                    <div
+                      *ngIf="
+                        submitted &&
+                        bailAppartementForm.controls.idUtilisateur.errors
+                      "
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="
+                          bailAppartementForm.controls.idUtilisateur.errors
+                            .required
+                        "
+                      >
+                        *Champ obligatoire
+                      </div>
                     </div>
+                  </div>
+                  <div
+                    class="form-group"
+                    *ngIf="state.utilisateurs.length == 0"
+                  >
+                    Aucun locataire enregistré dans la base
                   </div>
                 </ng-container>
               </ng-container>
             </div>
             <div class="form-group">
               <div class="col-sm-9">
-                <ng-container *ngIf="appartementState$ | async as state" [ngSwitch]="state.dataState">
+                <ng-container
+                  *ngIf="appartementState$ | async as state"
+                  [ngSwitch]="state.dataState"
+                >
                   <ng-container *ngSwitchCase="AppartementStateEnum.INITIAL">
-                    <mat-spinner>
-                    </mat-spinner>
+                    <mat-spinner> </mat-spinner>
                   </ng-container>
                   <ng-container *ngSwitchCase="AppartementStateEnum.ERROR">
                     <div class="p-2 invalid-feedback">
@@ -337,22 +628,51 @@
                     </div>
                   </ng-container>
                   <ng-container *ngSwitchCase="AppartementStateEnum.LOADED">
-                    <label class="big mb-6" for="inputUsername">Choisir un appartement</label>
-                    <div class="form-group">
-                      <select
-                      [ngClass]="{'is-invalid':submitted&& bailAppartementForm.controls.idAppartement.errors }"
-                      formControlName="idAppartement" name="idAppartement" class="form-select form-select-lg mb3">
-                                               <option [value]="appar.id" *ngFor="let appar of state.appartements">
-                          {{ appar.nomBaptiserBienImmobilier }}
-                        </option>
-                      </select>
-                      <div *ngIf="submitted&& bailAppartementForm.controls.idAppartement.errors" class="invalid-feedback">
-                        <div *ngIf=" bailAppartementForm.controls.idAppartement.errors.required">*Champ obligatoire</div>
+                    <div *ngIf="state.appartements.length == 0">
+                      Aucun appartement libre
+                    </div>
+                    <div *ngIf="state.appartements.length != 0">
+                      <label class="big mb-6" for="inputUsername"
+                        >Choisir un appartement</label
+                      >
+                      <div class="form-group">
+                        <select
+                          [ngClass]="{
+                            'is-invalid':
+                              submitted &&
+                              bailAppartementForm.controls.idAppartement.errors
+                          }"
+                          formControlName="idAppartement"
+                          name="idAppartement"
+                          class="form-select form-select-lg mb3"
+                        >
+                          <option
+                            [value]="appar.id"
+                            *ngFor="let appar of state.appartements"
+                          >
+                            {{ appar.codeAbrvBienImmobilier }}
+                          </option>
+                        </select>
+                        <div
+                          *ngIf="
+                            submitted &&
+                            bailAppartementForm.controls.idAppartement.errors
+                          "
+                          class="invalid-feedback"
+                        >
+                          <div
+                            *ngIf="
+                              bailAppartementForm.controls.idAppartement.errors
+                                .required
+                            "
+                          >
+                            *Champ obligatoire
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </ng-container>
                 </ng-container>
-
               </div>
             </div>
             <!-- Form Row-->
@@ -361,30 +681,72 @@
               <div class="col-md-6">
                 <label class="big mb-1" for="inputFirstName">Désignation</label>
                 <input
-                [ngClass]="{'is-invalid':submitted&& bailAppartementForm.controls.designationBail.errors }"
-                formControlName="designationBail" class="form-control" id="designationBail" type="text" />
-                <div *ngIf="submitted&& bailAppartementForm.controls.designationBail.errors" class="invalid-feedback">
-                  <div *ngIf=" bailAppartementForm.controls.designationBail.errors.required">*Champ obligatoire</div>
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted &&
+                      bailAppartementForm.controls.designationBail.errors
+                  }"
+                  formControlName="designationBail"
+                  class="form-control"
+                  id="designationBail"
+                  type="text"
+                />
+                <div
+                  *ngIf="
+                    submitted &&
+                    bailAppartementForm.controls.designationBail.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      bailAppartementForm.controls.designationBail.errors
+                        .required
+                    "
+                  >
+                    *Champ obligatoire
+                  </div>
                 </div>
               </div>
               <!-- Form Group (last name)-->
               <div class="col-md-6">
                 <label class="small mb-1" for="inputLastName">Loyer</label>
-                <input formControlName="nouveauMontantLoyer" class="form-control" id="inputLastName" type="number" />
+                <input
+                [(ngModel)]="montantLoyerApp"
+                (ngModelChange)="calculMontantCautionApp()"
+                  formControlName="nouveauMontantLoyer"
+                  class="form-control"
+
+                  type="number"
+                />
               </div>
             </div>
             <!-- Form Row        -->
             <div class="row gx-3 mb-3">
               <!-- Form Group (organization name)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputOrgName">Nombre de mois de caution</label>
-                <input formControlName="nbreMoisCautionBail" class="form-control" id="nbreMoisCautionBail"
-                  type="number" />
+                <label class="small mb-1" for="inputOrgName"
+                  >Nombre de mois de caution</label
+                >
+                <input
+                  formControlName="nbreMoisCautionBail"
+                  class="form-control"
+                 [(ngModel)]="nombreMoisCautionApp"
+                 (ngModelChange)="calculMontantCautionApp()"
+                  type="number"
+                />
               </div>
               <!-- Form Group (location)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputLocation">Montant caution</label>
-                <input formControlName="montantCautionBail" class="form-control" id="inputLocation" type="number" />
+                <label class="small mb-1" for="inputLocation"
+                  >Montant caution</label
+                >
+                <input
+                [(ngModel)]="montantCautionApp"
+                  formControlName="montantCautionBail"
+                  class="form-control"
+                  type="number"
+                />
               </div>
             </div>
 
@@ -392,31 +754,73 @@
             <div class="row gx-3 mb-3">
               <!-- Form Group (phone number)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputPhone">Début du contrat</label>
+                <label class="small mb-1" for="inputPhone"
+                  >Début du contrat</label
+                >
                 <input
-                [ngClass]="{'is-invalid':submitted&& bailAppartementForm.controls.dateDebut.errors }"
-                class="form-control" id="dateDebut" type="date" formControlName="dateDebut" />
-                <div *ngIf="submitted&& bailAppartementForm.controls.dateDebut.errors" class="invalid-feedback">
-                  <div *ngIf=" bailAppartementForm.controls.dateDebut.errors.required">*Champ obligatoire</div>
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted && bailAppartementForm.controls.dateDebut.errors
+                  }"
+                  class="form-control"
+                  id="dateDebut"
+                  type="date"
+                  formControlName="dateDebut"
+                />
+                <div
+                  *ngIf="
+                    submitted && bailAppartementForm.controls.dateDebut.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="
+                      bailAppartementForm.controls.dateDebut.errors.required
+                    "
+                  >
+                    *Champ obligatoire
+                  </div>
                 </div>
               </div>
               <!-- Form Group (birthday)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputBirthday">Date de fin</label>
+                <label class="small mb-1" for="inputBirthday"
+                  >Date de fin</label
+                >
                 <input
-                [ngClass]="{'is-invalid':submitted&& bailAppartementForm.controls.dateFin.errors }"
-                formControlName="dateFin" class="form-control" id="inputBirthday" type="date" name="birthday" />
-                <div *ngIf="submitted&& bailAppartementForm.controls.dateFin.errors" class="invalid-feedback">
-                  <div *ngIf=" bailAppartementForm.controls.dateFin.errors.required">*Champ obligatoire</div>
+                  [ngClass]="{
+                    'is-invalid':
+                      submitted && bailAppartementForm.controls.dateFin.errors
+                  }"
+                  formControlName="dateFin"
+                  class="form-control"
+                  id="inputBirthday"
+                  type="date"
+                  name="birthday"
+                />
+                <div
+                  *ngIf="
+                    submitted && bailAppartementForm.controls.dateFin.errors
+                  "
+                  class="invalid-feedback"
+                >
+                  <div
+                    *ngIf="bailAppartementForm.controls.dateFin.errors.required"
+                  >
+                    *Champ obligatoire
+                  </div>
                 </div>
               </div>
             </div>
             <!-- Save changes button-->
-            <button class="btn btn-primary" type="button" (click)="onSaveBailAppartement()">
+            <button
+              class="btn btn-primary"
+              type="button"
+              (click)="onSaveBailAppartement()"
+            >
               Valider
             </button>
           </form>
-
         </div>
       </div>
     </div>

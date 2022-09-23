@@ -19,7 +19,7 @@ export class PageProprietaireComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(new GetAllProprietairesActions({}));
     this.proprietaireState$=this.store.pipe(
-      map((state)=>state.proprietaireState)
+      map((state)=>state.proprietaireState) 
       );
     }
 

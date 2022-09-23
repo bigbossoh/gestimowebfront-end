@@ -2615,10 +2615,10 @@
             "$ref" : "#/definitions/Encaissement"
           }
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         }
       }
@@ -2832,10 +2832,10 @@
           "type" : "number",
           "format" : "double"
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         }
       }
@@ -2902,9 +2902,19 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "idUtilisateur" : {
+        "idLocataire" : {
           "type" : "integer",
           "format" : "int64"
+        },
+        "nomLocataire" : {
+          "type" : "string"
+        },
+        "idBienImmobilier" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "codeBien" : {
+          "type" : "string"
         }
       }
     },
@@ -3036,13 +3046,23 @@
           "type" : "string",
           "format" : "date"
         },
+        "idBienImmobilier" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "idMagasin" : {
           "type" : "integer",
           "format" : "int64"
         },
-        "idUtilisateur" : {
+        "nomPrenomLocataire" : {
+          "type" : "string"
+        },
+        "idLocataire" : {
           "type" : "integer",
           "format" : "int64"
+        },
+        "codeBien" : {
+          "type" : "string"
         }
       }
     },
@@ -3102,6 +3122,9 @@
           "format" : "int64"
         },
         "fullNomLocatire" : {
+          "type" : "string"
+        },
+        "codeBien" : {
           "type" : "string"
         }
       }
@@ -3715,10 +3738,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -3768,10 +3791,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
