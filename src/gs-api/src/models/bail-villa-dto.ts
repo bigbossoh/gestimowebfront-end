@@ -15,4 +15,5 @@ export interface BailVillaDto {
   idBienImmobilier?: number;
   idLocataire?: number;
   fullNomLocatire?: string;
+  codeBien?: string;
 }

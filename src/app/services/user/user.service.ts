@@ -17,7 +17,6 @@ export class UserService {
 
   constructor(
     private apiService:ApiService,
-    private router:Router,
     private http:HttpClient
   ) { }
 

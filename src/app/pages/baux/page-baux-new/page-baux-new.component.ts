@@ -40,9 +40,17 @@ import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 })
 export class PageBauxNewComponent implements OnInit {
   submitted = false;
-  nombreMoisCaution = 0;
-  montantLoyer = 0;
-  montantCaution = 0;
+  nombreMoisCautionApp = 0;
+  montantLoyerApp = 0;
+  montantCautionApp = 0;
+
+  nombreMoisCautionMag = 0;
+  montantLoyerMag = 0;
+  montantCautionMag = 0;
+
+  nombreMoisCautionVil = 0;
+  montantLoyerVil = 0;
+  montantCautionVil = 0;
   formGroup?: FormGroup;
   bailvillaForm?: FormGroup;
   bailMagainForm?: FormGroup;
@@ -73,33 +81,28 @@ export class PageBauxNewComponent implements OnInit {
     private fb: FormBuilder,
     private store: Store<any>,
     private userService: UserService,
-    private notificationService: NotificationService,
+
     public dialogRef: MatDialogRef<PageBauxNewComponent>
   ) {
     this.listTypeContrat = [
       'Bail Appartement',
       'Bail Magasin',
-      // 'Bail Studio',
       'Bail Villa',
     ];
   }
-  private sendErrorNotification(
-    notificationType: NotificationType,
-    message: string
-  ): void {
-    if (message) {
-      this.notificationService.notify(notificationType, message);
-    } else {
-      this.notificationService.notify(
-        notificationType,
-        'An error occurred. Please try again.'
-      );
-    }
+
+  calculMontantCautionApp() {
+   // this.montantCautionApp = 0;
+    this.montantCautionApp = this.montantLoyerApp * this.nombreMoisCautionApp;
   }
-  calculMontan() {
-    this.montantCaution = 0;
-    this.montantCaution = this.montantLoyer * this.nombreMoisCaution;
+  calculMontantCautionMag() {
+
+     this.montantCautionMag = this.montantLoyerMag* this.nombreMoisCautionMag;
   }
+  calculMontantCautionVil() {
+  
+     this.montantCautionVil = this.montantLoyerVil* this.nombreMoisCautionVil;
+   }
 
   //SAVE BAIL APPARTEMENT
   onSaveBailAppartement() {
@@ -150,7 +153,7 @@ this.onClose();
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
 
-    //GET ALL APPARTEMENT
+    //GET ALL APPARTEMENT LIBRE
     this.store.dispatch(new GetAllAppartementLibreActions({}));
     this.appartementState$ = this.store.pipe(
       map((state) => state.appartementState)
@@ -200,7 +203,7 @@ this.onClose();
       dateDebut: ['', Validators.required],
       dateFin: ['', Validators.required],
       idAppartement: ['', Validators.required],
-      idUtilisateur: ['', Validators.required],
+      idLocataire: ['', Validators.required],
     });
     //FORM POUR BAIL VILLA
     this.bailvillaForm = this.fb.group({

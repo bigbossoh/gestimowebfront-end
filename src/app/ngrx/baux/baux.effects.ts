@@ -18,7 +18,7 @@ export class BauxEffects {
   getAllBauxEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(OperationActionsTypes.GET_ALL_BAIL),
-      mergeMap((action) => {
+      mergeMap(() => {
         return this.apiService.findAllOperations().pipe(
           map(
             (operations) =>
