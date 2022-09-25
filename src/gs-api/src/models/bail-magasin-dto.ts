@@ -12,9 +12,9 @@ export interface BailMagasinDto {
   nouveauMontantLoyer?: number;
   dateDebut?: string;
   dateFin?: string;
-  idBienImmobilier?: number;
   idMagasin?: number;
-  nomPrenomLocataire?: string;
   idLocataire?: number;
+  nomLocataire?: string;
+  idBienImmobilier?: number;
   codeBien?: string;
 }

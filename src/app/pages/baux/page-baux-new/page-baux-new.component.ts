@@ -63,17 +63,14 @@ export class PageBauxNewComponent implements OnInit {
   magasinState$: Observable<MagasinState> | null = null;
   appartementState$: Observable<AppartementState> | null = null;
 
-
   bailvillaState$: Observable<BailVillaState> | null = null;
   bailMagasinState$: Observable<BailMagasinState> | null = null;
   bailAppartementState$: Observable<BailAppartementState> | null = null;
-
 
   readonly UtilisteurStateEnum = UtilisteurStateEnum;
   readonly VillaStateEnum = VillaStateEnum;
   readonly MagasinStateEnum = MagasinStateEnum;
   readonly AppartementStateEnum = AppartementStateEnum;
-
 
   ngSelectTypeContrat = 'Bail';
   listTypeContrat: string[] = [];
@@ -84,30 +81,24 @@ export class PageBauxNewComponent implements OnInit {
 
     public dialogRef: MatDialogRef<PageBauxNewComponent>
   ) {
-    this.listTypeContrat = [
-      'Bail Appartement',
-      'Bail Magasin',
-      'Bail Villa',
-    ];
+    this.listTypeContrat = ['Bail Appartement', 'Bail Magasin', 'Bail Villa'];
   }
 
   calculMontantCautionApp() {
-   // this.montantCautionApp = 0;
+    // this.montantCautionApp = 0;
     this.montantCautionApp = this.montantLoyerApp * this.nombreMoisCautionApp;
   }
   calculMontantCautionMag() {
-
-     this.montantCautionMag = this.montantLoyerMag* this.nombreMoisCautionMag;
+    this.montantCautionMag = this.montantLoyerMag * this.nombreMoisCautionMag;
   }
   calculMontantCautionVil() {
-  
-     this.montantCautionVil = this.montantLoyerVil* this.nombreMoisCautionVil;
-   }
+    this.montantCautionVil = this.montantLoyerVil * this.nombreMoisCautionVil;
+  }
 
   //SAVE BAIL APPARTEMENT
   onSaveBailAppartement() {
     this.submitted = true;
-    console.log("Le bail appartement est le suivant : ");
+    console.log('Le bail appartement est le suivant : ');
     console.log(this.bailAppartementForm?.value);
     if (this.bailAppartementForm?.invalid) {
       return;
@@ -124,6 +115,9 @@ export class PageBauxNewComponent implements OnInit {
   //SAVE BAIL MAGASIN
   onSaveBailMagasin() {
     this.submitted = true;
+    console.log('Le formulaire est le suivant');
+    console.log(this.bailMagainForm?.value);
+
     if (this.bailMagainForm?.invalid) {
       return;
     }
@@ -148,7 +142,7 @@ export class PageBauxNewComponent implements OnInit {
     this.bailvillaState$ = this.store.pipe(
       map((state) => state.bailvillaState)
     );
-this.onClose();
+    this.onClose();
   }
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
@@ -174,25 +168,12 @@ this.onClose();
       idTypeContrat: [''],
     });
     //FORM POUR BAIL STUDIO
-    this.bailStudioForm = this.fb.group({
-      id: [0],
-      idAgence: [this.user?.idAgence],
-      designationBail: ['', Validators.required],
-      abrvCodeBail: ['BAIL-STUDIO'],
-      enCoursBail: [true],
-      archiveBail: [false],
-      montantCautionBail: [0],
-      nbreMoisCautionBail: [0],
-      nouveauMontantLoyer: ['', Validators.required],
-      dateDebut: ['', Validators.required],
-      dateFin: ['', Validators.required],
-      idStudio: ['', Validators.required],
-      idUtilisateur: ['', Validators.required],
-    });
+ 
     //FORM POUR APPARTEMENT
     this.bailAppartementForm = this.fb.group({
       id: [0],
       idAgence: [this.user?.idAgence],
+      idCreateur:[this.user?.id],
       designationBail: ['', Validators.required],
       abrvCodeBail: ['BAIL-APPARTEMENT'],
       enCoursBail: [true],
@@ -209,6 +190,7 @@ this.onClose();
     this.bailvillaForm = this.fb.group({
       id: [0],
       idAgence: [this.user?.idAgence],
+      idCreateur:[this.user?.id],
       designationBail: ['', Validators.required],
       abrvCodeBail: ['BAIL-VILLA'],
       enCoursBail: [true],
@@ -219,12 +201,13 @@ this.onClose();
       dateDebut: ['', Validators.required],
       dateFin: ['', Validators.required],
       idVilla: ['', Validators.required],
-      idUtilisateur: ['', Validators.required],
+      idLocataire: ['', Validators.required],
     });
     //FORM BAIL POUR MAGASIN
     this.bailMagainForm = this.fb.group({
       id: [0],
       idAgence: [this.user?.idAgence],
+      idCreateur:[this.user?.id],
       designationBail: ['', Validators.required],
       abrvCodeBail: ['BAIL-MAGASIN'],
       enCoursBail: [true],
@@ -235,7 +218,7 @@ this.onClose();
       dateDebut: ['', Validators.required],
       dateFin: ['', Validators.required],
       idMagasin: ['', Validators.required],
-      idUtilisateur: ['', Validators.required],
+      idLocataire: ['', Validators.required],
     });
   }
 }

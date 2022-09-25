@@ -633,7 +633,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/BailAppartementDto"
+              "$ref" : "#/definitions/OperationDto"
             }
           }
         }
@@ -729,7 +729,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/BailMagasinDto"
+              "$ref" : "#/definitions/OperationDto"
             }
           }
         }
@@ -825,7 +825,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/BailVillaDto"
+              "$ref" : "#/definitions/OperationDto"
             }
           }
         }
@@ -2615,10 +2615,10 @@
             "$ref" : "#/definitions/Encaissement"
           }
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         }
       }
@@ -2832,10 +2832,10 @@
           "type" : "number",
           "format" : "double"
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         }
       }
@@ -3046,18 +3046,18 @@
           "type" : "string",
           "format" : "date"
         },
-        "idBienImmobilier" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
         "idMagasin" : {
           "type" : "integer",
           "format" : "int64"
         },
-        "nomPrenomLocataire" : {
+        "idLocataire" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nomLocataire" : {
           "type" : "string"
         },
-        "idLocataire" : {
+        "idBienImmobilier" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -3738,10 +3738,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -3791,10 +3791,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -4001,6 +4001,17 @@
         "nouveauMontantLoyer" : {
           "type" : "number",
           "format" : "double"
+        },
+        "idBienImmobilier" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idLocataire" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "codeAbrvBienImmobilier" : {
+          "type" : "string"
         }
       }
     },

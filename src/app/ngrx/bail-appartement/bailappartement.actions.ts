@@ -1,8 +1,9 @@
+import { OperationDto } from './../../../gs-api/src/models/operation-dto';
 //CREER LES DIFFERENTES TYPES D'ACTION QUI VONT DECLANCHER LES EVENE,ENT DANS LE
 
 import { Action } from '@ngrx/store';
 
-import { BailAppartementDto, BailMagasinDto } from 'src/gs-api/src/models';
+import { BailAppartementDto } from 'src/gs-api/src/models';
 
 
 //STORE
@@ -22,7 +23,7 @@ export class SaveBailAppartementActions implements Action {
 export class SaveBailAppartementActionsSuccess implements Action {
   type: BailAppartementActionsTypes =
     BailAppartementActionsTypes.SAVE_BAIL_APPARTEMENT_SUCCES;
-  constructor(public payload: BailAppartementDto) { }
+  constructor(public payload: OperationDto) { }
 }
 export class SaveBailAppartementActionsError implements Action {
   type: BailAppartementActionsTypes =

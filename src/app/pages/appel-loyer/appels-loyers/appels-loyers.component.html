@@ -92,7 +92,7 @@
             </button>
             <ng-container *ngIf="ptQuittance$ | async as qtState" [ngSwitch]="qtState.dataState" >
               <ng-container  *ngSwitchCase="QuittanceloyerStateEnum.Requested">
-                Chargement des données ...
+                <i class="fas fa-sync fa-spin"></i>
               </ng-container>
 
             </ng-container>
@@ -146,7 +146,7 @@
               <ng-container  *ngSwitchCase="AppelLoyerStateEnum.LOADED">
                 <tr class="text-center" *ngFor="let appel of appelState.appelloyers" >
                   <td>{{appel.periodeLettre}}</td>
-                  <td> {{appel.nomLocataire}} {{appel.prenomLocataire}}/{{appel.bienImmobilierFullName}}</td>
+                  <td> {{appel.nomLocataire}} {{appel.prenomLocataire}}/{{appel.abrvBienimmobilier}}</td>
                   <td>{{appel.nouveauMontantLoyer}}</td>
                   <td>
                     <span [hidden]="!appel.solderAppelLoyer" [(ngModel)]="finBail" class="badge badge-success">Payé</span>
