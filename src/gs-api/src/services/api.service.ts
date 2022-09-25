@@ -12,13 +12,14 @@ import { AgenceResponseDto } from '../models/agence-response-dto';
 import { AgenceRequestDto } from '../models/agence-request-dto';
 import { AppartementDto } from '../models/appartement-dto';
 import { AppelLoyersFactureDto } from '../models/appel-loyers-facture-dto';
+import { PeriodeDto } from '../models/periode-dto';
 import { AnneeAppelLoyersDto } from '../models/annee-appel-loyers-dto';
 import { AppelLoyerDto } from '../models/appel-loyer-dto';
 import { AppelLoyerRequestDto } from '../models/appel-loyer-request-dto';
 import { Utilisateur } from '../models/utilisateur';
 import { AuthRequestDto } from '../models/auth-request-dto';
-import { BailAppartementDto } from '../models/bail-appartement-dto';
 import { OperationDto } from '../models/operation-dto';
+import { BailAppartementDto } from '../models/bail-appartement-dto';
 import { BailMagasinDto } from '../models/bail-magasin-dto';
 import { BailVillaDto } from '../models/bail-villa-dto';
 import { BienImmobilierAffiheDto } from '../models/bien-immobilier-affihe-dto';
@@ -61,6 +62,7 @@ class ApiService extends __BaseService {
   static readonly saveAppartementPath = 'gestimoweb/api/v1/appartement/save';
   static readonly deleteAppelDtoPath = 'gestimoweb/api/v1/appelloyer/clotureOfAppelDtoByID/{id}';
   static readonly AppelLoyersParPeriodePath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerByPeriode/{periode}';
+  static readonly getFirstLoyerImpayerByBienPath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerBybienAndPeriode/{idBien}/{periode}';
   static readonly listTousAppelsLoyersPath = 'gestimoweb/api/v1/appelloyer/findAllAppelsLoyer';
   static readonly findAllPeriodeByAnneePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeByAnnee/{annee}';
   static readonly findAllPeriodeChiffreEtLettreByAnneePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeChiffreEtLettreByAnnee/{annee}';
@@ -72,6 +74,8 @@ class ApiService extends __BaseService {
   static readonly verifyAccountPath = 'gestimoweb/api/v1/auth/accountVerification/{token}';
   static readonly loginPath = 'gestimoweb/api/v1/auth/login';
   static readonly clotureBailPath = 'gestimoweb/api/v1/bail/clotureBail/{id}';
+  static readonly listDesBauxPourUnBienImmobilierPath = 'gestimoweb/api/v1/bail/getallbailbybien/{id}';
+  static readonly listDesBauxPourUnLocatairePath = 'gestimoweb/api/v1/bail/getallbailbylocataire/{id}';
   static readonly nombrebailactifPath = 'gestimoweb/api/v1/bail/nombrebailactif';
   static readonly findAllBailAppartementPath = 'gestimoweb/api/v1/bailappartement/all';
   static readonly findAllOperationsPath = 'gestimoweb/api/v1/bailappartement/alloperation';
@@ -669,6 +673,53 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param params The `ApiService.GetFirstLoyerImpayerByBienParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `idBien`:
+   *
+   * @return successful operation
+   */
+  getFirstLoyerImpayerByBienResponse(params: ApiService.GetFirstLoyerImpayerByBienParams): __Observable<__StrictHttpResponse<Array<AppelLoyersFactureDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/findAllAppelloyerBybienAndPeriode/${params.idBien}/${params.periode}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<AppelLoyersFactureDto>>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.GetFirstLoyerImpayerByBienParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `idBien`:
+   *
+   * @return successful operation
+   */
+  getFirstLoyerImpayerByBien(params: ApiService.GetFirstLoyerImpayerByBienParams): __Observable<Array<AppelLoyersFactureDto>> {
+    return this.getFirstLoyerImpayerByBienResponse(params).pipe(
+      __map(_r => _r.body as Array<AppelLoyersFactureDto>)
+    );
+  }
+
+  /**
    * @return successful operation
    */
   listTousAppelsLoyersResponse(): __Observable<__StrictHttpResponse<Array<AppelLoyersFactureDto>>> {
@@ -705,7 +756,7 @@ class ApiService extends __BaseService {
    * @param annee undefined
    * @return successful operation
    */
-  findAllPeriodeByAnneeResponse(annee: number): __Observable<__StrictHttpResponse<Array<string>>> {
+  findAllPeriodeByAnneeResponse(annee: number): __Observable<__StrictHttpResponse<Array<PeriodeDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -723,7 +774,7 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<string>>;
+        return _r as __StrictHttpResponse<Array<PeriodeDto>>;
       })
     );
   }
@@ -731,9 +782,9 @@ class ApiService extends __BaseService {
    * @param annee undefined
    * @return successful operation
    */
-  findAllPeriodeByAnnee(annee: number): __Observable<Array<string>> {
+  findAllPeriodeByAnnee(annee: number): __Observable<Array<PeriodeDto>> {
     return this.findAllPeriodeByAnneeResponse(annee).pipe(
-      __map(_r => _r.body as Array<string>)
+      __map(_r => _r.body as Array<PeriodeDto>)
     );
   }
 
@@ -1055,6 +1106,78 @@ class ApiService extends __BaseService {
   clotureBail(id: number): __Observable<boolean> {
     return this.clotureBailResponse(id).pipe(
       __map(_r => _r.body as boolean)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  listDesBauxPourUnBienImmobilierResponse(id: number): __Observable<__StrictHttpResponse<Array<AppelLoyersFactureDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/bail/getallbailbybien/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<AppelLoyersFactureDto>>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  listDesBauxPourUnBienImmobilier(id: number): __Observable<Array<AppelLoyersFactureDto>> {
+    return this.listDesBauxPourUnBienImmobilierResponse(id).pipe(
+      __map(_r => _r.body as Array<AppelLoyersFactureDto>)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  listDesBauxPourUnLocataireResponse(id: number): __Observable<__StrictHttpResponse<Array<OperationDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/bail/getallbailbylocataire/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<OperationDto>>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  listDesBauxPourUnLocataire(id: number): __Observable<Array<OperationDto>> {
+    return this.listDesBauxPourUnLocataireResponse(id).pipe(
+      __map(_r => _r.body as Array<OperationDto>)
     );
   }
 
@@ -4336,6 +4459,14 @@ class ApiService extends __BaseService {
 }
 
 module ApiService {
+
+  /**
+   * Parameters for getFirstLoyerImpayerByBien
+   */
+  export interface GetFirstLoyerImpayerByBienParams {
+    periode: string;
+    idBien: number;
+  }
 }
 
 export { ApiService }

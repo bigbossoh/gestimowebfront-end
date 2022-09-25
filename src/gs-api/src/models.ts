@@ -33,6 +33,7 @@ export { MontantLoyerBailDto } from './models/montant-loyer-bail-dto';
 export { Operation } from './models/operation';
 export { OperationDto } from './models/operation-dto';
 export { PaysDto } from './models/pays-dto';
+export { PeriodeDto } from './models/periode-dto';
 export { QuartierRequestDto } from './models/quartier-request-dto';
 export { QuartierResponseDto } from './models/quartier-response-dto';
 export { Role } from './models/role';

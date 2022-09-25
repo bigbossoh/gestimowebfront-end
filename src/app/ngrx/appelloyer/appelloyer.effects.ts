@@ -4,7 +4,7 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
-import { GetAllAppelLoyerByPeriodeActionsSuccess, GetAllAppelLoyerByPeriodeActionsError, GetAllAppelLoyerAnneeActionsSuccess, GetAllAppelLoyerAnneeActionsError } from './appelloyer.actions';
+import { GetAllAppelLoyerByPeriodeActionsSuccess, GetAllAppelLoyerByPeriodeActionsError, GetAllAppelLoyerAnneeActionsSuccess, GetAllAppelLoyerAnneeActionsError, GetAllPeriodeByAnneeActionsSuccess, GetAllPeriodeByAnneeActionsError } from './appelloyer.actions';
 import {
   GetAllAppartementLibreActionsError,
   GetAllAppartementLibreActionsSuccess,
@@ -45,6 +45,20 @@ export class AppelLoyerEffects {
       })
     )
   );
+
+  //LISTE DES APPEL LOYER
+  getAllPeriodeAnneeEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(AppelLoyerctionsTypes.GET_PERIODE_BY_ANNEE),
+      mergeMap((action: AppelLoyerActions) => {
+        return this.apiService.findAllPeriodeByAnnee(action.payload).pipe(
+          map((periodes) => new GetAllPeriodeByAnneeActionsSuccess(periodes)),
+          catchError((err) => of(new GetAllPeriodeByAnneeActionsError(err.message)))
+        );
+      })
+    )
+  );
+
 //LISTE DES APPEL LOYER
 getAllAppelByAnneeEffect: Observable<Action> = createEffect(() =>
 this.effectActions.pipe(

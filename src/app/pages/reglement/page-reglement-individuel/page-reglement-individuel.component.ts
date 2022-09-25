@@ -15,6 +15,8 @@ import {
 } from '../../../ngrx/reglement/reglement.reducer';
 import { UtilisateurRequestDto } from '../../../../gs-api/src/models/utilisateur-request-dto';
 import { SaveEncaissementActions } from '../../../ngrx/reglement/reglement.actions';
+import { BauxState, BauxStateEnum } from '../../../ngrx/baux/baux.reducer';
+import { GetAllBientaireByLocatairesActions, GetAllperiodeByBienActions as GetAllPeriodeByBienActions } from '../../../ngrx/baux/baux.actions';
 
 @Component({
   selector: 'app-page-reglement-individuel',
@@ -26,8 +28,14 @@ export class PageReglementIndividuelComponent implements OnInit {
   encaissementform?: FormGroup;
   submitted = false;
 
+  moisPaiement = "";
+  getBauxBybien$: Observable<BauxState> | null = null;
+  getBienBylocatairestate$: Observable<BauxState> | null = null;
   saveEncaissementState$: Observable<EncaissementState> | null = null;
+
   readonly EncaissementStateEnum = EncaissementStateEnum;
+  readonly BauxStateEnum = BauxStateEnum;
+  readonly BauxImmeubleStateEnum = BauxStateEnum;
 
   locataireState$: Observable<UtilisteurState> | null = null;
   readonly UtilisteurStateEnum = UtilisteurStateEnum;
@@ -40,7 +48,6 @@ export class PageReglementIndividuelComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
 
-
     //GET ALL LOCATAIRE
     this.store.dispatch(new GetAllLocatairesActions({}));
     this.locataireState$ = this.store.pipe(
@@ -48,7 +55,7 @@ export class PageReglementIndividuelComponent implements OnInit {
     );
     this.encaissementform = this.fb.group({
       idAgence: [this.user?.idAgence],
-      idCreateur:[this.user?.id],
+      idCreateur: [this.user?.id],
       idAppelLoyer: [],
       modePaiement: ['ESPESE_MAGISER'],
       operationType: ['CREDIT'],
@@ -62,7 +69,7 @@ export class PageReglementIndividuelComponent implements OnInit {
     if (this.encaissementform?.invalid) {
       return;
     }
-    console.log("le formulaire est le suivant : ");
+    console.log('le formulaire est le suivant : ');
 
     console.log(this.encaissementform?.value);
 
@@ -72,6 +79,27 @@ export class PageReglementIndividuelComponent implements OnInit {
     );
     this.saveEncaissementState$ = this.store.pipe(
       map((state) => state.encaissementState)
+    );
+  }
+  getBienByLocataire(loca: string) {
+    this.store.dispatch(new GetAllBientaireByLocatairesActions(loca));
+    this.getBienBylocatairestate$ = this.store.pipe(
+      map((state) => state.bauxState)
+    );
+  }
+  getBauxBybien(periode: string) {
+       this.store.dispatch(new GetAllPeriodeByBienActions(periode));
+    this.getBauxBybien$ = this.store.pipe(
+      map((state) => state.bauxState)
+    );
+    this.store.pipe(
+      map((state) => state.bauxState)
+    ).subscribe(
+      (data) => {
+        console.log('Bonjour')
+        alert(data.loyers.periodeLettre);
+        this.moisPaiement=data.loyers.periodeLettre
+      }
     );
   }
 }

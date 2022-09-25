@@ -20,7 +20,11 @@ import {
   PrintQuittanceLoyerActions,
 } from '../../../ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.action';
 import { MailState, MailStateEnum } from '../../../ngrx/mail/mail.reducer';
-import { SendQuittanceByMailActions, SendQuittanceIndividuelActions } from '../../../ngrx/mail/mail.action';
+import {
+  SendQuittanceByMailActions,
+  SendQuittanceIndividuelActions,
+} from '../../../ngrx/mail/mail.action';
+import { GetAllPeriodeByAnneeActions } from '../../../ngrx/appelloyer/appelloyer.actions';
 
 @Component({
   selector: 'app-appels-loyers',
@@ -39,10 +43,12 @@ export class AppelsLoyersComponent implements OnInit {
   readonly QuittanceloyerStateEnum = QuittanceloyerStateEnum;
   readonly AnneeStateEnum = AnneeStateEnum;
   readonly AppelLoyerStateEnum = AppelLoyerStateEnum;
+  readonly PeriodeLoyerStateEnum = AppelLoyerStateEnum;
   readonly MailStateEnum = MailStateEnum;
   readonly MailStateEnumIndividuel = MailStateEnum;
 
   periodePrint = '';
+  periodeValide = '';
   debutBail = '';
   finBail = '';
   datePaysBail = '';
@@ -57,9 +63,19 @@ export class AppelsLoyersComponent implements OnInit {
     this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(''));
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
   }
-  getAppelByPeriode(p: string) {
-    this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(p));
+  getAppelByPeriode(p: any) {
+
+    this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(p.value));
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
+  }
+
+  getAllPeriodeByAnnee(a: string) {
+    this.getAppelByPeriode('10');
+    this.store.dispatch(new GetAllPeriodeByAnneeActions(a));
+    this.periodeAppelState$ = this.store.pipe(
+      map((state) => state.appelLoyerState)
+    );
+
   }
   getAppelByAnnee(a: string) {
     this.store.dispatch(new GetAllAppelLoyerAnneeActions(a));

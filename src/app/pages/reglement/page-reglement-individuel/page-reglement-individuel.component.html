@@ -6,13 +6,13 @@
     <div class="col-md-4 text-right"></div>
   </div>
 
-
   <div class="col">
     <form *ngIf="encaissementform" [formGroup]="encaissementform">
       <div class="row">
         <div class="col">
           <h5>
-            <i class="fas fa-asterisk blue-color"></i>&nbsp;Paramètre de règlement
+            <i class="fas fa-asterisk blue-color"></i>&nbsp;Paramètre de
+            règlement
           </h5>
         </div>
       </div>
@@ -24,13 +24,18 @@
             [ngSwitch]="locataireState.dataState"
           >
             <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADING">
-              <mat-spinner></mat-spinner>
             </ng-container>
             <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
               <label>Locataires</label>
-              <select id="modele" name="typeClim" class="form-control">
+              <select
+                id="modele"
+                name="typeClim"
+                #selectionlocataire
+                class="form-control"
+                (change)="getBienByLocataire(selectionlocataire.value)"
+              >
                 <option
-                  value="locataire.id"
+                  [value]="locataire.id"
                   *ngFor="let locataire of locataireState.utilisateurs"
                 >
                   {{ locataire.nom }} {{ locataire.prenom }}
@@ -40,26 +45,56 @@
           </ng-container>
         </div>
         <div class="col-md-3">
-          <label>Bien immobilier</label>
-          <select id="modele" name="typeClim" class="form-control">
-            
-            <option value="Janvier 2022">Villa-001</option>
-
-          </select>
+          <ng-container
+            *ngIf="getBienBylocatairestate$ | async as biensLocataire"
+            [ngSwitch]="biensLocataire.dataState"
+          >
+            <ng-container *ngSwitchCase="BauxStateEnum.LOADING">
+              <i class="fas fa-sync fa-spin"></i>
+            </ng-container>
+            <ng-container *ngSwitchCase="BauxStateEnum.LOADED">
+              <label>Bien immobilier</label>
+              <select
+                id="modelemoi"
+                name="modeMoi"
+                class="form-control"
+                #selectBien
+                (change)="getBauxBybien(selectBien.value)"
+              >
+                <option value="0">Sélectionner un bien</option>
+                <option
+                  [value]="bien.id"
+                  *ngFor="let bien of biensLocataire.baux"
+                >
+                  {{ bien.codeAbrvBienImmobilier }}
+                </option>
+              </select>
+            </ng-container>
+            <ng-container *ngSwitchCase="BauxStateEnum.ERROR">
+              ...
+            </ng-container>
+          </ng-container>
         </div>
         <div class="col-md-3">
-          <label>Période</label>
-          <select id="modele" name="typeClim" class="form-control">
-            <option value="0">selectionnez une période</option>
-            <option value="Janvier 2022">Janvier 2022</option>
-            <option value="Février 2022">Février 2022</option>
-            <option value="Mars 2022">Mars 2022</option>
-          </select>
+          <div class="form-group">
+            <label for="firstName">Mois</label>
+            <input
+              type="text"
+              name="mois"
+              [(ngModel)]="moisPaiement"
+              class="form-control"
+            />
+          </div>
         </div>
         <div class="col-md-3">
           <label>Mode de règlement</label>
-          <select id="modele" name="typeClim" class="form-control" formControlName="modePaiement">
-             <option value="ESPESE_MAGISER">Espèce</option>
+          <select
+            id="modele"
+            name="typeClim"
+            class="form-control"
+            formControlName="modePaiement"
+          >
+            <option value="ESPESE_MAGISER">Espèce</option>
             <option value="MOBILE_MONEY_MAGISER">Money Electronique</option>
             <option value="CHEQUE_ECOBANK_MAGISER">Chèque</option>
             <option value="VIREMENT_ECOBANK_MAGISER">Virement Banquaire</option>
@@ -78,7 +113,7 @@
         <div class="col-md-3">
           <label>Montant encaissé</label>
           <input
-          formControlName="montantEncaissement"
+            formControlName="montantEncaissement"
             type="text"
             class="form-control"
             placeholder="Montant encaissé"
@@ -114,10 +149,16 @@
       </div>
       <div class="row mb-3">
         <div class="col panel-body text-right">
-          <button type="button" class="mb-sm btn btn-primary mr-1" (click)="onSaveEncaissement()">
+          <button
+            type="button"
+            class="mb-sm btn btn-primary mr-1"
+            (click)="onSaveEncaissement()"
+          >
             Encaisser
           </button>
-          <button type="button" class="mb-sm btn btn-danger mr-1">Annuler</button>
+          <button type="button" class="mb-sm btn btn-danger mr-1">
+            Annuler
+          </button>
         </div>
       </div>
     </form>
