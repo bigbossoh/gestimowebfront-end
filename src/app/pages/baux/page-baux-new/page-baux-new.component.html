@@ -68,12 +68,11 @@
                       [ngClass]="{
                         'is-invalid':
                           submitted &&
-                          (bailvillaForm.controls.idUtilisateur.errors ||
-                            bailvillaForm.controls['idUtilisateur'].value == '')
+                          (bailvillaForm.controls.idLocataire.errors ||
+                            bailvillaForm.controls['idLocataire'].value == '')
                       }"
-                      formControlName="idUtilisateur"
-                      name="idUtilisateur"
-                      id="username"
+                      formControlName="idLocataire"
+
                       class="form-control"
                     >
                       <option [value]="0">Sélection un Locataire</option>
@@ -86,13 +85,13 @@
                     </select>
                     <div
                       *ngIf="
-                        submitted && bailvillaForm.controls.idUtilisateur.errors
+                        submitted && bailvillaForm.controls.idLocataire.errors
                       "
                       class="invalid-feedback"
                     >
                       <div
                         *ngIf="
-                          bailvillaForm.controls.idUtilisateur.errors.required
+                          bailvillaForm.controls.idLocataire.errors.required
                         "
                       >
                         *Champ obligatoire
@@ -136,7 +135,7 @@
                           [value]="villa.id"
                           *ngFor="let villa of state.villas"
                         >
-                          {{ villa.nomBaptiserBienImmobilier }}
+                          {{ villa.codeAbrvBienImmobilier }}
                         </option>
                       </select>
                       <div
@@ -315,11 +314,10 @@
                       [ngClass]="{
                         'is-invalid':
                           submitted &&
-                          bailMagainForm.controls.idUtilisateur.errors
+                          bailMagainForm.controls.idLocataire.errors
                       }"
-                      formControlName="idUtilisateur"
-                      name="idUtilisateur"
-                      id="username"
+                      formControlName="idLocataire"
+
                       class="form-select form-select-lg mb3"
                     >
                       <option [value]="0">Sélection un Locataire</option>
@@ -333,13 +331,13 @@
                     <div
                       *ngIf="
                         submitted &&
-                        bailMagainForm.controls.idUtilisateur.errors
+                        bailMagainForm.controls.idLocataire.errors
                       "
                       class="invalid-feedback"
                     >
                       <div
                         *ngIf="
-                          bailMagainForm.controls.idUtilisateur.errors.required
+                          bailMagainForm.controls.idLocataire.errors.required
                         "
                       >
                         *Champ obligatoire
@@ -383,7 +381,7 @@
                           *ngFor="let maga of stateMagasin.magasins"
                           [value]="maga.id"
                         >
-                          {{ maga.nomBaptiserBienImmobilier }}
+                          {{ maga.codeAbrvBienImmobilier }}
                         </option>
                       </select>
                       <div

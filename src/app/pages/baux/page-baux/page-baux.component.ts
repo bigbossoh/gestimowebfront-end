@@ -6,7 +6,7 @@ import { ClotureOperationActions, GetAllOperationActions } from 'src/app/ngrx/ba
 import { BauxState, BauxStateEnum } from 'src/app/ngrx/baux/baux.reducer';
 import { OperationDto } from '../../../../gs-api/src/models/operation-dto';
 import { GetAllAppelLoyerActions } from '../../../ngrx/appelloyer/appelloyer.actions';
-import { Operation } from '../../../../gs-api/src/models/operation';
+
 import {
   AppelLoyerState,
   AppelLoyerStateEnum,
@@ -65,7 +65,6 @@ export class PageBauxComponent implements OnInit {
       data: { id: loyer }
     });
     dialolRef.afterClosed().subscribe(() => {
-      console.log('On  a fermer le formulaire de Baux');
     });
   }
   ngOnInit(): void {

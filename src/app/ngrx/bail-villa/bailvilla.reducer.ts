@@ -1,3 +1,4 @@
+import { OperationDto } from './../../../gs-api/src/models/operation-dto';
 import { Action } from '@ngrx/store';
 import {
   BailVillaActions,
@@ -14,7 +15,7 @@ export enum BailVillaStateEnum {
 
 }
 export interface BailVillaState {
-  bailvillas: any;
+  bailvillas: OperationDto[];
   errorMessage: string;
   dataState: BailVillaStateEnum;
 }
@@ -33,12 +34,12 @@ export function bailvillaReducer(
     case BailVillaActionsTypes.SAVE_BAIL_VILLA:
       return { ...state, dataState: BailVillaStateEnum.LOADING };
     case BailVillaActionsTypes.SAVE_BAIL_VILLA_SUCCES:
-     // let bvilla: BailVillaDto[] = [...state.bailvillas];
-     // bvilla.push((<BailVillaActions>action).payload)
+     let bvilla: OperationDto[] = [...state.bailvillas];
+     bvilla.push((<BailVillaActions>action).payload)
       return {
         ...state,
         dataState: BailVillaStateEnum.LOADED,
-       // bailvillas: bvilla
+       bailvillas: bvilla
       };
     case BailVillaActionsTypes.SAVE_BAIL_VILLA_ERROR:
       return {

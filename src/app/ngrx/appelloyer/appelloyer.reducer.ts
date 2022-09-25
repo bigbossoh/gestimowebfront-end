@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
-import { AppelLoyer, OperationDto } from 'src/gs-api/src/models';
+
 import { AppelLoyerActions, AppelLoyerctionsTypes } from './appelloyer.actions';
-import { AppelLoyerDto } from '../../../gs-api/src/models/appel-loyer-dto';
 import { AppelLoyersFactureDto } from '../../../gs-api/src/models/appel-loyers-facture-dto';
 import { AnneeAppelLoyersDto } from '../../../gs-api/src/models/annee-appel-loyers-dto';
 export enum AppelLoyerStateEnum {

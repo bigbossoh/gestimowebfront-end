@@ -28,7 +28,7 @@ export class EtageEffects {
       ofType(EtagesActionsTypes.GET_ALL_ETAGES_BY_IMMEUBLE),
       mergeMap((action: EtagesActions) => {
         console.log("l'action étage est le suivant");
-        console.log(action.payload);           
+        console.log(action.payload);
         return this.apiService.affichageDesEtageParImmeuble(action.payload).pipe(
           map((immeubles) => new GetAllEtagesByImmeubleActionsSuccess(immeubles)),
           catchError((err) => of(new GetAllEtagesByImmeubleActionsError(err.error.errors)))
@@ -36,8 +36,8 @@ export class EtageEffects {
       }),
       tap((resultat) => {
         console.log("Le resultat pour étage est le suivant : ");
-        console.log(resultat.payload);      
-        
+        console.log(resultat.payload);
+
         if (resultat.payload!=null) {
           this.sendErrorNotification(
             NotificationType.ERROR,

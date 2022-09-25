@@ -1,3 +1,4 @@
+import { OperationDto } from './../../../gs-api/src/models/operation-dto';
 import { Action } from '@ngrx/store';
 import { BailAppartementDto } from 'src/gs-api/src/models';
 import {
@@ -15,7 +16,7 @@ export enum BailAppartementStateEnum {
 
 }
 export interface BailAppartementState {
-  bailappartement: BailAppartementDto[];
+  bailappartement: OperationDto[];
   errorMessage: string;
   dataState: BailAppartementStateEnum;
 }

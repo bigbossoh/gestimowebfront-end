@@ -29,14 +29,14 @@
           <option value="Mars 2022">Yopougon</option>
         </select>
       </div>
-      <div class="col-md-4">
+      <!-- <div class="col-md-4">
         <label>Locataire</label>
         <select id="modele" name="typeClim" class="form-control">
           <option value="0">selectionnez un locataire</option>
           <option value="1">Abrogouah Laurent</option>
           <option value="2">Kanlan simplice</option>
         </select>
-      </div>
+      </div> -->
       <div class="col-md-3 mt-4 text-center">
         <button type="button" class="mb-sm btn btn-primary mr-1">
           <i class="fa fa-search" aria-hidden="true"></i>
@@ -78,7 +78,7 @@
                     {{element.bienImmobilierOperation}}
                   </div> -->
                   <div *ngIf="column=='Code bail'">
-                    {{element.utilisateurOperation}} / {{element.bienImmobilierOperation}}
+                    {{element.utilisateurOperation}} / {{element.codeAbrvBienImmobilier}}
                   </div>
                   <div *ngIf="column=='debut'">
                     {{element.dateDebut|date:'dd-MM-yyyy'}}

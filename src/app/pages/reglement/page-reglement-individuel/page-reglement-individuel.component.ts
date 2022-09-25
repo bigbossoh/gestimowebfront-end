@@ -39,9 +39,7 @@ export class PageReglementIndividuelComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
-    console.log("Le user id est  est ");
 
-    console.log(this.user.id);
 
     //GET ALL LOCATAIRE
     this.store.dispatch(new GetAllLocatairesActions({}));
@@ -49,9 +47,9 @@ export class PageReglementIndividuelComponent implements OnInit {
       map((state) => state.utilisateurState)
     );
     this.encaissementform = this.fb.group({
-      idAgence: [this.user.idAgence],
-      idCreateur:[this.user.id],
-      idAppelLoyer: [4],
+      idAgence: [this.user?.idAgence],
+      idCreateur:[this.user?.id],
+      idAppelLoyer: [],
       modePaiement: ['ESPESE_MAGISER'],
       operationType: ['CREDIT'],
       montantEncaissement: [0],

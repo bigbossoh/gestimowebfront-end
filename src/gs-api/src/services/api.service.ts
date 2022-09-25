@@ -1269,7 +1269,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveBailAppartementResponse(body?: BailAppartementDto): __Observable<__StrictHttpResponse<BailAppartementDto>> {
+  saveBailAppartementResponse(body?: BailAppartementDto): __Observable<__StrictHttpResponse<OperationDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1287,7 +1287,7 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<BailAppartementDto>;
+        return _r as __StrictHttpResponse<OperationDto>;
       })
     );
   }
@@ -1295,9 +1295,9 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveBailAppartement(body?: BailAppartementDto): __Observable<BailAppartementDto> {
+  saveBailAppartement(body?: BailAppartementDto): __Observable<OperationDto> {
     return this.saveBailAppartementResponse(body).pipe(
-      __map(_r => _r.body as BailAppartementDto)
+      __map(_r => _r.body as OperationDto)
     );
   }
 
@@ -1446,7 +1446,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveBailMagasinResponse(body?: BailMagasinDto): __Observable<__StrictHttpResponse<BailMagasinDto>> {
+  saveBailMagasinResponse(body?: BailMagasinDto): __Observable<__StrictHttpResponse<OperationDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1464,7 +1464,7 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<BailMagasinDto>;
+        return _r as __StrictHttpResponse<OperationDto>;
       })
     );
   }
@@ -1472,9 +1472,9 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveBailMagasin(body?: BailMagasinDto): __Observable<BailMagasinDto> {
+  saveBailMagasin(body?: BailMagasinDto): __Observable<OperationDto> {
     return this.saveBailMagasinResponse(body).pipe(
-      __map(_r => _r.body as BailMagasinDto)
+      __map(_r => _r.body as OperationDto)
     );
   }
 
@@ -1623,7 +1623,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveBailVillaResponse(body?: BailVillaDto): __Observable<__StrictHttpResponse<BailVillaDto>> {
+  saveBailVillaResponse(body?: BailVillaDto): __Observable<__StrictHttpResponse<OperationDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1641,7 +1641,7 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<BailVillaDto>;
+        return _r as __StrictHttpResponse<OperationDto>;
       })
     );
   }
@@ -1649,9 +1649,9 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveBailVilla(body?: BailVillaDto): __Observable<BailVillaDto> {
+  saveBailVilla(body?: BailVillaDto): __Observable<OperationDto> {
     return this.saveBailVillaResponse(body).pipe(
-      __map(_r => _r.body as BailVillaDto)
+      __map(_r => _r.body as OperationDto)
     );
   }
 

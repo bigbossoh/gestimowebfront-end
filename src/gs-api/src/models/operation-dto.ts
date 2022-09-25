@@ -16,4 +16,7 @@ export interface OperationDto {
   montantCautionBail?: number;
   nbreMoisCautionBail?: number;
   nouveauMontantLoyer?: number;
+  idBienImmobilier?: number;
+  idLocataire?: number;
+  codeAbrvBienImmobilier?: string;
 }
