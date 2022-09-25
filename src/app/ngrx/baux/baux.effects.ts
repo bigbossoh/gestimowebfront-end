@@ -6,7 +6,7 @@ import { catchError, map, mergeMap,tap } from 'rxjs/operators';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { ApiService } from 'src/gs-api/src/services';
-import { ClotureOperationActionsError, ClotureOperationActionsSuccess, GetAllOperationActionsError, GetAllOperationActionsSuccess, OperationActions, OperationActionsTypes } from './baux.actions';
+import { ClotureOperationActionsError, ClotureOperationActionsSuccess, GetAllOperationActionsError, GetAllOperationActionsSuccess, OperationActions, OperationActionsTypes, GetAllBientaireByLocatairesActions, GetAllBientaireByLocatairesActionsSuccess, GetAllBientaireByLocatairesActionsError, GetAllperiodeByBienActionsSuccess, GetAllperiodeByBienActionsError } from './baux.actions';
 
 @Injectable()
 export class BauxEffects {
@@ -29,7 +29,8 @@ export class BauxEffects {
       })
     )
   );
-// CLOTURE DES BAUX
+
+  // CLOTURE DES BAUX
 clotureBauxEffect: Observable<Action> = createEffect(() =>
 this.effectActions.pipe(
   ofType(OperationActionsTypes.CLOTURE_BAIL),
@@ -55,6 +56,37 @@ this.effectActions.pipe(
         'Une erreur a été rencontrée.'
       );
     }
+  })
+)
+  );
+
+// BAIL DU LOCATAIRE
+getAllBienByLocataireEffect: Observable<Action> = createEffect(() =>
+this.effectActions.pipe(
+  ofType(OperationActionsTypes.GET_ALL_BIEN_BAIL_BY_LOCATAIRE),
+  mergeMap((action:OperationActions) => {
+    return this.apiService.listDesBauxPourUnLocataire(action.payload).pipe(
+      map(
+        (operations) =>
+          new GetAllBientaireByLocatairesActionsSuccess(operations)
+      ),
+      catchError((err) => of(new GetAllBientaireByLocatairesActionsError(err.message)))
+    );
+  })
+)
+  );
+  // BAIL PAR BIEN
+getAllBauxbyBienEffect: Observable<Action> = createEffect(() =>
+this.effectActions.pipe(
+  ofType(OperationActionsTypes.GET_ALL_PERIODE_BAIL_BY_BIEN),
+  mergeMap((action:OperationActions) => {
+    return this.apiService.listDesBauxPourUnBienImmobilier(action.payload).pipe(
+      map(
+        (operations) =>
+          new GetAllperiodeByBienActionsSuccess(operations)
+      ),
+      catchError((err) => of(new GetAllperiodeByBienActionsError(err.message)))
+    );
   })
 )
 );

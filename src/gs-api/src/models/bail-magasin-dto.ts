@@ -15,6 +15,5 @@ export interface BailMagasinDto {
   idMagasin?: number;
   idLocataire?: number;
   nomLocataire?: string;
-  idBienImmobilier?: number;
   codeBien?: string;
 }
