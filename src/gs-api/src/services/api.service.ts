@@ -12,7 +12,6 @@ import { AgenceResponseDto } from '../models/agence-response-dto';
 import { AgenceRequestDto } from '../models/agence-request-dto';
 import { AppartementDto } from '../models/appartement-dto';
 import { AppelLoyersFactureDto } from '../models/appel-loyers-facture-dto';
-import { BienPeriodeDto } from '../models/bien-periode-dto';
 import { PeriodeDto } from '../models/periode-dto';
 import { AnneeAppelLoyersDto } from '../models/annee-appel-loyers-dto';
 import { AppelLoyerDto } from '../models/appel-loyer-dto';
@@ -63,7 +62,7 @@ class ApiService extends __BaseService {
   static readonly saveAppartementPath = 'gestimoweb/api/v1/appartement/save';
   static readonly deleteAppelDtoPath = 'gestimoweb/api/v1/appelloyer/clotureOfAppelDtoByID/{id}';
   static readonly AppelLoyersParPeriodePath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerByPeriode/{periode}';
-  static readonly getFirstLoyerImpayerByBienPath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerBybienAndPeriode/';
+  static readonly getFirstLoyerImpayerByBienPath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerBybien/{id}';
   static readonly listTousAppelsLoyersPath = 'gestimoweb/api/v1/appelloyer/findAllAppelsLoyer';
   static readonly findAllPeriodeByAnneePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeByAnnee/{annee}';
   static readonly findAllPeriodeChiffreEtLettreByAnneePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeChiffreEtLettreByAnnee/{annee}';
@@ -674,17 +673,17 @@ class ApiService extends __BaseService {
   }
 
   /**
-   * @param body undefined
+   * @param id undefined
    * @return successful operation
    */
-  getFirstLoyerImpayerByBienResponse(body?: BienPeriodeDto): __Observable<__StrictHttpResponse<Array<AppelLoyersFactureDto>>> {
+  getFirstLoyerImpayerByBienResponse(id: number): __Observable<__StrictHttpResponse<AppelLoyersFactureDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-    __body = body;
+
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/appelloyer/findAllAppelloyerBybienAndPeriode/`,
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/findAllAppelloyerBybien/${id}`,
       __body,
       {
         headers: __headers,
@@ -695,17 +694,17 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<AppelLoyersFactureDto>>;
+        return _r as __StrictHttpResponse<AppelLoyersFactureDto>;
       })
     );
   }
   /**
-   * @param body undefined
+   * @param id undefined
    * @return successful operation
    */
-  getFirstLoyerImpayerByBien(body?: BienPeriodeDto): __Observable<Array<AppelLoyersFactureDto>> {
-    return this.getFirstLoyerImpayerByBienResponse(body).pipe(
-      __map(_r => _r.body as Array<AppelLoyersFactureDto>)
+  getFirstLoyerImpayerByBien(id: number): __Observable<AppelLoyersFactureDto> {
+    return this.getFirstLoyerImpayerByBienResponse(id).pipe(
+      __map(_r => _r.body as AppelLoyersFactureDto)
     );
   }
 

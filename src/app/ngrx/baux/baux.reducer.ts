@@ -12,7 +12,9 @@ export enum BauxStateEnum {
   INITIAL = 'Initial',
   NEW = 'New',
   EDIT = 'Edit',
-  LOADEDBYIMMEUNLE = 'LoadedByImmeuble'
+  LOADED_MOIS = 'Loaded Mois',
+  ERROR_MOIS = 'Error Mois',
+  LOADING_MOIS = 'Loading Mois',
 
 }
 export interface BauxState {
@@ -67,21 +69,6 @@ export function bauxReducer(
           errorMessage: (<OperationActions>action).payload,
       };
 
-       // GET ALL BAUX BY BIENS
-       case OperationActionsTypes.GET_ALL_PERIODE_BAIL_BY_BIEN:
-        return { ...state, dataState: BauxStateEnum.LOADING };
-      case OperationActionsTypes.GET_ALL_PERIODE_BAIL_BY_BIEN_SUCCES:
-        return {
-          ...state,
-          dataState: BauxStateEnum.LOADED,
-          loyers: (<OperationActions>action).payload,
-        };
-      case OperationActionsTypes.GET_ALL_PERIODE_BAIL_BY_BIEN_ERROR:
-        return {
-          ...state,
-          dataState: BauxStateEnum.ERROR,
-          errorMessage: (<OperationActions>action).payload,
-      };
 //CLOTURER BAIL
 case OperationActionsTypes.CLOTURE_BAIL:
   return { ...state, dataState: BauxStateEnum.LOADING };
