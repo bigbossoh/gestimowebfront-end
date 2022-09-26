@@ -67,7 +67,7 @@ export class GetAllperiodeByBienActions implements Action {
 export class GetAllperiodeByBienActionsSuccess implements Action {
   type: OperationActionsTypes =
     OperationActionsTypes.GET_ALL_PERIODE_BAIL_BY_BIEN_SUCCES;
-  constructor(public payload: AppelLoyersFactureDto[]) {}
+  constructor(public payload: any) {}
 }
 export class GetAllperiodeByBienActionsError implements Action {
   type: OperationActionsTypes =

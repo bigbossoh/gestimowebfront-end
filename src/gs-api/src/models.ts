@@ -13,6 +13,7 @@ export { BailLocation } from './models/bail-location';
 export { BailMagasinDto } from './models/bail-magasin-dto';
 export { BailVillaDto } from './models/bail-villa-dto';
 export { BienImmobilierAffiheDto } from './models/bien-immobilier-affihe-dto';
+export { BienPeriodeDto } from './models/bien-periode-dto';
 export { Bienimmobilier } from './models/bienimmobilier';
 export { Charges } from './models/charges';
 export { CommuneRequestDto } from './models/commune-request-dto';

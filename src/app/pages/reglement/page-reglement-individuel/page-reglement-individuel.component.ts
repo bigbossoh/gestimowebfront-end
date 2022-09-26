@@ -1,3 +1,4 @@
+import { BienPeriodeDto } from './../../../../gs-api/src/models/bien-periode-dto';
 import { Component, OnInit } from '@angular/core';
 import {
   UtilisteurState,
@@ -18,6 +19,7 @@ import { SaveEncaissementActions } from '../../../ngrx/reglement/reglement.actio
 import { BauxState, BauxStateEnum } from '../../../ngrx/baux/baux.reducer';
 import { GetAllBientaireByLocatairesActions, GetAllperiodeByBienActions as GetAllPeriodeByBienActions } from '../../../ngrx/baux/baux.actions';
 
+
 @Component({
   selector: 'app-page-reglement-individuel',
   templateUrl: './page-reglement-individuel.component.html',
@@ -27,7 +29,8 @@ export class PageReglementIndividuelComponent implements OnInit {
   public user?: UtilisateurRequestDto;
   encaissementform?: FormGroup;
   submitted = false;
-
+periode:string='';
+bien:string='';
   moisPaiement = "";
   getBauxBybien$: Observable<BauxState> | null = null;
   getBienBylocatairestate$: Observable<BauxState> | null = null;
@@ -87,19 +90,12 @@ export class PageReglementIndividuelComponent implements OnInit {
       map((state) => state.bauxState)
     );
   }
-  getBauxBybien(periode: string) {
-       this.store.dispatch(new GetAllPeriodeByBienActions(periode));
+  getBauxBybien() {
+    alert(this.periode)
+           this.store.dispatch(new GetAllPeriodeByBienActions([1,'2022-10']));
     this.getBauxBybien$ = this.store.pipe(
       map((state) => state.bauxState)
     );
-    this.store.pipe(
-      map((state) => state.bauxState)
-    ).subscribe(
-      (data) => {
-        console.log('Bonjour')
-        alert(data.loyers.periodeLettre);
-        this.moisPaiement=data.loyers.periodeLettre
-      }
-    );
+
   }
 }

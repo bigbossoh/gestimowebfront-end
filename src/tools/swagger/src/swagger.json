@@ -284,20 +284,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/findAllAppelloyerBybienAndPeriode/{idBien}/{periode}" : {
+    "gestimoweb/api/v1/appelloyer/findAllAppelloyerBybienAndPeriode/" : {
       "get" : {
         "operationId" : "getFirstLoyerImpayerByBien",
         "parameters" : [ {
-          "name" : "idBien",
-          "in" : "path",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int64"
-        }, {
-          "name" : "periode",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/BienPeriodeDto"
+          }
         } ],
         "responses" : {
           "200" : {
@@ -2689,10 +2685,10 @@
             "$ref" : "#/definitions/Encaissement"
           }
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         }
       }
@@ -2906,10 +2902,10 @@
           "type" : "number",
           "format" : "double"
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         }
       }
@@ -3238,6 +3234,18 @@
         },
         "occupied" : {
           "type" : "boolean"
+        }
+      }
+    },
+    "BienPeriodeDto" : {
+      "type" : "object",
+      "properties" : {
+        "idBien" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "periode" : {
+          "type" : "string"
         }
       }
     },
@@ -3808,10 +3816,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -3861,10 +3869,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
