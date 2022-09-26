@@ -284,25 +284,21 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/findAllAppelloyerBybienAndPeriode/" : {
+    "gestimoweb/api/v1/appelloyer/findAllAppelloyerBybien/{id}" : {
       "get" : {
         "operationId" : "getFirstLoyerImpayerByBien",
         "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/BienPeriodeDto"
-          }
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
         } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/AppelLoyersFactureDto"
-              }
+              "$ref" : "#/definitions/AppelLoyersFactureDto"
             }
           }
         }
@@ -3237,18 +3233,6 @@
         }
       }
     },
-    "BienPeriodeDto" : {
-      "type" : "object",
-      "properties" : {
-        "idBien" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "periode" : {
-          "type" : "string"
-        }
-      }
-    },
     "Bienimmobilier" : {
       "type" : "object",
       "properties" : {
@@ -3816,10 +3800,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -3869,10 +3853,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
