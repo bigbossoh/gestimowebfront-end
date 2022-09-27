@@ -124,6 +124,7 @@ import { MailEffect } from './ngrx/mail/mail.effects';
 import { Encaissementffects } from './ngrx/reglement/reglement.effects';
 import { encaissementReducer } from './ngrx/reglement/reglement.reducer';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     PageImmeubleComponent,
@@ -183,6 +184,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     FormsModule,
     MatButtonModule,
     MatTableModule,
+    MatSelectModule,
     MatExpansionModule,
     MatIconModule,
     MatProgressSpinnerModule,
