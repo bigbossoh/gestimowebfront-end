@@ -73,10 +73,7 @@ export class PageBienImmobilierComponent implements OnInit {
       map((state) => state.biensState)).subscribe((data) => {
         this.dataSource.data = data.bienImmoblilier;
         this.dataSource.paginator = this.paginator;
-        console.log("Les biens sont les suivants : ");
         console.log( data.bienImmoblilier);
-
-
       });
 
     // RECUPERER LES APPARTEMENTS DANS LE STORES

@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -50,8 +53,11 @@ export class PageBauxComponent implements OnInit {
   ];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement?: OperationDto;
-  ELEMENT_DATA: OperationDto[] = [];
-  dataSource = this.ELEMENT_DATA;
+  pageSize = [2, 5, 10, 15, 20];
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  dataSource : MatTableDataSource<any> = new MatTableDataSource();;
 
   appelloyerState$: Observable<AppelLoyerState> | null = null;
   bauxState$: Observable<BauxState> | null = null;
@@ -70,6 +76,12 @@ export class PageBauxComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(new GetAllOperationActions({}));
     this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
+    this.store.pipe(map((state) => state.bauxState)).subscribe((data)=>{
+      console.log("Les data sont les suivants :");
+      console.log(data.baux );
+      this.dataSource.data = data.baux;
+      this.dataSource.paginator = this.paginator;
+    });
   }
   onActionEmmit($event: any) {
     this.ngOnInit();
@@ -78,7 +90,7 @@ export class PageBauxComponent implements OnInit {
 
   }
   onClotureBail(idBail: any, nomBail: any) {
-    console.log("Le Id est le suivant : " + idBail);
+
     if (confirm("Vous allez Cloturer le Bail " + nomBail)) {
       this.store.dispatch(new ClotureOperationActions(idBail));
       this.bauxState$ = this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
@@ -95,11 +107,16 @@ export class PageBauxComponent implements OnInit {
   }
   chargerAppels(evt: any) {
     console.log("Le event qui a changé c'est celui ci "+evt);
-
-
     this.store.dispatch(new GetAllAppelLoyerActions(evt));
     this.appelloyerState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
     );
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }
