@@ -6,7 +6,7 @@ import { catchError, map, mergeMap,tap } from 'rxjs/operators';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { ApiService } from 'src/gs-api/src/services';
-import { ClotureOperationActionsError, ClotureOperationActionsSuccess, GetAllOperationActionsError, GetAllOperationActionsSuccess, OperationActions, OperationActionsTypes, GetAllBientaireByLocatairesActions, GetAllBientaireByLocatairesActionsSuccess, GetAllBientaireByLocatairesActionsError, GetAllperiodeByBienActionsSuccess, GetAllperiodeByBienActionsError } from './baux.actions';
+import { ClotureOperationActionsError, ClotureOperationActionsSuccess, GetAllOperationActionsError, GetAllOperationActionsSuccess, OperationActions, OperationActionsTypes, GetAllBientaireByLocatairesActions, GetAllBientaireByLocatairesActionsSuccess, GetAllBientaireByLocatairesActionsError,   } from './baux.actions';
 
 @Injectable()
 export class BauxEffects {
@@ -76,20 +76,20 @@ this.effectActions.pipe(
 )
   );
   // BAIL PAR BIEN
-getAllBauxbyBienEffect: Observable<Action> = createEffect(() =>
-this.effectActions.pipe(
-  ofType(OperationActionsTypes.GET_ALL_PERIODE_BAIL_BY_BIEN),
-  mergeMap((action:OperationActions) => {
-    return this.apiService.listDesBauxPourUnBienImmobilier(action.payload).pipe(
-      map(
-        (operations) =>
-          new GetAllperiodeByBienActionsSuccess(operations)
-      ),
-      catchError((err) => of(new GetAllperiodeByBienActionsError(err.message)))
-    );
-  })
-)
-);
+// getAllBauxbyBienEffect: Observable<Action> = createEffect(() =>
+// this.effectActions.pipe(
+//   ofType(OperationActionsTypes.GET_ALL_PERIODE_BAIL_BY_BIEN),
+//   mergeMap((action:OperationActions) => {
+//     return this.apiService.getFirstLoyerImpayerByBien(action.payload).pipe(
+//       map(
+//         (operations) =>
+//           new GetAllperiodeByBienActionsSuccess(operations)
+//       ),
+//       catchError((err) => of(new GetAllperiodeByBienActionsError(err.message)))
+//     );
+//   })
+// )
+// );
   // Notification
   private sendErrorNotification(
     notificationType: NotificationType,

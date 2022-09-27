@@ -4,13 +4,26 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
-import { EncaissementActionsTypes, EncaissementActions, SaveEncaissementActionsSuccess, SaveEncaissementActionsError } from './reglement.actions';
+import {
+  EncaissementActionsTypes,
+  EncaissementActions,
+  SaveEncaissementActionsSuccess,
+  SaveEncaissementActionsError,
+  GetAllPeriodeReglementByBienActionsSuccess,
+  GetAllPeriodeReglementByBienActionsError,
+} from './reglement.actions';
 import { NotificationType } from '../../enum/natification-type.enum';
 import { NotificationService } from '../../services/notification/notification.service';
+import { OperationActions } from '../baux/baux.actions';
+import { GetEncaissementBienActionsSuccess, GetEncaissementBienActionsError } from './reglement.actions';
 
 @Injectable()
 export class Encaissementffects {
-  constructor(private apiService: ApiService, private effectActions: Actions,private notificationService: NotificationService) { }
+  constructor(
+    private apiService: ApiService,
+    private effectActions: Actions,
+    private notificationService: NotificationService
+  ) {}
   getAllQuartierByIdCommuneEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(EncaissementActionsTypes.SAVE_ENCAISSEMENT),
@@ -19,26 +32,61 @@ export class Encaissementffects {
           map((quartier) => new SaveEncaissementActionsSuccess(quartier)),
           catchError((err) => of(new SaveEncaissementActionsError(err.message)))
         );
-      })
-      ,
+      }),
       tap((resultat) => {
-        console.log("le resultat est");
-        console.log(resultat.payload);
-
-
-        if (resultat.payload==true) {
+        if (resultat.payload == true) {
           this.sendErrorNotification(
             NotificationType.SUCCESS,
-            "Enregistrement éffectué avec succès !"
+            'Enregistrement éffectué avec succès !'
           );
         } else {
-          this.sendErrorNotification(
-            NotificationType.ERROR,
-            resultat.payload
-          );
-        } })
-      )
-    )  ;
+          this.sendErrorNotification(NotificationType.ERROR, resultat.payload);
+        }
+      })
+    )
+  );
+  getAllPeriodebyBienEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN),
+      mergeMap((action: OperationActions) => {
+        return this.apiService.getFirstLoyerImpayerByBien(action.payload).pipe(
+          map(
+            (operations) =>
+              new GetAllPeriodeReglementByBienActionsSuccess(operations)
+          ),
+          catchError((err) =>
+            of(new GetAllPeriodeReglementByBienActionsError(err.message))
+          )
+        );
+      }),
+      tap((resultat) => {
+        console.log('Le sresultate est :');
+
+        console.log(resultat);
+      })
+    )
+  );
+  getEncaissementbyBienEffect: Observable<Action> = createEffect(() =>
+  this.effectActions.pipe(
+    ofType(EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN),
+    mergeMap((action: OperationActions) => {
+      return this.apiService.findAllEncaissementByIdBienImmobilier(action.payload).pipe(
+        map(
+          (operations) =>
+            new GetEncaissementBienActionsSuccess(operations)
+        ),
+        catchError((err) =>
+          of(new GetEncaissementBienActionsError(err.message))
+        )
+      );
+    }),
+    tap((resultat) => {
+      console.log('Le sresultate est :');
+
+      console.log(resultat);
+    })
+  )
+);
   private sendErrorNotification(
     notificationType: NotificationType,
     message: string
@@ -53,4 +101,3 @@ export class Encaissementffects {
     }
   }
 }
-

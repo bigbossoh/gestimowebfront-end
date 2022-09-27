@@ -19,9 +19,6 @@ export enum OperationActionsTypes {
   GET_ALL_BIEN_BAIL_BY_LOCATAIRE_SUCCES = '[OperationDto] Get All Biens By Locataires Succes',
   GET_ALL_BIEN_BAIL_BY_LOCATAIRE_ERROR = '[OperationDto] Get All Biens By locataires Error',
 
-  GET_ALL_PERIODE_BAIL_BY_BIEN = '[OperationDto] Get All periode By bien',
-  GET_ALL_PERIODE_BAIL_BY_BIEN_SUCCES = '[OperationDto] Get All periode By bien Succes',
-  GET_ALL_PERIODE_BAIL_BY_BIEN_ERROR = '[OperationDto] Get All periode By bien Error',
 }
 
 // GET ALL BAUX
@@ -57,23 +54,7 @@ export class GetAllBientaireByLocatairesActionsError implements Action {
   constructor(public payload: string) {}
 }
 
-// GET ALL PERIODE BY BIEN
-export class GetAllperiodeByBienActions implements Action {
-  type: OperationActionsTypes =
-    OperationActionsTypes.GET_ALL_PERIODE_BAIL_BY_BIEN;
-  constructor(public payload: any) {}
-}
 
-export class GetAllperiodeByBienActionsSuccess implements Action {
-  type: OperationActionsTypes =
-    OperationActionsTypes.GET_ALL_PERIODE_BAIL_BY_BIEN_SUCCES;
-  constructor(public payload: AppelLoyersFactureDto[]) {}
-}
-export class GetAllperiodeByBienActionsError implements Action {
-  type: OperationActionsTypes =
-    OperationActionsTypes.GET_ALL_PERIODE_BAIL_BY_BIEN_ERROR;
-  constructor(public payload: string) {}
-}
 // CLOTURE BAIL
 export class ClotureOperationActions implements Action {
   type: OperationActionsTypes = OperationActionsTypes.CLOTURE_BAIL;
@@ -98,4 +79,5 @@ export type OperationActions =
   | ClotureOperationActionsSuccess
   | GetAllBientaireByLocatairesActions
   | GetAllBientaireByLocatairesActionsError
-  | GetAllBientaireByLocatairesActionsSuccess;
+  | GetAllBientaireByLocatairesActionsSuccess
+   ;

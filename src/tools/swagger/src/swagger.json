@@ -284,29 +284,21 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/findAllAppelloyerBybienAndPeriode/{idBien}/{periode}" : {
+    "gestimoweb/api/v1/appelloyer/findAllAppelloyerBybien/{id}" : {
       "get" : {
         "operationId" : "getFirstLoyerImpayerByBien",
         "parameters" : [ {
-          "name" : "idBien",
+          "name" : "id",
           "in" : "path",
           "required" : true,
           "type" : "integer",
           "format" : "int64"
-        }, {
-          "name" : "periode",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
         } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/AppelLoyersFactureDto"
-              }
+              "$ref" : "#/definitions/AppelLoyersFactureDto"
             }
           }
         }
@@ -2728,10 +2720,10 @@
             "$ref" : "#/definitions/Encaissement"
           }
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         }
       }
@@ -2945,10 +2937,10 @@
           "type" : "number",
           "format" : "double"
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         }
       }

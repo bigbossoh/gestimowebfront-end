@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { AppelLoyersFactureDto } from 'src/gs-api/src/models';
 import { EncaissementPrincipalDTO } from '../../../gs-api/src/models/encaissement-principal-dto';
 import { EncaissementActions, EncaissementActionsTypes } from './reglement.actions';
 export enum EncaissementStateEnum {
@@ -13,11 +14,13 @@ export enum EncaissementStateEnum {
 }
 export interface EncaissementState {
   encaissements: EncaissementPrincipalDTO[];
+  appelloyers: any;
   errorMessage: string;
   dataState: EncaissementStateEnum;
 }
 const initState: EncaissementState = {
   encaissements: [],
+  appelloyers:null,
   errorMessage: '',
   dataState: EncaissementStateEnum.INITIAL,
 };
@@ -40,7 +43,36 @@ export function encaissementReducer(
         dataState: EncaissementStateEnum.ERROR,
         errorMessage: (<EncaissementActions>action).payload,
       };
-
+// AFFCHAGE DES LOYERS POUR REGLEMENTS
+case EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN:
+  return { ...state, dataState: EncaissementStateEnum.LOADING };
+case EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN_SUCCES:
+  return {
+    ...state,
+    dataState: EncaissementStateEnum.LOADED,
+    appelloyers: (<EncaissementActions>action).payload,
+  };
+case EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN_ERROR:
+  return {
+    ...state,
+    dataState: EncaissementStateEnum.ERROR,
+    errorMessage: (<EncaissementActions>action).payload,
+  };
+  // listes des encaisements
+case EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN:
+  return { ...state, dataState: EncaissementStateEnum.LOADING };
+case EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN_SUCCES:
+  return {
+    ...state,
+    dataState: EncaissementStateEnum.LOADED,
+    encaissements: (<EncaissementActions>action).payload,
+  };
+case EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN_ERROR:
+  return {
+    ...state,
+    dataState: EncaissementStateEnum.ERROR,
+    errorMessage: (<EncaissementActions>action).payload,
+  };
     default:
       return { ...state };
   }

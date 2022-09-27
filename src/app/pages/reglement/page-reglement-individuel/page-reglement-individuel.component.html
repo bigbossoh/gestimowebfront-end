@@ -75,94 +75,121 @@
             </ng-container>
           </ng-container>
         </div>
-        <div class="col-md-3">
-          <div class="form-group">
-            <label for="firstName">Mois</label>
-            <input
-              type="text"
-              name="mois"
-              [(ngModel)]="moisPaiement"
+        <ng-container
+          *ngIf="getBauxBybien$ | async as bauxBybien"
+          [ngSwitch]="bauxBybien.dataState"
+        >
+          <ng-container *ngSwitchCase="BauxBienStateEnum.LOADED">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="firstName"></label>
+                <span
+                  >Loyer de : {{ bauxBybien.appelloyers.periodeLettre }}</span
+                >
+                <!-- <input
+                  type="text"
+                  name="mois"
+                  [(ngModel)]="moisPaiement"
+                  class="form-control"
+                /> -->
+              </div>
+            </div>
+
+            <select
               class="form-control"
-            />
-          </div>
-        </div>
-        <div class="col-md-3">
-          <label>Mode de règlement</label>
-          <select
-            id="modele"
-            name="typeClim"
-            class="form-control"
-            formControlName="modePaiement"
-          >
-            <option value="ESPESE_MAGISER">Espèce</option>
-            <option value="MOBILE_MONEY_MAGISER">Money Electronique</option>
-            <option value="CHEQUE_ECOBANK_MAGISER">Chèque</option>
-            <option value="VIREMENT_ECOBANK_MAGISER">Virement Banquaire</option>
-          </select>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <h5>
-            <i class="fas fa-asterisk blue-color"></i>&nbsp;Montant de règlement
-          </h5>
-        </div>
-      </div>
-      <hr style="margin-top: 0" />
-      <div class="row mb-3">
-        <div class="col-md-3">
-          <label>Montant encaissé</label>
-          <input
-            formControlName="montantEncaissement"
-            type="text"
-            class="form-control"
-            placeholder="Montant encaissé"
-            name="MontantEncaissé"
-          />
-        </div>
-        <div class="col-md-3">
-          <label>Solde loyer</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Solde loyer"
-            name="SoldeLoyer"
-          />
-        </div>
-        <div class="col-md-3">
-          <label>Montant du loyer</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="SMontant loyer"
-            name="MontnatLoyer"
-          />
-        </div>
-        <div class="col-md-3">
-          <label>Status du loyer</label>
-          <br />
-          <h4>
-            <span class="badge badge badge-secondary badge-success">Soldé</span>
-          </h4>
-          &nbsp;
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col panel-body text-right">
-          <button
-            type="button"
-            class="mb-sm btn btn-primary mr-1"
-            (click)="onSaveEncaissement()"
-          >
-            Encaisser
-          </button>
-          <button type="button" class="mb-sm btn btn-danger mr-1">
-            Annuler
-          </button>
-        </div>
+              formControlName="idAppelLoyer"
+            >
+              <option #select  value="{{bauxBybien.appelloyers.id}}" selected >
+                Appel : {{ bauxBybien.appelloyers.id }}
+              </option>
+            </select>
+            <div class="col-md-3">
+              <label>Mode de règlement</label>
+              <select
+                id="modele"
+                name="typeClim"
+                class="form-control"
+                formControlName="modePaiement"
+              >
+                <option value="ESPESE_MAGISER">Espèce</option>
+                <option value="MOBILE_MONEY_MAGISER">Money Electronique</option>
+                <option value="CHEQUE_ECOBANK_MAGISER">Chèque</option>
+                <option value="VIREMENT_ECOBANK_MAGISER">
+                  Virement Banquaire
+                </option>
+              </select>
+            </div>
+            <div class="row">
+              <div class="col">
+                <h5>
+                  <i class="fas fa-asterisk blue-color"></i>&nbsp;Montant de
+                  règlement
+                </h5>
+              </div>
+            </div>
+            <hr style="margin-top: 0" />
+            <div class="row mb-3">
+              <div class="col-md-3">
+                <label>Montant encaissé</label>
+                <input
+                  formControlName="montantEncaissement"
+                  type="text"
+                  class="form-control"
+                  placeholder="Montant encaissé"
+                  name="MontantEncaissé"
+                />
+              </div>
+              <div class="col-md-3">
+                <label>Solde loyer</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Solde loyer"
+                  name="SoldeLoyer"
+                />
+              </div>
+              <div class="col-md-3">
+                <!-- <label>Montant du loyer</label> -->
+                <span
+                  >Montant du loyer :
+                  {{ bauxBybien.appelloyers.nouveauMontantLoyer }}</span
+                >
+                <!-- <input
+                  type="text"
+                  class="form-control"
+                  placeholder="SMontant loyer"
+                  name="MontnatLoyer"
+                /> -->
+              </div>
+              <div class="col-md-3">
+                <label>Status du loyer</label>
+                <br />
+                <h4>
+                  <span class="badge badge badge-secondary badge-success"
+                    >Soldé</span
+                  >
+                </h4>
+                &nbsp;
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col panel-body text-right">
+                <button
+                  type="button"
+                  class="mb-sm btn btn-primary mr-1"
+                  (click)="onSaveEncaissement()"
+                >
+                  Encaisser
+                </button>
+                <button type="button" class="mb-sm btn btn-danger mr-1">
+                  Annuler
+                </button>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
       </div>
     </form>
-
     <div class="row">
       <div class="col">
         <h5>
@@ -190,124 +217,44 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="text-center">
-              <td>
-                <img
-                  height="40"
-                  width="40"
-                  src="assets/nassmam.jpg"
-                  class="rounded-circle img-fluid img-thumbnail"
-                  alt=""
-                />
-              </td>
-              <td>I2547185</td>
-              <td>zrango</td>
-              <td>nasaire</td>
-              <td>+2250103833350</td>
-              <td>zrangonazaire@gmail.com</td>
-              <td>
-                <span>Active</span>
-              </td>
-              <td class="">
-                <div class="btn-group">
-                  <button class="btn btn-outline-info">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="btn btn-outline-danger">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr class="text-center">
-              <td>
-                <img
-                  height="40"
-                  width="40"
-                  src="assets/zolo.jpg"
-                  class="rounded-circle img-fluid img-thumbnail"
-                  alt=""
-                />
-              </td>
-              <td>I2547185</td>
-              <td>Bossoh</td>
-              <td>Michel</td>
-              <td>+2250777880885</td>
-              <td>michel.bossoh@outlook.fr</td>
-              <td>
-                <span>Active</span>
-              </td>
-              <td class="">
-                <div class="btn-group">
-                  <button class="btn btn-outline-info">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="btn btn-outline-danger">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
 
-            <tr class="text-center">
-              <td>
-                <img
-                  height="40"
-                  width="40"
-                  src="assets/nassmam.jpg"
-                  class="rounded-circle img-fluid img-thumbnail"
-                  alt=""
-                />
-              </td>
-              <td>I2547185</td>
-              <td>zrango</td>
-              <td>nasaire</td>
-              <td>+2250103833350</td>
-              <td>zrangonazaire@gmail.com</td>
-              <td>
-                <span>Active</span>
-              </td>
-              <td class="">
-                <div class="btn-group">
-                  <button class="btn btn-outline-info">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="btn btn-outline-danger">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
+            <ng-container  *ngIf="listeEncaissementBien$ | async as listeEncaissementBien"
+            [ngSwitch]="listeEncaissementBien.dataState">
+<ng-container *ngSwitchCase="EncaissBienStateEnum.LOADED">
+  <tr class="text-center" *ngFor="let encaissement of listeEncaissementBien.encaissements">
+    <td>
+     {{encaissement.appelLoyersFactureDto!.periodeLettre}}
+    </td>
+    <td> {{encaissement.appelLoyersFactureDto!.nomLocataire}}  {{encaissement.appelLoyersFactureDto!.prenomLocataire}}</td>
+    <td> {{encaissement.appelLoyersFactureDto!.montantLoyerBailLPeriode}}</td>
+    <td>{{encaissement.montantEncaissement}}</td>
+    <td>{{encaissement.appelLoyersFactureDto!.soldeAppelLoyer}}</td>
 
-            <tr class="text-center">
-              <td>
-                <img
-                  height="40"
-                  width="40"
-                  src="assets/zolo.jpg"
-                  class="rounded-circle img-fluid img-thumbnail"
-                  alt=""
-                />
-              </td>
-              <td>I2547185</td>
-              <td>Bossoh</td>
-              <td>Michel</td>
-              <td>+2250777880885</td>
-              <td>michel.bossoh@outlook.fr</td>
-              <td>
-                <span>Active</span>
-              </td>
-              <td class="">
-                <div class="btn-group">
-                  <button class="btn btn-outline-info">
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="btn btn-outline-danger">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
+    <td>{{encaissement.modePaiement}}</td>
+    <td>
+      <span [hidden]="!encaissement.appelLoyersFactureDto!.solderAppelLoyer" class="badge badge-success"
+      >Soldé</span
+    >
+    <span [hidden]="encaissement.appelLoyersFactureDto!.solderAppelLoyer" class="badge badge-danger"
+      >Non Soldé</span
+    >
+    </td>
+    <td class="">
+      <div class="btn-group">
+        <button class="btn btn-outline-info">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="btn btn-outline-danger">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </td>
+  </tr>
+</ng-container>
+
+          </ng-container>
+
+
           </tbody>
         </table>
       </div>

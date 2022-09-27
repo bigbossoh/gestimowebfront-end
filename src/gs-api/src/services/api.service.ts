@@ -62,7 +62,7 @@ class ApiService extends __BaseService {
   static readonly saveAppartementPath = 'gestimoweb/api/v1/appartement/save';
   static readonly deleteAppelDtoPath = 'gestimoweb/api/v1/appelloyer/clotureOfAppelDtoByID/{id}';
   static readonly AppelLoyersParPeriodePath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerByPeriode/{periode}';
-  static readonly getFirstLoyerImpayerByBienPath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerBybienAndPeriode/{idBien}/{periode}';
+  static readonly getFirstLoyerImpayerByBienPath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerBybien/{id}';
   static readonly listTousAppelsLoyersPath = 'gestimoweb/api/v1/appelloyer/findAllAppelsLoyer';
   static readonly findAllPeriodeByAnneePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeByAnnee/{annee}';
   static readonly findAllPeriodeChiffreEtLettreByAnneePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeChiffreEtLettreByAnnee/{annee}';
@@ -675,23 +675,17 @@ class ApiService extends __BaseService {
   }
 
   /**
-   * @param params The `ApiService.GetFirstLoyerImpayerByBienParams` containing the following parameters:
-   *
-   * - `periode`:
-   *
-   * - `idBien`:
-   *
+   * @param id undefined
    * @return successful operation
    */
-  getFirstLoyerImpayerByBienResponse(params: ApiService.GetFirstLoyerImpayerByBienParams): __Observable<__StrictHttpResponse<Array<AppelLoyersFactureDto>>> {
+  getFirstLoyerImpayerByBienResponse(id: number): __Observable<__StrictHttpResponse<AppelLoyersFactureDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
 
-
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/appelloyer/findAllAppelloyerBybienAndPeriode/${params.idBien}/${params.periode}`,
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/findAllAppelloyerBybien/${id}`,
       __body,
       {
         headers: __headers,
@@ -702,22 +696,17 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<AppelLoyersFactureDto>>;
+        return _r as __StrictHttpResponse<AppelLoyersFactureDto>;
       })
     );
   }
   /**
-   * @param params The `ApiService.GetFirstLoyerImpayerByBienParams` containing the following parameters:
-   *
-   * - `periode`:
-   *
-   * - `idBien`:
-   *
+   * @param id undefined
    * @return successful operation
    */
-  getFirstLoyerImpayerByBien(params: ApiService.GetFirstLoyerImpayerByBienParams): __Observable<Array<AppelLoyersFactureDto>> {
-    return this.getFirstLoyerImpayerByBienResponse(params).pipe(
-      __map(_r => _r.body as Array<AppelLoyersFactureDto>)
+  getFirstLoyerImpayerByBien(id: number): __Observable<AppelLoyersFactureDto> {
+    return this.getFirstLoyerImpayerByBienResponse(id).pipe(
+      __map(_r => _r.body as AppelLoyersFactureDto)
     );
   }
 
@@ -4530,14 +4519,6 @@ class ApiService extends __BaseService {
 }
 
 module ApiService {
-
-  /**
-   * Parameters for getFirstLoyerImpayerByBien
-   */
-  export interface GetFirstLoyerImpayerByBienParams {
-    periode: string;
-    idBien: number;
-  }
 }
 
 export { ApiService }
