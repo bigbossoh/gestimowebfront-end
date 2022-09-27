@@ -921,6 +921,22 @@
         }
       }
     },
+    "gestimoweb/api/v1/bienImmobilier/allBienOccuper" : {
+      "get" : {
+        "operationId" : "findAllBienOqp",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/BienImmobilierAffiheDto"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/commune/all" : {
       "get" : {
         "operationId" : "findAllCommune",
@@ -2062,6 +2078,29 @@
     "gestimoweb/api/v1/utilisateur/gerants/all" : {
       "get" : {
         "operationId" : "getAllGerantsByOrder",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/UtilisateurAfficheDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/utilisateur/getAllutilisateurbyAgence/{idAgence}" : {
+      "get" : {
+        "operationId" : "getUtilisateurByAgence",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -4393,10 +4432,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -4502,10 +4541,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -4611,10 +4650,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }

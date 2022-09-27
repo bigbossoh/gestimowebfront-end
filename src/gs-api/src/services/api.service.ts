@@ -94,6 +94,7 @@ class ApiService extends __BaseService {
   static readonly findBailVillaByNamePath = 'gestimoweb/api/v1/bailvilla/findByName/{name}';
   static readonly saveBailVillaPath = 'gestimoweb/api/v1/bailvilla/save';
   static readonly findAllBienPath = 'gestimoweb/api/v1/bienImmobilier/all';
+  static readonly findAllBienOqpPath = 'gestimoweb/api/v1/bienImmobilier/allBienOccuper';
   static readonly findAllCommunePath = 'gestimoweb/api/v1/commune/all';
   static readonly deleteCommunePath = 'gestimoweb/api/v1/commune/delete/{id}';
   static readonly findCommuneByIDPath = 'gestimoweb/api/v1/commune/findById/{id}';
@@ -152,6 +153,7 @@ class ApiService extends __BaseService {
   static readonly saveSitePath = 'gestimoweb/api/v1/sites/savesite';
   static readonly getAllUtilisateursByOrderPath = 'gestimoweb/api/v1/utilisateur/all';
   static readonly getAllGerantsByOrderPath = 'gestimoweb/api/v1/utilisateur/gerants/all';
+  static readonly getUtilisateurByAgencePath = 'gestimoweb/api/v1/utilisateur/getAllutilisateurbyAgence/{idAgence}';
   static readonly getUtilisateurByEmailPath = 'gestimoweb/api/v1/utilisateur/getutilisateurbyemail/{email}';
   static readonly getUtilisateurByIDPath = 'gestimoweb/api/v1/utilisateur/getutilisateurbyid/{id}';
   static readonly getUtilisateurByUsernamePath = 'gestimoweb/api/v1/utilisateur/getutilisateurbyusername/{username}';
@@ -1807,6 +1809,39 @@ class ApiService extends __BaseService {
    */
   findAllBien(): __Observable<Array<BienImmobilierAffiheDto>> {
     return this.findAllBienResponse().pipe(
+      __map(_r => _r.body as Array<BienImmobilierAffiheDto>)
+    );
+  }
+
+  /**
+   * @return successful operation
+   */
+  findAllBienOqpResponse(): __Observable<__StrictHttpResponse<Array<BienImmobilierAffiheDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/bienImmobilier/allBienOccuper`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<BienImmobilierAffiheDto>>;
+      })
+    );
+  }
+  /**
+   * @return successful operation
+   */
+  findAllBienOqp(): __Observable<Array<BienImmobilierAffiheDto>> {
+    return this.findAllBienOqpResponse().pipe(
       __map(_r => _r.body as Array<BienImmobilierAffiheDto>)
     );
   }
@@ -3859,6 +3894,42 @@ class ApiService extends __BaseService {
    */
   getAllGerantsByOrder(): __Observable<Array<UtilisateurAfficheDto>> {
     return this.getAllGerantsByOrderResponse().pipe(
+      __map(_r => _r.body as Array<UtilisateurAfficheDto>)
+    );
+  }
+
+  /**
+   * @param idAgence undefined
+   * @return successful operation
+   */
+  getUtilisateurByAgenceResponse(idAgence: number): __Observable<__StrictHttpResponse<Array<UtilisateurAfficheDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/utilisateur/getAllutilisateurbyAgence/${idAgence}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<UtilisateurAfficheDto>>;
+      })
+    );
+  }
+  /**
+   * @param idAgence undefined
+   * @return successful operation
+   */
+  getUtilisateurByAgence(idAgence: number): __Observable<Array<UtilisateurAfficheDto>> {
+    return this.getUtilisateurByAgenceResponse(idAgence).pipe(
       __map(_r => _r.body as Array<UtilisateurAfficheDto>)
     );
   }
