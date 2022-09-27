@@ -26,8 +26,24 @@
             <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADING">
             </ng-container>
             <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
-              <label>Locataires</label>
-              <select
+              <!-- <label>Locataires</label> -->
+              <mat-form-field>
+                <mat-label> Locataires</mat-label>
+                <mat-select
+                  #selectionlocataire
+                  placeholder=""
+                  (selectionChange)="
+                    getBienByLocataire(selectionlocataire.value)
+                  "
+                >
+                  <mat-option
+                    [value]="locataire.id"
+                    *ngFor="let locataire of locataireState.utilisateurs"
+                    >{{ locataire.nom }} {{ locataire.prenom }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+              <!-- <select
                 id="modele"
                 name="typeClim"
                 #selectionlocataire
@@ -40,7 +56,7 @@
                 >
                   {{ locataire.nom }} {{ locataire.prenom }}
                 </option>
-              </select>
+              </select> -->
             </ng-container>
           </ng-container>
         </div>
@@ -53,7 +69,23 @@
               <i class="fas fa-sync fa-spin"></i>
             </ng-container>
             <ng-container *ngSwitchCase="BauxStateEnum.LOADED">
-              <label>Bien immobilier</label>
+              <mat-form-field>
+                <!-- <mat-label> Bien immobilier</mat-label> -->
+                <mat-select
+                  #selectBien
+                  [compareWith]="compareObjects"
+                  [(ngModel)]="bien"
+                  (selectionChange)="getBauxBybien(selectBien.value)"
+                >
+                  <mat-option
+                    [value]="bien.id"
+                    *ngFor="let bien of biensLocataire.baux"
+                  >
+                    {{ bien.codeAbrvBienImmobilier }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+              <!-- <label>Bien immobilier</label>
               <select
                 id="modelemoi"
                 name="modeMoi"
@@ -68,7 +100,7 @@
                 >
                   {{ bien.codeAbrvBienImmobilier }}
                 </option>
-              </select>
+              </select> -->
             </ng-container>
             <ng-container *ngSwitchCase="BauxStateEnum.ERROR">
               ...
@@ -95,11 +127,8 @@
               </div>
             </div>
 
-            <select
-              class="form-control"
-              formControlName="idAppelLoyer"
-            >
-              <option #select  value="{{bauxBybien.appelloyers.id}}" selected >
+            <select class="form-control" formControlName="idAppelLoyer">
+              <option #select value="{{ bauxBybien.appelloyers.id }}" selected>
                 Appel : {{ bauxBybien.appelloyers.id }}
               </option>
             </select>
@@ -217,44 +246,65 @@
             </tr>
           </thead>
           <tbody>
+            <ng-container
+              *ngIf="listeEncaissementBien$ | async as listeEncaissementBien"
+              [ngSwitch]="listeEncaissementBien.dataState"
+            >
+              <ng-container *ngSwitchCase="EncaissBienStateEnum.LOADED">
+                <tr
+                  class="text-center"
+                  *ngFor="
+                    let encaissement of listeEncaissementBien.encaissements
+                  "
+                >
+                  <td>
+                    {{ encaissement.appelLoyersFactureDto!.periodeLettre }}
+                  </td>
+                  <td>
+                    {{ encaissement.appelLoyersFactureDto!.nomLocataire }}
+                    {{ encaissement.appelLoyersFactureDto!.prenomLocataire }}
+                  </td>
+                  <td>
+                    {{
+                      encaissement.appelLoyersFactureDto!
+                        .montantLoyerBailLPeriode
+                    }}
+                  </td>
+                  <td>{{ encaissement.montantEncaissement }}</td>
+                  <td>
+                    {{ encaissement.appelLoyersFactureDto!.soldeAppelLoyer }}
+                  </td>
 
-            <ng-container  *ngIf="listeEncaissementBien$ | async as listeEncaissementBien"
-            [ngSwitch]="listeEncaissementBien.dataState">
-<ng-container *ngSwitchCase="EncaissBienStateEnum.LOADED">
-  <tr class="text-center" *ngFor="let encaissement of listeEncaissementBien.encaissements">
-    <td>
-     {{encaissement.appelLoyersFactureDto!.periodeLettre}}
-    </td>
-    <td> {{encaissement.appelLoyersFactureDto!.nomLocataire}}  {{encaissement.appelLoyersFactureDto!.prenomLocataire}}</td>
-    <td> {{encaissement.appelLoyersFactureDto!.montantLoyerBailLPeriode}}</td>
-    <td>{{encaissement.montantEncaissement}}</td>
-    <td>{{encaissement.appelLoyersFactureDto!.soldeAppelLoyer}}</td>
-
-    <td>{{encaissement.modePaiement}}</td>
-    <td>
-      <span [hidden]="!encaissement.appelLoyersFactureDto!.solderAppelLoyer" class="badge badge-success"
-      >Soldé</span
-    >
-    <span [hidden]="encaissement.appelLoyersFactureDto!.solderAppelLoyer" class="badge badge-danger"
-      >Non Soldé</span
-    >
-    </td>
-    <td class="">
-      <div class="btn-group">
-        <button class="btn btn-outline-info">
-          <i class="fas fa-edit"></i>
-        </button>
-        <button class="btn btn-outline-danger">
-          <i class="fas fa-trash"></i>
-        </button>
-      </div>
-    </td>
-  </tr>
-</ng-container>
-
-          </ng-container>
-
-
+                  <td>{{ encaissement.modePaiement }}</td>
+                  <td>
+                    <span
+                      [hidden]="
+                        !encaissement.appelLoyersFactureDto!.solderAppelLoyer
+                      "
+                      class="badge badge-success"
+                      >Soldé</span
+                    >
+                    <span
+                      [hidden]="
+                        encaissement.appelLoyersFactureDto!.solderAppelLoyer
+                      "
+                      class="badge badge-danger"
+                      >Non Soldé</span
+                    >
+                  </td>
+                  <td class="">
+                    <div class="btn-group">
+                      <button class="btn btn-outline-info">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-outline-danger">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </ng-container>
           </tbody>
         </table>
       </div>

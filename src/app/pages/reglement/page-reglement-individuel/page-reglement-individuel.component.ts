@@ -31,6 +31,7 @@ export class PageReglementIndividuelComponent implements OnInit {
   public user?: UtilisateurRequestDto;
   encaissementform?: FormGroup;
   getLesdonne: any;
+leBienSelect=""
   submitted = false;
   periode: string = '';
   bien: string = '';
@@ -52,7 +53,12 @@ export class PageReglementIndividuelComponent implements OnInit {
     private store: Store<any>,
     private userService: UserService
   ) {}
-
+  compareObjects(o1: any, o2: any): boolean {
+    // alert(o1 + " le  " + o1)
+    // this.leBienSelect = o1.codeAbrvBienImmobilier;
+    // alert('Le bon Bien '+o1.codeAbrvBienImmobilier)
+    return o1 !== o2
+  }
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
 
@@ -91,10 +97,13 @@ export class PageReglementIndividuelComponent implements OnInit {
     );
   }
   getBienByLocataire(loca: string) {
+
+
     this.store.dispatch(new GetAllBientaireByLocatairesActions(loca));
     this.getBienBylocatairestate$ = this.store.pipe(
       map((state) => state.bauxState)
     );
+
 
   }
   getBauxBybien(p: any) {
