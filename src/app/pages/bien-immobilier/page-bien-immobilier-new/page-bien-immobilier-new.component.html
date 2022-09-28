@@ -280,7 +280,7 @@
 
                       <option [value]="0">Aucun Immeuble</option>
                       <option [value]="immeub.id" *ngFor="let immeub of state.immeubles">
-                        {{ immeub.abrvNomImmeuble }}
+                        {{ immeub.codeNomAbrvImmeuble }}
                       </option>
                       <option></option>
                     </select>
@@ -397,7 +397,7 @@
                       }">
 
                       <option [value]="immeub.id" *ngFor="let immeub of state.immeubles">
-                        {{ immeub.abrvNomImmeuble}}
+                        {{ immeub.codeNomAbrvImmeuble}}
                       </option>
                     </select>
                     <div *ngIf="submitted && appartementForm.controls.idImmeuble.errors" class="invalid-feedback">

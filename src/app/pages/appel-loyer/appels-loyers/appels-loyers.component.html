@@ -108,8 +108,6 @@
         </div>
         </ng-container>
     </ng-container>
-
-
     <div class="row">
       <div class="col">
         <h5><i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des loyers impayés</h5>
@@ -119,6 +117,109 @@
     <!-- main content -->
     <div class="tab-content" id="myTabContent">
       <!-- user table -->
+      <div class="mat-elevation-z8">
+        <mat-form-field>
+          <input
+            matInput
+            (keyup)="applyFilter($event)"
+            #input
+            placeholder="Rechercher un Utilisateur"
+          />
+        </mat-form-field>
+        <mat-paginator
+          #matimmeuble
+          showFirstLastButtons
+          [pageSizeOptions]="pageSize"
+          [length]="totalRecords!"
+        ></mat-paginator>
+        <mat-table #table [dataSource]="dataSource" matSort>
+          <!-- Code colonne -->
+          <ng-container matColumnDef="periode">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Période
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{ row.codeAbrvBienImmobilier }}
+            </mat-cell>
+          </ng-container>
+
+          <!-- Dénomination colonne -->
+          <ng-container matColumnDef="bail">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Bail
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{ row.nomBaptiserBienImmobilier }}
+            </mat-cell>
+          </ng-container>
+
+          <!-- Propriétaire colonne -->
+          <ng-container matColumnDef="montantloyer">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Montant Loyer
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{ row.nomPrenomProprio }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="montantpayer">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Montant Loyer
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{ row.nomPrenomProprio }}</mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="solde">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Montant Loyer
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{ row.nomPrenomProprio  }}</mat-cell>
+          </ng-container>
+          <!-- Propriétaire colonne -->
+          <ng-container matColumnDef="Status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Status
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span [hidden]="row.occupied" class="badge badge-success"
+                >Libre</span
+              >
+              <span [hidden]="!row.occupied" class="badge badge-danger"
+                >Occupé</span
+              ></mat-cell
+            >
+          </ng-container>
+          <!-- Actions colonne -->
+          <ng-container matColumnDef="Actions">
+            <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <div class="btn-group">
+                  <button
+                   class="btn btn-outline-info mr-1"
+
+                  >
+                    <i class="fas fa-edit"></i>
+                  </button>
+
+                  <button class="btn btn-outline-danger">
+                    <i class="fas fa-trash"></i>
+                  </button> -->
+                </div>
+
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns">
+          </mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+              Aucune donnée enregistrées "{{ input.value }}"
+            </td>
+          </tr>
+        </mat-table>
+      </div>
       <div class="tab-pane fade show active" id="users">
         <table class="table table-hover m-3 p-3">
           <thead class="table-borderless">
@@ -175,14 +276,8 @@
           </tbody>
         </table>
       </div>
-
-    </div>
-
-  </div>
-  <div class="row mb-3">
-    <div class=" col-md-12 text-center">
-      <app-pagination></app-pagination>
     </div>
   </div>
+
 
 </div>

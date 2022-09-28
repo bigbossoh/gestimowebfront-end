@@ -1384,7 +1384,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/ImmeubleAfficheDto"
+                "$ref" : "#/definitions/ImmeubleEtageDto"
               }
             }
           }
@@ -2720,10 +2720,10 @@
             "$ref" : "#/definitions/Encaissement"
           }
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         }
       }
@@ -2937,10 +2937,10 @@
           "type" : "number",
           "format" : "double"
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         }
       }
@@ -3636,42 +3636,6 @@
         }
       }
     },
-    "ImmeubleAfficheDto" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "nbrEtage" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "nbrePieceImmeuble" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "abrvNomImmeuble" : {
-          "type" : "string"
-        },
-        "descriptionImmeuble" : {
-          "type" : "string"
-        },
-        "numeroImmeuble" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "nomPropio" : {
-          "type" : "string"
-        },
-        "prenomProprio" : {
-          "type" : "string"
-        },
-        "garrage" : {
-          "type" : "boolean"
-        }
-      }
-    },
     "ImmeubleDto" : {
       "type" : "object",
       "properties" : {
@@ -3839,10 +3803,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -3892,10 +3856,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -4424,10 +4388,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -4533,10 +4497,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -4642,10 +4606,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }

@@ -45,17 +45,7 @@
             </div>
           </div>
         </div>
-
-        <div class="example-header">
-          <mat-form-field>
-            <input
-              matInput
-              (keyup)="applyFilter($event)"
-              #input
-              placeholder="Rechercher un Utilisateur"
-            />
-          </mat-form-field>
-        </div>
+        <div class="example-header"></div>
         <!-- MAT TABLE AFFICHE -->
         <ng-container
           *ngIf="utilisateurState$ | async as utilisateurState"
@@ -63,12 +53,19 @@
         >
           <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
             <div class="mat-elevation-z8">
+              <mat-form-field>
+                <input
+                  matInput
+                  (keyup)="applyFilter($event)"
+                  #input
+                  placeholder="Rechercher un Utilisateur"
+                />
+              </mat-form-field>
               <mat-paginator
                 #paginatorUser
                 showFirstLastButtons
                 [pageSizeOptions]="pageSize"
-
-          aria-label="Select page of immeubles"
+                [length]="totalRecords!"
               ></mat-paginator>
               <mat-table [dataSource]="dataSource" matSort>
                 <!-- Photo colonne -->
