@@ -33,7 +33,7 @@ export interface ImmeubleData {}
 export class PageImmeubleComponent implements OnInit {
   displayedColumns = ['Code', 'Dénomination', 'Propriétaire', 'Actions'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  pageSize = [2, 5, 10, 15, 20];
+  pageSize = [5, 10, 15, 20];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -61,8 +61,15 @@ export class PageImmeubleComponent implements OnInit {
     this.immeubleState$ = this.store.pipe(map((state) => state.immeubleState));
 
     this.store.pipe(map((state) => state.immeubleState)).subscribe((data) => {
-      this.dataSource.data = data.immeubles;
-      this.dataSource.paginator = this.paginator;
+      console.log('Les Immeuble sont');
+      console.log(data.immeubles);      
+      if (data.immeubles.length>0) {
+        console.log('On nest ici');
+        
+        this.dataSource.data = data.immeubles;
+        this.dataSource.paginator = this.paginator;
+      }
+     
     });
   }
 
