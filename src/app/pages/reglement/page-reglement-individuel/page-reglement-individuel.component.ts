@@ -44,7 +44,7 @@ export class PageReglementIndividuelComponent implements OnInit {
     'Actions',
   ];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  pageSize = [2, 5, 10, 15, 20];
+  pageSize = [5, 10, 15, 20];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

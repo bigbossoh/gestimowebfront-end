@@ -2,3 +2,7 @@
   max-width: max-content !important;
   min-width: 100%;
 }
+mat-form-field{
+  width: 80%;
+}
+

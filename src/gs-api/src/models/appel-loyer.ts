@@ -21,6 +21,6 @@ export interface AppelLoyer {
   soldeAppelLoyer?: number;
   bailLocationAppelLoyer?: BailLocation;
   encaissementsAppelLoyer?: Array<Encaissement>;
-  cloturer?: boolean;
   solderAppelLoyer?: boolean;
+  cloturer?: boolean;
 }

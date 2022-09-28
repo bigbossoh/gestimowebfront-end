@@ -2720,10 +2720,10 @@
             "$ref" : "#/definitions/Encaissement"
           }
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         }
       }
@@ -2937,10 +2937,10 @@
           "type" : "number",
           "format" : "double"
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         }
       }
@@ -3524,6 +3524,10 @@
         "modePaiement" : {
           "type" : "string",
           "enum" : [ "ESPESE_MAGISER", "ESPECE_SEVEINVEST", "CHEQUE_ECOBANK_MAGISER", "CHEQUE_GTBANK_SEVEINVEST", "VIREMENT_ECOBANK_MAGISER", "VIREMENT_GTBANK_SEVEINVEST", "MOBILE_MONEY_MAGISER", "MOBILE_MONEY_SEVEINVEST" ]
+        },
+        "soldeEncaissement" : {
+          "type" : "number",
+          "format" : "double"
         },
         "operationType" : {
           "type" : "string",
