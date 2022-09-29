@@ -1,7 +1,7 @@
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -38,8 +38,14 @@ import { GetAllVillaActions } from '../../../ngrx/villa/villa.action';
   templateUrl: './page-bien-immobilier.component.html',
   styleUrls: ['./page-bien-immobilier.component.css'],
 })
-export class PageBienImmobilierComponent implements OnInit {
-  displayedColumns = ['Code', 'Denomination', 'Proprietaire','Status', 'Actions'];
+export class PageBienImmobilierComponent implements OnInit, AfterViewInit {
+  displayedColumns = [
+    'Code',
+    'Denomination',
+    'Proprietaire',
+    'Status',
+    'Actions',
+  ];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   pageSize = [2, 5, 10, 15, 20];
 
@@ -49,6 +55,8 @@ export class PageBienImmobilierComponent implements OnInit {
   bienImmobilierState$: Observable<BienImmobilierState> | null = null;
   appartementState$: Observable<AppartementState> | null = null;
   villaState$: Observable<VillaState> | null = null;
+
+  public totalRecords: number | undefined;
 
   villeState$: Observable<VilleState> | null = null;
   commeState$: Observable<CommunesState> | null = null;
@@ -63,18 +71,23 @@ export class PageBienImmobilierComponent implements OnInit {
   readonly BienImmobilierStateEnum = BienImmobilierStateEnum;
 
   constructor(private store: Store<any>) {}
+  ngAfterViewInit(): void {
+    this.ngOnInit();
+  }
   ngOnInit(): void {
     //RECUPERER TOUS LES BIENS
     this.store.dispatch(new GetAllBiensActions({}));
     this.bienImmobilierState$ = this.store.pipe(
       map((state) => state.biensState)
     );
-    this.store.pipe(
-      map((state) => state.biensState)).subscribe((data) => {
+    this.store.pipe(map((state) => state.biensState)).subscribe((data) => {
+      if (data.bienImmoblilier.length > 0) {
+        this.totalRecords = data.bienImmoblilier.length;
         this.dataSource.data = data.bienImmoblilier;
         this.dataSource.paginator = this.paginator;
-        console.log( data.bienImmoblilier);
-      });
+        console.log(data.bienImmoblilier);
+      }
+    });
 
     // RECUPERER LES APPARTEMENTS DANS LE STORES
     this.store.dispatch(new GetAllAppartementActions({}));
@@ -85,11 +98,9 @@ export class PageBienImmobilierComponent implements OnInit {
     this.store.dispatch(new GetAllMagasinActions({}));
     this.magasinState$ = this.store.pipe(map((state) => state.magasinState));
 
-
     // RECUPERER LES VILLAS DANS LE STORES
     this.store.dispatch(new GetAllVillaActions({}));
     this.villaState$ = this.store.pipe(map((state) => state.villaState));
-
 
     //RECUPERER LES VILLES
     this.store.dispatch(new GetAllVilleActions({}));

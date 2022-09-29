@@ -1,7 +1,6 @@
 import { AppelLoyerState } from 'src/app/ngrx/appelloyer/appelloyer.reducer';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { PrintServiceService } from '../../../services/Print/print-service.service';
 import {
   GetAllAppelLoyerAnneeActions,
   GetAllAppelLoyerByPeriodeActions,
@@ -16,7 +15,6 @@ import {
   QuittanceloyerStateEnum,
 } from '../../../ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.reducer';
 import {
-  QuittanceAppelLoyerActions,
   PrintQuittanceLoyerActions,
 } from '../../../ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.action';
 import { MailState, MailStateEnum } from '../../../ngrx/mail/mail.reducer';
@@ -25,13 +23,31 @@ import {
   SendQuittanceIndividuelActions,
 } from '../../../ngrx/mail/mail.action';
 import { GetAllPeriodeByAnneeActions } from '../../../ngrx/appelloyer/appelloyer.actions';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-appels-loyers',
   templateUrl: './appels-loyers.component.html',
   styleUrls: ['./appels-loyers.component.css'],
 })
-export class AppelsLoyersComponent implements OnInit {
+export class AppelsLoyersComponent implements OnInit,AfterViewInit {
+  displayedColumns = [
+    'periode',
+    'bail',
+    'montantloyer',
+    'montantpayer',
+    'solde',
+    'Status',
+    'Actions',
+  ];
+  dataSource: MatTableDataSource<any> = new MatTableDataSource();
+  pageSize = [5, 10, 15, 20];
+  public totalRecords: number | undefined;
+  @ViewChild(MatPaginator) paginatorUser!:MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
   appelState$: Observable<AppelLoyerState> | null = null;
   anneeState$: Observable<AnneeState> | null = null;
   periodeAppelState$: Observable<AppelLoyerState> | null = null;
@@ -59,23 +75,39 @@ export class AppelsLoyersComponent implements OnInit {
     this.store.dispatch(new GetAllAnneeActions({}));
     this.anneeState$ = this.store.pipe(map((state) => state.anneeState));
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+  ngAfterViewInit(): void {
+    this.ngOnInit();
+  }
   ngOnInit(): void {
     this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(''));
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
+    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
+      console.log("les données de appels sont lmes suivants");
+      console.log(data);
+    });
   }
   getAppelByPeriode(p: any) {
 
     this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(p.value));
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
+    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
+      console.log("les données de appels sont les suivants v2");
+      console.log(data['appelloyers']);
+    });
   }
-
   getAllPeriodeByAnnee(a: string) {
     this.getAppelByPeriode('10');
     this.store.dispatch(new GetAllPeriodeByAnneeActions(a));
     this.periodeAppelState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
     );
-
   }
   getAppelByAnnee(a: string) {
     this.store.dispatch(new GetAllAppelLoyerAnneeActions(a));
@@ -94,7 +126,7 @@ export class AppelsLoyersComponent implements OnInit {
     this.sendMailState$ = this.store.pipe(map((state) => state.mailState));
   }
   sendQuittanceIndividuel(id: any) {
-    console.log(id);
+
     this.store.dispatch(new SendQuittanceIndividuelActions(id));
     this.sendMailIndivState$ = this.store.pipe(map((state) => state.mailState));
   }
