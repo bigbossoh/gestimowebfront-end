@@ -88,20 +88,26 @@ export class AppelsLoyersComponent implements OnInit,AfterViewInit {
   ngOnInit(): void {
     this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(''));
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
+    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
+      console.log("les données de appels sont lmes suivants");
+      console.log(data);
+    });
   }
   getAppelByPeriode(p: any) {
 
     this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(p.value));
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
+    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
+      console.log("les données de appels sont les suivants v2");
+      console.log(data['appelloyers']);
+    });
   }
-
   getAllPeriodeByAnnee(a: string) {
     this.getAppelByPeriode('10');
     this.store.dispatch(new GetAllPeriodeByAnneeActions(a));
     this.periodeAppelState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
     );
-
   }
   getAppelByAnnee(a: string) {
     this.store.dispatch(new GetAllAppelLoyerAnneeActions(a));
