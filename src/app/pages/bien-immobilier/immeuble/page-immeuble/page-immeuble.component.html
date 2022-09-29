@@ -51,14 +51,14 @@
           </ng-container>
         </ng-container>
       </div>
-      <div class="col-md-3">
+      <!-- <div class="col-md-3">
         <label>Type de bien</label>
         <select id="modele" name="typeClim" class="form-control">
           <option value="0">selectionnez un type de bien</option>
           <option value="Janvier 2022">Immeuble</option>
           <option value="Février 2022">Villa</option>
         </select>
-      </div>
+      </div> -->
       <div class="col-md-3 mt-4">
         <button type="button" class="mb-sm btn btn-primary mr-1">
           Nouveau
@@ -99,7 +99,7 @@
           #matimmeuble
           showFirstLastButtons
           [pageSizeOptions]="pageSize"
-         
+[length]="totalRecords!"
         ></mat-paginator>
           <mat-table #table [dataSource]="dataSource" matSort>
             <!-- Code colonne -->
@@ -108,7 +108,7 @@
                 Code
               </mat-header-cell>
               <mat-cell *matCellDef="let row">
-                {{ row.abrvNomImmeuble }}
+                {{ row.codeNomAbrvImmeuble }}
               </mat-cell>
             </ng-container>
 
@@ -150,7 +150,10 @@
             </ng-container>
             <mat-header-row *matHeaderRowDef="displayedColumns">
             </mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"
+            [ngClass]="{'highlight': selectedRowIndex == row.id}" (click)="highlight(row);getAllEtagageByImmeuble(row.id)"
+
+            ></mat-row>
             <!-- Row shown when there is no matching data. -->
             <tr class="mat-row" *matNoDataRow>
               <td class="mat-cell" colspan="4">
@@ -176,19 +179,19 @@
               <tr class="text-center mt-3">
                 <th>Id</th>
                 <th>Code</th>
-                <th>Propriétaire</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               <!-- Les villas -->
-              <ng-container
-                *ngIf="immeubleState$ | async as immeubleState"
-                [ngSwitch]="immeubleState.dataState"
-              >
+
+    <ng-container
+    *ngIf="etageState$ | async as etageState"
+    [ngSwitch]="etageState.dataState"
+  >
                 <ng-container
                   ng-container
-                  *ngSwitchCase="ImmeubleStateEnum.LOADING"
+                  *ngSwitchCase="EtagesStateEnum.LOADING"
                 >
                   <div class="spinner-border text-primary" role="status">
                     <span class="sr-only">Loading...</span>
@@ -196,17 +199,14 @@
                 </ng-container>
                 <ng-container
                   ng-container
-                  *ngSwitchCase="ImmeubleStateEnum.LOADED"
+                  *ngSwitchCase="EtagesStateEnum.LOADED"
                 >
                   <tr
                     class="text-center"
-                    *ngFor="let immeuble of immeubleState.immeubles"
+                    *ngFor="let etage of etageState.etages"
                   >
-                    <td>{{ immeuble.id }}</td>
-                    <td>{{ immeuble.abrvNomImmeuble }}</td>
-                    <td>
-                      {{ immeuble.nomPropio }} {{ immeuble.prenomProprio }}
-                    </td>
+                    <td>{{ etage.id }}</td>
+                    <td>{{ etage.abrvEtage }}</td>
                     <td class="">
                       <div class="btn-group">
                         <button class="btn btn-outline-info">
@@ -221,11 +221,11 @@
                 </ng-container>
                 <ng-container
                   ng-container
-                  *ngSwitchCase="ImmeubleStateEnum.ERROR"
+                  *ngSwitchCase="EtagesStateEnum.ERROR"
                 >
                   <div class="p-2">
                     L'Erreur suivante c'est produite :
-                    {{ immeubleState.errorMessage }}
+                    {{ etageState.errorMessage }}
                   </div>
                 </ng-container>
               </ng-container>

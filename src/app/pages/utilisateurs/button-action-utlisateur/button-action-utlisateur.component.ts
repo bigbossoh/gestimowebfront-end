@@ -17,8 +17,7 @@ export class ButtonActionUtlisateurComponent implements OnInit {
 
     });
     dialolRef.afterClosed().subscribe(() => {
-      console.log("On  a fermer le formulaire de creation d'utilisateur");
-
+     
       this.utilisateurEmmitter.emit("SAVE_USER")
     });
   }

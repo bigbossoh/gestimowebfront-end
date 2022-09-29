@@ -107,7 +107,7 @@
             #matimmeuble
             showFirstLastButtons
             [pageSizeOptions]="pageSize"
-            aria-label="Select page of users"
+            [length]="totalRecords!"
           ></mat-paginator>
           <mat-table #table [dataSource]="dataSource" matSort>
             <!-- Code colonne -->

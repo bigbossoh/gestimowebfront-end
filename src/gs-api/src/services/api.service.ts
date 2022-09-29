@@ -30,9 +30,8 @@ import { EncaissementPayloadDto } from '../models/encaissement-payload-dto';
 import { EspeceEncaissementDto } from '../models/espece-encaissement-dto';
 import { EtageDto } from '../models/etage-dto';
 import { EtageAfficheDto } from '../models/etage-affiche-dto';
-import { ImmeubleAfficheDto } from '../models/immeuble-affiche-dto';
-import { ImmeubleDto } from '../models/immeuble-dto';
 import { ImmeubleEtageDto } from '../models/immeuble-etage-dto';
+import { ImmeubleDto } from '../models/immeuble-dto';
 import { MagasinResponseDto } from '../models/magasin-response-dto';
 import { MagasinDto } from '../models/magasin-dto';
 import { MontantLoyerBailDto } from '../models/montant-loyer-bail-dto';
@@ -2621,7 +2620,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  affichageDesImmeublesResponse(): __Observable<__StrictHttpResponse<Array<ImmeubleAfficheDto>>> {
+  affichageDesImmeublesResponse(): __Observable<__StrictHttpResponse<Array<ImmeubleEtageDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2638,16 +2637,16 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<ImmeubleAfficheDto>>;
+        return _r as __StrictHttpResponse<Array<ImmeubleEtageDto>>;
       })
     );
   }
   /**
    * @return successful operation
    */
-  affichageDesImmeubles(): __Observable<Array<ImmeubleAfficheDto>> {
+  affichageDesImmeubles(): __Observable<Array<ImmeubleEtageDto>> {
     return this.affichageDesImmeublesResponse().pipe(
-      __map(_r => _r.body as Array<ImmeubleAfficheDto>)
+      __map(_r => _r.body as Array<ImmeubleEtageDto>)
     );
   }
 

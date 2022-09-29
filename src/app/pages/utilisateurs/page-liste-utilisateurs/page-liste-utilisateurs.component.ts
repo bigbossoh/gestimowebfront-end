@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription, Observable } from 'rxjs';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
@@ -21,7 +21,7 @@ import { MatSort } from '@angular/material/sort';
   templateUrl: './page-liste-utilisateurs.component.html',
   styleUrls: ['./page-liste-utilisateurs.component.css'],
 })
-export class PageListeUtilisateursComponent implements OnInit {
+export class PageListeUtilisateursComponent implements OnInit, AfterViewInit {
   displayedColumns = [
     'Photo',
     'ID',
@@ -34,9 +34,9 @@ export class PageListeUtilisateursComponent implements OnInit {
   ];
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  pageSize = [ 5, 10, 15, 20];
+  pageSize = [5, 10, 15, 20];
 
-  @ViewChild(MatPaginator,{ static: false }) paginatorUser!: MatPaginator;
+  @ViewChild(MatPaginator) paginatorUser!:MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   public users!: UtilisateurRequestDto[];
@@ -67,6 +67,9 @@ export class PageListeUtilisateursComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  ngAfterViewInit(){
+    this.ngOnInit() 
+  }
   ngOnInit() {
     this.store.dispatch(new GetAllUtilisateursActions({}));
     this.utilisateurState$ = this.store.pipe(
@@ -75,11 +78,16 @@ export class PageListeUtilisateursComponent implements OnInit {
     this.store
       .pipe(map((state) => state.utilisateurState))
       .subscribe((data) => {
-        this.dataSource.data = data.utilisateurs;
-        this.dataSource.paginator = this.paginatorUser;
-        console.log("La pagination est la suivante : ");
-        console.log(this.paginatorUser)
+        console.log('Les utilisateurs sont les suivants : ');
 
+        if (data.utilisateurs.length > 0) {
+          console.log(data.utilisateurs);
+          console.log("La pagination est la suivantes : ");
+          console.log(this.paginatorUser);
+          this.dataSource.data = data.utilisateurs;
+          this.totalRecords=data.utilisateurs.length
+          this.dataSource.paginator = this.paginatorUser;
+        }
       });
   }
 
@@ -198,12 +206,19 @@ export class PageListeUtilisateursComponent implements OnInit {
   }
 
   onActionEmmit($event: any) {
-    //console.log("we are here");
+   console.log("we are here");
+   this.store.dispatch(new GetAllUtilisateursActions({}));
+    this.store
+    .pipe(map((state) => state.utilisateurState))
+    .subscribe((data) => {
+      console.log('Les utilisateurs sont les suivants et les suivants : ');
 
-    this.ngOnInit();
+      if (data.utilisateurs.length > 0) {
+        console.log(data.utilisateurs);
+        this.dataSource.data = data.utilisateurs;
+        this.dataSource.paginator = this.paginatorUser;
+      }
+    });
+  //  this.ngOnInit();
   }
-
-  // ngOnDestroy(): void {
-  //   throw new Error('Method not implemented.');
-  // }
 }
