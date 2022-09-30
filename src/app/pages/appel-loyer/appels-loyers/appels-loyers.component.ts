@@ -98,8 +98,11 @@ export class AppelsLoyersComponent implements OnInit,AfterViewInit {
     this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(p.value));
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
     this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
-      console.log("les données de appels sont les suivants v2");
-      console.log(data['appelloyers']);
+    if (data.appelloyers.length) {
+      this.dataSource.data = data.appelloyers;
+      //this.dataSource.paginator = this.paginator;
+    }
+
     });
   }
   getAllPeriodeByAnnee(a: string) {
