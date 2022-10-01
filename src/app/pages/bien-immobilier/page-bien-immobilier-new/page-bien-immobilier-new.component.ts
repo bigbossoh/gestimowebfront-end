@@ -130,7 +130,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
 
 
   onSaveMagasin() {
-    alert("On n'est ici")
+
     this.submitted = true;
     if (this.magasinForm?.invalid) {
      console.log("Le formulaire n'est pas bon du tout et pourquoi ?");

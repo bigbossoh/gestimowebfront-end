@@ -49,32 +49,30 @@
       </div>
       <div class="col-md-3">
         <ng-container
-          *ngIf="periodeAppelState$ | async as periodeState"
+          *ngIf="periodeState$ | async as periodeState"
           [ngSwitch]="periodeState.dataState"
         >
-          <ng-container *ngSwitchCase="PeriodeLoyerStateEnum.LOADING">
+          <ng-container *ngSwitchCase="PeriodeStateEnum.LOADING">
             <i class="fas fa-sync fa-spin"></i>
           </ng-container>
-          <ng-container *ngSwitchCase="PeriodeLoyerStateEnum.ERROR">
+          <ng-container *ngSwitchCase="PeriodeStateEnum.ERROR">
             Aucune Période
           </ng-container>
-          <ng-container *ngSwitchCase="PeriodeLoyerStateEnum.LOADED">
-            <label>Période</label>
-            <select
-              id="modele"
+          <ng-container *ngSwitchCase="PeriodeStateEnum.LOADED">
+            <mat-label>Période</mat-label>
+            <mat-select
               name="typeClim"
               class="form-control"
-              [(ngModel)]="periodePrint"
               #selectionPeriode
-              (change)="getAppelByPeriode(selectionPeriode)"
+              (selectionChange)="getAppelByPeriode(selectionPeriode.value)"
             >
-              <option
+              <mat-option
                 [value]="periode.periodeAppelLoyer"
                 *ngFor="let periode of periodeState.periodes"
               >
                 {{ periode.periodeLettre }}
-              </option>
-            </select>
+              </mat-option>
+            </mat-select>
           </ng-container>
         </ng-container>
       </div>
@@ -92,22 +90,22 @@
       <ng-container ng - container *ngSwitchCase="AppelLoyerStateEnum.LOADED">
         <div class="row mb-3">
           <div class="col-md-3">
-            <label
+            <mat-label
               >Du
               {{
                 appelState.appelloyers[0].dateDebutMoisAppelLoyer
                   | date: "dd / MM / yyyy"
-              }}</label
-            >
+              }}
+            </mat-label>
           </div>
           <div class="col-md-3">
-            <label
-              >Au
+            <label>
+              Au
               {{
                 appelState.appelloyers[0].dateFinMoisAppelLoyer
                   | date: "dd / MM / yyyy"
-              }}</label
-            >
+              }}
+            </label >
           </div>
           <div class="col-md-3">
             <label
@@ -115,7 +113,8 @@
               {{
                 appelState.appelloyers[0].datePaiementPrevuAppelLoyer
                   | date: "dd / MM / yyyy"
-              }}</label
+              }}
+              </label
             >
           </div>
           <div class="col-md-3 text-center">
@@ -194,7 +193,7 @@
               Période
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              {{ row.codeAbrvBienImmobilier }}
+              {{ row.periodeLettre }}
             </mat-cell>
           </ng-container>
 
@@ -204,7 +203,7 @@
               Bail
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              {{ row.nomBaptiserBienImmobilier }}
+              {{ row.nomLocataire}} {{ row.nomPropietaire}} \ {{ row.abrvBienimmobilier }}
             </mat-cell>
           </ng-container>
 
@@ -214,23 +213,16 @@
               Montant Loyer
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              {{ row.nomPrenomProprio }}</mat-cell
+              {{ row.nouveauMontantLoyer }}</mat-cell
             >
           </ng-container>
-          <ng-container matColumnDef="montantpayer">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-              Montant Loyer
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              {{ row.nomPrenomProprio }}</mat-cell
-            >
-          </ng-container>
+  
           <ng-container matColumnDef="solde">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
-              Montant Loyer
+              Solde
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              {{ row.nomPrenomProprio }}</mat-cell
+              {{ row.soldeAppelLoyer }}</mat-cell
             >
           </ng-container>
           <!-- Propriétaire colonne -->
@@ -239,12 +231,16 @@
               Status
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <span [hidden]="row.occupied" class="badge badge-success"
-                >Libre</span
+              <span *ngIf="row.statusAppelLoyer=='Payé'" class="badge badge-success"
+                >{{row.statusAppelLoyer}}</span
               >
-              <span [hidden]="!row.occupied" class="badge badge-danger"
-                >Occupé</span
-              ></mat-cell
+              <span *ngIf="row.statusAppelLoyer=='Impayé'" class="badge badge-danger"
+                >{{row.statusAppelLoyer}}</span
+              >
+              <span *ngIf="row.statusAppelLoyer=='partiellement payé'" class="badge badge-warning"
+                >{{row.statusAppelLoyer}}</span
+              >
+           </mat-cell
             >
           </ng-container>
           <!-- Actions colonne -->
@@ -273,98 +269,6 @@
             </td>
           </tr>
         </mat-table>
-      </div>
-      <div class="tab-pane fade show active" id="users">
-        <table class="table table-hover m-3 p-3">
-          <thead class="table-borderless">
-            <tr class="text-center mt-3">
-              <th>Période</th>
-              <th>Locataire/Bien Immobilier</th>
-              <th>Montant Loyer</th>
-              <th>Status loyer</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container
-              *ngIf="appelState$ | async as appelState"
-              [ngSwitch]="appelState.dataState"
-            >
-              <ng-container *ngSwitchCase="AppelLoyerStateEnum.LOADING">
-                <i class="fas fa-sync fa-spin"></i>
-              </ng-container>
-              <ng-container *ngSwitchCase="AppelLoyerStateEnum.LOADED">
-                <tr
-                  class="text-center"
-                  *ngFor="let appel of appelState.appelloyers"
-                >
-                  <td>{{ appel.periodeLettre }}</td>
-                  <td>
-                    {{ appel.nomLocataire }} {{ appel.prenomLocataire }}/{{
-                      appel.abrvBienimmobilier
-                    }}
-                  </td>
-                  <td>{{ appel.nouveauMontantLoyer }}</td>
-                  <td>
-                    <span
-                      [hidden]="!appel.solderAppelLoyer"
-                      [(ngModel)]="finBail"
-                      class="badge badge-success"
-                      >Payé</span
-                    >
-                    <span
-                      [hidden]="appel.solderAppelLoyer"
-                      class="badge badge-danger"
-                      >Impayé</span
-                    >
-                  </td>
-                  <td class="">
-                    <div class="btn-group">
-                      <button class="btn btn-outline-info">
-                        <i class="fas fa-edit"></i>
-                      </button>
-                      <button class="btn btn-outline-danger">
-                        <i class="fas fa-trash"></i>
-                      </button>
-                      <button
-                        class="btn btn-outline-info"
-                        (click)="sendQuittanceIndividuel(appel.id)"
-                      >
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                        <ng-container
-                          *ngIf="sendMailIndivState$ | async as sendState"
-                          [ngSwitch]="sendState.dataState"
-                        >
-                          <ng-container
-                            *ngSwitchCase="MailStateEnumIndividuel.LOADING"
-                          >
-                            <div
-                              class="spinner-border text-primary"
-                              role="status"
-                            >
-                              <span class="sr-only">Loading...</span>
-                            </div>
-                          </ng-container>
-                          <!-- <ng-container  *ngSwitchCase="QuittanceloyerStateEnum.Started">
-                             données Chargé...
-                          </ng-container> -->
-                          <ng-container
-                            *ngSwitchCase="MailStateEnumIndividuel.ERROR"
-                          >
-                            Erreur ...
-                          </ng-container>
-                        </ng-container>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              </ng-container>
-              <ng-container *ngSwitchCase="AppelLoyerStateEnum.ERROR">
-                ...
-              </ng-container>
-            </ng-container>
-          </tbody>
-        </table>
       </div>
     </div>
   </div>

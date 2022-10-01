@@ -15,9 +15,6 @@ export enum AppelLoyerctionsTypes {
   GET_ALL_APPELLOYER_ANNEE_SUCCES = '[AppelLoyer] Get All AppelLoyer Années Succes',
   GET_ALL_APPELLOYER_ANNEE_ERROR = '[AppelLoyer] Get All AppelLoyer AnnéEtagesState Error',
 
-  GET_PERIODE_BY_ANNEE = '[PeriodeDto] Get All période Année',
-  GET_PERIODE_BY_ANNEE_SUCCES = '[PeriodeDto] Get All période Années Succes',
-  GET_PERIODE_BY_ANNEE_ERROR = '[PeriodeDto] Get All période AnnéEtagesState Error',
 
   GET_ALL_APPELLOYER = '[AppelLoyer] Get All AppelLoyer',
   GET_ALL_APPELLOYER_SUCCES = '[AppelLoyer] Get All AppelLoyer Succes',
@@ -47,21 +44,7 @@ export class GetAllAppelLoyerActionsError implements Action {
   constructor(public payload: string) { }
 }
 // GET ALL PERIODE BY ANNEE
-export class GetAllPeriodeByAnneeActions implements Action {
-  type: AppelLoyerctionsTypes = AppelLoyerctionsTypes.GET_PERIODE_BY_ANNEE;
-  constructor(public payload: any) { }
-}
 
-export class GetAllPeriodeByAnneeActionsSuccess implements Action {
-  type: AppelLoyerctionsTypes =
-    AppelLoyerctionsTypes.GET_PERIODE_BY_ANNEE_SUCCES;
-  constructor(public payload: PeriodeDto[]) { }
-}
-export class GetAllPeriodeByAnneeActionsError implements Action {
-  type: AppelLoyerctionsTypes =
-    AppelLoyerctionsTypes.GET_PERIODE_BY_ANNEE_ERROR;
-  constructor(public payload: string) { }
-}
 
 // GET ALL APPARTEMENT BY PERIODE
 export class GetAllAppelLoyerByPeriodeActions implements Action {
@@ -106,6 +89,4 @@ export type AppelLoyerActions =
   | GetAllAppelLoyerByPeriodeActionsError
   |GetAllAppelLoyerAnneeActions
   | GetAllAppelLoyerAnneeActionsError
-  |GetAllPeriodeByAnneeActions
-  | GetAllPeriodeByAnneeActionsError
-  |GetAllPeriodeByAnneeActionsSuccess;
+;
