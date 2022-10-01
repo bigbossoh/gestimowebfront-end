@@ -17,7 +17,7 @@ import {
 
 @Injectable()
 export class ImmeubleEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions,private notificationService: NotificationService) { }
+  constructor(private apiService: ApiService, private effectActions: Actions, private notificationService: NotificationService) { }
   getAllImmeubleffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(ImmeublesActionsTypes.GET_ALL_IMMEUBLES),
@@ -44,10 +44,10 @@ export class ImmeubleEffects {
         console.log(bookCollection.type);
 
 
-        if (bookCollection.payload !=null) {
-          this.sendErrorNotification(NotificationType.SUCCESS,"Création de l'Immeuble éffectué avec succes!");
+        if (bookCollection.type == ImmeublesActionsTypes.SAVE_IMMEUBLES_SUCCES) {
+          this.sendErrorNotification(NotificationType.SUCCESS, "Création de l'Immeuble éffectué avec succes!");
         } else {
-          this.sendErrorNotification(NotificationType.ERROR,'');
+          this.sendErrorNotification(NotificationType.ERROR, "Une erreur est survenue");
         }
       })
     )

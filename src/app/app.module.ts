@@ -125,6 +125,8 @@ import { Encaissementffects } from './ngrx/reglement/reglement.effects';
 import { encaissementReducer } from './ngrx/reglement/reglement.reducer';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
+import { PeriodeEffects } from './ngrx/appelloyer/peiodeappel/periodeappel.effects';
+import { periodeReducer } from './ngrx/appelloyer/peiodeappel/periodeappel.reducer';
 @NgModule({
   declarations: [
     PageImmeubleComponent,
@@ -229,10 +231,12 @@ import { MatSelectModule } from '@angular/material/select';
       quittanceAppelState: quittanceAppelReducer,
       anneeState: anneeReducer,
       mailState: mailReducer,
-      encaissementState:encaissementReducer
+      encaissementState:encaissementReducer,
+      periodeState: periodeReducer
     }),
     EffectsModule.forRoot([
       AnneeEffects,
+      PeriodeEffects,
       MailEffect,
       BienEffects,
       AgenceEffects,
