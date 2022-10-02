@@ -125,13 +125,16 @@ import { Encaissementffects } from './ngrx/reglement/reglement.effects';
 import { encaissementReducer } from './ngrx/reglement/reglement.reducer';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
+
 import { MatSortModule } from '@angular/material/sort';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AppButtonNewAgenceActionComponent } from './composants/app-button-new-agence-action/app-button-new-agence-action.component';
 import { TachesPlanifieesComponent } from './pages/tachesPlanifiees/taches-planifiees/taches-planifiees.component';
 import { PageGestionDroitComponent } from './pages/roles-droits/page-gestion-droit/page-gestion-droit.component';
 import {MatGridListModule} from '@angular/material/grid-list';
-import { PageUpdateAgenceComponent } from './pages/agence/page-update-agence/page-update-agence.component';
+import { PeriodeEffects } from './ngrx/appelloyer/peiodeappel/periodeappel.effects';
+import { periodeReducer } from './ngrx/appelloyer/peiodeappel/periodeappel.reducer';
+
 @NgModule({
   declarations: [
     PageImmeubleComponent,
@@ -189,7 +192,6 @@ import { PageUpdateAgenceComponent } from './pages/agence/page-update-agence/pag
     AppButtonNewAgenceActionComponent,
     TachesPlanifieesComponent,
     PageGestionDroitComponent,
-    PageUpdateAgenceComponent
   ],
   imports: [
     FormsModule,
@@ -245,10 +247,12 @@ import { PageUpdateAgenceComponent } from './pages/agence/page-update-agence/pag
       quittanceAppelState: quittanceAppelReducer,
       anneeState: anneeReducer,
       mailState: mailReducer,
-      encaissementState:encaissementReducer
+      encaissementState:encaissementReducer,
+      periodeState: periodeReducer
     }),
     EffectsModule.forRoot([
       AnneeEffects,
+      PeriodeEffects,
       MailEffect,
       BienEffects,
       AgenceEffects,

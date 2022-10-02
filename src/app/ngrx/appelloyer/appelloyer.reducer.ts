@@ -63,21 +63,7 @@ export function appelLoyerReducer(
             dataState: AppelLoyerStateEnum.ERROR,
             errorMessage: (<AppelLoyerActions>action).payload,
       };
-        // GET ALL PERIODE BY ANNEE
-        case AppelLoyerctionsTypes.GET_PERIODE_BY_ANNEE:
-          return { ...state, dataState: AppelLoyerStateEnum.LOADING };
-        case AppelLoyerctionsTypes.GET_PERIODE_BY_ANNEE_SUCCES:
-          return {
-            ...state,
-            dataState: AppelLoyerStateEnum.LOADED,
-            periodes: (<AppelLoyerActions>action).payload,
-          };
-        case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_PERIODE_ERROR:
-          return {
-            ...state,
-            dataState: AppelLoyerStateEnum.ERROR,
-            errorMessage: (<AppelLoyerActions>action).payload,
-      };
+ 
           // GET ALL APPEL LOYER ANNEE
           case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_ANNEE:
             return { ...state, dataState: AppelLoyerStateEnum.LOADING };

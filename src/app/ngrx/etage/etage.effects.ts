@@ -34,16 +34,16 @@ export class EtageEffects {
           catchError((err) => of(new GetAllEtagesByImmeubleActionsError(err.error.errors)))
         );
       }),
-      tap((resultat) => {
-        console.log("Le resultat pour étage est le suivant : ");
-        console.log(resultat.payload);
+      // tap((resultat) => {
+      //   console.log("Le resultat pour étage est le suivant : ");
+      //   console.log(resultat.payload);
 
-        if (resultat.payload!=null) {
-          this.sendErrorNotification(
-            NotificationType.ERROR,
-            resultat.payload.toString()
-          );
-        } })
+      //   if (resultat.payload!=null) {
+      //     this.sendErrorNotification(
+      //       NotificationType.ERROR,
+      //       resultat.payload.toString()
+      //     );
+      //   } })
     )
   );
 

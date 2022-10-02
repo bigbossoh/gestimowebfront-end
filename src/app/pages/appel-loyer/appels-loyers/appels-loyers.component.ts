@@ -22,35 +22,36 @@ import {
   SendQuittanceByMailActions,
   SendQuittanceIndividuelActions,
 } from '../../../ngrx/mail/mail.action';
-import { GetAllPeriodeByAnneeActions } from '../../../ngrx/appelloyer/appelloyer.actions';
+
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { PeriodeState, PeriodeStateEnum } from 'src/app/ngrx/appelloyer/peiodeappel/periodeappel.reducer';
+import { GetAllPeriodeByAnneeActions } from 'src/app/ngrx/appelloyer/peiodeappel/periodeappel.actions';
 
 @Component({
   selector: 'app-appels-loyers',
   templateUrl: './appels-loyers.component.html',
   styleUrls: ['./appels-loyers.component.css'],
 })
-export class AppelsLoyersComponent implements OnInit,AfterViewInit {
+export class AppelsLoyersComponent implements OnInit, AfterViewInit {
   displayedColumns = [
     'periode',
     'bail',
     'montantloyer',
-    'montantpayer',
     'solde',
     'Status',
     'Actions',
   ];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  pageSize = [5, 10, 15, 20];
+  pageSize = [5, 10, 15, 20,50,100];
   public totalRecords: number | undefined;
-  @ViewChild(MatPaginator) paginatorUser!:MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   appelState$: Observable<AppelLoyerState> | null = null;
   anneeState$: Observable<AnneeState> | null = null;
-  periodeAppelState$: Observable<AppelLoyerState> | null = null;
+  periodeState$: Observable<PeriodeState> | null = null;
 
   sendMailState$: Observable<MailState> | null = null;
   sendMailIndivState$: Observable<MailState> | null = null;
@@ -59,7 +60,7 @@ export class AppelsLoyersComponent implements OnInit,AfterViewInit {
   readonly QuittanceloyerStateEnum = QuittanceloyerStateEnum;
   readonly AnneeStateEnum = AnneeStateEnum;
   readonly AppelLoyerStateEnum = AppelLoyerStateEnum;
-  readonly PeriodeLoyerStateEnum = AppelLoyerStateEnum;
+  readonly PeriodeStateEnum = PeriodeStateEnum;
   readonly MailStateEnum = MailStateEnum;
   readonly MailStateEnumIndividuel = MailStateEnum;
 
@@ -94,27 +95,29 @@ export class AppelsLoyersComponent implements OnInit,AfterViewInit {
     });
   }
   getAppelByPeriode(p: any) {
-
-    this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(p.value));
+    this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(p));
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
     this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
-    if (data.appelloyers.length) {
-      this.dataSource.data = data.appelloyers;
-      //this.dataSource.paginator = this.paginator;
-    }
+      if (data.appelloyers.length) {
+        console.log("Les appels sont les suivants : ");
+        console.log(data.appelloyers);
+        this.dataSource.data = data.appelloyers;
+        this.dataSource.paginator = this.paginator;
+      }
 
     });
   }
   getAllPeriodeByAnnee(a: string) {
     this.getAppelByPeriode('10');
     this.store.dispatch(new GetAllPeriodeByAnneeActions(a));
-    this.periodeAppelState$ = this.store.pipe(
-      map((state) => state.appelLoyerState)
+    this.periodeState$ = this.store.pipe(
+      map((state) => state.periodeState)
     );
+
   }
   getAppelByAnnee(a: string) {
     this.store.dispatch(new GetAllAppelLoyerAnneeActions(a));
-    this.periodeAppelState$ = this.store.pipe(
+    this.appelState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
     );
   }
