@@ -125,6 +125,13 @@ import { Encaissementffects } from './ngrx/reglement/reglement.effects';
 import { encaissementReducer } from './ngrx/reglement/reglement.reducer';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { AppButtonNewAgenceActionComponent } from './composants/app-button-new-agence-action/app-button-new-agence-action.component';
+import { TachesPlanifieesComponent } from './pages/tachesPlanifiees/taches-planifiees/taches-planifiees.component';
+import { PageGestionDroitComponent } from './pages/roles-droits/page-gestion-droit/page-gestion-droit.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { PageUpdateAgenceComponent } from './pages/agence/page-update-agence/page-update-agence.component';
 @NgModule({
   declarations: [
     PageImmeubleComponent,
@@ -178,7 +185,11 @@ import { MatSelectModule } from '@angular/material/select';
     PageNewUtilisateurComponent,
     ButtonActionUtlisateurComponent,
     ModifLoyerBailComponent,
-    AgenceNewComponent
+    AgenceNewComponent,
+    AppButtonNewAgenceActionComponent,
+    TachesPlanifieesComponent,
+    PageGestionDroitComponent,
+    PageUpdateAgenceComponent
   ],
   imports: [
     FormsModule,
@@ -187,6 +198,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule,
     MatExpansionModule,
     MatIconModule,
+    MatGridListModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatFormFieldModule,
@@ -202,6 +214,10 @@ import { MatSelectModule } from '@angular/material/select';
     NoticationModule,
     HighchartsChartModule,
     ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatCheckboxModule,
 
     //ToastrModule.forRoot(),
     StoreModule.forRoot({

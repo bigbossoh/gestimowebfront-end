@@ -254,9 +254,16 @@ export class MenuComponent implements OnInit {
       ,
       {
         id: '94',
-        titre: 'Gestions des étages',
-        icon: 'fas fa-door-open',
-        url: 'liste-etages',
+        titre: 'Gestion des roles',
+        icon: 'fa fa-check-square',
+        url: 'liste-gestion-roles-droits',
+
+      },
+      {
+        id: '94',
+        titre: 'Gestion tâches planifiées',
+        icon: 'fa fa-tasks',
+        url: 'liste-taches-planifiees',
 
       }
     ]
@@ -277,9 +284,6 @@ navigate(menu:Menu): void {
     this.lastSelectedMenu.active=false;
   }
   menu.active=true;
-  console.log(menu.url);
-  console.log(menu);
-
   this.lastSelectedMenu=menu;
   this.router.navigate([menu.url]);
 

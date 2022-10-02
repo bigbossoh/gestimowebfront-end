@@ -27,6 +27,8 @@ import { ApplicationGuardService } from './services/guard/application-guard.serv
 import { PagePaiementComponent } from './pages/reglement/page-paiement/page-paiement.component';
 import { PageImmeubleComponent } from './pages/bien-immobilier/immeuble/page-immeuble/page-immeuble.component';
 import { PageEtageComponent } from './pages/bien-immobilier/page-etage/page-etage/page-etage.component';
+import { TachesPlanifieesComponent } from './pages/tachesPlanifiees/taches-planifiees/taches-planifiees.component';
+import { PageGestionDroitComponent } from './pages/roles-droits/page-gestion-droit/page-gestion-droit.component';
 
 const routes: Routes = [
   {
@@ -170,6 +172,18 @@ const routes: Routes = [
     {
       path:'liste-etages',
       component:PageEtageComponent,
+      canActivate:[ApplicationGuardService]
+    }
+    ,
+    {
+      path:'liste-taches-planifiees',
+      component:TachesPlanifieesComponent,
+      canActivate:[ApplicationGuardService]
+    }
+    ,
+    {
+      path:'liste-gestion-roles-droits',
+      component:PageGestionDroitComponent,
       canActivate:[ApplicationGuardService]
     }
 
