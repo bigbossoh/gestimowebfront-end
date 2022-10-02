@@ -4,7 +4,8 @@
       <h1>Liste de(s) agence(s)</h1>
     </div>
     <div class="col-md-4 text-right">
-      <app-boutton-action></app-boutton-action>
+       <app-app-button-new-agence-action></app-app-button-new-agence-action>
+
     </div>
   </div>
   <div class="col">
@@ -12,9 +13,74 @@
     <div class="tab-content" id="myTabContent">
       <!-- user table -->
       <div class="tab-pane fade show active" id="users">
-        <div class="mb-3 float-left">
-          <div class="col btn-group">
-            <div class="row md-12">
+        <div style="margin-top: 10px;">
+
+          <mat-form-field appearance="standard">
+            <mat-label>Filtre</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+          </mat-form-field>
+        </div>
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort>
+
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> User Id</th>
+              <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+            </ng-container>
+
+            <!-- productName Column -->
+            <ng-container matColumnDef="nomAgence">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Nom Agence </th>
+              <td mat-cell *matCellDef="let row"> {{row.nomAgence}} </td>
+            </ng-container>
+             <!-- fresh Column -->
+            <ng-container matColumnDef="sigleAgence">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Sigle</th>
+              <td mat-cell *matCellDef="let row"> {{row.sigleAgence}} </td>
+            </ng-container>
+
+            <!-- fresh Column -->
+            <ng-container matColumnDef="telAgence">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Telephone</th>
+              <td mat-cell *matCellDef="let row"> {{row.telAgence}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="emailAgence">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Email</th>
+              <td mat-cell *matCellDef="let row"> {{row.emailAgence}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="agenceStatus">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
+              <td mat-cell *matCellDef="let row"> <span>Active</span> </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
+              <td mat-cell *matCellDef="let row">
+                <button mat-icon-button color="primary" (click)="editProduct(row)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button  (click)="deleteProduct(row.id)" mat-icon-button color="warn">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        </div>
+        <!--<div class="mb-3 float-left">
+            <div class="col btn-group">
+           <div class="row md-12">
               <form class="form-inline mr-2">
                 <input name="searchTerm" #searchInput="ngModel" class="form-control" ngModel type="search"
                   placeholder="Recherche utilisateurs..." />
@@ -24,8 +90,8 @@
               </button>
             </div>
           </div>
-        </div>
-        <table class="table table-hover m-3 p-3">
+        </div>-->
+        <!--<table class="table table-hover m-3 p-3">
           <thead class="table-borderless">
             <tr class="text-center mt-3">
               <th>Photo</th>
@@ -77,14 +143,14 @@
             </ng-container>
 
           </ng-container>
-        </table>
+        </table>-->
         <!-- End user table -->
       </div>
     </div>
   </div>
-  <div class="row mb-3">
+  <!-- <div class="row mb-3">
     <div class="col-md-12 text-center">
       <app-pagination></app-pagination>
     </div>
-  </div>
+  </div> -->
 </div>
