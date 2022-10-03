@@ -16,7 +16,7 @@
     <hr style="margin-top: 0" />
     <div class="row mb-3">
       <div class="col-md-3">
-        <label>Année</label>
+        
         <ng-container
           *ngIf="anneeState$ | async as anneeState"
           [ngSwitch]="anneeState.dataState"
@@ -31,18 +31,27 @@
               </div>
             </ng-container>
             <ng-container *ngSwitchCase="AnneeStateEnum.LOADED">
-              <select
-                id="modele"
-                name="typeClim"
-                class="form-control"
-                #selectionAnnee
-                [(ngModel)]="finBail"
-                (change)="getAllPeriodeByAnnee(selectionAnnee.value)"
-              >
-                <option [value]="annee" *ngFor="let annee of anneeState.annees">
-                  {{ annee }}
-                </option>
-              </select>
+              <mat-form-field>
+                <mat-label>Année</mat-label>
+                <mat-select
+                  id="modele"
+                  name="typeClim"
+                  class="form-control"
+                  #selectionAnnee
+                  [(ngModel)]="finBail"
+                  (selectionChange)="
+                    getAllPeriodeByAnnee(selectionAnnee.value);
+                    getAppelByPeriode('1999-10')
+                  "
+                >
+                  <mat-option
+                    [value]="annee"
+                    *ngFor="let annee of anneeState.annees"
+                  >
+                    {{ annee }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
             </ng-container>
           </ng-container>
         </ng-container>
@@ -59,20 +68,23 @@
             Aucune Période
           </ng-container>
           <ng-container *ngSwitchCase="PeriodeStateEnum.LOADED">
-            <mat-label>Période</mat-label>
-            <mat-select
-              name="typeClim"
-              class="form-control"
-              #selectionPeriode
-              (selectionChange)="getAppelByPeriode(selectionPeriode.value)"
-            >
-              <mat-option
-                [value]="periode.periodeAppelLoyer"
-                *ngFor="let periode of periodeState.periodes"
+            <mat-form-field>
+              <mat-label>Période</mat-label>
+              <mat-select
+                name="typeClim"
+                class="form-control"
+                [(ngModel)]="periodePrint"
+                #selectionPeriode
+                (selectionChange)="getAppelByPeriode(selectionPeriode.value)"
               >
-                {{ periode.periodeLettre }}
-              </mat-option>
-            </mat-select>
+                <mat-option
+                  [value]="periode.periodeAppelLoyer"
+                  *ngFor="let periode of periodeState.periodes"
+                >
+                  {{ periode.periodeLettre }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
           </ng-container>
         </ng-container>
       </div>
@@ -105,7 +117,7 @@
                 appelState.appelloyers[0].dateFinMoisAppelLoyer
                   | date: "dd / MM / yyyy"
               }}
-            </label >
+            </label>
           </div>
           <div class="col-md-3">
             <label
@@ -114,8 +126,7 @@
                 appelState.appelloyers[0].datePaiementPrevuAppelLoyer
                   | date: "dd / MM / yyyy"
               }}
-              </label
-            >
+            </label>
           </div>
           <div class="col-md-3 text-center">
             <button
@@ -203,7 +214,8 @@
               Bail
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              {{ row.nomLocataire}} {{ row.nomPropietaire}} \ {{ row.abrvBienimmobilier }}
+              {{ row.nomLocataire }} {{ row.prenomLocataire }} \
+              {{ row.abrvBienimmobilier }}
             </mat-cell>
           </ng-container>
 
@@ -216,7 +228,7 @@
               {{ row.nouveauMontantLoyer }}</mat-cell
             >
           </ng-container>
-  
+
           <ng-container matColumnDef="solde">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
               Solde
@@ -231,17 +243,22 @@
               Status
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <span *ngIf="row.statusAppelLoyer=='Payé'" class="badge badge-success"
-                >{{row.statusAppelLoyer}}</span
+              <span
+                *ngIf="row.statusAppelLoyer == 'Payé'"
+                class="badge badge-success"
+                >{{ row.statusAppelLoyer }}</span
               >
-              <span *ngIf="row.statusAppelLoyer=='Impayé'" class="badge badge-danger"
-                >{{row.statusAppelLoyer}}</span
+              <span
+                *ngIf="row.statusAppelLoyer == 'Impayé'"
+                class="badge badge-danger"
+                >{{ row.statusAppelLoyer }}</span
               >
-              <span *ngIf="row.statusAppelLoyer=='partiellement payé'" class="badge badge-warning"
-                >{{row.statusAppelLoyer}}</span
+              <span
+                *ngIf="row.statusAppelLoyer == 'partiellement payé'"
+                class="badge badge-warning"
+                >{{ row.statusAppelLoyer }}</span
               >
-           </mat-cell
-            >
+            </mat-cell>
           </ng-container>
           <!-- Actions colonne -->
           <ng-container matColumnDef="Actions">

@@ -23,7 +23,6 @@ export class QuittanceAppelLoyerEffects {
       mergeMap((action: QuittanceAppelLoyerActions) => {
         return this.apiService.printQuittanceByPeriode(action.payload)
           .pipe(
-
             map(
               (quittances) => new PrintQuittanceLoyerActionsSuccess(quittances)
             ),
@@ -32,13 +31,9 @@ export class QuittanceAppelLoyerEffects {
             )
           );
       }),
-      tap((resultat) => {
-        // let file = new Blob([resultat.payload], { type: 'application/pdf' })
-        // let fileURL = URL.createObjectURL(file);
-        console.log('***** Le resultat est *********');
-        console.log(resultat);
-
-       // console.log(fileURL);
+      tap((resultat) => {    
+        console.log('***** Le resultat est du telechargement est le suivant : *********');
+        console.log(resultat); 
       
         if (resultat.payload.size > 0) {
           const fileURL = URL.createObjectURL(resultat.payload);

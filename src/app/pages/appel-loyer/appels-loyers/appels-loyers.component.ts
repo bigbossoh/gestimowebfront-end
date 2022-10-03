@@ -95,12 +95,12 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
     });
   }
   getAppelByPeriode(p: any) {
+    alert(p)
     this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(p));
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
     this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
       if (data.appelloyers.length) {
-        console.log("Les appels sont les suivants : ");
-        console.log(data.appelloyers);
+     
         this.dataSource.data = data.appelloyers;
         this.dataSource.paginator = this.paginator;
       }
@@ -108,12 +108,12 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
     });
   }
   getAllPeriodeByAnnee(a: string) {
-    this.getAppelByPeriode('10');
+    
     this.store.dispatch(new GetAllPeriodeByAnneeActions(a));
     this.periodeState$ = this.store.pipe(
       map((state) => state.periodeState)
     );
-
+    this.getAppelByPeriode('10');
   }
   getAppelByAnnee(a: string) {
     this.store.dispatch(new GetAllAppelLoyerAnneeActions(a));
