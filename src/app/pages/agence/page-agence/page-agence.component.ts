@@ -15,6 +15,7 @@ import { AgenceNewComponent } from '../agence-new/agence-new.component';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { AgenceUpdateComponent } from '../agence-update/agence-update.component';
 
 @Component({
   selector: 'app-page-agence',
@@ -64,9 +65,9 @@ export class PageAgenceComponent implements OnInit {
   deleteProduct(arg0: any) {
     throw new Error('Method not implemented.');
     }
-    editProduct(row:any) {
-      console.log("donné chargeé ",row);
+  editProduct(row:any) {
 
+//modifier
       this.dialog.open(AgenceNewComponent,{
         width:'50%',
         data:row

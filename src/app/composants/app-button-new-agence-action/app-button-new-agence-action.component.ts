@@ -14,6 +14,7 @@ export class AppButtonNewAgenceActionComponent implements OnInit {
   ngOnInit(): void {
   }
   openDialog(){
+    //new
     this.dialog.open(AgenceNewComponent, {
       width:'50%'
 

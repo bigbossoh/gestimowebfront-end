@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PageUpdateAgenceComponent } from './page-update-agence.component';
+import { AgenceUpdateComponent } from './agence-update.component';
 
-describe('PageUpdateAgenceComponent', () => {
-  let component: PageUpdateAgenceComponent;
-  let fixture: ComponentFixture<PageUpdateAgenceComponent>;
+describe('AgenceUpdateComponent', () => {
+  let component: AgenceUpdateComponent;
+  let fixture: ComponentFixture<AgenceUpdateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PageUpdateAgenceComponent ]
+      declarations: [ AgenceUpdateComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PageUpdateAgenceComponent);
+    fixture = TestBed.createComponent(AgenceUpdateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
