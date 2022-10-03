@@ -24,7 +24,7 @@
               </mat-form-field>
             </div>
             <div class="col-md-4">
-              <mat-form-field>
+              <mat-form-field *ngIf="idCompare==0" >
                 <mat-label>Nom du gérant*</mat-label>
                 <input formControlName="nomPrenomGerant" matInput placeholder="Nom du gérant">
                 <mat-error>Ce champ est obligatoire.</mat-error>
@@ -91,12 +91,12 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div *ngIf="idCompare==0" class="row">
         <div class="col-12 col-sm-6 mb-3">
           <div class="mb-2 text-primary">
             <i class="fas fa-asterisk"></i><b> Gestion du Mot de passe</b>
           </div>
-          <div class="row">
+          <div  class="row">
             <div class="col-sm-6">
               <mat-form-field>
                 <mat-label>Nouveau mot de passe</mat-label>
@@ -131,7 +131,11 @@
         <mat-icon>cancel</mat-icon>
         Annuler
       </button>
-      <button mat-raised-button color="primary" [disabled]="agenceRegisterForm.invalid" (click)="saveNgrsAgence()">
+      <button *ngIf="idCompare==0" mat-raised-button color="primary" [disabled]="agenceRegisterForm.invalid" (click)="saveNgrsAgence()">
+        <mat-icon>save</mat-icon>
+        {{actionBtn}}
+      </button>
+      <button *ngIf="idCompare!=0"  mat-raised-button color="primary"  (click)="saveNgrsAgence()">
         <mat-icon>save</mat-icon>
         {{actionBtn}}
       </button>

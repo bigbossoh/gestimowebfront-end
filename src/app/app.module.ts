@@ -134,6 +134,7 @@ import { PageGestionDroitComponent } from './pages/roles-droits/page-gestion-dro
 import {MatGridListModule} from '@angular/material/grid-list';
 import { PeriodeEffects } from './ngrx/appelloyer/peiodeappel/periodeappel.effects';
 import { periodeReducer } from './ngrx/appelloyer/peiodeappel/periodeappel.reducer';
+import { AgenceUpdateComponent } from './pages/agence/agence-update/agence-update.component';
 
 @NgModule({
   declarations: [
@@ -192,6 +193,8 @@ import { periodeReducer } from './ngrx/appelloyer/peiodeappel/periodeappel.reduc
     AppButtonNewAgenceActionComponent,
     TachesPlanifieesComponent,
     PageGestionDroitComponent,
+    AgenceUpdateComponent,
+
   ],
   imports: [
     FormsModule,
@@ -200,7 +203,6 @@ import { periodeReducer } from './ngrx/appelloyer/peiodeappel/periodeappel.reduc
     MatSelectModule,
     MatExpansionModule,
     MatIconModule,
-    MatGridListModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
     MatFormFieldModule,
@@ -220,6 +222,7 @@ import { periodeReducer } from './ngrx/appelloyer/peiodeappel/periodeappel.reduc
     MatPaginatorModule,
     MatSortModule,
     MatCheckboxModule,
+    MatGridListModule,
 
     //ToastrModule.forRoot(),
     StoreModule.forRoot({

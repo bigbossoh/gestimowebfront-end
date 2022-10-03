@@ -21,6 +21,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class AgenceNewComponent implements OnInit {
   agenceRegisterForm!: FormGroup;
   actionBtn: String = 'Enregistrer';
+  idCompare=0;
       public user?: UtilisateurRequestDto;
       matcher = new MyErrorStateMatcher();
   constructor(
@@ -51,6 +52,8 @@ export class AgenceNewComponent implements OnInit {
       active: [true],
     });
     if (this.editData) {
+      alert(this.editData.nomPrenomGerant)
+       this.idCompare=this.editData.id
       this.actionBtn = 'Modifier';
       this.agenceRegisterForm.controls['idAgence'].setValue(this.editData.idAgence);
       this.agenceRegisterForm.controls['nomAgence'].setValue(this.editData.nomAgence);
@@ -83,6 +86,7 @@ export class AgenceNewComponent implements OnInit {
 
     this.store.dispatch(new GetAllAgenceActions({}));
     this.store.dispatch(new SaveAgenceActions(this.agenceRegisterForm.value));
+    this.agenceRegisterForm.reset();
     this.onClose();
   }
 }
