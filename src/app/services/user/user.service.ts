@@ -64,6 +64,9 @@ export class UserService {
   public login(authRequestDto:AuthRequestDto):Observable<any>{
     return this.http.post<UtilisateurRequestDto>(`${this.apiService.rootUrl}gestimoweb/api/v1/auth/login`,authRequestDto,{observe:'response'});
   }
+  deleteAgenceBy(id:number ){
+    return this.apiService.deleteAgenceByIdAgence(id);
+  }
 
   public getUsers():Observable<any | HttpErrorResponse>{
     return this.apiService.getAllUtilisateursByOrder();

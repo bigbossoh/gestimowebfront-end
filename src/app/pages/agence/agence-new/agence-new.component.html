@@ -35,17 +35,7 @@
             <i class="fas fa-asterisk"></i><b> Contact Agence</b>
           </div>
           <div class="row">
-            <div class="col-md-4">
 
-              <mat-form-field>
-                <mat-label>Mobile gérant*</mat-label>
-                <input formControlName="mobileAgence" matInput placeholder="Mobile gérant*">
-                <mat-error *ngIf="agenceRegisterForm.controls['mobileAgence'].errors?.required">
-                  Ce champ est obligatoire.</mat-error>
-                <mat-error *ngIf="agenceRegisterForm.controls['mobileAgence'].errors?.minlength">
-                  Un minimum  de 8 charactaires.</mat-error>
-              </mat-form-field>
-            </div>
             <div class="col-md-4">
               <mat-form-field>
                 <mat-label>Telephone</mat-label>
@@ -60,6 +50,17 @@
                 <mat-error *ngIf="agenceRegisterForm.controls['emailAgence'].errors?.required">Ce champ est obligatoire.</mat-error>
                 <mat-error *ngIf="agenceRegisterForm.controls['emailAgence'].errors?.email">Invalide email adresse.</mat-error>
 
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+
+              <mat-form-field *ngIf="idCompare==0">
+                <mat-label>Mobile gérant*</mat-label>
+                <input formControlName="mobileAgence" matInput placeholder="Mobile gérant*">
+                <mat-error *ngIf="agenceRegisterForm.controls['mobileAgence'].errors?.required">
+                  Ce champ est obligatoire.</mat-error>
+                <mat-error *ngIf="agenceRegisterForm.controls['mobileAgence'].errors?.minlength">
+                  Un minimum  de 8 charactaires.</mat-error>
               </mat-form-field>
             </div>
           </div>

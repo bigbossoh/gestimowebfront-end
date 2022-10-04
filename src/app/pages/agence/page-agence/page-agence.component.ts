@@ -16,6 +16,9 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { AgenceUpdateComponent } from '../agence-update/agence-update.component';
+import { UserService } from '../../../services/user/user.service';
+import { NotificationService } from 'src/app/services/notification/notification.service';
+import { NotificationType } from 'src/app/enum/natification-type.enum';
 
 @Component({
   selector: 'app-page-agence',
@@ -37,7 +40,7 @@ export class PageAgenceComponent implements OnInit {
   readonly AgenceStateEnum = AgenceStateEnum;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(private store: Store<any>, public dialog: MatDialog) {}
+  constructor(private store: Store<any>, public dialog: MatDialog, private userService:UserService, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.store.dispatch(new GetAllAgenceActions({}));
@@ -63,7 +66,21 @@ export class PageAgenceComponent implements OnInit {
 
   }
   deleteProduct(arg0: any) {
-    throw new Error('Method not implemented.');
+      this.userService.deleteAgenceBy(arg0).subscribe({
+        next:(rest)=>{
+
+          this.sendErrorNotification(
+            NotificationType.SUCCESS,
+            `L'agence a été supprimé avec succès.`
+          );
+        },
+        error:()=>{
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            `L'agence ne peut être supprimé.`
+          );
+        }
+      })
     }
   editProduct(row:any) {
 
@@ -78,6 +95,19 @@ export class PageAgenceComponent implements OnInit {
           }
         }
       );
+    }
+    private sendErrorNotification(
+      notificationType: NotificationType,
+      message: string
+    ): void {
+      if (message) {
+        this.notificationService.notify(notificationType, message);
+      } else {
+        this.notificationService.notify(
+          notificationType,
+          'An error occurred. Please try again.'
+        );
+      }
     }
   onCreateAgence() {
     const dialogref = this.dialog.open(AgenceNewComponent);
