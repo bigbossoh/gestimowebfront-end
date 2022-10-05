@@ -96,11 +96,11 @@
       <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADED">
         <div class="mat-elevation-z8">
           <mat-paginator
-          #matimmeuble
-          showFirstLastButtons
-          [pageSizeOptions]="pageSize"
-[length]="totalRecords!"
-        ></mat-paginator>
+            #matimmeuble
+            showFirstLastButtons
+            [pageSizeOptions]="pageSize"
+            [length]="totalRecords!"
+          ></mat-paginator>
           <mat-table #table [dataSource]="dataSource" matSort>
             <!-- Code colonne -->
             <ng-container matColumnDef="Code">
@@ -150,9 +150,10 @@
             </ng-container>
             <mat-header-row *matHeaderRowDef="displayedColumns">
             </mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns"
-            [ngClass]="{'highlight': selectedRowIndex == row.id}" (click)="highlight(row);getAllEtagageByImmeuble(row.id)"
-
+            <mat-row
+              *matRowDef="let row; columns: displayedColumns"
+              [ngClass]="{ highlight: selectedRowIndex == row.id }"
+              (click)="highlight(row); getAllEtagageByImmeuble(row.id)"
             ></mat-row>
             <!-- Row shown when there is no matching data. -->
             <tr class="mat-row" *matNoDataRow>
@@ -161,7 +162,6 @@
               </td>
             </tr>
           </mat-table>
-
         </div>
       </ng-container>
     </ng-container>
@@ -185,10 +185,10 @@
             <tbody>
               <!-- Les villas -->
 
-    <ng-container
-    *ngIf="etageState$ | async as etageState"
-    [ngSwitch]="etageState.dataState"
-  >
+              <ng-container
+                *ngIf="etageState$ | async as etageState"
+                [ngSwitch]="etageState.dataState"
+              >
                 <ng-container
                   ng-container
                   *ngSwitchCase="EtagesStateEnum.LOADING"
@@ -245,10 +245,6 @@
       </ng-container>
     </ng-container>
 
-    <div class="row mb-3">
-      <div class="col-md-12 text-center">
-        <app-pagination></app-pagination>
-      </div>
-    </div>
+
   </div>
 </div>

@@ -27,7 +27,7 @@
           Informations sur le Bien
         </div>
         <div class="card-body">
-          <form *ngIf="formGroup" [formGroup]="formGroup">
+          <form *ngIf="formGroup&& visiblForm==0" [formGroup]="formGroup">
             <div class="mb-3">
               <label>Type de biens</label>
               <select class="form-control" [(ngModel)]="ngselecttypeBien" formControlName="idTypeBien" name="idTypeBien"

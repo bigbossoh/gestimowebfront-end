@@ -126,20 +126,6 @@
                   </mat-header-cell>
                   <mat-cell *matCellDef="let row">
                     <td class="">
-                      <!-- <div class="btn-group">
-                        <button
-                          class="btn btn-outline-info"
-                          (click)="onEditUser(row.id)"
-                        >
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        (click)="deleteProduct(row.id)"
-
-
-                        <button class="btn btn-outline-danger">
-                          <i class="fas fa-trash"></i>
-                        </button>
-                      </div> -->
                       <button mat-icon-button color="primary" (click)="onEditUser(row)">
                         <mat-icon>edit</mat-icon>
                       </button>
