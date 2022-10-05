@@ -4,9 +4,10 @@
       <h1>Liste des utilisateurs</h1>
     </div>
     <div class="col-md-4 text-right">
-      <app-button-action-utlisateur
+      <!-- <app-button-action-utlisateur
         (utilisateurEmmitter)="onActionEmmit($event)"
-      ></app-button-action-utlisateur>
+      ></app-button-action-utlisateur> -->
+      <app-button-new-user-action></app-button-new-user-action>
     </div>
   </div>
   <div class="col">
@@ -14,59 +15,28 @@
     <div class="tab-content" id="myTabContent">
       <!-- user table -->
       <div class="tab-pane fade show active" id="users">
-        <div class="mb-3 float-left">
-          <div class="col btn-group">
-            <div class="row md-12">
-              <form class="form-inline mr-2">
-                <input
-                  name="searchTerm"
-                  #searchInput="ngModel"
-                  class="form-control"
-                  ngModel
-                  (ngModelChange)="searchUsers(searchInput.value)"
-                  type="search"
-                  placeholder="Recherche utilisateurs..."
-                />
-              </form>
-              <button
-                type="button"
-                class="btn btn-info"
-                data-toggle="modal"
-                data-target="#addUserModal"
-              >
-                <i class="fa fa-plus"></i>&nbsp;New User
-              </button>
-              <div class="btn-group ml-2">
-                <button type="button" class="btn btn-info">
-                  <i *ngIf="refreshing" class="fas fa-sync fa-spin"></i>
-                  <i *ngIf="!refreshing" class="fas fa-sync"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="example-header"></div>
+        <!-- <div class="example-header"></div> -->
         <!-- MAT TABLE AFFICHE -->
         <ng-container
           *ngIf="utilisateurState$ | async as utilisateurState"
           [ngSwitch]="utilisateurState.dataState"
         >
           <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
-            <div class="mat-elevation-z8">
+            <!-- <div class="mat-elevation-z8"> -->
+              <div style="margin-top: 10px;">
               <mat-form-field>
+                <mat-label>Filtre</mat-label>
                 <input
+
                   matInput
                   (keyup)="applyFilter($event)"
                   #input
-                  placeholder="Rechercher un Utilisateur"
+                  placeholder="Ex. Locataire"
                 />
               </mat-form-field>
-              <mat-paginator
-                #paginatorUser
-                showFirstLastButtons
-                [pageSizeOptions]="pageSize"
-                [length]="totalRecords!"
-              ></mat-paginator>
+              </div>
+                <div class="mat-elevation-z8">
+
               <mat-table [dataSource]="dataSource" matSort>
                 <!-- Photo colonne -->
                 <ng-container matColumnDef="Photo">
@@ -156,19 +126,37 @@
                   </mat-header-cell>
                   <mat-cell *matCellDef="let row">
                     <td class="">
-                      <div class="btn-group">
+                      <!-- <div class="btn-group">
                         <button
                           class="btn btn-outline-info"
                           (click)="onEditUser(row.id)"
                         >
                           <i class="fas fa-edit"></i>
                         </button>
+                        (click)="deleteProduct(row.id)"
+
+
                         <button class="btn btn-outline-danger">
                           <i class="fas fa-trash"></i>
                         </button>
-                      </div>
+                      </div> -->
+                      <button mat-icon-button color="primary" (click)="onEditUser(row)">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                      <button   mat-icon-button color="warn">
+                        <mat-icon>delete</mat-icon>
+                      </button>
                     </td>
                   </mat-cell>
+                  <!-- <th mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
+              <td mat-cell *matCellDef="let row">
+                <button mat-icon-button color="primary" (click)="onEditUser(row)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button (click)="deleteProduct(row.id)"  mat-icon-button color="warn">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td> -->
                 </ng-container>
                 <mat-header-row *matHeaderRowDef="displayedColumns">
                 </mat-header-row>
@@ -182,88 +170,16 @@
                   </td>
                 </tr>
               </mat-table>
+              <!-- <mat-paginator
+                #paginatorUser
+                showFirstLastButtons
+                [pageSizeOptions]="pageSize"
+                [length]="totalRecords!"
+              ></mat-paginator> -->
+              <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
             </div>
           </ng-container>
         </ng-container>
-
-        <!-- <table class="table table-hover m-3 p-3">
-          <thead class="table-borderless">
-            <tr class="text-center mt-3">
-              <th>Photo</th>
-              <th>ID</th>
-              <th>Nom</th>
-              <th>rôle</th>
-              <th>Login</th>
-              <th>Email</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              class="text-center"
-              *ngFor="
-                let appUser of users
-                  | paginate
-                    : {
-                        itemsPerPage: 4,
-                        currentPage: page,
-                        totalItems: totalRecords
-                      }
-              "
-            >
-              <td>
-                <img
-                  height="40"
-                  width="40"
-                  src="assets/nassmam.jpg"
-                  class="rounded-circle img-fluid img-thumbnail"
-                  alt=""
-                />
-              </td>
-              <td (click)="onSelectUser(appUser)">
-                {{ appUser.utilisateurIdApp }}
-              </td>
-              <td (click)="onSelectUser(appUser)">{{ appUser.nom }}</td>
-              <td (click)="onSelectUser(appUser)">
-                {{
-                  appUser.roleUsed?.substring(
-                    appUser.roleUsed!.indexOf("_") + 1
-                  )
-                }}
-              </td>
-              <td (click)="onSelectUser(appUser)">{{ appUser.username }}</td>
-              <td (click)="onSelectUser(appUser)">{{ appUser.email }}</td>
-              <td>
-                <span [hidden]="!appUser?.active" class="badge badge-success"
-                  >Active</span
-                >
-                <span [hidden]="appUser?.active" class="badge badge-danger"
-                  >Inactive</span
-                >
-              </td>
-              <td class="">
-                <div class="btn-group">
-                  <button
-                    class="btn btn-outline-info"
-                    (click)="onEditUser(appUser)"
-                  >
-                    <i class="fas fa-edit"></i>
-                  </button>
-                  <button class="btn btn-outline-danger">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="col-md-12 text-center">
-          <pagination-controls
-            (pageChange)="page = $event"
-          ></pagination-controls>
-        </div> -->
-        <!-- End user table -->
       </div>
       <button
         [hidden]="true"

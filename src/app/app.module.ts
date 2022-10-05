@@ -135,6 +135,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { PeriodeEffects } from './ngrx/appelloyer/peiodeappel/periodeappel.effects';
 import { periodeReducer } from './ngrx/appelloyer/peiodeappel/periodeappel.reducer';
 import { AgenceUpdateComponent } from './pages/agence/agence-update/agence-update.component';
+import { ButtonNewUserActionComponent } from './composants/button-new-user-action/button-new-user-action.component';
 
 @NgModule({
   declarations: [
@@ -194,6 +195,7 @@ import { AgenceUpdateComponent } from './pages/agence/agence-update/agence-updat
     TachesPlanifieesComponent,
     PageGestionDroitComponent,
     AgenceUpdateComponent,
+    ButtonNewUserActionComponent,
 
   ],
   imports: [
