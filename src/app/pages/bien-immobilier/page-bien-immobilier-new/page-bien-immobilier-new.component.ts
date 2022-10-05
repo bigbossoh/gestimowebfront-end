@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -41,6 +41,8 @@ import { VillaState, VillaStateEnum } from 'src/app/ngrx/villa/villa.reducer';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
+import { DialogData } from '../../baux/page-baux/page-baux.component';
+import { GetMagasinByIdActions } from '../../../ngrx/magasin/magasin.actions';
 
 @Component({
   selector: 'app-page-bien-immobilier-new',
@@ -58,7 +60,6 @@ export class PageBienImmobilierNewComponent implements OnInit {
   magasinForm?: FormGroup;
   immeubleForm?: FormGroup;
   villaForm?: FormGroup;
-
 
   ngselecttypeBien = '20000';
   ngIelecttypeImm = 0;
@@ -89,67 +90,35 @@ export class PageBienImmobilierNewComponent implements OnInit {
     private store: Store<any>,
     private fb: FormBuilder,
     private userService: UserService,
-    private notificationService: NotificationService,
-    public dialogRef: MatDialogRef<PageBienImmobilierNewComponent>
+    public dialogRef: MatDialogRef<PageBienImmobilierNewComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {
-    this.listTypeBiens = [
-      'Appartement',
-      'Magasin',
-      // 'Studio',
-      'Villa',
-    ];
+    this.listTypeBiens = ['Appartement', 'Magasin', 'Villa'];
   }
+  visiblForm = 0;
   findEtageByImmeuble(immeuble: any) {
-    console.log("le target est le suivant :  "+immeuble.target.value);
-
     this.store.dispatch(
       new GetAllEtagesByImmeubleActions(immeuble.target.value)
     );
-    this.etageState$ = this.store.pipe(
-      map((state) => state.etageState)
-    );
-    console.log(this.etageState$);
+    this.etageState$ = this.store.pipe(map((state) => state.etageState));
+     }
 
-  }
-  private sendErrorNotification(
-    notificationType: NotificationType,
-    message: string
-  ): void {
-    if (message) {
-      this.notificationService.notify(notificationType, message);
-    } else {
-      this.notificationService.notify(
-        notificationType,
-        'An error occurred. Please try again.'
-      );
-    }
-  }
   onClose() {
     this.dialogRef.close();
   }
 
-
   onSaveMagasin() {
-
     this.submitted = true;
     if (this.magasinForm?.invalid) {
-     console.log("Le formulaire n'est pas bon du tout et pourquoi ?");
-     console.log(this.magasinForm?.value);
-      return;
+       return;
     }
-    console.log("Le formulaire est bon du tout et pourquoi ?");
-    console.log(this.magasinForm?.value);
+
     this.submitted = false;
     this.store.dispatch(new SaveMagasinActions(this.magasinForm?.value));
     this.magasinState$ = this.store.pipe(map((state) => state.magasinState));
     this.onClose();
   }
   onSaveAppartement() {
-    this.submitted = true;
-    console.log("L'appartement est ");
-    console.log(this.appartementForm?.value);
-
-
     if (this.appartementForm?.invalid) {
       return;
     }
@@ -191,7 +160,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
 
     this.villaForm = this.fb.group({
       id: [0],
-      idCreateur:[this.user?.id],
+      idCreateur: [this.user?.id],
       idAgence: [this.user?.idAgence],
       nbrChambreVilla: [0],
       nbrePiece: [0],
@@ -204,18 +173,17 @@ export class PageBienImmobilierNewComponent implements OnInit {
       numVilla: [0],
       description: [''],
       superficieBien: [0],
-      bienMeublerResidence:[],
+      bienMeublerResidence: [],
       idSite: ['', Validators.required],
       idUtilisateur: ['', Validators.required],
       occupied: [false],
       archived: [false],
     });
 
-
     this.magasinForm = this.fb.group({
       id: [0],
       idAgence: [this.user?.idAgence],
-      idCreateur:[this.user?.id],
+      idCreateur: [this.user?.id],
       numBien: [0],
       statutBien: [''],
       abrvBienimmobilier: ['MAGASIN'],
@@ -224,18 +192,18 @@ export class PageBienImmobilierNewComponent implements OnInit {
       superficieBien: [0],
       codeAbrvBienImmobilier: ['MAGASIN'],
       nmbrPieceMagasin: [0],
-      nomBaptiserBienImmobilier: ['', [Validators.required]],
+      nomBaptiserBienImmobilier: [this.data?.bienimmo.nomBaptiserBienImmobilier, [Validators.required]],
       idEtage: [0],
       idSite: ['', [Validators.required]],
       idUtilisateur: ['', [Validators.required]],
       underBuildingMagasin: [false],
-      occupied: [false],
+      occupied: [this.data?.bienimmo.occupied],
       archived: [false],
     });
     this.appartementForm = this.fb.group({
       id: [0],
       idAgence: [this.user?.idAgence],
-      idCreateur:[this.user?.id],
+      idCreateur: [this.user?.id],
       idEtageAppartement: [0, [Validators.required]],
       meubleApp: [false],
       nbrPieceApp: [0],
@@ -248,12 +216,12 @@ export class PageBienImmobilierNewComponent implements OnInit {
       residence: [false],
     });
 
-      this.formGroup = this.fb.group({
+    this.formGroup = this.fb.group({
       idTypeBien: [0],
       //VILLA
       id: [0],
       idAgence: [this.user?.idAgence],
-      idCreateur:[this.user?.id],
+      idCreateur: [this.user?.id],
       nbrChambreVilla: [0],
       nbrePiece: [0],
       nbrSalonVilla: [],
@@ -290,5 +258,26 @@ export class PageBienImmobilierNewComponent implements OnInit {
       numeroImmeuble: [0],
       garrage: [false],
     });
+    if (this.data != null) {
+      this.visiblForm = 1;
+
+      if (this.data.bienimmo.codeAbrvBienImmobilier.indexOf('-MAG-') != -1) {
+        this.ngselecttypeBien = 'Magasin';
+        alert(this.data.bienimmo.id);
+        this.store.dispatch(new GetMagasinByIdActions(this.data.bienimmo.id));
+        this.store.pipe(map((state) => state.magasinState)).subscribe(data => {
+          console.log("LE MASIN EST LE SUIVANT :");
+          console.log(data);
+
+
+        });
+      }
+      if (this.data.bienimmo.codeAbrvBienImmobilier.indexOf('-VILLA-') != -1) {
+        this.ngselecttypeBien = 'Villa';
+      }
+      if (this.data.bienimmo.codeAbrvBienImmobilier.indexOf('-APPT-') != -1) {
+        this.ngselecttypeBien = 'Appartement';
+      }
+    }
   }
 }

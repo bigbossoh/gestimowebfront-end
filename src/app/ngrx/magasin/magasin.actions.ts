@@ -17,6 +17,10 @@ export enum MagasinActionsTypes {
   GET_ALL_MAGASIN = '[MagasinDto] Get All Magasin',
   GET_ALL_MAGASIN_SUCCES = '[MagasinDto] Get All Magasin Succes',
   GET_ALL_MAGASIN_ERROR = '[MagasinDto] Get All Magasin Error',
+
+  GET_MAGASIN_BY_ID = '[MagasinDto] Get Magasin BY ID',
+  GET_MAGASIN_BY_ID_SUCCES = '[MagasinDto] Get Magasin BY ID Succes',
+  GET_MAGASIN_BY_ID_ERROR = '[MagasinDto] Get Magasin BY ID Error',
 }
 // CREER LES DIFFERENTES ACTIONS
 export class SaveMagasinActions implements Action {
@@ -48,6 +52,20 @@ export class GetAllMagasinLibreActionsError implements Action {
   constructor(public payload: string) {}
 }
 
+// GET MAGASIN BY ID
+export class GetMagasinByIdActions implements Action {
+  type: MagasinActionsTypes = MagasinActionsTypes.GET_MAGASIN_BY_ID;
+  constructor(public payload: number) {}
+}
+
+export class GetMagasinByIdActionsSuccess implements Action {
+  type: MagasinActionsTypes = MagasinActionsTypes.GET_MAGASIN_BY_ID_SUCCES;
+  constructor(public payload: MagasinDto) {}
+}
+export class GetMagasinByIdActionsError implements Action {
+  type: MagasinActionsTypes = MagasinActionsTypes.GET_MAGASIN_BY_ID_ERROR;
+  constructor(public payload: string) {}
+}
 // GET ALL MGASIN LIBRE
 export class GetAllMagasinActions implements Action {
   type: MagasinActionsTypes = MagasinActionsTypes.GET_ALL_MAGASIN;
@@ -66,11 +84,12 @@ export type MagasinActions =
   | SaveMagasinActions
   | SaveMagasinActionsSuccess
   | SaveMagasintActionsError
-
   | GetAllMagasinLibreActions
   | GetAllMagasinLibreActionsSuccess
   | GetAllMagasinLibreActionsError
-
   | GetAllMagasinActions
   | GetAllMagasinActionsSuccess
-  | GetAllMagasinActionsError;
+  | GetAllMagasinActionsError
+  | GetMagasinByIdActions
+  | GetMagasinByIdActionsError
+  | GetMagasinByIdActionsSuccess;

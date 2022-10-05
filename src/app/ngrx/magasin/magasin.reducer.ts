@@ -14,11 +14,13 @@ export enum MagasinStateEnum {
 }
 export interface MagasinState {
   magasins: MagasinResponseDto[];
+  magasin: any;
   errorMessage: string;
   dataState: MagasinStateEnum;
 }
 const initState: MagasinState = {
   magasins: [],
+  magasin:null,
   errorMessage: '',
   dataState: MagasinStateEnum.INITIAL,
 };
@@ -55,6 +57,22 @@ export function magasinReducer(
         magasins: (<MagasinActions>action).payload,
       };
     case MagasinActionsTypes.GET_ALL_MAGASIN_LIBRE_ERROR:
+      return {
+        ...state,
+        dataState: MagasinStateEnum.ERROR,
+        errorMessage: (<MagasinActions>action).payload,
+      };
+
+     // GET MAGASIN BY ID
+     case MagasinActionsTypes.GET_MAGASIN_BY_ID:
+      return { ...state, dataState: MagasinStateEnum.LOADING };
+    case MagasinActionsTypes.GET_MAGASIN_BY_ID_SUCCES:
+      return {
+        ...state,
+        dataState: MagasinStateEnum.LOADED,
+        magasin: (<MagasinActions>action).payload,
+      };
+    case MagasinActionsTypes.GET_MAGASIN_BY_ID_ERROR:
       return {
         ...state,
         dataState: MagasinStateEnum.ERROR,
