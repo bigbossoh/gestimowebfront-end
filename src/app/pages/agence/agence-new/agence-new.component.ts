@@ -69,7 +69,6 @@ export class AgenceNewComponent implements OnInit {
       active: [true],
     });
     if (this.editData) {
-
       this.idCompare = this.editData.id;
       this.actionBtn = 'Modifier';
       this.agenceRegisterForm.controls['idAgence'].setValue(
@@ -131,7 +130,7 @@ export class AgenceNewComponent implements OnInit {
       this.agenceRegisterForm.reset();
       this.onClose();
     } else {
-      this.store.dispatch(new GetAllAgenceActions({}));
+     // this.store.dispatch(new GetAllAgenceActions({}));
       this.store.dispatch(new SaveAgenceActions(this.agenceRegisterForm.value));
       this.agenceRegisterForm.reset();
       this.onClose();

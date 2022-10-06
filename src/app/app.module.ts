@@ -136,6 +136,10 @@ import { PeriodeEffects } from './ngrx/appelloyer/peiodeappel/periodeappel.effec
 import { periodeReducer } from './ngrx/appelloyer/peiodeappel/periodeappel.reducer';
 import { AgenceUpdateComponent } from './pages/agence/agence-update/agence-update.component';
 import { ButtonNewUserActionComponent } from './composants/button-new-user-action/button-new-user-action.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatNativeDateModule} from '@angular/material/core';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -197,6 +201,7 @@ import { ButtonNewUserActionComponent } from './composants/button-new-user-actio
     AgenceUpdateComponent,
     ButtonNewUserActionComponent,
 
+
   ],
   imports: [
     FormsModule,
@@ -225,6 +230,10 @@ import { ButtonNewUserActionComponent } from './composants/button-new-user-actio
     MatSortModule,
     MatCheckboxModule,
     MatGridListModule,
+    MatTabsModule,
+    MatNativeDateModule,
+    ScrollingModule,
+    MatCardModule,
 
     //ToastrModule.forRoot(),
     StoreModule.forRoot({

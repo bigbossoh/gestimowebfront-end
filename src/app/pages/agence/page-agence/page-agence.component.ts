@@ -15,7 +15,6 @@ import { AgenceNewComponent } from '../agence-new/agence-new.component';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import { AgenceUpdateComponent } from '../agence-update/agence-update.component';
 import { UserService } from '../../../services/user/user.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
@@ -40,7 +39,10 @@ export class PageAgenceComponent implements OnInit {
   readonly AgenceStateEnum = AgenceStateEnum;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(private store: Store<any>, public dialog: MatDialog, private userService:UserService, private notificationService: NotificationService) {}
+  constructor(private store: Store<any>,
+     public dialog: MatDialog,
+      private userService:UserService,
+       private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.store.dispatch(new GetAllAgenceActions({}));
@@ -87,7 +89,8 @@ export class PageAgenceComponent implements OnInit {
 //modifier
       this.dialog.open(AgenceNewComponent,{
         width:'50%',
-        data:row
+        data:row,
+        
       }).afterClosed().subscribe(
         val=>{
           if(val==='Modifier'){

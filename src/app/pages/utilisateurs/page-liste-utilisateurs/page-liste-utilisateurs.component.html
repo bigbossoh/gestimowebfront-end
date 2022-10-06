@@ -39,7 +39,7 @@
 
               <mat-table [dataSource]="dataSource" matSort>
                 <!-- Photo colonne -->
-                <ng-container matColumnDef="Photo">
+                <!-- <ng-container matColumnDef="Photo">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>
                     Photo
                   </mat-header-cell>
@@ -52,7 +52,7 @@
                       alt=""
                     />
                   </mat-cell>
-                </ng-container>
+                </ng-container> -->
 
                 <!-- ID colonne -->
                 <ng-container matColumnDef="ID">
@@ -121,43 +121,17 @@
                 </ng-container>
                 <!-- Actions colonne -->
                 <ng-container matColumnDef="Actions">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>
-                    Actions
-                  </mat-header-cell>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Actions</mat-header-cell>
                   <mat-cell *matCellDef="let row">
-                    <td class="">
-                      <!-- <div class="btn-group">
-                        <button
-                          class="btn btn-outline-info"
-                          (click)="onEditUser(row.id)"
-                        >
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        (click)="deleteProduct(row.id)"
-
-
-                        <button class="btn btn-outline-danger">
-                          <i class="fas fa-trash"></i>
-                        </button>
-                      </div> -->
                       <button mat-icon-button color="primary" (click)="onEditUser(row)">
                         <mat-icon>edit</mat-icon>
                       </button>
                       <button   mat-icon-button color="warn">
                         <mat-icon>delete</mat-icon>
                       </button>
-                    </td>
-                  </mat-cell>
-                  <!-- <th mat-header-cell *matHeaderCellDef mat-sort-header> Action</th>
-              <td mat-cell *matCellDef="let row">
-                <button mat-icon-button color="primary" (click)="onEditUser(row)">
-                  <mat-icon>edit</mat-icon>
-                </button>
-                <button (click)="deleteProduct(row.id)"  mat-icon-button color="warn">
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </td> -->
+                    </mat-cell>
                 </ng-container>
+
                 <mat-header-row *matHeaderRowDef="displayedColumns">
                 </mat-header-row>
                 <mat-row

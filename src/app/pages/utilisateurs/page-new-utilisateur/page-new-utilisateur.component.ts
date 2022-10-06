@@ -1,6 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -9,7 +16,12 @@ import { NotificationService } from 'src/app/services/notification/notification.
 import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { SaveUserActions } from '../../../ngrx/utulisateur/utilisateur.actions';
-import { UtilisteurState, UtilisteurStateEnum } from '../../../ngrx/utulisateur/utlisateur.reducer';
+import {
+  UtilisteurState,
+  UtilisteurStateEnum,
+} from '../../../ngrx/utulisateur/utlisateur.reducer';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { PasswordValidation } from './password-validator';
 
 @Component({
   selector: 'app-page-new-utilisateur',
@@ -23,89 +35,187 @@ export class PageNewUtilisateurComponent implements OnInit {
   private subscriptions: Subscription[] = [];
   nomProfil = '';
   nomPrenom = '';
+  nomRole = '';
   newUserForm!: FormGroup;
+
   submitted = false;
+  actionBtn: String = 'Enregistrer';
+  hide = true;
+  idCompare= 0;
   constructor(
-    private store:Store<any>,
+    private store: Store<any>,
     private userService: UserService,
     private notificationService: NotificationService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public editDataUser: any,
+    private dialogRef: MatDialogRef<PageNewUtilisateurComponent>
   ) {}
 
+  // checkPasswords: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => {
+  //   let password = group.get('password')!.value;
+  //   let repassword = group.get('repassword')!.value
+  //   return password === repassword ? null : { notSame: true }
+  // }
+
   ngOnInit(): void {
+
     this.user = this.userService.getUserFromLocalCache();
-    this.newUserForm = this.fb.group({
-      id: [''],
-      idAgence: [this.user?.idAgence],
-      idCreateur:[this.user?.id],
-      nom: ['', [Validators.required]],
-      prenom: [''],
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
-        ],
-      ],
-      mobile: [''],
-      dateDeNaissance: [''],
-      lieuNaissance: [''],
-      typePieceIdentite: [''],
-      numeroPieceIdentite: [''],
-      dateDebutPiece: [''],
-      dateFinPiece: [''],
-      nationalité: [''],
-      genre: ['', [Validators.required]],
-      username: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(9),
-          Validators.maxLength(12),
-          Validators.pattern('^[0-9]*$'),
+    this.newUserForm = this.fb.group(
+      {
+        id: [0],
+        idAgence: [this.user?.idAgence],
+        idCreateur: [this.user?.id],
+        nom: ['', [Validators.required]],
+        prenom: [''],
+        email: ['', [Validators.required, Validators.email]],
+        mobile: [''],
+        dateDeNaissance: [''],
+        lieuNaissance: [''],
+        typePieceIdentite: [''],
+        numeroPieceIdentite: [''],
+        dateDebutPiece: [''],
+        dateFinPiece: [''],
+        nationalité: [''],
+        genre: [''],
+        username: ['', [Validators.required, Validators.minLength(10)]],
+        password: ['', [Validators.required, Validators.minLength(2)]],
+        repassword: [''],
+        profileImageUrl: [''],
+        lastLoginDate: [''],
+        lastLoginDateDisplay: [''],
+        joinDate: [''],
+        roleUsed: ['', Validators.required],
+        agenceDto: [''],
+        userCreate: [''],
+        nonLocked: [true],
+        activated: [true],
+        active: [true],
+      }
+      // , {
+      //   validator: PasswordValidation.MatchPassword
+      // }
+    );
+    if (this.editDataUser) {
+      this.idCompare = this.editDataUser.id;
+      this.actionBtn = 'Modifier';
 
-        ],
-      ],
+      this.newUserForm.controls['id'].setValue(this.editDataUser.id);
+      this.newUserForm.controls['idAgence'].setValue(
+        this.editDataUser.idAgence
+      );
+      this.newUserForm.controls['idCreateur'].setValue(
+        this.editDataUser.idCreateur
+      );
+      this.newUserForm.controls['nom'].setValue(this.editDataUser.nom);
+      this.newUserForm.controls['prenom'].setValue(this.editDataUser.prenom);
+      this.newUserForm.controls['email'].setValue(this.editDataUser.email);
+      this.newUserForm.controls['mobile'].setValue(this.editDataUser.mobile);
 
-      password: ['', Validators.required],
-      repassword: ['', Validators.required],
-      profileImageUrl: [''],
-      lastLoginDate: [''],
-      lastLoginDateDisplay: [''],
-      joinDate: [''],
-      roleUsed: ['', Validators.required],
-      // authorities: [''], intrus
-      agenceDto: [''],
-      //  roleRequestDto: [''], intrus
-      userCreate: [''],
-      nonLocked: [true],
-      activated: [true],
-      active: [true],
-    });
+      this.newUserForm.controls['dateDeNaissance'].setValue(
+        this.editDataUser.dateDeNaissance
+      );
+      this.newUserForm.controls['lieuNaissance'].setValue(
+        this.editDataUser.lieuNaissance
+      );
+      this.newUserForm.controls['typePieceIdentite'].setValue(
+        this.editDataUser.typePieceIdentite
+      );
+      this.newUserForm.controls['numeroPieceIdentite'].setValue(
+        this.editDataUser.numeroPieceIdentite
+      );
+      this.newUserForm.controls['dateDebutPiece'].setValue(
+        this.editDataUser.dateDebutPiece
+      );
+      this.newUserForm.controls['dateFinPiece'].setValue(
+        this.editDataUser.dateFinPiece
+      );
+      this.newUserForm.controls['nationalité'].setValue(
+        this.editDataUser.nationalité
+      );
+      this.newUserForm.controls['genre'].setValue(this.editDataUser.genre);
+
+      this.newUserForm.controls['username'].setValue(
+        this.editDataUser.username
+      );
+      this.newUserForm.controls['password'].setValue(
+        this.editDataUser.password
+      );
+      this.newUserForm.controls['repassword'].setValue(
+        this.editDataUser.repassword
+      );
+      this.newUserForm.controls['profileImageUrl'].setValue(
+        this.editDataUser.profileImageUrl
+      );
+      this.newUserForm.controls['lastLoginDate'].setValue(
+        this.editDataUser.lastLoginDate
+      );
+      this.newUserForm.controls['lastLoginDateDisplay'].setValue(
+        this.editDataUser.lastLoginDateDisplay
+      );
+
+      this.newUserForm.controls['joinDate'].setValue(
+        this.editDataUser.joinDate
+      );
+      if(this.editDataUser.roleUsed=="ROLE_GERANT"){
+        this.newUserForm.controls['roleUsed'].setValue(
+          "GERANT"
+        );
+      }
+      if(this.editDataUser.roleUsed=="ROLE_PROPRIETAIRE"){
+        this.newUserForm.controls['roleUsed'].setValue(
+          "PROPRIETAIRE"
+        );
+      }
+      if(this.editDataUser.roleUsed=="ROLE_LOCATAIRE"){
+        this.newUserForm.controls['roleUsed'].setValue(
+          "LOCATAIRE"
+        );
+      }
+      this.newUserForm.controls['agenceDto'].setValue(
+        this.editDataUser.agenceDto
+      );
+      this.newUserForm.controls['userCreate'].setValue(
+        this.editDataUser.userCreate
+      );
+      this.newUserForm.controls['nonLocked'].setValue(
+        this.editDataUser.nonLocked
+      );
+      this.newUserForm.controls['activated'].setValue(
+        this.editDataUser.activated
+      );
+
+      this.newUserForm.controls['active'].setValue(this.editDataUser.active);
+    }
   }
-  private clickButton(buttonId: string): void {
-    document.getElementById(buttonId)!.click();
-  }
+  // private clickButton(buttonId: string): void {
+  //   document.getElementById(buttonId)!.click();
+  // }
   onAddNewUser(): void {}
   saveNewUser(): void {
-    this.submitted = true;
     this.newUserForm.patchValue({
-      userCreate: this.user?.id
-      , mobile: this.newUserForm.controls['username'].value,
+      userCreate: this.user?.id,
+      mobile: this.newUserForm.controls['username'].value,
       agenceDto: this.user?.idAgence,
-      idAgence: this.user?.idAgence,
-      id:0
-    })
+      idAgence: this.user?.idAgence
+    });
     if (this.newUserForm.invalid) {
       return;
     }
-    this.submitted = false;
+    console.log(this.newUserForm.value);
+    if (this.idCompare != 0) {
 
     this.store.dispatch(new SaveUserActions(this.newUserForm.value));
-    this.utilisateurState$ = this.store.pipe(
-      map((state) => state.utilisateurState)
-    );
+    this.newUserForm.reset();
+    this.onClose();
+  }else{
 
+      this.store.dispatch(new SaveUserActions(this.newUserForm.value));
+      this.newUserForm.reset();
+    this.onClose();
+    }
+  }
+  onClose() {
+    this.dialogRef.close();
   }
   private sendErrorNotification(
     notificationType: NotificationType,

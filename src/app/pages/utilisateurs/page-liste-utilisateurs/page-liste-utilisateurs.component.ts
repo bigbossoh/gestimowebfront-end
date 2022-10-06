@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription, Observable } from 'rxjs';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
@@ -15,6 +15,8 @@ import { map } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { PageNewUtilisateurComponent } from '../page-new-utilisateur/page-new-utilisateur.component';
 
 @Component({
   selector: 'app-page-liste-utilisateurs',
@@ -23,7 +25,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class PageListeUtilisateursComponent implements OnInit, AfterViewInit {
   displayedColumns = [
-    'Photo',
+    // 'Photo',
     'ID',
     'Nom',
     'role',
@@ -57,7 +59,9 @@ export class PageListeUtilisateursComponent implements OnInit, AfterViewInit {
   constructor(
     private store: Store<any>,
     private userService: UserService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+
+    private dialog: MatDialog
   ) {}
 
   applyFilter(event: Event) {
@@ -68,27 +72,10 @@ export class PageListeUtilisateursComponent implements OnInit, AfterViewInit {
     }
   }
   ngAfterViewInit(){
-    this.ngOnInit() 
+    this.ngOnInit()
   }
   ngOnInit() {
-    this.store.dispatch(new GetAllUtilisateursActions({}));
-    this.utilisateurState$ = this.store.pipe(
-      map((state) => state.utilisateurState)
-    );
-    this.store
-      .pipe(map((state) => state.utilisateurState))
-      .subscribe((data) => {
-        console.log('Les utilisateurs sont les suivants : ');
-
-        if (data.utilisateurs.length > 0) {
-          console.log(data.utilisateurs);
-          console.log("La pagination est la suivantes : ");
-          console.log(this.paginatorUser);
-          this.dataSource.data = data.utilisateurs;
-          this.totalRecords=data.utilisateurs.length
-          this.dataSource.paginator = this.paginatorUser;
-        }
-      });
+this. getAllUsers()
   }
 
   public onSelectUser(selectedUser: UtilisateurRequestDto): void {
@@ -183,12 +170,61 @@ export class PageListeUtilisateursComponent implements OnInit, AfterViewInit {
       this.users = this.userService.getUsersFromLocalCache();
     }
   }
-  public onEditUser(editUser: UtilisateurRequestDto): void {
-    console.log('we are clicking on edit button ', editUser);
+  // getAllProduct(){
+  //   this.getAgenceState$ = this.store.pipe(map((state) => state.agenceState));
+  //   this.store.pipe(map((state) => state.agenceState)).subscribe({
+  //     next:(rest)=>{
+  //       if(rest.agences.length>0){
+  //         console.log(rest.agences);
+  //         this.dataSource.data=rest.agences
+  //         this.dataSource.paginator=this.paginator;
+  //         this.dataSource.sort=this.sort;
+  //       }
 
-    this.editUser = editUser;
+  //     },
+  //     error:(err)=>{
+  //       alert("Error while getback the product data")
+  //       console.log(err);
+  //     }
+  //   });
 
-    this.clickButton('openUserEdit');
+  // }
+  getAllUsers():void{
+    this.store.dispatch(new GetAllUtilisateursActions({}));
+    this.utilisateurState$ = this.store.pipe(map((state) => state.utilisateurState));
+    this.store.pipe(map((state) => state.utilisateurState)).subscribe({
+      next:(rest) => {
+        if (rest.utilisateurs.length > 0) {
+          this.dataSource.data = rest.utilisateurs;
+          this.totalRecords=rest.utilisateurs.length
+          this.dataSource.paginator = this.paginatorUser;
+        }
+      },
+      error:(err)=>{
+              alert("Error while getback the product data")
+              console.log(err);
+            }
+      });
+  }
+  // public onEditUser(editUser: UtilisateurRequestDto): void {
+  //   console.log('we are clicking on edit button ', editUser);
+
+  //   this.editUser = editUser;
+
+  //   this.clickButton('openUserEdit');
+  // }
+  public onEditUser(row:any){
+
+    this.dialog.open(PageNewUtilisateurComponent,{
+      width:'50%',
+      data:row
+    }).afterClosed().subscribe(
+      val=>{
+        if(val==='Modifier'){
+          this.getAllUsers();
+        }
+      }
+    );
   }
 
   private sendErrorNotification(
