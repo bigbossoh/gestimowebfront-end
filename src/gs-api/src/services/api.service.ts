@@ -76,6 +76,7 @@ class ApiService extends __BaseService {
   static readonly listDesBauxPourUnBienImmobilierPath = 'gestimoweb/api/v1/bail/getallbailbybien/{id}';
   static readonly listDesBauxPourUnLocatairePath = 'gestimoweb/api/v1/bail/getallbailbylocataire/{id}';
   static readonly nombrebailactifPath = 'gestimoweb/api/v1/bail/nombrebailactif';
+  static readonly supprimerBailPath = 'gestimoweb/api/v1/bail/supprimerBail/{id}';
   static readonly findAllBailAppartementPath = 'gestimoweb/api/v1/bailappartement/all';
   static readonly findAllOperationsPath = 'gestimoweb/api/v1/bailappartement/alloperation';
   static readonly deleteBailAppartementPath = 'gestimoweb/api/v1/bailappartement/delete/{id}';
@@ -1206,6 +1207,42 @@ class ApiService extends __BaseService {
   nombrebailactif(): __Observable<number> {
     return this.nombrebailactifResponse().pipe(
       __map(_r => _r.body as number)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  supprimerBailResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/bail/supprimerBail/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: (_r as HttpResponse<any>).body === 'true' }) as __StrictHttpResponse<boolean>
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  supprimerBail(id: number): __Observable<boolean> {
+    return this.supprimerBailResponse(id).pipe(
+      __map(_r => _r.body as boolean)
     );
   }
 

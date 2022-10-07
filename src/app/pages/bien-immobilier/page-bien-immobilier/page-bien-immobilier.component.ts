@@ -34,7 +34,7 @@ import { VillaStateEnum } from '../../../ngrx/villa/villa.reducer';
 import { GetAllVillaActions } from '../../../ngrx/villa/villa.action';
 import { MatDialog } from '@angular/material/dialog';
 import { PageBienImmobilierNewComponent } from '../page-bien-immobilier-new/page-bien-immobilier-new.component';
-import { BienImmobilierAffiheDto } from '../../../../gs-api/src/models/bien-immobilier-affihe-dto';
+
 
 
 @Component({

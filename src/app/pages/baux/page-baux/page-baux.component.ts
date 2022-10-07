@@ -5,7 +5,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ClotureOperationActions, GetAllOperationActions } from 'src/app/ngrx/baux/baux.actions';
+import {
+  ClotureOperationActions,
+  GetAllOperationActions,
+} from 'src/app/ngrx/baux/baux.actions';
 import { BauxState, BauxStateEnum } from 'src/app/ngrx/baux/baux.reducer';
 import { OperationDto } from '../../../../gs-api/src/models/operation-dto';
 import { GetAllAppelLoyerActions } from '../../../ngrx/appelloyer/appelloyer.actions';
@@ -23,6 +26,7 @@ import {
 } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
 import { ModifLoyerBailComponent } from '../modif-loyer-bail/modif-loyer-bail.component';
+import { SupprimerOperationActions } from '../../../ngrx/baux/baux.actions';
 
 export interface DialogData {
   bienimmo: any;
@@ -45,7 +49,7 @@ export interface DialogData {
 })
 export class PageBauxComponent implements OnInit {
   columnsToDisplay = [
-    'Code bail',
+    'bail',
     'debut',
     'fin',
     'Montant Caution',
@@ -54,60 +58,58 @@ export class PageBauxComponent implements OnInit {
   ];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement?: OperationDto;
-  pageSize = [2, 5, 10, 15, 20];
+  pageSize = [5, 10, 15, 20];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  dataSource : MatTableDataSource<any> = new MatTableDataSource();;
+  dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
   appelloyerState$: Observable<AppelLoyerState> | null = null;
   bauxState$: Observable<BauxState> | null = null;
-
+  public totalRecords: number | undefined;
   readonly BauxStateEnum = BauxStateEnum;
   readonly AppelLoyerStateEnum = AppelLoyerStateEnum;
 
-  constructor(public dialog: MatDialog, private store: Store<any>) { }
+  constructor(public dialog: MatDialog, private store: Store<any>) {}
   openModifMontantDialog(loyer: number): void {
     const dialolRef = this.dialog.open(ModifLoyerBailComponent, {
-      data: { id: loyer }
+      data: { id: loyer },
     });
-    dialolRef.afterClosed().subscribe(() => {
-    });
+    dialolRef.afterClosed().subscribe(() => {});
   }
   ngOnInit(): void {
     this.store.dispatch(new GetAllOperationActions({}));
     this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
-    this.store.pipe(map((state) => state.bauxState)).subscribe((data)=>{
-      console.log("Les data sont les suivants :");
-      console.log(data.baux );
-      this.dataSource.data = data.baux;
-      this.dataSource.paginator = this.paginator;
+    this.store.pipe(map((state) => state.bauxState)).subscribe((data) => {
+        if (data.baux.length > 0) {
+        this.totalRecords=data.baux.length
+        this.dataSource.data = data.baux;
+        this.dataSource.paginator = this.paginator;
+      }
     });
   }
   onActionEmmit($event: any) {
     this.ngOnInit();
   }
-  onDetailClick(state: any) {
-
-  }
-  onClotureBail(idBail: any, nomBail: any) {
-
-    if (confirm("Vous allez Cloturer le Bail " + nomBail)) {
-      this.store.dispatch(new ClotureOperationActions(idBail));
-      this.bauxState$ = this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
+  onDetailClick(state: any) {}
+  onDeleteBail(idBail: any, nomBail: any) {
+    if (confirm('Vous allez Suprimer le Bail ' + nomBail)) {
+      this.store.dispatch(new SupprimerOperationActions(idBail));
+      this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
+      this.store.pipe(map((state) => state.bauxState)).subscribe((data) => {
+        if (data.baux.length > 0) {
+          this.totalRecords=data.baux.length
+          this.dataSource.data = data.baux;
+          this.dataSource.paginator = this.paginator;
+        }
+      });
     }
-
-
   }
 
-  onModifClick(state: any) {
-
-  }
-  onDeleteClick(state: any) {
-
-  }
+  onModifClick(state: any) {}
+  onDeleteClick(state: any) {}
   chargerAppels(evt: any) {
-    console.log("Le event qui a changé c'est celui ci "+evt);
+   
     this.store.dispatch(new GetAllAppelLoyerActions(evt));
     this.appelloyerState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
