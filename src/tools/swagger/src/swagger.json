@@ -2265,6 +2265,26 @@
         }
       }
     },
+    "gestimoweb/api/v1/villa/findVillaById/{id}" : {
+      "get" : {
+        "operationId" : "findVillaById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/VillaDto"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/villa/save" : {
       "post" : {
         "operationId" : "saveVilla",
@@ -3317,6 +3337,10 @@
         "utilisateurProprietaire" : {
           "$ref" : "#/definitions/Utilisateur"
         },
+        "nombrePieceBien" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
         "occupied" : {
           "type" : "boolean"
         }
@@ -3807,10 +3831,14 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
-          "type" : "boolean"
+        "idmmeuble" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "occupied" : {
+          "type" : "boolean"
+        },
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -3860,10 +3888,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
