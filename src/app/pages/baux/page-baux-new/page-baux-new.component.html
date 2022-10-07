@@ -573,7 +573,7 @@
                           bailAppartementForm.controls.idAppartement.errors
                       }"
                       formControlName="idLocataire"
-                      name="idLocataire"
+
                       id="username"
                       class="form-select form-select-lg mb3"
                     >
@@ -588,13 +588,13 @@
                     <div
                       *ngIf="
                         submitted &&
-                        bailAppartementForm.controls.idUtilisateur.errors
+                        bailAppartementForm.controls.idLocataire.errors
                       "
                       class="invalid-feedback"
                     >
                       <div
                         *ngIf="
-                          bailAppartementForm.controls.idUtilisateur.errors
+                          bailAppartementForm.controls.idLocataire.errors
                             .required
                         "
                       >

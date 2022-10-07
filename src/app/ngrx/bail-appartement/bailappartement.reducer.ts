@@ -35,7 +35,7 @@ export function bailAppartementReducer(
     case BailAppartementActionsTypes.SAVE_BAIL_APPARTEMENT:
       return { ...state, dataState: BailAppartementStateEnum.LOADING };
     case BailAppartementActionsTypes.SAVE_BAIL_APPARTEMENT_SUCCES:
-      let appa: BailAppartementDto[] = [...state.bailappartement];
+      let appa: OperationDto[] = [...state.bailappartement];
       appa.push((<BailAppartementnActions>action).payload)
       return {
         ...state,

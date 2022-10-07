@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { BienImmobilierAffiheDto } from '../../../gs-api/src/models/bien-immobilier-affihe-dto';
+
 import {
   BienImmobilierActions,
   BienImmobilierActionsTypes,

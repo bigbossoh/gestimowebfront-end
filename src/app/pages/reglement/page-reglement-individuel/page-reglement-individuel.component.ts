@@ -134,6 +134,7 @@ export class PageReglementIndividuelComponent implements OnInit {
       });
   }
   getBienByLocataire(loca: string) {
+    alert("bien "+loca)
     this.store.dispatch(new GetAllBientaireByLocatairesActions(loca));
     this.getBienBylocatairestate$ = this.store.pipe(
       map((state) => state.bauxState)
