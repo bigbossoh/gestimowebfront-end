@@ -15,5 +15,10 @@ export interface AgenceRequestDto {
   idUtilisateurCreateur?: number;
   motdepasse?: string;
   nomPrenomGerant?: string;
+  adresseAgence?: string;
+  idImage?: number;
+  nameImage?: string;
+  typeImage?: string;
+  profileAgenceUrl?: string;
   active?: boolean;
 }

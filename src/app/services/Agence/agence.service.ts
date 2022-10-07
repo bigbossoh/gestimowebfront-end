@@ -19,4 +19,6 @@ export class AgenceService {
   public onPostAgence(agenceDto:AgenceRequestDto):Observable<any>{
     return this.apiService.authenticateAgence(agenceDto);
   }
+ 
+
 }

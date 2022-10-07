@@ -1375,6 +1375,80 @@
         }
       }
     },
+    "gestimoweb/api/v1/images" : {
+      "post" : {
+        "operationId" : "uploadImage",
+        "parameters" : [ {
+          "name" : "image",
+          "in" : "query",
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/images/fileSystem" : {
+      "post" : {
+        "operationId" : "uploadImageToFIleSystem",
+        "parameters" : [ {
+          "name" : "image",
+          "in" : "query",
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/images/fileSystem/{fileName}" : {
+      "get" : {
+        "operationId" : "downloadImageFromFileSystem",
+        "parameters" : [ {
+          "name" : "fileName",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/images/{fileName}" : {
+      "get" : {
+        "operationId" : "downloadImage",
+        "parameters" : [ {
+          "name" : "fileName",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/immeuble/affichetoutlesimmeubles" : {
       "get" : {
         "operationId" : "affichageDesImmeubles",
@@ -2489,6 +2563,22 @@
         "idAgence" : {
           "type" : "integer",
           "format" : "int64"
+        },
+        "profileAgenceUrl" : {
+          "type" : "string"
+        },
+        "adresseAgence" : {
+          "type" : "string"
+        },
+        "idImage" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nameImage" : {
+          "type" : "string"
+        },
+        "typeImage" : {
+          "type" : "string"
         }
       }
     },
@@ -2543,6 +2633,22 @@
           "type" : "string"
         },
         "nomPrenomGerant" : {
+          "type" : "string"
+        },
+        "adresseAgence" : {
+          "type" : "string"
+        },
+        "idImage" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nameImage" : {
+          "type" : "string"
+        },
+        "typeImage" : {
+          "type" : "string"
+        },
+        "profileAgenceUrl" : {
           "type" : "string"
         },
         "active" : {
@@ -3834,6 +3940,12 @@
         "idmmeuble" : {
           "type" : "integer",
           "format" : "int64"
+<<<<<<< HEAD
+=======
+        },
+        "underBuildingMagasin" : {
+          "type" : "boolean"
+>>>>>>> agence-photo
         },
         "occupied" : {
           "type" : "boolean"
@@ -4420,10 +4532,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -4529,10 +4641,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -4638,10 +4750,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }

@@ -11,4 +11,9 @@ export interface AgenceImmobilierDTO {
   faxAgence?: string;
   sigleAgence?: string;
   idAgence?: number;
+  profileAgenceUrl?: string;
+  adresseAgence?: string;
+  idImage?: number;
+  nameImage?: string;
+  typeImage?: string;
 }

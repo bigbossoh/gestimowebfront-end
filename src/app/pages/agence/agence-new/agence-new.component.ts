@@ -38,6 +38,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class AgenceNewComponent implements OnInit {
   agenceRegisterForm!: FormGroup;
   actionBtn: String = 'Enregistrer';
+  selectedFile! : File;
   idCompare = 0;
   public user?: UtilisateurRequestDto;
   matcher = new MyErrorStateMatcher();
@@ -118,6 +119,25 @@ export class AgenceNewComponent implements OnInit {
   }
   onClose() {
     this.dialogRef.close();
+  }
+  onFileSelected(event:any){
+    console.log(event.target.files[0]);
+    this.selectedFile=<File>event.target.files[0];
+    //console.log(event);
+  }
+  onUploadImage(){
+
+    const fd= new FormData();
+     fd.append('image',this.selectedFile,this.selectedFile!.name);
+     console.log("we stating here ",fd);
+    this.userService.onUploadImageService(fd).subscribe(
+      rest=>{
+      console.log("we are here ",rest);
+    },
+    error=>{
+      console.log("we are error ",error);
+    })
+
   }
   saveNgrsAgence() {
     this.agenceRegisterForm.patchValue({

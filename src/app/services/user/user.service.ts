@@ -14,6 +14,7 @@ export class UserService {
   private token?: string | null;
   private loggedInUsername?: string | null;
   private jwtHelper = new JwtHelperService();
+  private selectedFile : any =null;
 
   constructor(
     private apiService:ApiService,
@@ -31,6 +32,17 @@ export class UserService {
   public saveToken(token: string): void {
     this.token = token;
     localStorage.setItem('token', token);
+  }
+  // postFormDataToServerMultiPart(action: string, formData) {
+  //   return this.http
+  //     .post(this.rootUrl + `gestimoweb/api/v1/images` + action, formData)
+  //     .pipe(map((response: any) => response));
+  // }
+
+  public onUploadImageService(image:any):Observable<any>{
+
+     console.log("from service ")
+    return this.apiService.uploadImage(image);
   }
 
   public loadToken(): void {

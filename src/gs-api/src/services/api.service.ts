@@ -116,6 +116,10 @@ class ApiService extends __BaseService {
   static readonly affichageDesEtageParImmeublePath = 'gestimoweb/api/v1/etage/findByIdImmeuble/{id}';
   static readonly findEtageByNamePath = 'gestimoweb/api/v1/etage/findByName/{name}';
   static readonly saveEtagePath = 'gestimoweb/api/v1/etage/save';
+  static readonly uploadImagePath = 'gestimoweb/api/v1/images';
+  static readonly uploadImageToFIleSystemPath = 'gestimoweb/api/v1/images/fileSystem';
+  static readonly downloadImageFromFileSystemPath = 'gestimoweb/api/v1/images/fileSystem/{fileName}';
+  static readonly downloadImagePath = 'gestimoweb/api/v1/images/{fileName}';
   static readonly affichageDesImmeublesPath = 'gestimoweb/api/v1/immeuble/affichetoutlesimmeubles';
   static readonly findAllImmeublePath = 'gestimoweb/api/v1/immeuble/all';
   static readonly deleteImmeublePath = 'gestimoweb/api/v1/immeuble/deleteImmeuble/{id}';
@@ -2615,6 +2619,150 @@ class ApiService extends __BaseService {
   saveEtage(body?: EtageDto): __Observable<EtageDto> {
     return this.saveEtageResponse(body).pipe(
       __map(_r => _r.body as EtageDto)
+    );
+  }
+
+  /**
+   * @param image undefined
+   * @return successful operation
+   */
+  uploadImageResponse(image: any): __Observable<__StrictHttpResponse<{}>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    if (image != null) __params = __params.set('image', image.toString());
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/images`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<{}>;
+      })
+    );
+  }
+  /**
+   * @param image undefined
+   * @return successful operation
+   */
+  uploadImage(image: any): __Observable<{}> {
+    return this.uploadImageResponse(image).pipe(
+      __map(_r => _r.body as {})
+    );
+  }
+
+  /**
+   * @param image undefined
+   * @return successful operation
+   */
+  uploadImageToFIleSystemResponse(image: any): __Observable<__StrictHttpResponse<{}>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    if (image != null) __params = __params.set('image', image.toString());
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/images/fileSystem`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<{}>;
+      })
+    );
+  }
+  /**
+   * @param image undefined
+   * @return successful operation
+   */
+  uploadImageToFIleSystem(image: any): __Observable<{}> {
+    return this.uploadImageToFIleSystemResponse(image).pipe(
+      __map(_r => _r.body as {})
+    );
+  }
+
+  /**
+   * @param fileName undefined
+   * @return successful operation
+   */
+  downloadImageFromFileSystemResponse(fileName: string): __Observable<__StrictHttpResponse<{}>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/images/fileSystem/${fileName}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<{}>;
+      })
+    );
+  }
+  /**
+   * @param fileName undefined
+   * @return successful operation
+   */
+  downloadImageFromFileSystem(fileName: string): __Observable<{}> {
+    return this.downloadImageFromFileSystemResponse(fileName).pipe(
+      __map(_r => _r.body as {})
+    );
+  }
+
+  /**
+   * @param fileName undefined
+   * @return successful operation
+   */
+  downloadImageResponse(fileName: string): __Observable<__StrictHttpResponse<{}>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/images/${fileName}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<{}>;
+      })
+    );
+  }
+  /**
+   * @param fileName undefined
+   * @return successful operation
+   */
+  downloadImage(fileName: string): __Observable<{}> {
+    return this.downloadImageResponse(fileName).pipe(
+      __map(_r => _r.body as {})
     );
   }
 
