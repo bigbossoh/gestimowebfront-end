@@ -34,21 +34,37 @@ export function magasinReducer(
       return { ...state, dataState: MagasinStateEnum.LOADING };
     case MagasinActionsTypes.SAVE_MAGASIN_SUCCES:
       let leMagasin = (<MagasinActions>action).payload;
-      if (leMagasin.id!=0||leMagasin.id!=null){
-        let maga: MagasinDto[] = [...state.magasins];
-        let leMagUp = state.magasin.indexOf(leMagasin.id)
-       if (leMagUp) {
-        maga.slice(leMagUp,1)
+
+      if (leMagasin.id != 0 || leMagasin.id != null) {
+        let modifMagasins = [...state.magasins]
+        let magasinId=0;
+       for (let index = 0; index < modifMagasins.length; index++) {
+       if (modifMagasins[index].id==leMagasin.id) {
+         modifMagasins[index] = leMagasin;
+         return {
+          ...state,
+          dataState: MagasinStateEnum.LOADED,
+          magasins: modifMagasins,
+        };
        }
-       console.log("Le magin modifié est le suivant : ");
-        console.log((<MagasinActions>action).payload);
-       
-        maga.push((<MagasinActions>action).payload);
+
+       }
+
+        let magasinToModif=state.magasins.find(maga=>{maga.id==(<MagasinActions>action).payload.id})
+        console.log("L'index is this :");
+        console.log(magasinId);
+        console.log("The payload magasin is : ");
+        console.log(leMagasin);
+
+        modifMagasins[magasinId] = (<MagasinActions>action).payload;
+        console.log("The new state est le suivant");
+        console.log(modifMagasins);
         return {
           ...state,
           dataState: MagasinStateEnum.LOADED,
-          magasins: maga,
+          magasins: modifMagasins,
         };
+
       } else {
         let maga: MagasinDto[] = [...state.magasins];
         maga.push((<MagasinActions>action).payload);
@@ -58,7 +74,7 @@ export function magasinReducer(
           magasins: maga,
         };
       }
-     
+
     case MagasinActionsTypes.SAVE_MAGASIN_ERROR:
       return {
         ...state,
