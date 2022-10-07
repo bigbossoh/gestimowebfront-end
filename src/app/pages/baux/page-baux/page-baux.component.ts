@@ -25,6 +25,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModifLoyerBailComponent } from '../modif-loyer-bail/modif-loyer-bail.component';
 
 export interface DialogData {
+  bienimmo: any;
   id: number;
 }
 @Component({

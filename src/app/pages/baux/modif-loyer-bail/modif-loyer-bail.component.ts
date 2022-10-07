@@ -15,6 +15,7 @@ export class ModifLoyerBailComponent implements OnInit {
   constructor(private fb: FormBuilder,
     public dialogRef: MatDialogRef<ModifLoyerBailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,) { }
+  
   onSubmit() {
     console.log(this.formGroup?.value);
 

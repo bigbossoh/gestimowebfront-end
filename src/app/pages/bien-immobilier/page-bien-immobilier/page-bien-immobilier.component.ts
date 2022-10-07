@@ -32,6 +32,10 @@ import { GetAllMagasinActions } from '../../../ngrx/magasin/magasin.actions';
 import { VillaState } from 'src/app/ngrx/villa/villa.reducer';
 import { VillaStateEnum } from '../../../ngrx/villa/villa.reducer';
 import { GetAllVillaActions } from '../../../ngrx/villa/villa.action';
+import { MatDialog } from '@angular/material/dialog';
+import { PageBienImmobilierNewComponent } from '../page-bien-immobilier-new/page-bien-immobilier-new.component';
+import { BienImmobilierAffiheDto } from '../../../../gs-api/src/models/bien-immobilier-affihe-dto';
+
 
 @Component({
   selector: 'app-page-bien-immobilier',
@@ -47,7 +51,7 @@ export class PageBienImmobilierComponent implements OnInit, AfterViewInit {
     'Actions',
   ];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  pageSize = [2, 5, 10, 15, 20];
+  pageSize = [5, 10, 15, 20];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -70,7 +74,7 @@ export class PageBienImmobilierComponent implements OnInit, AfterViewInit {
   readonly CommunesStateEnum = CommunesStateEnum;
   readonly BienImmobilierStateEnum = BienImmobilierStateEnum;
 
-  constructor(private store: Store<any>) {}
+  constructor(private store: Store<any>,public dialog: MatDialog) {}
   ngAfterViewInit(): void {
     this.ngOnInit();
   }
@@ -121,5 +125,11 @@ export class PageBienImmobilierComponent implements OnInit, AfterViewInit {
     this.store.dispatch(new GetAllCommunesByVilleActions(pays.target.value));
     this.commeState$ = this.store.pipe(map((state) => state.communeState));
     this.ngOnInit();
+  }
+  onEditBien(bien: any) {
+    const dialolRef = this.dialog.open(PageBienImmobilierNewComponent, {
+      data:{bienimmo:bien}
+      //  width: '1024px',
+    });
   }
 }

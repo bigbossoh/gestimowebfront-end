@@ -6,7 +6,13 @@ import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { ApiService } from 'src/gs-api/src/services';
-import { GetAllMagasinActionsSuccess, GetAllMagasinActionsError } from './magasin.actions';
+import { GetMagasinByIdActionsSuccess } from './magasin.actions';
+import {
+  GetAllMagasinActionsSuccess,
+  GetAllMagasinActionsError,
+  GetMagasinByIdActions,
+  GetMagasinByIdActionsError,
+} from './magasin.actions';
 import {
   GetAllMagasinLibreActionsSuccess,
   GetAllMagasinLibreActionsError,
@@ -18,8 +24,11 @@ import {
 
 @Injectable()
 export class MagasinEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions
-    , private notificationService: NotificationService) { }
+  constructor(
+    private apiService: ApiService,
+    private effectActions: Actions,
+    private notificationService: NotificationService
+  ) {}
 
   //SAVE EFFECTS
   saveMagasinEffect: Observable<Action> = createEffect(() =>
@@ -32,12 +41,36 @@ export class MagasinEffects {
         );
       }),
       tap((resultat) => {
-        console.log('Resultats Effects save Magasin', resultat);
-        if (resultat.payload != null) {
+        if (resultat.type == MagasinActionsTypes.SAVE_MAGASIN_SUCCES) {
           this.sendErrorNotification(
             NotificationType.SUCCESS,
-            "La création du Magasin a été effectuée avec succès"
+            'La création du Magasin a été effectuée avec succès'
           );
+        } else {
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            'Une erreur a été rencontrée'
+          );
+        }
+      })
+    )
+  );
+  //GET MAGASIN BY ID EFFECTS
+  getMagasinByIdEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(MagasinActionsTypes.GET_MAGASIN_BY_ID),
+      mergeMap((action: MagasinActions) => {
+        return this.apiService.findByIDMagasin(action.payload).pipe(
+          map((magasin) => new GetMagasinByIdActionsSuccess(magasin)),
+          catchError((err) => of(new GetMagasinByIdActionsError(err.message)))
+        );
+      }),
+      tap((resultat) => {
+        if (resultat.type == MagasinActionsTypes.GET_MAGASIN_BY_ID_SUCCES) {
+          // this.sendErrorNotification(
+          //   NotificationType.SUCCESS,
+          //   'La création du Magasin a été effectuée avec succès'
+          // );
         } else {
           this.sendErrorNotification(
             NotificationType.ERROR,
@@ -68,9 +101,7 @@ export class MagasinEffects {
       mergeMap((action) => {
         return this.apiService.findAllMagasin().pipe(
           map((magasin) => new GetAllMagasinActionsSuccess(magasin)),
-          catchError((err) =>
-            of(new GetAllMagasinActionsError(err.message))
-          )
+          catchError((err) => of(new GetAllMagasinActionsError(err.message)))
         );
       })
     )
