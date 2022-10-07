@@ -5,7 +5,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
-import { GetAppartementByIdActions, SaveAppartementActions } from 'src/app/ngrx/appartement/appartement.actions';
+import {
+  GetAppartementByIdActions,
+  SaveAppartementActions,
+} from 'src/app/ngrx/appartement/appartement.actions';
 import {
   AppartementState,
   AppartementStateEnum,
@@ -36,13 +39,17 @@ import {
   UtilisteurState,
   UtilisteurStateEnum,
 } from 'src/app/ngrx/utulisateur/utlisateur.reducer';
-import { GetVillaByIdActions, SaveVillaActions } from 'src/app/ngrx/villa/villa.action';
+import {
+  GetVillaByIdActions,
+  SaveVillaActions,
+} from 'src/app/ngrx/villa/villa.action';
 import { VillaState, VillaStateEnum } from 'src/app/ngrx/villa/villa.reducer';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { DialogData } from '../../baux/page-baux/page-baux.component';
 import { GetMagasinByIdActions } from '../../../ngrx/magasin/magasin.actions';
+import { GetAllBiensActions } from '../../../ngrx/bien-immobilier/bienimmobilier.actions';
 
 @Component({
   selector: 'app-page-bien-immobilier-new',
@@ -104,6 +111,13 @@ export class PageBienImmobilierNewComponent implements OnInit {
   }
 
   onClose() {
+    this.store.dispatch(new GetAllBiensActions({}));
+    this.store.pipe(
+      map((state) => state.biensState)).subscribe(data => {
+        console.log("La list des bien");
+        console.log(data);
+
+      })
     this.dialogRef.close();
   }
 
@@ -161,94 +175,103 @@ export class PageBienImmobilierNewComponent implements OnInit {
       if (this.data.bienimmo.codeAbrvBienImmobilier.indexOf('-MAG-') != -1) {
         this.ngselecttypeBien = 'Magasin';
         this.store.dispatch(new GetMagasinByIdActions(this.data.bienimmo.id));
-        this.store.pipe(map((state) => state.magasinState)).subscribe(data => {
-          console.log("LE MAGASIN EST LE SUIVANT :");
-          console.log(data.magasin);
-          if (data.magasin != null) {
-            this.magasinForm = this.fb.group({
-              id: [data.magasin.id],
-              idAgence: [this.user?.idAgence],
-              idCreateur: [this.user?.id],
-              numMagasin: [data.magasin.numMagasin],
-              statutBien: [data.magasin.statutBien],
-              abrvBienimmobilier: ['MAGASIN'],
-              description: [data.magasin.description],
+        this.store
+          .pipe(map((state) => state.magasinState))
+          .subscribe((data) => {
+            console.log('LE MAGASIN EST LE SUIVANT :');
+            console.log(data.magasin);
+            if (data.magasin != null) {
+              this.magasinForm = this.fb.group({
+                id: [data.magasin.id],
+                idAgence: [this.user?.idAgence],
+                idCreateur: [this.user?.id],
+                numMagasin: [data.magasin.numMagasin],
+                statutBien: [data.magasin.statutBien],
+                abrvBienimmobilier: ['MAGASIN'],
+                description: [data.magasin.description],
 
-              superficieBien: [data.magasin.superficieBien],
-              codeAbrvBienImmobilier: ['MAGASIN'],
-              nombrePieceMagasin: [data.magasin.nombrePieceMagasin],
-              nomBaptiserBienImmobilier: [data.magasin.nomBaptiserBienImmobilier],
-              idEtage: [data.magasin.idEtage],
-              idSite: [data.magasin.idSite],
-              idUtilisateur: [data.magasin.idUtilisateur],
-              underBuildingMagasin: [data.magasin.underBuildingMagasin],
-              occupied: [data.magasin.occupied],
-              archived: [data.magasin.archive],
-            });
-          }
-
-
-
-        });
+                superficieBien: [data.magasin.superficieBien],
+                codeAbrvBienImmobilier: ['MAGASIN'],
+                nombrePieceMagasin: [data.magasin.nombrePieceMagasin],
+                nomBaptiserBienImmobilier: [
+                  data.magasin.nomBaptiserBienImmobilier,
+                ],
+                idEtage: [data.magasin.idEtage],
+                idSite: [data.magasin.idSite],
+                idUtilisateur: [data.magasin.idUtilisateur],
+                underBuildingMagasin: [data.magasin.underBuildingMagasin],
+                occupied: [data.magasin.occupied],
+                archived: [data.magasin.archive],
+              });
+            }
+          });
       }
       if (this.data.bienimmo.codeAbrvBienImmobilier.indexOf('-VILLA-') != -1) {
         this.ngselecttypeBien = 'Villa';
         this.store.dispatch(new GetVillaByIdActions(this.data.bienimmo.id));
-        this.store.pipe(map((state) => state.villaState)).subscribe(dataReceive=>{
-          
-          if (dataReceive.villa!=null) {
-            this.villaForm = this.fb.group({
-              id: [this.data.bienimmo.id],
-              idCreateur: [this.user?.id],
-              idAgence: [this.user?.idAgence],
-              nbrChambreVilla: [dataReceive.villa.nbrChambreVilla],
-              nbrePiece: [dataReceive.villa!],
-              nbrSalonVilla: [dataReceive.villa!],
-              nbrSalleEauVilla: [dataReceive.villa!],
-              nomBaptiserBienImmobilier: [dataReceive.villa!],
-              codeAbrvBienImmobilier: [dataReceive.villa.codeAbrvBienImmobilier],
-              garageVilla: [dataReceive.villa!],
-              nbreVoitureGarageVilla: [dataReceive.villa!],
-              numVilla: [0],
-              description: [dataReceive.villa!],
-              superficieBien: [],
-              bienMeublerResidence: [dataReceive.villa!],
-              idSite: [dataReceive.villa.idSite],
-              idUtilisateur: [dataReceive.villa.idUtilisateur],
-              occupied: [dataReceive.villa!],
-              archived: [dataReceive.villa!],
-            });
-          }
-          
-        })
-        
-        
+        this.store
+          .pipe(map((state) => state.villaState))
+          .subscribe((dataReceive) => {
+            console.log('La villa');
+            console.log(dataReceive.villa);
+
+            if (dataReceive.villa != null) {
+              this.villaForm = this.fb.group({
+                id: [this.data.bienimmo.id],
+                idCreateur: [this.user?.id],
+                idAgence: [this.user?.idAgence],
+                nbrChambreVilla: [dataReceive.villa.nbrChambreVilla],
+                nbrePiece: [dataReceive.villa.nbrePieceVilla],
+                nbrSalonVilla: [dataReceive.villa.nbrSalonVilla],
+                nbrSalleEauVilla: [dataReceive.villa.nbrSalleEauVilla],
+                nomBaptiserBienImmobilier: [
+                  dataReceive.villa.nomBaptiserBienImmobilier,
+                ],
+                codeAbrvBienImmobilier: [
+                  dataReceive.villa.codeAbrvBienImmobilier,
+                ],
+                garageVilla: [false],
+                nbreVoitureGarageVilla: [0],
+                numVilla: [dataReceive.villa.numVilla],
+                description: [dataReceive.villa.description],
+                superficieBien: [dataReceive.villa.superficieBien],
+                bienMeublerResidence: [dataReceive.villabienMeublerResidence],
+                idSite: [dataReceive.villa.idSite],
+                idUtilisateur: [dataReceive.villa.idUtilisateur],
+                occupied: [dataReceive.villa.occupied],
+                archived: [false],
+              });
+            }
+          });
       }
       if (this.data.bienimmo.codeAbrvBienImmobilier.indexOf('-APPT-') != -1) {
         this.ngselecttypeBien = 'Appartement';
-        this.store.dispatch(new GetAppartementByIdActions(this.data.bienimmo.id));
-        this.store.pipe(map((state) => state.appartementState)).subscribe((data) => {
-          if (data.appartement!=null) {
-          
-            this.appartementForm = this.fb.group({
-              id: [data.appartement.id],
-              idAgence: [this.user?.idAgence],
-              idCreateur: [this.user?.id],
-              idEtageAppartement: [data.appartement.idEtageAppartement],
-              meubleApp: [data.appartement.bienMeublerResidence],
-              nbrPieceApp: [data.appartement.nbrPieceApp],
-              nbreChambreApp: [data.appartement.nbreChambreApp],
-              nbrSalonApp: [data.appartement.nbreSalonApp],
-              nbreSalleEauApp: [data.appartement.nbreSalleEauApp],
-              numeroApp: [0],
-              abrvNomApp: ['APPART'],
-              nomBaptiserBienImmobilier: [data.appartement.nomBaptiserBienImmobilier],
-              residence: [data.appartement.bienMeublerResidence],
-            });
-          }
-      
-        })
-
+        this.store.dispatch(
+          new GetAppartementByIdActions(this.data.bienimmo.id)
+        );
+        this.store
+          .pipe(map((state) => state.appartementState))
+          .subscribe((data) => {
+            if (data.appartement != null) {
+              this.appartementForm = this.fb.group({
+                id: [data.appartement.id],
+                idAgence: [this.user?.idAgence],
+                idCreateur: [this.user?.id],
+                idEtageAppartement: [data.appartement.idEtageAppartement],
+                meubleApp: [data.appartement.bienMeublerResidence],
+                nbrPieceApp: [data.appartement.nbrPieceApp],
+                nbreChambreApp: [data.appartement.nbreChambreApp],
+                nbrSalonApp: [data.appartement.nbreSalonApp],
+                nbreSalleEauApp: [data.appartement.nbreSalleEauApp],
+                numeroApp: [0],
+                abrvNomApp: ['APPART'],
+                nomBaptiserBienImmobilier: [
+                  data.appartement.nomBaptiserBienImmobilier,
+                ],
+                residence: [data.appartement.bienMeublerResidence],
+              });
+            }
+          });
       }
     } else {
       this.ngselecttypeBien = '10';
