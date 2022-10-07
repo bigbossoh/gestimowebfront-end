@@ -13,5 +13,6 @@ export interface Bienimmobilier {
   superficieBien?: number;
   bienMeublerResidence?: boolean;
   utilisateurProprietaire?: Utilisateur;
+  nombrePieceBien?: number;
   occupied?: boolean;
 }

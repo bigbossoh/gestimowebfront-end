@@ -116,6 +116,10 @@ class ApiService extends __BaseService {
   static readonly affichageDesEtageParImmeublePath = 'gestimoweb/api/v1/etage/findByIdImmeuble/{id}';
   static readonly findEtageByNamePath = 'gestimoweb/api/v1/etage/findByName/{name}';
   static readonly saveEtagePath = 'gestimoweb/api/v1/etage/save';
+  static readonly uploadImagePath = 'gestimoweb/api/v1/images';
+  static readonly uploadImageToFIleSystemPath = 'gestimoweb/api/v1/images/fileSystem';
+  static readonly downloadImageFromFileSystemPath = 'gestimoweb/api/v1/images/fileSystem/{fileName}';
+  static readonly downloadImagePath = 'gestimoweb/api/v1/images/{fileName}';
   static readonly affichageDesImmeublesPath = 'gestimoweb/api/v1/immeuble/affichetoutlesimmeubles';
   static readonly findAllImmeublePath = 'gestimoweb/api/v1/immeuble/all';
   static readonly deleteImmeublePath = 'gestimoweb/api/v1/immeuble/deleteImmeuble/{id}';
@@ -162,6 +166,7 @@ class ApiService extends __BaseService {
   static readonly getAllSuperviseursByOrderPath = 'gestimoweb/api/v1/utilisateur/superviseurs/all';
   static readonly findAllVillaPath = 'gestimoweb/api/v1/villa/all';
   static readonly findAllVillaLibrePath = 'gestimoweb/api/v1/villa/alllibre';
+  static readonly findVillaByIdPath = 'gestimoweb/api/v1/villa/findVillaById/{id}';
   static readonly saveVillaPath = 'gestimoweb/api/v1/villa/save';
   static readonly findAllVillesPath = 'gestimoweb/api/v1/ville/all';
   static readonly deleteVillePath = 'gestimoweb/api/v1/ville/delete/{id}';
@@ -2618,6 +2623,150 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param image undefined
+   * @return successful operation
+   */
+  uploadImageResponse(image: any): __Observable<__StrictHttpResponse<{}>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    if (image != null) __params = __params.set('image', image.toString());
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/images`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<{}>;
+      })
+    );
+  }
+  /**
+   * @param image undefined
+   * @return successful operation
+   */
+  uploadImage(image: any): __Observable<{}> {
+    return this.uploadImageResponse(image).pipe(
+      __map(_r => _r.body as {})
+    );
+  }
+
+  /**
+   * @param image undefined
+   * @return successful operation
+   */
+  uploadImageToFIleSystemResponse(image: any): __Observable<__StrictHttpResponse<{}>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    if (image != null) __params = __params.set('image', image.toString());
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/images/fileSystem`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<{}>;
+      })
+    );
+  }
+  /**
+   * @param image undefined
+   * @return successful operation
+   */
+  uploadImageToFIleSystem(image: any): __Observable<{}> {
+    return this.uploadImageToFIleSystemResponse(image).pipe(
+      __map(_r => _r.body as {})
+    );
+  }
+
+  /**
+   * @param fileName undefined
+   * @return successful operation
+   */
+  downloadImageFromFileSystemResponse(fileName: string): __Observable<__StrictHttpResponse<{}>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/images/fileSystem/${fileName}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<{}>;
+      })
+    );
+  }
+  /**
+   * @param fileName undefined
+   * @return successful operation
+   */
+  downloadImageFromFileSystem(fileName: string): __Observable<{}> {
+    return this.downloadImageFromFileSystemResponse(fileName).pipe(
+      __map(_r => _r.body as {})
+    );
+  }
+
+  /**
+   * @param fileName undefined
+   * @return successful operation
+   */
+  downloadImageResponse(fileName: string): __Observable<__StrictHttpResponse<{}>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/images/${fileName}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<{}>;
+      })
+    );
+  }
+  /**
+   * @param fileName undefined
+   * @return successful operation
+   */
+  downloadImage(fileName: string): __Observable<{}> {
+    return this.downloadImageResponse(fileName).pipe(
+      __map(_r => _r.body as {})
+    );
+  }
+
+  /**
    * @return successful operation
    */
   affichageDesImmeublesResponse(): __Observable<__StrictHttpResponse<Array<ImmeubleEtageDto>>> {
@@ -4228,6 +4377,42 @@ class ApiService extends __BaseService {
   findAllVillaLibre(): __Observable<Array<VillaDto>> {
     return this.findAllVillaLibreResponse().pipe(
       __map(_r => _r.body as Array<VillaDto>)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findVillaByIdResponse(id: number): __Observable<__StrictHttpResponse<VillaDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/villa/findVillaById/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<VillaDto>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findVillaById(id: number): __Observable<VillaDto> {
+    return this.findVillaByIdResponse(id).pipe(
+      __map(_r => _r.body as VillaDto)
     );
   }
 

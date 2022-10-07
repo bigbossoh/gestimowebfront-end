@@ -1375,6 +1375,80 @@
         }
       }
     },
+    "gestimoweb/api/v1/images" : {
+      "post" : {
+        "operationId" : "uploadImage",
+        "parameters" : [ {
+          "name" : "image",
+          "in" : "query",
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/images/fileSystem" : {
+      "post" : {
+        "operationId" : "uploadImageToFIleSystem",
+        "parameters" : [ {
+          "name" : "image",
+          "in" : "query",
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/images/fileSystem/{fileName}" : {
+      "get" : {
+        "operationId" : "downloadImageFromFileSystem",
+        "parameters" : [ {
+          "name" : "fileName",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/images/{fileName}" : {
+      "get" : {
+        "operationId" : "downloadImage",
+        "parameters" : [ {
+          "name" : "fileName",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/immeuble/affichetoutlesimmeubles" : {
       "get" : {
         "operationId" : "affichageDesImmeubles",
@@ -2265,6 +2339,26 @@
         }
       }
     },
+    "gestimoweb/api/v1/villa/findVillaById/{id}" : {
+      "get" : {
+        "operationId" : "findVillaById",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/VillaDto"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/villa/save" : {
       "post" : {
         "operationId" : "saveVilla",
@@ -2469,6 +2563,22 @@
         "idAgence" : {
           "type" : "integer",
           "format" : "int64"
+        },
+        "profileAgenceUrl" : {
+          "type" : "string"
+        },
+        "adresseAgence" : {
+          "type" : "string"
+        },
+        "idImage" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nameImage" : {
+          "type" : "string"
+        },
+        "typeImage" : {
+          "type" : "string"
         }
       }
     },
@@ -2523,6 +2633,22 @@
           "type" : "string"
         },
         "nomPrenomGerant" : {
+          "type" : "string"
+        },
+        "adresseAgence" : {
+          "type" : "string"
+        },
+        "idImage" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nameImage" : {
+          "type" : "string"
+        },
+        "typeImage" : {
+          "type" : "string"
+        },
+        "profileAgenceUrl" : {
           "type" : "string"
         },
         "active" : {
@@ -3317,6 +3443,10 @@
         "utilisateurProprietaire" : {
           "$ref" : "#/definitions/Utilisateur"
         },
+        "nombrePieceBien" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
         "occupied" : {
           "type" : "boolean"
         }
@@ -3806,6 +3936,10 @@
         },
         "proprietaire" : {
           "type" : "string"
+        },
+        "idmmeuble" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "underBuildingMagasin" : {
           "type" : "boolean"
@@ -4392,10 +4526,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -4501,10 +4635,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -4610,10 +4744,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
