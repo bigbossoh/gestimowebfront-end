@@ -2,8 +2,6 @@ import { Action } from '@ngrx/store';
 import {
   AppartementDto,
 
-  EtageDto,
-  ImmeubleDto,
 } from 'src/gs-api/src/models';
 import {
   AppartementActions,
@@ -20,12 +18,14 @@ export enum AppartementStateEnum {
 }
 export interface AppartementState {
   appartements: AppartementDto[];
+  appartement: any;
   errorMessage: string;
   dataState: AppartementStateEnum;
 }
 const initState: AppartementState = {
   appartements: [],
   errorMessage: '',
+  appartement: null,
   dataState: AppartementStateEnum.INITIAL,
 };
 export function appartementReducer(
@@ -33,7 +33,7 @@ export function appartementReducer(
   action: Action
 ): AppartementState {
   switch (action.type) {
-    //SAVE ETAGE
+    //SAVE APPARTEMENT
     case AppartementctionsTypes.SAVE_APPARTEMENT:
       return { ...state, dataState: AppartementStateEnum.LOADING };
     case AppartementctionsTypes.SAVE_APPARTEMENT_SUCCES:
@@ -45,6 +45,21 @@ export function appartementReducer(
         appartements: appart,
       };
     case AppartementctionsTypes.SAVE_APPARTEMENT_ERROR:
+      return {
+        ...state,
+        dataState: AppartementStateEnum.ERROR,
+        errorMessage: (<AppartementActions>action).payload,
+      };
+    //FIND UN APPARTEMENT PAR L'ID
+    case AppartementctionsTypes.GET_APPARTEMENT_BY_ID:
+      return { ...state, dataState: AppartementStateEnum.LOADING };
+    case AppartementctionsTypes.GET_APPARTEMENT_BY_ID_SUCCES:
+      return {
+        ...state,
+        dataState: AppartementStateEnum.LOADED,
+        appartement: (<AppartementActions>action).payload,
+      };
+    case AppartementctionsTypes.GET_APPARTEMENT_BY_ID_ERROR:
       return {
         ...state,
         dataState: AppartementStateEnum.ERROR,

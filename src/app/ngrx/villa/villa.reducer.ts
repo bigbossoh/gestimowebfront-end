@@ -14,11 +14,13 @@ export enum VillaStateEnum {
 }
 export interface VillaState {
   villas: VillaDto[];
+  villa:any;
   errorMessage: string;
   dataState: VillaStateEnum;
 }
 const initState: VillaState = {
   villas: [],
+  villa:null,
   errorMessage: '',
   dataState: VillaStateEnum.INITIAL,
 };
@@ -44,7 +46,23 @@ export function villaReducer(
         dataState: VillaStateEnum.ERROR,
         errorMessage: (<VillaActions>action).payload,
       };
-    // GET ALL VILLA LIBRES
+    //GET VILLA BY ID 
+    case VillaActionsTypes.GET_VILLA_BY_ID:
+      return { ...state, dataState: VillaStateEnum.LOADING };
+    case VillaActionsTypes.GET_VILLA_BY_ID_SUCCES:
+       return {
+        ...state,
+        dataState: VillaStateEnum.LOADED,
+        villa: (<VillaActions>action).payload,
+      };
+    case VillaActionsTypes.GET_VILLA_BY_ID_ERROR:
+      return {
+        ...state,
+        dataState: VillaStateEnum.ERROR,
+        errorMessage: (<VillaActions>action).payload,
+      };
+
+      // GET ALL VILLA LIBRES
     case VillaActionsTypes.GET_ALL_VILLA_LIBRE:
       return { ...state, dataState: VillaStateEnum.LOADING };
     case VillaActionsTypes.GET_ALL_VILLA_LIBRE_SUCCES:

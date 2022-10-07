@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
-import { SaveAppartementActions } from 'src/app/ngrx/appartement/appartement.actions';
+import { GetAppartementByIdActions, SaveAppartementActions } from 'src/app/ngrx/appartement/appartement.actions';
 import {
   AppartementState,
   AppartementStateEnum,
@@ -36,7 +36,7 @@ import {
   UtilisteurState,
   UtilisteurStateEnum,
 } from 'src/app/ngrx/utulisateur/utlisateur.reducer';
-import { SaveVillaActions } from 'src/app/ngrx/villa/villa.action';
+import { GetVillaByIdActions, SaveVillaActions } from 'src/app/ngrx/villa/villa.action';
 import { VillaState, VillaStateEnum } from 'src/app/ngrx/villa/villa.reducer';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -75,7 +75,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
   utilisateurState$: Observable<UtilisteurState> | null = null;
   villaState$: Observable<VillaState> | null = null;
   public user?: UtilisateurRequestDto;
-
+  leBienAModifier: any;
   readonly VillaStateEnum = VillaStateEnum;
   readonly MagasinStateEnum = MagasinStateEnum;
   readonly AppartementStateEnum = AppartementStateEnum;
@@ -101,7 +101,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
       new GetAllEtagesByImmeubleActions(immeuble.target.value)
     );
     this.etageState$ = this.store.pipe(map((state) => state.etageState));
-     }
+  }
 
   onClose() {
     this.dialogRef.close();
@@ -110,7 +110,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
   onSaveMagasin() {
     this.submitted = true;
     if (this.magasinForm?.invalid) {
-       return;
+      return;
     }
 
     this.submitted = false;
@@ -156,128 +156,201 @@ export class PageBienImmobilierNewComponent implements OnInit {
 
     this.store.dispatch(new GetAllImmeublesActions({}));
     this.immeubleState$ = this.store.pipe(map((state) => state.immeubleState));
-    this.ngselecttypeBien = '10';
-
-    this.villaForm = this.fb.group({
-      id: [0],
-      idCreateur: [this.user?.id],
-      idAgence: [this.user?.idAgence],
-      nbrChambreVilla: [0],
-      nbrePiece: [0],
-      nbrSalonVilla: [0],
-      nbrSalleEauVilla: [0],
-      nomBaptiserBienImmobilier: ['', Validators.required],
-      codeAbrvBienImmobilier: ['VILLA'],
-      garageVilla: [false],
-      nbreVoitureGarageVilla: [0],
-      numVilla: [0],
-      description: [''],
-      superficieBien: [0],
-      bienMeublerResidence: [],
-      idSite: ['', Validators.required],
-      idUtilisateur: ['', Validators.required],
-      occupied: [false],
-      archived: [false],
-    });
-
-    this.magasinForm = this.fb.group({
-      id: [0],
-      idAgence: [this.user?.idAgence],
-      idCreateur: [this.user?.id],
-      numBien: [0],
-      statutBien: [''],
-      abrvBienimmobilier: ['MAGASIN'],
-      description: [''],
-
-      superficieBien: [0],
-      codeAbrvBienImmobilier: ['MAGASIN'],
-      nmbrPieceMagasin: [0],
-      nomBaptiserBienImmobilier: [this.data?.bienimmo.nomBaptiserBienImmobilier, [Validators.required]],
-      idEtage: [0],
-      idSite: ['', [Validators.required]],
-      idUtilisateur: ['', [Validators.required]],
-      underBuildingMagasin: [false],
-      occupied: [this.data?.bienimmo.occupied],
-      archived: [false],
-    });
-    this.appartementForm = this.fb.group({
-      id: [0],
-      idAgence: [this.user?.idAgence],
-      idCreateur: [this.user?.id],
-      idEtageAppartement: [0, [Validators.required]],
-      meubleApp: [false],
-      nbrPieceApp: [0],
-      nbreChambreApp: [0],
-      nbrSalonApp: [0],
-      nbreSalleEauApp: [0],
-      numeroApp: [0],
-      abrvNomApp: ['APPART'],
-      nomBaptiserBienImmobilier: ['', Validators.required],
-      residence: [false],
-    });
-
-    this.formGroup = this.fb.group({
-      idTypeBien: [0],
-      //VILLA
-      id: [0],
-      idAgence: [this.user?.idAgence],
-      idCreateur: [this.user?.id],
-      nbrChambreVilla: [0],
-      nbrePiece: [0],
-      nbrSalonVilla: [],
-      nbrSalleeauVilla: [],
-      nomVilla: [''],
-      abrvVilla: [''],
-      garageVilla: [true],
-      nbreVoitureGarageVilla: [0],
-      numBien: [0],
-      statutBien: [''],
-      abrvBienimmobilier: [''],
-      description: [''],
-      nomBien: [''],
-      superficieBien: [0],
-      idSite: [0],
-      idUtilisateur: [0],
-      occupied: [false],
-
-      //APPARTEMENT
-
-      //MAGASIN
-      abrvNomMagasin: [''],
-      nmbrPieceMagasin: [0],
-      nomMagasin: [''],
-      archived: [false],
-      underBuildingMagasin: [false],
-      //IMMEUBLE
-      etatBien: [''],
-      denominationBien: [''],
-      nbrEtage: [0],
-      nbrePieceImmeuble: [0],
-      abrvNomImmeuble: [''],
-      descriptionImmeuble: [''],
-      numeroImmeuble: [0],
-      garrage: [false],
-    });
     if (this.data != null) {
       this.visiblForm = 1;
-
       if (this.data.bienimmo.codeAbrvBienImmobilier.indexOf('-MAG-') != -1) {
         this.ngselecttypeBien = 'Magasin';
-        alert(this.data.bienimmo.id);
         this.store.dispatch(new GetMagasinByIdActions(this.data.bienimmo.id));
         this.store.pipe(map((state) => state.magasinState)).subscribe(data => {
-          console.log("LE MASIN EST LE SUIVANT :");
-          console.log(data);
+          console.log("LE MAGASIN EST LE SUIVANT :");
+          console.log(data.magasin);
+          if (data.magasin != null) {
+            this.magasinForm = this.fb.group({
+              id: [data.magasin.id],
+              idAgence: [this.user?.idAgence],
+              idCreateur: [this.user?.id],
+              numMagasin: [data.magasin.numMagasin],
+              statutBien: [data.magasin.statutBien],
+              abrvBienimmobilier: ['MAGASIN'],
+              description: [data.magasin.description],
+
+              superficieBien: [data.magasin.superficieBien],
+              codeAbrvBienImmobilier: ['MAGASIN'],
+              nombrePieceMagasin: [data.magasin.nombrePieceMagasin],
+              nomBaptiserBienImmobilier: [data.magasin.nomBaptiserBienImmobilier],
+              idEtage: [data.magasin.idEtage],
+              idSite: [data.magasin.idSite],
+              idUtilisateur: [data.magasin.idUtilisateur],
+              underBuildingMagasin: [data.magasin.underBuildingMagasin],
+              occupied: [data.magasin.occupied],
+              archived: [data.magasin.archive],
+            });
+          }
+
 
 
         });
       }
       if (this.data.bienimmo.codeAbrvBienImmobilier.indexOf('-VILLA-') != -1) {
         this.ngselecttypeBien = 'Villa';
+        this.store.dispatch(new GetVillaByIdActions(this.data.bienimmo.id));
+        this.store.pipe(map((state) => state.villaState)).subscribe(dataReceive=>{
+          
+          if (dataReceive.villa!=null) {
+            this.villaForm = this.fb.group({
+              id: [this.data.bienimmo.id],
+              idCreateur: [this.user?.id],
+              idAgence: [this.user?.idAgence],
+              nbrChambreVilla: [dataReceive.villa.nbrChambreVilla],
+              nbrePiece: [dataReceive.villa!],
+              nbrSalonVilla: [dataReceive.villa!],
+              nbrSalleEauVilla: [dataReceive.villa!],
+              nomBaptiserBienImmobilier: [dataReceive.villa!],
+              codeAbrvBienImmobilier: [dataReceive.villa.codeAbrvBienImmobilier],
+              garageVilla: [dataReceive.villa!],
+              nbreVoitureGarageVilla: [dataReceive.villa!],
+              numVilla: [0],
+              description: [dataReceive.villa!],
+              superficieBien: [],
+              bienMeublerResidence: [dataReceive.villa!],
+              idSite: [dataReceive.villa.idSite],
+              idUtilisateur: [dataReceive.villa.idUtilisateur],
+              occupied: [dataReceive.villa!],
+              archived: [dataReceive.villa!],
+            });
+          }
+          
+        })
+        
+        
       }
       if (this.data.bienimmo.codeAbrvBienImmobilier.indexOf('-APPT-') != -1) {
         this.ngselecttypeBien = 'Appartement';
+        this.store.dispatch(new GetAppartementByIdActions(this.data.bienimmo.id));
+        this.store.pipe(map((state) => state.appartementState)).subscribe((data) => {
+          if (data.appartement!=null) {
+          
+            this.appartementForm = this.fb.group({
+              id: [data.appartement.id],
+              idAgence: [this.user?.idAgence],
+              idCreateur: [this.user?.id],
+              idEtageAppartement: [data.appartement.idEtageAppartement],
+              meubleApp: [data.appartement.bienMeublerResidence],
+              nbrPieceApp: [data.appartement.nbrPieceApp],
+              nbreChambreApp: [data.appartement.nbreChambreApp],
+              nbrSalonApp: [data.appartement.nbreSalonApp],
+              nbreSalleEauApp: [data.appartement.nbreSalleEauApp],
+              numeroApp: [0],
+              abrvNomApp: ['APPART'],
+              nomBaptiserBienImmobilier: [data.appartement.nomBaptiserBienImmobilier],
+              residence: [data.appartement.bienMeublerResidence],
+            });
+          }
+      
+        })
+
       }
+    } else {
+      this.ngselecttypeBien = '10';
+      this.formGroup = this.fb.group({
+        idTypeBien: [0],
+        //VILLA
+        id: [0],
+        idAgence: [this.user?.idAgence],
+        idCreateur: [this.user?.id],
+        nbrChambreVilla: [0],
+        nbrePiece: [0],
+        nbrSalonVilla: [],
+        nbrSalleeauVilla: [],
+        nomVilla: [''],
+        abrvVilla: [''],
+        garageVilla: [true],
+        nbreVoitureGarageVilla: [0],
+        numBien: [0],
+        statutBien: [''],
+        abrvBienimmobilier: [''],
+        description: [''],
+        nomBien: [''],
+        superficieBien: [0],
+        idSite: [0],
+        idUtilisateur: [0],
+        occupied: [false],
+
+        //APPARTEMENT
+
+        //MAGASIN
+        abrvNomMagasin: [''],
+        nmbrPieceMagasin: [0],
+        nomMagasin: [''],
+        archived: [false],
+        underBuildingMagasin: [false],
+        //IMMEUBLE
+        etatBien: [''],
+        denominationBien: [''],
+        nbrEtage: [0],
+        nbrePieceImmeuble: [0],
+        abrvNomImmeuble: [''],
+        descriptionImmeuble: [''],
+        numeroImmeuble: [0],
+        garrage: [false],
+      });
+      this.villaForm = this.fb.group({
+        id: [0],
+        idCreateur: [this.user?.id],
+        idAgence: [this.user?.idAgence],
+        nbrChambreVilla: [0],
+        nbrePiece: [0],
+        nbrSalonVilla: [0],
+        nbrSalleEauVilla: [0],
+        nomBaptiserBienImmobilier: ['', Validators.required],
+        codeAbrvBienImmobilier: ['VILLA'],
+        garageVilla: [false],
+        nbreVoitureGarageVilla: [0],
+        numVilla: [0],
+        description: [''],
+        superficieBien: [0],
+        bienMeublerResidence: [],
+        idSite: ['', Validators.required],
+        idUtilisateur: ['', Validators.required],
+        occupied: [false],
+        archived: [false],
+      });
+
+      this.magasinForm = this.fb.group({
+        id: [0],
+        idAgence: [this.user?.idAgence],
+        idCreateur: [this.user?.id],
+        numBien: [0],
+        statutBien: [''],
+        abrvBienimmobilier: ['MAGASIN'],
+        description: [''],
+
+        superficieBien: [0],
+        codeAbrvBienImmobilier: ['MAGASIN'],
+        nmbrPieceMagasin: [0],
+        nomBaptiserBienImmobilier: [0, [Validators.required]],
+        idEtage: [0],
+        idSite: ['', [Validators.required]],
+        idUtilisateur: ['', [Validators.required]],
+        underBuildingMagasin: [false],
+        occupied: [false],
+        archived: [false],
+      });
+      this.appartementForm = this.fb.group({
+        id: [0],
+        idAgence: [this.user?.idAgence],
+        idCreateur: [this.user?.id],
+        idEtageAppartement: [0, [Validators.required]],
+        meubleApp: [false],
+        nbrPieceApp: [0],
+        nbreChambreApp: [0],
+        nbrSalonApp: [0],
+        nbreSalleEauApp: [0],
+        numeroApp: [0],
+        abrvNomApp: ['APPART'],
+        nomBaptiserBienImmobilier: ['', Validators.required],
+        residence: [false],
+      });
     }
   }
 }

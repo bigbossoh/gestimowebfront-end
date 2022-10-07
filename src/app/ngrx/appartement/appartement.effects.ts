@@ -3,8 +3,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
+import { NotificationType } from 'src/app/enum/natification-type.enum';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 import { ApiService } from 'src/gs-api/src/services';
-import { GetAllAppartementActionsSuccess, GetAllAppartementActionsError } from './appartement.actions';
+import { GetAllAppartementActionsSuccess, GetAllAppartementActionsError, GetAppartementByIdActionsSuccess, GetAppartementByIdActionsError } from './appartement.actions';
 import {
   AppartementActions,
   AppartementctionsTypes as AppartementActionsTypes,
@@ -16,7 +18,7 @@ import {
 
 @Injectable()
 export class AppartementEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions) { }
+  constructor(private apiService: ApiService, private effectActions: Actions, private notificationService: NotificationService) { }
 
   //SAVE EFFECTS
   saveAppartementEffect: Observable<Action> = createEffect(() =>
@@ -28,13 +30,43 @@ export class AppartementEffects {
           catchError((err) => of(new SaveAppartementActionsError(err.message)))
         );
       }), tap((resultat) => {
-     console.log("Le resultat est le suivant");
-     console.log(resultat.payload);        
-        
-        if (resultat.payload != null) {
-
+        if (resultat.type == AppartementActionsTypes.SAVE_APPARTEMENT_SUCCES) {
+          this.sendErrorNotification(
+            NotificationType.SUCCESS,
+            "L'opération effectuée avec succès"
+          );
         } else {
-
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            resultat.payload.toString()
+          );
+        }
+      })
+    )
+  );
+  //GET APPARTEMENT BY  EFFECTS
+  getAppartementByIdEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(AppartementActionsTypes.GET_APPARTEMENT_BY_ID),
+      mergeMap((action: AppartementActions) => {
+        return this.apiService.findByIDAppartement(action.payload).pipe(
+          map((appart) => new GetAppartementByIdActionsSuccess(appart)),
+          catchError((err) => of(new GetAppartementByIdActionsError(err.message)))
+        );
+      }), tap((resultat) => {
+        console.log("Le appartement qui est a modifier est le suivant :");
+        console.log(resultat.payload);
+        
+        if (resultat.type == AppartementActionsTypes.GET_APPARTEMENT_BY_ID_SUCCES) {
+          this.sendErrorNotification(
+            NotificationType.SUCCESS,
+            "L'opération effectuée avec succès"
+          );
+        } else {
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            resultat.payload.toString()
+          );
         }
       })
     )
@@ -70,14 +102,28 @@ export class AppartementEffects {
             of(new GetAllAppartementActionsError(err.message))
           )
         );
-      }), tap((resultat) => {     
-        
-        if (resultat.payload != null) {
-
-        } else {
-
+      }), tap((resultat) => {
+        if (resultat.type == AppartementActionsTypes.SAVE_APPARTEMENT_ERROR) {
+          
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            resultat.payload.toString()
+          );
         }
       })
     )
   );
+  private sendErrorNotification(
+    notificationType: NotificationType,
+    message: string
+  ): void {
+    if (message) {
+      this.notificationService.notify(notificationType, message);
+    } else {
+      this.notificationService.notify(
+        notificationType,
+        'An error occurred. Please try again.'
+      );
+    }
+  }
 }

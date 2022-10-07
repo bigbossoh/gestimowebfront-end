@@ -162,6 +162,7 @@ class ApiService extends __BaseService {
   static readonly getAllSuperviseursByOrderPath = 'gestimoweb/api/v1/utilisateur/superviseurs/all';
   static readonly findAllVillaPath = 'gestimoweb/api/v1/villa/all';
   static readonly findAllVillaLibrePath = 'gestimoweb/api/v1/villa/alllibre';
+  static readonly findVillaByIdPath = 'gestimoweb/api/v1/villa/findVillaById/{id}';
   static readonly saveVillaPath = 'gestimoweb/api/v1/villa/save';
   static readonly findAllVillesPath = 'gestimoweb/api/v1/ville/all';
   static readonly deleteVillePath = 'gestimoweb/api/v1/ville/delete/{id}';
@@ -4228,6 +4229,42 @@ class ApiService extends __BaseService {
   findAllVillaLibre(): __Observable<Array<VillaDto>> {
     return this.findAllVillaLibreResponse().pipe(
       __map(_r => _r.body as Array<VillaDto>)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findVillaByIdResponse(id: number): __Observable<__StrictHttpResponse<VillaDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/villa/findVillaById/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<VillaDto>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findVillaById(id: number): __Observable<VillaDto> {
+    return this.findVillaByIdResponse(id).pipe(
+      __map(_r => _r.body as VillaDto)
     );
   }
 

@@ -10,7 +10,6 @@ import { GetMagasinByIdActionsSuccess } from './magasin.actions';
 import {
   GetAllMagasinActionsSuccess,
   GetAllMagasinActionsError,
-  GetMagasinByIdActions,
   GetMagasinByIdActionsError,
 } from './magasin.actions';
 import {

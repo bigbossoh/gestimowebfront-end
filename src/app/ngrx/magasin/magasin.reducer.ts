@@ -33,13 +33,32 @@ export function magasinReducer(
     case MagasinActionsTypes.SAVE_MAGASIN:
       return { ...state, dataState: MagasinStateEnum.LOADING };
     case MagasinActionsTypes.SAVE_MAGASIN_SUCCES:
-      let maga: MagasinDto[] = [...state.magasins];
-      maga.push((<MagasinActions>action).payload);
-      return {
-        ...state,
-        dataState: MagasinStateEnum.LOADED,
-        magasins: maga,
-      };
+      let leMagasin = (<MagasinActions>action).payload;
+      if (leMagasin.id!=0||leMagasin.id!=null){
+        let maga: MagasinDto[] = [...state.magasins];
+        let leMagUp = state.magasin.indexOf(leMagasin.id)
+       if (leMagUp) {
+        maga.slice(leMagUp,1)
+       }
+       console.log("Le magin modifié est le suivant : ");
+        console.log((<MagasinActions>action).payload);
+       
+        maga.push((<MagasinActions>action).payload);
+        return {
+          ...state,
+          dataState: MagasinStateEnum.LOADED,
+          magasins: maga,
+        };
+      } else {
+        let maga: MagasinDto[] = [...state.magasins];
+        maga.push((<MagasinActions>action).payload);
+        return {
+          ...state,
+          dataState: MagasinStateEnum.LOADED,
+          magasins: maga,
+        };
+      }
+     
     case MagasinActionsTypes.SAVE_MAGASIN_ERROR:
       return {
         ...state,
