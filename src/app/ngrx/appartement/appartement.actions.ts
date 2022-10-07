@@ -26,7 +26,7 @@ export enum AppartementctionsTypes {
 // CREER LES DIFFERENTES ACTIONS
 export class SaveAppartementActions implements Action {
   type: AppartementctionsTypes = AppartementctionsTypes.SAVE_APPARTEMENT;
-  constructor(public payload: any) { }
+  constructor(public payload: AppartementDto) { }
 }
 
 export class SaveAppartementActionsSuccess implements Action {

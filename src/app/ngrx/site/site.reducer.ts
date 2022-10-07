@@ -44,7 +44,7 @@ export function siteReducer(
       let siteSave:SiteResponseDto=(<SiteActions>action).payload;
       let currentSiteListe = [...state.sites];
       currentSiteListe.push(siteSave);
-      console.log('Cuurente is');
+      console.log('Curente is');
       console.log(currentSiteListe);
 
 

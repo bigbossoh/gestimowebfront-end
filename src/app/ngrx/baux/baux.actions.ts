@@ -11,6 +11,10 @@ export enum OperationActionsTypes {
   CLOTURE_BAIL_SUCCES = '[OperationDto] Bail Cloturer Succes',
   CLOTURE_BAIL_ERROR = '[OperationDto] Bail Cloturer Error',
 
+  SUPPRIMER_BAIL = '[OperationDto] Bail suppr',
+  SUPPRIMER_BAIL_SUCCES = '[OperationDto] Bail suppr Succes',
+  SUPPRIMER_BAIL_ERROR = '[OperationDto] Bail suppr Error',
+
   GET_ALL_BAIL = '[OperationDto] Get All OperationDto',
   GET_ALL_BAIL_SUCCES = '[OperationDto] Get All OperationDto Succes',
   GET_ALL_BAIL_ERROR = '[OperationDto] Get All OperationDto Error',
@@ -18,7 +22,6 @@ export enum OperationActionsTypes {
   GET_ALL_BIEN_BAIL_BY_LOCATAIRE = '[OperationDto] Get All Biens By locataire',
   GET_ALL_BIEN_BAIL_BY_LOCATAIRE_SUCCES = '[OperationDto] Get All Biens By Locataires Succes',
   GET_ALL_BIEN_BAIL_BY_LOCATAIRE_ERROR = '[OperationDto] Get All Biens By locataires Error',
-
 }
 
 // GET ALL BAUX
@@ -54,7 +57,6 @@ export class GetAllBientaireByLocatairesActionsError implements Action {
   constructor(public payload: string) {}
 }
 
-
 // CLOTURE BAIL
 export class ClotureOperationActions implements Action {
   type: OperationActionsTypes = OperationActionsTypes.CLOTURE_BAIL;
@@ -70,6 +72,20 @@ export class ClotureOperationActionsError implements Action {
   constructor(public payload: string) {}
 }
 
+// SUPPRIMER BAIL
+export class SupprimerOperationActions implements Action {
+  type: OperationActionsTypes = OperationActionsTypes.SUPPRIMER_BAIL;
+  constructor(public payload: number) {}
+}
+
+export class SupprimerOperationActionsSuccess implements Action {
+  type: OperationActionsTypes = OperationActionsTypes.SUPPRIMER_BAIL_SUCCES;
+  constructor(public payload: boolean) {}
+}
+export class SupprimerOperationActionsError implements Action {
+  type: OperationActionsTypes = OperationActionsTypes.SUPPRIMER_BAIL_ERROR;
+  constructor(public payload: string) {}
+}
 export type OperationActions =
   | GetAllOperationActions
   | GetAllOperationActionsError
@@ -80,4 +96,6 @@ export type OperationActions =
   | GetAllBientaireByLocatairesActions
   | GetAllBientaireByLocatairesActionsError
   | GetAllBientaireByLocatairesActionsSuccess
-   ;
+  | SupprimerOperationActions
+  | SupprimerOperationActionsSuccess
+  | SupprimerOperationActionsError;
