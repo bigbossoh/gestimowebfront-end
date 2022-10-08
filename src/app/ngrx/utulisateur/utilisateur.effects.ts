@@ -6,7 +6,7 @@ import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { ApiService } from 'src/gs-api/src/services';
-import { GetAllUtilisateursActionsSuccess, GetAllUtilisateursActionsError, SaveUserActionsSuccess, UtilisateurActions, SaveUserActionsError } from './utilisateur.actions';
+import { GetAllUtilisateursActionsSuccess, GetAllUtilisateursActionsError, SaveUserActionsSuccess, UtilisateurActions, SaveUserActionsError, GetAllLocatairesBailActionsSuccess, GetAllLocatairesBailActionsError } from './utilisateur.actions';
 import {
   UtilisateurActionsTypes,
   GetAllProprietairesActionsError,
@@ -61,8 +61,39 @@ export class UtilisateurEffects {
       })
     )
   );
+    //LISTE DES LOCATAIRES BAILS
+    getAllLocatairesBailEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(UtilisateurActionsTypes.GET_ALL_LOCATAIRES_BAIL),
+      mergeMap((action) => {
+        return this.apiService.getAllLocatairesAvecBail().pipe(
+          map((locatires) => new GetAllLocatairesBailActionsSuccess(locatires)),
+          catchError((err) =>
+            of(new GetAllLocatairesBailActionsError(err.message))
+          )
+        );
+      }),
+      tap((locataire) => {
+        console.log(locataire.payload.length);
+
+        if (locataire.payload.indexOf('Error') < 0) {
+          this.sendErrorNotification(
+            NotificationType.SUCCESS,
+            'La liste des locataires (' +
+              locataire.payload.length +
+              ')  a été chargées avec succès'
+          );
+        } else {
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            'Une erreur a été rencontré'
+          );
+        }
+      })
+    )
+  );
   //LISTE DES LOCATAIRES
-  getAlllocatairesEffect: Observable<Action> = createEffect(() =>
+  getAllLocatairesEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(UtilisateurActionsTypes.GET_ALL_LOCATAIRES),
       mergeMap((action) => {
@@ -85,7 +116,7 @@ export class UtilisateurEffects {
       })
     )
   );
-    //LISTE DES LOCATAIRES
+    //LISTE DES UTILISATEURS
     saveUtilisateursEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(UtilisateurActionsTypes.SAVE_USER),

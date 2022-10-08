@@ -1,6 +1,7 @@
 import { UtilisateurAfficheDto } from './../../../gs-api/src/models/utilisateur-affiche-dto';
 import { Action } from '@ngrx/store';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
+import { LocataireEncaisDTO } from '../../../gs-api/src/models/locataire-encais-dto';
 import {
   UtilisateurActionsTypes,
   UtilisateurActions,
@@ -15,9 +16,11 @@ export interface UtilisteurState {
   utilisateurs: UtilisateurAfficheDto[];
   errorMessage: string;
   dataState: UtilisteurStateEnum;
+  locataireBail: LocataireEncaisDTO[];
 }
 const initState: UtilisteurState = {
   utilisateurs: [],
+  locataireBail:[],
   errorMessage: '',
   dataState: UtilisteurStateEnum.INITIAL,
 };
@@ -40,21 +43,37 @@ export function utilisateurReducer(
         dataState: UtilisteurStateEnum.ERROR,
         errorMessage: (<UtilisateurActions>action).payload,
       };
-    // GET ALL LOCATIRES
-    case UtilisateurActionsTypes.GET_ALL_LOCATAIRES:
+    // GET ALL LOCATIRES BAIL
+    case UtilisateurActionsTypes.GET_ALL_LOCATAIRES_BAIL:
       return { ...state, dataState: UtilisteurStateEnum.LOADING };
-    case UtilisateurActionsTypes.GET_ALL_LOCATAIRES_SUCCES:
+    case UtilisateurActionsTypes.GET_ALL_LOCATAIRES_BAIL_SUCCES:
       return {
         ...state,
         dataState: UtilisteurStateEnum.LOADED,
-        utilisateurs: (<UtilisateurActions>action).payload,
+        locataireBail: (<UtilisateurActions>action).payload,
       };
-    case UtilisateurActionsTypes.GET_ALL_LOCATAIRES_ERROR:
+    case UtilisateurActionsTypes.GET_ALL_LOCATAIRES_BAIL_ERROR:
       return {
         ...state,
         dataState: UtilisteurStateEnum.ERROR,
         errorMessage: (<UtilisateurActions>action).payload,
       };
+
+        // GET ALL LOCATIRES
+        case UtilisateurActionsTypes.GET_ALL_LOCATAIRES:
+          return { ...state, dataState: UtilisteurStateEnum.LOADING };
+        case UtilisateurActionsTypes.GET_ALL_LOCATAIRES_SUCCES:
+          return {
+            ...state,
+            dataState: UtilisteurStateEnum.LOADED,
+            utilisateurs: (<UtilisateurActions>action).payload,
+          };
+        case UtilisateurActionsTypes.GET_ALL_LOCATAIRES_ERROR:
+          return {
+            ...state,
+            dataState: UtilisteurStateEnum.ERROR,
+            errorMessage: (<UtilisateurActions>action).payload,
+          };
 
     // GET ALL UTILISATEURS
     case UtilisateurActionsTypes.GET_ALL_UTLISATEUR:
@@ -79,9 +98,8 @@ export function utilisateurReducer(
       let userSave = (<UtilisateurActions>action).payload;
       let currentUserListe = [...state.utilisateurs];
       currentUserListe.push(userSave);
-      console.log("Current user liste !");
+      console.log('Current user liste !');
       console.log(userSave);
-
 
       return {
         ...state,

@@ -2274,6 +2274,22 @@
         }
       }
     },
+    "gestimoweb/api/v1/utilisateur/locataires/ayanbail" : {
+      "get" : {
+        "operationId" : "getAllLocatairesAvecBail",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/LocataireEncaisDTO"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/utilisateur/proprietaires/all" : {
       "get" : {
         "operationId" : "getAllProprietaireByOrder",
@@ -3900,6 +3916,25 @@
         }
       }
     },
+    "LocataireEncaisDTO" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idBail" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nom" : {
+          "type" : "string"
+        },
+        "prenom" : {
+          "type" : "string"
+        }
+      }
+    },
     "MagasinDto" : {
       "type" : "object",
       "properties" : {
@@ -3960,12 +3995,6 @@
         "idmmeuble" : {
           "type" : "integer",
           "format" : "int64"
-<<<<<<< HEAD
-=======
-        },
-        "underBuildingMagasin" : {
-          "type" : "boolean"
->>>>>>> agence-photo
         },
         "underBuildingMagasin" : {
           "type" : "boolean"
@@ -4552,10 +4581,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -4661,10 +4690,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -4770,10 +4799,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }

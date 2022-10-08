@@ -10,6 +10,10 @@ export enum UtilisateurActionsTypes {
   GET_ALL_PROPRIETAIRES_SUCCES = '[UtilisateurRequestDto] Get All Proprietaires Succes',
   GET_ALL_PROPRIETAIRES_ERROR = '[UtilisateurRequestDto] Get All Proprietaires Error',
 
+  GET_ALL_LOCATAIRES_BAIL = '[UtilisateurRequestDto] Get All Locataires Bail',
+  GET_ALL_LOCATAIRES_BAIL_SUCCES = '[UtilisateurRequestDto] Get All Locataires Bail Succes',
+  GET_ALL_LOCATAIRES_BAIL_ERROR = '[UtilisateurRequestDto] Get All Locataires Bail Error',
+
   GET_ALL_LOCATAIRES = '[UtilisateurRequestDto] Get All Locataires',
   GET_ALL_LOCATAIRES_SUCCES = '[UtilisateurRequestDto] Get All Locataires Succes',
   GET_ALL_LOCATAIRES_ERROR = '[UtilisateurRequestDto] Get All Locataires Error',
@@ -36,6 +40,23 @@ export class GetAllProprietairesActionsSuccess implements Action {
 export class GetAllProprietairesActionsError implements Action {
   type: UtilisateurActionsTypes =
     UtilisateurActionsTypes.GET_ALL_PROPRIETAIRES_ERROR;
+  constructor(public payload: string) {}
+}
+// LISTE DES LOCATAIRES BAIL
+export class GetAllLocatairesBailActions implements Action {
+  type: UtilisateurActionsTypes =
+    UtilisateurActionsTypes.GET_ALL_LOCATAIRES_BAIL;
+  constructor(public payload: any) {}
+}
+
+export class GetAllLocatairesBailActionsSuccess implements Action {
+  type: UtilisateurActionsTypes =
+    UtilisateurActionsTypes.GET_ALL_LOCATAIRES_BAIL_SUCCES;
+  constructor(public payload: any) {}
+}
+export class GetAllLocatairesBailActionsError implements Action {
+  type: UtilisateurActionsTypes =
+    UtilisateurActionsTypes.GET_ALL_LOCATAIRES_BAIL_ERROR;
   constructor(public payload: string) {}
 }
 // LISTE DES LOCATAIRES
@@ -89,12 +110,15 @@ export type UtilisateurActions =
   | GetAllProprietairesActions
   | GetAllProprietairesActionsError
   | GetAllProprietairesActionsSuccess
-  | GetAllLocatairesActions
-  | GetAllLocatairesActionsError
-  | GetAllLocatairesActionsSuccess
+  | GetAllLocatairesBailActions
+  | GetAllLocatairesBailActionsError
+  | GetAllLocatairesBailActionsSuccess
   | SaveUserActions
   | SaveUserActionsSuccess
   | SaveUserActionsError
   | GetAllUtilisateursActions
   | GetAllUtilisateursActionsError
-  |GetAllUtilisateursActionsSuccess;
+  | GetAllUtilisateursActionsSuccess
+  | GetAllLocatairesActions
+  | GetAllLocatairesActionsError
+  | GetAllLocatairesActionsSuccess;

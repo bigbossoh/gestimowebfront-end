@@ -41,6 +41,7 @@ import { SiteResponseDto } from '../models/site-response-dto';
 import { SiteRequestDto } from '../models/site-request-dto';
 import { UtilisateurAfficheDto } from '../models/utilisateur-affiche-dto';
 import { UtilisateurRequestDto } from '../models/utilisateur-request-dto';
+import { LocataireEncaisDTO } from '../models/locataire-encais-dto';
 import { VillaDto } from '../models/villa-dto';
 import { VilleDto } from '../models/ville-dto';
 @Injectable({
@@ -162,6 +163,7 @@ class ApiService extends __BaseService {
   static readonly getUtilisateurByIDPath = 'gestimoweb/api/v1/utilisateur/getutilisateurbyid/{id}';
   static readonly getUtilisateurByUsernamePath = 'gestimoweb/api/v1/utilisateur/getutilisateurbyusername/{username}';
   static readonly getAllLocatairesByOrderPath = 'gestimoweb/api/v1/utilisateur/locataires/all';
+  static readonly getAllLocatairesAvecBailPath = 'gestimoweb/api/v1/utilisateur/locataires/ayanbail';
   static readonly getAllProprietaireByOrderPath = 'gestimoweb/api/v1/utilisateur/proprietaires/all';
   static readonly saveUtilisateurPath = 'gestimoweb/api/v1/utilisateur/save';
   static readonly getAllSuperviseursByOrderPath = 'gestimoweb/api/v1/utilisateur/superviseurs/all';
@@ -4246,6 +4248,39 @@ class ApiService extends __BaseService {
   getAllLocatairesByOrder(): __Observable<Array<UtilisateurAfficheDto>> {
     return this.getAllLocatairesByOrderResponse().pipe(
       __map(_r => _r.body as Array<UtilisateurAfficheDto>)
+    );
+  }
+
+  /**
+   * @return successful operation
+   */
+  getAllLocatairesAvecBailResponse(): __Observable<__StrictHttpResponse<Array<LocataireEncaisDTO>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/utilisateur/locataires/ayanbail`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<LocataireEncaisDTO>>;
+      })
+    );
+  }
+  /**
+   * @return successful operation
+   */
+  getAllLocatairesAvecBail(): __Observable<Array<LocataireEncaisDTO>> {
+    return this.getAllLocatairesAvecBailResponse().pipe(
+      __map(_r => _r.body as Array<LocataireEncaisDTO>)
     );
   }
 

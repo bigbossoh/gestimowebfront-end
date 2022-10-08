@@ -22,7 +22,7 @@ import {
   MagasinStateEnum,
 } from 'src/app/ngrx/magasin/magasin.reducer';
 
-import { GetAllLocatairesActions } from 'src/app/ngrx/utulisateur/utilisateur.actions';
+import { GetAllLocatairesBailActions } from 'src/app/ngrx/utulisateur/utilisateur.actions';
 import {
   UtilisteurState,
   UtilisteurStateEnum,
@@ -32,6 +32,7 @@ import { VillaState, VillaStateEnum } from 'src/app/ngrx/villa/villa.reducer';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
+import { GetAllLocatairesActions } from '../../../ngrx/utulisateur/utilisateur.actions';
 
 @Component({
   selector: 'app-page-baux-new',
@@ -168,12 +169,12 @@ export class PageBauxNewComponent implements OnInit {
       idTypeContrat: [''],
     });
     //FORM POUR BAIL STUDIO
- 
+
     //FORM POUR APPARTEMENT
     this.bailAppartementForm = this.fb.group({
       id: [0],
       idAgence: [this.user?.idAgence],
-      idCreateur:[this.user?.id],
+      idCreateur: [this.user?.id],
       designationBail: ['', Validators.required],
       abrvCodeBail: ['BAIL-APPARTEMENT'],
       enCoursBail: [true],
@@ -190,7 +191,7 @@ export class PageBauxNewComponent implements OnInit {
     this.bailvillaForm = this.fb.group({
       id: [0],
       idAgence: [this.user?.idAgence],
-      idCreateur:[this.user?.id],
+      idCreateur: [this.user?.id],
       designationBail: ['', Validators.required],
       abrvCodeBail: ['BAIL-VILLA'],
       enCoursBail: [true],
@@ -207,7 +208,7 @@ export class PageBauxNewComponent implements OnInit {
     this.bailMagainForm = this.fb.group({
       id: [0],
       idAgence: [this.user?.idAgence],
-      idCreateur:[this.user?.id],
+      idCreateur: [this.user?.id],
       designationBail: ['', Validators.required],
       abrvCodeBail: ['BAIL-MAGASIN'],
       enCoursBail: [true],
