@@ -112,12 +112,10 @@ export class PageBienImmobilierNewComponent implements OnInit {
 
   onClose() {
     this.store.dispatch(new GetAllBiensActions({}));
-    this.store.pipe(
-      map((state) => state.biensState)).subscribe(data => {
-        console.log("La list des bien");
-        console.log(data);
-
-      })
+    this.store.pipe(map((state) => state.biensState)).subscribe((data) => {
+      console.log('La list des bien');
+      console.log(data);
+    });
     this.dialogRef.close();
   }
 

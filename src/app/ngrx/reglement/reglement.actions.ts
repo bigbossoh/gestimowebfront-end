@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
-import { EncaissementPayloadDto } from './../../../gs-api/src/models/encaissement-payload-dto';
+
 import { AppelLoyersFactureDto } from '../../../gs-api/src/models/appel-loyers-facture-dto';
+import { EncaissementPayloadDto } from '../../../gs-api/src/models/encaissement-payload-dto';
 //STORE
 export enum EncaissementActionsTypes {
   //GET ETAGE BY IMMEUBLE

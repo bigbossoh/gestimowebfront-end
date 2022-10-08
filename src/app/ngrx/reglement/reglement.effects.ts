@@ -24,7 +24,7 @@ export class Encaissementffects {
     private effectActions: Actions,
     private notificationService: NotificationService
   ) {}
-  getAllQuartierByIdCommuneEffect: Observable<Action> = createEffect(() =>
+  saveEncaissementEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(EncaissementActionsTypes.SAVE_ENCAISSEMENT),
       mergeMap((action: EncaissementActions) => {
@@ -34,7 +34,7 @@ export class Encaissementffects {
         );
       }),
       tap((resultat) => {
-        if (resultat.payload == true) {
+        if (resultat.type == EncaissementActionsTypes.SAVE_ENCAISSEMENT_SUCCES) {
           this.sendErrorNotification(
             NotificationType.SUCCESS,
             'Enregistrement éffectué avec succès !'

@@ -3,24 +3,25 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GetAllProprietairesActions } from 'src/app/ngrx/utulisateur/utilisateur.actions';
-import { UtilisteurState, UtilisteurStateEnum } from 'src/app/ngrx/utulisateur/utlisateur.reducer';
+import {
+  UtilisteurState,
+  UtilisteurStateEnum,
+} from 'src/app/ngrx/utulisateur/utlisateur.reducer';
 
 @Component({
   selector: 'app-page-proprietaire',
   templateUrl: './page-proprietaire.component.html',
-  styleUrls: ['./page-proprietaire.component.css']
+  styleUrls: ['./page-proprietaire.component.css'],
 })
 export class PageProprietaireComponent implements OnInit {
-
-  proprietaireState$: Observable<UtilisteurState> | null=null;
-  readonly UtilisteurStateEnum=UtilisteurStateEnum;
-  constructor(private store: Store<any>) { }
+  proprietaireState$: Observable<UtilisteurState> | null = null;
+  readonly UtilisteurStateEnum = UtilisteurStateEnum;
+  constructor(private store: Store<any>) {}
 
   ngOnInit(): void {
     this.store.dispatch(new GetAllProprietairesActions({}));
-    this.proprietaireState$=this.store.pipe(
-      map((state)=>state.proprietaireState) 
-      );
-    }
-
+    this.proprietaireState$ = this.store.pipe(
+      map((state) => state.proprietaireState)
+    );
+  }
 }
