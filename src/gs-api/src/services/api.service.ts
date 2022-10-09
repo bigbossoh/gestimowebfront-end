@@ -107,6 +107,7 @@ class ApiService extends __BaseService {
   static readonly listTousEncaissementsPrincipalPath = 'gestimoweb/api/v1/encaissement/findAllEncaissementPrincipal';
   static readonly findByIdEncaissementPath = 'gestimoweb/api/v1/encaissement/findByIdEncaissement/{id}';
   static readonly saveEncaissementPath = 'gestimoweb/api/v1/encaissement/saveencaissement';
+  static readonly saveEncaissementAvecretourDeListePath = 'gestimoweb/api/v1/encaissement/saveencaissementavecretour';
   static readonly saveEncaissementMassePath = 'gestimoweb/api/v1/encaissement/saveencaissementmasse';
   static readonly totalencaissementParIdAppelLoyerPath = 'gestimoweb/api/v1/encaissement/totalencaissement/{id}';
   static readonly sendMailGrouperWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendmailgrouper/{periode}';
@@ -2265,6 +2266,42 @@ class ApiService extends __BaseService {
   saveEncaissement(body?: EncaissementPayloadDto): __Observable<boolean> {
     return this.saveEncaissementResponse(body).pipe(
       __map(_r => _r.body as boolean)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveEncaissementAvecretourDeListeResponse(body?: EncaissementPayloadDto): __Observable<__StrictHttpResponse<Array<EncaissementPrincipalDTO>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/encaissement/saveencaissementavecretour`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<EncaissementPrincipalDTO>>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveEncaissementAvecretourDeListe(body?: EncaissementPayloadDto): __Observable<Array<EncaissementPrincipalDTO>> {
+    return this.saveEncaissementAvecretourDeListeResponse(body).pipe(
+      __map(_r => _r.body as Array<EncaissementPrincipalDTO>)
     );
   }
 

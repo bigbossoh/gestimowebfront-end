@@ -28,7 +28,7 @@ export class Encaissementffects {
     this.effectActions.pipe(
       ofType(EncaissementActionsTypes.SAVE_ENCAISSEMENT),
       mergeMap((action: EncaissementActions) => {
-        return this.apiService.saveEncaissement(action.payload).pipe(
+        return this.apiService.saveEncaissementAvecretourDeListe(action.payload).pipe(
           map((quartier) => new SaveEncaissementActionsSuccess(quartier)),
           catchError((err) => of(new SaveEncaissementActionsError(err.message)))
         );
