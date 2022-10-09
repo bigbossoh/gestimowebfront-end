@@ -58,7 +58,7 @@
         <mat-spinner></mat-spinner>
       </ng-container>
       <ng-container *ngSwitchCase="BauxStateEnum.LOADED">
-        <div class="example-header">
+        <div >
           <mat-form-field>
             <input
               matInput
@@ -71,7 +71,7 @@
           #matbaux
           showFirstLastButtons
           [pageSizeOptions]="pageSize"
-          
+
           aria-label="Select page of users"
         ></mat-paginator>
         </div>
@@ -184,9 +184,5 @@
       </ng-container>
     </ng-container>
   </div>
-  <div class="row mb-3">
-    <div class="col-md-12 text-center">
-      <app-pagination></app-pagination>
-    </div>
-  </div>
+
 </div>

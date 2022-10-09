@@ -1,5 +1,4 @@
 import { Action } from '@ngrx/store';
-import { AppelLoyersFactureDto } from 'src/gs-api/src/models';
 import { EncaissementPrincipalDTO } from '../../../gs-api/src/models/encaissement-principal-dto';
 import { EncaissementActions, EncaissementActionsTypes } from './reglement.actions';
 export enum EncaissementStateEnum {

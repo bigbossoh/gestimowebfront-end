@@ -1171,6 +1171,30 @@
         }
       }
     },
+    "gestimoweb/api/v1/encaissement/saveencaissementavecretour" : {
+      "post" : {
+        "operationId" : "saveEncaissementAvecretourDeListe",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/EncaissementPayloadDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/EncaissementPrincipalDTO"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/encaissement/saveencaissementmasse" : {
       "post" : {
         "operationId" : "saveEncaissementMasse",
@@ -3920,10 +3944,6 @@
       "type" : "object",
       "properties" : {
         "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "idBail" : {
           "type" : "integer",
           "format" : "int64"
         },

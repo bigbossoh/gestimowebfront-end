@@ -110,8 +110,6 @@ export class PageReglementIndividuelComponent implements OnInit {
     });
   }
   onSaveEncaissement() {
-  console.log( "Le formulaire est le suivant");
-  console.log(this.encaissementform?.value);
 
     this.submitted = true;
     if (this.encaissementform?.invalid) {
@@ -124,7 +122,7 @@ export class PageReglementIndividuelComponent implements OnInit {
     this.saveEncaissementState$ = this.store.pipe(
       map((state) => state.encaissementState)
     );
-    this.store.dispatch(new GetEncaissementBienActions(this.bien));
+   // this.store.dispatch(new GetEncaissementBienActions(this.bien));
     this.store
       .pipe(map((state) => state.encaissementState))
       .subscribe((donnee) => {
