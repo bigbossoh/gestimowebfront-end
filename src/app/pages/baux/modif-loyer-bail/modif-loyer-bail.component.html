@@ -1,23 +1,30 @@
 <form *ngIf="formGroup" [formGroup]="formGroup">
-  <label for="basic-url">Nouveau Montant Loyer</label>
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text">$</span>
-    </div>
+  <mat-card class="example-card">
+    <mat-card-title color="primary">Modification du montant du loyer</mat-card-title>
 
-    <input formControlName="montantLoyer" type="number"
-    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg"
-    class="form-control" aria-label="Amount (to the nearest dollar)"
-    [ngClass]="{'is-invalid':submitted&& formGroup.controls.montantLoyer.errors}">
-    <div class="input-group-append">
-      <span class="input-group-text">.00</span>
-    </div>
-    <div *ngIf="submitted&& formGroup.controls.montantLoyer.errors" class="invalid-feedback">
-      <div *ngIf=" formGroup.controls.montantLoyer.errors.required">* Champ obligatoire
-      </div>
-    </div>
-  </div>
-  <button class="btn btn-primary" type="button" (click)="onSubmit()">
-    Valider
-  </button>
+    <mat-card-content>
+      <mat-form-field appearance="outline">
+        <mat-label>Nouveau montant : </mat-label>
+        <input type="number" matInput  formControlName="Nouveaumontantloyer" placeholder="pays">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Effectif à partir de :</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button class="btn btn-primary mr-2" type="button" (click)="onSubmit()">
+        Modifier
+      </button>
+      <button class="btn btn-danger" type="button" (click)="onSubmit()">
+        Annuler
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+
 </form>
