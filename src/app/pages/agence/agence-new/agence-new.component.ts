@@ -126,7 +126,17 @@ export class AgenceNewComponent implements OnInit {
     //console.log(event);
   }
   onUploadImage(){
-
+    alert("Ici")
+    /*
+      idImage?: number;
+  nameImage?: string;
+  typeImage?: string;
+  profileAgenceImageUrl?: string;
+  imageData?: Array<string>;
+  file?: MultipartFile;
+  agenceImmobiliere?: number;
+    */
+    return
     const fd= new FormData();
      fd.append('image',this.selectedFile,this.selectedFile!.name);
      console.log("we stating here ",fd);

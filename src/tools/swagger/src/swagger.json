@@ -107,6 +107,27 @@
         }
       }
     },
+    "gestimoweb/api/v1/agences/uploadlogo" : {
+      "post" : {
+        "operationId" : "uploadLog",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/ImageLogoDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "string"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/appartement/all" : {
       "get" : {
         "operationId" : "findAllAppartement",
@@ -3830,6 +3851,38 @@
         }
       }
     },
+    "ImageLogoDto" : {
+      "type" : "object",
+      "properties" : {
+        "idImage" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nameImage" : {
+          "type" : "string"
+        },
+        "typeImage" : {
+          "type" : "string"
+        },
+        "profileAgenceImageUrl" : {
+          "type" : "string"
+        },
+        "imageData" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "byte"
+          }
+        },
+        "file" : {
+          "$ref" : "#/definitions/MultipartFile"
+        },
+        "agenceImmobiliere" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
     "ImmeubleDto" : {
       "type" : "object",
       "properties" : {
@@ -3940,6 +3993,9 @@
         }
       }
     },
+    "InputStream" : {
+      "type" : "object"
+    },
     "LocataireEncaisDTO" : {
       "type" : "object",
       "properties" : {
@@ -4016,10 +4072,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -4069,10 +4125,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -4177,6 +4233,37 @@
         "bailLocation" : {
           "type" : "integer",
           "format" : "int64"
+        }
+      }
+    },
+    "MultipartFile" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "empty" : {
+          "type" : "boolean"
+        },
+        "bytes" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "byte"
+          }
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "inputStream" : {
+          "$ref" : "#/definitions/InputStream"
+        },
+        "contentType" : {
+          "type" : "string"
+        },
+        "originalFilename" : {
+          "type" : "string"
         }
       }
     },

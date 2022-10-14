@@ -20,11 +20,13 @@ export interface AgenceBdState {
   retourSave: boolean;
   errorMessage: string;
   dataState: AgenceStateEnum;
+  image: string;
 }
 const initState: AgenceBdState = {
   agences: [],
   retourSave: false,
   errorMessage: '',
+  image:"",
   dataState: AgenceStateEnum.INITIAL,
 };
 export function agenceReducer(
@@ -64,7 +66,24 @@ export function agenceReducer(
         errorMessage: (<AgenceActions>action).payload,
       };
     //remaining all agence
+    case AgenceActionsType.SAVE_AGENCE_LOGO:
 
+      return { ...state, dataState: AgenceStateEnum.LOADING };
+    case AgenceActionsType.SAVE_AGENCE_LOGO_SUCCES:
+
+      return {
+        ...state,
+        dataState: AgenceStateEnum.LOADED,
+        retourSave: true,
+        image:  (<AgenceActions>action).payload,
+      };
+    case AgenceActionsType.SAVE_AGENCE_LOGO_ERROR:
+      return {
+        ...state,
+        dataState: AgenceStateEnum.ERROR,
+        errorMessage: (<AgenceActions>action).payload,
+      };
+    //remaining all agence
     //SAVE ETAGE
     case AgenceActionsType.GET_ALL_AGENCE:
       return { ...state, dataState: AgenceStateEnum.LOADING };
