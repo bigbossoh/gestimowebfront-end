@@ -177,11 +177,11 @@
         <mat-icon>cancel</mat-icon>
         Annuler
       </button>
-      <button *ngIf="idCompare==0" mat-raised-button color="primary" [disabled]="agenceRegisterForm.invalid" (click)="saveNgrsAgence()">
+      <button *ngIf="idCompare==0" mat-raised-button color="primary" [disabled]="agenceRegisterForm.invalid" (click)="saveNgrsAgence();onUploadImage()">
         <mat-icon>save</mat-icon>
         {{actionBtn}}
       </button>
-      <button *ngIf="idCompare!=0"  mat-raised-button color="primary"  (click)="saveNgrsAgence()">
+      <button *ngIf="idCompare!=0"  mat-raised-button color="primary"  (click)="saveNgrsAgence();onUploadImage()">
         <mat-icon>save</mat-icon>
         {{actionBtn}}
       </button>

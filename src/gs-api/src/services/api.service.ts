@@ -10,6 +10,7 @@ import { map as __map, filter as __filter } from 'rxjs/operators';
 import { AgenceImmobilierDTO } from '../models/agence-immobilier-dto';
 import { AgenceResponseDto } from '../models/agence-response-dto';
 import { AgenceRequestDto } from '../models/agence-request-dto';
+import { ImageLogoDto } from '../models/image-logo-dto';
 import { AppartementDto } from '../models/appartement-dto';
 import { AppelLoyersFactureDto } from '../models/appel-loyers-facture-dto';
 import { PeriodeDto } from '../models/periode-dto';
@@ -53,6 +54,7 @@ class ApiService extends __BaseService {
   static readonly getAgenceByEmailAgencePath = 'gestimoweb/api/v1/agences/getagencebyemail/{email}';
   static readonly getAgenceByIDAgencePath = 'gestimoweb/api/v1/agences/getagencebyid/{id}';
   static readonly authenticateAgencePath = 'gestimoweb/api/v1/agences/signup';
+  static readonly uploadLogPath = 'gestimoweb/api/v1/agences/uploadlogo';
   static readonly findAllAppartementPath = 'gestimoweb/api/v1/appartement/all';
   static readonly findAllAppartementLibrePath = 'gestimoweb/api/v1/appartement/alllibre';
   static readonly deleteAppartementPath = 'gestimoweb/api/v1/appartement/delete/{id}';
@@ -361,6 +363,42 @@ class ApiService extends __BaseService {
   authenticateAgence(body?: AgenceRequestDto): __Observable<AgenceImmobilierDTO> {
     return this.authenticateAgenceResponse(body).pipe(
       __map(_r => _r.body as AgenceImmobilierDTO)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  uploadLogResponse(body?: ImageLogoDto): __Observable<__StrictHttpResponse<string>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/agences/uploadlogo`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<string>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  uploadLog(body?: ImageLogoDto): __Observable<string> {
+    return this.uploadLogResponse(body).pipe(
+      __map(_r => _r.body as string)
     );
   }
 
