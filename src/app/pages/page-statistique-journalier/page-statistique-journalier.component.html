@@ -1,1 +1,88 @@
-<p>page-statistique-journalier works!</p>
+<!-- Cards with media area -->
+<div style="display: flex; flex-direction: row" class="center">
+  <mat-card class="example-card">
+    <mat-card-title-group>
+      <mat-card-title>Statistiques par Période</mat-card-title>
+      <mat-card-subtitle
+        ><mat-form-field appearance="fill">
+          <mat-label>Choisir le mois</mat-label>
+          <mat-select>
+            <mat-option value="html"> HTML </mat-option>
+            <mat-option value="css">CSS (disabled)</mat-option>
+            <mat-option value="js">JAVASCRIPT</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-subtitle>
+    </mat-card-title-group>
+    <mat-card-content>
+      <ul>
+        <li>Total des impayés 450000</li>
+        <li>Total des impayés 450000</li>
+      </ul>
+
+      47 % de recouvrement
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="example-card">
+    <mat-card-title-group>
+      <mat-card-title>Staisques par Année</mat-card-title>
+      <mat-card-subtitle>
+        <mat-form-field appearance="fill">
+          <mat-label>Choisir l'année</mat-label>
+          <mat-select>
+            <mat-option value="html"> HTML </mat-option>
+            <mat-option value="css">CSS (disabled)</mat-option>
+            <mat-option value="js">JAVASCRIPT</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-subtitle>
+    </mat-card-title-group>
+    <mat-card-content>
+      <ul>
+        <li>Total des impayés 450000</li>
+        <li>Total des impayés 450000</li>
+      </ul>
+
+      47 % de recouvrement
+    </mat-card-content>
+  </mat-card>
+</div>
+<!-- Cards with media area -->
+<div style="display: flex; flex-direction: row">
+  <mat-card class="example-card">
+    <mat-card-title-group>
+      <mat-card-title>Total des Encaissements Journaliers</mat-card-title>
+      <mat-card-subtitle><mat-form-field appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      </mat-card-subtitle>
+    </mat-card-title-group>
+    <mat-card-content>
+      {{ longText }}
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="example-card">
+    <mat-card-title-group>
+      <mat-card-title>Impayé >=2 mois</mat-card-title>
+      <mat-card-subtitle>Small</mat-card-subtitle>
+    </mat-card-title-group>
+    <mat-card-content>
+      {{ longText }}
+    </mat-card-content>
+  </mat-card>
+</div>
+<div style="display: flex; flex-direction: row">
+  <mat-card class="example-card">
+    <mat-card-title-group>
+      <mat-card-title>Statistiques sur les Baux</mat-card-title>
+      <mat-card-subtitle>Small</mat-card-subtitle>
+    </mat-card-title-group>
+    <mat-card-content>
+      {{ longText }}
+    </mat-card-content>
+  </mat-card>
+</div>
