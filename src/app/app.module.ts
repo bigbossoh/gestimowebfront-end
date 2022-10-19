@@ -1,3 +1,4 @@
+import { PageStatistiqueJournalierComponent } from './pages/page-statistique-journalier/page-statistique-journalier.component';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -143,6 +144,7 @@ import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
+    PageStatistiqueJournalierComponent,
     PageImmeubleComponent,
     PageImmeubleNewComponent,
     PageEtageNewComponent,
