@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serverUrl:'http://localhost:8284/actuator'
+  serverUrl:'http://seve.us-east-1.elasticbeanstalk.com/actuator'
 };
 
 /*
