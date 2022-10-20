@@ -4,9 +4,10 @@
 
 export const environment = {
   production: false,
+  // serverUrl:'http://54.91.63.249:8284/actuator'
   serverUrl:'http://localhost:8284/actuator'
-};
-
+ // serverUrl:'http://ec2-23-22-126-138.compute-1.amazonaws.com:8284/actuator'
+}
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
