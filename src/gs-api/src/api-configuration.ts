@@ -8,7 +8,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiConfiguration {
-  rootUrl: string = 'http://seveBackEnd.us-east-1.elasticbeanstalk.com/';
+  // rootUrl: string = 'http://seveBackEnd.us-east-1.elasticbeanstalk.com/';
+  rootUrl: string = 'http://localhost:5000/';
 }
 
 export interface ApiConfigurationInterface {
