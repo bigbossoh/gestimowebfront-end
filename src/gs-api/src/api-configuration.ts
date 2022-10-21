@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 export class ApiConfiguration {
 
   // rootUrl: string = 'http://seveBackEnd.us-east-1.elasticbeanstalk.com/';
-  rootUrl: string = 'http://localhost:5000/';
+  rootUrl: string = 'http://localhost:8284/';
 
 }
 
