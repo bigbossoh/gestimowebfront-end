@@ -325,8 +325,7 @@
                     </select> -->
                     <mat-form-field appearance="outline">
                       <mat-label>Immeuble*</mat-label>
-                      <mat-select  (change)="findEtageByImmeuble($event)" placeholder="Immeuble" [(ngModel)]="userVilla"
-                        name="Propriétaire">
+                      <mat-select  (change)="findEtageByImmeuble($event)" placeholder="Immeuble" name="Propriétaire">
                         <mat-option [value]="0">Sélectionnez un immeuble</mat-option>
                         <mat-option [value]="immeub.id" *ngFor="let immeub of state.immeubles">
                           {{ immeub.codeNomAbrvImmeuble }}
@@ -348,7 +347,7 @@
                     <div class="p-2">erreur : {{ state.errorMessage }}</div>
                   </ng-container>
                   <ng-container *ngSwitchCase="EtagesStateEnum.LOADED">
-                    <label class="small mb-1" for="inputLastName">Etage</label>
+                    <!-- <label class="small mb-1" for="inputLastName">Etage</label>
                     <select formControlName="idEtage" name="idEtage" class="form-control">
 
                       <option [value]="0">Aucun Etage</option>
@@ -357,7 +356,18 @@
                       </option>
 
                       <option></option>
-                    </select>
+                    </select> -->
+                    <mat-form-field appearance="outline">
+                      <mat-label>Etage*</mat-label>
+                      <mat-select formControlName="idEtage"   placeholder="Immeuble"
+                        name="Propriétaire">
+                        <mat-option [value]="0">Sélectionnez un etage</mat-option>
+                        <mat-option [value]="eta.id" *ngFor="let eta of state.etages">
+                          {{ eta.abrvEtage }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>Ce champ est obligatoire.</mat-error>
+                    </mat-form-field>
                   </ng-container>
                 </ng-container>
               </div>
@@ -365,7 +375,7 @@
             <div class="row gx-3 mb-3">
               <!-- Form Group (organization name)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputOrgName">Désignation</label>
+                <!-- <label class="small mb-1" for="inputOrgName">Désignation</label>
                 <input formControlName="nomBaptiserBienImmobilier" class="form-control" name="nomBaptiserBienImmobilier"
                   type="text" [ngClass]="{
                     'is-invalid':
@@ -376,21 +386,41 @@
                   <div *ngIf="magasinForm.controls.nomBaptiserBienImmobilier.errors.required">
                     * Champ obligatoire
                   </div>
-                </div>
+                </div> -->
+                <mat-form-field appearance="outline">
+                  <mat-label>Désignation*</mat-label>
+                  <input formControlName="nomBaptiserBienImmobilier" matInput placeholder="Désignation*">
+                  <mat-error>Ce champ est obligatoire.</mat-error>
+                </mat-form-field>
               </div>
               <div class="col-md-6">
-                <label class="small mb-1" for="inputOrgName">Description</label>
+                <!-- <label class="small mb-1" for="inputOrgName">Description</label>
                 <textarea rows="3" formControlName="description" class="form-control" name="description"
-                  type="text"></textarea>
+                  type="text"></textarea> -->
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Description</mat-label>
+                    <textarea formControlName="description" matInput
+                      placeholder="Ex. Décrit la localisation..."></textarea>
+                  </mat-form-field>
               </div>
               <!-- Form Group (location)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputLocation">Superficie</label>
-                <input formControlName="superficieBien" class="form-control" name="inputLocation" type="number" />
+                <!-- <label class="small mb-1" for="inputLocation">Superficie</label>
+                <input formControlName="superficieBien" class="form-control" name="inputLocation" type="number" /> -->
+
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Nombre de pièces</mat-label>
+                  <input formControlName="nombrePieceMagasin" type="number" matInput placeholder="Ex. 100">
+                </mat-form-field>
               </div>
               <div class="col-md-6">
-                <label class="small mb-1" for="inputLocation">Nombre de pièces</label>
-                <input formControlName="nombrePieceMagasin" class="form-control" name="inputLocation" type="number" />
+                <!-- <label class="small mb-1" for="inputLocation">Nombre de pièces</label>
+                <input formControlName="nombrePieceMagasin" class="form-control" name="inputLocation" type="number" /> -->
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Superficie</mat-label>
+                  <input formControlName="superficieBien" type="number" matInput placeholder="Ex. 100">
+                </mat-form-field>
               </div>
               <div>
                 <div class="form-check form-check-inline">
