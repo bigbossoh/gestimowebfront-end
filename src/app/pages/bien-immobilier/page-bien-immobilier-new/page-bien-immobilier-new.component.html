@@ -32,7 +32,8 @@
 
               <mat-form-field appearance="outline">
                 <mat-label>Type de biens*</mat-label>
-                <mat-select formControlName="idTypeBien" placeholder="Type de biens"  [(ngModel)]="ngselecttypeBien" name="idTypeBien">
+                <mat-select formControlName="idTypeBien" placeholder="Type de biens" [(ngModel)]="ngselecttypeBien"
+                  name="idTypeBien">
                   <mat-option [value]="20000">Sélectionnez un Type de Bien</mat-option>
                   <mat-option [value]="biens" *ngFor="let biens of listTypeBiens">{{ biens }}</mat-option>
                 </mat-select>
@@ -44,65 +45,66 @@
           <!-- FORM POUR VILLA -->
           <form *ngIf="villaForm && ngselecttypeBien == 'Villa'" [formGroup]="villaForm">
             <div class="row">
-            <div class="col-md-6">
-            <div >
-              <ng-container *ngIf="utilisateurState$ | async as state" [ngSwitch]="state.dataState">
-                <ng-container *ngSwitchCase="UtilisteurStateEnum.INITIAL">
-                  <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                </ng-container>
-                <ng-container *ngSwitchCase="UtilisteurStateEnum.ERROR">
-                  <div class="p-2 invalid-feedback">
-                    Une erreur est survenue
-                  </div>
-                </ng-container>
-                <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
+              <div class="col-md-6">
+                <div>
+                  <ng-container *ngIf="utilisateurState$ | async as state" [ngSwitch]="state.dataState">
+                    <ng-container *ngSwitchCase="UtilisteurStateEnum.INITIAL">
+                      <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="UtilisteurStateEnum.ERROR">
+                      <div class="p-2 invalid-feedback">
+                        Une erreur est survenue
+                      </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
 
-                  <mat-form-field  appearance="outline">
-                    <mat-label>Propriétaire*</mat-label>
-                    <mat-select formControlName="idUtilisateur" placeholder="Propriétaire"  [(ngModel)]="userVilla" name="Propriétaire">
-                      <mat-option [value]="">Sélectionnez un Propriétaire</mat-option>
-                      <mat-option [value]="utilis.id" *ngFor="let utilis of state.utilisateurs">
-                        {{ utilis.nom }} {{ utilis.prenom }}
-                      </mat-option>
-                    </mat-select>
-                    <mat-error>Ce champ est obligatoire.</mat-error>
-                  </mat-form-field>
-                </ng-container>
-              </ng-container>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div >
-              <ng-container *ngIf="siteState$ | async as state" [ngSwitch]="state.dataState">
-                <ng-container *ngSwitchCase="SiteStateEnum.INITIAL">
-                  <div class="spinner-border text-primary" role="status">
-                    <span class="sr-only">Loading...</span>
-                  </div>
-                </ng-container>
-                <ng-container *ngSwitchCase="SiteStateEnum.ERROR">
-                  <div class="p-2 invalid-feedback">
-                    Une Erreur est survenue
-                  </div>
-                </ng-container>
-                <ng-container *ngSwitchCase="SiteStateEnum.LOADED">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Propriétaire*</mat-label>
+                        <mat-select formControlName="idUtilisateur" placeholder="Propriétaire" [(ngModel)]="userVilla"
+                          name="Propriétaire">
+                          <mat-option [value]="">Sélectionnez un Propriétaire</mat-option>
+                          <mat-option [value]="utilis.id" *ngFor="let utilis of state.utilisateurs">
+                            {{ utilis.nom }} {{ utilis.prenom }}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error>Ce champ est obligatoire.</mat-error>
+                      </mat-form-field>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div>
+                  <ng-container *ngIf="siteState$ | async as state" [ngSwitch]="state.dataState">
+                    <ng-container *ngSwitchCase="SiteStateEnum.INITIAL">
+                      <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="SiteStateEnum.ERROR">
+                      <div class="p-2 invalid-feedback">
+                        Une Erreur est survenue
+                      </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="SiteStateEnum.LOADED">
 
-                  <mat-form-field  appearance="outline">
-                    <mat-label>Site*</mat-label>
-                    <mat-select formControlName="idSite" placeholder="idSite" name="idSite">
-                      <mat-option [value]="">Sélectionnez un Site</mat-option>
-                      <mat-option  [value]="sit.id" *ngFor="let sit of state.sites">
-                        {{ sit.nomSite }}
-                      </mat-option>
-                    </mat-select>
-                    <mat-error>Ce champ est obligatoire.</mat-error>
-                  </mat-form-field>
-                </ng-container>
-              </ng-container>
+                      <mat-form-field appearance="outline">
+                        <mat-label>Site*</mat-label>
+                        <mat-select formControlName="idSite" placeholder="idSite" name="idSite">
+                          <mat-option [value]="">Sélectionnez un Site</mat-option>
+                          <mat-option [value]="sit.id" *ngFor="let sit of state.sites">
+                            {{ sit.nomSite }}
+                          </mat-option>
+                        </mat-select>
+                        <mat-error>Ce champ est obligatoire.</mat-error>
+                      </mat-form-field>
+                    </ng-container>
+                  </ng-container>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
             <div class="row gx-3 mb-2">
               <!-- Form Group (organization name)-->
@@ -116,100 +118,72 @@
               </div>
 
               <div class="col-md-6">
-                
-                  <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Description</mat-label>
-                    <textarea formControlName="description" matInput placeholder="Ex. Décrit la localisation..."></textarea>
-                  </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Description</mat-label>
+                  <textarea formControlName="description" matInput
+                    placeholder="Ex. Décrit la localisation..."></textarea>
+                </mat-form-field>
               </div>
               <!-- Form Group (location)-->
               <div class="col-md-6">
 
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Nombre de Pièces</mat-label>
-                  <input
-                  formControlName="nbrePiece"
-                  type="number"
-                  matInput
-                  placeholder="Ex. 100"
-                  >
+                  <input formControlName="nbrePiece" type="number" matInput placeholder="Ex. 100">
                 </mat-form-field>
               </div>
               <div class="col-md-6">
 
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Superficie</mat-label>
-                  <input
-                  formControlName="superficieBien"
-                  type="number"
-                  matInput
-                  placeholder="Ex. 900"
-                  >
+                  <input formControlName="superficieBien" type="number" matInput placeholder="Ex. 900">
                 </mat-form-field>
               </div>
               <div class="col-md-6">
 
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Nombre de salons</mat-label>
-                  <input
-                  formControlName="nbrSalonVilla"
-                  type="number"
-                  matInput
-                  placeholder="Ex. 100"
-                  >
+                  <input formControlName="nbrSalonVilla" type="number" matInput placeholder="Ex. 100">
                 </mat-form-field>
               </div>
               <div class="col-md-6">
 
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Nombre de Chambre</mat-label>
-                  <input
-                  formControlName="nbrChambreVilla"
-                  type="number"
-                  matInput
-                  placeholder="Ex. 100"
-                  >
+                  <input formControlName="nbrChambreVilla" type="number" matInput placeholder="Ex. 100">
                 </mat-form-field>
               </div>
               <div class="col-md-6">
 
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Nombre de salle d'eau</mat-label>
-                  <input
-                  formControlName="nbrSalleEauVilla"
-                  type="number"
-                  matInput
-                  placeholder="Ex. 100"
-                  >
+                  <input formControlName="nbrSalleEauVilla" type="number" matInput placeholder="Ex. 100">
                 </mat-form-field>
               </div>
               <div class="col-md-6">
 
-                  <mat-form-field class="example-full-width" appearance="outline">
-                    <mat-label>Combien de Voiture our le garage</mat-label>
-                    <input
-                    formControlName="nbreVoitureGarageVilla"
-                    type="number"
-                    matInput
-                    placeholder="Ex. 100"
-                    >
-                  </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Combien de Voiture our le garage</mat-label>
+                  <input formControlName="nbreVoitureGarageVilla" type="number" matInput placeholder="Ex. 100">
+                </mat-form-field>
               </div>
 
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="custom-controls-stacked px-2">
-                      <mat-checkbox formControlName="bienMeublerResidence" color="primary">Résidence Meublée ?</mat-checkbox>
-                    </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="custom-controls-stacked px-2">
+                    <mat-checkbox formControlName="bienMeublerResidence" color="primary">Résidence Meublée ?
+                    </mat-checkbox>
                   </div>
-
-                  <div class="col-md-6" style="text-align: right;">
-                    <div class="custom-controls-stacked px-2">
-                      <mat-checkbox formControlName="archived" color="primary">Archivé ?</mat-checkbox>
-                    </div>
-                  </div>
-
                 </div>
+
+                <div class="col-md-6" style="text-align: right;">
+                  <div class="custom-controls-stacked px-2">
+                    <mat-checkbox formControlName="archived" color="primary">Archivé ?</mat-checkbox>
+                  </div>
+                </div>
+
+              </div>
             </div>
 
             <div class="row">
@@ -229,20 +203,23 @@
 
           <!-- FORM POUR MAGASIN -->
           <form *ngIf="magasinForm && ngselecttypeBien == 'Magasin'" [formGroup]="magasinForm">
-            <div class="mb-3">
-              <ng-container *ngIf="utilisateurState$ | async as state" [ngSwitch]="state.dataState">
-                <ng-container *ngSwitchCase="UtilisteurStateEnum.INITIAL">
-                  <i class="fas fa-sync fa-spin"></i>
-                </ng-container>
-                <ng-container *ngSwitchCase="UtilisteurStateEnum.ERROR">
-                  <div class="p-2 invalid-feedback">
-                    Une erreur est survenue
-                  </div>
-                </ng-container>
-                <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
-                  <label class="small mb-1" for="inputUsername">Propriétaire</label>
-                  <div class="form-group">
-                    <select formControlName="idUtilisateur" name="idUtilisateur" id="username" class="form-control"
+            <!-- <div class="mb-3"> -->
+            <div class="row">
+              <div class="col-md-6">
+                <ng-container *ngIf="utilisateurState$ | async as state" [ngSwitch]="state.dataState">
+                  <ng-container *ngSwitchCase="UtilisteurStateEnum.INITIAL">
+                    <i class="fas fa-sync fa-spin"></i>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="UtilisteurStateEnum.ERROR">
+                    <div class="p-2 invalid-feedback">
+                      Une erreur est survenue
+                    </div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
+                    <!-- <label class="small mb-1" for="inputUsername">Propriétaire</label>
+                    <div class="form-group"> -->
+
+                    <!-- <select formControlName="idUtilisateur" name="idUtilisateur" id="username" class="form-control"
                       [ngClass]="{
                         'is-invalid':
                           submitted && magasinForm.controls.idUtilisateur.errors
@@ -260,42 +237,69 @@
                         ">
                         * Veuillez saisir un Propriétaire
                       </div>
+                    </div> -->
+                    <!-- </div> -->
+                    <mat-form-field appearance="outline">
+                      <mat-label>Propriétaire*</mat-label>
+                      <mat-select formControlName="idUtilisateur" placeholder="Propriétaire"
+                        name="Propriétaire">
+                        <mat-option [value]="0">Séletionnez un propriétaire</mat-option>
+                        <mat-option [value]="utilis.id" *ngFor="let utilis of state.utilisateurs">
+                          {{ utilis.nom }} {{ utilis.prenom }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>Ce champ est obligatoire.</mat-error>
+                    </mat-form-field>
+
+                  </ng-container>
+                </ng-container>
+              </div>
+              <!-- </div> -->
+              <div class="col-md-6">
+                <ng-container *ngIf="siteState$ | async as state" [ngSwitch]="state.dataState">
+                  <ng-container *ngSwitchCase="SiteStateEnum.LOADING">
+                    <i class="fas fa-sync fa-spin"></i>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="SiteStateEnum.ERROR">
+                    <div class="p-2 invalid-feedback">
+                      Une Erreur est survenue
                     </div>
-                  </div>
-                </ng-container>
-              </ng-container>
-            </div>
-            <div class="mb-3">
-              <ng-container *ngIf="siteState$ | async as state" [ngSwitch]="state.dataState">
-                <ng-container *ngSwitchCase="SiteStateEnum.LOADING">
-                  <i class="fas fa-sync fa-spin"></i>
-                </ng-container>
-                <ng-container *ngSwitchCase="SiteStateEnum.ERROR">
-                  <div class="p-2 invalid-feedback">
-                    Une Erreur est survenue
-                  </div>
-                </ng-container>
-                <ng-container *ngSwitchCase="SiteStateEnum.LOADED">
-                  <label class="small mb-1" for="inputUsername">Site</label>
-                  <div class="form-group">
-                    <select formControlName="idSite" name="idSite" class="form-control" [ngClass]="{
+                  </ng-container>
+                  <ng-container *ngSwitchCase="SiteStateEnum.LOADED">
+                    <!-- <label class="small mb-1" for="inputUsername">Site</label>
+                    <div class="form-group">
+                      <select formControlName="idSite" name="idSite" class="form-control" [ngClass]="{
                         'is-invalid':
                           submitted && magasinForm.controls.idSite.errors
                       }">
-                      <option [value]="">Aucun Site</option>
-                      <option [value]="sit.id" *ngFor="let sit of state.sites">
-                        {{ sit.nomSite }}
-                      </option>
-                    </select>
-                    <div *ngIf="submitted && magasinForm.controls.idSite.errors" class="invalid-feedback">
-                      <div *ngIf="magasinForm.controls.idSite.errors.required">
-                        * Veuillez saisir Site
+                        <option [value]="">Aucun Site</option>
+                        <option [value]="sit.id" *ngFor="let sit of state.sites">
+                          {{ sit.nomSite }}
+                        </option>
+                      </select>
+                      <div *ngIf="submitted && magasinForm.controls.idSite.errors" class="invalid-feedback">
+                        <div *ngIf="magasinForm.controls.idSite.errors.required">
+                          * Veuillez saisir Site
+                        </div>
                       </div>
-                    </div>
-                  </div>
+                    </div> -->
+                    <mat-form-field appearance="outline">
+                      <mat-label>Site*</mat-label>
+                      <mat-select formControlName="idSite" placeholder="Propriétaire"
+                        name="Propriétaire">
+                        <mat-option [value]="">Sélectionnez un site</mat-option>
+                        <mat-option [value]="sit.id" *ngFor="let sit of state.sites">
+                          {{ sit.nomSite }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>Ce champ est obligatoire.</mat-error>
+                    </mat-form-field>
+                  </ng-container>
                 </ng-container>
-              </ng-container>
+              </div>
             </div>
+            <!-- </div> -->
+            <!-- </div> -->
             <div class="row gx-3 mb-3">
               <!-- Form Group (first name)-->
               <div class="col-md-6">
@@ -310,7 +314,7 @@
                     <i class="fas fa-sync fa-spin"></i>
                   </ng-container>
                   <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADED">
-                    <label class="small mb-1" for="inputFirstName">Immeuble</label>
+                    <!-- <label class="small mb-1" for="inputFirstName">Immeuble</label>
                     <select (change)="findEtageByImmeuble($event)" name="idImmeuble" class="form-control">
 
                       <option [value]="0">Aucun Immeuble</option>
@@ -318,7 +322,18 @@
                         {{ immeub.codeNomAbrvImmeuble }}
                       </option>
                       <option></option>
-                    </select>
+                    </select> -->
+                    <mat-form-field appearance="outline">
+                      <mat-label>Immeuble*</mat-label>
+                      <mat-select  (change)="findEtageByImmeuble($event)" placeholder="Immeuble" [(ngModel)]="userVilla"
+                        name="Propriétaire">
+                        <mat-option [value]="0">Sélectionnez un immeuble</mat-option>
+                        <mat-option [value]="immeub.id" *ngFor="let immeub of state.immeubles">
+                          {{ immeub.codeNomAbrvImmeuble }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>Ce champ est obligatoire.</mat-error>
+                    </mat-form-field>
                   </ng-container>
                 </ng-container>
               </div>
@@ -351,11 +366,13 @@
               <!-- Form Group (organization name)-->
               <div class="col-md-6">
                 <label class="small mb-1" for="inputOrgName">Désignation</label>
-                <input formControlName="nomBaptiserBienImmobilier" class="form-control" name="nomBaptiserBienImmobilier" type="text" [ngClass]="{
+                <input formControlName="nomBaptiserBienImmobilier" class="form-control" name="nomBaptiserBienImmobilier"
+                  type="text" [ngClass]="{
                     'is-invalid':
                       submitted && magasinForm.controls.nomBaptiserBienImmobilier.errors
                   }" placeholder="Saisir le nom du Magasin" value="Start Bootstrap" />
-                <div *ngIf="submitted && magasinForm.controls.nomBaptiserBienImmobilier.errors" class="invalid-feedback">
+                <div *ngIf="submitted && magasinForm.controls.nomBaptiserBienImmobilier.errors"
+                  class="invalid-feedback">
                   <div *ngIf="magasinForm.controls.nomBaptiserBienImmobilier.errors.required">
                     * Champ obligatoire
                   </div>
@@ -458,8 +475,7 @@
                   </ng-container>
                   <ng-container *ngSwitchCase="EtagesStateEnum.LOADED">
                     <label class="small mb-1" for="inputLastName">Etage</label>
-                    <select formControlName="idEtageAppartement"  class="form-control form-control-lg w-auto"
-                      [ngClass]="{
+                    <select formControlName="idEtageAppartement" class="form-control form-control-lg w-auto" [ngClass]="{
                         'is-invalid':
                           submitted && appartementForm.controls.idEtage.errors
                       }">
@@ -481,11 +497,13 @@
                 <!-- Form Group (organization name)-->
                 <div class="col-md-6">
                   <label class="small mb-1" for="inputOrgName">Désignation</label>
-                  <input formControlName="nomBaptiserBienImmobilier" class="form-control" name="nomBaptiserBienImmobilier" type="text" [ngClass]="{
+                  <input formControlName="nomBaptiserBienImmobilier" class="form-control"
+                    name="nomBaptiserBienImmobilier" type="text" [ngClass]="{
                       'is-invalid':
                         submitted && appartementForm.controls.nomBaptiserBienImmobilier.errors
                     }" required />
-                  <div *ngIf="submitted && appartementForm.controls.nomBaptiserBienImmobilier.errors" class="invalid-feedback">
+                  <div *ngIf="submitted && appartementForm.controls.nomBaptiserBienImmobilier.errors"
+                    class="invalid-feedback">
                     <div *ngIf="appartementForm.controls.nomBaptiserBienImmobilier.errors.required">
                       *Champ obligatoire
                     </div>
