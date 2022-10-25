@@ -107,27 +107,6 @@
         }
       }
     },
-    "gestimoweb/api/v1/agences/uploadlogo" : {
-      "post" : {
-        "operationId" : "uploadLog",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/ImageLogoDto"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "string"
-            }
-          }
-        }
-      }
-    },
     "gestimoweb/api/v1/appartement/all" : {
       "get" : {
         "operationId" : "findAllAppartement",
@@ -453,6 +432,46 @@
         }
       }
     },
+    "gestimoweb/api/v1/appelloyer/impayeParAnnee/{annee}" : {
+      "get" : {
+        "operationId" : "impayeLoyerParAnnee",
+        "parameters" : [ {
+          "name" : "annee",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "number",
+              "format" : "double"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appelloyer/impayeParMois/{periode}" : {
+      "get" : {
+        "operationId" : "impayeLoyerParMois",
+        "parameters" : [ {
+          "name" : "periode",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "number",
+              "format" : "double"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/appelloyer/listOfDistinctAnneeAppel" : {
       "get" : {
         "operationId" : "listOfDistinctAnneeAppel",
@@ -465,6 +484,46 @@
                 "type" : "integer",
                 "format" : "int32"
               }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appelloyer/payeParAnnee/{annee}" : {
+      "get" : {
+        "operationId" : "payeLoyerParAnnee",
+        "parameters" : [ {
+          "name" : "annee",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "number",
+              "format" : "double"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appelloyer/payeParMois/{periode}" : {
+      "get" : {
+        "operationId" : "payeLoyerParMois",
+        "parameters" : [ {
+          "name" : "periode",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "number",
+              "format" : "double"
             }
           }
         }
@@ -1435,80 +1494,6 @@
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/EtageDto"
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/images" : {
-      "post" : {
-        "operationId" : "uploadImage",
-        "parameters" : [ {
-          "name" : "image",
-          "in" : "query",
-          "required" : true
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "object"
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/images/fileSystem" : {
-      "post" : {
-        "operationId" : "uploadImageToFIleSystem",
-        "parameters" : [ {
-          "name" : "image",
-          "in" : "query",
-          "required" : true
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "object"
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/images/fileSystem/{fileName}" : {
-      "get" : {
-        "operationId" : "downloadImageFromFileSystem",
-        "parameters" : [ {
-          "name" : "fileName",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "object"
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/images/{fileName}" : {
-      "get" : {
-        "operationId" : "downloadImage",
-        "parameters" : [ {
-          "name" : "fileName",
-          "in" : "path",
-          "required" : true,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "object"
             }
           }
         }
@@ -3851,38 +3836,6 @@
         }
       }
     },
-    "ImageLogoDto" : {
-      "type" : "object",
-      "properties" : {
-        "idImage" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "nameImage" : {
-          "type" : "string"
-        },
-        "typeImage" : {
-          "type" : "string"
-        },
-        "profileAgenceImageUrl" : {
-          "type" : "string"
-        },
-        "imageData" : {
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "format" : "byte"
-          }
-        },
-        "file" : {
-          "$ref" : "#/definitions/MultipartFile"
-        },
-        "agenceImmobiliere" : {
-          "type" : "integer",
-          "format" : "int64"
-        }
-      }
-    },
     "ImmeubleDto" : {
       "type" : "object",
       "properties" : {
@@ -3992,9 +3945,6 @@
           "type" : "boolean"
         }
       }
-    },
-    "InputStream" : {
-      "type" : "object"
     },
     "LocataireEncaisDTO" : {
       "type" : "object",
@@ -4233,37 +4183,6 @@
         "bailLocation" : {
           "type" : "integer",
           "format" : "int64"
-        }
-      }
-    },
-    "MultipartFile" : {
-      "type" : "object",
-      "properties" : {
-        "name" : {
-          "type" : "string"
-        },
-        "empty" : {
-          "type" : "boolean"
-        },
-        "bytes" : {
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "format" : "byte"
-          }
-        },
-        "size" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "inputStream" : {
-          "$ref" : "#/definitions/InputStream"
-        },
-        "contentType" : {
-          "type" : "string"
-        },
-        "originalFilename" : {
-          "type" : "string"
         }
       }
     },
@@ -4688,10 +4607,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -4797,10 +4716,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -4906,10 +4825,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }

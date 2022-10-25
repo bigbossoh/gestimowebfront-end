@@ -140,13 +140,13 @@ export class AgenceNewComponent implements OnInit {
     const fd= new FormData();
      fd.append('image',this.selectedFile,this.selectedFile!.name);
      console.log("we stating here ",fd);
-    this.userService.onUploadImageService(fd).subscribe(
-      rest=>{
-      console.log("we are here ",rest);
-    },
-    error=>{
-      console.log("we are error ",error);
-    })
+    // this.userService.onUploadImageService(fd).subscribe(
+    //   rest=>{
+    //   console.log("we are here ",rest);
+    // },
+    // error=>{
+    //   console.log("we are error ",error);
+    // })
 
   }
   saveNgrsAgence() {
