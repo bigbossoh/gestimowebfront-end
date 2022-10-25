@@ -20,4 +20,18 @@ export class StatistiqueService {
   public getAllLocatire():Observable<any>{
     return this.apiService.getAllLocatairesByOrder();
   }
+
+  public getAlllocataireAyantBail():Observable<any>{
+    return this.apiService.getAllLocatairesAvecBail();
+  }
+
+  public getAllBauxActif():Observable<any>{
+    return this.apiService.nombrebailactif();
+  }
+
+  public getAllBauxNonActif():Observable<any>{
+    return this.apiService.nombrebailnonactif();
+  }
 }
+
+

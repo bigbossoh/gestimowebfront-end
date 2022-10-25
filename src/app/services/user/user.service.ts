@@ -39,11 +39,11 @@ export class UserService {
   //     .pipe(map((response: any) => response));
   // }
 
-  public onUploadImageService(image:any):Observable<any>{
+  // public onUploadImageService(image:any):Observable<any>{
 
-     console.log("from service ")
-    return this.apiService.uploadImage(image);
-  }
+  //    console.log("from service ")
+  //  // return this.apiService.uploadImage(image);
+  // }
 
   public loadToken(): void {
     this.token = localStorage.getItem('token');

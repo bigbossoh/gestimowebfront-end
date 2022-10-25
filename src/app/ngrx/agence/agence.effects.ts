@@ -53,34 +53,34 @@ console.log(resultat.type.indexOf("Succes"));
       })
     )
   );
-  saveLogoAgenceEffect: Observable<Action> = createEffect(() =>
-    this.effectActions.pipe(
-      ofType(AgenceActionsType.SAVE_AGENCE_LOGO),
-      mergeMap((action: AgenceActions) => {
-        return this.apiService.uploadLog(action.payload).pipe(
-          map((save) => new SaveAgenceActionsSuccess(save)),
-          catchError((err) => of(new SaveAgenceActionsLogoError(err.message)))
-        );
-      }),
-      tap((resultat) => {
-        console.log("Le resultat est le suivant :");
+//   saveLogoAgenceEffect: Observable<Action> = createEffect(() =>
+//     this.effectActions.pipe(
+//       ofType(AgenceActionsType.SAVE_AGENCE_LOGO),
+//       mergeMap((action: AgenceActions) => {
+//         return this.apiService.uploadLog(action.payload).pipe(
+//           map((save) => new SaveAgenceActionsSuccess(save)),
+//           catchError((err) => of(new SaveAgenceActionsLogoError(err.message)))
+//         );
+//       }),
+//       tap((resultat) => {
+//         console.log("Le resultat est le suivant :");
 
-console.log(resultat.type.indexOf("Succes"));
+// console.log(resultat.type.indexOf("Succes"));
 
-        if (resultat.type.indexOf("Succes")>0) {
-          this.sendErrorNotification(
-            NotificationType.SUCCESS,
-            "La création de l'agence a été effectuée avec succès"
-          );
-        } else {
-          this.sendErrorNotification(
-            NotificationType.ERROR,
-            'Une erreur a été rencontrée'
-          );
-        }
-      })
-    )
-  );
+//         if (resultat.type.indexOf("Succes")>0) {
+//           this.sendErrorNotification(
+//             NotificationType.SUCCESS,
+//             "La création de l'agence a été effectuée avec succès"
+//           );
+//         } else {
+//           this.sendErrorNotification(
+//             NotificationType.ERROR,
+//             'Une erreur a été rencontrée'
+//           );
+//         }
+//       })
+//     )
+  // );
   // GET ALL AGENTS EFFECTS
   getAllAgenceEffect: Observable<Action> = createEffect(() =>
   this.effectActions.pipe(

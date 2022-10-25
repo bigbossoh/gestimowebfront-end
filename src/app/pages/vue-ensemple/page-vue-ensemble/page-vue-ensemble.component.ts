@@ -12,6 +12,10 @@ import { UserService } from '../../../services/user/user.service';
 export class PageVueEnsembleComponent implements OnInit {
   listeTOUTUser:number=0;
   totalUtilisateur=0;
+  totalLocatireActifParAgence=0;
+  totalLocataireParAgence=0;
+  totalBailActif:number=0;
+  totalBauxNonActif:number=0;
   totalPieces:number=70;
   totalBiens:number=0;
   totalBiensOQp:number=0;
@@ -31,6 +35,8 @@ export class PageVueEnsembleComponent implements OnInit {
     this.getNombreBienImmobiliersOqp()
     this.getNbreLocataire();
     this.getIdAgence();
+    this.getNbreLocataireActif();
+    this.getNbrebauxActif();
   }
   private getIdAgence(): number{
 
@@ -74,7 +80,7 @@ export class PageVueEnsembleComponent implements OnInit {
   private getNbreLocataire(){
     this.statistique.getAllLocatire().subscribe(
       (response)=>{
-        this.totalUtilisateur=response.length
+        this.totalLocataireParAgence=response.length
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -82,5 +88,25 @@ export class PageVueEnsembleComponent implements OnInit {
     )
   }
 
+  private getNbreLocataireActif(){
+   this.statistique.getAlllocataireAyantBail().subscribe(
+    (resp)=>{
+      this.totalLocatireActifParAgence=resp.length
+    },
+    (error: HttpErrorResponse) => {
+      alert(error.message);
+    }
+   )
+  }
+  private getNbrebauxActif(){
+this.statistique.getAllBauxActif().subscribe(
+  (resp)=>{
+    this.totalBailActif=resp;
+  },
+  (error: HttpErrorResponse) => {
+    alert(error.message);
+  }
+)
+  }
 
 }
