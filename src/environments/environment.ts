@@ -6,7 +6,7 @@ export const environment = {
   production: false,
 
   // serverUrl:'http://seveBackEnd.us-east-1.elasticbeanstalk.com/actuator'
-  serverUrl : 'http://localhost:8284/'
+  serverUrl : 'http://localhost:5000/'
 };
 
 
