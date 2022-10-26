@@ -32,30 +32,70 @@
       <mat-card-title>Staisques par Année</mat-card-title>
       <mat-card-subtitle>
         <mat-form-field appearance="fill">
-          <ng-container *ngIf="anneeState$ | async as anneeState" [ngSwitch]="anneeState.dataState">
+          <ng-container
+            *ngIf="anneeState$ | async as anneeState"
+            [ngSwitch]="anneeState.dataState"
+          >
             <ng-container *ngSwitchCase="AnneeStateEnum.LOADING">
               <i class="fas fa-sync fa-spin"></i>
             </ng-container>
             <ng-container *ngSwitchCase="AnneeStateEnum.LOADED">
               <mat-label>Choisir l'année</mat-label>
-              <mat-select #selectionAnnee>
+              <mat-select
+                #selectionAnnee
+                (selectionChange)="
+                  getImpayerParAnnee(selectionAnnee.value);
+                  getPayerParAnnee(selectionAnnee.value)
+                "
+              >
                 <mat-option
-                [value]="annee" *ngFor="let annee of anneeState.annees"                >
-              {{annee}}</mat-option>
+                  [value]="annee"
+                  *ngFor="let annee of anneeState.annees"
+                >
+                  {{ annee }}</mat-option
+                >
               </mat-select>
             </ng-container>
           </ng-container>
-
         </mat-form-field>
       </mat-card-subtitle>
     </mat-card-title-group>
     <mat-card-content>
       <ul>
-        <li>Total des impayés 450000</li>
-        <li>Total des impayés 450000</li>
+        <li>
+          Total des loyers impayés
+          <ng-container
+            *ngIf="appelLoyerState$ | async as appelLoyerState"
+            [ngSwitch]="appelLoyerState.dataState"
+          >
+            <ng-container *ngSwitchCase="AppelLoyerStateEnum.ERROR"
+              >0</ng-container
+            >
+            <ng-container *ngSwitchCase="AppelLoyerStateEnum.LOADED">
+              <div class="text-danger">
+                {{ appelLoyerState.impayerAnnee }}
+              </div>
+            </ng-container>
+          </ng-container>
+        </li>
+        <li>
+          Total des loyers payés
+          <ng-container
+            *ngIf="appelLoyerPayerState$ | async as appelLoyerPayerState"
+            [ngSwitch]="appelLoyerPayerState.dataState"
+          >
+            <ng-container *ngSwitchCase="AppelLoyerPayerStateEnum.ERROR"
+              >0</ng-container
+            >
+            <ng-container *ngSwitchCase="AppelLoyerPayerStateEnum.LOADED">
+              <div class="text-success">
+                {{ appelLoyerPayerState.payerAnnee }}
+              </div></ng-container
+            >
+          </ng-container>
+        </li>
       </ul>
-
-      47 % de recouvrement
+      Recouvrement: <p *ngIf="(v_impayer+v_payer)!=0">{{v_payer/(v_impayer+v_payer)*100|number:'2.1-2'}} %</p>
     </mat-card-content>
   </mat-card>
 </div>
