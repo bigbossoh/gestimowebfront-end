@@ -18,6 +18,7 @@ export interface AppelLoyerState {
   anneesAppel: AnneeAppelLoyersDto[];
   periodes: PeriodeDto[];
   impayerAnnee: number;
+  payerAnnee: number;
   errorMessage: string;
   dataState: AppelLoyerStateEnum;
 }
@@ -26,6 +27,7 @@ const initState: AppelLoyerState = {
   anneesAppel: [],
   periodes: [],
   impayerAnnee: 0,
+  payerAnnee: 0,
   errorMessage: '',
   dataState: AppelLoyerStateEnum.INITIAL,
 };
@@ -75,6 +77,21 @@ export function appelLoyerReducer(
         impayerAnnee: (<AppelLoyerActions>action).payload,
       };
     case AppelLoyerctionsTypes.GET_IMPAYER_LOYER_PAR_ANNEE_ERROR:
+      return {
+        ...state,
+        dataState: AppelLoyerStateEnum.ERROR,
+        errorMessage: (<AppelLoyerActions>action).payload,
+      };
+    // GET PAYER PAR ANNEE
+    case AppelLoyerctionsTypes.GET_PAYER_LOYER_PAR_ANNEE:
+      return { ...state, dataState: AppelLoyerStateEnum.LOADING };
+    case AppelLoyerctionsTypes.GET_PAYER_LOYER_PAR_ANNEE_SUCCES:
+      return {
+        ...state,
+        dataState: AppelLoyerStateEnum.LOADED,
+        payerAnnee: (<AppelLoyerActions>action).payload,
+      };
+    case AppelLoyerctionsTypes.GET_PAYER_LOYER_PAR_ANNEE_ERROR:
       return {
         ...state,
         dataState: AppelLoyerStateEnum.ERROR,
