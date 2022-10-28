@@ -432,6 +432,26 @@
         }
       }
     },
+    "gestimoweb/api/v1/appelloyer/impayeParAnnee/{annee}" : {
+      "get" : {
+        "operationId" : "impayeLoyerParAnnee",
+        "parameters" : [ {
+          "name" : "annee",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "number",
+              "format" : "double"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/appelloyer/impayeParMois/{periode}" : {
       "get" : {
         "operationId" : "impayeLoyerParMois",
@@ -464,6 +484,26 @@
                 "type" : "integer",
                 "format" : "int32"
               }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appelloyer/payeParAnnee/{annee}" : {
+      "get" : {
+        "operationId" : "payeLoyerParAnnee",
+        "parameters" : [ {
+          "name" : "annee",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "number",
+              "format" : "double"
             }
           }
         }
@@ -4581,10 +4621,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -4690,10 +4730,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -4799,10 +4839,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }

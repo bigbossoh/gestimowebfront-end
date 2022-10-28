@@ -24,9 +24,29 @@ export enum AppelLoyerctionsTypes {
   GET_ALL_APPELLOYER_BY_PERIODE_SUCCES = '[AppelLoyersFactureDto] Get All AppelLoyer By Periode Succes',
   GET_ALL_APPELLOYER_BY_PERIODE_ERROR = '[AppelLoyersFactureDto] Get All AppelLoyer By Periode Error',
 
+
+  GET_IMPAYER_LOYER_PAR_ANNEE= '[AppelLoyersFactureDto] Get Impayer par annee',
+  GET_IMPAYER_LOYER_PAR_ANNEE_SUCCES = '[AppelLoyersFactureDto] Get Impayer par annee Success',
+  GET_IMPAYER_LOYER_PAR_ANNEE_ERROR = '[AppelLoyersFactureDto] Get Impayer par annee Error',
+
 }
 
+//GAT IMPAYER PAR ANNEE
+export class GetImayerLoyerParAnneeActions implements Action {
+  type: AppelLoyerctionsTypes = AppelLoyerctionsTypes.GET_IMPAYER_LOYER_PAR_ANNEE;
+  constructor(public payload: number) { }
+}
 
+export class GetImayerLoyerParAnneeActionsSuccess implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_IMPAYER_LOYER_PAR_ANNEE_SUCCES;
+  constructor(public payload: number) { }
+}
+export class GetImayerLoyerParAnneeActionsError implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_IMPAYER_LOYER_PAR_ANNEE_ERROR;
+  constructor(public payload: string) { }
+}
 // GET ALL APPEL LOYER
 export class GetAllAppelLoyerActions implements Action {
   type: AppelLoyerctionsTypes = AppelLoyerctionsTypes.GET_ALL_APPELLOYER;
@@ -43,8 +63,6 @@ export class GetAllAppelLoyerActionsError implements Action {
     AppelLoyerctionsTypes.GET_ALL_APPELLOYER_ERROR;
   constructor(public payload: string) { }
 }
-// GET ALL PERIODE BY ANNEE
-
 
 // GET ALL APPARTEMENT BY PERIODE
 export class GetAllAppelLoyerByPeriodeActions implements Action {
