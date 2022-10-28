@@ -64,6 +64,7 @@ class ApiService extends __BaseService {
   static readonly AppelLoyersParPeriodePath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerByPeriode/{periode}';
   static readonly getFirstLoyerImpayerByBienPath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerBybien/{id}';
   static readonly listTousAppelsLoyersPath = 'gestimoweb/api/v1/appelloyer/findAllAppelsLoyer';
+  static readonly findAllPeriodePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeAppel';
   static readonly findAllPeriodeByAnneePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeByAnnee/{annee}';
   static readonly findAllPeriodeChiffreEtLettreByAnneePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeChiffreEtLettreByAnnee/{annee}';
   static readonly AppelLoyersParIdPath = 'gestimoweb/api/v1/appelloyer/findAppelloyer/{id}';
@@ -752,6 +753,39 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @return successful operation
+   */
+  findAllPeriodeResponse(): __Observable<__StrictHttpResponse<Array<PeriodeDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/findAllPeriodeAppel`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<PeriodeDto>>;
+      })
+    );
+  }
+  /**
+   * @return successful operation
+   */
+  findAllPeriode(): __Observable<Array<PeriodeDto>> {
+    return this.findAllPeriodeResponse().pipe(
+      __map(_r => _r.body as Array<PeriodeDto>)
+    );
+  }
+
+  /**
    * @param annee undefined
    * @return successful operation
    */
@@ -935,7 +969,7 @@ class ApiService extends __BaseService {
    * @param annee undefined
    * @return successful operation
    */
-  impayeLoyerParAnneeResponse(annee: string): __Observable<__StrictHttpResponse<number>> {
+  impayeLoyerParAnneeResponse(annee: number): __Observable<__StrictHttpResponse<number>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -961,7 +995,7 @@ class ApiService extends __BaseService {
    * @param annee undefined
    * @return successful operation
    */
-  impayeLoyerParAnnee(annee: string): __Observable<number> {
+  impayeLoyerParAnnee(annee: number): __Observable<number> {
     return this.impayeLoyerParAnneeResponse(annee).pipe(
       __map(_r => _r.body as number)
     );
@@ -1040,7 +1074,7 @@ class ApiService extends __BaseService {
    * @param annee undefined
    * @return successful operation
    */
-  payeLoyerParAnneeResponse(annee: string): __Observable<__StrictHttpResponse<number>> {
+  payeLoyerParAnneeResponse(annee: number): __Observable<__StrictHttpResponse<number>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1066,7 +1100,7 @@ class ApiService extends __BaseService {
    * @param annee undefined
    * @return successful operation
    */
-  payeLoyerParAnnee(annee: string): __Observable<number> {
+  payeLoyerParAnnee(annee: number): __Observable<number> {
     return this.payeLoyerParAnneeResponse(annee).pipe(
       __map(_r => _r.body as number)
     );

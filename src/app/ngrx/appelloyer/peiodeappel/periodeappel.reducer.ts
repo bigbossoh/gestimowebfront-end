@@ -19,7 +19,7 @@ export interface PeriodeState {
     dataState: PeriodeStateEnum;
 }
 const initState: PeriodeState = {
-  
+
     periodes: [],
     errorMessage: '',
     dataState: PeriodeStateEnum.INITIAL,
@@ -29,8 +29,6 @@ export function periodeReducer(
     action: Action
 ): PeriodeState {
     switch (action.type) {
-       
-        
         // GET ALL PERIODE BY ANNEE
         case PeriodeActionsTypes.GET_PERIODE_BY_ANNEE:
             return { ...state, dataState: PeriodeStateEnum.LOADING };
@@ -46,7 +44,22 @@ export function periodeReducer(
                 dataState: PeriodeStateEnum.ERROR,
                 errorMessage: (<PeriodeActions>action).payload,
             };
-       
+            // GET ALL PERIODE
+            case PeriodeActionsTypes.GET_PERIODE:
+              return { ...state, dataState: PeriodeStateEnum.LOADING };
+          case PeriodeActionsTypes.GET_PERIODE_SUCCES:
+              return {
+                  ...state,
+                  dataState: PeriodeStateEnum.LOADED,
+                  periodes: (<PeriodeActions>action).payload,
+              };
+          case PeriodeActionsTypes.GET_PERIODE_ERROR:
+              return {
+                  ...state,
+                  dataState: PeriodeStateEnum.ERROR,
+                  errorMessage: (<PeriodeActions>action).payload,
+              };
+
         default:
             return { ...state };
     }
