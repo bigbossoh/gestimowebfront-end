@@ -64,13 +64,16 @@ class ApiService extends __BaseService {
   static readonly AppelLoyersParPeriodePath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerByPeriode/{periode}';
   static readonly getFirstLoyerImpayerByBienPath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerBybien/{id}';
   static readonly listTousAppelsLoyersPath = 'gestimoweb/api/v1/appelloyer/findAllAppelsLoyer';
+  static readonly findAllPeriodePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeAppel';
   static readonly findAllPeriodeByAnneePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeByAnnee/{annee}';
   static readonly findAllPeriodeChiffreEtLettreByAnneePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeChiffreEtLettreByAnnee/{annee}';
   static readonly AppelLoyersParIdPath = 'gestimoweb/api/v1/appelloyer/findAppelloyer/{id}';
   static readonly listDesLoyersParBailPath = 'gestimoweb/api/v1/appelloyer/findAppelsByIdBail/{id}';
   static readonly listDesLoyersImpayerParBailPath = 'gestimoweb/api/v1/appelloyer/findAppelsImpayerByIdBail/{id}';
+  static readonly impayeLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/impayeParAnnee/{annee}';
   static readonly impayeLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/impayeParMois/{periode}';
   static readonly listOfDistinctAnneeAppelPath = 'gestimoweb/api/v1/appelloyer/listOfDistinctAnneeAppel';
+  static readonly payeLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/payeParAnnee/{annee}';
   static readonly payeLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/payeParMois/{periode}';
   static readonly saveAppelLoyersPath = 'gestimoweb/api/v1/appelloyer/save';
   static readonly verifyAccountPath = 'gestimoweb/api/v1/auth/accountVerification/{token}';
@@ -751,6 +754,39 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @return successful operation
+   */
+  findAllPeriodeResponse(): __Observable<__StrictHttpResponse<Array<PeriodeDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/findAllPeriodeAppel`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<PeriodeDto>>;
+      })
+    );
+  }
+  /**
+   * @return successful operation
+   */
+  findAllPeriode(): __Observable<Array<PeriodeDto>> {
+    return this.findAllPeriodeResponse().pipe(
+      __map(_r => _r.body as Array<PeriodeDto>)
+    );
+  }
+
+  /**
    * @param annee undefined
    * @return successful operation
    */
@@ -931,6 +967,42 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param annee undefined
+   * @return successful operation
+   */
+  impayeLoyerParAnneeResponse(annee: number): __Observable<__StrictHttpResponse<number>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/impayeParAnnee/${annee}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: parseFloat((_r as HttpResponse<any>).body as string) }) as __StrictHttpResponse<number>
+      })
+    );
+  }
+  /**
+   * @param annee undefined
+   * @return successful operation
+   */
+  impayeLoyerParAnnee(annee: number): __Observable<number> {
+    return this.impayeLoyerParAnneeResponse(annee).pipe(
+      __map(_r => _r.body as number)
+    );
+  }
+
+  /**
    * @param periode undefined
    * @return successful operation
    */
@@ -996,6 +1068,42 @@ class ApiService extends __BaseService {
   listOfDistinctAnneeAppel(): __Observable<Array<number>> {
     return this.listOfDistinctAnneeAppelResponse().pipe(
       __map(_r => _r.body as Array<number>)
+    );
+  }
+
+  /**
+   * @param annee undefined
+   * @return successful operation
+   */
+  payeLoyerParAnneeResponse(annee: number): __Observable<__StrictHttpResponse<number>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/payeParAnnee/${annee}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: parseFloat((_r as HttpResponse<any>).body as string) }) as __StrictHttpResponse<number>
+      })
+    );
+  }
+  /**
+   * @param annee undefined
+   * @return successful operation
+   */
+  payeLoyerParAnnee(annee: number): __Observable<number> {
+    return this.payeLoyerParAnneeResponse(annee).pipe(
+      __map(_r => _r.body as number)
     );
   }
 

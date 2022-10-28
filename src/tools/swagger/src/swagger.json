@@ -9,7 +9,7 @@
       "email" : "michel.bossoh@outlook.fr"
     }
   },
-  "basePath" : "http://localhost:5000",
+  "basePath" : "http://localhost:8284",
   "paths" : {
     "gestimoweb/api/v1/agences/all" : {
       "get" : {
@@ -2944,10 +2944,10 @@
             "$ref" : "#/definitions/Encaissement"
           }
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         }
       }
@@ -3161,10 +3161,10 @@
           "type" : "number",
           "format" : "double"
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         }
       }
@@ -4054,10 +4054,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -4107,10 +4107,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -4639,10 +4639,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -4748,10 +4748,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -4857,10 +4857,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
