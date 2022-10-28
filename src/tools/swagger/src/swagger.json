@@ -9,7 +9,7 @@
       "email" : "michel.bossoh@outlook.fr"
     }
   },
-  "basePath" : "http://localhost:8284",
+  "basePath" : "http://localhost:5000",
   "paths" : {
     "gestimoweb/api/v1/agences/all" : {
       "get" : {
@@ -320,6 +320,22 @@
         }
       }
     },
+    "gestimoweb/api/v1/appelloyer/findAllPeriodeAppel" : {
+      "get" : {
+        "operationId" : "findAllPeriode",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/PeriodeDto"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/appelloyer/findAllPeriodeByAnnee/{annee}" : {
       "get" : {
         "operationId" : "findAllPeriodeByAnnee",
@@ -439,7 +455,8 @@
           "name" : "annee",
           "in" : "path",
           "required" : true,
-          "type" : "string"
+          "type" : "integer",
+          "format" : "int32"
         } ],
         "responses" : {
           "200" : {
@@ -496,7 +513,8 @@
           "name" : "annee",
           "in" : "path",
           "required" : true,
-          "type" : "string"
+          "type" : "integer",
+          "format" : "int32"
         } ],
         "responses" : {
           "200" : {
