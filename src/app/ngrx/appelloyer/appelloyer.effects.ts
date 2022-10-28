@@ -13,6 +13,10 @@ import {
   GetImayerLoyerParAnneeActionsError,
   GetPayerLoyerParAnneeActionsSuccess,
   GetPayerLoyerParAnneeActionsError,
+  GetImpayerLoyerParPeriodeActionsError,
+  GetImpayerLoyerParPeriodeActionsSuccess,
+  GetPayerLoyerParPeriodeActionsSuccess,
+  GetPayerLoyerParPeriodeActionsError
 } from './appelloyer.actions';
 import {
   AppelLoyerctionsTypes,
@@ -37,6 +41,38 @@ export class AppelLoyerEffects {
       })
     )
   );
+  getImpayerParPeriodeEffect: Observable<Action> = createEffect(() =>
+  this.effectActions.pipe(
+    ofType(AppelLoyerctionsTypes.GET_IMPAYER_LOYER_PAR_PERIODE),
+    mergeMap((action: AppelLoyerActions) => {
+      return this.apiService.impayeLoyerParMois(action.payload).pipe(
+        map(
+          (appelloyers) =>
+            new GetImpayerLoyerParPeriodeActionsSuccess(appelloyers)
+        ),
+        catchError((err) =>
+          of(new GetImpayerLoyerParPeriodeActionsError(err.message))
+        )
+      );
+    })
+  )
+  );
+  getPayerParPeriodeEffect: Observable<Action> = createEffect(() =>
+  this.effectActions.pipe(
+    ofType(AppelLoyerctionsTypes.GET_PAYER_LOYER_PAR_PERIODE),
+    mergeMap((action: AppelLoyerActions) => {
+      return this.apiService.payeLoyerParMois(action.payload).pipe(
+        map(
+          (appelloyers) =>
+            new GetPayerLoyerParPeriodeActionsSuccess(appelloyers)
+        ),
+        catchError((err) =>
+          of(new GetPayerLoyerParPeriodeActionsError(err.message))
+        )
+      );
+    })
+  )
+);
   getImpayerParAnneeEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(AppelLoyerctionsTypes.GET_IMPAYER_LOYER_PAR_ANNEE),

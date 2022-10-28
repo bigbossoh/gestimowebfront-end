@@ -29,6 +29,14 @@ export enum AppelLoyerctionsTypes {
   GET_PAYER_LOYER_PAR_ANNEE = '[AppelLoyersFactureDto] Get Payer par annee',
   GET_PAYER_LOYER_PAR_ANNEE_SUCCES = '[AppelLoyersFactureDto] Get Payer par annee Success',
   GET_PAYER_LOYER_PAR_ANNEE_ERROR = '[AppelLoyersFactureDto] Get Payer par annee Error',
+
+  GET_IMPAYER_LOYER_PAR_PERIODE = '[AppelLoyersFactureDto] Get Impayer par PERIODE',
+  GET_IMPAYER_LOYER_PAR_PERIODE_SUCCES = '[AppelLoyersFactureDto] Get Impayer par PERIODE Success',
+  GET_IMPAYER_LOYER_PAR_PERIODE_ERROR = '[AppelLoyersFactureDto] Get Impayer par PERIODE Error',
+
+  GET_PAYER_LOYER_PAR_PERIODE = '[AppelLoyersFactureDto] Get Payer par PERIODE',
+  GET_PAYER_LOYER_PAR_PERIODE_SUCCES = '[AppelLoyersFactureDto] Get Payer par PERIODE Success',
+  GET_PAYER_LOYER_PAR_PERIODE_ERROR = '[AppelLoyersFactureDto] Get Payer par PERIODE Error',
 }
 
 //GET IMPAYER PAR ANNEE
@@ -49,7 +57,7 @@ export class GetImayerLoyerParAnneeActionsError implements Action {
   constructor(public payload: string) {}
 }
 
-//GET IMPAYER PAR ANNEE
+//GET PAYER PAR ANNEE
 export class GetPayerLoyerParAnneeActions implements Action {
   type: AppelLoyerctionsTypes = AppelLoyerctionsTypes.GET_PAYER_LOYER_PAR_ANNEE;
   constructor(public payload: number) {}
@@ -63,6 +71,40 @@ export class GetPayerLoyerParAnneeActionsSuccess implements Action {
 export class GetPayerLoyerParAnneeActionsError implements Action {
   type: AppelLoyerctionsTypes =
     AppelLoyerctionsTypes.GET_PAYER_LOYER_PAR_ANNEE_ERROR;
+  constructor(public payload: string) {}
+}
+//GET IMPAYER PAR PERIODE
+export class GetImpayerLoyerParPeriodeActions implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_IMPAYER_LOYER_PAR_PERIODE;
+  constructor(public payload: number) {}
+}
+
+export class GetImpayerLoyerParPeriodeActionsSuccess implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_IMPAYER_LOYER_PAR_PERIODE_SUCCES;
+  constructor(public payload: number) {}
+}
+export class GetImpayerLoyerParPeriodeActionsError implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_IMPAYER_LOYER_PAR_PERIODE_ERROR;
+  constructor(public payload: string) {}
+}
+//GET PAYER PAR ANNEE
+export class GetPayerLoyerParPeriodeActions implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_PAYER_LOYER_PAR_PERIODE;
+  constructor(public payload: number) {}
+}
+
+export class GetPayerLoyerParPeriodeActionsSuccess implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_PAYER_LOYER_PAR_PERIODE_SUCCES;
+  constructor(public payload: number) {}
+}
+export class GetPayerLoyerParPeriodeActionsError implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_PAYER_LOYER_PAR_PERIODE_ERROR;
   constructor(public payload: string) {}
 }
 // GET ALL APPEL LOYER
@@ -128,4 +170,10 @@ export type AppelLoyerActions =
   | GetImayerLoyerParAnneeActionsSuccess
   | GetPayerLoyerParAnneeActions
   | GetPayerLoyerParAnneeActionsError
-  | GetPayerLoyerParAnneeActionsSuccess;
+  | GetPayerLoyerParAnneeActionsSuccess
+  | GetImpayerLoyerParPeriodeActions
+  | GetImpayerLoyerParPeriodeActionsSuccess
+  | GetImpayerLoyerParPeriodeActionsError
+  | GetPayerLoyerParPeriodeActions
+  | GetPayerLoyerParPeriodeActionsError
+  | GetPayerLoyerParPeriodeActionsSuccess;
