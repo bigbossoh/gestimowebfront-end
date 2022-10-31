@@ -1,5 +1,8 @@
 import { TotalEncaissementParJourActions } from './../../ngrx/reglement/reglement.actions';
-import { EncaissementState, EncaissementStateEnum } from './../../ngrx/reglement/reglement.reducer';
+import {
+  EncaissementState,
+  EncaissementStateEnum,
+} from './../../ngrx/reglement/reglement.reducer';
 import { GetAllPeriodeActions } from './../../ngrx/appelloyer/peiodeappel/periodeappel.actions';
 import { PeriodeStateEnum } from 'src/app/ngrx/appelloyer/peiodeappel/periodeappel.reducer';
 import { PeriodeState } from './../../ngrx/appelloyer/peiodeappel/periodeappel.reducer';
@@ -15,16 +18,17 @@ import { map } from 'rxjs/operators';
 import { GetAllAnneeActions } from './../../ngrx/annee/annee.actions';
 import { AnneeState, AnneeStateEnum } from './../../ngrx/annee/annee.reducer';
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-page-statistique-journalier',
   templateUrl: './page-statistique-journalier.component.html',
   styleUrls: ['./page-statistique-journalier.component.css'],
-
 })
 export class PageStatistiqueJournalierComponent implements OnInit {
   anneeState$: Observable<AnneeState> | null = null;
@@ -34,7 +38,6 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   appelLoyerImpayerMoisState$: Observable<AppelLoyerState> | null = null;
   periodeState$: Observable<PeriodeState> | null = null;
   totalEncaissementState$: Observable<EncaissementState> | null = null;
-
 
   readonly PeriodeStateEnum = PeriodeStateEnum;
   readonly EncaissementStateEnum = EncaissementStateEnum;
@@ -49,7 +52,14 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   v_impayer_mois = 0;
   v_payer_mois = 0;
 
-  constructor(private store: Store<any>) {}
+  constructor(
+    private store: Store<any>,
+    private _adapter: DateAdapter<Date>,
+    @Inject(MAT_DATE_LOCALE) private _locale: string
+  ) {
+    this._locale = 'fr';
+    this._adapter.setLocale(this._locale);
+  }
   getImpayerParAnnee(annee: number) {
     this.store.dispatch(new GetImayerLoyerParAnneeActions(annee));
     this.appelLoyerState$ = this.store.pipe(
@@ -59,8 +69,10 @@ export class PageStatistiqueJournalierComponent implements OnInit {
       this.v_impayer_annee = data.impayerAnnee;
     });
   }
-  getEncaissementPayerJour(jour: number) {
-    this.store.dispatch(new TotalEncaissementParJourActions(jour));
+  getEncaissementPayerJour(jour: string) {
+    jour = jour.replace('/', '-');
+    jour = jour.replace('/', '-');
+      this.store.dispatch(new TotalEncaissementParJourActions(jour));
     this.totalEncaissementState$ = this.store.pipe(
       map((state) => state.encaissementState)
     );
@@ -79,7 +91,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   }
   getImpayerParPeriode(periode: any) {
     this.store.dispatch(new GetImpayerLoyerParPeriodeActions(periode));
-    this.appelLoyerImpayerMoisState$= this.store.pipe(
+    this.appelLoyerImpayerMoisState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
     );
     this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
@@ -89,7 +101,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
 
   getPayerParPeriode(periode: any) {
     this.store.dispatch(new GetPayerLoyerParPeriodeActions(periode));
-    this.appelLoyerPayerMoisState$= this.store.pipe(
+    this.appelLoyerPayerMoisState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
     );
     this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {

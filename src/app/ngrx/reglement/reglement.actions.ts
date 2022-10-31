@@ -75,7 +75,7 @@ export class GetEncaissementBienActionsError implements Action {
 export class TotalEncaissementParJourActions implements Action {
   type: EncaissementActionsTypes =
     EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR;
-  constructor(public payload: number) {}
+  constructor(public payload: any) {}
 }
 
 export class TotalEncaissementParJourActionsSuccess implements Action {
