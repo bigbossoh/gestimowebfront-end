@@ -15,7 +15,7 @@ import {
 import { NotificationType } from '../../enum/natification-type.enum';
 import { NotificationService } from '../../services/notification/notification.service';
 import { OperationActions } from '../baux/baux.actions';
-import { GetEncaissementBienActionsSuccess, GetEncaissementBienActionsError } from './reglement.actions';
+import { GetEncaissementBienActionsSuccess, GetEncaissementBienActionsError, TotalEncaissementParJourActionsSuccess, TotalEncaissementParJourActionsError } from './reglement.actions';
 
 @Injectable()
 export class Encaissementffects {
@@ -45,6 +45,27 @@ export class Encaissementffects {
       })
     )
   );
+  totalEncaissementJournalierEffect: Observable<Action> = createEffect(() =>
+  this.effectActions.pipe(
+    ofType(EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR),
+    mergeMap((action: EncaissementActions) => {
+      return this.apiService.totalEncaissementParJour(action.payload).pipe(
+        map((encaiss) => new TotalEncaissementParJourActionsSuccess(encaiss)),
+        catchError((err) => of(new TotalEncaissementParJourActionsError(err.message)))
+      );
+    }),
+    // tap((resultat) => {
+    //   if (resultat.type == EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR_SUCCES) {
+    //     this.sendErrorNotification(
+    //       NotificationType.SUCCESS,
+    //       'Enregistrement éffectué avec succès !'
+    //     );
+    //   } else {
+    //     this.sendErrorNotification(NotificationType.ERROR, resultat.payload);
+    //   }
+    // })
+  )
+);
   getAllPeriodebyBienEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN),

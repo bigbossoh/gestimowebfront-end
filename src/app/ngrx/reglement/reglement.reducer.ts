@@ -15,11 +15,13 @@ export interface EncaissementState {
   encaissements: EncaissementPrincipalDTO[];
   appelloyers: any;
   errorMessage: string;
+  montantEncaisse: number;
   dataState: EncaissementStateEnum;
 }
 const initState: EncaissementState = {
   encaissements: [],
-  appelloyers:null,
+  appelloyers: null,
+  montantEncaisse:0,
   errorMessage: '',
   dataState: EncaissementStateEnum.INITIAL,
 };
@@ -42,7 +44,23 @@ export function encaissementReducer(
         dataState: EncaissementStateEnum.ERROR,
         errorMessage: (<EncaissementActions>action).payload,
       };
+// TOTAL ENCAISSEMENT
+case EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR:
+  return { ...state, dataState: EncaissementStateEnum.LOADING };
+case EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR_SUCCES:
+  return {
+    ...state,
+    dataState: EncaissementStateEnum.LOADED,
+    montantEncaisse: (<EncaissementActions>action).payload,
+  };
+case EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR_ERROR:
+  return {
+    ...state,
+    dataState: EncaissementStateEnum.ERROR,
+    errorMessage: (<EncaissementActions>action).payload,
+  };
 // AFFCHAGE DES LOYERS POUR REGLEMENTS
+
 case EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN:
   return { ...state, dataState: EncaissementStateEnum.LOADING };
 case EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN_SUCCES:
