@@ -104,7 +104,6 @@ export class PageBienImmobilierNewComponent implements OnInit {
   }
   visiblForm = 0;
   findEtageByImmeuble(immeuble: any) {
-    alert(immeuble);
     this.store.dispatch(
       new GetAllEtagesByImmeubleActions(immeuble)
     );
