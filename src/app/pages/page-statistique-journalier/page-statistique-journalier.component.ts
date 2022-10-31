@@ -1,3 +1,5 @@
+import { TotalEncaissementParJourActions } from './../../ngrx/reglement/reglement.actions';
+import { EncaissementState, EncaissementStateEnum } from './../../ngrx/reglement/reglement.reducer';
 import { GetAllPeriodeActions } from './../../ngrx/appelloyer/peiodeappel/periodeappel.actions';
 import { PeriodeStateEnum } from 'src/app/ngrx/appelloyer/peiodeappel/periodeappel.reducer';
 import { PeriodeState } from './../../ngrx/appelloyer/peiodeappel/periodeappel.reducer';
@@ -31,9 +33,11 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   appelLoyerPayerMoisState$: Observable<AppelLoyerState> | null = null;
   appelLoyerImpayerMoisState$: Observable<AppelLoyerState> | null = null;
   periodeState$: Observable<PeriodeState> | null = null;
+  totalEncaissementState$: Observable<EncaissementState> | null = null;
 
 
   readonly PeriodeStateEnum = PeriodeStateEnum;
+  readonly EncaissementStateEnum = EncaissementStateEnum;
   readonly AppelLoyerStateEnum = AppelLoyerStateEnum;
   readonly AppelLoyerPayerStateEnum = AppelLoyerStateEnum;
   readonly AppelLoyerPayerMoisStateEnum = AppelLoyerStateEnum;
@@ -55,7 +59,15 @@ export class PageStatistiqueJournalierComponent implements OnInit {
       this.v_impayer_annee = data.impayerAnnee;
     });
   }
-
+  getEncaissementPayerJour(jour: number) {
+    this.store.dispatch(new TotalEncaissementParJourActions(jour));
+    this.totalEncaissementState$ = this.store.pipe(
+      map((state) => state.encaissementState)
+    );
+    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
+      this.v_impayer_annee = data.impayerAnnee;
+    });
+  }
   getPayerParAnnee(annee: number) {
     this.store.dispatch(new GetPayerLoyerParAnneeActions(annee));
     this.appelLoyerPayerState$ = this.store.pipe(

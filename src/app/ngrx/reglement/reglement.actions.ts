@@ -16,6 +16,10 @@ export enum EncaissementActionsTypes {
   GET_ALL_PERIODE_REGLEMENT_BY_BIEN = '[AppelLoyersFactureDto] Get All periode By bien',
   GET_ALL_PERIODE_REGLEMENT_BY_BIEN_SUCCES = '[AppelLoyersFactureDto] Get All periode By bien Succes',
   GET_ALL_PERIODE_REGLEMENT_BY_BIEN_ERROR = '[AppelLoyersFactureDto] Get All periode By bien Error',
+
+  TOTAL_ENCAISSEMENT_PAR_JOUR = 'TOTAL ENCAISSEMENT ',
+  TOTAL_ENCAISSEMENT_PAR_JOUR_SUCCES = 'TOTAL ENCAISSEMENT SUCCES',
+  TOTAL_ENCAISSEMENT_PAR_JOUR_ERROR = 'TOTAL ENCAISSEMENT ERROR',
 }
 export class SaveEncaissementActions implements Action {
   type: EncaissementActionsTypes = EncaissementActionsTypes.SAVE_ENCAISSEMENT;
@@ -67,6 +71,23 @@ export class GetEncaissementBienActionsError implements Action {
     EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN_ERROR;
   constructor(public payload: string) {}
 }
+// GET TOTAL ENCAISSEMENT6
+export class TotalEncaissementParJourActions implements Action {
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR;
+  constructor(public payload: number) {}
+}
+
+export class TotalEncaissementParJourActionsSuccess implements Action {
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR_SUCCES;
+  constructor(public payload: any) {}
+}
+export class TotalEncaissementParJourActionsError implements Action {
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR_ERROR;
+  constructor(public payload: string) {}
+}
 export type EncaissementActions =
   | SaveEncaissementActions
   | SaveEncaissementActionsError
@@ -74,6 +95,9 @@ export type EncaissementActions =
   | GetAllPeriodeReglementByBienActions
   | GetAllPeriodeReglementByBienActionsSuccess
   | GetAllPeriodeReglementByBienActionsError
-  |GetEncaissementBienActions
-  |GetEncaissementBienActionsError
-  |GetEncaissementBienActionsSuccess;
+  | GetEncaissementBienActions
+  | GetEncaissementBienActionsError
+  | GetEncaissementBienActionsSuccess
+  | TotalEncaissementParJourActions
+  | TotalEncaissementParJourActionsError
+  | TotalEncaissementParJourActionsSuccess;

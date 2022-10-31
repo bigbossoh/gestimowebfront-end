@@ -9,7 +9,7 @@
       "email" : "michel.bossoh@outlook.fr"
     }
   },
-  "basePath" : "http://localhost:8284",
+  "basePath" : "http://localhost:5000",
   "paths" : {
     "gestimoweb/api/v1/agences/all" : {
       "get" : {
@@ -1340,6 +1340,26 @@
           "required" : true,
           "type" : "integer",
           "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "number",
+              "format" : "double"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/encaissement/totalencaissementjournalier/{jour}" : {
+      "get" : {
+        "operationId" : "totalEncaissementParJour",
+        "parameters" : [ {
+          "name" : "jour",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -4054,10 +4074,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -4107,10 +4127,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }

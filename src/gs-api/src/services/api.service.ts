@@ -116,6 +116,7 @@ class ApiService extends __BaseService {
   static readonly saveEncaissementAvecretourDeListePath = 'gestimoweb/api/v1/encaissement/saveencaissementavecretour';
   static readonly saveEncaissementMassePath = 'gestimoweb/api/v1/encaissement/saveencaissementmasse';
   static readonly totalencaissementParIdAppelLoyerPath = 'gestimoweb/api/v1/encaissement/totalencaissement/{id}';
+  static readonly totalEncaissementParJourPath = 'gestimoweb/api/v1/encaissement/totalencaissementjournalier/{jour}';
   static readonly sendMailGrouperWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendmailgrouper/{periode}';
   static readonly sendMailQuittanceWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendquittancebymail/{id}';
   static readonly saveEspeceEncaissementPath = 'gestimoweb/api/v1/especeencaissement/save';
@@ -2585,6 +2586,42 @@ class ApiService extends __BaseService {
    */
   totalencaissementParIdAppelLoyer(id: number): __Observable<number> {
     return this.totalencaissementParIdAppelLoyerResponse(id).pipe(
+      __map(_r => _r.body as number)
+    );
+  }
+
+  /**
+   * @param jour undefined
+   * @return successful operation
+   */
+  totalEncaissementParJourResponse(jour: string): __Observable<__StrictHttpResponse<number>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/encaissement/totalencaissementjournalier/${jour}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: parseFloat((_r as HttpResponse<any>).body as string) }) as __StrictHttpResponse<number>
+      })
+    );
+  }
+  /**
+   * @param jour undefined
+   * @return successful operation
+   */
+  totalEncaissementParJour(jour: string): __Observable<number> {
+    return this.totalEncaissementParJourResponse(jour).pipe(
       __map(_r => _r.body as number)
     );
   }

@@ -14,11 +14,12 @@
             </ng-container>
             <ng-container *ngSwitchCase="PeriodeStateEnum.LOADED">
               <mat-label>Choisir une période</mat-label>
-              <mat-select #selectionPeriode
-              (selectionChange)="
-              getImpayerParPeriode(selectionPeriode.value);
-              getPayerParPeriode(selectionPeriode.value)
-            "
+              <mat-select
+                #selectionPeriode
+                (selectionChange)="
+                  getImpayerParPeriode(selectionPeriode.value);
+                  getPayerParPeriode(selectionPeriode.value)
+                "
               >
                 <mat-option
                   [value]="periode.periodeAppelLoyer"
@@ -34,40 +35,50 @@
     </mat-card-title-group>
     <mat-card-content>
       <ul>
-        <li>Loyers impayés
+        <li>
+          Loyers impayés
           <ng-container
-          *ngIf="appelLoyerImpayerMoisState$ | async as appelLoyerImpayerMoisState"
-          [ngSwitch]="appelLoyerImpayerMoisState.dataState"
-        >
-          <ng-container *ngSwitchCase="AppelLoyerImpayerMoisStateEnum.ERROR"
-            >0</ng-container
+            *ngIf="
+              appelLoyerImpayerMoisState$ | async as appelLoyerImpayerMoisState
+            "
+            [ngSwitch]="appelLoyerImpayerMoisState.dataState"
           >
-          <ng-container *ngSwitchCase="AppelLoyerImpayerMoisStateEnum.LOADED">
-            <div class="text-danger">
-              {{ appelLoyerImpayerMoisState.impayerPeriode }}
-            </div>
+            <ng-container *ngSwitchCase="AppelLoyerImpayerMoisStateEnum.ERROR"
+              >0</ng-container
+            >
+            <ng-container *ngSwitchCase="AppelLoyerImpayerMoisStateEnum.LOADED">
+              <div class="text-danger">
+                {{ appelLoyerImpayerMoisState.impayerPeriode }}
+              </div>
+            </ng-container>
           </ng-container>
-        </ng-container>
         </li>
-        <li>Loyer payés
+        <li>
+          Loyer payés
           <ng-container
-          *ngIf="appelLoyerPayerMoisState$ | async as appelLoyerPayerMoisState"
-          [ngSwitch]="appelLoyerPayerMoisState.dataState"
-        >
-          <ng-container *ngSwitchCase="AppelLoyerPayerMoisStateEnum.ERROR"
-            >0</ng-container
+            *ngIf="
+              appelLoyerPayerMoisState$ | async as appelLoyerPayerMoisState
+            "
+            [ngSwitch]="appelLoyerPayerMoisState.dataState"
           >
-          <ng-container *ngSwitchCase="AppelLoyerPayerMoisStateEnum.LOADED">
-            <div class="text-success">
-              {{ appelLoyerPayerMoisState.payerPeriode }}
-            </div>
+            <ng-container *ngSwitchCase="AppelLoyerPayerMoisStateEnum.ERROR"
+              >0</ng-container
+            >
+            <ng-container *ngSwitchCase="AppelLoyerPayerMoisStateEnum.LOADED">
+              <div class="text-success">
+                {{ appelLoyerPayerMoisState.payerPeriode }}
+              </div>
+            </ng-container>
           </ng-container>
-        </ng-container>
         </li>
       </ul>
       Recouvrement:
       <p *ngIf="v_impayer_mois + v_payer_mois != 0">
-        {{ (v_payer_mois / (v_impayer_mois + v_payer_mois)) * 100 | number: "2.1-2" }} %
+        {{
+          (v_payer_mois / (v_impayer_mois + v_payer_mois)) * 100
+            | number: "2.1-2"
+        }}
+        %
       </p>
     </mat-card-content>
   </mat-card>
@@ -141,7 +152,11 @@
       </ul>
       Recouvrement:
       <p *ngIf="v_impayer_annee + v_payer_annee != 0">
-        {{ (v_payer_annee / (v_impayer_annee + v_payer_annee)) * 100 | number: "2.1-2" }} %
+        {{
+          (v_payer_annee / (v_impayer_annee + v_payer_annee)) * 100
+            | number: "2.1-2"
+        }}
+        %
       </p>
     </mat-card-content>
   </mat-card>
@@ -155,7 +170,7 @@
         ><mat-form-field appearance="fill">
           <mat-label>Choose a date</mat-label>
           <input matInput [matDatepicker]="picker" />
-          <mat-hint>MM/DD/YYYY</mat-hint>
+
           <mat-datepicker-toggle
             matSuffix
             [for]="picker"
@@ -164,8 +179,16 @@
         </mat-form-field>
       </mat-card-subtitle>
     </mat-card-title-group>
-    <mat-card-content>
-      {{ longText }}
+    <mat-card-content
+      *ngIf="totalEncaissementState$ | async as totalEncaissementState"
+      [ngSwitch]="totalEncaissementState.dataState"
+    >
+      <mat-card-content *ngSwitchCase="EncaissementStateEnum.ERROR">
+        0
+      </mat-card-content>
+      <mat-card-content *ngSwitchCase="EncaissementStateEnum.LOADED">
+        {{ totalEncaissementState.montantEncaisse }}
+      </mat-card-content>
     </mat-card-content>
   </mat-card>
   <mat-card class="example-card">
