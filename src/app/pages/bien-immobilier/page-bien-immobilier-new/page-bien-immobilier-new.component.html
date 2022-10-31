@@ -325,7 +325,7 @@
                     </select> -->
                     <mat-form-field appearance="outline">
                       <mat-label>Immeuble*</mat-label>
-                      <mat-select  (change)="findEtageByImmeuble($event)" placeholder="Immeuble" name="Propriétaire">
+                      <mat-select  (selectionChange)="findEtageByImmeuble(idImmeuglemag.value)" placeholder="Immeuble" name="Immeuble" #idImmeuglemag>
                         <mat-option [value]="0">Sélectionnez un immeuble</mat-option>
                         <mat-option [value]="immeub.id" *ngFor="let immeub of state.immeubles">
                           {{ immeub.codeNomAbrvImmeuble }}
@@ -375,18 +375,7 @@
             <div class="row gx-3 mb-3">
               <!-- Form Group (organization name)-->
               <div class="col-md-6">
-                <!-- <label class="small mb-1" for="inputOrgName">Désignation</label>
-                <input formControlName="nomBaptiserBienImmobilier" class="form-control" name="nomBaptiserBienImmobilier"
-                  type="text" [ngClass]="{
-                    'is-invalid':
-                      submitted && magasinForm.controls.nomBaptiserBienImmobilier.errors
-                  }" placeholder="Saisir le nom du Magasin" value="Start Bootstrap" />
-                <div *ngIf="submitted && magasinForm.controls.nomBaptiserBienImmobilier.errors"
-                  class="invalid-feedback">
-                  <div *ngIf="magasinForm.controls.nomBaptiserBienImmobilier.errors.required">
-                    * Champ obligatoire
-                  </div>
-                </div> -->
+
                 <mat-form-field appearance="outline">
                   <mat-label>Désignation*</mat-label>
                   <input formControlName="nomBaptiserBienImmobilier" matInput placeholder="Désignation*">
@@ -457,7 +446,7 @@
           </form>
           <!-- FORM POUR APPARTEMENT -->
           <form *ngIf="appartementForm && ngselecttypeBien == 'Appartement'" [formGroup]="appartementForm">
-            <div class="row gx-3 mb-3">
+            <div class="row">
               <div class="col-md-6">
                 <ng-container *ngIf="immeubleState$ | async as state" [ngSwitch]="state.dataState">
                   <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADING">
@@ -470,7 +459,7 @@
                   </ng-container>
 
                   <ng-container *ngSwitchCase="ImmeubleStateEnum.LOADED">
-                    <label class="small mb-1" for="inputFirstName">Immeuble</label>
+                    <!-- <label class="small mb-1" for="inputFirstName">Immeuble</label>
                     <select (change)="findEtageByImmeuble($event)" formControlName="idImmeuble" name="idImmeuble"
                       class="form-control form-control-lg" [ngClass]="{
                         'is-invalid':
@@ -481,14 +470,24 @@
                       <option [value]="immeub.id" *ngFor="let immeub of state.immeubles">
                         {{ immeub.codeNomAbrvImmeuble}}
                       </option>
-                    </select>
-                    <div *ngIf="submitted && appartementForm.controls.idImmeuble.errors" class="invalid-feedback">
+                    </select> -->
+                    <mat-form-field appearance="outline">
+                      <mat-label>Immeuble*</mat-label>
+                      <mat-select (selectionChange)="findEtageByImmeuble(idImmeubleSelectionner.value)" formControlName="idImmeuble" name="idImmeuble" #idImmeubleSelectionner>
+                        <mat-option [value]="0">Séletionnez un immeuble</mat-option>
+                        <mat-option [value]="immeub.id" *ngFor="let immeub of state.immeubles">
+                          {{ immeub.codeNomAbrvImmeuble}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>Ce champ est obligatoire.</mat-error>
+                    </mat-form-field>
+                    <!-- <div *ngIf="submitted && appartementForm.controls.idImmeuble.errors" class="invalid-feedback">
                       <div *ngIf="
                           appartementForm.controls.idImmeuble.errors.required
                         ">
                         * Veuillez saisir un Immeuble
                       </div>
-                    </div>
+                    </div> -->
                   </ng-container>
                 </ng-container>
               </div>
@@ -504,7 +503,7 @@
                     </div>
                   </ng-container>
                   <ng-container *ngSwitchCase="EtagesStateEnum.LOADED">
-                    <label class="small mb-1" for="inputLastName">Etage</label>
+                    <!-- <label class="small mb-1" for="inputLastName">Etage</label>
                     <select formControlName="idEtageAppartement" class="form-control form-control-lg w-auto" [ngClass]="{
                         'is-invalid':
                           submitted && appartementForm.controls.idEtage.errors
@@ -512,68 +511,90 @@
                       <option [value]="eta.id" *ngFor="let eta of etageAppartState.etages">
                         {{ eta.abrvEtage }}
                       </option>
-                    </select>
-                    <div *ngIf="
+                    </select> -->
+                    <mat-form-field appearance="outline">
+                      <mat-label>Etage*</mat-label>
+                      <mat-select  formControlName="idEtageAppartement" name="idEtageAppartement">
+                        <mat-option [value]="0">Séletionnez un étage</mat-option>
+                        <mat-option [value]="eta.id" *ngFor="let eta of etageAppartState.etages">
+                          {{ eta.abrvEtage }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>Ce champ est obligatoire.</mat-error>
+                    </mat-form-field>
+                    <!-- <div *ngIf="
                         submitted && appartementForm.controls.idEtage.errors
                       " class="invalid-feedback">
                       <div *ngIf="appartementForm.controls.idEtage.errors.required">
                         * Veuillez saisir un étage
                       </div>
-                    </div>
+                    </div> -->
                   </ng-container>
                 </ng-container>
               </div>
-              <div class="row gx-3 mb-3">
-                <!-- Form Group (organization name)-->
-                <div class="col-md-6">
-                  <label class="small mb-1" for="inputOrgName">Désignation</label>
-                  <input formControlName="nomBaptiserBienImmobilier" class="form-control"
-                    name="nomBaptiserBienImmobilier" type="text" [ngClass]="{
-                      'is-invalid':
-                        submitted && appartementForm.controls.nomBaptiserBienImmobilier.errors
-                    }" required />
-                  <div *ngIf="submitted && appartementForm.controls.nomBaptiserBienImmobilier.errors"
-                    class="invalid-feedback">
-                    <div *ngIf="appartementForm.controls.nomBaptiserBienImmobilier.errors.required">
-                      *Champ obligatoire
-                    </div>
+              <!-- <div class="row"> -->
+
+                  <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Désignation*</mat-label>
+                      <input formControlName="nomBaptiserBienImmobilier" matInput placeholder="Désignation*">
+                      <mat-error>Ce champ est obligatoire.</mat-error>
+                    </mat-form-field>
                   </div>
-                  <div class="valid-feedback">Ok!</div>
+                  <div class="col-md-6">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                        <mat-label>Nombre de Pièces</mat-label>
+                        <input formControlName="nbrPieceApp" type="number" matInput placeholder="Ex. 100">
+                      </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Nombre de Chambres</mat-label>
+                      <input formControlName="nbreChambreApp" type="number" matInput placeholder="Ex. 10">
+                    </mat-form-field>
                 </div>
-                <!-- Form Group (location)-->
-                <div class="col-md-6">
-                  <label class="small mb-1" for="inputLocation">Nombre de Pièces</label>
-                  <input formControlName="nbrPieceApp" class="form-control" name="inputLocation" type="number" />
-                </div>
-                <div class="col-md-6">
+
+
+                <!-- <div class="col-md-6">
                   <label class="small mb-1" for="inputLocation">Nombre de Chambres</label>
                   <input formControlName="nbreChambreApp" class="form-control" name="inputLocation" type="number" />
-                </div>
-                <div class="col-md-6">
+                </div> -->
+                <!-- <div class="col-md-6">
                   <label class="small mb-1" for="inputLocation">Nombre de Salons</label>
                   <input formControlName="nbrSalonApp" class="form-control" name="inputLocation" type="number" />
-                </div>
+                </div> -->
+
                 <div class="col-md-6">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Nombre de salons</mat-label>
+                    <input formControlName="nbrSalonApp" type="number" matInput placeholder="Ex. 10">
+                  </mat-form-field>
+              </div>
+                <!-- <div class="col-md-6">
                   <label class="small mb-1" for="inputLocation">Nombre de Salle d'eau</label>
                   <input formControlName="nbreSalleEauApp" class="form-control" type="number" />
-                </div>
-                <!-- Default checkbox -->
-                <div class="form-check">
-                  <input formControlName="meubleApp" mdbCheckbox class="form-check-input" type="checkbox" value=""
-                    id="flexCheckDefault" />
-                  <label class="form-check-label" for="flexCheckDefault">
-                    Meublé
-                  </label>
-                </div>
-                <!-- Checked checkbox -->
-                <div class="form-check">
-                  <input formControlName="residence" mdbCheckbox class="form-check-input" type="checkbox" value=""
-                    id="flexCheckChecked" />
-                  <label class="form-check-label" for="flexCheckChecked">
-                    Est une résidence
-                  </label>
-                </div>
+                </div> -->
+                <div class="col-md-6">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Nombre de salle d'eau</mat-label>
+                    <input formControlName="nbreSalleEauApp" type="number" matInput placeholder="Ex. 10">
+                  </mat-form-field>
               </div>
+
+                <div class="col-md-6">
+                  <div class="form-check form-check-inline">
+                    <input mdbCheckbox class="form-check-input" type="checkbox" id="meubleApp"
+                      formControlName="meubleApp" />
+                    <label class="form-check-label" for="inlineCheckbox1">Meublé</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input mdbCheckbox class="form-check-input" type="checkbox" id="residence"
+                      formControlName="residence" />
+                    <label class="form-check-label" for="inlineCheckbox2">Est une résidence</label>
+                  </div>
+
+                </div>
+              <!-- </div> -->
             </div>
             <div class="row">
               <div class="col d-flex justify-content-end">
