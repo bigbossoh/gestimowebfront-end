@@ -14,7 +14,7 @@
             </ng-container>
             <ng-container *ngSwitchCase="PeriodeStateEnum.LOADED">
               <mat-label>Choisir une période</mat-label>
-              <mat-select
+              <mat-select [(ngModel)]="periode_model"
                 #selectionPeriode
                 (selectionChange)="
                   getImpayerParPeriode(selectionPeriode.value);
@@ -96,7 +96,7 @@
             </ng-container>
             <ng-container *ngSwitchCase="AnneeStateEnum.LOADED">
               <mat-label>Choisir l'année</mat-label>
-              <mat-select
+              <mat-select [(ngModel)]="annee_model"
                 #selectionAnnee
                 (selectionChange)="
                   getImpayerParAnnee(selectionAnnee.value);
@@ -169,7 +169,7 @@
       <mat-card-subtitle
         ><mat-form-field appearance="fill">
           <mat-label>Choisir une date</mat-label>
-          <input #refDate matInput [matDatepicker]="picker"  data-date-format="yyyy-mm-dd" (dateChange)="getEncaissementPayerJour(refDate.value)" />
+          <input  [(ngModel)]="selectedDate" #refDate matInput [matDatepicker]="picker"  data-date-format="yyyy-mm-dd" (dateChange)="getEncaissementPayerJour(refDate.value)" />
 
           <mat-datepicker-toggle
             matSuffix

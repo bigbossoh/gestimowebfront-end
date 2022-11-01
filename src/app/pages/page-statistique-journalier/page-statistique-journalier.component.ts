@@ -46,7 +46,10 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   readonly AppelLoyerPayerMoisStateEnum = AppelLoyerStateEnum;
   readonly AppelLoyerImpayerMoisStateEnum = AppelLoyerStateEnum;
   readonly AnneeStateEnum = AnneeStateEnum;
-
+  selectedDate = new Date();
+  periode_model =
+    this.selectedDate.getFullYear() + '-' + this.selectedDate.getMonth();
+  annee_model = this.selectedDate.getFullYear();
   v_impayer_annee = 0;
   v_payer_annee = 0;
   v_impayer_mois = 0;
@@ -69,10 +72,10 @@ export class PageStatistiqueJournalierComponent implements OnInit {
       this.v_impayer_annee = data.impayerAnnee;
     });
   }
-  getEncaissementPayerJour(jour: string) {
+  getEncaissementPayerJour(jour: any) {
     jour = jour.replace('/', '-');
     jour = jour.replace('/', '-');
-      this.store.dispatch(new TotalEncaissementParJourActions(jour));
+    this.store.dispatch(new TotalEncaissementParJourActions(jour));
     this.totalEncaissementState$ = this.store.pipe(
       map((state) => state.encaissementState)
     );
@@ -81,6 +84,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
     });
   }
   getPayerParAnnee(annee: number) {
+
     this.store.dispatch(new GetPayerLoyerParAnneeActions(annee));
     this.appelLoyerPayerState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
@@ -100,6 +104,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   }
 
   getPayerParPeriode(periode: any) {
+
     this.store.dispatch(new GetPayerLoyerParPeriodeActions(periode));
     this.appelLoyerPayerMoisState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
@@ -114,6 +119,11 @@ export class PageStatistiqueJournalierComponent implements OnInit {
 
     this.store.dispatch(new GetAllPeriodeActions({}));
     this.periodeState$ = this.store.pipe(map((state) => state.periodeState));
+    this.getEncaissementPayerJour(this.selectedDate);
+    this.getImpayerParAnnee(this.annee_model);
+    this.getPayerParAnnee(this.annee_model);
+    this.getImpayerParPeriode(this.periode_model);
+    this.getPayerParPeriode(this.annee_model);
   }
   longText = `The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog
   from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
