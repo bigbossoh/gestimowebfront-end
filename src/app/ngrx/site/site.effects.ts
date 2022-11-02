@@ -8,7 +8,6 @@ import {
   SiteActions,
   CreateNewSiteActionSuccess,
   CreateNewSiteActionError,
-  DeleteSiteAction,
   DeleteSiteActionSuccess,
   DeleteSiteActionError,
 } from './site.actions';
@@ -22,19 +21,43 @@ import {
 
 @Injectable()
 export class SiteEffects {
+
   constructor(
     private apiService: ApiService,
     private effectActions: Actions,
     private notificationService: NotificationService
-  ) {}
+  ) {
+
+  }
   getAllSitesEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(SiteActionsTypes.GET_ALL_SITES),
-      mergeMap(() => {
-        return this.apiService.findAllSites().pipe(
-          map((sites) => new GetAllSitesActionsSuccess(sites)),
-          catchError((err) => of(new GetAllSitesActionsError(err.message)))
-        );
+      mergeMap((actions: SiteActions) => {
+        console.log("Le sites le suivant suivant est");
+        console.log(actions.payload);
+        if (actions.payload!=undefined) {
+          return this.apiService.findAllSites(actions.payload).pipe(
+            map((sites) => new GetAllSitesActionsSuccess(sites)),
+            catchError((err) => of(new GetAllSitesActionsError(err.message)))
+          );
+        } else {
+          return this.apiService.findAllSites(0).pipe(
+            map((sites) => new GetAllSitesActionsSuccess(sites)),
+            catchError((err) => of(new GetAllSitesActionsError(err.message)))
+          );
+        }
+
+
+      }),
+      tap((bookCollection) => {
+        if (bookCollection.type == SiteActionsTypes.GET_ALL_SITES_SUCCES) {
+          this.sendErrorNotification(
+            NotificationType.SUCCESS,
+            'Téléchargement des sites éffectués avec succes!'
+          );
+        } else  if (bookCollection.type == SiteActionsTypes.GET_ALL_SITES_ERROR) {
+          this.sendErrorNotification(NotificationType.ERROR, bookCollection.payload.toString());
+        }
       })
     )
   );
@@ -48,13 +71,13 @@ export class SiteEffects {
         );
       }),
       tap((bookCollection) => {
-        if (bookCollection.payload != null) {
+        if (bookCollection.type == SiteActionsTypes.CREATE_NEW_SITE_SUCCES) {
           this.sendErrorNotification(
             NotificationType.SUCCESS,
             'Création du site éffectué avec succes!'
           );
-        } else {
-          this.sendErrorNotification(NotificationType.ERROR, '');
+        } else  if (bookCollection.type == SiteActionsTypes.GET_ALL_SITES_ERROR) {
+          this.sendErrorNotification(NotificationType.ERROR, bookCollection.payload.toString());
         }
       })
     )

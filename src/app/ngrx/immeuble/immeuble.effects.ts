@@ -3,6 +3,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
+import { UserService } from 'src/app/services/user/user.service';
+import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { ApiService } from 'src/gs-api/src/services';
 import { NotificationType } from '../../enum/natification-type.enum';
 import { NotificationService } from '../../services/notification/notification.service';
@@ -17,14 +19,24 @@ import {
 
 @Injectable()
 export class ImmeubleEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions, private notificationService: NotificationService) { }
+
+  constructor(
+    private apiService: ApiService,
+
+    private effectActions: Actions,
+    private notificationService: NotificationService
+  ) {
+
+  }
   getAllImmeubleffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(ImmeublesActionsTypes.GET_ALL_IMMEUBLES),
-      mergeMap((action) => {
-        return this.apiService.affichageDesImmeubles().pipe(
+      mergeMap((actions:ImmeublesActions) => {
+        return this.apiService.affichageDesImmeubles(actions.payload).pipe(
           map((immeubles) => new GetAllImmeublesActionsSuccess(immeubles)),
-          catchError((err) => of(new GetAllImmeublesActionsError(err.message.messages)))
+          catchError((err) =>
+            of(new GetAllImmeublesActionsError(err.message.messages))
+          )
         );
       })
     )
@@ -43,21 +55,34 @@ export class ImmeubleEffects {
         console.log('Les collection sont avec le payload :');
         console.log(bookCollection.type);
 
-
-        if (bookCollection.type == ImmeublesActionsTypes.SAVE_IMMEUBLES_SUCCES) {
-          this.sendErrorNotification(NotificationType.SUCCESS, "Création de l'Immeuble éffectué avec succes!");
+        if (
+          bookCollection.type == ImmeublesActionsTypes.SAVE_IMMEUBLES_SUCCES
+        ) {
+          this.sendErrorNotification(
+            NotificationType.SUCCESS,
+            "Création de l'Immeuble éffectué avec succes!"
+          );
         } else {
-          this.sendErrorNotification(NotificationType.ERROR, "Une erreur est survenue");
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            'Une erreur est survenue'
+          );
         }
       })
     )
   );
 
-  private sendErrorNotification(notificationType: NotificationType, message: string): void {
+  private sendErrorNotification(
+    notificationType: NotificationType,
+    message: string
+  ): void {
     if (message) {
       this.notificationService.notify(notificationType, message);
     } else {
-      this.notificationService.notify(notificationType, 'An error occurred. Please try again.');
+      this.notificationService.notify(
+        notificationType,
+        'An error occurred. Please try again.'
+      );
     }
   }
 }

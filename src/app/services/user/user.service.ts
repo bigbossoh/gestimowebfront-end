@@ -80,8 +80,8 @@ export class UserService {
     return this.apiService.deleteAgenceByIdAgence(id);
   }
 
-  public getUsers():Observable<any | HttpErrorResponse>{
-    return this.apiService.getAllUtilisateursByOrder();
+  public getUsers(idAgence:number):Observable<any | HttpErrorResponse>{
+    return this.apiService.getAllUtilisateursByOrder(idAgence);
   }
   public addUser(formData :UtilisateurRequestDto):Observable<any>{
     console.log("we into the service adduser method", formData);

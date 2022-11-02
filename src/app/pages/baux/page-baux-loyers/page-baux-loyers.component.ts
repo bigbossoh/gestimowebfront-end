@@ -1,3 +1,5 @@
+import { UtilisateurRequestDto } from 'src/gs-api/src/models';
+import { UserService } from 'src/app/services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -15,14 +17,16 @@ import { GetAllAppelLoyerActions } from '../../../ngrx/appelloyer/appelloyer.act
   styleUrls: ['./page-baux-loyers.component.css'],
 })
 export class PageBauxLoyersComponent implements OnInit {
+  public user?: UtilisateurRequestDto;
   bauxState$: Observable<BauxState> | null = null;
   appelloyerState$: Observable<AppelLoyerState> | null = null;
   readonly BauxStateEnum = BauxStateEnum;
   readonly AppelLoyerStateEnum = AppelLoyerStateEnum;
-  constructor(private store: Store<any>) {}
+  constructor(private store: Store<any>,private userService: UserService,) {}
 
   ngOnInit(): void {
-    this.store.dispatch(new GetAllOperationActions({}));
+    this.user = this.userService.getUserFromLocalCache();
+    this.store.dispatch(new GetAllOperationActions(this.user.idAgence));
     this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
   }
 

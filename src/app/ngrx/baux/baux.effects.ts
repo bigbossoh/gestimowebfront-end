@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/services/user/user.service';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
@@ -5,6 +6,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
+import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { ApiService } from 'src/gs-api/src/services';
 import { SupprimerOperationActions, SupprimerOperationActionsSuccess, SupprimerOperationActionsError } from './baux.actions';
 import {
@@ -21,18 +23,21 @@ import {
 
 @Injectable()
 export class BauxEffects {
+
   constructor(
     private apiService: ApiService,
     private effectActions: Actions,
     private notificationService: NotificationService
-  ) {}
+  ) {
+
+  }
 
   //LISTE DES BAUX
   getAllBauxEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(OperationActionsTypes.GET_ALL_BAIL),
-      mergeMap(() => {
-        return this.apiService.findAllOperations().pipe(
+      mergeMap((actions:OperationActions) => {
+        return this.apiService.findAllOperations(actions.payload).pipe(
           map((operations) => new GetAllOperationActionsSuccess(operations)),
           catchError((err) => of(new GetAllOperationActionsError(err.message)))
         );
@@ -80,7 +85,7 @@ export class BauxEffects {
       );
     }),
     tap((resultat) => {
-     
+
       if (resultat.type == OperationActionsTypes.SUPPRIMER_BAIL_SUCCES) {
         this.sendErrorNotification(
           NotificationType.SUCCESS,

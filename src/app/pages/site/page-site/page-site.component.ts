@@ -7,8 +7,9 @@ import { SiteState, SiteStateEnum } from 'src/app/ngrx/site/site.reducer';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PageNewSiteComponent } from '../page-new-site/page-new-site.component';
-import { SiteResponseDto } from 'src/gs-api/src/models';
+import { SiteResponseDto, UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { DeleteSiteAction } from '../../../ngrx/site/site.actions';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-page-site',
@@ -19,20 +20,26 @@ export class PageSiteComponent implements OnInit {
   totalLigne: number = 0;
   counter: Observable<SiteResponseDto[]> | null = null;
   page: number = 1;
-
+  public user: UtilisateurRequestDto | undefined;
+  v_user: number = 0;
   siteState$: Observable<SiteState> | null = null;
 
   readonly SiteStateEnum = SiteStateEnum;
 
   constructor(
     private store: Store<any>,
+    private userService: UserService,
     public dialog: MatDialog
   ) {}
 
   ngOnInit() {
-    this.store.dispatch(new GetAllSitesActions({}));
-    this.siteState$ = this.store.pipe(map((state) => state.siteState));
-    this.counter = this.store.select('sites');
+    this.user = this.userService.getUserFromLocalCache();
+        if (this.user.idAgence != undefined) {
+      this.store.dispatch(new GetAllSitesActions(this.v_user));
+      this.siteState$ = this.store.pipe(map((state) => state.siteState));
+      //this.counter = this.store.select('sites');
+
+    }
   }
   nouveauSite(): void {
     // this.router.navigate(['nouvellesociete']);
@@ -41,5 +48,4 @@ export class PageSiteComponent implements OnInit {
     });
     //dialolRef.afterClosed().subscribe(() => this.ngOnInit());
   }
-
 }

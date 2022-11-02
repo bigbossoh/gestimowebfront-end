@@ -49,14 +49,19 @@ export class PageImmeubleNewComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
     //CHARGEMENT DES SITES POUR LE COMBO SITE
-    this.store.dispatch(new GetAllSitesActions({}));
-    this.siteState$ = this.store.pipe(map((state) => state.siteState));
+    if (this.user.idAgence != undefined) {
+      this.store.dispatch(new GetAllSitesActions(this.user.idAgence));
+      this.siteState$ = this.store.pipe(map((state) => state.siteState));
+    }
+
     //CHARGEMENT DES PROPRIETAIRES
-    this.store.dispatch(new GetAllProprietairesActions({}));
+    this.store.dispatch(new GetAllProprietairesActions(this.user.idAgence));
     this.utilisateurState$ = this.store.pipe(
       map((state) => state.utilisateurState)
     );
-    this.store.dispatch(new GetAllImmeublesActions({}));
+    console.log('Le createur est '+this.user?.id);
+
+    this.store.dispatch(new GetAllImmeublesActions(this.user.idAgence));
     this.immeubleState$ = this.store.pipe(map((state) => state.immeubleState));
     this.immeubleForm = this.fb.group({
       id: [0],
@@ -83,7 +88,9 @@ export class PageImmeubleNewComponent implements OnInit {
   onClose() {
     this.dialogRef.close();
   }
-  onSaveEtage() {
+  onSaveImmeuble() {
+    console.log(this.immeubleForm?.value);
+
     this.submitted = true;
     if (this.immeubleForm?.invalid) {
       return;

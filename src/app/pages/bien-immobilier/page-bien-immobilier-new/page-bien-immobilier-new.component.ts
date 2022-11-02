@@ -157,8 +157,12 @@ export class PageBienImmobilierNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
-    this.store.dispatch(new GetAllSitesActions({}));
-    this.siteState$ = this.store.pipe(map((state) => state.siteState));
+    if (this.user.idAgence!=undefined) {
+      this.store.dispatch(new GetAllSitesActions(this.user.idAgence));
+      this.siteState$ = this.store.pipe(map((state) => state.siteState));
+    }
+
+
     this.user = this.userService.getUserFromLocalCache();
 
     this.store.dispatch(new GetAllProprietairesActions({}));

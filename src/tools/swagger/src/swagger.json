@@ -107,9 +107,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/appartement/all" : {
+    "gestimoweb/api/v1/appartement/all/{id}" : {
       "get" : {
         "operationId" : "findAllAppartement",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -123,9 +130,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/appartement/alllibre" : {
+    "gestimoweb/api/v1/appartement/alllibre/{id}" : {
       "get" : {
         "operationId" : "findAllAppartementLibre",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -304,9 +318,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/findAllAppelsLoyer" : {
+    "gestimoweb/api/v1/appelloyer/findAllAppelsLoyer/{idAgence}" : {
       "get" : {
         "operationId" : "listTousAppelsLoyers",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -320,31 +341,15 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/findAllPeriodeAppel" : {
+    "gestimoweb/api/v1/appelloyer/findAllPeriodeAppel/{idAgence}" : {
       "get" : {
         "operationId" : "findAllPeriode",
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/PeriodeDto"
-              }
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/appelloyer/findAllPeriodeByAnnee/{annee}" : {
-      "get" : {
-        "operationId" : "findAllPeriodeByAnnee",
         "parameters" : [ {
-          "name" : "annee",
+          "name" : "idAgence",
           "in" : "path",
           "required" : true,
           "type" : "integer",
-          "format" : "int32"
+          "format" : "int64"
         } ],
         "responses" : {
           "200" : {
@@ -359,7 +364,36 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/findAllPeriodeChiffreEtLettreByAnnee/{annee}" : {
+    "gestimoweb/api/v1/appelloyer/findAllPeriodeByAnnee/{annee}/{idAgence}" : {
+      "get" : {
+        "operationId" : "findAllPeriodeByAnnee",
+        "parameters" : [ {
+          "name" : "annee",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/PeriodeDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appelloyer/findAllPeriodeChiffreEtLettreByAnnee/{annee}/{idAgence}" : {
       "get" : {
         "operationId" : "findAllPeriodeChiffreEtLettreByAnnee",
         "parameters" : [ {
@@ -368,6 +402,12 @@
           "required" : true,
           "type" : "integer",
           "format" : "int32"
+        }, {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
         } ],
         "responses" : {
           "200" : {
@@ -448,7 +488,7 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/impayeParAnnee/{annee}" : {
+    "gestimoweb/api/v1/appelloyer/impayeParAnnee/{annee}/{idAgence}" : {
       "get" : {
         "operationId" : "impayeLoyerParAnnee",
         "parameters" : [ {
@@ -457,6 +497,12 @@
           "required" : true,
           "type" : "integer",
           "format" : "int32"
+        }, {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
         } ],
         "responses" : {
           "200" : {
@@ -469,7 +515,7 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/impayeParMois/{periode}" : {
+    "gestimoweb/api/v1/appelloyer/impayeParMois/{periode}/{idAgence}" : {
       "get" : {
         "operationId" : "impayeLoyerParMois",
         "parameters" : [ {
@@ -477,6 +523,12 @@
           "in" : "path",
           "required" : true,
           "type" : "string"
+        }, {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
         } ],
         "responses" : {
           "200" : {
@@ -489,9 +541,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/listOfDistinctAnneeAppel" : {
+    "gestimoweb/api/v1/appelloyer/listOfDistinctAnneeAppel/{idAgence}" : {
       "get" : {
         "operationId" : "listOfDistinctAnneeAppel",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -506,7 +565,7 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/payeParAnnee/{annee}" : {
+    "gestimoweb/api/v1/appelloyer/payeParAnnee/{annee}/{idAgence}" : {
       "get" : {
         "operationId" : "payeLoyerParAnnee",
         "parameters" : [ {
@@ -515,6 +574,12 @@
           "required" : true,
           "type" : "integer",
           "format" : "int32"
+        }, {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
         } ],
         "responses" : {
           "200" : {
@@ -527,7 +592,7 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/payeParMois/{periode}" : {
+    "gestimoweb/api/v1/appelloyer/payeParMois/{periode}/{idAgence}" : {
       "get" : {
         "operationId" : "payeLoyerParMois",
         "parameters" : [ {
@@ -535,6 +600,12 @@
           "in" : "path",
           "required" : true,
           "type" : "string"
+        }, {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
         } ],
         "responses" : {
           "200" : {
@@ -677,9 +748,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/bail/nombrebailactif" : {
+    "gestimoweb/api/v1/bail/nombrebailactif/{idAgence}" : {
       "get" : {
         "operationId" : "nombrebailactif",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -691,9 +769,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/bail/nombrebailnonactif" : {
+    "gestimoweb/api/v1/bail/nombrebailnonactif/{idAgence}" : {
       "get" : {
         "operationId" : "nombrebailnonactif",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -725,9 +810,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/bailappartement/all" : {
+    "gestimoweb/api/v1/bailappartement/all/{idAgence}" : {
       "get" : {
         "operationId" : "findAllBailAppartement",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -741,9 +833,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/bailappartement/alloperation" : {
+    "gestimoweb/api/v1/bailappartement/alloperation/{idAgence}" : {
       "get" : {
         "operationId" : "findAllOperations",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -837,9 +936,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/bailmagasin/all" : {
+    "gestimoweb/api/v1/bailmagasin/all/{idAgence}" : {
       "get" : {
         "operationId" : "findAllBailMagasin",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -933,9 +1039,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/bailvilla/all" : {
+    "gestimoweb/api/v1/bailvilla/all/{idAgence}" : {
       "get" : {
         "operationId" : "findAllBailVilla",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -1029,9 +1142,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/bienImmobilier/all" : {
+    "gestimoweb/api/v1/bienImmobilier/all/{idAgence}" : {
       "get" : {
         "operationId" : "findAllBien",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -1045,9 +1165,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/bienImmobilier/allBienOccuper" : {
+    "gestimoweb/api/v1/bienImmobilier/allBienOccuper/{idAgence}" : {
       "get" : {
         "operationId" : "findAllBienOqp",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -1061,9 +1188,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/commune/all" : {
+    "gestimoweb/api/v1/commune/all/{idAgence}" : {
       "get" : {
         "operationId" : "findAllCommune",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -1226,9 +1360,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/encaissement/findAllEncaissementPrincipal" : {
+    "gestimoweb/api/v1/encaissement/findAllEncaissementPrincipal/{idAgence}" : {
       "get" : {
         "operationId" : "listTousEncaissementsPrincipal",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -1352,7 +1493,7 @@
         }
       }
     },
-    "gestimoweb/api/v1/encaissement/totalencaissementjournalier/{jour}" : {
+    "gestimoweb/api/v1/encaissement/totalencaissementjournalier/{jour}/{idAgence}" : {
       "get" : {
         "operationId" : "totalEncaissementParJour",
         "parameters" : [ {
@@ -1360,6 +1501,12 @@
           "in" : "path",
           "required" : true,
           "type" : "string"
+        }, {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
         } ],
         "responses" : {
           "200" : {
@@ -1432,9 +1579,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/etage/all" : {
+    "gestimoweb/api/v1/etage/all/{idAgence}" : {
       "get" : {
         "operationId" : "findAllEtage",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -1551,9 +1705,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/immeuble/affichetoutlesimmeubles" : {
+    "gestimoweb/api/v1/immeuble/affichetoutlesimmeubles/{idAgence}" : {
       "get" : {
         "operationId" : "affichageDesImmeubles",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -1567,9 +1728,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/immeuble/all" : {
+    "gestimoweb/api/v1/immeuble/all/{idAgence}" : {
       "get" : {
         "operationId" : "findAllImmeuble",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -1686,9 +1854,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/magasin/all" : {
+    "gestimoweb/api/v1/magasin/all/{idAgence}" : {
       "get" : {
         "operationId" : "findAllMagasin",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -1702,9 +1877,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/magasin/alllibre" : {
+    "gestimoweb/api/v1/magasin/alllibre/{idAgence}" : {
       "get" : {
         "operationId" : "findAllMagasinLibre",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -1991,9 +2173,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/quartier/all" : {
+    "gestimoweb/api/v1/quartier/all/{idAgence}" : {
       "get" : {
         "operationId" : "findAllQuartiers",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -2110,9 +2299,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/sites/all" : {
+    "gestimoweb/api/v1/sites/all/{idAgence}" : {
       "get" : {
         "operationId" : "findAllSites",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -2227,9 +2423,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/utilisateur/all" : {
+    "gestimoweb/api/v1/utilisateur/all/{idAgence}" : {
       "get" : {
         "operationId" : "getAllUtilisateursByOrder",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -2243,9 +2446,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/utilisateur/gerants/all" : {
+    "gestimoweb/api/v1/utilisateur/gerants/all/{idAgence}" : {
       "get" : {
         "operationId" : "getAllGerantsByOrder",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -2340,9 +2550,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/utilisateur/locataires/all" : {
+    "gestimoweb/api/v1/utilisateur/locataires/all/{idAgence}" : {
       "get" : {
         "operationId" : "getAllLocatairesByOrder",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -2372,9 +2589,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/utilisateur/proprietaires/all" : {
+    "gestimoweb/api/v1/utilisateur/proprietaires/all/{idAgence}" : {
       "get" : {
         "operationId" : "getAllProprietaireByOrder",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -2425,9 +2649,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/villa/all" : {
+    "gestimoweb/api/v1/villa/all/{idAgence}" : {
       "get" : {
         "operationId" : "findAllVilla",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -2441,9 +2672,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/villa/alllibre" : {
+    "gestimoweb/api/v1/villa/alllibre/{idAgence}" : {
       "get" : {
         "operationId" : "findAllVillaLibre",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -2498,9 +2736,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/ville/all" : {
+    "gestimoweb/api/v1/ville/all/{idAgence}" : {
       "get" : {
         "operationId" : "findAllVilles",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -4634,9 +4879,6 @@
         },
         "urole" : {
           "$ref" : "#/definitions/Role"
-        },
-        "userCreate" : {
-          "$ref" : "#/definitions/Utilisateur"
         },
         "operationUser" : {
           "type" : "array",
