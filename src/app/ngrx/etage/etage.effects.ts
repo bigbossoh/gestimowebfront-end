@@ -3,6 +3,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
+import { UserService } from 'src/app/services/user/user.service';
+import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { ApiService } from 'src/gs-api/src/services';
 import { NotificationType } from '../../enum/natification-type.enum';
 import { NotificationService } from '../../services/notification/notification.service';
@@ -19,8 +21,13 @@ import {
 
 @Injectable()
 export class EtageEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions
-  ,private notificationService: NotificationService) { }
+
+  constructor(private apiService: ApiService,
+
+    private effectActions: Actions
+    , private notificationService: NotificationService) {
+
+  }
 
   //GET ALL ETAGE PAR IMMEUBLE
   getAllEtageByImmeubleIdEffect: Observable<Action> = createEffect(() =>
@@ -34,16 +41,7 @@ export class EtageEffects {
           catchError((err) => of(new GetAllEtagesByImmeubleActionsError(err.error.errors)))
         );
       }),
-      // tap((resultat) => {
-      //   console.log("Le resultat pour étage est le suivant : ");
-      //   console.log(resultat.payload);
 
-      //   if (resultat.payload!=null) {
-      //     this.sendErrorNotification(
-      //       NotificationType.ERROR,
-      //       resultat.payload.toString()
-      //     );
-      //   } })
     )
   );
 
@@ -51,14 +49,14 @@ export class EtageEffects {
     getAllEtageEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(EtagesActionsTypes.GET_ALL_ETAGES),
-      mergeMap(() => {
-        return this.apiService.findAllEtage().pipe(
+      mergeMap((actions:EtagesActions) => {
+        return this.apiService.findAllEtage(actions.payload).pipe(
           map((etages) => new GetAllEtagesActionsSuccess(etages)),
           catchError((err) => of(new GetAllEtagesActionsError(err.error.errors)))
         );
       }),
       tap((resultat) => {
-        if (resultat.payload!=null) {
+        if (resultat.type!=EtagesActionsTypes.GET_ALL_ETAGES_ERROR) {
           this.sendErrorNotification(
             NotificationType.ERROR,
             resultat.payload.toString()

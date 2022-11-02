@@ -49,8 +49,6 @@ export class PageListeUtilisateursComponent implements OnInit, AfterViewInit {
   public fileName: string | undefined | null;
   public profileImage: File | undefined | null;
   private subscriptions: Subscription[] = [];
-  private currentUsername?: string | null;
-  private currentIdUser?: number | null;
   public totalRecords: number | undefined;
   public page: number = 1;
 
@@ -170,27 +168,11 @@ this. getAllUsers()
       this.users = this.userService.getUsersFromLocalCache();
     }
   }
-  // getAllProduct(){
-  //   this.getAgenceState$ = this.store.pipe(map((state) => state.agenceState));
-  //   this.store.pipe(map((state) => state.agenceState)).subscribe({
-  //     next:(rest)=>{
-  //       if(rest.agences.length>0){
-  //         console.log(rest.agences);
-  //         this.dataSource.data=rest.agences
-  //         this.dataSource.paginator=this.paginator;
-  //         this.dataSource.sort=this.sort;
-  //       }
 
-  //     },
-  //     error:(err)=>{
-  //       alert("Error while getback the product data")
-  //       console.log(err);
-  //     }
-  //   });
-
-  // }
-  getAllUsers():void{
-    this.store.dispatch(new GetAllUtilisateursActions({}));
+  getAllUsers(): void{
+    this.user = this.userService.getUserFromLocalCache();
+   
+    this.store.dispatch(new GetAllUtilisateursActions(this.user.idAgence));
     this.utilisateurState$ = this.store.pipe(map((state) => state.utilisateurState));
     this.store.pipe(map((state) => state.utilisateurState)).subscribe({
       next:(rest) => {
@@ -241,7 +223,7 @@ this. getAllUsers()
     }
   }
 
-  onActionEmmit($event: any) {
+  onActionEmmit() {
    console.log("we are here");
    this.store.dispatch(new GetAllUtilisateursActions({}));
     this.store

@@ -1,3 +1,5 @@
+import { UtilisateurRequestDto } from 'src/gs-api/src/models';
+import { UserService } from 'src/app/services/user/user.service';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
@@ -23,11 +25,15 @@ import {
 
 @Injectable()
 export class MagasinEffects {
+
   constructor(
     private apiService: ApiService,
     private effectActions: Actions,
+
     private notificationService: NotificationService
-  ) {}
+  ) {
+
+  }
 
   //SAVE EFFECTS
   saveMagasinEffect: Observable<Action> = createEffect(() =>
@@ -83,8 +89,8 @@ export class MagasinEffects {
   getAllMagasinsLibreEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(MagasinActionsTypes.GET_ALL_MAGASIN_LIBRE),
-      mergeMap(() => {
-        return this.apiService.findAllMagasinLibre().pipe(
+      mergeMap((actions:MagasinActions) => {
+        return this.apiService.findAllMagasinLibre(actions.payload).pipe(
           map((magasin) => new GetAllMagasinLibreActionsSuccess(magasin)),
           catchError((err) =>
             of(new GetAllMagasinLibreActionsError(err.message))
@@ -97,8 +103,8 @@ export class MagasinEffects {
   getAllMagasinsEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(MagasinActionsTypes.GET_ALL_MAGASIN),
-      mergeMap((action) => {
-        return this.apiService.findAllMagasin().pipe(
+      mergeMap((action:MagasinActions) => {
+        return this.apiService.findAllMagasin(action.payload).pipe(
           map((magasin) => new GetAllMagasinActionsSuccess(magasin)),
           catchError((err) => of(new GetAllMagasinActionsError(err.message)))
         );

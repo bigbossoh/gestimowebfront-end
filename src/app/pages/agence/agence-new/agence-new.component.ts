@@ -55,6 +55,7 @@ export class AgenceNewComponent implements OnInit {
     this.agenceRegisterForm = this.fb.group({
       id: [0],
       idAgence: [this.user.idAgence],
+      idCreateur: [this.user?.id],
       nomAgence: ['', [Validators.required]],
       telAgence: [''],
       compteContribuable: [''],
@@ -74,6 +75,9 @@ export class AgenceNewComponent implements OnInit {
       this.actionBtn = 'Modifier';
       this.agenceRegisterForm.controls['idAgence'].setValue(
         this.editData.idAgence
+      );
+      this.agenceRegisterForm.controls['idCreateur'].setValue(
+        this.editData.idCreateur
       );
       this.agenceRegisterForm.controls['nomAgence'].setValue(
         this.editData.nomAgence
@@ -126,34 +130,18 @@ export class AgenceNewComponent implements OnInit {
     //console.log(event);
   }
   onUploadImage(){
-    alert("Ici")
-    /*
-      idImage?: number;
-  nameImage?: string;
-  typeImage?: string;
-  profileAgenceImageUrl?: string;
-  imageData?: Array<string>;
-  file?: MultipartFile;
-  agenceImmobiliere?: number;
-    */
-    return
+
     const fd= new FormData();
      fd.append('image',this.selectedFile,this.selectedFile!.name);
      console.log("we stating here ",fd);
-    // this.userService.onUploadImageService(fd).subscribe(
-    //   rest=>{
-    //   console.log("we are here ",rest);
-    // },
-    // error=>{
-    //   console.log("we are error ",error);
-    // })
+
 
   }
   saveNgrsAgence() {
     this.agenceRegisterForm.patchValue({
       idUtilisateurCreateur: this.user?.id,
     });
-    console.log(this.agenceRegisterForm.value);
+    
     if (this.idCompare != 0) {
       // this.store.dispatch(new GetAllAgenceActions({}));
       this.store.dispatch(new SaveAgenceActions(this.agenceRegisterForm.value));

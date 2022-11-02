@@ -4,7 +4,6 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NotificationType } from 'src/app/enum/natification-type.enum';
 import { GetAllAppartementLibreActions } from 'src/app/ngrx/appartement/appartement.actions';
 import {
   AppartementState,
@@ -22,14 +21,12 @@ import {
   MagasinStateEnum,
 } from 'src/app/ngrx/magasin/magasin.reducer';
 
-import { GetAllLocatairesBailActions } from 'src/app/ngrx/utulisateur/utilisateur.actions';
 import {
   UtilisteurState,
   UtilisteurStateEnum,
 } from 'src/app/ngrx/utulisateur/utlisateur.reducer';
 import { GetAllVillaLibreActions } from 'src/app/ngrx/villa/villa.action';
 import { VillaState, VillaStateEnum } from 'src/app/ngrx/villa/villa.reducer';
-import { NotificationService } from 'src/app/services/notification/notification.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { GetAllLocatairesActions } from '../../../ngrx/utulisateur/utilisateur.actions';
@@ -149,20 +146,20 @@ export class PageBauxNewComponent implements OnInit {
     this.user = this.userService.getUserFromLocalCache();
 
     //GET ALL APPARTEMENT LIBRE
-    this.store.dispatch(new GetAllAppartementLibreActions({}));
+    this.store.dispatch(new GetAllAppartementLibreActions(this.user.idAgence));
     this.appartementState$ = this.store.pipe(
       map((state) => state.appartementState)
     );
     //GET ALL LOCATAIRE
-    this.store.dispatch(new GetAllLocatairesActions({}));
+    this.store.dispatch(new GetAllLocatairesActions(this.user.idAgence));
     this.utilisateurState$ = this.store.pipe(
       map((state) => state.utilisateurState)
     );
     //GET ALL VILLA
-    this.store.dispatch(new GetAllVillaLibreActions({}));
+    this.store.dispatch(new GetAllVillaLibreActions(this.user.idAgence));
     this.villaState$ = this.store.pipe(map((state) => state.villaState));
     //GET ALL MAGASIN
-    this.store.dispatch(new GetAllMagasinLibreActions({}));
+    this.store.dispatch(new GetAllMagasinLibreActions(this.user.idAgence));
     this.magasinState$ = this.store.pipe(map((state) => state.magasinState));
 
     this.formGroup = this.fb.group({

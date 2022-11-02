@@ -31,7 +31,6 @@ export interface Utilisateur {
   roleUsed?: string;
   authorities?: Array<string>;
   urole?: Role;
-  userCreate?: Utilisateur;
   operationUser?: Array<Operation>;
   encaissementsUtilisateur?: Array<Encaissement>;
   biensUtilisateur?: Array<Bienimmobilier>;

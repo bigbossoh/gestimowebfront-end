@@ -1,3 +1,5 @@
+import { UtilisateurRequestDto } from 'src/gs-api/src/models';
+import { UserService } from 'src/app/services/user/user.service';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
@@ -6,7 +8,12 @@ import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { ApiService } from 'src/gs-api/src/services';
-import { GetAllAppartementActionsSuccess, GetAllAppartementActionsError, GetAppartementByIdActionsSuccess, GetAppartementByIdActionsError } from './appartement.actions';
+import {
+  GetAllAppartementActionsSuccess,
+  GetAllAppartementActionsError,
+  GetAppartementByIdActionsSuccess,
+  GetAppartementByIdActionsError,
+} from './appartement.actions';
 import {
   AppartementActions,
   AppartementctionsTypes as AppartementActionsTypes,
@@ -18,7 +25,15 @@ import {
 
 @Injectable()
 export class AppartementEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions, private notificationService: NotificationService) { }
+
+  constructor(
+    private apiService: ApiService,
+    private effectActions: Actions,
+
+    private notificationService: NotificationService
+  ) {
+
+  }
 
   //SAVE EFFECTS
   saveAppartementEffect: Observable<Action> = createEffect(() =>
@@ -29,7 +44,8 @@ export class AppartementEffects {
           map((appart) => new SaveAppartementActionsSuccess(appart)),
           catchError((err) => of(new SaveAppartementActionsError(err.message)))
         );
-      }), tap((resultat) => {
+      }),
+      tap((resultat) => {
         if (resultat.type == AppartementActionsTypes.SAVE_APPARTEMENT_SUCCES) {
           this.sendErrorNotification(
             NotificationType.SUCCESS,
@@ -51,13 +67,18 @@ export class AppartementEffects {
       mergeMap((action: AppartementActions) => {
         return this.apiService.findByIDAppartement(action.payload).pipe(
           map((appart) => new GetAppartementByIdActionsSuccess(appart)),
-          catchError((err) => of(new GetAppartementByIdActionsError(err.message)))
+          catchError((err) =>
+            of(new GetAppartementByIdActionsError(err.message))
+          )
         );
-      }), tap((resultat) => {
-        console.log("Le appartement qui est a modifier est le suivant :");
+      }),
+      tap((resultat) => {
+        console.log('Le appartement qui est a modifier est le suivant :');
         console.log(resultat.payload);
-        
-        if (resultat.type == AppartementActionsTypes.GET_APPARTEMENT_BY_ID_SUCCES) {
+
+        if (
+          resultat.type == AppartementActionsTypes.GET_APPARTEMENT_BY_ID_SUCCES
+        ) {
           this.sendErrorNotification(
             NotificationType.SUCCESS,
             "L'opération effectuée avec succès"
@@ -75,8 +96,8 @@ export class AppartementEffects {
   getAllAppartementLibreEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(AppartementActionsTypes.GET_ALL_APPARTEMENT_LIBRE),
-      mergeMap((action) => {
-        return this.apiService.findAllAppartementLibre().pipe(
+      mergeMap((actions:AppartementActions) => {
+        return this.apiService.findAllAppartementLibre(actions.payload).pipe(
           map(
             (appartement) =>
               new GetAllAppartementLibreActionsSuccess(appartement)
@@ -92,19 +113,18 @@ export class AppartementEffects {
   getAllAppartementEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(AppartementActionsTypes.GET_ALL_APPARTEMENT),
-      mergeMap(() => {
-        return this.apiService.findAllAppartement().pipe(
+      mergeMap((actions:AppartementActions) => {
+        return this.apiService.findAllAppartement(actions.payload).pipe(
           map(
-            (appartement) =>
-              new GetAllAppartementActionsSuccess(appartement)
+            (appartement) => new GetAllAppartementActionsSuccess(appartement)
           ),
           catchError((err) =>
             of(new GetAllAppartementActionsError(err.message))
           )
         );
-      }), tap((resultat) => {
+      }),
+      tap((resultat) => {
         if (resultat.type == AppartementActionsTypes.SAVE_APPARTEMENT_ERROR) {
-          
           this.sendErrorNotification(
             NotificationType.ERROR,
             resultat.payload.toString()

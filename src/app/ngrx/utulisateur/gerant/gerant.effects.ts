@@ -4,20 +4,26 @@ import { ApiService } from "src/gs-api/src/services";
 import { NotificationService } from '../../../services/notification/notification.service';
 import { Observable, of } from 'rxjs';
 import { Action } from "@ngrx/store";
-import { GerantActionsTypes, GetAllGerantsActionsSucces, GetAllGerantsActionsError } from './gerant.actions';
+import { GerantActionsTypes, GetAllGerantsActionsSucces, GetAllGerantsActionsError, GerantActions } from './gerant.actions';
 import { map,mergeMap, catchError, tap } from 'rxjs/operators';
 import { NotificationType } from "src/app/enum/natification-type.enum";
+import { UserService } from "src/app/services/user/user.service";
+import { UtilisateurRequestDto } from "src/gs-api/src/models";
 
 @Injectable()
 export class GerantEffects{
+
   constructor(private apiService: ApiService,
-     private effectActions : Actions,
-      private notificationService:NotificationService){}
+    private effectActions: Actions,
+
+    private notificationService: NotificationService) {
+
+      }
   getAllGerantsEffect:Observable<Action>=createEffect(()=>
   this.effectActions.pipe(
     ofType(GerantActionsTypes.GET_ALL_GERANTS),
-    mergeMap(() => {
-      return this.apiService.getAllGerantsByOrder().pipe(
+    mergeMap((actions:GerantActions) => {
+      return this.apiService.getAllGerantsByOrder(actions.payload).pipe(
         map((gerants)=> new GetAllGerantsActionsSucces(gerants)),
         catchError((err)=>of(new GetAllGerantsActionsError(err.message))
       ),

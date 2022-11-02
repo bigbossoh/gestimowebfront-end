@@ -3,6 +3,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap ,tap} from 'rxjs/operators';
+import { UserService } from 'src/app/services/user/user.service';
+import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { ApiService } from 'src/gs-api/src/services';
 
 import { GetAllPeriodeActionsError, GetAllPeriodeActionsSuccess, GetAllPeriodeByAnneeActionsError, GetAllPeriodeByAnneeActionsSuccess, PeriodeActions, PeriodeActionsTypes } from './periodeappel.actions';
@@ -10,7 +12,12 @@ import { GetAllPeriodeActionsError, GetAllPeriodeActionsSuccess, GetAllPeriodeBy
 
 @Injectable()
 export class PeriodeEffects {
-    constructor(private apiService: ApiService, private effectActions: Actions) { }
+
+  constructor(private apiService: ApiService,
+    private userService: UserService,
+    private effectActions: Actions) {
+
+    }
 
 
     //LISTE DES APPEL LOYER
@@ -35,8 +42,8 @@ export class PeriodeEffects {
    getAllPeriodeEffect: Observable<Action> = createEffect(() =>
    this.effectActions.pipe(
        ofType(PeriodeActionsTypes.GET_PERIODE),
-       mergeMap(() => {
-           return this.apiService.findAllPeriode().pipe(
+       mergeMap((actions:PeriodeActions) => {
+           return this.apiService.findAllPeriode(actions.payload).pipe(
                map((periodes) => new GetAllPeriodeActionsSuccess(periodes)),
                catchError((err) => of(new GetAllPeriodeActionsError(err.message)))
            );
