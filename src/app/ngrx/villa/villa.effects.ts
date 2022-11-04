@@ -86,7 +86,8 @@ export class VillaEffects {
   getAllVillasLibreEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(VillaActionsTypes.GET_ALL_VILLA_LIBRE),
-      mergeMap((actions:VillaActions) => {
+      mergeMap((actions: VillaActions) => {
+   
         return this.apiService.findAllVillaLibre(actions.payload).pipe(
           map((villas) => new GetAllVillaLibreActionsSuccess(villas)),
           catchError((err) => of(new GetAllVillaLibreActionsError(err.message)))

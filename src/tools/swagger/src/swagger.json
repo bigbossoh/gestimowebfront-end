@@ -1188,16 +1188,9 @@
         }
       }
     },
-    "gestimoweb/api/v1/commune/all/{idAgence}" : {
+    "gestimoweb/api/v1/commune/all" : {
       "get" : {
         "operationId" : "findAllCommune",
-        "parameters" : [ {
-          "name" : "idAgence",
-          "in" : "path",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int64"
-        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -2736,16 +2729,9 @@
         }
       }
     },
-    "gestimoweb/api/v1/ville/all/{idAgence}" : {
+    "gestimoweb/api/v1/ville/all" : {
       "get" : {
         "operationId" : "findAllVilles",
-        "parameters" : [ {
-          "name" : "idAgence",
-          "in" : "path",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int64"
-        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -4319,10 +4305,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -4372,10 +4358,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }

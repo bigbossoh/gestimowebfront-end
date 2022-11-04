@@ -1,3 +1,5 @@
+import { UtilisateurRequestDto } from 'src/gs-api/src/models';
+import { UserService } from './../../../../services/user/user.service';
 import { ChangeDetectorRef, Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -49,6 +51,7 @@ export class PageImmeubleComponent implements OnInit,AfterViewInit {
   public totalRecords: number | undefined;
   selectedRowIndex = -1;
 
+  public user: UtilisateurRequestDto | undefined;
 
   readonly VilleStateEnum = VilleStateEnum;
   readonly EtagesStateEnum = EtagesStateEnum;
@@ -57,7 +60,8 @@ export class PageImmeubleComponent implements OnInit,AfterViewInit {
   readonly BienImmobilierStateEnum = BienImmobilierStateEnum;
   readonly CommunesStateEnum = CommunesStateEnum;
 
-  constructor(private store: Store<any>) { }
+  constructor(private store: Store<any>,
+    private userService: UserService) { }
   ngAfterViewInit(): void {
     this.ngOnInit();
   }
@@ -68,13 +72,18 @@ export class PageImmeubleComponent implements OnInit,AfterViewInit {
   }
 
   ngOnInit() {
+    this.user = this.userService.getUserFromLocalCache();
     // RECUPERER LES BIENS
-    this.store.dispatch(new GetAllBiensActions({}));
-    this.bienState$ = this.store.pipe(map((state) => state.biensState));
+    if (this.user.idAgence != undefined) {
+      this.store.dispatch(new GetAllBiensActions(this.user.idAgence));
+      this.bienState$ = this.store.pipe(map((state) => state.biensState));
+console.log( "on n'est dans page-immeuble"+this.user.idAgence);
 
-    // RECUPERR LES IMMEUBLES
-    this.store.dispatch(new GetAllImmeublesActions({}));
-    this.immeubleState$ = this.store.pipe(map((state) => state.immeubleState));
+      // RECUPERR LES IMMEUBLES
+      this.store.dispatch(new GetAllImmeublesActions(this.user.idAgence));
+      this.immeubleState$ = this.store.pipe(map((state) => state.immeubleState));
+    }
+
 
     this.store.pipe(map((state) => state.immeubleState)).subscribe((data) => {
       console.log('Les Immeuble sont');

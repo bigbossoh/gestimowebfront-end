@@ -4,7 +4,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NotificationType } from 'src/app/enum/natification-type.enum';
 import {
   GetAppartementByIdActions,
   SaveAppartementActions,
@@ -13,15 +12,9 @@ import {
   AppartementState,
   AppartementStateEnum,
 } from 'src/app/ngrx/appartement/appartement.reducer';
-import {
-  GetAllEtagesByImmeubleActions,
-  SaveEtageActions,
-} from 'src/app/ngrx/etage/etage.actions';
+import { GetAllEtagesByImmeubleActions } from 'src/app/ngrx/etage/etage.actions';
 import { EtagesState, EtagesStateEnum } from 'src/app/ngrx/etage/etage.reducer';
-import {
-  GetAllImmeublesActions,
-  SaveImmeublesActions,
-} from 'src/app/ngrx/immeuble/immeuble.actions';
+import { GetAllImmeublesActions } from 'src/app/ngrx/immeuble/immeuble.actions';
 import {
   ImmeubleState,
   ImmeubleStateEnum,
@@ -44,7 +37,6 @@ import {
   SaveVillaActions,
 } from 'src/app/ngrx/villa/villa.action';
 import { VillaState, VillaStateEnum } from 'src/app/ngrx/villa/villa.reducer';
-import { NotificationService } from 'src/app/services/notification/notification.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { DialogData } from '../../baux/page-baux/page-baux.component';
@@ -104,18 +96,21 @@ export class PageBienImmobilierNewComponent implements OnInit {
   }
   visiblForm = 0;
   findEtageByImmeuble(immeuble: any) {
-    this.store.dispatch(
-      new GetAllEtagesByImmeubleActions(immeuble)
-    );
+    this.store.dispatch(new GetAllEtagesByImmeubleActions(immeuble));
     this.etageState$ = this.store.pipe(map((state) => state.etageState));
   }
 
   onClose() {
-    this.store.dispatch(new GetAllBiensActions({}));
-    this.store.pipe(map((state) => state.biensState)).subscribe((data) => {
-      console.log('La list des bien');
-      console.log(data);
-    });
+    this.user = this.userService.getUserFromLocalCache();
+    // RECUPERER LES BIENS
+    if (this.user.idAgence != undefined) {
+      this.store.dispatch(new GetAllBiensActions(this.user.idAgence));
+      this.store.pipe(map((state) => state.biensState)).subscribe((data) => {
+        console.log('La list des bien');
+        console.log(data);
+      });
+    }
+
     this.dialogRef.close();
   }
 
@@ -124,7 +119,6 @@ export class PageBienImmobilierNewComponent implements OnInit {
     if (this.magasinForm?.invalid) {
       return;
     }
-
     this.submitted = false;
     this.store.dispatch(new SaveMagasinActions(this.magasinForm?.value));
     this.magasinState$ = this.store.pipe(map((state) => state.magasinState));
@@ -157,20 +151,19 @@ export class PageBienImmobilierNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
-    if (this.user.idAgence!=undefined) {
+    if (this.user.idAgence != undefined) {
       this.store.dispatch(new GetAllSitesActions(this.user.idAgence));
       this.siteState$ = this.store.pipe(map((state) => state.siteState));
     }
 
-
     this.user = this.userService.getUserFromLocalCache();
 
-    this.store.dispatch(new GetAllProprietairesActions({}));
+    this.store.dispatch(new GetAllProprietairesActions(this.user.idAgence));
     this.utilisateurState$ = this.store.pipe(
       map((state) => state.utilisateurState)
     );
 
-    this.store.dispatch(new GetAllImmeublesActions({}));
+    this.store.dispatch(new GetAllImmeublesActions(this.user.idAgence));
     this.immeubleState$ = this.store.pipe(map((state) => state.immeubleState));
     if (this.data != null) {
       this.visiblForm = 1;

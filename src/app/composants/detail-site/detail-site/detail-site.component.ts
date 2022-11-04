@@ -1,3 +1,5 @@
+import { UtilisateurRequestDto } from 'src/gs-api/src/models';
+import { UserService } from './../../../services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -13,13 +15,19 @@ import { DeleteSiteAction } from '../../../ngrx/site/site.actions';
 })
 export class DetailSiteComponent implements OnInit {
   siteState$: Observable<SiteState> | null = null;
-
+  public user: UtilisateurRequestDto | undefined;
   readonly SiteStateEnum = SiteStateEnum;
-  constructor(private store: Store<any>) {}
+  constructor(private store: Store<any>,
+    private userService: UserService,) { }
 
   ngOnInit() {
-    this.store.dispatch(new GetAllSitesActions({}));
-    this.siteState$ = this.store.pipe(map((state) => state.siteState));
+    this.user = this.userService.getUserFromLocalCache();
+    if (this.user.idAgence != undefined) {
+  this.store.dispatch(new GetAllSitesActions(this.user.idAgence));
+  this.siteState$ = this.store.pipe(map((state) => state.siteState));
+  //this.counter = this.store.select('sites');
+
+}
   }
   deleteSite(idSite: any, nomSite: any) {
     if (confirm('Vouvez-vous supprimer le site : ' + nomSite)) {

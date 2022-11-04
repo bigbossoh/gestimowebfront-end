@@ -24,6 +24,8 @@ import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { formatDate } from '@angular/common';
+import { UserService } from 'src/app/services/user/user.service';
+import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 
 @Component({
   selector: 'app-page-statistique-journalier',
@@ -47,6 +49,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   readonly AppelLoyerImpayerMoisStateEnum = AppelLoyerStateEnum;
   readonly AnneeStateEnum = AnneeStateEnum;
   selectedDate = new Date();
+  public user?: UtilisateurRequestDto;
   periode_model =
     this.selectedDate.getFullYear() + '-' + this.selectedDate.getMonth();
   annee_model = this.selectedDate.getFullYear();
@@ -58,6 +61,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   constructor(
     private store: Store<any>,
     private _adapter: DateAdapter<Date>,
+    private userService: UserService,
     @Inject(MAT_DATE_LOCALE) private _locale: string
   ) {
     this._locale = 'fr';
@@ -84,7 +88,6 @@ export class PageStatistiqueJournalierComponent implements OnInit {
     });
   }
   getPayerParAnnee(annee: number) {
-
     this.store.dispatch(new GetPayerLoyerParAnneeActions(annee));
     this.appelLoyerPayerState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
@@ -104,7 +107,6 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   }
 
   getPayerParPeriode(periode: any) {
-
     this.store.dispatch(new GetPayerLoyerParPeriodeActions(periode));
     this.appelLoyerPayerMoisState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
@@ -114,7 +116,8 @@ export class PageStatistiqueJournalierComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    this.store.dispatch(new GetAllAnneeActions({}));
+    this.user = this.userService.getUserFromLocalCache();
+    this.store.dispatch(new GetAllAnneeActions(this.user!.idAgence));
     this.anneeState$ = this.store.pipe(map((state) => state.anneeState));
 
     this.store.dispatch(new GetAllPeriodeActions({}));

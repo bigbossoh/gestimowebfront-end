@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/services/user/user.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -27,6 +28,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { ModifLoyerBailComponent } from '../modif-loyer-bail/modif-loyer-bail.component';
 import { SupprimerOperationActions } from '../../../ngrx/baux/baux.actions';
+import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 
 export interface DialogData {
   bienimmo: any;
@@ -69,8 +71,13 @@ export class PageBauxComponent implements OnInit {
   public totalRecords: number | undefined;
   readonly BauxStateEnum = BauxStateEnum;
   readonly AppelLoyerStateEnum = AppelLoyerStateEnum;
-
-  constructor(public dialog: MatDialog, private store: Store<any>) {}
+  public user?: UtilisateurRequestDto;
+  v_agence: number=0;
+  constructor(
+    public dialog: MatDialog,
+    private store: Store<any>,
+    private userService: UserService
+  ) {}
   openModifMontantDialog(loyer: number): void {
     const dialolRef = this.dialog.open(ModifLoyerBailComponent, {
       data: { id: loyer },
@@ -78,11 +85,17 @@ export class PageBauxComponent implements OnInit {
     dialolRef.afterClosed().subscribe(() => {});
   }
   ngOnInit(): void {
-    this.store.dispatch(new GetAllOperationActions({}));
+    this.user = this.userService.getUserFromLocalCache();
+    if (this.user.idAgence != undefined) {
+      this.v_agence = this.user.idAgence;
+    } else {
+      this.v_agence=0
+    }
+    this.store.dispatch(new GetAllOperationActions(this.user.idAgence));
     this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
     this.store.pipe(map((state) => state.bauxState)).subscribe((data) => {
-        if (data.baux.length > 0) {
-        this.totalRecords=data.baux.length
+      if (data.baux.length > 0) {
+        this.totalRecords = data.baux.length;
         this.dataSource.data = data.baux;
         this.dataSource.paginator = this.paginator;
       }
@@ -98,7 +111,7 @@ export class PageBauxComponent implements OnInit {
       this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
       this.store.pipe(map((state) => state.bauxState)).subscribe((data) => {
         if (data.baux.length > 0) {
-          this.totalRecords=data.baux.length
+          this.totalRecords = data.baux.length;
           this.dataSource.data = data.baux;
           this.dataSource.paginator = this.paginator;
         }
@@ -109,7 +122,6 @@ export class PageBauxComponent implements OnInit {
   onModifClick(state: any) {}
   onDeleteClick(state: any) {}
   chargerAppels(evt: any) {
-   
     this.store.dispatch(new GetAllAppelLoyerActions(evt));
     this.appelloyerState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
