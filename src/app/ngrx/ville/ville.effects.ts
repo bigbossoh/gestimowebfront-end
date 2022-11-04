@@ -15,14 +15,14 @@ export class VilleEffects {
   constructor(private apiService: ApiService,
     private userService: UserService,
     private effectActions: Actions) {
- 
+
   }
 
   getAllBienseffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(VillesActionsTypes.GET_ALL_VILLES),
-      mergeMap((actions:VillesActions) => {
-        return this.apiService.findAllVilles(actions.payload).pipe(
+      mergeMap(() => {
+        return this.apiService.findAllVilles().pipe(
           map((villes) => new GetAllVilleActionsSuccess(villes)),
           catchError((err) => of(new GetAllVillesActionsError(err.message)))
         );

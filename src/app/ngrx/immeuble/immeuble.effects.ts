@@ -25,9 +25,7 @@ export class ImmeubleEffects {
 
     private effectActions: Actions,
     private notificationService: NotificationService
-  ) {
-
-  }
+  ) { }
   getAllImmeubleffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(ImmeublesActionsTypes.GET_ALL_IMMEUBLES),

@@ -1,3 +1,4 @@
+
 import { AppelLoyerState } from 'src/app/ngrx/appelloyer/appelloyer.reducer';
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -14,9 +15,7 @@ import {
   QuittanceLoyerState,
   QuittanceloyerStateEnum,
 } from '../../../ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.reducer';
-import {
-  PrintQuittanceLoyerActions,
-} from '../../../ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.action';
+import { PrintQuittanceLoyerActions } from '../../../ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.action';
 import { MailState, MailStateEnum } from '../../../ngrx/mail/mail.reducer';
 import {
   SendQuittanceByMailActions,
@@ -26,8 +25,13 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { PeriodeState, PeriodeStateEnum } from 'src/app/ngrx/appelloyer/peiodeappel/periodeappel.reducer';
+import {
+  PeriodeState,
+  PeriodeStateEnum,
+} from 'src/app/ngrx/appelloyer/peiodeappel/periodeappel.reducer';
 import { GetAllPeriodeByAnneeActions } from 'src/app/ngrx/appelloyer/peiodeappel/periodeappel.actions';
+import { UserService } from 'src/app/services/user/user.service';
+import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 
 @Component({
   selector: 'app-appels-loyers',
@@ -44,7 +48,7 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
     'Actions',
   ];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  pageSize = [5, 10, 15, 20,50,100];
+  pageSize = [5, 10, 15, 20, 50, 100];
   public totalRecords: number | undefined;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -71,9 +75,10 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
   datePaysBail = '';
   defauldPeriode = '';
   ngSelect = 1;
-
-  constructor(private store: Store<any>) {
-    this.store.dispatch(new GetAllAnneeActions({}));
+  public user?: UtilisateurRequestDto;
+  constructor(private store: Store<any>, private userService: UserService) {
+    this.user = this.userService.getUserFromLocalCache();
+    this.store.dispatch(new GetAllAnneeActions(this.user!.idAgence));
     this.anneeState$ = this.store.pipe(map((state) => state.anneeState));
   }
   applyFilter(event: Event) {
@@ -90,7 +95,7 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
     this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(''));
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
     this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
-      console.log("les données de appels sont lmes suivants");
+      console.log('les données de appels sont lmes suivants');
       console.log(data);
     });
   }
@@ -100,26 +105,21 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
     this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
       if (data.appelloyers.length) {
-
         this.dataSource.data = data.appelloyers;
         this.dataSource.paginator = this.paginator;
       }
-
     });
   }
   getAllPeriodeByAnnee(a: string) {
+    this.user = this.userService.getUserFromLocalCache();
     this.afficheAppelTable = 0;
-    this.store.dispatch(new GetAllPeriodeByAnneeActions(a));
-    this.periodeState$ = this.store.pipe(
-      map((state) => state.periodeState)
-    );
 
+    this.store.dispatch(new GetAllPeriodeByAnneeActions({idAgence:this.user.idAgence,annee:a}));
+    this.periodeState$ = this.store.pipe(map((state) => state.periodeState));
   }
   getAppelByAnnee(a: string) {
     this.store.dispatch(new GetAllAppelLoyerAnneeActions(a));
-    this.appelState$ = this.store.pipe(
-      map((state) => state.appelLoyerState)
-    );
+    this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
   }
   printQuittance(p: string) {
     this.store.dispatch(new PrintQuittanceLoyerActions(p));
@@ -132,7 +132,6 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
     this.sendMailState$ = this.store.pipe(map((state) => state.mailState));
   }
   sendQuittanceIndividuel(id: any) {
-
     this.store.dispatch(new SendQuittanceIndividuelActions(id));
     this.sendMailIndivState$ = this.store.pipe(map((state) => state.mailState));
   }

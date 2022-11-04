@@ -42,8 +42,9 @@ export class PeriodeEffects {
    getAllPeriodeEffect: Observable<Action> = createEffect(() =>
    this.effectActions.pipe(
        ofType(PeriodeActionsTypes.GET_PERIODE),
-       mergeMap((actions:PeriodeActions) => {
-           return this.apiService.findAllPeriode(actions.payload).pipe(
+     mergeMap((actions: PeriodeActions) => {
+
+           return this.apiService.findAllPeriodeChiffreEtLettreByAnnee(actions.payload).pipe(
                map((periodes) => new GetAllPeriodeActionsSuccess(periodes)),
                catchError((err) => of(new GetAllPeriodeActionsError(err.message)))
            );

@@ -10,6 +10,8 @@ import { Store } from '@ngrx/store';
 import { SaveEtageActions } from '../../../ngrx/etage/etage.actions';
 import { map } from 'rxjs/operators';
 import { GetAllImmeublesActions } from '../../../ngrx/immeuble/immeuble.actions';
+import { UserService } from 'src/app/services/user/user.service';
+import { UtilisateurRequestDto } from 'src/gs-api/src/models/utilisateur-request-dto';
 
 @Component({
   selector: 'app-page-etage-new',
@@ -27,17 +29,20 @@ export class PageEtageNewComponent implements OnInit {
   readonly ImmeubleStateEnum = ImmeubleStateEnum;
   readonly UtilisteurStateEnum = UtilisteurStateEnum;
 
-
+  public user?: UtilisateurRequestDto;
   etageForm?: FormGroup;
   constructor(public dialogRef: MatDialogRef<PageEtageNewComponent>
     , private fb: FormBuilder,
+    private userService: UserService,
     private store: Store<any>,) { }
 
   ngOnInit(): void {
-
-    this.store.dispatch(new GetAllImmeublesActions({}));
-    this.immeubleState$ = this.store.pipe(map((state) => state.immeubleState));
-
+    this.user = this.userService.getUserFromLocalCache();
+    // RECUPERER LES BIENS
+    if (this.user.idAgence != undefined) {
+      this.store.dispatch(new GetAllImmeublesActions(this.user.idAgence));
+      this.immeubleState$ = this.store.pipe(map((state) => state.immeubleState));
+    }
     this.etageForm = this.fb.group({
       //ETAGE
       id: [0],

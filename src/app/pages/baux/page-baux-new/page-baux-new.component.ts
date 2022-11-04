@@ -76,7 +76,6 @@ export class PageBauxNewComponent implements OnInit {
     private fb: FormBuilder,
     private store: Store<any>,
     private userService: UserService,
-
     public dialogRef: MatDialogRef<PageBauxNewComponent>
   ) {
     this.listTypeContrat = ['Bail Appartement', 'Bail Magasin', 'Bail Villa'];
@@ -146,7 +145,7 @@ export class PageBauxNewComponent implements OnInit {
     this.user = this.userService.getUserFromLocalCache();
 
     //GET ALL APPARTEMENT LIBRE
-    this.store.dispatch(new GetAllAppartementLibreActions(this.user.idAgence));
+    this.store.dispatch(new GetAllAppartementLibreActions(this.user!.idAgence));
     this.appartementState$ = this.store.pipe(
       map((state) => state.appartementState)
     );

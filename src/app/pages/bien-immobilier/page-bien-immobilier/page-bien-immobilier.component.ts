@@ -1,3 +1,5 @@
+import { UtilisateurRequestDto } from 'src/gs-api/src/models';
+import { UserService } from 'src/app/services/user/user.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -60,6 +62,7 @@ export class PageBienImmobilierComponent implements OnInit, AfterViewInit {
   appartementState$: Observable<AppartementState> | null = null;
   villaState$: Observable<VillaState> | null = null;
 
+  v_agence: number=0;
   public totalRecords: number | undefined;
 
   villeState$: Observable<VilleState> | null = null;
@@ -74,13 +77,23 @@ export class PageBienImmobilierComponent implements OnInit, AfterViewInit {
   readonly CommunesStateEnum = CommunesStateEnum;
   readonly BienImmobilierStateEnum = BienImmobilierStateEnum;
 
-  constructor(private store: Store<any>,public dialog: MatDialog) {}
+  public user?: UtilisateurRequestDto;
+  constructor(private store: Store<any>, public dialog: MatDialog,
+    private userService: UserService,) { }
   ngAfterViewInit(): void {
     this.ngOnInit();
   }
   ngOnInit(): void {
-    //RECUPERER TOUS LES BIENS
-    this.store.dispatch(new GetAllBiensActions({}));
+    this.user = this.userService.getUserFromLocalCache();
+    // RECUPERER LES BIENS
+
+    if (this.user.idAgence != undefined) {
+      this.v_agence = this.user.idAgence;
+    } else {
+      this.v_agence=0
+    }
+
+    this.store.dispatch(new GetAllBiensActions(this.v_agence));
     this.bienImmobilierState$ = this.store.pipe(
       map((state) => state.biensState)
     );
@@ -89,27 +102,26 @@ export class PageBienImmobilierComponent implements OnInit, AfterViewInit {
         this.totalRecords = data.bienImmoblilier.length;
         this.dataSource.data = data.bienImmoblilier;
         this.dataSource.paginator = this.paginator;
-        console.log(data.bienImmoblilier);
       }
     });
 
     // RECUPERER LES APPARTEMENTS DANS LE STORES
-    this.store.dispatch(new GetAllAppartementActions({}));
+    this.store.dispatch(new GetAllAppartementActions(this.v_agence));
     this.appartementState$ = this.store.pipe(
       map((state) => state.appartementState)
     );
     // RECUPERER LES MAGASINS DANS LE STORES
-    this.store.dispatch(new GetAllMagasinActions({}));
+    this.store.dispatch(new GetAllMagasinActions(this.v_agence));
     this.magasinState$ = this.store.pipe(map((state) => state.magasinState));
 
     // RECUPERER LES VILLAS DANS LE STORES
-    this.store.dispatch(new GetAllVillaActions({}));
+    this.store.dispatch(new GetAllVillaActions(this.v_agence));
     this.villaState$ = this.store.pipe(map((state) => state.villaState));
 
     //RECUPERER LES VILLES
-    this.store.dispatch(new GetAllVilleActions({}));
+    this.store.dispatch(new GetAllVilleActions(this.v_agence));
     this.villeState$ = this.store.pipe(map((state) => state.villeState));
-  }
+   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

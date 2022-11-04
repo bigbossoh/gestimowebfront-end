@@ -95,8 +95,11 @@ export class AppartementEffects {
   //LISTE DES APPARTEMENT LIBRE
   getAllAppartementLibreEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
+
+
       ofType(AppartementActionsTypes.GET_ALL_APPARTEMENT_LIBRE),
-      mergeMap((actions:AppartementActions) => {
+      mergeMap((actions: AppartementActions) => {
+
         return this.apiService.findAllAppartementLibre(actions.payload).pipe(
           map(
             (appartement) =>

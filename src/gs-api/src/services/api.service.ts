@@ -102,7 +102,7 @@ class ApiService extends __BaseService {
   static readonly saveBailVillaPath = 'gestimoweb/api/v1/bailvilla/save';
   static readonly findAllBienPath = 'gestimoweb/api/v1/bienImmobilier/all/{idAgence}';
   static readonly findAllBienOqpPath = 'gestimoweb/api/v1/bienImmobilier/allBienOccuper/{idAgence}';
-  static readonly findAllCommunePath = 'gestimoweb/api/v1/commune/all/{idAgence}';
+  static readonly findAllCommunePath = 'gestimoweb/api/v1/commune/all';
   static readonly deleteCommunePath = 'gestimoweb/api/v1/commune/delete/{id}';
   static readonly findCommuneByIDPath = 'gestimoweb/api/v1/commune/findById/{id}';
   static readonly findCommuneByIdPaysPath = 'gestimoweb/api/v1/commune/findByIdVille/{id}';
@@ -175,7 +175,7 @@ class ApiService extends __BaseService {
   static readonly findAllVillaLibrePath = 'gestimoweb/api/v1/villa/alllibre/{idAgence}';
   static readonly findVillaByIdPath = 'gestimoweb/api/v1/villa/findVillaById/{id}';
   static readonly saveVillaPath = 'gestimoweb/api/v1/villa/save';
-  static readonly findAllVillesPath = 'gestimoweb/api/v1/ville/all/{idAgence}';
+  static readonly findAllVillesPath = 'gestimoweb/api/v1/ville/all';
   static readonly deleteVillePath = 'gestimoweb/api/v1/ville/delete/{id}';
   static readonly findByIdVillePath = 'gestimoweb/api/v1/ville/findById/{id}';
   static readonly findAllVilleByIdPaysPath = 'gestimoweb/api/v1/ville/findByIdPays/{id}';
@@ -2198,17 +2198,15 @@ class ApiService extends __BaseService {
   }
 
   /**
-   * @param idAgence undefined
    * @return successful operation
    */
-  findAllCommuneResponse(idAgence: number): __Observable<__StrictHttpResponse<Array<CommuneRequestDto>>> {
+  findAllCommuneResponse(): __Observable<__StrictHttpResponse<Array<CommuneRequestDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/commune/all/${idAgence}`,
+      this.rootUrl + `gestimoweb/api/v1/commune/all`,
       __body,
       {
         headers: __headers,
@@ -2224,11 +2222,10 @@ class ApiService extends __BaseService {
     );
   }
   /**
-   * @param idAgence undefined
    * @return successful operation
    */
-  findAllCommune(idAgence: number): __Observable<Array<CommuneRequestDto>> {
-    return this.findAllCommuneResponse(idAgence).pipe(
+  findAllCommune(): __Observable<Array<CommuneRequestDto>> {
+    return this.findAllCommuneResponse().pipe(
       __map(_r => _r.body as Array<CommuneRequestDto>)
     );
   }
@@ -4828,17 +4825,15 @@ class ApiService extends __BaseService {
   }
 
   /**
-   * @param idAgence undefined
    * @return successful operation
    */
-  findAllVillesResponse(idAgence: number): __Observable<__StrictHttpResponse<Array<VilleDto>>> {
+  findAllVillesResponse(): __Observable<__StrictHttpResponse<Array<VilleDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/ville/all/${idAgence}`,
+      this.rootUrl + `gestimoweb/api/v1/ville/all`,
       __body,
       {
         headers: __headers,
@@ -4854,11 +4849,10 @@ class ApiService extends __BaseService {
     );
   }
   /**
-   * @param idAgence undefined
    * @return successful operation
    */
-  findAllVilles(idAgence: number): __Observable<Array<VilleDto>> {
-    return this.findAllVillesResponse(idAgence).pipe(
+  findAllVilles(): __Observable<Array<VilleDto>> {
+    return this.findAllVillesResponse().pipe(
       __map(_r => _r.body as Array<VilleDto>)
     );
   }
