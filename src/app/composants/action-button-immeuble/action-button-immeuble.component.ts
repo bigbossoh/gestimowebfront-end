@@ -10,7 +10,10 @@ import { MatDialog } from '@angular/material/dialog';
 export class ActionButtonImmeubleComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
   openDialog() {
-    const dialogref = this.dialog.open(PageImmeubleNewComponent, {});
+    const dialogref = this.dialog.open(PageImmeubleNewComponent, {
+      width:'70%'
+
+    });
   }
 
   ngOnInit(): void {}
