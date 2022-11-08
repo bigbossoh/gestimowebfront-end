@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user/user.service';
 import { Menu } from './menu';
 
 @Component({
@@ -8,6 +9,8 @@ import { Menu } from './menu';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+  connectedAgence:any ={};
+
   public menuProperties: Array<Menu> = [
   {
     id: '1',
@@ -273,7 +276,8 @@ export class MenuComponent implements OnInit {
 
 private lastSelectedMenu: Menu | undefined;
 constructor(
-  private router: Router) {
+  private router: Router,
+  private userService:UserService) {
 
 }
 ngOnInit(): void {
