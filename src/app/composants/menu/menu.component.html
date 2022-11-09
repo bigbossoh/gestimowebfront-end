@@ -1,5 +1,5 @@
 <div class="accordion" id="appMenuAccordion">
-  <h5 class="card-title">Agence : </h5>
+  <h5 class="card-title">Agence : <span class="badge badge-success">{{agenceDto?.nomAgence}}</span></h5>
   <div class="card" *ngFor="let menu of menuProperties">
 
     <div class="card-header" id="menu{{menu.id}}">

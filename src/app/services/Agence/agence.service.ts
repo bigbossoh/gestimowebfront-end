@@ -10,6 +10,8 @@ import { AgenceResponseDto } from '../../../gs-api/src/models/agence-response-dt
 })
 export class AgenceService {
 
+
+
   constructor(
     private apiService:ApiService,
   ) { }
@@ -19,6 +21,10 @@ export class AgenceService {
   public onPostAgence(agenceDto:AgenceRequestDto):Observable<any>{
     return this.apiService.authenticateAgence(agenceDto);
   }
- 
+  public getAgenceById(idAgence:any):Observable<AgenceRequestDto>{
+    return this.apiService.getAgenceByIDAgence(idAgence);
+
+  }
+
 
 }
