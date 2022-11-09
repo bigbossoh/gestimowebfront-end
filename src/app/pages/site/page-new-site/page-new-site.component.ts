@@ -72,7 +72,7 @@ export class PageNewSiteComponent implements OnInit {
   public saveSite() {
     this.submitted = true;
 
-    console.warn(this.siteRegisterForm.value);
+    console.warn("this is the name of site registration ",this.siteRegisterForm.value);
     if (this.siteRegisterForm.invalid) {
       return;
     }
@@ -93,6 +93,6 @@ export class PageNewSiteComponent implements OnInit {
     this.quartierModel = c[0].abrvQuartier;
   }
   villeChange(v: any) {
-      
+
   }
 }
