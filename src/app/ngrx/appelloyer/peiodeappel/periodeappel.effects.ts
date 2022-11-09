@@ -39,12 +39,30 @@ export class PeriodeEffects {
         )
     );
    //LISTE DES APPEL LOYER
-   getAllPeriodeEffect: Observable<Action> = createEffect(() =>
+   getAllPeriodeParAnneeEffect: Observable<Action> = createEffect(() =>
    this.effectActions.pipe(
        ofType(PeriodeActionsTypes.GET_PERIODE),
      mergeMap((actions: PeriodeActions) => {
 
            return this.apiService.findAllPeriodeChiffreEtLettreByAnnee(actions.payload).pipe(
+               map((periodes) => new GetAllPeriodeActionsSuccess(periodes)),
+               catchError((err) => of(new GetAllPeriodeActionsError(err.message)))
+           );
+       }),
+       tap((resultat) => {
+          console.log("Les appels de la periodes sont : ");
+          console.log(resultat);
+
+           }
+      )
+   )
+   );
+   getAllPeriodeEffect: Observable<Action> = createEffect(() =>
+   this.effectActions.pipe(
+       ofType(PeriodeActionsTypes.GET_PERIODE),
+     mergeMap((actions: PeriodeActions) => {
+
+           return this.apiService.findAllPeriode(actions.payload).pipe(
                map((periodes) => new GetAllPeriodeActionsSuccess(periodes)),
                catchError((err) => of(new GetAllPeriodeActionsError(err.message)))
            );

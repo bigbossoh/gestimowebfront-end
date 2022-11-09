@@ -1,3 +1,4 @@
+import { ImageEffects } from './ngrx/images/images.effects';
 import { PageStatistiqueJournalierComponent } from './pages/page-statistique-journalier/page-statistique-journalier.component';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -141,6 +142,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatNativeDateModule} from '@angular/material/core';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatCardModule} from '@angular/material/card';
+import { imageReducer } from './ngrx/images/images.reducer';
 
 @NgModule({
   declarations: [
@@ -264,7 +266,8 @@ import {MatCardModule} from '@angular/material/card';
       anneeState: anneeReducer,
       mailState: mailReducer,
       encaissementState:encaissementReducer,
-      periodeState: periodeReducer
+      periodeState: periodeReducer,
+      imageState:imageReducer
     }),
     EffectsModule.forRoot([
       AnneeEffects,
@@ -291,7 +294,8 @@ import {MatCardModule} from '@angular/material/card';
       GerantEffects,
       SuperviseurEffects,
       QuittanceAppelLoyerEffects,
-      Encaissementffects
+      Encaissementffects,
+      ImageEffects
     ]),
 
     StoreDevtoolsModule.instrument(),
