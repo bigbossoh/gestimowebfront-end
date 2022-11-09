@@ -86,6 +86,51 @@
         }
       }
     },
+    "gestimoweb/api/v1/agences/getlogo/{id}" : {
+      "get" : {
+        "operationId" : "getlogo",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string",
+                "format" : "byte"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/agences/savelogo" : {
+      "post" : {
+        "operationId" : "saveLogo",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/AgenceRequestDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/agences/signup" : {
       "post" : {
         "operationId" : "authenticateAgence",
@@ -2142,12 +2187,23 @@
         }
       }
     },
-    "gestimoweb/api/v1/print/quittancegrouper/{periode}" : {
+    "gestimoweb/api/v1/print/quittancegrouper/{periode}/{idAgence}/{proprio}" : {
       "get" : {
         "operationId" : "quittancePeriode",
         "produces" : [ "application/pdf" ],
         "parameters" : [ {
           "name" : "periode",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "periode",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "proprio",
           "in" : "path",
           "required" : true,
           "type" : "string"
@@ -2928,6 +2984,9 @@
         },
         "typeImage" : {
           "type" : "string"
+        },
+        "logoAgence" : {
+          "$ref" : "#/definitions/MultipartFile"
         }
       }
     },
@@ -3002,6 +3061,13 @@
         },
         "active" : {
           "type" : "boolean"
+        },
+        "logoAgence" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "byte"
+          }
         }
       }
     },
@@ -4229,6 +4295,9 @@
         }
       }
     },
+    "InputStream" : {
+      "type" : "object"
+    },
     "LocataireEncaisDTO" : {
       "type" : "object",
       "properties" : {
@@ -4305,10 +4374,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -4358,10 +4427,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -4466,6 +4535,37 @@
         "bailLocation" : {
           "type" : "integer",
           "format" : "int64"
+        }
+      }
+    },
+    "MultipartFile" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "empty" : {
+          "type" : "boolean"
+        },
+        "bytes" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "byte"
+          }
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "inputStream" : {
+          "$ref" : "#/definitions/InputStream"
+        },
+        "originalFilename" : {
+          "type" : "string"
+        },
+        "contentType" : {
+          "type" : "string"
         }
       }
     },

@@ -1,4 +1,5 @@
 /* tslint:disable */
+import { MultipartFile } from './multipart-file';
 export interface AgenceImmobilierDTO {
   id?: number;
   nomAgence?: string;
@@ -16,4 +17,5 @@ export interface AgenceImmobilierDTO {
   idImage?: number;
   nameImage?: string;
   typeImage?: string;
+  logoAgence?: MultipartFile;
 }

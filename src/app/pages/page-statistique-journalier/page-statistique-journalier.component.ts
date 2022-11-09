@@ -57,7 +57,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   v_payer_annee = 0;
   v_impayer_mois = 0;
   v_payer_mois = 0;
-
+  v_user_id: number = 0;
   constructor(
     private store: Store<any>,
     private _adapter: DateAdapter<Date>,
@@ -96,8 +96,11 @@ export class PageStatistiqueJournalierComponent implements OnInit {
       this.v_payer_annee = data.payerAnnee;
     });
   }
-  getImpayerParPeriode(periode: any) {
-    this.store.dispatch(new GetImpayerLoyerParPeriodeActions(periode));
+  getImpayerParPeriode(periode: string) {
+    this.user = this.userService.getUserFromLocalCache();
+    this.store.dispatch(
+      new GetImpayerLoyerParPeriodeActions({periode: periode,idAgence: this.v_user_id})
+    );
     this.appelLoyerImpayerMoisState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
     );
@@ -120,7 +123,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
     this.store.dispatch(new GetAllAnneeActions(this.user!.idAgence));
     this.anneeState$ = this.store.pipe(map((state) => state.anneeState));
 
-    this.store.dispatch(new GetAllPeriodeActions({}));
+    this.store.dispatch(new GetAllPeriodeActions(this.user!.idAgence));
     this.periodeState$ = this.store.pipe(map((state) => state.periodeState));
     this.getEncaissementPayerJour(this.selectedDate);
     this.getImpayerParAnnee(this.annee_model);

@@ -1,7 +1,7 @@
 <mat-card class="example-card">
   <mat-card-header>
     <!-- <div mat-card-avatar class="example-header-image"></div> -->
-    <mat-card-title>{{actionBtn}} une Agence</mat-card-title>
+    <mat-card-title>{{ actionBtn }} une Agence</mat-card-title>
     <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
   </mat-card-header>
   <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
@@ -11,28 +11,32 @@
         <!-- <h1 mat-dialog-title class="mat-title">{{actionBtn}} une Agence</h1> -->
         <form [formGroup]="agenceRegisterForm">
           <div class="row">
-
             <div class="col-md-3">
               <div class="card h-100">
                 <div class="card-body text-center">
                   <div class="account-settings">
                     <div class="user-profile">
-                      <h3>Importer logo</h3>
-                      <div class="user-avatar ">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="rounded" height="150"
-                          width="150" alt="Maxwell Admin">
+                      <div *ngIf="selectedFile">
+                        <img
+                          [src]="selectedFile"
+                          class="img-fluid rounded"
+                          alt=""
+                          height="150"
+                          width="150"
+                        />
                       </div>
-                      <input type="file" class="mt-2" (change)="onFileSelected($event)">
-                      <button class="mt-2" mat-raised-button color="primary" (click)="onUploadImage()">Importer...</button>
-                    </div>
-                    <div class="about">
-                      <!-- <h5>Role:{{nomRole}}</h5> -->
-                      <!-- <pre>
-                        <pre>{{newUserForm.value |json}}</pre>
-                      </pre> -->
 
+                      <input
+                        class="inputfile"
+                        type="file"
+                        name="file"
+                        id="file"
+                        (change)="onFileSelected($event)"
+                      />
 
+                      <label for="file">Changer la photo</label>
                     </div>
+                    <div class="about"></div>
                   </div>
                 </div>
               </div>
@@ -40,28 +44,39 @@
 
             <div class="col-md-9">
               <div class="mb-2 text-primary">
-                <i class="fas fa-asterisk"></i><b>
-                  Denomination sociale de
-                  l'agence</b>
+                <i class="fas fa-asterisk"></i
+                ><b> Denomination sociale de l'agence</b>
               </div>
               <div class="row">
                 <div class="col-md-4">
                   <mat-form-field>
                     <mat-label>Nom Agence*</mat-label>
-                    <input formControlName="nomAgence" matInput placeholder="Nom Agence*">
+                    <input
+                      formControlName="nomAgence"
+                      matInput
+                      placeholder="Nom Agence*"
+                    />
                     <mat-error>Ce champ est obligatoire.</mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
                   <mat-form-field>
                     <mat-label>sigle de l'agence</mat-label>
-                    <input formControlName="sigleAgence" matInput placeholder="Sigle">
+                    <input
+                      formControlName="sigleAgence"
+                      matInput
+                      placeholder="Sigle"
+                    />
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
-                  <mat-form-field *ngIf="idCompare==0" >
+                  <mat-form-field *ngIf="idCompare == 0">
                     <mat-label>Nom du gérant*</mat-label>
-                    <input formControlName="nomPrenomGerant" matInput placeholder="Nom du gérant">
+                    <input
+                      formControlName="nomPrenomGerant"
+                      matInput
+                      placeholder="Nom du gérant"
+                    />
                     <mat-error>Ce champ est obligatoire.</mat-error>
                   </mat-form-field>
                 </div>
@@ -70,106 +85,154 @@
                 <i class="fas fa-asterisk"></i><b> Contact Agence</b>
               </div>
               <div class="row">
-
                 <div class="col-md-4">
                   <mat-form-field>
                     <mat-label>Telephone</mat-label>
-                    <input formControlName="telAgence" matInput placeholder="Telephone">
+                    <input
+                      formControlName="telAgence"
+                      matInput
+                      placeholder="Telephone"
+                    />
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
                   <mat-form-field>
                     <mat-label>Email*</mat-label>
-                    <input formControlName="emailAgence" matInput placeholder="Email"
-                    placeholder="Ex. pat@example.com">
-                    <mat-error *ngIf="agenceRegisterForm.controls['emailAgence'].errors?.required">Ce champ est obligatoire.</mat-error>
-                    <mat-error *ngIf="agenceRegisterForm.controls['emailAgence'].errors?.email">Invalide email adresse.</mat-error>
-
+                    <input
+                      formControlName="emailAgence"
+                      matInput
+                      placeholder="Email"
+                      placeholder="Ex. pat@example.com"
+                    />
+                    <mat-error
+                      *ngIf="
+                        agenceRegisterForm.controls['emailAgence'].errors
+                          ?.required
+                      "
+                      >Ce champ est obligatoire.</mat-error
+                    >
+                    <mat-error
+                      *ngIf="
+                        agenceRegisterForm.controls['emailAgence'].errors?.email
+                      "
+                      >Invalide email adresse.</mat-error
+                    >
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
-
-                  <mat-form-field *ngIf="idCompare==0">
+                  <mat-form-field *ngIf="idCompare == 0">
                     <mat-label>Mobile gérant*</mat-label>
-                    <input formControlName="mobileAgence" matInput placeholder="Mobile gérant*">
-                    <mat-error *ngIf="agenceRegisterForm.controls['mobileAgence'].errors?.required">
-                      Ce champ est obligatoire.</mat-error>
-                    <mat-error *ngIf="agenceRegisterForm.controls['mobileAgence'].errors?.minlength">
-                      Un minimum  de 8 charactaires.</mat-error>
+                    <input
+                      formControlName="mobileAgence"
+                      matInput
+                      placeholder="Mobile gérant*"
+                    />
+                    <mat-error
+                      *ngIf="
+                        agenceRegisterForm.controls['mobileAgence'].errors
+                          ?.required
+                      "
+                    >
+                      Ce champ est obligatoire.</mat-error
+                    >
+                    <mat-error
+                      *ngIf="
+                        agenceRegisterForm.controls['mobileAgence'].errors
+                          ?.minlength
+                      "
+                    >
+                      Un minimum de 8 charactaires.</mat-error
+                    >
                   </mat-form-field>
                 </div>
               </div>
 
               <div class="mb-2 text-primary">
-                <i class="fas fa-asterisk"></i><b>
-                  Information complémentaire</b>
+                <i class="fas fa-asterisk"></i
+                ><b> Information complémentaire</b>
               </div>
               <div class="row">
                 <div class="col-md-4">
                   <mat-form-field>
                     <mat-label>Compte contribuable</mat-label>
-                    <input formControlName="compteContribuable" matInput placeholder="Compte contribuable">
+                    <input
+                      formControlName="compteContribuable"
+                      matInput
+                      placeholder="Compte contribuable"
+                    />
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
-
-                  <mat-form-field >
+                  <mat-form-field>
                     <mat-label>Regime fiscale</mat-label>
-                    <input formControlName="regimeFiscaleAgence" matInput placeholder="Regime fiscale">
+                    <input
+                      formControlName="regimeFiscaleAgence"
+                      matInput
+                      placeholder="Regime fiscale"
+                    />
                   </mat-form-field>
                 </div>
                 <div class="col-md-4">
                   <mat-form-field>
                     <mat-label>Capital</mat-label>
-                    <input formControlName="capital" matInput placeholder="Capital">
+                    <input
+                      formControlName="capital"
+                      matInput
+                      placeholder="Capital"
+                    />
                   </mat-form-field>
                 </div>
               </div>
               <!--  -->
               <!-- <div *ngIf="idCompare==0" class="row"> class="col-md-9" -->
-                <div *ngIf="idCompare==0" >
-                  <div class="mb-2 text-primary">
-                    <i class="fas fa-asterisk"></i><b> Gestion du Mot de passe</b>
+              <div *ngIf="idCompare == 0">
+                <div class="mb-2 text-primary">
+                  <i class="fas fa-asterisk"></i><b> Gestion du Mot de passe</b>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <mat-form-field>
+                      <mat-label>Nouveau mot de passe</mat-label>
+                      <input
+                        formControlName="motdepasse"
+                        type="password"
+                        matInput
+                        placeholder="*******"
+                      />
+                    </mat-form-field>
                   </div>
-                  <div  class="row">
-                    <div class="col-sm-6">
-                      <mat-form-field>
-                        <mat-label>Nouveau mot de passe</mat-label>
-                        <input formControlName="motdepasse" type="password" matInput placeholder="*******">
-                      </mat-form-field>
-                    </div>
-                    <div class="col-sm-6">
-                      <mat-form-field>
-                        <mat-label>Confirmer le mot de passe</mat-label>
-                        <input type="password" matInput placeholder="*******">
-                      </mat-form-field>
-                    </div>
+                  <div class="col-sm-6">
+                    <mat-form-field>
+                      <mat-label>Confirmer le mot de passe</mat-label>
+                      <input type="password" matInput placeholder="*******" />
+                    </mat-form-field>
                   </div>
                 </div>
-                <!-- <div class="col-md-9"> -->
-                  <div class="mb-2 text-primary">
-                    <i class="fas fa-asterisk"></i><b> Rester connecter</b>
+              </div>
+              <!-- <div class="col-md-9"> -->
+              <div class="mb-2 text-primary">
+                <i class="fas fa-asterisk"></i><b> Rester connecter</b>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <!-- <label>Utilisateur actif ?</label> -->
+                  <div class="custom-controls-stacked px-2">
+                    <mat-checkbox formControlName="active" color="primary"
+                      >Utilisateur actif ?</mat-checkbox
+                    >
                   </div>
-                  <div class="row">
-                    <div class="col">
-                      <!-- <label>Utilisateur actif ?</label> -->
-                      <div class="custom-controls-stacked px-2">
-                        <mat-checkbox formControlName="active" color="primary">Utilisateur actif ?</mat-checkbox>
-                      </div>
-                    </div>
-                  </div>
-                <!-- </div> -->
+                </div>
+              </div>
+              <!-- </div> -->
               <!-- </div> -->
               <!--  -->
             </div>
           </div>
-
         </form>
-
       </div>
     </div>
   </mat-card-content>
-  <mat-card-actions  >
+  <mat-card-actions>
     <!-- <button mat-button>LIKE</button>
     <button mat-button>SHARE</button> -->
     <div mat-dialog-actions [align]="'end'">
@@ -177,16 +240,25 @@
         <mat-icon>cancel</mat-icon>
         Annuler
       </button>
-      <button *ngIf="idCompare==0" mat-raised-button color="primary" [disabled]="agenceRegisterForm.invalid" (click)="saveNgrsAgence();onUploadImage()">
+      <button
+        *ngIf="idCompare == 0"
+        mat-raised-button
+        color="primary"
+        [disabled]="agenceRegisterForm.invalid"
+        (click)="saveNgrsAgence(); onUploadImage()"
+      >
         <mat-icon>save</mat-icon>
-        {{actionBtn}}
+        {{ actionBtn }}
       </button>
-      <button *ngIf="idCompare!=0"  mat-raised-button color="primary"  (click)="saveNgrsAgence();onUploadImage()">
+      <button
+        *ngIf="idCompare != 0"
+        mat-raised-button
+        color="primary"
+        (click)="saveNgrsAgence(); onUploadImage()"
+      >
         <mat-icon>save</mat-icon>
-        {{actionBtn}}
+        {{ actionBtn }}
       </button>
     </div>
   </mat-card-actions>
 </mat-card>
-
-

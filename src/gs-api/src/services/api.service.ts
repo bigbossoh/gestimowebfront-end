@@ -52,6 +52,8 @@ class ApiService extends __BaseService {
   static readonly deleteAgenceByIdAgencePath = 'gestimoweb/api/v1/agences/deleteagence/{id}';
   static readonly getAgenceByEmailAgencePath = 'gestimoweb/api/v1/agences/getagencebyemail/{email}';
   static readonly getAgenceByIDAgencePath = 'gestimoweb/api/v1/agences/getagencebyid/{id}';
+  static readonly getlogoPath = 'gestimoweb/api/v1/agences/getlogo/{id}';
+  static readonly saveLogoPath = 'gestimoweb/api/v1/agences/savelogo';
   static readonly authenticateAgencePath = 'gestimoweb/api/v1/agences/signup';
   static readonly findAllAppartementPath = 'gestimoweb/api/v1/appartement/all/{id}';
   static readonly findAllAppartementLibrePath = 'gestimoweb/api/v1/appartement/alllibre/{id}';
@@ -147,7 +149,7 @@ class ApiService extends __BaseService {
   static readonly findPaysByNamePath = 'gestimoweb/api/v1/pays/findByName/{name}';
   static readonly savePaysPath = 'gestimoweb/api/v1/pays/save';
   static readonly sampleQuitancePath = 'gestimoweb/api/v1/print/quittance/{id}';
-  static readonly quittancePeriodePath = 'gestimoweb/api/v1/print/quittancegrouper/{periode}';
+  static readonly quittancePeriodePath = 'gestimoweb/api/v1/print/quittancegrouper/{periode}/{idAgence}/{proprio}';
   static readonly findAllQuartiersPath = 'gestimoweb/api/v1/quartier/all/{idAgence}';
   static readonly deleteQuartierPath = 'gestimoweb/api/v1/quartier/delete/{id}';
   static readonly findByIDQuartiers_1Path = 'gestimoweb/api/v1/quartier/findById/{id}';
@@ -328,6 +330,78 @@ class ApiService extends __BaseService {
   getAgenceByIDAgence(id: number): __Observable<AgenceResponseDto> {
     return this.getAgenceByIDAgenceResponse(id).pipe(
       __map(_r => _r.body as AgenceResponseDto)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  getlogoResponse(id: number): __Observable<__StrictHttpResponse<Array<string>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/agences/getlogo/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<string>>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  getlogo(id: number): __Observable<Array<string>> {
+    return this.getlogoResponse(id).pipe(
+      __map(_r => _r.body as Array<string>)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveLogoResponse(body?: AgenceRequestDto): __Observable<__StrictHttpResponse<boolean>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/agences/savelogo`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: (_r as HttpResponse<any>).body === 'true' }) as __StrictHttpResponse<boolean>
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveLogo(body?: AgenceRequestDto): __Observable<boolean> {
+    return this.saveLogoResponse(body).pipe(
+      __map(_r => _r.body as boolean)
     );
   }
 
@@ -3823,17 +3897,26 @@ class ApiService extends __BaseService {
   }
 
   /**
-   * @param periode undefined
+   * @param params The `ApiService.QuittancePeriodeParams` containing the following parameters:
+   *
+   * - `proprio`:
+   *
+   * - `periode`:
+   *
+   * - `periode`:
+   *
    * @return successful operation
    */
-  quittancePeriodeResponse(periode: string): __Observable<__StrictHttpResponse<Array<string>>> {
+  quittancePeriodeResponse(params: ApiService.QuittancePeriodeParams): __Observable<__StrictHttpResponse<Array<string>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
 
+
+
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/print/quittancegrouper/${periode}`,
+      this.rootUrl + `gestimoweb/api/v1/print/quittancegrouper/${params.periode}/${params.idAgence}/${params.proprio}`,
       __body,
       {
         headers: __headers,
@@ -3849,11 +3932,18 @@ class ApiService extends __BaseService {
     );
   }
   /**
-   * @param periode undefined
+   * @param params The `ApiService.QuittancePeriodeParams` containing the following parameters:
+   *
+   * - `proprio`:
+   *
+   * - `periode`:
+   *
+   * - `periode`:
+   *
    * @return successful operation
    */
-  quittancePeriode(periode: string): __Observable<Array<string>> {
-    return this.quittancePeriodeResponse(periode).pipe(
+  quittancePeriode(params: ApiService.QuittancePeriodeParams): __Observable<Array<string>> {
+    return this.quittancePeriodeResponse(params).pipe(
       __map(_r => _r.body as Array<string>)
     );
   }
@@ -5129,6 +5219,15 @@ module ApiService {
    */
   export interface TotalEncaissementParJourParams {
     jour: string;
+    idAgence: number;
+  }
+
+  /**
+   * Parameters for quittancePeriode
+   */
+  export interface QuittancePeriodeParams {
+    proprio: string;
+    periode: string;
     idAgence: number;
   }
 }

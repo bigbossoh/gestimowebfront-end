@@ -77,7 +77,7 @@ export class GetPayerLoyerParAnneeActionsError implements Action {
 export class GetImpayerLoyerParPeriodeActions implements Action {
   type: AppelLoyerctionsTypes =
     AppelLoyerctionsTypes.GET_IMPAYER_LOYER_PAR_PERIODE;
-  constructor(public payload: number) {}
+  constructor(public payload: any) {}
 }
 
 export class GetImpayerLoyerParPeriodeActionsSuccess implements Action {
@@ -94,7 +94,7 @@ export class GetImpayerLoyerParPeriodeActionsError implements Action {
 export class GetPayerLoyerParPeriodeActions implements Action {
   type: AppelLoyerctionsTypes =
     AppelLoyerctionsTypes.GET_PAYER_LOYER_PAR_PERIODE;
-  constructor(public payload: number) {}
+  constructor(public payload: any) {}
 }
 
 export class GetPayerLoyerParPeriodeActionsSuccess implements Action {

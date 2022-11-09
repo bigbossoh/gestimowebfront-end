@@ -1,3 +1,4 @@
+import { UploadLogoAcions } from './../../../ngrx/images/images.action';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -38,7 +39,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class AgenceNewComponent implements OnInit {
   agenceRegisterForm!: FormGroup;
   actionBtn: String = 'Enregistrer';
-  selectedFile! : File;
+  selectedFile = '../../../../assets/logoGestimo.png';
   idCompare = 0;
   public user?: UtilisateurRequestDto;
   matcher = new MyErrorStateMatcher();
@@ -69,6 +70,7 @@ export class AgenceNewComponent implements OnInit {
       motdepasse: [''],
       nomPrenomGerant: ['', [Validators.required]],
       active: [true],
+      logoAgence: [],
     });
     if (this.editData) {
       this.idCompare = this.editData.id;
@@ -124,31 +126,38 @@ export class AgenceNewComponent implements OnInit {
   onClose() {
     this.dialogRef.close();
   }
-  onFileSelected(event:any){
-    console.log(event.target.files[0]);
-    this.selectedFile=<File>event.target.files[0];
-    //console.log(event);
+  onFileSelected(event: any) {
+    if (event.target.files) {
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (e: any) => {
+        this.selectedFile = e.target.result;
+      };
+      this.onUploadImage();
+    }
   }
-  onUploadImage(){
-
-    const fd= new FormData();
-     fd.append('image',this.selectedFile,this.selectedFile!.name);
-     console.log("we stating here ",fd);
-
-
+  onUploadImage() {
+   
+    this.agenceRegisterForm.controls['id'].setValue(this.editData.idAgence);
+    this.agenceRegisterForm.controls['logoAgence'].setValue(this.selectedFile);
+    console.log(
+      'le formulaire de image est le suivant ',
+      this.agenceRegisterForm.value
+    );
+    this.store.dispatch(new UploadLogoAcions(this.agenceRegisterForm.value));
   }
   saveNgrsAgence() {
     this.agenceRegisterForm.patchValue({
       idUtilisateurCreateur: this.user?.id,
     });
-    
+
     if (this.idCompare != 0) {
       // this.store.dispatch(new GetAllAgenceActions({}));
       this.store.dispatch(new SaveAgenceActions(this.agenceRegisterForm.value));
       this.agenceRegisterForm.reset();
       this.onClose();
     } else {
-     // this.store.dispatch(new GetAllAgenceActions({}));
+      // this.store.dispatch(new GetAllAgenceActions({}));
       this.store.dispatch(new SaveAgenceActions(this.agenceRegisterForm.value));
       this.agenceRegisterForm.reset();
       this.onClose();

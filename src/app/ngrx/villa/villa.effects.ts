@@ -46,12 +46,13 @@ export class VillaEffects {
         );
       }),
       tap((resultat) => {
-        if (resultat.type == VillaActionsTypes.GET_VILLA_BY_ID_SUCCES) {
+        if (resultat.type == VillaActionsTypes.SAVE_VILLA_SUCCES) {
           this.sendErrorNotification(
             NotificationType.SUCCESS,
             "L'opération éffectuée avec succes!"
           );
-        } else {
+        }
+      if  (resultat.type == VillaActionsTypes.SAVE_VILLA_ERROR) {
           this.sendErrorNotification(
             NotificationType.ERROR,
             resultat.payload.toString()
@@ -72,8 +73,9 @@ export class VillaEffects {
       }),
       tap((resultat) => {
         if (resultat.type == VillaActionsTypes.GET_VILLA_BY_ID_SUCCES) {
-          //this.sendErrorNotification(NotificationType.SUCCESS, "L'opération éffectuée avec succes!");
-        } else {
+          this.sendErrorNotification(NotificationType.SUCCESS, "L'opération éffectuée avec succes!");
+        }
+        if (resultat.type == VillaActionsTypes.GET_VILLA_BY_ID_ERROR)  {
           this.sendErrorNotification(
             NotificationType.ERROR,
             resultat.payload.toString()
@@ -87,7 +89,7 @@ export class VillaEffects {
     this.effectActions.pipe(
       ofType(VillaActionsTypes.GET_ALL_VILLA_LIBRE),
       mergeMap((actions: VillaActions) => {
-   
+
         return this.apiService.findAllVillaLibre(actions.payload).pipe(
           map((villas) => new GetAllVillaLibreActionsSuccess(villas)),
           catchError((err) => of(new GetAllVillaLibreActionsError(err.message)))
