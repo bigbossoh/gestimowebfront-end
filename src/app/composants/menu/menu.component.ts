@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AgenceService } from 'src/app/services/Agence/agence.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { AgenceResponseDto, UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { Menu } from './menu';
 
 @Component({
@@ -9,8 +11,22 @@ import { Menu } from './menu';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  connectedAgence:any ={};
+  public user?:UtilisateurRequestDto;
+  public agenceDto?:AgenceResponseDto ;
+  private nomAgence:string | undefined;
+  constructor(
+    private router: Router,
+    private agenceService:AgenceService,
+    private userService:UserService) {
 
+  }
+  ngOnInit(): void {
+    this.user = this.userService.getUserFromLocalCache();
+    console.log("this cool  "+this.user?.idAgence);
+    this.getUserConnected(this.user?.idAgence);
+
+
+  }
   public menuProperties: Array<Menu> = [
   {
     id: '1',
@@ -275,13 +291,7 @@ export class MenuComponent implements OnInit {
 ];
 
 private lastSelectedMenu: Menu | undefined;
-constructor(
-  private router: Router,
-  private userService:UserService) {
 
-}
-ngOnInit(): void {
-}
 navigate(menu:Menu): void {
 
   if(this.lastSelectedMenu){
@@ -292,4 +302,33 @@ navigate(menu:Menu): void {
   this.router.navigate([menu.url]);
 
 }
+
+public getUserConnected(id:any){
+this.agenceService.getAgenceById(id).subscribe({
+      next: (result) => {
+        //alert('product updated successfully', this.agenceDto?.nomAgence);
+        this.agenceDto=result;
+
+      },
+      error:(err)=>{
+        alert(err.headers.message)
+        console.log(err);
+
+      }
+    });
+}
+// /updateProduct() {
+//   this.api.putPoduct(this.productForm.value, this.editData.id).subscribe({
+//     next: (result) => {
+//       alert('product updated successfully');
+//       this.productForm.reset();
+//       this.dialogRef.close('update');
+//     },
+//     error:(err)=>{
+//       alert(err.headers.message)
+//       console.log(err);
+
+//     }
+//   });
+// }
 }

@@ -13,6 +13,7 @@ export class UserService {
 
   private token?: string | null;
   private loggedInUsername?: string | null;
+  private loggedInAgence?: string | null;
   private jwtHelper = new JwtHelperService();
   private selectedFile : any =null;
 
