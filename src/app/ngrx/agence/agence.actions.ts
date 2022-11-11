@@ -1,10 +1,12 @@
-
-
 //CREER LES DIFFERENTES TYPES D'ACTION QUI VONT DECLANCHER LES EVENE,ENT DANS LE
 
 import { Action } from '@ngrx/store';
 
-import { AgenceImmobilierDTO, AgenceRequestDto, AgenceResponseDto } from 'src/gs-api/src/models';
+import {
+  AgenceImmobilierDTO,
+  AgenceRequestDto,
+  AgenceResponseDto,
+} from 'src/gs-api/src/models';
 
 //STORE
 
@@ -69,10 +71,9 @@ export type AgenceActions =
   | SaveAgenceActions
   | SaveAgenceActionsSuccess
   | SaveAgenceActionsError
-  |GetAllAgenceActions
-  |GetAllAgenceActionsSuccess
+  | GetAllAgenceActions
+  | GetAllAgenceActionsSuccess
   | GetAllAgenceActionsError
-  |SaveAgenceLogoActions
-  |SaveAgenceActionsLogoError
-  |SaveAgenceActionsLogoSuccess;
-
+  | SaveAgenceLogoActions
+  | SaveAgenceActionsLogoError
+  | SaveAgenceActionsLogoSuccess;

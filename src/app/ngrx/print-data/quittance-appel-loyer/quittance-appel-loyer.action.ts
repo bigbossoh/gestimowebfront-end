@@ -9,7 +9,7 @@ export enum QuittanceAppelLoyerActionsType {
 export class PrintQuittanceLoyerActions implements Action {
   type: QuittanceAppelLoyerActionsType =
     QuittanceAppelLoyerActionsType.PRINT_QUITTANCE;
-  constructor(public payload: string) {}
+  constructor(public payload: any) {}
 }
 
 export class PrintQuittanceLoyerActionsSuccess implements Action {

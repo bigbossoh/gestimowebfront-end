@@ -15,9 +15,9 @@ export class AgenceService {
   constructor(
     private apiService:ApiService,
   ) { }
-  public getAllAgences():Observable<Array<AgenceResponseDto> | HttpErrorResponse>{
-    return this.apiService.getAllAgenceByOrderAgence();
-  }
+  // public getAllAgences():Observable<Array<AgenceResponseDto> | HttpErrorResponse>{
+  //   return this.apiService.getAllAgenceByOrderAgence();
+  // }
   public onPostAgence(agenceDto:AgenceRequestDto):Observable<any>{
     return this.apiService.authenticateAgence(agenceDto);
   }

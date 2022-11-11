@@ -85,8 +85,8 @@ console.log(resultat.type.indexOf("Succes"));
   getAllAgenceEffect: Observable<Action> = createEffect(() =>
   this.effectActions.pipe(
     ofType(AgenceActionsType.GET_ALL_AGENCE),
-    mergeMap(() => {
-      return this.apiService.getAllAgenceByOrderAgence().pipe(
+    mergeMap((actions:AgenceActions) => {
+      return this.apiService.getAllAgenceByOrderAgence(actions.payload).pipe(
         map((save) => new GetAllAgenceActionsSuccess(save)),
         catchError((err) => of(new GetAllAgenceActionsError(err.message)))
       );

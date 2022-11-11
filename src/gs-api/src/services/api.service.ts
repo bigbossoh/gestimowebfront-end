@@ -48,7 +48,7 @@ import { VilleDto } from '../models/ville-dto';
   providedIn: 'root',
 })
 class ApiService extends __BaseService {
-  static readonly getAllAgenceByOrderAgencePath = 'gestimoweb/api/v1/agences/all';
+  static readonly getAllAgenceByOrderAgencePath = 'gestimoweb/api/v1/agences/all/{idAgence}';
   static readonly deleteAgenceByIdAgencePath = 'gestimoweb/api/v1/agences/deleteagence/{id}';
   static readonly getAgenceByEmailAgencePath = 'gestimoweb/api/v1/agences/getagencebyemail/{email}';
   static readonly getAgenceByIDAgencePath = 'gestimoweb/api/v1/agences/getagencebyid/{id}';
@@ -193,15 +193,17 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param idAgence undefined
    * @return successful operation
    */
-  getAllAgenceByOrderAgenceResponse(): __Observable<__StrictHttpResponse<Array<AgenceImmobilierDTO>>> {
+  getAllAgenceByOrderAgenceResponse(idAgence: number): __Observable<__StrictHttpResponse<Array<AgenceImmobilierDTO>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
+
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/agences/all`,
+      this.rootUrl + `gestimoweb/api/v1/agences/all/${idAgence}`,
       __body,
       {
         headers: __headers,
@@ -217,10 +219,11 @@ class ApiService extends __BaseService {
     );
   }
   /**
+   * @param idAgence undefined
    * @return successful operation
    */
-  getAllAgenceByOrderAgence(): __Observable<Array<AgenceImmobilierDTO>> {
-    return this.getAllAgenceByOrderAgenceResponse().pipe(
+  getAllAgenceByOrderAgence(idAgence: number): __Observable<Array<AgenceImmobilierDTO>> {
+    return this.getAllAgenceByOrderAgenceResponse(idAgence).pipe(
       __map(_r => _r.body as Array<AgenceImmobilierDTO>)
     );
   }
@@ -3903,7 +3906,7 @@ class ApiService extends __BaseService {
    *
    * - `periode`:
    *
-   * - `periode`:
+   * - `idAgence`:
    *
    * @return successful operation
    */
@@ -3938,7 +3941,7 @@ class ApiService extends __BaseService {
    *
    * - `periode`:
    *
-   * - `periode`:
+   * - `idAgence`:
    *
    * @return successful operation
    */

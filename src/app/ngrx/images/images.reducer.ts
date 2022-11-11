@@ -37,6 +37,22 @@ export function imageReducer(
         dataState: ImagesStateEnum.ERROR,
         errorMessage: (<ImagesActions>action).payload,
       };
+    //GET LOGO
+     //GET ALL ETAGES
+     case ImagesActionsTypes.GET_LOGO:
+      return { ...state, dataState: ImagesStateEnum.LOADING };
+    case ImagesActionsTypes.GET_LOGO_SUCCES:
+      return {
+        ...state,
+        dataState: ImagesStateEnum.LOADED,
+        logo: (<ImagesActions>action).payload,
+      };
+    case ImagesActionsTypes.GET_LOGO_ERROR:
+      return {
+        ...state,
+        dataState: ImagesStateEnum.ERROR,
+        errorMessage: (<ImagesActions>action).payload,
+      };
     default:
       return { ...state };
   }

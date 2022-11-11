@@ -11,9 +11,16 @@
   },
   "basePath" : "http://localhost:5000",
   "paths" : {
-    "gestimoweb/api/v1/agences/all" : {
+    "gestimoweb/api/v1/agences/all/{idAgence}" : {
       "get" : {
         "operationId" : "getAllAgenceByOrderAgence",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -2197,7 +2204,7 @@
           "required" : true,
           "type" : "string"
         }, {
-          "name" : "periode",
+          "name" : "idAgence",
           "in" : "path",
           "required" : true,
           "type" : "integer",
@@ -3063,11 +3070,7 @@
           "type" : "boolean"
         },
         "logoAgence" : {
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "format" : "byte"
-          }
+          "type" : "string"
         }
       }
     },

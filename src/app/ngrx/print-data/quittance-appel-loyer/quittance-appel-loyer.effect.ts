@@ -1,3 +1,5 @@
+import { UserService } from 'src/app/services/user/user.service';
+import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { Injectable } from '@angular/core';
 import { ApiService } from 'src/gs-api/src/services';
 import { Observable, of } from 'rxjs';
@@ -16,12 +18,15 @@ import { PrintServiceService } from '../../../services/Print/print-service.servi
 
 @Injectable()
 export class QuittanceAppelLoyerEffects {
-  constructor(private apiService: PrintServiceService, private effectActions: Actions) {}
+  public user?: UtilisateurRequestDto;
+  constructor(private apiService: PrintServiceService, private effectActions: Actions,
+    private userService: UserService) { }
   printQuittanceAppelLoyerEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(QuittanceAppelLoyerActionsType.PRINT_QUITTANCE),
       mergeMap((action: QuittanceAppelLoyerActions) => {
-        return this.apiService.printQuittanceByPeriode(action.payload)
+        this.user = this.userService.getUserFromLocalCache();
+        return this.apiService.printQuittanceByPeriode(action.payload,"sablin severin",this.user.idAgence)
           .pipe(
             map(
               (quittances) => new PrintQuittanceLoyerActionsSuccess(quittances)
@@ -31,15 +36,16 @@ export class QuittanceAppelLoyerEffects {
             )
           );
       }),
-      tap((resultat) => {    
+      tap((resultat) => {
         console.log('***** Le resultat est du telechargement est le suivant : *********');
-        console.log(resultat); 
-      
-        if (resultat.payload.size > 0) {
+        console.log(resultat);
+
+        if (resultat.type==QuittanceAppelLoyerActionsType.PRINT_QUITTANCE_SUCCES) {
           const fileURL = URL.createObjectURL(resultat.payload);
           window.open(fileURL);
-        } else {
-          alert('Erreur lor du telechagement !');
+        }
+        if (resultat.type==QuittanceAppelLoyerActionsType.PRINT_QUITTANCE_ERROR){
+          alert('Erreur lor du telechagement !'+resultat.payload);
         }
       })
     )

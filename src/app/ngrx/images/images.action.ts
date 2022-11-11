@@ -5,9 +5,13 @@ import { Action } from '@ngrx/store';
 
 //STORE
 export enum ImagesActionsTypes {
-  UPLOAD_LOGO = '[EtageDto] Get All Etage',
-  UPLOAD_LOGO_SUCCES = '[EtageDto] Get All Etage Succes',
-  UPLOAD_LOGO_ERROR = '[EtageDto] Get All Etage Error',
+  UPLOAD_LOGO = 'Upload logo',
+  UPLOAD_LOGO_SUCCES = 'Upload logo Succes',
+  UPLOAD_LOGO_ERROR = 'Upload logoError',
+
+  GET_LOGO = 'Get Logo',
+  GET_LOGO_SUCCES = 'get logo Succes',
+  GET_LOGO_ERROR = '[EtageDto] Get All Etage Error',
 }
 // CREER LES DIFFERENTES ACTIONS
 export class UploadLogoAcions implements Action {
@@ -24,7 +28,25 @@ export class UploadLogoAcionsError implements Action {
   constructor(public payload: string) {}
 }
 
+// GET LOGO
+export class GetLogoAcions implements Action {
+  type: ImagesActionsTypes = ImagesActionsTypes.GET_LOGO;
+  constructor(public payload: number) {}
+}
+
+export class GetLogoAcionsSuccess implements Action {
+  type: ImagesActionsTypes = ImagesActionsTypes.GET_LOGO_SUCCES;
+  constructor(public payload: any) {}
+}
+export class GetLogoAcionsError implements Action {
+  type: ImagesActionsTypes = ImagesActionsTypes.GET_LOGO_ERROR;
+  constructor(public payload: string) {}
+}
+
 export type ImagesActions =
   | UploadLogoAcions
   | UploadLogoAcionsError
-  | UploadLogoAcionsSuccess;
+  | UploadLogoAcionsSuccess
+  | GetLogoAcions
+  | GetLogoAcionsError
+  | GetLogoAcionsSuccess;
