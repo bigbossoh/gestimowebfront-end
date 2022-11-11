@@ -45,7 +45,8 @@ export class PageAgenceComponent implements OnInit {
        private notificationService: NotificationService) {}
 
   ngOnInit(): void {
-    this.store.dispatch(new GetAllAgenceActions({}));
+    this.user = this.userService.getUserFromLocalCache();
+    this.store.dispatch(new GetAllAgenceActions(this.user?.idAgence));
     this. getAllProduct();
   }
   getAllProduct(){
@@ -90,7 +91,7 @@ export class PageAgenceComponent implements OnInit {
       this.dialog.open(AgenceNewComponent,{
         width:'50%',
         data:row,
-        
+
       }).afterClosed().subscribe(
         val=>{
           if(val==='Modifier'){

@@ -122,6 +122,9 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
   }
   printQuittance(p: string) {
+
+    this.user = this.userService.getUserFromLocalCache();
+
     this.store.dispatch(new PrintQuittanceLoyerActions(p));
     this.ptQuittance$ = this.store.pipe(
       map((state) => state.quittanceAppelState)

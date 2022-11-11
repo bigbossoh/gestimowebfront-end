@@ -1,4 +1,7 @@
-import { UploadLogoAcions } from './../../../ngrx/images/images.action';
+import {
+  UploadLogoAcions,
+  GetLogoAcions,
+} from './../../../ngrx/images/images.action';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -17,6 +20,7 @@ import {
 } from 'src/app/ngrx/agence/agence.actions';
 import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
+import { map } from 'rxjs/operators';
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -73,6 +77,15 @@ export class AgenceNewComponent implements OnInit {
       logoAgence: [],
     });
     if (this.editData) {
+      this.store.dispatch(new GetLogoAcions(this.editData.id));
+      this.store.pipe(map((state) => state.imageState)).subscribe((data) => {
+        console.log('Le logo est le suivant :');
+        console.log(data);
+        if (data.logo != null) {
+          this.selectedFile = data.logo;
+        }
+        // this.selectedFile = data.logo;
+      });
       this.idCompare = this.editData.id;
       this.actionBtn = 'Modifier';
       this.agenceRegisterForm.controls['idAgence'].setValue(
@@ -137,7 +150,6 @@ export class AgenceNewComponent implements OnInit {
     }
   }
   onUploadImage() {
-   
     this.agenceRegisterForm.controls['id'].setValue(this.editData.idAgence);
     this.agenceRegisterForm.controls['logoAgence'].setValue(this.selectedFile);
     console.log(

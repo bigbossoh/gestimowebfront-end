@@ -21,5 +21,5 @@ export interface AgenceRequestDto {
   typeImage?: string;
   profileAgenceUrl?: string;
   active?: boolean;
-  logoAgence?: Array<string>;
+  logoAgence?: string;
 }

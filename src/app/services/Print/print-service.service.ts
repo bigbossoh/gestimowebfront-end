@@ -9,10 +9,10 @@ import { map } from 'rxjs/operators';
 export class PrintServiceService {
 
   constructor(private http: HttpClient,private apiConfig:ApiConfiguration){ }
-  printQuittanceByPeriode(periode: string) {
+  printQuittanceByPeriode(periode: string,proprio:string,idAgence:any) {
 
-    console.log(this.apiConfig.rootUrl+'gestimoweb/api/v1/print/quittancegrouper/' + periode);
-    return this.http.get(this.apiConfig.rootUrl+'gestimoweb/api/v1/print/quittancegrouper/' + periode, { responseType: 'blob' }).pipe(map(
+    console.log(this.apiConfig.rootUrl+'gestimoweb/api/v1/print/quittancegrouper/' + periode+"/"+idAgence+"/"+proprio);
+    return this.http.get(this.apiConfig.rootUrl+'gestimoweb/api/v1/print/quittancegrouper/' + periode+"/"+idAgence+"/"+proprio, { responseType: 'blob' }).pipe(map(
       res => {
         return new Blob([res], { type: 'application/pdf' });
       }
