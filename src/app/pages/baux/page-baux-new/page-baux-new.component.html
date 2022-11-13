@@ -156,7 +156,11 @@
 
                 <mat-form-field appearance="outline">
                   <mat-label>Loyer*</mat-label>
-                  <input formControlName="nouveauMontantLoyer" type="number" matInput placeholder="Loyer*">
+                  <input formControlName="nouveauMontantLoyer"
+                  type="number" matInput placeholder="Loyer*"
+                  [(ngModel)]="montantLoyerVil"
+                  (ngModelChange)="calculMontantCautionVil()">
+
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
               </div>
@@ -177,7 +181,8 @@
                 /> -->
                 <mat-form-field appearance="outline">
                   <mat-label>Nombre de mois de caution*</mat-label>
-                  <input formControlName="nombreMoisCautionVil" type="number" matInput [(ngModel)]="nombreMoisCautionVil"
+                  <input formControlName="nbreMoisCautionBail" type="number" matInput
+                  [(ngModel)]="nombreMoisCautionVil"
                   (ngModelChange)="calculMontantCautionVil()">
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
@@ -196,7 +201,9 @@
                 /> -->
                 <mat-form-field appearance="outline">
                   <mat-label>Montant caution*</mat-label>
-                  <input formControlName="montantCautionBail" type="number" matInput placeholder="Montant cautionn*">
+                  <input formControlName="montantCautionBail"
+                  type="number" matInput placeholder="Montant cautionn*"
+                  [(ngModel)]="montantCautionVil">
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
               </div>
@@ -364,7 +371,8 @@
 
                 <mat-form-field appearance="outline">
                   <mat-label>Loyer*</mat-label>
-                  <input formControlName="nouveauMontantLoyer" type="number" matInput placeholder="Loyer*" [(ngModel)]="montantLoyerMag"
+                  <input formControlName="nouveauMontantLoyer" type="number" matInput placeholder="Loyer*"
+                  [(ngModel)]="montantLoyerMag"
                   (ngModelChange)="calculMontantCautionMag()">
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
@@ -478,8 +486,8 @@
                 </ng-container>
               </ng-container>
             </div>
-            <div class="form-group">
-              <div class="col-sm-9">
+            <div class="mb-2">
+              <!-- <div class="col-sm-9"> -->
                 <ng-container
                   *ngIf="appartementState$ | async as state"
                   [ngSwitch]="state.dataState"
@@ -500,7 +508,8 @@
                       <!-- <label class="big mb-6" for="inputUsername"
                         >Choisir un appartement</label
                       > -->
-                      <div class="form-group">
+                      Aucun appartement libre ou créer
+                      <!-- <div class="form-group"> -->
 
                         <mat-form-field appearance="outline">
                           <mat-label>Appartement*</mat-label>
@@ -515,11 +524,11 @@
                           <mat-error>Ce champ est obligatoire.</mat-error>
                         </mat-form-field>
 
-                      </div>
+                      <!-- </div> -->
                     </div>
                   </ng-container>
                 </ng-container>
-              </div>
+              <!-- </div> -->
             </div>
             <!-- Form Row-->
             <div class="row gx-3 mb-3">
