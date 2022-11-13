@@ -3,9 +3,9 @@
 
   <hr class="mt-0 mb-4" />
   <div class="row">
-    <div class="col-xl-4">
+    <div class="col-xl-3">
       <!-- Profile picture card-->
-      <div class="card mb-4 mb-xl-0">
+      <div class="card mb-3 mb-xl-0">
         <div class="card-header">Image d'illustration</div>
         <div class="card-body text-center">
           <!-- Profile picture image-->
@@ -19,27 +19,14 @@
         </div>
       </div>
     </div>
-    <div class="col-xl-8">
+    <div class="col-xl-9">
       <!-- Account details card-->
-      <div class="card mb-4">
+      <div class="card mb-3">
         <div class="card-header">Account Details</div>
         <div class="card-body">
           <form *ngIf="formGroup" [formGroup]="formGroup">
-            <div class="mb-3">
-              <!-- <label class="small mb-3" for="inputUsername"
-                >Type de Contrat</label
-              >
-              <select
-                [(ngModel)]="ngSelectTypeContrat"
-                formControlName="idTypeContrat"
-                name="idTypeContrat"
-                class="form-control"
-              >
-                <option [value]="20000">Sélection un Type de Bien</option>
-                <option [value]="biens" *ngFor="let biens of listTypeContrat">
-                  {{ biens }}
-                </option>
-              </select> -->
+            <div class="mb-2">
+
               <mat-form-field appearance="outline">
                 <mat-label>Type de Contrat*</mat-label>
                 <mat-select formControlName="idTypeContrat" placeholder="Type de biens" [(ngModel)]="ngSelectTypeContrat"
@@ -57,7 +44,7 @@
             [formGroup]="bailvillaForm"
           >
             <!-- Form Group (username)-->
-            <div class="mb-3">
+            <div class="mb-2">
               <!-- <label class="small mb-1" for="inputUsername">Locataire</label> -->
               <ng-container
                 *ngIf="utilisateurState$ | async as state"
@@ -88,8 +75,8 @@
                 </ng-container>
               </ng-container>
             </div>
-            <div class="form-group">
-              <div class="col-sm-9">
+            <div class="mb-2">
+              <!-- <div class="col-sm-9"> -->
                 <ng-container
                   *ngIf="villaState$ | async as state"
                   [ngSwitch]="state.dataState"
@@ -106,7 +93,7 @@
                     <!-- <label class="big mb-6" for="inputUsername"
                       >Choisir la Villa</label
                     > -->
-                   <div class="form-group">
+                   <div class="mb-2">
                        <!-- <select
                         [ngClass]="{
                           'is-invalid':
@@ -150,10 +137,10 @@
                   </div>
                   </ng-container>
                 </ng-container>
-              </div>
+              <!-- </div> -->
             </div>
             <!-- Form Row-->
-            <div class="row gx-3 mb-3">
+            <div class="row gx-3 mb-2">
               <!-- Form Group (first name)-->
               <div class="col-md-6">
 
@@ -175,7 +162,7 @@
               </div>
             </div>
             <!-- Form Row        -->
-            <div class="row gx-3 mb-3">
+            <div class="row gx-3 mb-2">
               <!-- Form Group (organization name)-->
               <div class="col-md-6">
                 <!-- <label class="small mb-1" for="inputOrgName"
@@ -216,7 +203,7 @@
             </div>
 
             <!-- Form Row-->
-            <div class="row gx-3 mb-3">
+            <div class="row gx-3 mb-2">
               <!-- Form Group (phone number)-->
               <div class="col-md-6">
                 <!-- <label class="small mb-1" for="inputPhone"
@@ -328,8 +315,8 @@
                 </ng-container>
               </ng-container>
             </div>
-            <div class="form-group">
-              <div class="col-sm-9">
+            <!-- <div class="form-group"> -->
+              <div class="mb-3">
                 <ng-container
                   *ngIf="magasinState$ | async as stateMagasin"
                   [ngSwitch]="stateMagasin.dataState"
@@ -344,7 +331,7 @@
                   </ng-container>
                   <ng-container *ngSwitchCase="MagasinStateEnum.LOADED">
 
-                    <div class="form-group">
+                    <!-- <div class="form-group"> -->
 
                       <mat-form-field appearance="outline">
                       <mat-label>Magasin*</mat-label>
@@ -356,11 +343,11 @@
                       </mat-select>
                       <mat-error>Ce champ est obligatoire.</mat-error>
                     </mat-form-field>
-                    </div>
+                    <!-- </div> -->
                   </ng-container>
                 </ng-container>
               </div>
-            </div>
+            <!-- </div> -->
             <!-- Form Row-->
             <div class="row gx-3 mb-3">
               <!-- Form Group (first name)-->
@@ -474,41 +461,7 @@
                     class="form-group"
                     *ngIf="state.utilisateurs.length != 0"
                   >
-                    <!-- <select
-                      [ngClass]="{
-                        'is-invalid':
-                          submitted &&
-                          bailAppartementForm.controls.idAppartement.errors
-                      }"
-                      formControlName="idLocataire"
 
-                      id="username"
-                      class="form-select form-select-lg mb3"
-                    >
-                      <option [value]="0">Sélection un Locataire</option>
-                      <option
-                        [value]="utilis.id"
-                        *ngFor="let utilis of state.utilisateurs"
-                      >
-                        {{ utilis.nom }} {{ utilis.prenom }}
-                      </option>
-                    </select> -->
-                    <!-- <div
-                      *ngIf="
-                        submitted &&
-                        bailAppartementForm.controls.idLocataire.errors
-                      "
-                      class="invalid-feedback"
-                    >
-                      <div
-                        *ngIf="
-                          bailAppartementForm.controls.idLocataire.errors
-                            .required
-                        "
-                      >
-                        *Champ obligatoire
-                      </div>
-                    </div> -->
                     <mat-form-field appearance="outline">
                       <mat-label>Locataire*</mat-label>
                       <mat-select formControlName="idLocataire" placeholder="locataires"
@@ -521,12 +474,7 @@
                       <mat-error>Ce champ est obligatoire.</mat-error>
                     </mat-form-field>
                   </div>
-                  <div
-                    class="form-group"
-                    *ngIf="state.utilisateurs.length == 0"
-                  >
-                    Aucun locataire enregistré dans la base
-                  </div>
+
                 </ng-container>
               </ng-container>
             </div>
@@ -546,46 +494,27 @@
                   </ng-container>
                   <ng-container *ngSwitchCase="AppartementStateEnum.LOADED">
                     <div *ngIf="state.appartements.length == 0">
-                      Aucun appartement libre
+                      Aucun appartement libre ou créer
                     </div>
                     <div *ngIf="state.appartements.length != 0">
-                      <label class="big mb-6" for="inputUsername"
+                      <!-- <label class="big mb-6" for="inputUsername"
                         >Choisir un appartement</label
-                      >
+                      > -->
                       <div class="form-group">
-                        <select
-                          [ngClass]="{
-                            'is-invalid':
-                              submitted &&
-                              bailAppartementForm.controls.idAppartement.errors
-                          }"
-                          formControlName="idAppartement"
-                          name="idAppartement"
-                          class="form-select form-select-lg mb3"
-                        >
-                          <option
-                            [value]="appar.id"
-                            *ngFor="let appar of state.appartements"
+
+                        <mat-form-field appearance="outline">
+                          <mat-label>Appartement*</mat-label>
+                          <mat-select formControlName="idAppartement" placeholder="Appartement"
                           >
+                            <mat-option [value]="0">Sélection un appartement</mat-option>
+                            <mat-option [value]="appar.id"
+                            *ngFor="let appar of state.appartements">
                             {{ appar.codeAbrvBienImmobilier }}
-                          </option>
-                        </select>
-                        <div
-                          *ngIf="
-                            submitted &&
-                            bailAppartementForm.controls.idAppartement.errors
-                          "
-                          class="invalid-feedback"
-                        >
-                          <div
-                            *ngIf="
-                              bailAppartementForm.controls.idAppartement.errors
-                                .required
-                            "
-                          >
-                            *Champ obligatoire
-                          </div>
-                        </div>
+                            </mat-option>
+                          </mat-select>
+                          <mat-error>Ce champ est obligatoire.</mat-error>
+                        </mat-form-field>
+
                       </div>
                     </div>
                   </ng-container>
@@ -596,66 +525,41 @@
             <div class="row gx-3 mb-3">
               <!-- Form Group (first name)-->
               <div class="col-md-6">
-                <label class="big mb-1" for="inputFirstName">Désignation</label>
-                <input
-                  [ngClass]="{
-                    'is-invalid':
-                      submitted &&
-                      bailAppartementForm.controls.designationBail.errors
-                  }"
-                  formControlName="designationBail"
-                  class="form-control"
-                  id="designationBail"
-                  type="text"
-                />
-                <div
-                  *ngIf="
-                    submitted &&
-                    bailAppartementForm.controls.designationBail.errors
-                  "
-                  class="invalid-feedback"
-                >
-                  <div
-                    *ngIf="
-                      bailAppartementForm.controls.designationBail.errors
-                        .required
-                    "
-                  >
-                    *Champ obligatoire
-                  </div>
-                </div>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Désignation*</mat-label>
+                  <input formControlName="designationBail" type="text" matInput placeholder="Désignation*">
+                  <mat-error>Ce champ est obligatoire.</mat-error>
+                </mat-form-field>
               </div>
               <!-- Form Group (last name)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputLastName">Loyer</label>
-                <input
-                [(ngModel)]="montantLoyerApp"
-                (ngModelChange)="calculMontantCautionApp()"
-                  formControlName="nouveauMontantLoyer"
-                  class="form-control"
 
-                  type="number"
-                />
+                <mat-form-field appearance="outline">
+                  <mat-label>Loyer*</mat-label>
+                  <input formControlName="nouveauMontantLoyer" type="number" matInput placeholder="Loyer*"
+                  [(ngModel)]="montantLoyerApp"
+                  (ngModelChange)="calculMontantCautionApp()">
+                  <mat-error>Ce champ est obligatoire.</mat-error>
+                </mat-form-field>
               </div>
             </div>
             <!-- Form Row        -->
             <div class="row gx-3 mb-3">
               <!-- Form Group (organization name)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputOrgName"
-                  >Nombre de mois de caution</label
-                >
-                <input
-                  formControlName="nbreMoisCautionBail"
-                  class="form-control"
-                 [(ngModel)]="nombreMoisCautionApp"
-                 (ngModelChange)="calculMontantCautionApp()"
-                  type="number"
-                />
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Nombre de mois de caution</mat-label>
+                  <input formControlName="nbreMoisCautionBail" type="number" matInput placeholder="caution*"
+                  [(ngModel)]="nombreMoisCautionApp"
+                  (ngModelChange)="calculMontantCautionApp()">
+                  <mat-error>Ce champ est obligatoire.</mat-error>
+                </mat-form-field>
               </div>
               <!-- Form Group (location)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputLocation"
+                <!-- <label class="small mb-1" for="inputLocation"
                   >Montant caution</label
                 >
                 <input
@@ -663,7 +567,14 @@
                   formControlName="montantCautionBail"
                   class="form-control"
                   type="number"
-                />
+                /> -->
+                <mat-form-field appearance="outline">
+                  <mat-label>Montant caution</mat-label>
+                  <input formControlName="montantCautionBail" type="number" matInput placeholder="caution*"
+                  [(ngModel)]="montantCautionApp"
+                  >
+                  <mat-error>Ce champ est obligatoire.</mat-error>
+                </mat-form-field>
               </div>
             </div>
 
@@ -671,70 +582,37 @@
             <div class="row gx-3 mb-3">
               <!-- Form Group (phone number)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputPhone"
-                  >Début du contrat</label
-                >
-                <input
-                  [ngClass]="{
-                    'is-invalid':
-                      submitted && bailAppartementForm.controls.dateDebut.errors
-                  }"
-                  class="form-control"
-                  id="dateDebut"
-                  type="date"
-                  formControlName="dateDebut"
-                />
-                <div
-                  *ngIf="
-                    submitted && bailAppartementForm.controls.dateDebut.errors
-                  "
-                  class="invalid-feedback"
-                >
-                  <div
-                    *ngIf="
-                      bailAppartementForm.controls.dateDebut.errors.required
-                    "
-                  >
-                    *Champ obligatoire
-                  </div>
-                </div>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Date de début</mat-label>
+                  <input formControlName="dateDebut" matInput [matDatepicker]="picker5">
+                  <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                  <mat-datepicker #picker5></mat-datepicker>
+                </mat-form-field>
               </div>
               <!-- Form Group (birthday)-->
               <div class="col-md-6">
-                <label class="small mb-1" for="inputBirthday"
-                  >Date de fin</label
-                >
-                <input
-                  [ngClass]="{
-                    'is-invalid':
-                      submitted && bailAppartementForm.controls.dateFin.errors
-                  }"
-                  formControlName="dateFin"
-                  class="form-control"
-                  id="inputBirthday"
-                  type="date"
-                  name="birthday"
-                />
-                <div
-                  *ngIf="
-                    submitted && bailAppartementForm.controls.dateFin.errors
-                  "
-                  class="invalid-feedback"
-                >
-                  <div
-                    *ngIf="bailAppartementForm.controls.dateFin.errors.required"
-                  >
-                    *Champ obligatoire
-                  </div>
-                </div>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Date de début</mat-label>
+                  <input formControlName="dateFin" matInput [matDatepicker]="picker6">
+                  <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+                  <mat-datepicker #picker6></mat-datepicker>
+                </mat-form-field>
               </div>
             </div>
             <!-- Save changes button-->
-            <button
+            <!-- <button
               class="btn btn-primary"
               type="button"
               (click)="onSaveBailAppartement()"
             >
+              Valider
+            </button> -->
+            <button  mat-raised-button color="primary"
+            (click)="onSaveBailAppartement()"
+            [disabled]="bailAppartementForm.invalid">
+              <mat-icon>save</mat-icon>
               Valider
             </button>
           </form>

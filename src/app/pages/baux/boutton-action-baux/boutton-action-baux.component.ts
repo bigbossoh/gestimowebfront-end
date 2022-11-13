@@ -12,7 +12,9 @@ export class BouttonActionBauxComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
 
   openDialog(): void {
-    const dialolRef = this.dialog.open(PageBauxNewComponent, {});
+    const dialolRef = this.dialog.open(PageBauxNewComponent, {
+      width: '50%',
+    });
     dialolRef.afterClosed().subscribe(() => {
       console.log('On  a fermer le formulaire de Baux');
 
