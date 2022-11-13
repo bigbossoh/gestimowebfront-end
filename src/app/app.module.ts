@@ -247,7 +247,7 @@ import { imageReducer } from './ngrx/images/images.reducer';
       utilisateurState: utilisateurReducer,
       immeubleState: immeubleReducer,
       etageState: etageByImmeubeReducer,
-      appartementState: appartementReducer,
+      artementState: appartementReducer,
       magasinState: magasinReducer,
       villaState: villaReducer,
       villeState: villeReducer,
