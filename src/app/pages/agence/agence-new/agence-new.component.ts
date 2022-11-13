@@ -79,7 +79,7 @@ export class AgenceNewComponent implements OnInit {
     if (this.editData) {
       this.store.dispatch(new GetLogoAcions(this.editData.id));
       this.store.pipe(map((state) => state.imageState)).subscribe((data) => {
-        console.log('Le logo est le suivant :');
+        console.log('Le logo est le suivant :'+this.editData.id);
         console.log(data);
         if (data.logo != null) {
           this.selectedFile = data.logo;

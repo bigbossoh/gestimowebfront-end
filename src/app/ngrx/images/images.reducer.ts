@@ -26,12 +26,17 @@ export function imageReducer(
     case ImagesActionsTypes.UPLOAD_LOGO:
       return { ...state, dataState: ImagesStateEnum.LOADING };
     case ImagesActionsTypes.UPLOAD_LOGO_SUCCES:
+      console.log("le vrai payload est le suivant : ");
+      console.log( (<ImagesActions>action).payload);
+
+
       return {
         ...state,
         dataState: ImagesStateEnum.LOADED,
         logo: (<ImagesActions>action).payload,
       };
     case ImagesActionsTypes.UPLOAD_LOGO_ERROR:
+
       return {
         ...state,
         dataState: ImagesStateEnum.ERROR,

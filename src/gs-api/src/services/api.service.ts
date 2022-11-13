@@ -376,7 +376,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveLogoResponse(body?: AgenceRequestDto): __Observable<__StrictHttpResponse<boolean>> {
+  saveLogoResponse(body?: AgenceRequestDto): __Observable<__StrictHttpResponse<Array<string>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -388,13 +388,13 @@ class ApiService extends __BaseService {
       {
         headers: __headers,
         params: __params,
-        responseType: 'text'
+        responseType: 'json'
       });
 
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return (_r as HttpResponse<any>).clone({ body: (_r as HttpResponse<any>).body === 'true' }) as __StrictHttpResponse<boolean>
+        return _r as __StrictHttpResponse<Array<string>>;
       })
     );
   }
@@ -402,9 +402,9 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveLogo(body?: AgenceRequestDto): __Observable<boolean> {
+  saveLogo(body?: AgenceRequestDto): __Observable<Array<string>> {
     return this.saveLogoResponse(body).pipe(
-      __map(_r => _r.body as boolean)
+      __map(_r => _r.body as Array<string>)
     );
   }
 
