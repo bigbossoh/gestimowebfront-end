@@ -71,6 +71,8 @@ export class PageReglementIndividuelComponent implements OnInit {
 
   locataireState$: Observable<UtilisteurState> | null = null;
   readonly UtilisteurStateEnum = UtilisteurStateEnum;
+  montant_Loyer:number=0;
+
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
@@ -126,8 +128,8 @@ export class PageReglementIndividuelComponent implements OnInit {
     this.store
       .pipe(map((state) => state.encaissementState))
       .subscribe((donnee) => {
-        console.log('Les encaissemnts sont les suivants : ');
-        console.log(donnee.encaissements);
+        // console.log('Les encaissemnts sont les suivants : ');
+        // console.log(donnee.encaissements);
         if (donnee.encaissements.length>0) {
           this.dataSource.data = donnee.encaissements;
           this.dataSource.paginator = this.paginator;
@@ -135,7 +137,7 @@ export class PageReglementIndividuelComponent implements OnInit {
       });
   }
   getBienByLocataire(loca: string) {
-console.log("nous sommes dans get bien by locataire");
+// console.log("nous sommes dans get bien by locataire");
 
     this.store.dispatch(new GetAllBientaireByLocatairesActions(loca));
     this.getBienBylocatairestate$ = this.store.pipe(
@@ -158,8 +160,8 @@ console.log("nous sommes dans get bien by locataire");
     this.store
       .pipe(map((state) => state.encaissementState))
       .subscribe((data) => {
-        console.log('Les encaissemnts sont les suivants pour Baux : ');
-        console.log(data.encaissements);
+        // console.log('Les encaissemnts sont les suivants pour Baux : ');
+        // console.log(data.encaissements);
         if (data.encaissements.length>0) {
           this.dataSource.data = data.encaissements;
           this.dataSource.paginator = this.paginator;
@@ -173,8 +175,8 @@ console.log("nous sommes dans get bien by locataire");
     this.store
       .pipe(map((state) => state.encaissementState))
       .subscribe((donnee) => {
-        console.log('Les encaissemnts sont les suivants : ');
-        console.log(donnee.encaissements);
+        // console.log('Les encaissemnts sont les suivants : ');
+        // console.log(donnee.encaissements);
         if (donnee.encaissements.length>0) {
           this.dataSource.data = donnee.encaissements;
           this.dataSource.paginator = this.paginator;
