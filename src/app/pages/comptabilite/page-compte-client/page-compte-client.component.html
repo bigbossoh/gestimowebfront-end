@@ -1,3 +1,64 @@
+<div class="col">
+  <div class="row m-3">
+    <div class="col-md-8 p-0">
+      <h1>Compte Locataire</h1>
+    </div>
+    <div class="col-md-4 text-right"></div>
+  </div>
+
+  <div class="col">
+    <div class="row">
+      <div class="col">
+        <h5>
+          <i class="fas fa-asterisk blue-color"></i>&nbsp;Information sur le locataire
+        </h5>
+      </div>
+    </div>
+    <hr style="margin-top: 0" />
+
+  </div>
+  <div class="row">
+  <div class="col-md-6">
+    <!-- <ng-container *ngIf="locataireState$ | async as locataireState" [ngSwitch]="locataireState.dataState"> -->
+      <!-- <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADING"> -->
+      <!-- </ng-container> -->
+      <!-- <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED"> -->
+        <!-- <label>Locataires</label> -->
+        <mat-form-field appearance="outline">
+          <mat-label> Locataires</mat-label>
+          <mat-select #selectionlocataire placeholder="">
+            <mat-option ></mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      <!-- </ng-container> -->
+    <!-- </ng-container> -->
+  </div>
+  <div class="col-md-6">
+    <!-- <ng-container *ngIf="getBienBylocatairestate$ | async as biensLocataire" [ngSwitch]="biensLocataire.dataState">
+      <ng-container *ngSwitchCase="BauxStateEnum.LOADING"> -->
+        <!-- <i class="fas fa-sync fa-spin"></i> -->
+      <!-- </ng-container> -->
+      <!-- <ng-container *ngSwitchCase="BauxStateEnum.LOADED"> -->
+        <mat-form-field appearance="outline">
+          <mat-label> Bien immobilier</mat-label>
+          <mat-select >
+            <mat-option value="">Choisir un bien</mat-option>
+            <mat-option >
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      <!-- </ng-container>
+      <ng-container *ngSwitchCase="BauxStateEnum.ERROR"> ... </ng-container> -->
+    <!-- </ng-container> -->
+  </div>
+</div>
+</div>
+
+
+
+
+
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container bootdey">
 <div class="row">
