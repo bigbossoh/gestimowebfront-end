@@ -15,7 +15,7 @@
     </div>
     <hr style="margin-top: 0" />
     <div class="row mb-3">
-      <div class="col-md-3">
+      <div class="col-md-6">
         <ng-container
           *ngIf="anneeState$ | async as anneeState"
           [ngSwitch]="anneeState.dataState"
@@ -30,7 +30,7 @@
               </div>
             </ng-container>
             <ng-container *ngSwitchCase="AnneeStateEnum.LOADED">
-              <mat-form-field>
+              <mat-form-field  appearance="outline">
                 <mat-label>Année</mat-label>
                 <mat-select
                   id="modele"
@@ -51,7 +51,7 @@
           </ng-container>
         </ng-container>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-6">
         <ng-container
           *ngIf="periodeState$ | async as periodeState"
           [ngSwitch]="periodeState.dataState"
@@ -63,7 +63,7 @@
             Aucune Période
           </ng-container>
           <ng-container *ngSwitchCase="PeriodeStateEnum.LOADED">
-            <mat-form-field>
+            <mat-form-field  appearance="outline">
               <mat-label>Période</mat-label>
               <mat-select
                 name="typeClim"
@@ -97,38 +97,44 @@
         <ng-container ng - container *ngSwitchCase="AppelLoyerStateEnum.LOADED">
           <div class="row mb-3">
             <div class="col-md-3">
-              <mat-label
-                >Du
-                {{
-                  appelState.appelloyers[0].dateDebutMoisAppelLoyer
-                    | date: "dd / MM / yyyy"
-                }}
-              </mat-label>
+
+              <!-- <mat-label  appearance="outline"> -->
+                <div class="mat-typography">
+                  <h3>Du {{appelState.appelloyers[0].dateDebutMoisAppelLoyer | date: "dd / MM / yyyy"}}</h3>
+                </div>
+              <!-- </mat-label> -->
             </div>
             <div class="col-md-3">
-              <label>
-                Au
-                {{
-                  appelState.appelloyers[0].dateFinMoisAppelLoyer
-                    | date: "dd / MM / yyyy"
-                }}
-              </label>
+              <div class="mat-typography">
+                <h3>
+                  Au
+                  {{
+                    appelState.appelloyers[0].dateFinMoisAppelLoyer
+                      | date: "dd / MM / yyyy"
+                  }}
+                </h3>
+              </div>
+
             </div>
             <div class="col-md-3">
-              <label
-                >Payer avant
+              <div class="mat-typography">
+                <h3>
+                  Payer avant
                 {{
                   appelState.appelloyers[0].datePaiementPrevuAppelLoyer
                     | date: "dd / MM / yyyy"
                 }}
-              </label>
+                </h3>
+              </div>
+
             </div>
             <div class="col-md-3 text-center">
-              <button
+              <button class="mr-2"
+               mat-raised-button color="primary"
                 type="button"
-                class="mb-sm btn btn-primary mr-2"
                 (click)="printQuittance(periodePrint)"
               >
+              <mat-icon>print</mat-icon>
                 Imprimer
               </button>
               <ng-container
@@ -140,11 +146,13 @@
                 </ng-container>
               </ng-container>
               <button
+              mat-raised-button color="primary"
                 type="button"
-                class="mb-sm btn btn-success mr-1"
+                class="mr-1"
                 (click)="sendQuittanceGrouper(periodePrint)"
               >
-                Envoi
+              <mat-icon>mail</mat-icon>
+                Envoi par mail
               </button>
 
               <ng-container
@@ -180,7 +188,7 @@
       <div class="tab-content" id="myTabContent">
         <!-- user table -->
         <div class="mat-elevation-z8">
-          <mat-form-field>
+          <mat-form-field class="tail-50">
             <input
               matInput
               (keyup)="applyFilter($event)"

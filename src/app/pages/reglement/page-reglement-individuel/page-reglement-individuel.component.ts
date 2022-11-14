@@ -52,7 +52,7 @@ export class PageReglementIndividuelComponent implements OnInit {
   public user?: UtilisateurRequestDto;
   encaissementform?: FormGroup;
   getLesdonne: any;
-   leBonbien :Observable<any> | null = null;;
+   leBonbien :Observable<any> | null = null;
   leBienSelect = '';
   submitted = false;
   periode: string = '';
