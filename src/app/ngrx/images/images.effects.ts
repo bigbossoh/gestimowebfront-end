@@ -1,3 +1,4 @@
+import { PrintServiceService } from './../../services/Print/print-service.service';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
@@ -12,7 +13,7 @@ import { ImagesActions, ImagesActionsTypes, UploadLogoAcionsSuccess, UploadLogoA
 export class ImageEffects {
   constructor(
     private apiService: ApiService,
-
+    private printApiService: PrintServiceService,
     private effectActions: Actions,
     private notificationService: NotificationService
   ) {}
@@ -24,7 +25,7 @@ export class ImageEffects {
       mergeMap((actions: ImagesActions) => {
         console.log("Le payload est ");
         console.log(actions.payload);
-        return this.apiService.saveLogo(actions.payload).pipe(
+        return this.printApiService.savelogo(actions.payload).pipe(
           map((logo) => new UploadLogoAcionsSuccess(logo)),
           catchError((err) =>
             of(new UploadLogoAcionsError(err.message))
