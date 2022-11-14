@@ -1,3 +1,4 @@
+import { noUndefined } from '@angular/compiler/src/util';
 import { Action } from '@ngrx/store';
 import { EtageDto } from 'src/gs-api/src/models';
 import { ImagesActions, ImagesActionsTypes } from './images.action';
@@ -9,11 +10,13 @@ export enum ImagesStateEnum {
 }
 export interface ImagesState {
   logo: any;
+  leLog: Blob;
   errorMessage: string;
   dataState: ImagesStateEnum;
 }
 const initState: ImagesState = {
   logo: null,
+  leLog:new Blob,
   errorMessage: '',
   dataState: ImagesStateEnum.LOADING,
 };
@@ -26,12 +29,17 @@ export function imageReducer(
     case ImagesActionsTypes.UPLOAD_LOGO:
       return { ...state, dataState: ImagesStateEnum.LOADING };
     case ImagesActionsTypes.UPLOAD_LOGO_SUCCES:
+      console.log("le vrai payload est le suivant : ");
+      console.log( (<ImagesActions>action).payload);
+
+
       return {
         ...state,
         dataState: ImagesStateEnum.LOADED,
-        logo: (<ImagesActions>action).payload,
+        leLog: (<ImagesActions>action).payload,
       };
     case ImagesActionsTypes.UPLOAD_LOGO_ERROR:
+
       return {
         ...state,
         dataState: ImagesStateEnum.ERROR,

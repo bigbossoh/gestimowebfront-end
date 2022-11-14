@@ -31,7 +31,7 @@ export class UploadLogoAcionsError implements Action {
 // GET LOGO
 export class GetLogoAcions implements Action {
   type: ImagesActionsTypes = ImagesActionsTypes.GET_LOGO;
-  constructor(public payload: number) {}
+  constructor(public payload: any) {}
 }
 
 export class GetLogoAcionsSuccess implements Action {
