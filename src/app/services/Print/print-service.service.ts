@@ -1,7 +1,7 @@
 import { AgenceRequestDto } from 'src/gs-api/src/models';
 import { ApiConfiguration } from './../../../gs-api/src/api-configuration';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -36,19 +36,30 @@ export class PrintServiceService {
         })
       );
   }
-  savelogo(body: AgenceRequestDto) {
-    console.log('');
+  savelogo(body: any) {
+    // console.log('');
+    // ABJECT WHICH PASS BODY PARAMETERS
+    var myFormData = new FormData();
+    //HEADERS
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+    var leBody = body.logoAgence;
+    //body parameters
+    myFormData.append('image', body);
     return this.http
-      .get(
+      .post(
         this.apiConfig.rootUrl +
-          'http://localhost:5000/gestimoweb/api/v1/agences/savelogo/' ,  {
-
-          responseType: 'blob'
+          'http://localhost:5000/gestimoweb/api/v1/agences/savelogo/',
+        body,
+        {
+          headers: headers,
+          responseType: 'blob',
         }
       )
       .pipe(
         map((res) => {
-          return new Blob([res], { type: 'application/pd' });
+          return new Blob([res], { type: 'multipart/form-data' });
         })
       );
   }

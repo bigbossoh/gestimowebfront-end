@@ -1,3 +1,4 @@
+import { noUndefined } from '@angular/compiler/src/util';
 import { Action } from '@ngrx/store';
 import { EtageDto } from 'src/gs-api/src/models';
 import { ImagesActions, ImagesActionsTypes } from './images.action';
@@ -9,11 +10,13 @@ export enum ImagesStateEnum {
 }
 export interface ImagesState {
   logo: any;
+  leLog: Blob;
   errorMessage: string;
   dataState: ImagesStateEnum;
 }
 const initState: ImagesState = {
   logo: null,
+  leLog:new Blob,
   errorMessage: '',
   dataState: ImagesStateEnum.LOADING,
 };
@@ -33,7 +36,7 @@ export function imageReducer(
       return {
         ...state,
         dataState: ImagesStateEnum.LOADED,
-        logo: (<ImagesActions>action).payload,
+        leLog: (<ImagesActions>action).payload,
       };
     case ImagesActionsTypes.UPLOAD_LOGO_ERROR:
 
