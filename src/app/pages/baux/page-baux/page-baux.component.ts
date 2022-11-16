@@ -54,7 +54,7 @@ export class PageBauxComponent implements OnInit {
     'bail',
     'debut',
     'fin',
-    'Montant Caution',
+    'Loyer',
     'Bail en cours',
     'Actions',
   ];
@@ -72,7 +72,7 @@ export class PageBauxComponent implements OnInit {
   readonly BauxStateEnum = BauxStateEnum;
   readonly AppelLoyerStateEnum = AppelLoyerStateEnum;
   public user?: UtilisateurRequestDto;
-  v_agence: number=0;
+  v_agence: number = 0;
   constructor(
     public dialog: MatDialog,
     private store: Store<any>,
@@ -89,8 +89,11 @@ export class PageBauxComponent implements OnInit {
     if (this.user.idAgence != undefined) {
       this.v_agence = this.user.idAgence;
     } else {
-      this.v_agence=0
+      this.v_agence = 0;
     }
+    this.totalRecords = 0;
+    this.dataSource.data = [];
+    this.dataSource.paginator = null;
     this.store.dispatch(new GetAllOperationActions(this.user.idAgence));
     this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
     this.store.pipe(map((state) => state.bauxState)).subscribe((data) => {
@@ -98,6 +101,8 @@ export class PageBauxComponent implements OnInit {
         this.totalRecords = data.baux.length;
         this.dataSource.data = data.baux;
         this.dataSource.paginator = this.paginator;
+        console.log('le baux des baux est le suivant : ');
+        console.log(data.baux);
       }
     });
   }
@@ -119,8 +124,26 @@ export class PageBauxComponent implements OnInit {
     }
   }
 
-  onModifClick(state: any) {}
-  onDeleteClick(state: any) {}
+  onClotureClick(idBail: any, nomBail: any, statusCloture: any) {
+    this.user = this.userService.getUserFromLocalCache();
+    if (statusCloture == false) {
+      alert('Bail déjà cloturé .');
+      return;
+    }
+    if (confirm('Vous allez Cloturer un Bail ' + nomBail)) {
+      this.store.dispatch(new ClotureOperationActions(idBail));
+      this.ngOnInit();
+      this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
+      this.store.pipe(map((state) => state.bauxState)).subscribe((data) => {
+        if (data.baux.length > 0) {
+          this.totalRecords = data.baux.length;
+          this.dataSource.data = data.baux;
+          this.dataSource.paginator = this.paginator;
+        }
+      });
+    }
+  }
+
   chargerAppels(evt: any) {
     this.store.dispatch(new GetAllAppelLoyerActions(evt));
     this.appelloyerState$ = this.store.pipe(

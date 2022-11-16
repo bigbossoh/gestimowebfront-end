@@ -90,7 +90,11 @@ export class PageBauxNewComponent implements OnInit {
     this.montantCautionMag = this.montantLoyerMag * this.nombreMoisCautionMag;
   }
   calculMontantCautionVil() {
-    console.log("here calculMontantCautionVil",this.montantLoyerVil,this.nombreMoisCautionVil)
+    console.log(
+      'here calculMontantCautionVil',
+      this.montantLoyerVil,
+      this.nombreMoisCautionVil
+    );
     this.montantCautionVil = this.montantLoyerVil * this.nombreMoisCautionVil;
   }
 
@@ -147,7 +151,7 @@ export class PageBauxNewComponent implements OnInit {
     this.user = this.userService.getUserFromLocalCache();
 
     //GET ALL APPARTEMENT LIBRE
-    this.store.dispatch(new GetAllAppartementLibreActions(this.user!.idAgence));
+    this.store.dispatch(new GetAllAppartementLibreActions(this.user.idAgence));
     this.appartementState$ = this.store.pipe(
       map((state) => state.appartementState)
     );

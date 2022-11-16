@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import {
   UploadLogoAcions,
   GetLogoAcions,
@@ -43,16 +44,20 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class AgenceNewComponent implements OnInit {
   agenceRegisterForm!: FormGroup;
   actionBtn: String = 'Enregistrer';
-  selectedFile = '../../../../assets/logoGestimo.png';
+  selectedFile = '';
+  imagURL: any;
   idCompare = 0;
   public user?: UtilisateurRequestDto;
   matcher = new MyErrorStateMatcher();
+
+
   constructor(
     private store: Store<any>,
     private fb: FormBuilder,
     private userService: UserService,
     @Inject(MAT_DIALOG_DATA) public editData: any,
-    public dialogRef: MatDialogRef<AgenceNewComponent>
+    public dialogRef: MatDialogRef<AgenceNewComponent>,
+    private http:HttpClient
   ) {}
 
   ngOnInit() {
@@ -148,6 +153,9 @@ export class AgenceNewComponent implements OnInit {
       };
       this.onUploadImage();
     }
+  }
+  onUpload() {
+
   }
   onUploadImage() {
     this.agenceRegisterForm.controls['id'].setValue(this.editData.idAgence);

@@ -15,15 +15,19 @@ export class ModifLoyerBailComponent implements OnInit {
   constructor(private fb: FormBuilder,
     public dialogRef: MatDialogRef<ModifLoyerBailComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,) { }
-  
+
   onSubmit() {
     console.log(this.formGroup?.value);
 
   }
   ngOnInit(): void {
     this.formGroup = this.fb.group({
-      id: [this.data.id],
-      montantLoyer:[0,Validators.required]
+      idBail: [this.data.id],
+      nombreMoisCaution:[0],
+      nouveauMontantLoyer: [0, Validators.required],
+      ancienMontantLoyer: [],
+      dateDePriseEncompte: [''],
+      dateFin:['']
     });
   }
 
