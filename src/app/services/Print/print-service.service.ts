@@ -45,22 +45,21 @@ export class PrintServiceService {
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Accept', 'application/json');
     var leBody = body.logoAgence;
-    //body parameters
-    myFormData.append('image', body);
+    myFormData.append("imageFile", body.logoAgence, body.id);
+    myFormData.append("idAgence",body.idAgence);
     return this.http
       .post(
         this.apiConfig.rootUrl +
-          'http://localhost:5000/gestimoweb/api/v1/agences/savelogo/',
-        body,
-        {
-          headers: headers,
-          responseType: 'blob',
-        }
-      )
-      .pipe(
-        map((res) => {
-          return new Blob([res], { type: 'multipart/form-data' });
-        })
-      );
+        'http://localhost:5000/gestimoweb/api/v1/agences/saveagencelogo',
+          myFormData )
+     .subscribe(respons => {
+       console.log("la reponse est la suivante ::: ");
+       console.log(respons);
+
+
+      });
+  }
+  saveAgenceLogo(idAgence: any, file: any) {
+
   }
 }

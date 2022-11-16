@@ -16,8 +16,7 @@ export class BouttonActionBauxComponent implements OnInit {
       width: '50%',
     });
     dialolRef.afterClosed().subscribe(() => {
-      console.log('On  a fermer le formulaire de Baux');
-
+     
       this.bauxEmmitter.emit('SAVE_BAUX');
     });
   }

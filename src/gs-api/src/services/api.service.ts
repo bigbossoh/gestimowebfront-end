@@ -9,6 +9,7 @@ import { map as __map, filter as __filter } from 'rxjs/operators';
 
 import { AgenceImmobilierDTO } from '../models/agence-immobilier-dto';
 import { AgenceResponseDto } from '../models/agence-response-dto';
+import { ImageModel } from '../models/image-model';
 import { AgenceRequestDto } from '../models/agence-request-dto';
 import { AppartementDto } from '../models/appartement-dto';
 import { AppelLoyersFactureDto } from '../models/appel-loyers-facture-dto';
@@ -19,6 +20,7 @@ import { AppelLoyerRequestDto } from '../models/appel-loyer-request-dto';
 import { Utilisateur } from '../models/utilisateur';
 import { AuthRequestDto } from '../models/auth-request-dto';
 import { OperationDto } from '../models/operation-dto';
+import { BailModifDto } from '../models/bail-modif-dto';
 import { BailAppartementDto } from '../models/bail-appartement-dto';
 import { BailMagasinDto } from '../models/bail-magasin-dto';
 import { BailVillaDto } from '../models/bail-villa-dto';
@@ -53,6 +55,7 @@ class ApiService extends __BaseService {
   static readonly getAgenceByEmailAgencePath = 'gestimoweb/api/v1/agences/getagencebyemail/{email}';
   static readonly getAgenceByIDAgencePath = 'gestimoweb/api/v1/agences/getagencebyid/{id}';
   static readonly getlogoPath = 'gestimoweb/api/v1/agences/getlogo/{id}';
+  static readonly saveAgenceLogoPath = 'gestimoweb/api/v1/agences/saveagencelogo';
   static readonly saveLogoPath = 'gestimoweb/api/v1/agences/savelogo';
   static readonly authenticateAgencePath = 'gestimoweb/api/v1/agences/signup';
   static readonly findAllAppartementPath = 'gestimoweb/api/v1/appartement/all/{id}';
@@ -85,6 +88,7 @@ class ApiService extends __BaseService {
   static readonly listDesBauxPourUnLocatairePath = 'gestimoweb/api/v1/bail/getallbailbylocataire/{id}';
   static readonly nombrebailactifPath = 'gestimoweb/api/v1/bail/nombrebailactif/{idAgence}';
   static readonly nombrebailnonactifPath = 'gestimoweb/api/v1/bail/nombrebailnonactif/{idAgence}';
+  static readonly modifierUnBailPath = 'gestimoweb/api/v1/bail/save';
   static readonly supprimerBailPath = 'gestimoweb/api/v1/bail/supprimerBail/{id}';
   static readonly findAllBailAppartementPath = 'gestimoweb/api/v1/bailappartement/all/{idAgence}';
   static readonly findAllOperationsPath = 'gestimoweb/api/v1/bailappartement/alloperation/{idAgence}';
@@ -369,6 +373,53 @@ class ApiService extends __BaseService {
   getlogo(id: number): __Observable<Array<string>> {
     return this.getlogoResponse(id).pipe(
       __map(_r => _r.body as Array<string>)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.SaveAgenceLogoParams` containing the following parameters:
+   *
+   * - `imageFile`:
+   *
+   * - `idAgence`:
+   *
+   * @return successful operation
+   */
+  saveAgenceLogoResponse(params: ApiService.SaveAgenceLogoParams): __Observable<__StrictHttpResponse<ImageModel>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/agences/saveagencelogo`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<ImageModel>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.SaveAgenceLogoParams` containing the following parameters:
+   *
+   * - `imageFile`:
+   *
+   * - `idAgence`:
+   *
+   * @return successful operation
+   */
+  saveAgenceLogo(params: ApiService.SaveAgenceLogoParams): __Observable<ImageModel> {
+    return this.saveAgenceLogoResponse(params).pipe(
+      __map(_r => _r.body as ImageModel)
     );
   }
 
@@ -1420,7 +1471,7 @@ class ApiService extends __BaseService {
     let __body: any = null;
 
     let req = new HttpRequest<any>(
-      'GET',
+      'POST',
       this.rootUrl + `gestimoweb/api/v1/bail/clotureBail/${id}`,
       __body,
       {
@@ -1591,6 +1642,42 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param body undefined
+   * @return successful operation
+   */
+  modifierUnBailResponse(body?: BailModifDto): __Observable<__StrictHttpResponse<OperationDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/bail/save`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<OperationDto>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  modifierUnBail(body?: BailModifDto): __Observable<OperationDto> {
+    return this.modifierUnBailResponse(body).pipe(
+      __map(_r => _r.body as OperationDto)
+    );
+  }
+
+  /**
    * @param id undefined
    * @return successful operation
    */
@@ -1600,7 +1687,7 @@ class ApiService extends __BaseService {
     let __body: any = null;
 
     let req = new HttpRequest<any>(
-      'GET',
+      'POST',
       this.rootUrl + `gestimoweb/api/v1/bail/supprimerBail/${id}`,
       __body,
       {
@@ -5168,6 +5255,14 @@ class ApiService extends __BaseService {
 }
 
 module ApiService {
+
+  /**
+   * Parameters for saveAgenceLogo
+   */
+  export interface SaveAgenceLogoParams {
+    imageFile: any;
+    idAgence: number;
+  }
 
   /**
    * Parameters for findAllPeriodeByAnnee

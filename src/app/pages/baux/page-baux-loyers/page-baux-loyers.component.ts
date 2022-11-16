@@ -22,7 +22,7 @@ export class PageBauxLoyersComponent implements OnInit {
   appelloyerState$: Observable<AppelLoyerState> | null = null;
   readonly BauxStateEnum = BauxStateEnum;
   readonly AppelLoyerStateEnum = AppelLoyerStateEnum;
-  constructor(private store: Store<any>,private userService: UserService,) {}
+  constructor(private store: Store<any>, private userService: UserService) {}
 
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();

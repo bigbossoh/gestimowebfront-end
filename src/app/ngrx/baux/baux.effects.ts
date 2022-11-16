@@ -1,4 +1,3 @@
-import { UserService } from 'src/app/services/user/user.service';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
@@ -6,9 +5,11 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
-import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { ApiService } from 'src/gs-api/src/services';
-import { SupprimerOperationActions, SupprimerOperationActionsSuccess, SupprimerOperationActionsError } from './baux.actions';
+import {
+  SupprimerOperationActionsSuccess,
+  SupprimerOperationActionsError,
+} from './baux.actions';
 import {
   ClotureOperationActionsError,
   ClotureOperationActionsSuccess,
@@ -16,27 +17,23 @@ import {
   GetAllOperationActionsSuccess,
   OperationActions,
   OperationActionsTypes,
-  GetAllBientaireByLocatairesActions,
   GetAllBientaireByLocatairesActionsSuccess,
   GetAllBientaireByLocatairesActionsError,
 } from './baux.actions';
 
 @Injectable()
 export class BauxEffects {
-
   constructor(
     private apiService: ApiService,
     private effectActions: Actions,
     private notificationService: NotificationService
-  ) {
-
-  }
+  ) {}
 
   //LISTE DES BAUX
   getAllBauxEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(OperationActionsTypes.GET_ALL_BAIL),
-      mergeMap((actions:OperationActions) => {
+      mergeMap((actions: OperationActions) => {
         return this.apiService.findAllOperations(actions.payload).pipe(
           map((operations) => new GetAllOperationActionsSuccess(operations)),
           catchError((err) => of(new GetAllOperationActionsError(err.message)))
@@ -73,33 +70,31 @@ export class BauxEffects {
   );
   // CLOTURE DES BAUX
   supprimerBauxEffect: Observable<Action> = createEffect(() =>
-  this.effectActions.pipe(
-    ofType(OperationActionsTypes.SUPPRIMER_BAIL),
-    mergeMap((action:OperationActions) => {
-      return this.apiService.supprimerBail(action.payload).pipe(
-        map(
-          (bail) =>
-            new SupprimerOperationActionsSuccess(bail)
-        ),
-        catchError((err) => of(new SupprimerOperationActionsError(err.message)))
-      );
-    }),
-    tap((resultat) => {
-
-      if (resultat.type == OperationActionsTypes.SUPPRIMER_BAIL_SUCCES) {
-        this.sendErrorNotification(
-          NotificationType.SUCCESS,
-          "Le Bail a été suprimé avec succès."
+    this.effectActions.pipe(
+      ofType(OperationActionsTypes.SUPPRIMER_BAIL),
+      mergeMap((action: OperationActions) => {
+        return this.apiService.supprimerBail(action.payload).pipe(
+          map((bail) => new SupprimerOperationActionsSuccess(bail)),
+          catchError((err) =>
+            of(new SupprimerOperationActionsError(err.message))
+          )
         );
-      } else {
-        this.sendErrorNotification(
-          NotificationType.ERROR,
-          'Une erreur a été rencontrée.'
-        );
-      }
-    })
-  )
-    );
+      }),
+      tap((resultat) => {
+        if (resultat.type == OperationActionsTypes.SUPPRIMER_BAIL_SUCCES) {
+          this.sendErrorNotification(
+            NotificationType.SUCCESS,
+            'Le Bail a été suprimé avec succès.'
+          );
+        } else {
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            'Une erreur a été rencontrée.'
+          );
+        }
+      })
+    )
+  );
   // BAIL DU LOCATAIRE
   getAllBienByLocataireEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
