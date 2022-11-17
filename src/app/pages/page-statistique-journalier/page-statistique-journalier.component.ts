@@ -61,6 +61,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   constructor(
     private store: Store<any>,
     private _adapter: DateAdapter<Date>,
+
     private userService: UserService,
     @Inject(MAT_DATE_LOCALE) private _locale: string
   ) {
@@ -131,9 +132,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
     this.getImpayerParPeriode(this.periode_model);
     this.getPayerParPeriode(this.annee_model);
   }
-  longText = `The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog
-  from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
-  originally bred for hunting.`;
+  longText = ``;
   toppings = new FormControl('');
 
   toppingList: string[] = [

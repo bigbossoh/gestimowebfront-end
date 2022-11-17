@@ -84,6 +84,7 @@ class ApiService extends __BaseService {
   static readonly verifyAccountPath = 'gestimoweb/api/v1/auth/accountVerification/{token}';
   static readonly loginPath = 'gestimoweb/api/v1/auth/login';
   static readonly clotureBailPath = 'gestimoweb/api/v1/bail/clotureBail/{id}';
+  static readonly findOperationByIdPath = 'gestimoweb/api/v1/bail/findoperationbyid/{id}';
   static readonly listDesBauxPourUnBienImmobilierPath = 'gestimoweb/api/v1/bail/getallbailbybien/{id}';
   static readonly listDesBauxPourUnLocatairePath = 'gestimoweb/api/v1/bail/getallbailbylocataire/{id}';
   static readonly nombrebailactifPath = 'gestimoweb/api/v1/bail/nombrebailactif/{idAgence}';
@@ -1494,6 +1495,42 @@ class ApiService extends __BaseService {
   clotureBail(id: number): __Observable<boolean> {
     return this.clotureBailResponse(id).pipe(
       __map(_r => _r.body as boolean)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findOperationByIdResponse(id: number): __Observable<__StrictHttpResponse<OperationDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/bail/findoperationbyid/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<OperationDto>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findOperationById(id: number): __Observable<OperationDto> {
+    return this.findOperationByIdResponse(id).pipe(
+      __map(_r => _r.body as OperationDto)
     );
   }
 

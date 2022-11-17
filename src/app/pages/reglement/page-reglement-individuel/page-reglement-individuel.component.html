@@ -251,7 +251,7 @@
               Status
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <span *ngIf="row.appelLoyersFactureDto!.statusAppelLoyer=='Payé'"
+              <span *ngIf="row.appelLoyersFactureDto!.statusAppelLoyer=='Soldé'"
                 class="badge badge-success">{{row.appelLoyersFactureDto!.statusAppelLoyer}}
               </span>
               <span *ngIf="row.appelLoyersFactureDto!.statusAppelLoyer=='Impayé'"

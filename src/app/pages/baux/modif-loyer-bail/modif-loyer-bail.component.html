@@ -1,28 +1,77 @@
-<form *ngIf="formGroup" [formGroup]="formGroup">
-  <mat-card class="example-card">
-    <mat-card-title color="primary">Modification du montant du loyer</mat-card-title>
-
-    <mat-card-content>
+<form *ngIf="formGroup" [formGroup]="formGroup" >
+  <mat-label>Bail : {{v_bien}}</mat-label>
+  <div class="row gx-3 mb-3">
+    <div class="col-md-6">
       <mat-form-field appearance="outline">
-        <mat-label>Nouveau montant : </mat-label>
-        <input type="number" matInput  formControlName="Nouveaumontantloyer" placeholder="pays">
+        <mat-label>Date de prise en compte des changements</mat-label>
+        <input formControlName="dateDePriseEncompte" matInput [matDatepicker]="picker3" />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker3"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker3></mat-datepicker>
       </mat-form-field>
-
+    </div>
+    <div class="col-md-6">
       <mat-form-field appearance="outline">
-        <mat-label>Effectif à partir de :</mat-label>
-        <input matInput [matDatepicker]="picker">
-        <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-label>Nouveau montant loyer</mat-label>
+        <input formControlName="nouveauMontantLoyer" type="text" matInput />
+        <mat-error>Ce champ est obligatoire.</mat-error>
       </mat-form-field>
-    </mat-card-content>
-    <mat-card-actions>
-      <button class="btn btn-primary mr-2" type="button" (click)="onSubmit()">
-        Modifier
-      </button>
-      <button class="btn btn-danger" type="button" (click)="onSubmit()">
-        Annuler
-      </button>
-    </mat-card-actions>
-  </mat-card>
+    </div>
+  </div>
+
+  <div class="row gx-3 mb-3">
+    <!-- Form Group (organization name)-->
+    <div class="col-md-6">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre de mois de caution</mat-label>
+        <input
+          formControlName="nombreMoisCaution"
+          type="number"
+          matInput
+        />
+        <mat-error>Ce champ est obligatoire.</mat-error>
+      </mat-form-field>
+    </div>
+    <!-- Form Group (location)-->
+    <div class="col-md-6">
+      <mat-form-field appearance="outline">
+        <mat-label>Ancien Loyer</mat-label>
+        <input formControlName="ancienMontantLoyer" type="number" matInput />
+        <mat-error>Ce champ est obligatoire.</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Form Row-->
+  <div class="row gx-3 mb-3">
+    <div class="col-md-6">
+      <mat-form-field appearance="outline">
+        <mat-label>Début du Bail</mat-label>
+        <input formControlName="dateDebuBail" matInput [matDatepicker]="pickerdate" />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="pickerdate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #pickerdate></mat-datepicker>
+      </mat-form-field>
+    </div>
+     <div class="col-md-6">
+      <mat-form-field appearance="outline">
+        <mat-label>Fin du Bail</mat-label>
+        <input formControlName="dateFin" matInput [matDatepicker]="picker4" />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker4"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker4></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <button mat-raised-button color="primary" (click)="onSaveForm()">
+    <mat-icon>save</mat-icon>
+    Valider
+  </button>
 </form>
