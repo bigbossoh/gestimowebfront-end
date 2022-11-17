@@ -12,6 +12,6 @@ export interface MagasinResponseDto {
   superficieBien?: number;
   bienMeublerResidence?: boolean;
   proprietaire?: string;
-  underBuildingMagasin?: boolean;
   occupied?: boolean;
+  underBuildingMagasin?: boolean;
 }

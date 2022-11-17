@@ -1,3 +1,4 @@
+import { FindBailByIdActions } from './../../../ngrx/baux/baux.actions';
 import { UserService } from 'src/app/services/user/user.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -61,7 +62,7 @@ export class PageBauxComponent implements OnInit {
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement?: OperationDto;
   pageSize = [5, 10, 15, 20];
-
+  v_bail: any=undefined;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
@@ -78,7 +79,7 @@ export class PageBauxComponent implements OnInit {
     private store: Store<any>,
     private userService: UserService
   ) {}
-  openModifMontantDialog(loyer: number): void {
+  openModifMontantDialog(loyer: any): void {
     const dialolRef = this.dialog.open(ModifLoyerBailComponent, {
       data: { id: loyer },
     });
@@ -101,8 +102,6 @@ export class PageBauxComponent implements OnInit {
         this.totalRecords = data.baux.length;
         this.dataSource.data = data.baux;
         this.dataSource.paginator = this.paginator;
-        console.log('le baux des baux est le suivant : ');
-        console.log(data.baux);
       }
     });
   }

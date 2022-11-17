@@ -1,5 +1,6 @@
 //CREER LES DIFFERENTES TYPES D'ACTION QUI VONT DECLANCHER LES EVENE,ENT DANS LE
 
+import { AnyForUntypedForms } from '@angular/forms';
 import { Action } from '@ngrx/store';
 
 import { OperationDto } from 'src/gs-api/src/models';
@@ -22,6 +23,44 @@ export enum OperationActionsTypes {
   GET_ALL_BIEN_BAIL_BY_LOCATAIRE = '[OperationDto] Get All Biens By locataire',
   GET_ALL_BIEN_BAIL_BY_LOCATAIRE_SUCCES = '[OperationDto] Get All Biens By Locataires Succes',
   GET_ALL_BIEN_BAIL_BY_LOCATAIRE_ERROR = '[OperationDto] Get All Biens By locataires Error',
+
+  FIND_BAIL_BY_ID = '[OperationDto] Bail ID',
+  FIND_BAIL_BY_ID_SUCCES = '[OperationDto] Bail ID Succes',
+  FIND_BAIL_BY_ID_ERROR = '[OperationDto] Bail ID Error',
+
+  MODIFIER_BAIL = '[OperationDto] MODIFIER BAIL',
+  MODIFIER_BAIL_SUCCES = '[OperationDto] MODIFIER BAIL Succes',
+  MODIFIER_BAIL_ERROR = '[OperationDto] MODIFIER BAIL Error',
+}
+
+// GET ALL BAUX
+export class FindBailByIdActions implements Action {
+  type: OperationActionsTypes = OperationActionsTypes.FIND_BAIL_BY_ID;
+  constructor(public payload: number) {}
+}
+
+export class FindBailByIdActionsSuccess implements Action {
+  type: OperationActionsTypes = OperationActionsTypes.FIND_BAIL_BY_ID_SUCCES;
+  constructor(public payload: OperationDto) {}
+}
+export class FindBailByIdActionsError implements Action {
+  type: OperationActionsTypes = OperationActionsTypes.FIND_BAIL_BY_ID_ERROR;
+  constructor(public payload: string) {}
+}
+
+// GET ALL BAUX
+export class ModifierBailActions implements Action {
+  type: OperationActionsTypes = OperationActionsTypes.MODIFIER_BAIL;
+  constructor(public payload: AnyForUntypedForms) {}
+}
+
+export class ModifierBailActionsSuccess implements Action {
+  type: OperationActionsTypes = OperationActionsTypes.MODIFIER_BAIL_SUCCES;
+  constructor(public payload: OperationDto) {}
+}
+export class ModifierBailActionsError implements Action {
+  type: OperationActionsTypes = OperationActionsTypes.MODIFIER_BAIL_ERROR;
+  constructor(public payload: string) {}
 }
 
 // GET ALL BAUX
@@ -65,7 +104,7 @@ export class ClotureOperationActions implements Action {
 
 export class ClotureOperationActionsSuccess implements Action {
   type: OperationActionsTypes = OperationActionsTypes.CLOTURE_BAIL_SUCCES;
-  constructor(public payload: boolean) {}
+  constructor(public payload: any) {}
 }
 export class ClotureOperationActionsError implements Action {
   type: OperationActionsTypes = OperationActionsTypes.CLOTURE_BAIL_ERROR;
@@ -98,4 +137,10 @@ export type OperationActions =
   | GetAllBientaireByLocatairesActionsSuccess
   | SupprimerOperationActions
   | SupprimerOperationActionsSuccess
-  | SupprimerOperationActionsError;
+  | SupprimerOperationActionsError
+  | FindBailByIdActions
+  | FindBailByIdActionsError
+  | FindBailByIdActionsSuccess
+  | ModifierBailActions
+  | ModifierBailActionsError
+  | ModifierBailActionsSuccess;

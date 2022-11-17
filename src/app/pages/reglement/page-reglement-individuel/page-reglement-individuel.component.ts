@@ -99,7 +99,6 @@ export class PageReglementIndividuelComponent implements OnInit {
     this.locataireState$ = this.store.pipe(
       map((state) => state.utilisateurState)
     );
-
     this.encaissementform = this.fb.group({
       idAgence: [this.user?.idAgence],
       idCreateur: [this.user?.id],
@@ -112,7 +111,6 @@ export class PageReglementIndividuelComponent implements OnInit {
     });
   }
   onSaveEncaissement() {
-
     this.submitted = true;
     if (this.encaissementform?.invalid) {
       return;

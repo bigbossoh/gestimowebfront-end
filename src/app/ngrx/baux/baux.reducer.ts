@@ -23,6 +23,7 @@ export interface BauxState {
   dataState: BauxStateEnum;
   cloture: boolean;
   supprimer: boolean;
+  operation:any
 }
 const initState: BauxState = {
   baux: [],
@@ -31,6 +32,7 @@ const initState: BauxState = {
   dataState: BauxStateEnum.INITIAL,
   cloture: false,
   supprimer: false,
+  operation:null
 };
 export function bauxReducer(
   state: BauxState = initState,
@@ -52,7 +54,37 @@ export function bauxReducer(
         dataState: BauxStateEnum.ERROR,
         errorMessage: (<OperationActions>action).payload,
       };
+   // GET  BAIL BY ID
+   case OperationActionsTypes.FIND_BAIL_BY_ID:
+    return { ...state, dataState: BauxStateEnum.LOADING };
+  case OperationActionsTypes.FIND_BAIL_BY_ID_SUCCES:
+    return {
+      ...state,
+      dataState: BauxStateEnum.LOADED,
+      operation: (<OperationActions>action).payload,
+    };
+  case OperationActionsTypes.FIND_BAIL_BY_ID_ERROR:
+    return {
+      ...state,
+      dataState: BauxStateEnum.ERROR,
+      errorMessage: (<OperationActions>action).payload,
+    };
 
+       // MODIFIER BAIL
+   case OperationActionsTypes.MODIFIER_BAIL:
+    return { ...state, dataState: BauxStateEnum.LOADING };
+  case OperationActionsTypes.MODIFIER_BAIL_SUCCES:
+    return {
+      ...state,
+      dataState: BauxStateEnum.LOADED,
+      operation: (<OperationActions>action).payload,
+    };
+  case OperationActionsTypes.MODIFIER_BAIL_ERROR:
+    return {
+      ...state,
+      dataState: BauxStateEnum.ERROR,
+      errorMessage: (<OperationActions>action).payload,
+    };
     // GET ALL BAUX BY LOCATAIRES
     case OperationActionsTypes.GET_ALL_BIEN_BAIL_BY_LOCATAIRE:
       return { ...state, dataState: BauxStateEnum.LOADING };
@@ -97,7 +129,7 @@ export function bauxReducer(
       lesBaux.filter(element => {
         return element.id != bailIdDele;
       });
-      
+
       return {
         ...state,
         dataState: BauxStateEnum.LOADED,

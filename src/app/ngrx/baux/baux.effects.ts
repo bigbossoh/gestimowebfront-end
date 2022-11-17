@@ -9,6 +9,10 @@ import { ApiService } from 'src/gs-api/src/services';
 import {
   SupprimerOperationActionsSuccess,
   SupprimerOperationActionsError,
+  FindBailByIdActionsSuccess,
+  FindBailByIdActionsError,
+  ModifierBailActionsSuccess,
+  ModifierBailActionsError,
 } from './baux.actions';
 import {
   ClotureOperationActionsError,
@@ -58,6 +62,58 @@ export class BauxEffects {
           this.sendErrorNotification(
             NotificationType.SUCCESS,
             'Le Bail a été cloturé avec succès.'
+          );
+        } else {
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            'Une erreur a été rencontrée.'
+          );
+        }
+      })
+    )
+  );
+  //FIND BAIL BY ID
+  findBailByIdEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(OperationActionsTypes.FIND_BAIL_BY_ID),
+      mergeMap((action: OperationActions) => {
+        return this.apiService.findOperationById(action.payload).pipe(
+          map((operations) => new FindBailByIdActionsSuccess(operations)),
+          catchError((err) => of(new FindBailByIdActionsError(err.message)))
+        );
+      }),
+      tap((resultat) => {
+        console.log('Resultat effect save Agence', resultat);
+        if (resultat.type == OperationActionsTypes.FIND_BAIL_BY_ID_SUCCES) {
+          this.sendErrorNotification(
+            NotificationType.SUCCESS,
+            'Le Bail a été cloturé avec succès.'
+          );
+        } else {
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            'Une erreur a été rencontrée.'
+          );
+        }
+      })
+    )
+  );
+  // MODIFIER BAIL
+  modifierBailEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(OperationActionsTypes.MODIFIER_BAIL),
+      mergeMap((action: OperationActions) => {
+        return this.apiService.modifierUnBail(action.payload).pipe(
+          map((operations) => new ModifierBailActionsSuccess(operations)),
+          catchError((err) => of(new ModifierBailActionsError(err.message)))
+        );
+      }),
+      tap((resultat) => {
+
+        if (resultat.type == OperationActionsTypes.MODIFIER_BAIL_SUCCES) {
+          this.sendErrorNotification(
+            NotificationType.SUCCESS,
+            'Le Bail a été modifié avec succès.'
           );
         } else {
           this.sendErrorNotification(
