@@ -33,6 +33,7 @@ export class ModifLoyerBailComponent implements OnInit {
   ) {
     this._locale = 'fr';
     this._adapter.setLocale(this._locale);
+    
   }
   v_data: any;
   v_bien: any = '';
