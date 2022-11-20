@@ -178,7 +178,9 @@
                         </button>
                         <button
                           mat-icon-button
-                          color="accent"
+                          matTooltip="Clôturer le bail"
+                          
+                          color="warn"
                           class="mr-2"
                           (click)="
                             onClotureClick(
@@ -192,7 +194,7 @@
                             chargerAppels(element.id)
                           "
                         >
-                          <mat-icon> format_indent_increase</mat-icon>
+                          <mat-icon> no_meeting_room</mat-icon>
                         </button>
                       </div>
                     </section>

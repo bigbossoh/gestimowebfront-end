@@ -3,7 +3,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,7 +14,6 @@ import {
 import { BauxState, BauxStateEnum } from 'src/app/ngrx/baux/baux.reducer';
 import { OperationDto } from '../../../../gs-api/src/models/operation-dto';
 import { GetAllAppelLoyerActions } from '../../../ngrx/appelloyer/appelloyer.actions';
-
 import {
   AppelLoyerState,
   AppelLoyerStateEnum,
@@ -39,6 +38,7 @@ export interface DialogData {
   selector: 'app-page-baux',
   templateUrl: './page-baux.component.html',
   styleUrls: ['./page-baux.component.css'],
+  //encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),

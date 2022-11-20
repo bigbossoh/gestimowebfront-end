@@ -143,7 +143,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import {MatCardModule} from '@angular/material/card';
 import { imageReducer } from './ngrx/images/images.reducer';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     PageStatistiqueJournalierComponent,
@@ -238,6 +238,7 @@ import { imageReducer } from './ngrx/images/images.reducer';
     MatNativeDateModule,
     ScrollingModule,
     MatCardModule,
+    MatTooltipModule,
 
     //ToastrModule.forRoot(),
     StoreModule.forRoot({
