@@ -43,7 +43,7 @@ export enum AppelLoyerctionsTypes {
 export class GetImayerLoyerParAnneeActions implements Action {
   type: AppelLoyerctionsTypes =
     AppelLoyerctionsTypes.GET_IMPAYER_LOYER_PAR_ANNEE;
-  constructor(public payload: number) {}
+  constructor(public payload: any) {}
 }
 
 export class GetImayerLoyerParAnneeActionsSuccess implements Action {
@@ -60,7 +60,7 @@ export class GetImayerLoyerParAnneeActionsError implements Action {
 //GET PAYER PAR ANNEE
 export class GetPayerLoyerParAnneeActions implements Action {
   type: AppelLoyerctionsTypes = AppelLoyerctionsTypes.GET_PAYER_LOYER_PAR_ANNEE;
-  constructor(public payload: number) {}
+  constructor(public payload: any) {}
 }
 
 export class GetPayerLoyerParAnneeActionsSuccess implements Action {
