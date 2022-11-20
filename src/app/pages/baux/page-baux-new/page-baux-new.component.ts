@@ -87,6 +87,7 @@ export class PageBauxNewComponent implements OnInit {
     this.montantCautionApp = this.montantLoyerApp * this.nombreMoisCautionApp;
   }
   calculMontantCautionMag() {
+
     this.montantCautionMag = this.montantLoyerMag * this.nombreMoisCautionMag;
   }
   calculMontantCautionVil() {
