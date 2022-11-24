@@ -126,7 +126,7 @@ export class GetAllAppelLoyerActionsError implements Action {
 export class GetAllAppelLoyerByPeriodeActions implements Action {
   type: AppelLoyerctionsTypes =
     AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_PERIODE;
-  constructor(public payload: string) {}
+  constructor(public payload: any) {}
 }
 
 export class GetAllAppelLoyerByPeriodeActionsSuccess implements Action {

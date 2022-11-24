@@ -356,7 +356,7 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/findAllAppelloyerByPeriode/{periode}" : {
+    "gestimoweb/api/v1/appelloyer/findAllAppelloyerByPeriode/{periode}/{idAgence}" : {
       "get" : {
         "operationId" : "AppelLoyersParPeriode",
         "parameters" : [ {
@@ -364,6 +364,12 @@
           "in" : "path",
           "required" : true,
           "type" : "string"
+        }, {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
         } ],
         "responses" : {
           "200" : {
@@ -1633,7 +1639,7 @@
         }
       }
     },
-    "gestimoweb/api/v1/envoimail/sendmailgrouper/{periode}" : {
+    "gestimoweb/api/v1/envoimail/sendmailgrouper/{periode}/{idAgence}" : {
       "post" : {
         "operationId" : "sendMailGrouperWithAttachment",
         "parameters" : [ {
@@ -1641,6 +1647,12 @@
           "in" : "path",
           "required" : true,
           "type" : "string"
+        }, {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
         } ],
         "responses" : {
           "200" : {

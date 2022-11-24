@@ -168,21 +168,7 @@ export class BauxEffects {
       })
     )
   );
-  // BAIL PAR BIEN
-  // getAllBauxbyBienEffect: Observable<Action> = createEffect(() =>
-  // this.effectActions.pipe(
-  //   ofType(OperationActionsTypes.GET_ALL_PERIODE_BAIL_BY_BIEN),
-  //   mergeMap((action:OperationActions) => {
-  //     return this.apiService.getFirstLoyerImpayerByBien(action.payload).pipe(
-  //       map(
-  //         (operations) =>
-  //           new GetAllperiodeByBienActionsSuccess(operations)
-  //       ),
-  //       catchError((err) => of(new GetAllperiodeByBienActionsError(err.message)))
-  //     );
-  //   })
-  // )
-  // );
+
   // Notification
   private sendErrorNotification(
     notificationType: NotificationType,

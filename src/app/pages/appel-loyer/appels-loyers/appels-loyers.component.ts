@@ -100,8 +100,9 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
     });
   }
   getAppelByPeriode(p: any) {
+    this.user = this.userService.getUserFromLocalCache();
     this.afficheAppelTable = 1;
-    this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(p));
+    this.store.dispatch(new GetAllAppelLoyerByPeriodeActions({periode:p,idAgence:this.user.idAgence}));
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
     this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
       if (data.appelloyers.length) {
@@ -131,7 +132,8 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
     );
   }
   sendQuittanceGrouper(periode: string) {
-    this.store.dispatch(new SendQuittanceByMailActions(periode));
+    this.user = this.userService.getUserFromLocalCache();
+    this.store.dispatch(new SendQuittanceByMailActions({periode:periode,idAgence:this.user.idAgence}));
     this.sendMailState$ = this.store.pipe(map((state) => state.mailState));
   }
   sendQuittanceIndividuel(id: any) {

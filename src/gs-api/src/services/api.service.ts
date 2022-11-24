@@ -66,7 +66,7 @@ class ApiService extends __BaseService {
   static readonly findByNameAppartementPath = 'gestimoweb/api/v1/appartement/findByName/{name}';
   static readonly saveAppartementPath = 'gestimoweb/api/v1/appartement/save';
   static readonly deleteAppelDtoPath = 'gestimoweb/api/v1/appelloyer/clotureOfAppelDtoByID/{id}';
-  static readonly AppelLoyersParPeriodePath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerByPeriode/{periode}';
+  static readonly AppelLoyersParPeriodePath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerByPeriode/{periode}/{idAgence}';
   static readonly getFirstLoyerImpayerByBienPath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerBybien/{id}';
   static readonly listTousAppelsLoyersPath = 'gestimoweb/api/v1/appelloyer/findAllAppelsLoyer/{idAgence}';
   static readonly findAllPeriodePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeAppel/{idAgence}';
@@ -124,7 +124,7 @@ class ApiService extends __BaseService {
   static readonly saveEncaissementMassePath = 'gestimoweb/api/v1/encaissement/saveencaissementmasse';
   static readonly totalencaissementParIdAppelLoyerPath = 'gestimoweb/api/v1/encaissement/totalencaissement/{id}';
   static readonly totalEncaissementParJourPath = 'gestimoweb/api/v1/encaissement/totalencaissementjournalier/{jour}/{idAgence}';
-  static readonly sendMailGrouperWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendmailgrouper/{periode}';
+  static readonly sendMailGrouperWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendmailgrouper/{periode}/{idAgence}';
   static readonly sendMailQuittanceWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendquittancebymail/{id}';
   static readonly saveEspeceEncaissementPath = 'gestimoweb/api/v1/especeencaissement/save';
   static readonly findAllEtagePath = 'gestimoweb/api/v1/etage/all/{idAgence}';
@@ -785,17 +785,23 @@ class ApiService extends __BaseService {
   }
 
   /**
-   * @param periode undefined
+   * @param params The `ApiService.AppelLoyersParPeriodeParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `idAgence`:
+   *
    * @return successful operation
    */
-  AppelLoyersParPeriodeResponse(periode: string): __Observable<__StrictHttpResponse<Array<AppelLoyersFactureDto>>> {
+  AppelLoyersParPeriodeResponse(params: ApiService.AppelLoyersParPeriodeParams): __Observable<__StrictHttpResponse<Array<AppelLoyersFactureDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
 
+
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/appelloyer/findAllAppelloyerByPeriode/${periode}`,
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/findAllAppelloyerByPeriode/${params.periode}/${params.idAgence}`,
       __body,
       {
         headers: __headers,
@@ -811,11 +817,16 @@ class ApiService extends __BaseService {
     );
   }
   /**
-   * @param periode undefined
+   * @param params The `ApiService.AppelLoyersParPeriodeParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `idAgence`:
+   *
    * @return successful operation
    */
-  AppelLoyersParPeriode(periode: string): __Observable<Array<AppelLoyersFactureDto>> {
-    return this.AppelLoyersParPeriodeResponse(periode).pipe(
+  AppelLoyersParPeriode(params: ApiService.AppelLoyersParPeriodeParams): __Observable<Array<AppelLoyersFactureDto>> {
+    return this.AppelLoyersParPeriodeResponse(params).pipe(
       __map(_r => _r.body as Array<AppelLoyersFactureDto>)
     );
   }
@@ -2947,17 +2958,23 @@ class ApiService extends __BaseService {
   }
 
   /**
-   * @param periode undefined
+   * @param params The `ApiService.SendMailGrouperWithAttachmentParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `idAgence`:
+   *
    * @return successful operation
    */
-  sendMailGrouperWithAttachmentResponse(periode: string): __Observable<__StrictHttpResponse<boolean>> {
+  sendMailGrouperWithAttachmentResponse(params: ApiService.SendMailGrouperWithAttachmentParams): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
 
+
     let req = new HttpRequest<any>(
       'POST',
-      this.rootUrl + `gestimoweb/api/v1/envoimail/sendmailgrouper/${periode}`,
+      this.rootUrl + `gestimoweb/api/v1/envoimail/sendmailgrouper/${params.periode}/${params.idAgence}`,
       __body,
       {
         headers: __headers,
@@ -2973,11 +2990,16 @@ class ApiService extends __BaseService {
     );
   }
   /**
-   * @param periode undefined
+   * @param params The `ApiService.SendMailGrouperWithAttachmentParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `idAgence`:
+   *
    * @return successful operation
    */
-  sendMailGrouperWithAttachment(periode: string): __Observable<boolean> {
-    return this.sendMailGrouperWithAttachmentResponse(periode).pipe(
+  sendMailGrouperWithAttachment(params: ApiService.SendMailGrouperWithAttachmentParams): __Observable<boolean> {
+    return this.sendMailGrouperWithAttachmentResponse(params).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -5302,6 +5324,14 @@ module ApiService {
   }
 
   /**
+   * Parameters for AppelLoyersParPeriode
+   */
+  export interface AppelLoyersParPeriodeParams {
+    periode: string;
+    idAgence: number;
+  }
+
+  /**
    * Parameters for findAllPeriodeByAnnee
    */
   export interface FindAllPeriodeByAnneeParams {
@@ -5354,6 +5384,14 @@ module ApiService {
    */
   export interface TotalEncaissementParJourParams {
     jour: string;
+    idAgence: number;
+  }
+
+  /**
+   * Parameters for sendMailGrouperWithAttachment
+   */
+  export interface SendMailGrouperWithAttachmentParams {
+    periode: string;
     idAgence: number;
   }
 

@@ -99,12 +99,12 @@ export class MenuComponent implements OnInit {
         icon: 'fas fa-virus-slash',
         url: 'appelloyers'
       },
-      {
-        id: '32',
-        titre: "Relance loyer",
-        icon: 'fas fa-headset',
-        url: 'relance'
-      },
+      // {
+      //   id: '32',
+      //   titre: "Relance loyer",
+      //   icon: 'fas fa-headset',
+      //   url: 'relance'
+      // },
       {
         id: '33',
         titre: "Règlement individuel",
@@ -173,13 +173,13 @@ export class MenuComponent implements OnInit {
         icon: 'fas fa-file-signature',
         url: 'baux'
       },
-      {
-        id: '62',
-        titre: "loyers par bail",
-        icon: 'fa fa-book'
-        ,
-        url: 'bail-loyers'
-      }
+      // {
+      //   id: '62',
+      //   titre: "loyers par bail",
+      //   icon: 'fa fa-book'
+      //   ,
+      //   url: 'bail-loyers'
+      // }
 
     ]
   }
@@ -196,12 +196,12 @@ export class MenuComponent implements OnInit {
         icon: 'fas fa-tools',
         url: 'reglement-individuel'
       },
-      {
-        id: '73',
-        titre: "Règlement",
-        icon: 'fas fa-toolbox',
-        url: 'paiement'
-      },
+      // {
+      //   id: '73',
+      //   titre: "Règlement",
+      //   icon: 'fas fa-toolbox',
+      //   url: 'paiement'
+      // },
       {
         id: '72',
         titre: "Règlement groupé",
