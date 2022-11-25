@@ -33,7 +33,7 @@ export class ModifLoyerBailComponent implements OnInit {
   ) {
     this._locale = 'fr';
     this._adapter.setLocale(this._locale);
-    
+
   }
   v_data: any;
   v_bien: any = '';
@@ -47,7 +47,7 @@ export class ModifLoyerBailComponent implements OnInit {
       this.v_data.codeAbrvBienImmobilier;
     if (this.v_data.nbreMoisCautionBail > 0) {
       this.v_loyer =
-        this.v_data.montantCautionBail / this.v_data.nbreMoisCautionBail;
+        this.v_data.nouveauMontantLoyer ;
     }
     this.formGroup = this.fb.group({
       idBail: [this.v_data.id],

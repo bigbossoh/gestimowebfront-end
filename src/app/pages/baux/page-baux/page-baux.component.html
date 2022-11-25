@@ -108,7 +108,7 @@
                   <div *ngIf="column == 'Loyer'">
                     <div *ngIf="element.nbreMoisCautionBail > 0">
                       {{
-                        element.montantCautionBail / element.nbreMoisCautionBail
+                        element.nouveauMontantLoyer
                       }}
                     </div>
                   </div>
@@ -179,7 +179,7 @@
                         <button
                           mat-icon-button
                           matTooltip="Clôturer le bail"
-                          
+
                           color="warn"
                           class="mr-2"
                           (click)="
