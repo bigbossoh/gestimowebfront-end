@@ -51,7 +51,7 @@ export class FindBailByIdActionsError implements Action {
 // GET ALL BAUX
 export class ModifierBailActions implements Action {
   type: OperationActionsTypes = OperationActionsTypes.MODIFIER_BAIL;
-  constructor(public payload: AnyForUntypedForms) {}
+  constructor(public payload: any) {}
 }
 
 export class ModifierBailActionsSuccess implements Action {

@@ -1,12 +1,7 @@
 import { ModifierBailActions } from './../../../ngrx/baux/baux.actions';
 import { Store } from '@ngrx/store';
 import { Component, Inject, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from '../page-baux/page-baux.component';
@@ -33,7 +28,6 @@ export class ModifLoyerBailComponent implements OnInit {
   ) {
     this._locale = 'fr';
     this._adapter.setLocale(this._locale);
-
   }
   v_data: any;
   v_bien: any = '';
@@ -46,8 +40,7 @@ export class ModifLoyerBailComponent implements OnInit {
       '/' +
       this.v_data.codeAbrvBienImmobilier;
     if (this.v_data.nbreMoisCautionBail > 0) {
-      this.v_loyer =
-        this.v_data.nouveauMontantLoyer ;
+      this.v_loyer = this.v_data.nouveauMontantLoyer;
     }
     this.formGroup = this.fb.group({
       idBail: [this.v_data.id],
