@@ -13,19 +13,19 @@ private SERVER_URl=environment.serverUrl;
   constructor( private http:HttpClient) { }
 
   public getHttpTrace():Observable<any>{
-   return this.http.get<any>(`${this.SERVER_URl}/httptrace`);
+   return this.http.get<any>(`${this.SERVER_URl}httptrace`);
   }
 
   public getSystemHealth():Observable<SystemHealth>{
-    return this.http.get<SystemHealth>(`${this.SERVER_URl}/health`);
+    return this.http.get<SystemHealth>(`${this.SERVER_URl}health`);
    }
 
    public getSystemCpu():Observable<SystemCpu>{
-    return this.http.get<SystemCpu>(`${this.SERVER_URl}/metrics/system.cpu.count`);
+    return this.http.get<SystemCpu>(`${this.SERVER_URl}metrics/system.cpu.count`);
    }
 
    public getProcessUptime():Observable<any>{
-    return this.http.get<any>(`${this.SERVER_URl}/metrics/process.uptime`);
+    return this.http.get<any>(`${this.SERVER_URl}metrics/process.uptime`);
    }
 
 }

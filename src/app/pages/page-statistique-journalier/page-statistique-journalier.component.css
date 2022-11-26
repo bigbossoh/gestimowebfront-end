@@ -1,10 +1,11 @@
 .example-card {
-  max-width: 400px;
+  max-width: 500px;
   margin-bottom: 8px;
+  
 }
 .example-additional-selection {
-  opacity: 0.75;
-  font-size: 0.75em;
+  opacity: 1;
+  font-size: 1em;
 }
 .example-month-picker .mat-calendar-period-button {
   pointer-events: none;
@@ -13,3 +14,14 @@
 .example-month-picker .mat-calendar-arrow {
   display: none;
 }
+.mat-form-field{
+  width: 100%;
+}
+.mat-card-actions, .mat-card-subtitle, .mat-card-content {
+  display: block;
+  margin-bottom: 0;
+}
+.police{
+  font-weight: bolder;
+}
+

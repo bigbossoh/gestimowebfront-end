@@ -47,7 +47,7 @@ export class PeriodeEffects {
       ofType(PeriodeActionsTypes.GET_PERIODE),
       mergeMap((actions: PeriodeActions) => {
         return this.apiService
-          .findAllPeriodeChiffreEtLettreByAnnee(actions.payload)
+          .findAllPeriode(actions.payload)
           .pipe(
             map((periodes) => new GetAllPeriodeActionsSuccess(periodes)),
             catchError((err) => of(new GetAllPeriodeActionsError(err.message)))
