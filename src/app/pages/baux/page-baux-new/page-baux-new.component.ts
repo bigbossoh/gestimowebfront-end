@@ -102,8 +102,7 @@ export class PageBauxNewComponent implements OnInit {
   //SAVE BAIL APPARTEMENT
   onSaveBailAppartement() {
     this.submitted = true;
-    console.log('Le bail appartement est le suivant : ');
-    console.log(this.bailAppartementForm?.value);
+  
     if (this.bailAppartementForm?.invalid) {
       return;
     }

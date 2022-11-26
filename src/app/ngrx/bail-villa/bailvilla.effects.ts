@@ -13,7 +13,7 @@ export class BailVillaEffects {
   constructor(private apiService: ApiService, private effectActions: Actions, private notificationService: NotificationService) { }
 
   //SAVE EFFECTS
-  saveStudioEffect: Observable<Action> = createEffect(() =>
+  saveBailVillaEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(BailVillaActionsTypes.SAVE_BAIL_VILLA),
       mergeMap((action: BailVillaActions) => {
