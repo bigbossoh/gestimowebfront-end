@@ -71,9 +71,13 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   }
 
   getEncaissementPayerJour(jour: any) {
-    jour = jour.replace('/', '-');
-    jour = jour.replace('/', '-');
-    this.store.dispatch(new TotalEncaissementParJourActions(jour));
+   // jour = jour.replaceAll('/', '-');
+    //jour = jour.replace('/', '-');
+    const jour2 = jour.replaceAll('/', '-');
+    console.log(jour2);
+
+    this.user = this.userService.getUserFromLocalCache();
+    this.store.dispatch(new TotalEncaissementParJourActions({jour:jour2,idAgence:this.user.idAgence}));
     this.totalEncaissementState$ = this.store.pipe(
       map((state) => state.encaissementState)
     );
@@ -81,6 +85,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
       this.v_impayer_annee = data.impayerAnnee;
     });
   }
+
 
   getImpayerParPeriode(periode: string) {
     this.user = this.userService.getUserFromLocalCache();
