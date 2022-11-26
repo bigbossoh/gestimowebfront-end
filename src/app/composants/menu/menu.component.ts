@@ -59,31 +59,32 @@ export class MenuComponent implements OnInit {
         titre: "Agence",
         icon: 'fas fa-hotel',
         url: 'agences'
-      },
-      {
-        id: '22',
-        titre: 'Locataires',
-        icon: 'fa fa-key',
-        url: 'locataires'
-      },
-      {
-        id: '23',
-        titre: 'Gérants',
-        icon: 'fas fa-street-view',
-        url: 'gerants'
-      },
-      {
-        id: '24',
-        titre: 'Proprietaire',
-        icon: 'fas fa-user-graduate',
-        url: 'proprietaires'
-      },
-      {
-        id: '25',
-        titre: 'Administrateur',
-        icon: 'fas fa-crown',
-        url: 'Superviseurs'
       }
+      // ,
+      // {
+      //   id: '22',
+      //   titre: 'Locataires',
+      //   icon: 'fa fa-key',
+      //   url: 'locataires'
+      // },
+      // {
+      //   id: '23',
+      //   titre: 'Gérants',
+      //   icon: 'fas fa-street-view',
+      //   url: 'gerants'
+      // },
+      // {
+      //   id: '24',
+      //   titre: 'Proprietaire',
+      //   icon: 'fas fa-user-graduate',
+      //   url: 'proprietaires'
+      // },
+      // {
+      //   id: '25',
+      //   titre: 'Administrateur',
+      //   icon: 'fas fa-crown',
+      //   url: 'Superviseurs'
+      // }
     ]
   },
 
@@ -110,13 +111,14 @@ export class MenuComponent implements OnInit {
         titre: "Règlement individuel",
         icon: 'fas fa-tools',
         url: 'reglement-individuel'
-      },
-      {
-        id: '34',
-        titre: "Règlement groupé",
-        icon: 'fas fa-toolbox',
-        url: 'reglement-groupe'
       }
+      // ,
+      // {
+      //   id: '34',
+      //   titre: "Règlement groupé",
+      //   icon: 'fas fa-toolbox',
+      //   url: 'reglement-groupe'
+      // }
 
     ]
   },
@@ -202,12 +204,12 @@ export class MenuComponent implements OnInit {
       //   icon: 'fas fa-toolbox',
       //   url: 'paiement'
       // },
-      {
-        id: '72',
-        titre: "Règlement groupé",
-        icon: 'fas fa-toolbox',
-        url: 'reglement-groupe'
-      }
+      // {
+      //   id: '72',
+      //   titre: "Règlement groupé",
+      //   icon: 'fas fa-toolbox',
+      //   url: 'reglement-groupe'
+      // }
     ]
   },
   {
