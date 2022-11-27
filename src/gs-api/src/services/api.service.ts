@@ -41,6 +41,7 @@ import { PaysDto } from '../models/pays-dto';
 import { QuartierRequestDto } from '../models/quartier-request-dto';
 import { SiteResponseDto } from '../models/site-response-dto';
 import { SiteRequestDto } from '../models/site-request-dto';
+import { SuivieDepenseDto } from '../models/suivie-depense-dto';
 import { UtilisateurAfficheDto } from '../models/utilisateur-affiche-dto';
 import { UtilisateurRequestDto } from '../models/utilisateur-request-dto';
 import { LocataireEncaisDTO } from '../models/locataire-encais-dto';
@@ -133,6 +134,7 @@ class ApiService extends __BaseService {
   static readonly affichageDesEtageParImmeublePath = 'gestimoweb/api/v1/etage/findByIdImmeuble/{id}';
   static readonly findEtageByNamePath = 'gestimoweb/api/v1/etage/findByName/{name}';
   static readonly saveEtagePath = 'gestimoweb/api/v1/etage/save';
+  static readonly uploadFilePath = 'gestimoweb/api/v1/file/upload-file';
   static readonly affichageDesImmeublesPath = 'gestimoweb/api/v1/immeuble/affichetoutlesimmeubles/{idAgence}';
   static readonly findAllImmeublePath = 'gestimoweb/api/v1/immeuble/all/{idAgence}';
   static readonly deleteImmeublePath = 'gestimoweb/api/v1/immeuble/deleteImmeuble/{id}';
@@ -167,6 +169,10 @@ class ApiService extends __BaseService {
   static readonly findSiteByNamePath = 'gestimoweb/api/v1/sites/findByName/{name}';
   static readonly savePath = 'gestimoweb/api/v1/sites/save';
   static readonly saveSitePath = 'gestimoweb/api/v1/sites/savesite';
+  static readonly getAllEncaissementSuivieDepenseParAgencePath = 'gestimoweb/api/v1/suiviedepense/allSuivieDepense/{idAgence}';
+  static readonly getSuivieDepenseByCodeTransactionPath = 'gestimoweb/api/v1/suiviedepense/getSuivieDepenseByCodeTransaction/{codeTransaction}';
+  static readonly getSuivieDepenseByIdPath = 'gestimoweb/api/v1/suiviedepense/getSuivieDepenseById/{id}';
+  static readonly saveSuivieDepensePath = 'gestimoweb/api/v1/suiviedepense/saveSuivieDepense';
   static readonly getAllUtilisateursByOrderPath = 'gestimoweb/api/v1/utilisateur/all/{idAgence}';
   static readonly getAllGerantsByOrderPath = 'gestimoweb/api/v1/utilisateur/gerants/all/{idAgence}';
   static readonly getUtilisateurByAgencePath = 'gestimoweb/api/v1/utilisateur/getAllutilisateurbyAgence/{idAgence}';
@@ -3293,6 +3299,42 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param file undefined
+   * @return successful operation
+   */
+  uploadFileResponse(file: any): __Observable<__StrictHttpResponse<string>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    if (file != null) __params = __params.set('file', file.toString());
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/file/upload-file`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<string>;
+      })
+    );
+  }
+  /**
+   * @param file undefined
+   * @return successful operation
+   */
+  uploadFile(file: any): __Observable<string> {
+    return this.uploadFileResponse(file).pipe(
+      __map(_r => _r.body as string)
+    );
+  }
+
+  /**
    * @param idAgence undefined
    * @return successful operation
    */
@@ -4526,6 +4568,150 @@ class ApiService extends __BaseService {
   saveSite(body?: SiteRequestDto): __Observable<SiteResponseDto> {
     return this.saveSiteResponse(body).pipe(
       __map(_r => _r.body as SiteResponseDto)
+    );
+  }
+
+  /**
+   * @param idAgence undefined
+   * @return successful operation
+   */
+  getAllEncaissementSuivieDepenseParAgenceResponse(idAgence: number): __Observable<__StrictHttpResponse<Array<SuivieDepenseDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/suiviedepense/allSuivieDepense/${idAgence}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<SuivieDepenseDto>>;
+      })
+    );
+  }
+  /**
+   * @param idAgence undefined
+   * @return successful operation
+   */
+  getAllEncaissementSuivieDepenseParAgence(idAgence: number): __Observable<Array<SuivieDepenseDto>> {
+    return this.getAllEncaissementSuivieDepenseParAgenceResponse(idAgence).pipe(
+      __map(_r => _r.body as Array<SuivieDepenseDto>)
+    );
+  }
+
+  /**
+   * @param codeTransaction undefined
+   * @return successful operation
+   */
+  getSuivieDepenseByCodeTransactionResponse(codeTransaction: string): __Observable<__StrictHttpResponse<SuivieDepenseDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/suiviedepense/getSuivieDepenseByCodeTransaction/${codeTransaction}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<SuivieDepenseDto>;
+      })
+    );
+  }
+  /**
+   * @param codeTransaction undefined
+   * @return successful operation
+   */
+  getSuivieDepenseByCodeTransaction(codeTransaction: string): __Observable<SuivieDepenseDto> {
+    return this.getSuivieDepenseByCodeTransactionResponse(codeTransaction).pipe(
+      __map(_r => _r.body as SuivieDepenseDto)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  getSuivieDepenseByIdResponse(id: number): __Observable<__StrictHttpResponse<SuivieDepenseDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/suiviedepense/getSuivieDepenseById/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<SuivieDepenseDto>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  getSuivieDepenseById(id: number): __Observable<SuivieDepenseDto> {
+    return this.getSuivieDepenseByIdResponse(id).pipe(
+      __map(_r => _r.body as SuivieDepenseDto)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveSuivieDepenseResponse(body?: SuivieDepenseDto): __Observable<__StrictHttpResponse<SuivieDepenseDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/suiviedepense/saveSuivieDepense`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<SuivieDepenseDto>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveSuivieDepense(body?: SuivieDepenseDto): __Observable<SuivieDepenseDto> {
+    return this.saveSuivieDepenseResponse(body).pipe(
+      __map(_r => _r.body as SuivieDepenseDto)
     );
   }
 
