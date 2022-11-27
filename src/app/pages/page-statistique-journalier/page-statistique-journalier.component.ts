@@ -53,12 +53,14 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   periode_model =
     this.selectedDate.getFullYear() + '-' + this.selectedDate.getMonth();
   annee_model = this.selectedDate.getFullYear();
+
   v_impayer_annee = 0;
   v_payer_annee = 0;
   v_impayer_mois = 0;
   v_payer_mois = 0;
   v_user_id: number = 0;
   v_agence = 0;
+  v_jour: any;
   constructor(
     private store: Store<any>,
     private _adapter: DateAdapter<Date>,
@@ -192,18 +194,58 @@ export class PageStatistiqueJournalierComponent implements OnInit {
       this.v_payer_annee = data.payerAnnee;
     });
     //FIN PAYER PAR ANNEE
-    this.getEncaissementPayerJour(this.selectedDate);
-    alert(
-      this.selectedDate + ' ' + this.annee_model + ' ' + this.periode_model
+    // ENCAISSEMENT JOURNALIER
+    const date_du_jour = formatDate(this.selectedDate,'yyyy-MM-dd','en')
+
+
+    this.store.dispatch(
+      new TotalEncaissementParJourActions({
+        jour: date_du_jour,
+        idAgence: this.user.idAgence,
+      })
     );
+    this.totalEncaissementState$ = this.store.pipe(
+      map((state) => state.encaissementState)
+    );
+    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
+      this.v_impayer_annee = data.impayerAnnee;
+    });
+    // FIN ANCAISSEMENT JOURNALIER
+    // this.getEncaissementPayerJour(this.selectedDate);
+
+    // alert(
+    //   this.selectedDate + ' ' + this.annee_model + ' ' + this.periode_model
+    // );
     // this.getImpayerParAnnee(this.annee_model);
     // this.getPayerParAnnee(this.annee_model);
     // IMPAYER PAR PERIODE
-    this.getImpayerParPeriode(this.periode_model);
+    this.store.dispatch(
+      new GetImpayerLoyerParPeriodeActions({
+        periode: this.periode_model,
+        idAgence: this.user!.idAgence,
+      })
+    );
+    this.appelLoyerImpayerMoisState$ = this.store.pipe(
+      map((state) => state.appelLoyerState)
+    );
+    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
+      this.v_impayer_mois = data.impayerPeriode;
+    });
     // FIN IMPAYER PAR PERIODE
 
     // PAYER PAR PERIODE
-    this.getPayerParPeriode(this.annee_model);
+    this.store.dispatch(
+      new GetPayerLoyerParPeriodeActions({
+        periode: this.periode_model,
+        idAgence: this.user!.idAgence,
+      })
+    );
+    this.appelLoyerPayerMoisState$ = this.store.pipe(
+      map((state) => state.appelLoyerState)
+    );
+    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
+      this.v_payer_mois = data.payerPeriode;
+    });
     // FIN PAYER PAR PERIODE
   }
   longText = ``;
