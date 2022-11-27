@@ -61,6 +61,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   v_user_id: number = 0;
   v_agence = 0;
   v_jour: any;
+  v_encaissemnt: number = 0;
   constructor(
     private store: Store<any>,
     private _adapter: DateAdapter<Date>,
@@ -76,7 +77,6 @@ export class PageStatistiqueJournalierComponent implements OnInit {
     // jour = jour.replaceAll('/', '-');
     //jour = jour.replace('/', '-');
     const jour2 = jour.replaceAll('/', '-');
-    console.log(jour2);
 
     this.user = this.userService.getUserFromLocalCache();
     this.store.dispatch(
@@ -88,9 +88,6 @@ export class PageStatistiqueJournalierComponent implements OnInit {
     this.totalEncaissementState$ = this.store.pipe(
       map((state) => state.encaissementState)
     );
-    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
-      this.v_impayer_annee = data.impayerAnnee;
-    });
   }
 
   getImpayerParPeriode(periode: string) {
@@ -195,9 +192,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
     });
     //FIN PAYER PAR ANNEE
     // ENCAISSEMENT JOURNALIER
-    const date_du_jour = formatDate(this.selectedDate,'yyyy-MM-dd','en')
-
-
+    const date_du_jour = formatDate(this.selectedDate, 'dd-MM-yyyy', 'en');
     this.store.dispatch(
       new TotalEncaissementParJourActions({
         jour: date_du_jour,
@@ -207,11 +202,14 @@ export class PageStatistiqueJournalierComponent implements OnInit {
     this.totalEncaissementState$ = this.store.pipe(
       map((state) => state.encaissementState)
     );
-    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
-      this.v_impayer_annee = data.impayerAnnee;
-    });
+    this.store
+      .pipe(map((state) => state.encaissementState))
+      .subscribe((data) => {
+        console.log(data);
+
+        this.v_encaissemnt = data.montantEncaisse;
+      });
     // FIN ANCAISSEMENT JOURNALIER
-    // this.getEncaissementPayerJour(this.selectedDate);
 
     // alert(
     //   this.selectedDate + ' ' + this.annee_model + ' ' + this.periode_model
