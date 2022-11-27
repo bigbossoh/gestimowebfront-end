@@ -58,7 +58,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   v_impayer_mois = 0;
   v_payer_mois = 0;
   v_user_id: number = 0;
-  v_agence=0;
+  v_agence = 0;
   constructor(
     private store: Store<any>,
     private _adapter: DateAdapter<Date>,
@@ -71,13 +71,18 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   }
 
   getEncaissementPayerJour(jour: any) {
-   // jour = jour.replaceAll('/', '-');
+    // jour = jour.replaceAll('/', '-');
     //jour = jour.replace('/', '-');
     const jour2 = jour.replaceAll('/', '-');
     console.log(jour2);
 
     this.user = this.userService.getUserFromLocalCache();
-    this.store.dispatch(new TotalEncaissementParJourActions({jour:jour2,idAgence:this.user.idAgence}));
+    this.store.dispatch(
+      new TotalEncaissementParJourActions({
+        jour: jour2,
+        idAgence: this.user.idAgence,
+      })
+    );
     this.totalEncaissementState$ = this.store.pipe(
       map((state) => state.encaissementState)
     );
@@ -86,13 +91,14 @@ export class PageStatistiqueJournalierComponent implements OnInit {
     });
   }
 
-
   getImpayerParPeriode(periode: string) {
     this.user = this.userService.getUserFromLocalCache();
 
     this.store.dispatch(
-
-      new GetImpayerLoyerParPeriodeActions({periode: periode,idAgence: this.user!.idAgence})
+      new GetImpayerLoyerParPeriodeActions({
+        periode: periode,
+        idAgence: this.user!.idAgence,
+      })
     );
     this.appelLoyerImpayerMoisState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
@@ -104,7 +110,12 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   getImpayerParAnnee(annee: number) {
     this.user = this.userService.getUserFromLocalCache();
 
-    this.store.dispatch(new GetImayerLoyerParAnneeActions({idAgence:this.user!.idAgence,annee:annee}));
+    this.store.dispatch(
+      new GetImayerLoyerParAnneeActions({
+        idAgence: this.user!.idAgence,
+        annee: annee,
+      })
+    );
     this.appelLoyerState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
     );
@@ -114,7 +125,12 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   }
   getPayerParAnnee(annee: number) {
     this.user = this.userService.getUserFromLocalCache();
-    this.store.dispatch(new GetPayerLoyerParAnneeActions({idAgence:this.user!.idAgence,annee:annee}));
+    this.store.dispatch(
+      new GetPayerLoyerParAnneeActions({
+        idAgence: this.user!.idAgence,
+        annee: annee,
+      })
+    );
     this.appelLoyerPayerState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
     );
@@ -125,7 +141,12 @@ export class PageStatistiqueJournalierComponent implements OnInit {
 
   getPayerParPeriode(periode: any) {
     this.user = this.userService.getUserFromLocalCache();
-    this.store.dispatch(new GetPayerLoyerParPeriodeActions({periode: periode,idAgence: this.user!.idAgence}));
+    this.store.dispatch(
+      new GetPayerLoyerParPeriodeActions({
+        periode: periode,
+        idAgence: this.user!.idAgence,
+      })
+    );
     this.appelLoyerPayerMoisState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
     );
@@ -140,12 +161,50 @@ export class PageStatistiqueJournalierComponent implements OnInit {
 
     this.store.dispatch(new GetAllPeriodeActions(this.user!.idAgence));
     this.periodeState$ = this.store.pipe(map((state) => state.periodeState));
+    //alert("1: " + this.selectedDate + " " + this.annee_model + " " + this.periode_model)
 
+    // INITIALISER LES IMPAYES PAR ANNEE
+    this.store.dispatch(
+      new GetImayerLoyerParAnneeActions({
+        idAgence: this.user!.idAgence,
+        annee: this.annee_model,
+      })
+    );
+    this.appelLoyerState$ = this.store.pipe(
+      map((state) => state.appelLoyerState)
+    );
+    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
+      this.v_impayer_annee = data.impayerAnnee;
+    });
+
+    // FIN INITIALISER LES IMPAYER PAR ANNEE
+    // PAYER PAR ANNEE
+    this.store.dispatch(
+      new GetPayerLoyerParAnneeActions({
+        idAgence: this.user!.idAgence,
+        annee: this.annee_model,
+      })
+    );
+    this.appelLoyerPayerState$ = this.store.pipe(
+      map((state) => state.appelLoyerState)
+    );
+    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
+      this.v_payer_annee = data.payerAnnee;
+    });
+    //FIN PAYER PAR ANNEE
     this.getEncaissementPayerJour(this.selectedDate);
-    this.getImpayerParAnnee(this.annee_model);
-    this.getPayerParAnnee(this.annee_model);
+    alert(
+      this.selectedDate + ' ' + this.annee_model + ' ' + this.periode_model
+    );
+    // this.getImpayerParAnnee(this.annee_model);
+    // this.getPayerParAnnee(this.annee_model);
+    // IMPAYER PAR PERIODE
     this.getImpayerParPeriode(this.periode_model);
+    // FIN IMPAYER PAR PERIODE
+
+    // PAYER PAR PERIODE
     this.getPayerParPeriode(this.annee_model);
+    // FIN PAYER PAR PERIODE
   }
   longText = ``;
   toppings = new FormControl('');
