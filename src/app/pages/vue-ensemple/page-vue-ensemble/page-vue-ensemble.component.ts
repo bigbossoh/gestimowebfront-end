@@ -39,11 +39,7 @@ export class PageVueEnsembleComponent implements OnInit {
     this.getNbrebauxActif();
   }
   private getIdAgence(): number{
-
-    console.log(`nombre d'utilisateur par agence $(this.userService.getUserFromLocalCache().idAgence!)`,this.userService.getUserFromLocalCache().idAgence!);
     return this.userService.getUserFromLocalCache().idAgence!;
-
-
   }
   private getNombreBienImmobiliers(){
     this.statistique.getAllBienImmobilier().subscribe(
@@ -66,16 +62,6 @@ export class PageVueEnsembleComponent implements OnInit {
       }
     )
   }
-  // private getNbreLocataire(){
-  //   this.statistique.getAllLocatire(this.getIdAgence()).subscribe(
-  //     (response)=>{
-  //       this.totalUtilisateur=response.length
-  //     },
-  //     (error: HttpErrorResponse) => {
-  //       alert(error.message);
-  //     }
-  //   )
-  // }
 
   private getNbreLocataire(){
     this.statistique.getAllLocatire().subscribe(

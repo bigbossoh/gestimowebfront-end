@@ -67,7 +67,7 @@ export class PageNewUtilisateurComponent implements OnInit {
         idCreateur: [this.user?.id],
         nom: ['', [Validators.required]],
         prenom: [''],
-        email: ['', [Validators.required, Validators.email]],
+        email: ['', [ Validators.email]],
         mobile: [''],
         dateDeNaissance: [''],
         lieuNaissance: [''],
