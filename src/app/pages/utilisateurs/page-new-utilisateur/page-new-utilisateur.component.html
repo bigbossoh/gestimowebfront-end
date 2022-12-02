@@ -72,10 +72,10 @@
                     <mat-error>Ce champ est obligatoire.</mat-error>
                   </mat-form-field>
                   <mat-form-field appearance="outline">
-                    <mat-label>Email*</mat-label>
+                    <mat-label>Email</mat-label>
                     <input formControlName="email" matInput placeholder="Email" placeholder="Ex. pat@example.com">
-                    <mat-error *ngIf="newUserForm.controls['email'].errors?.required">Ce champ est obligatoire.
-                    </mat-error>
+                    <!-- <mat-error *ngIf="newUserForm.controls['email'].errors?.required">Ce champ est obligatoire.
+                    </mat-error> -->
                     <mat-error *ngIf="newUserForm.controls['email'].errors?.email">Invalide email adresse.
                     </mat-error>
                   </mat-form-field>
