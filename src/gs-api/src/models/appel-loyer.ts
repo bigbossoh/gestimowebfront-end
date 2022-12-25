@@ -19,6 +19,9 @@ export interface AppelLoyer {
   descAppelLoyer?: string;
   montantLoyerBailLPeriode?: number;
   soldeAppelLoyer?: number;
+  ancienMontant?: number;
+  pourcentageReduction?: number;
+  messageReduction?: string;
   bailLocationAppelLoyer?: BailLocation;
   encaissementsAppelLoyer?: Array<Encaissement>;
   solderAppelLoyer?: boolean;

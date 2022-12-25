@@ -9,13 +9,13 @@ import { map as __map, filter as __filter } from 'rxjs/operators';
 
 import { AgenceImmobilierDTO } from '../models/agence-immobilier-dto';
 import { AgenceResponseDto } from '../models/agence-response-dto';
-import { ImageModel } from '../models/image-model';
 import { AgenceRequestDto } from '../models/agence-request-dto';
 import { AppartementDto } from '../models/appartement-dto';
 import { AppelLoyersFactureDto } from '../models/appel-loyers-facture-dto';
 import { PeriodeDto } from '../models/periode-dto';
 import { AnneeAppelLoyersDto } from '../models/annee-appel-loyers-dto';
 import { AppelLoyerDto } from '../models/appel-loyer-dto';
+import { PourcentageAppelDto } from '../models/pourcentage-appel-dto';
 import { AppelLoyerRequestDto } from '../models/appel-loyer-request-dto';
 import { Utilisateur } from '../models/utilisateur';
 import { AuthRequestDto } from '../models/auth-request-dto';
@@ -56,7 +56,6 @@ class ApiService extends __BaseService {
   static readonly getAgenceByEmailAgencePath = 'gestimoweb/api/v1/agences/getagencebyemail/{email}';
   static readonly getAgenceByIDAgencePath = 'gestimoweb/api/v1/agences/getagencebyid/{id}';
   static readonly getlogoPath = 'gestimoweb/api/v1/agences/getlogo/{id}';
-  static readonly saveAgenceLogoPath = 'gestimoweb/api/v1/agences/saveagencelogo';
   static readonly saveLogoPath = 'gestimoweb/api/v1/agences/savelogo';
   static readonly authenticateAgencePath = 'gestimoweb/api/v1/agences/signup';
   static readonly findAllAppartementPath = 'gestimoweb/api/v1/appartement/all/{id}';
@@ -81,6 +80,7 @@ class ApiService extends __BaseService {
   static readonly listOfDistinctAnneeAppelPath = 'gestimoweb/api/v1/appelloyer/listOfDistinctAnneeAppel/{idAgence}';
   static readonly payeLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/payeParAnnee/{annee}/{idAgence}';
   static readonly payeLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/payeParMois/{periode}/{idAgence}';
+  static readonly ReductionLoyerByPeriodePath = 'gestimoweb/api/v1/appelloyer/reductionLoyerByPeriode';
   static readonly saveAppelLoyersPath = 'gestimoweb/api/v1/appelloyer/save';
   static readonly verifyAccountPath = 'gestimoweb/api/v1/auth/accountVerification/{token}';
   static readonly loginPath = 'gestimoweb/api/v1/auth/login';
@@ -134,7 +134,6 @@ class ApiService extends __BaseService {
   static readonly affichageDesEtageParImmeublePath = 'gestimoweb/api/v1/etage/findByIdImmeuble/{id}';
   static readonly findEtageByNamePath = 'gestimoweb/api/v1/etage/findByName/{name}';
   static readonly saveEtagePath = 'gestimoweb/api/v1/etage/save';
-  static readonly uploadFilePath = 'gestimoweb/api/v1/file/upload-file';
   static readonly affichageDesImmeublesPath = 'gestimoweb/api/v1/immeuble/affichetoutlesimmeubles/{idAgence}';
   static readonly findAllImmeublePath = 'gestimoweb/api/v1/immeuble/all/{idAgence}';
   static readonly deleteImmeublePath = 'gestimoweb/api/v1/immeuble/deleteImmeuble/{id}';
@@ -380,53 +379,6 @@ class ApiService extends __BaseService {
   getlogo(id: number): __Observable<Array<string>> {
     return this.getlogoResponse(id).pipe(
       __map(_r => _r.body as Array<string>)
-    );
-  }
-
-  /**
-   * @param params The `ApiService.SaveAgenceLogoParams` containing the following parameters:
-   *
-   * - `imageFile`:
-   *
-   * - `idAgence`:
-   *
-   * @return successful operation
-   */
-  saveAgenceLogoResponse(params: ApiService.SaveAgenceLogoParams): __Observable<__StrictHttpResponse<ImageModel>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-
-
-    let req = new HttpRequest<any>(
-      'POST',
-      this.rootUrl + `gestimoweb/api/v1/agences/saveagencelogo`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<ImageModel>;
-      })
-    );
-  }
-  /**
-   * @param params The `ApiService.SaveAgenceLogoParams` containing the following parameters:
-   *
-   * - `imageFile`:
-   *
-   * - `idAgence`:
-   *
-   * @return successful operation
-   */
-  saveAgenceLogo(params: ApiService.SaveAgenceLogoParams): __Observable<ImageModel> {
-    return this.saveAgenceLogoResponse(params).pipe(
-      __map(_r => _r.body as ImageModel)
     );
   }
 
@@ -1368,6 +1320,42 @@ class ApiService extends __BaseService {
   payeLoyerParMois(params: ApiService.PayeLoyerParMoisParams): __Observable<number> {
     return this.payeLoyerParMoisResponse(params).pipe(
       __map(_r => _r.body as number)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  ReductionLoyerByPeriodeResponse(body?: PourcentageAppelDto): __Observable<__StrictHttpResponse<Array<AppelLoyersFactureDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/reductionLoyerByPeriode`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<AppelLoyersFactureDto>>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  ReductionLoyerByPeriode(body?: PourcentageAppelDto): __Observable<Array<AppelLoyersFactureDto>> {
+    return this.ReductionLoyerByPeriodeResponse(body).pipe(
+      __map(_r => _r.body as Array<AppelLoyersFactureDto>)
     );
   }
 
@@ -3295,42 +3283,6 @@ class ApiService extends __BaseService {
   saveEtage(body?: EtageDto): __Observable<EtageDto> {
     return this.saveEtageResponse(body).pipe(
       __map(_r => _r.body as EtageDto)
-    );
-  }
-
-  /**
-   * @param file undefined
-   * @return successful operation
-   */
-  uploadFileResponse(file: any): __Observable<__StrictHttpResponse<string>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-    if (file != null) __params = __params.set('file', file.toString());
-    let req = new HttpRequest<any>(
-      'POST',
-      this.rootUrl + `gestimoweb/api/v1/file/upload-file`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'text'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<string>;
-      })
-    );
-  }
-  /**
-   * @param file undefined
-   * @return successful operation
-   */
-  uploadFile(file: any): __Observable<string> {
-    return this.uploadFileResponse(file).pipe(
-      __map(_r => _r.body as string)
     );
   }
 
@@ -5500,14 +5452,6 @@ class ApiService extends __BaseService {
 }
 
 module ApiService {
-
-  /**
-   * Parameters for saveAgenceLogo
-   */
-  export interface SaveAgenceLogoParams {
-    imageFile: any;
-    idAgence: number;
-  }
 
   /**
    * Parameters for AppelLoyersParPeriode

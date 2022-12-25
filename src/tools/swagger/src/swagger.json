@@ -117,30 +117,6 @@
         }
       }
     },
-    "gestimoweb/api/v1/agences/saveagencelogo" : {
-      "post" : {
-        "operationId" : "saveAgenceLogo",
-        "parameters" : [ {
-          "name" : "idAgence",
-          "in" : "path",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int64"
-        }, {
-          "name" : "imageFile",
-          "in" : "path",
-          "required" : true
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "$ref" : "#/definitions/ImageModel"
-            }
-          }
-        }
-      }
-    },
     "gestimoweb/api/v1/agences/savelogo" : {
       "post" : {
         "operationId" : "saveLogo",
@@ -699,6 +675,30 @@
             "schema" : {
               "type" : "number",
               "format" : "double"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appelloyer/reductionLoyerByPeriode" : {
+      "post" : {
+        "operationId" : "ReductionLoyerByPeriode",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/PourcentageAppelDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AppelLoyersFactureDto"
+              }
             }
           }
         }
@@ -1826,24 +1826,6 @@
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/EtageDto"
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/file/upload-file" : {
-      "post" : {
-        "operationId" : "uploadFile",
-        "parameters" : [ {
-          "name" : "file",
-          "in" : "query",
-          "required" : true
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "string"
             }
           }
         }
@@ -3179,68 +3161,6 @@
         }
       }
     },
-    "AgenceImmobiliere" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "idAgence" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "idCreateur" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "creationDate" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "lastModifiedDate" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "nomAgence" : {
-          "type" : "string"
-        },
-        "telAgence" : {
-          "type" : "string"
-        },
-        "compteContribuable" : {
-          "type" : "string"
-        },
-        "capital" : {
-          "type" : "number",
-          "format" : "double"
-        },
-        "emailAgence" : {
-          "type" : "string"
-        },
-        "mobileAgence" : {
-          "type" : "string"
-        },
-        "regimeFiscaleAgence" : {
-          "type" : "string"
-        },
-        "faxAgence" : {
-          "type" : "string"
-        },
-        "sigleAgence" : {
-          "type" : "string"
-        },
-        "adresseAgence" : {
-          "type" : "string"
-        },
-        "imageModels" : {
-          "type" : "array",
-          "items" : {
-            "$ref" : "#/definitions/ImageModel"
-          }
-        }
-      }
-    },
     "AgenceRequestDto" : {
       "type" : "object",
       "properties" : {
@@ -3499,6 +3419,17 @@
           "type" : "number",
           "format" : "double"
         },
+        "ancienMontant" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "pourcentageReduction" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "messageReduction" : {
+          "type" : "string"
+        },
         "bailLocationAppelLoyer" : {
           "$ref" : "#/definitions/BailLocation"
         },
@@ -3724,6 +3655,17 @@
         "nouveauMontantLoyer" : {
           "type" : "number",
           "format" : "double"
+        },
+        "ancienMontant" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "pourcentageReduction" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "messageReduction" : {
+          "type" : "string"
         },
         "solderAppelLoyer" : {
           "type" : "boolean"
@@ -4465,47 +4407,6 @@
         }
       }
     },
-    "ImageModel" : {
-      "type" : "object",
-      "properties" : {
-        "id" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "idAgence" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "idCreateur" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "creationDate" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "lastModifiedDate" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "name" : {
-          "type" : "string"
-        },
-        "type" : {
-          "type" : "string"
-        },
-        "logoAgence" : {
-          "$ref" : "#/definitions/AgenceImmobiliere"
-        },
-        "picByte" : {
-          "type" : "array",
-          "items" : {
-            "type" : "string",
-            "format" : "byte"
-          }
-        }
-      }
-    },
     "ImmeubleDto" : {
       "type" : "object",
       "properties" : {
@@ -4695,10 +4596,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -4748,10 +4649,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -4882,10 +4783,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         }
       }
@@ -5033,6 +4934,25 @@
           "type" : "string"
         },
         "periodeLettre" : {
+          "type" : "string"
+        }
+      }
+    },
+    "PourcentageAppelDto" : {
+      "type" : "object",
+      "properties" : {
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "periodeAppelLoyer" : {
+          "type" : "string"
+        },
+        "tauxApplique" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "messageReduction" : {
           "type" : "string"
         }
       }
