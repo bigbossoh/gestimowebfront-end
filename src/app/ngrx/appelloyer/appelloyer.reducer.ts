@@ -71,6 +71,23 @@ export function appelLoyerReducer(
         dataState: AppelLoyerStateEnum.ERROR,
         errorMessage: (<AppelLoyerActions>action).payload,
       };
+
+// SAVE REDUCTION LOYER
+case AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER:
+  return { ...state, dataState: AppelLoyerStateEnum.LOADING };
+case AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_SUCCES:
+  return {
+    ...state,
+    dataState: AppelLoyerStateEnum.LOADED,
+    appelloyers: (<AppelLoyerActions>action).payload,
+  };
+case AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_ERROR:
+  return {
+    ...state,
+    dataState: AppelLoyerStateEnum.ERROR,
+    errorMessage: (<AppelLoyerActions>action).payload,
+  };
+
     // GET IMPAYER PAR ANNEE
     case AppelLoyerctionsTypes.GET_IMPAYER_LOYER_PAR_ANNEE:
       return { ...state, dataState: AppelLoyerStateEnum.LOADING };

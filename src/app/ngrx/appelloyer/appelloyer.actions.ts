@@ -10,6 +10,10 @@ import { AnneeAppelLoyersDto } from '../../../gs-api/src/models/annee-appel-loye
 
 //STORE
 export enum AppelLoyerctionsTypes {
+  SAVE_REDUCTION_LOYER = '[AppelLoyer] SAVE REDUCTION',
+  SAVE_REDUCTION_LOYER_SUCCES = '[AppelLoyer] SAVE REDUCTION Succes',
+  SAVE_REDUCTION_LOYER_ERROR = '[AppelLoyer] SAVE REDUCTION Error',
+
   GET_ALL_APPELLOYER_ANNEE = '[AppelLoyer] Get All AppelLoyer Année',
   GET_ALL_APPELLOYER_ANNEE_SUCCES = '[AppelLoyer] Get All AppelLoyer Années Succes',
   GET_ALL_APPELLOYER_ANNEE_ERROR = '[AppelLoyer] Get All AppelLoyer AnnéEtagesState Error',
@@ -156,7 +160,26 @@ export class GetAllAppelLoyerAnneeActionsError implements Action {
   constructor(public payload: string) {}
 }
 
+// SAVE REDUCTION
+export class SaveReductionActions implements Action {
+  type: AppelLoyerctionsTypes = AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER;
+  constructor(public payload: any) {}
+}
+
+export class SaveReductionActionsSuccess implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_SUCCES;
+  constructor(public payload: AppelLoyersFactureDto[]) {}
+}
+export class SaveReductionActionsError implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_ERROR;
+  constructor(public payload: string) {}
+}
 export type AppelLoyerActions =
+  |SaveReductionActions
+  |SaveReductionActionsError
+  |SaveReductionActionsSuccess
   | GetAllAppelLoyerActions
   | GetAllAppelLoyerActionsError
   | GetAllAppelLoyerActionsSuccess

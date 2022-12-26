@@ -1,8 +1,10 @@
+import { NotificationService } from './../../services/notification/notification.service';
+import { NotificationType } from './../../enum/natification-type.enum';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { ApiService } from 'src/gs-api/src/services';
 import {
   GetAllAppelLoyerByPeriodeActionsSuccess,
@@ -17,6 +19,8 @@ import {
   GetImpayerLoyerParPeriodeActionsSuccess,
   GetPayerLoyerParPeriodeActionsSuccess,
   GetPayerLoyerParPeriodeActionsError,
+  SaveReductionActionsSuccess,
+  SaveReductionActionsError,
 } from './appelloyer.actions';
 import {
   AppelLoyerctionsTypes,
@@ -27,7 +31,11 @@ import {
 
 @Injectable()
 export class AppelLoyerEffects {
-  constructor(private apiService: ApiService, private effectActions: Actions) {}
+  constructor(
+    private apiService: ApiService,
+    private effectActions: Actions,
+    private notificationService: NotificationService
+  ) {}
 
   //LISTE DES APPEL LOYER
   getAllAppelEffect: Observable<Action> = createEffect(() =>
@@ -106,6 +114,45 @@ export class AppelLoyerEffects {
       })
     )
   );
+  // SAVE REDUCTION LOYER
+
+  saveReductionLoyerPeriodeEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER),
+      mergeMap((action: AppelLoyerActions) => {
+        return this.apiService.ReductionLoyerByPeriode(action.payload).pipe(
+          map((appelloyers) => new SaveReductionActionsSuccess(appelloyers)),
+          catchError((err) => of(new SaveReductionActionsError(err.message)))
+        );
+      }),
+      tap((resultat) =>
+            {
+              console.log(
+                'Le bon resultat est le suivant pour la reduction du bail'
+              );
+              console.log(resultat.type);
+
+              if (
+                resultat.type ==
+                AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_SUCCES
+              ) {
+                this.sendErrorNotification(
+                  NotificationType.SUCCESS,
+                  'Le Bail a été modifié avec succès.'
+                );
+              }
+              if (
+                resultat.type ==
+                AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_ERROR
+              ) {
+                this.sendErrorNotification(
+                  NotificationType.ERROR,
+                  'Une erreur a été rencontrée: ' + resultat.payload
+                );
+              }
+            })
+    )
+  );
   //LISTES DES APPEL LOYER PAR PERIODE
   //LISTE DES APPEL LOYER
   getAllAppelByPeriodeEffect: Observable<Action> = createEffect(() =>
@@ -136,9 +183,49 @@ export class AppelLoyerEffects {
             map((annees) => new GetAllAppelLoyerAnneeActionsSuccess(annees)),
             catchError((err) =>
               of(new GetAllAppelLoyerAnneeActionsError(err.message))
-            )
+            ),
+            tap((resultat) =>
+            {
+              console.log(
+                'Le bon resultat est le suivant pour la reduction du bail'
+              );
+              console.log(resultat.type);
+
+              if (
+                resultat.type ==
+                AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_SUCCES
+              ) {
+                this.sendErrorNotification(
+                  NotificationType.SUCCESS,
+                  'Le Bail a été modifié avec succès.'
+                );
+              }
+              if (
+                resultat.type ==
+                AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_ERROR
+              ) {
+                this.sendErrorNotification(
+                  NotificationType.ERROR,
+                  'Une erreur a été rencontrée: ' + resultat.payload
+                );
+              }
+            })
           );
       })
     )
   );
+  // Notification
+  private sendErrorNotification(
+    notificationType: NotificationType,
+    message: string
+  ): void {
+    if (message) {
+      this.notificationService.notify(notificationType, message);
+    } else {
+      this.notificationService.notify(
+        notificationType,
+        'An error occurred. Please try again.'
+      );
+    }
+  }
 }
