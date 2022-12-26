@@ -81,7 +81,7 @@ export class PageBauxComponent implements OnInit {
   ) {}
   openModifMontantDialog(loyer: any): void {
     const dialolRef = this.dialog.open(ModifLoyerBailComponent, {
-      data: { id: loyer },
+      data: { id: loyer }, 
     });
     dialolRef.afterClosed().subscribe(() => {});
   }

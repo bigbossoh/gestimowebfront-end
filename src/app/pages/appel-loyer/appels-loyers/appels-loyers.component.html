@@ -30,7 +30,7 @@
               </div>
             </ng-container>
             <ng-container *ngSwitchCase="AnneeStateEnum.LOADED">
-              <mat-form-field  appearance="outline">
+              <mat-form-field appearance="outline">
                 <mat-label>Année</mat-label>
                 <mat-select
                   id="modele"
@@ -63,7 +63,7 @@
             Aucune Période
           </ng-container>
           <ng-container *ngSwitchCase="PeriodeStateEnum.LOADED">
-            <mat-form-field  appearance="outline">
+            <mat-form-field appearance="outline">
               <mat-label>Période</mat-label>
               <mat-select
                 name="typeClim"
@@ -97,11 +97,16 @@
         <ng-container ng - container *ngSwitchCase="AppelLoyerStateEnum.LOADED">
           <div class="row mb-3">
             <div class="col-md-3">
-
               <!-- <mat-label  appearance="outline"> -->
-                <div class="mat-typography">
-                  <h3>Du {{appelState.appelloyers[0].dateDebutMoisAppelLoyer | date: "dd / MM / yyyy"}}</h3>
-                </div>
+              <div class="mat-typography">
+                <h3>
+                  Du
+                  {{
+                    appelState.appelloyers[0].dateDebutMoisAppelLoyer
+                      | date : "dd / MM / yyyy"
+                  }}
+                </h3>
+              </div>
               <!-- </mat-label> -->
             </div>
             <div class="col-md-3">
@@ -110,31 +115,31 @@
                   Au
                   {{
                     appelState.appelloyers[0].dateFinMoisAppelLoyer
-                      | date: "dd / MM / yyyy"
+                      | date : "dd / MM / yyyy"
                   }}
                 </h3>
               </div>
-
             </div>
             <div class="col-md-3">
               <div class="mat-typography">
                 <h3>
                   Payer avant
-                {{
-                  appelState.appelloyers[0].datePaiementPrevuAppelLoyer
-                    | date: "dd / MM / yyyy"
-                }}
+                  {{
+                    appelState.appelloyers[0].datePaiementPrevuAppelLoyer
+                      | date : "dd / MM / yyyy"
+                  }}
                 </h3>
               </div>
-
             </div>
             <div class="col-md-3 text-center">
-              <button class="mr-2"
-               mat-raised-button color="primary"
+              <button
+                class="mr-2"
+                mat-raised-button
+                color="primary"
                 type="button"
                 (click)="printQuittance(periodePrint)"
               >
-              <mat-icon>print</mat-icon>
+                <mat-icon>print</mat-icon>
                 Imprimer
               </button>
               <ng-container
@@ -146,12 +151,13 @@
                 </ng-container>
               </ng-container>
               <button
-              mat-raised-button color="primary"
+                mat-raised-button
+                color="primary"
                 type="button"
                 class="mr-1"
                 (click)="sendQuittanceGrouper(periodePrint)"
               >
-              <mat-icon>mail</mat-icon>
+                <mat-icon>mail</mat-icon>
                 Envoi par mail
               </button>
 
@@ -162,9 +168,7 @@
                 <ng-container *ngSwitchCase="MailStateEnum.LOADING">
                   Chargement des données ...
                 </ng-container>
-                <!-- <ng-container  *ngSwitchCase="QuittanceloyerStateEnum.Started">
-                 données Chargé...
-              </ng-container> -->
+
                 <ng-container *ngSwitchCase="MailStateEnum.ERROR">
                   ...
                 </ng-container>
@@ -179,6 +183,24 @@
         <h5>
           <i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des loyers
           impayés
+        </h5>
+      </div>
+      <div class="col">
+
+      </div>
+      <div class="col">
+        <h5>
+         Taux de Réduction ac 15 °
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            class="mr-1"
+            (click)="reductionLoyerAppel(periodePrint)"
+          >
+            <mat-icon>percent</mat-icon>
+           Appliquer une réduction
+          </button>
         </h5>
       </div>
     </div>
@@ -273,8 +295,6 @@
                   <button mat-icon-button color="primary">
                     <mat-icon>print</mat-icon>
                   </button>
-
-
                 </div>
               </mat-cell>
             </ng-container>

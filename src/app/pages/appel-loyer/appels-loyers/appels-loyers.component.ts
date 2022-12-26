@@ -1,4 +1,4 @@
-
+import { MatDialog } from '@angular/material/dialog';
 import { AppelLoyerState } from 'src/app/ngrx/appelloyer/appelloyer.reducer';
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -39,6 +39,9 @@ import { UtilisateurRequestDto } from 'src/gs-api/src/models';
   styleUrls: ['./appels-loyers.component.css'],
 })
 export class AppelsLoyersComponent implements OnInit, AfterViewInit {
+  reductionLoyerAppel(periodePr: string) {
+    throw new Error('Method not implemented.');
+  }
   displayedColumns = [
     'periode',
     'bail',
@@ -76,7 +79,10 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
   defauldPeriode = '';
   ngSelect = 1;
   public user?: UtilisateurRequestDto;
-  constructor(private store: Store<any>, private userService: UserService) {
+  constructor(
+    public dialog: MatDialog,
+    private store: Store<any>, private userService: UserService)
+  {
     this.user = this.userService.getUserFromLocalCache();
     this.store.dispatch(new GetAllAnneeActions(this.user!.idAgence));
     this.anneeState$ = this.store.pipe(map((state) => state.anneeState));
@@ -102,7 +108,12 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
   getAppelByPeriode(p: any) {
     this.user = this.userService.getUserFromLocalCache();
     this.afficheAppelTable = 1;
-    this.store.dispatch(new GetAllAppelLoyerByPeriodeActions({periode:p,idAgence:this.user.idAgence}));
+    this.store.dispatch(
+      new GetAllAppelLoyerByPeriodeActions({
+        periode: p,
+        idAgence: this.user.idAgence,
+      })
+    );
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
     this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
       if (data.appelloyers.length) {
@@ -115,7 +126,12 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
     this.user = this.userService.getUserFromLocalCache();
     this.afficheAppelTable = 0;
 
-    this.store.dispatch(new GetAllPeriodeByAnneeActions({idAgence:this.user.idAgence,annee:a}));
+    this.store.dispatch(
+      new GetAllPeriodeByAnneeActions({
+        idAgence: this.user.idAgence,
+        annee: a,
+      })
+    );
     this.periodeState$ = this.store.pipe(map((state) => state.periodeState));
   }
   getAppelByAnnee(a: string) {
@@ -123,7 +139,6 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
   }
   printQuittance(p: string) {
-
     this.user = this.userService.getUserFromLocalCache();
 
     this.store.dispatch(new PrintQuittanceLoyerActions(p));
@@ -133,7 +148,12 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
   }
   sendQuittanceGrouper(periode: string) {
     this.user = this.userService.getUserFromLocalCache();
-    this.store.dispatch(new SendQuittanceByMailActions({periode:periode,idAgence:this.user.idAgence}));
+    this.store.dispatch(
+      new SendQuittanceByMailActions({
+        periode: periode,
+        idAgence: this.user.idAgence,
+      })
+    );
     this.sendMailState$ = this.store.pipe(map((state) => state.mailState));
   }
   sendQuittanceIndividuel(id: any) {

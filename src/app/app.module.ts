@@ -53,7 +53,7 @@ import { bienReducer } from './ngrx/bien-immobilier/bienimmobilier.reducer';
 import { BienEffects } from './ngrx/bien-immobilier/bienimmobilier.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { siteReducer } from './ngrx/site/site.reducer';
 import { SiteEffects } from './ngrx/site/site.effects';
 import { PageBienImmobilierNewComponent } from './pages/bien-immobilier/page-bien-immobilier-new/page-bien-immobilier-new.component';
@@ -98,9 +98,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ModifLoyerBailComponent } from './pages/baux/modif-loyer-bail/modif-loyer-bail.component';
 import { quartierReducer } from './ngrx/quartier/quartier.reducer';
 import { Quartierffects } from './ngrx/quartier/quartier.effects';
@@ -129,21 +129,22 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 
 import { MatSortModule } from '@angular/material/sort';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AppButtonNewAgenceActionComponent } from './composants/app-button-new-agence-action/app-button-new-agence-action.component';
 import { TachesPlanifieesComponent } from './pages/tachesPlanifiees/taches-planifiees/taches-planifiees.component';
 import { PageGestionDroitComponent } from './pages/roles-droits/page-gestion-droit/page-gestion-droit.component';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { PeriodeEffects } from './ngrx/appelloyer/peiodeappel/periodeappel.effects';
 import { periodeReducer } from './ngrx/appelloyer/peiodeappel/periodeappel.reducer';
 import { AgenceUpdateComponent } from './pages/agence/agence-update/agence-update.component';
 import { ButtonNewUserActionComponent } from './composants/button-new-user-action/button-new-user-action.component';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatNativeDateModule} from '@angular/material/core';
-import {ScrollingModule} from '@angular/cdk/scrolling';
-import {MatCardModule} from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatNativeDateModule } from '@angular/material/core';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatCardModule } from '@angular/material/card';
 import { imageReducer } from './ngrx/images/images.reducer';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ReductionAppelLoyerComponent } from './pages/appel-loyer/reduction-appel-loyer/reduction-appel-loyer.component';
 @NgModule({
   declarations: [
     PageStatistiqueJournalierComponent,
@@ -204,8 +205,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     PageGestionDroitComponent,
     AgenceUpdateComponent,
     ButtonNewUserActionComponent,
-
-
+    ReductionAppelLoyerComponent,
   ],
   imports: [
     FormsModule,
@@ -257,18 +257,18 @@ import {MatTooltipModule} from '@angular/material/tooltip';
       bailAppartementState: bailAppartementReducer,
       bauxState: bauxReducer,
       appelLoyerState: appelLoyerReducer,
-      quartierState:quartierReducer,
-      gerantState:gerantReducer,
-      locataireState:utilisateurReducer,
-      proprietaireState:utilisateurReducer,
-      agenceState:agenceReducer,
+      quartierState: quartierReducer,
+      gerantState: gerantReducer,
+      locataireState: utilisateurReducer,
+      proprietaireState: utilisateurReducer,
+      agenceState: agenceReducer,
       superviseurState: superviseurReducer,
       quittanceAppelState: quittanceAppelReducer,
       anneeState: anneeReducer,
       mailState: mailReducer,
-      encaissementState:encaissementReducer,
+      encaissementState: encaissementReducer,
       periodeState: periodeReducer,
-      imageState:imageReducer
+      imageState: imageReducer,
     }),
     EffectsModule.forRoot([
       AnneeEffects,
@@ -296,7 +296,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
       SuperviseurEffects,
       QuittanceAppelLoyerEffects,
       Encaissementffects,
-      ImageEffects
+      ImageEffects,
     ]),
 
     StoreDevtoolsModule.instrument(),
@@ -304,7 +304,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: MatPaginatorIntl, useClass: paginationPersonnalise}
+    { provide: MatPaginatorIntl, useClass: paginationPersonnalise },
   ],
   bootstrap: [AppComponent],
 })
