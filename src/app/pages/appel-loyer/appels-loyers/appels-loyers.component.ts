@@ -1,3 +1,4 @@
+import { ReductionAppelLoyerComponent } from './../reduction-appel-loyer/reduction-appel-loyer.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AppelLoyerState } from 'src/app/ngrx/appelloyer/appelloyer.reducer';
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
@@ -39,9 +40,6 @@ import { UtilisateurRequestDto } from 'src/gs-api/src/models';
   styleUrls: ['./appels-loyers.component.css'],
 })
 export class AppelsLoyersComponent implements OnInit, AfterViewInit {
-  reductionLoyerAppel(periodePr: string) {
-    throw new Error('Method not implemented.');
-  }
   displayedColumns = [
     'periode',
     'bail',
@@ -81,8 +79,9 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
   public user?: UtilisateurRequestDto;
   constructor(
     public dialog: MatDialog,
-    private store: Store<any>, private userService: UserService)
-  {
+    private store: Store<any>,
+    private userService: UserService
+  ) {
     this.user = this.userService.getUserFromLocalCache();
     this.store.dispatch(new GetAllAnneeActions(this.user!.idAgence));
     this.anneeState$ = this.store.pipe(map((state) => state.anneeState));
@@ -159,5 +158,11 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
   sendQuittanceIndividuel(id: any) {
     this.store.dispatch(new SendQuittanceIndividuelActions(id));
     this.sendMailIndivState$ = this.store.pipe(map((state) => state.mailState));
+  }
+  reductionLoyerAppel(periodePr: string) {
+    const dialolRef = this.dialog.open(ReductionAppelLoyerComponent, {
+      data: { id: periodePr },
+    });
+    dialolRef.afterClosed().subscribe(() => {});
   }
 }

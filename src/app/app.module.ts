@@ -1,6 +1,7 @@
+import * as fr from '@angular/common/locales/fr';
 import { ImageEffects } from './ngrx/images/images.effects';
 import { PageStatistiqueJournalierComponent } from './pages/page-statistique-journalier/page-statistique-journalier.component';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { paginationPersonnalise } from './paginationPersonnalise';
@@ -145,6 +146,7 @@ import { MatCardModule } from '@angular/material/card';
 import { imageReducer } from './ngrx/images/images.reducer';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReductionAppelLoyerComponent } from './pages/appel-loyer/reduction-appel-loyer/reduction-appel-loyer.component';
+import { registerLocaleData } from '@angular/common';
 @NgModule({
   declarations: [
     PageStatistiqueJournalierComponent,
@@ -305,7 +307,13 @@ import { ReductionAppelLoyerComponent } from './pages/appel-loyer/reduction-appe
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: MatPaginatorIntl, useClass: paginationPersonnalise },
+    { provide: LOCALE_ID, useValue: 'fr-FR'}
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule
+{
+  constructor() {
+    registerLocaleData(fr.default);
+  }
+}

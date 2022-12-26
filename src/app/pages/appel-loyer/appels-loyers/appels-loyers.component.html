@@ -185,24 +185,32 @@
           impayés
         </h5>
       </div>
-      <div class="col">
+      <ng-container
+        *ngIf="appelState$ | async as appelState"
+        [ngSwitch]="appelState.dataState"
+      >
+        <ng-container ng - container *ngSwitchCase="AppelLoyerStateEnum.LOADED">
+          <div class="col">
+            <h5>
+              le Taux de Réduction est de
+              <span style="color: red">{{
+                appelState.appelloyers[0].pourcentageReduction
+              }}</span>
 
-      </div>
-      <div class="col">
-        <h5>
-         Taux de Réduction ac 15 °
-          <button
-            mat-raised-button
-            color="primary"
-            type="button"
-            class="mr-1"
-            (click)="reductionLoyerAppel(periodePrint)"
-          >
-            <mat-icon>percent</mat-icon>
-           Appliquer une réduction
-          </button>
-        </h5>
-      </div>
+              <button
+                mat-raised-button
+                color="primary"
+                type="button"
+                class="mr-1"
+                (click)="reductionLoyerAppel(periodePrint)"
+              >
+                <mat-icon>percent</mat-icon>
+                Appliquer une réduction
+              </button>
+            </h5>
+          </div>
+        </ng-container>
+      </ng-container>
     </div>
     <hr />
     <div *ngIf="afficheAppelTable != 0">

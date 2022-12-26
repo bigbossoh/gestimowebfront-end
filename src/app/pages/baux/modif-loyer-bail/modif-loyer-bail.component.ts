@@ -53,7 +53,7 @@ export class ModifLoyerBailComponent implements OnInit {
     });
   }
   onSaveForm() {
-    console.log(this.formGroup?.value);
+
     this.store.dispatch(new ModifierBailActions(this.formGroup?.value));
     this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
   }
