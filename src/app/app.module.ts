@@ -1,3 +1,4 @@
+import { SuiviDepenseEffects } from './ngrx/journal-caisse/journal-caisse.effects';
 import * as fr from '@angular/common/locales/fr';
 import { ImageEffects } from './ngrx/images/images.effects';
 import { PageStatistiqueJournalierComponent } from './pages/page-statistique-journalier/page-statistique-journalier.component';
@@ -147,6 +148,7 @@ import { imageReducer } from './ngrx/images/images.reducer';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReductionAppelLoyerComponent } from './pages/appel-loyer/reduction-appel-loyer/reduction-appel-loyer.component';
 import { registerLocaleData } from '@angular/common';
+import { suiviDepenseReducer } from './ngrx/journal-caisse/journal-caisse.reducer';
 @NgModule({
   declarations: [
     PageStatistiqueJournalierComponent,
@@ -271,6 +273,7 @@ import { registerLocaleData } from '@angular/common';
       encaissementState: encaissementReducer,
       periodeState: periodeReducer,
       imageState: imageReducer,
+      suiviDepenseState: suiviDepenseReducer,
     }),
     EffectsModule.forRoot([
       AnneeEffects,
@@ -290,7 +293,6 @@ import { registerLocaleData } from '@angular/common';
       BailVillaEffects,
       BailMagasinEffects,
       BailAppartementEffects,
-
       BauxEffects,
       AppelLoyerEffects,
       Quartierffects,
@@ -299,6 +301,7 @@ import { registerLocaleData } from '@angular/common';
       QuittanceAppelLoyerEffects,
       Encaissementffects,
       ImageEffects,
+      SuiviDepenseEffects,
     ]),
 
     StoreDevtoolsModule.instrument(),
@@ -307,12 +310,11 @@ import { registerLocaleData } from '@angular/common';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: MatPaginatorIntl, useClass: paginationPersonnalise },
-    { provide: LOCALE_ID, useValue: 'fr-FR'}
+    { provide: LOCALE_ID, useValue: 'fr-FR' },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule
-{
+export class AppModule {
   constructor() {
     registerLocaleData(fr.default);
   }

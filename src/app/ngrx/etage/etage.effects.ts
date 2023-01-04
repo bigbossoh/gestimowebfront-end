@@ -23,7 +23,6 @@ import {
 export class EtageEffects {
 
   constructor(private apiService: ApiService,
-
     private effectActions: Actions
     , private notificationService: NotificationService) {
 

@@ -3,13 +3,14 @@ import { ApiConfiguration } from './../../../gs-api/src/api-configuration';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PrintServiceService {
   constructor(private http: HttpClient, private apiConfig: ApiConfiguration) {}
-  printQuittanceByPeriode(periode: string, proprio: string, idAgence: any) {
+  printQuittanceByPeriode(periode: string, proprio: string, idAgence: any):Observable<Blob> {
     console.log(
       this.apiConfig.rootUrl +
         'gestimoweb/api/v1/print/quittancegrouper/' +
@@ -30,11 +31,11 @@ export class PrintServiceService {
           proprio,
         { responseType: 'blob' }
       )
-      .pipe(
-        map((res) => {
-          return new Blob([res], { type: 'application/pdf' });
-        })
-      );
+      // .pipe(
+      //   map((res) => {
+      //     return new Blob([res], { type: 'application/pdf' });
+      //   })
+      // );
   }
   savelogo(body: any) {
     // console.log('');

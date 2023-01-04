@@ -52,7 +52,7 @@ export class PageReglementIndividuelComponent implements OnInit {
   public user?: UtilisateurRequestDto;
   encaissementform?: FormGroup;
   getLesdonne: any;
-   leBonbien :Observable<any> | null = null;
+  leBonbien: Observable<any> | null = null;
   leBienSelect = '';
   submitted = false;
   periode: string = '';
@@ -71,7 +71,7 @@ export class PageReglementIndividuelComponent implements OnInit {
 
   locataireState$: Observable<UtilisteurState> | null = null;
   readonly UtilisteurStateEnum = UtilisteurStateEnum;
-  montant_Loyer:number=0;
+  montant_Loyer: number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -122,26 +122,26 @@ export class PageReglementIndividuelComponent implements OnInit {
     this.saveEncaissementState$ = this.store.pipe(
       map((state) => state.encaissementState)
     );
-   // this.store.dispatch(new GetEncaissementBienActions(this.bien));
+    // this.store.dispatch(new GetEncaissementBienActions(this.bien));
     this.store
       .pipe(map((state) => state.encaissementState))
-      .subscribe((donnee) => {
-        // console.log('Les encaissemnts sont les suivants : ');
-        // console.log(donnee.encaissements);
-        if (donnee.encaissements.length>0) {
+      .subscribe((donnee) =>
+      {
+        this.dataSource.data = [];
+          this.dataSource.paginator = null;
+        if (donnee.encaissements.length > 0) {
           this.dataSource.data = donnee.encaissements;
           this.dataSource.paginator = this.paginator;
         }
       });
   }
   getBienByLocataire(loca: string) {
-// console.log("nous sommes dans get bien by locataire");
+    // console.log("nous sommes dans get bien by locataire");
 
     this.store.dispatch(new GetAllBientaireByLocatairesActions(loca));
     this.getBienBylocatairestate$ = this.store.pipe(
       map((state) => state.bauxState)
     );
-
   }
   getBauxBybien(p: any) {
     this.bien = p;
@@ -160,22 +160,23 @@ export class PageReglementIndividuelComponent implements OnInit {
       .subscribe((data) => {
         // console.log('Les encaissemnts sont les suivants pour Baux : ');
         // console.log(data.encaissements);
-        if (data.encaissements.length>0) {
+        this.dataSource.data = [];
+        this.dataSource.paginator = null;
+        if (data.encaissements.length > 0) {
           this.dataSource.data = data.encaissements;
           this.dataSource.paginator = this.paginator;
         }
-
       });
   }
   getAllEncaissementByBienImmobilier(p: any) {
-
     this.store.dispatch(new GetEncaissementBienActions(p));
     this.store
       .pipe(map((state) => state.encaissementState))
       .subscribe((donnee) => {
-        // console.log('Les encaissemnts sont les suivants : ');
-        // console.log(donnee.encaissements);
-        if (donnee.encaissements.length>0) {
+      
+        this.dataSource.data = [];
+        this.dataSource.paginator = null;
+        if (donnee.encaissements.length > 0) {
           this.dataSource.data = donnee.encaissements;
           this.dataSource.paginator = this.paginator;
         }
