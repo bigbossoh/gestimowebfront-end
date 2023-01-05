@@ -31,14 +31,12 @@ export class UtilisateurEffects {
     private apiService: ApiService,
     private effectActions: Actions,
     private notificationService: NotificationService
-  ) {
-
-  }
+  ) {}
   //LISTE DES PROPRIETAIRES
   getAllProprietairesEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(UtilisateurActionsTypes.GET_ALL_PROPRIETAIRES),
-      mergeMap((action:UtilisateurActions) => {
+      mergeMap((action: UtilisateurActions) => {
         return this.apiService.getAllProprietaireByOrder(action.payload).pipe(
           map(
             (proprietaires) =>
@@ -50,15 +48,13 @@ export class UtilisateurEffects {
         );
       }),
       tap((proprio) => {
-        if (proprio.payload.indexOf('Error') < 0) {
-          this.sendErrorNotification(
-            NotificationType.SUCCESS,
-            'La liste des propriétaires a été chargées avec succès'
-          );
-        } else {
+       
+        if (
+          (proprio.type = UtilisateurActionsTypes.GET_ALL_PROPRIETAIRES_ERROR)
+        ) {
           this.sendErrorNotification(
             NotificationType.ERROR,
-            'Une erreur a été rencontré'
+            proprio.payload.toString()
           );
         }
       })
@@ -69,7 +65,7 @@ export class UtilisateurEffects {
   getAllUtilisateursEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(UtilisateurActionsTypes.GET_ALL_UTLISATEUR),
-      mergeMap((actions:UtilisateurActions) => {
+      mergeMap((actions: UtilisateurActions) => {
         return this.apiService.getAllUtilisateursByOrder(actions.payload).pipe(
           map(
             (proprietaires) =>
@@ -81,12 +77,8 @@ export class UtilisateurEffects {
         );
       }),
       tap((proprio) => {
-        if (proprio.type==UtilisateurActionsTypes.GET_ALL_UTLISATEUR_SUCCES) {
-          this.sendErrorNotification(
-            NotificationType.SUCCESS,
-            'La liste des Utilisateurs a été chargées avec succès'
-          );
-        } else {
+        if (proprio.type == UtilisateurActionsTypes.GET_ALL_UTLISATEUR_ERROR) {
+
           this.sendErrorNotification(
             NotificationType.ERROR,
             'Une erreur a été rencontré!'
@@ -110,17 +102,11 @@ export class UtilisateurEffects {
       tap((locataire) => {
         console.log(locataire.payload.length);
 
-        if (locataire.payload.indexOf('Error') < 0) {
-          this.sendErrorNotification(
-            NotificationType.SUCCESS,
-            'La liste des locataires (' +
-              locataire.payload.length +
-              ')  a été chargées avec succès'
-          );
-        } else {
+        if (locataire.type==UtilisateurActionsTypes.GET_ALL_LOCATAIRES_BAIL_ERROR) {
+
           this.sendErrorNotification(
             NotificationType.ERROR,
-            'Une erreur a été rencontré'
+            locataire.payload.toStrin()
           );
         }
       })
@@ -130,7 +116,7 @@ export class UtilisateurEffects {
   getAllLocatairesEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(UtilisateurActionsTypes.GET_ALL_LOCATAIRES),
-      mergeMap((action:UtilisateurActions) => {
+      mergeMap((action: UtilisateurActions) => {
         return this.apiService.getAllLocatairesByOrder(action.payload).pipe(
           map((locatires) => new GetAllLocatairesActionsSuccess(locatires)),
           catchError((err) => of(new GetAllLocatairesActionsError(err.message)))
@@ -139,7 +125,9 @@ export class UtilisateurEffects {
       tap((locataire) => {
         console.log(locataire.payload.length);
 
-        if (locataire.type==UtilisateurActionsTypes.GET_ALL_LOCATAIRES_SUCCES) {
+        if (
+          locataire.type == UtilisateurActionsTypes.GET_ALL_LOCATAIRES_SUCCES
+        ) {
           this.sendErrorNotification(
             NotificationType.SUCCESS,
             'La liste des locataires (' +

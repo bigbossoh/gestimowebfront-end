@@ -33,6 +33,8 @@ import {
 import { GetAllPeriodeByAnneeActions } from 'src/app/ngrx/appelloyer/peiodeappel/periodeappel.actions';
 import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
+import { PrintServiceService } from 'src/app/services/Print/print-service.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-appels-loyers',
@@ -80,7 +82,8 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
   constructor(
     public dialog: MatDialog,
     private store: Store<any>,
-    private userService: UserService
+    private userService: UserService,
+    private printService: PrintServiceService
   ) {
     this.user = this.userService.getUserFromLocalCache();
     this.store.dispatch(new GetAllAnneeActions(this.user!.idAgence));
@@ -144,6 +147,13 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
     this.ptQuittance$ = this.store.pipe(
       map((state) => state.quittanceAppelState)
     );
+    this.printService.printQuittanceByPeriode(p,"Seve",this.user.idAgence)
+      .subscribe(blob => {
+        
+        console.log('La taille du fichier' + blob.size);
+        saveAs(blob, 'appel_quittance_du_' + p + '.pdf');
+
+      });
   }
   sendQuittanceGrouper(periode: string) {
     this.user = this.userService.getUserFromLocalCache();

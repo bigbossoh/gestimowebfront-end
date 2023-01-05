@@ -14,19 +14,27 @@ import {
 } from './quittance-appel-loyer.action';
 import { map, mergeMap, catchError, tap } from 'rxjs/operators';
 import { PrintServiceService } from '../../../services/Print/print-service.service';
-
+import * as saveAs from 'file-saver';
 
 @Injectable()
 export class QuittanceAppelLoyerEffects {
   public user?: UtilisateurRequestDto;
-  constructor(private apiService: PrintServiceService, private effectActions: Actions,
-    private userService: UserService) { }
+  constructor(
+    private apiService: PrintServiceService,
+    private effectActions: Actions,
+    private userService: UserService
+  ) {}
   printQuittanceAppelLoyerEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(QuittanceAppelLoyerActionsType.PRINT_QUITTANCE),
       mergeMap((action: QuittanceAppelLoyerActions) => {
         this.user = this.userService.getUserFromLocalCache();
-        return this.apiService.printQuittanceByPeriode(action.payload,"sablin severin",this.user.idAgence)
+        return this.apiService
+          .printQuittanceByPeriode(
+            action.payload,
+            'SABLIN SEVERIN',
+            this.user.idAgence
+          )
           .pipe(
             map(
               (quittances) => new PrintQuittanceLoyerActionsSuccess(quittances)
@@ -37,15 +45,22 @@ export class QuittanceAppelLoyerEffects {
           );
       }),
       tap((resultat) => {
-        console.log('***** Le resultat est du telechargement est le suivant : *********');
+        console.log(
+          '***** Le resultat est du telechargement est le suivant : *********'
+        );
         console.log(resultat);
 
-        if (resultat.type==QuittanceAppelLoyerActionsType.PRINT_QUITTANCE_SUCCES) {
+        if (
+          resultat.type == QuittanceAppelLoyerActionsType.PRINT_QUITTANCE_SUCCES
+        ) {
           const fileURL = URL.createObjectURL(resultat.payload);
+          saveAs(resultat.payload, 'appel_quittance.pdf');
           window.open(fileURL);
         }
-        if (resultat.type==QuittanceAppelLoyerActionsType.PRINT_QUITTANCE_ERROR){
-          alert('Erreur lor du telechagement !'+resultat.payload);
+        if (
+          resultat.type == QuittanceAppelLoyerActionsType.PRINT_QUITTANCE_ERROR
+        ) {
+          alert('Erreur lor du telechagement !' + resultat.payload);
         }
       })
     )

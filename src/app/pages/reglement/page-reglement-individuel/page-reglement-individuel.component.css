@@ -2,8 +2,6 @@
   max-width: max-content !important;
   min-width: 100%;
 }
-
-
 .mat-form-field{
   width: 100%;
 }
@@ -15,7 +13,6 @@
   max-width: 500px;
   width: 100%;
 }
-
 .example-full-width {
   width: 100%;
 }

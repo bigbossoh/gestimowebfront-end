@@ -10,234 +10,229 @@
     <div class="row">
       <div class="col">
         <h5>
-          <i class="fas fa-asterisk blue-color"></i>&nbsp;Information sur le locataire
+          <i class="fas fa-asterisk blue-color"></i>&nbsp;Information sur le
+          locataire
         </h5>
       </div>
     </div>
     <hr style="margin-top: 0" />
-
   </div>
-  <div class="row m-2">
-  <div class="col-md-6 ">
-    <!-- <ng-container *ngIf="locataireState$ | async as locataireState" [ngSwitch]="locataireState.dataState"> -->
-      <!-- <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADING"> -->
+  <div class="row">
+    <div class="col-md-6">
+      <!-- <ng-container *ngIf="locataireState$ | async as locataireState" [ngSwitch]="locataireState.dataState"> -->
+
       <!-- </ng-container> -->
-      <!-- <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED"> -->
-        <!-- <label>Locataires</label> -->
-        <mat-form-field appearance="outline">
-          <mat-label> Locataires</mat-label>
-          <mat-select #selectionlocataire placeholder="">
-            <mat-option ></mat-option>
-          </mat-select>
+      <!-- </ng-container> -->
+    </div>
+    <div class="col-md-6">
+      <ng-container
+        *ngIf="locataireState$ | async as locataireState"
+        [ngSwitch]="locataireState.dataState"
+      >
+        <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADING">
+        </ng-container>
+        <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
+          <!-- <label>Locataires</label> -->
+          <mat-form-field appearance="outline">
+            <mat-label> Locataires</mat-label>
+            <mat-select
+              #selectionlocataire
+              placeholder=""
+              (selectionChange)="
+                getBienByLocataire(selectionlocataire.value); getBauxBybien(0)
+              "
+            >
+              <mat-option
+                [value]="locataire.id"
+                *ngFor="let locataire of locataireState.locataireBail"
+                >{{ locataire.nom }} {{ locataire.prenom }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+      </ng-container>
+    </div>
+    <div class="col-md-6">
+      <ng-container
+        *ngIf="getBienBylocatairestate$ | async as biensLocataire"
+        [ngSwitch]="biensLocataire.dataState"
+      >
+        <ng-container *ngSwitchCase="BauxStateEnum.LOADING">
+          <i class="fas fa-sync fa-spin"></i>
+        </ng-container>
+        <ng-container *ngSwitchCase="BauxStateEnum.LOADED">
+          <mat-form-field appearance="outline">
+            <mat-label> Bien immobilier</mat-label>
+            <mat-select
+              #selectBien
+              [(ngModel)]="bien"
+              [compareWith]="compareObjects"
+              (selectionChange)="getBauxBybien(selectBien.value)"
+            >
+              <mat-option value="">Choisir un bien</mat-option>
+              <mat-option
+                [value]="bien.idBienImmobilier"
+                *ngFor="let bien of biensLocataire.baux"
+              >
+                {{ bien.codeAbrvBienImmobilier }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+        <ng-container *ngSwitchCase="BauxStateEnum.ERROR"> ... </ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <div *ngIf="affichierformulaire!=0">
+    <ng-container *ngIf="getBienBylocatairestate$ | async as bauxBybien" [ngSwitch]="bauxBybien.dataState">
+      <ng-container *ngSwitchCase="BauxBienStateEnum.LOADED">
+
+        <div class="row">
+          <div class="col">
+            <h5>
+              <i class="fas fa-asterisk blue-color"></i>&nbsp;Détail du bail
+            </h5>
+          </div>
+        </div>
+        <hr style="margin-top: 0" />
+       <div class="row">
+        <div class="col-md-3">
+            <mat-label>Début du bail : {{bauxBybien.baux[0].dateDebut|date:"dd/MM/yyyy"}}</mat-label>
+        </div>
+
+          <div class="col-md-3">
+                <mat-label>Fin du bail :{{bauxBybien.baux[0].dateFin|date:"dd/MM/yyyy"}} </mat-label>
+          </div>
+          <div class="col-md-3">
+              <div class="mat-typography">
+                <mat-label>Valeur du Bail : A remplir avec la somme des montants des loyers </mat-label>
+              </div>
+          </div>
+
+      </div>
+        <div class="row ">
+          <div class="col-md-6">
+          <div class="col panel-body text-right">
+            <mat-label>Solde du Bail : A remplir avec le solde du bail</mat-label>
+          </div>
+          <div class="col-md-6">
+            <div class="col panel-body text-right">
+              <mat-label>Total encaissemnt : A remplir avec le total des encaissement du bail</mat-label>
+            </div>
+          </div>
+        </div>
+      </div>
+      </ng-container>
+    </ng-container>
+  </div>
+         <!-- <div class="row mb-3"> -->
+
+        <!-- </div> -->
+  <div *ngIf="affichierformulaire!=0">
+    <div class="mat-elevation-z8">
+      <div class="example-header">
+        <mat-form-field class="tail-50" style="margin-left: 12px;">
+          <mat-label>Rechercher</mat-label>
+          <input matInput (keyup)="applyFilter($event)" #input placeholder="Rechercher un Encaissement" />
         </mat-form-field>
+      </div>
+      <mat-paginator #matimmeuble showFirstLastButtons [pageSizeOptions]="pageSize" aria-label="Select page of users">
+      </mat-paginator>
+      <mat-table #tableEncaissemnt [dataSource]="dataSource" matSort>
+        <!-- Code colonne -->
+        <ng-container matColumnDef="idEncaiss">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            id
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{ row.id }}
+          </mat-cell>
+        </ng-container>
+        <!-- Dénomination colonne -->
+        <ng-container matColumnDef="Datedepaiement">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Date de Paiement
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{ row.creationDate | date: "dd / MM / yyyy à HH:mm" }}
+          </mat-cell>
+        </ng-container>
 
-      <!-- </ng-container> -->
-    <!-- </ng-container> -->
+        <!-- Propriétaire colonne -->
+        <ng-container matColumnDef="Periode">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Période
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{ row.appelLoyersFactureDto!.periodeLettre }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Loyer">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Montant Loyer
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{ row.appelLoyersFactureDto!.nouveauMontantLoyer }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="MontantPaye">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Montant Payé
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{ row.montantEncaissement }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="ModedeReglement">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Mode de Paiement
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{ row.modePaiement }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="soldedumois">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Solde du mois
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{ row.soldeEncaissement}}</mat-cell>
+        </ng-container>
+        <!-- Propriétaire colonne -->
+        <ng-container matColumnDef="Status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Status
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <span *ngIf="row.appelLoyersFactureDto!.statusAppelLoyer=='Soldé'"
+              class="badge badge-success">{{row.appelLoyersFactureDto!.statusAppelLoyer}}
+            </span>
+            <span *ngIf="row.appelLoyersFactureDto!.statusAppelLoyer=='Impayé'"
+              class="badge badge-danger">{{row.appelLoyersFactureDto!.statusAppelLoyer}}
+            </span>
+            <span *ngIf="row.appelLoyersFactureDto!.statusAppelLoyer=='partiellement payé'"
+              class="badge badge-warning">{{row.appelLoyersFactureDto!.statusAppelLoyer}}
+            </span>
+
+          </mat-cell>
+        </ng-container>
+        <!-- Actions colonne -->
+        <ng-container matColumnDef="Actions">
+          <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <button mat-icon-button color="primary">
+              <mat-icon>print</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"> </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">
+            Aucune donnée enregistrée {{ input.value }}
+          </td>
+        </tr>
+      </mat-table>
+    </div>
   </div>
-  <div class="col-md-6">
-    <!-- <ng-container *ngIf="getBienBylocatairestate$ | async as biensLocataire" [ngSwitch]="biensLocataire.dataState">
-      <ng-container *ngSwitchCase="BauxStateEnum.LOADING"> -->
-        <!-- <i class="fas fa-sync fa-spin"></i> -->
-      <!-- </ng-container> -->
-      <!-- <ng-container *ngSwitchCase="BauxStateEnum.LOADED"> -->
-        <mat-form-field appearance="outline">
-          <mat-label> Bien immobilier</mat-label>
-          <mat-select >
-            <mat-option value="">Choisir un bien</mat-option>
-            <mat-option >
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      <!-- </ng-container>
-      <ng-container *ngSwitchCase="BauxStateEnum.ERROR"> ... </ng-container> -->
-    <!-- </ng-container> -->
-  </div>
-</div>
 </div>
 
-
-
-
-
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container bootdey">
-<div class="row">
-		<div class="col-sm-10 col-sm-offset-1">
-			<div class="widget-box">
-				<div class="widget-header widget-header-large">
-					<h3 class="widget-title grey lighter">
-						<i class="ace-icon fa fa-leaf green"></i>
-						Bootdey receipt
-					</h3>
-
-					<div class="widget-toolbar no-border invoice-info">
-						<span class="invoice-info-label">Invoice:</span>
-						<span class="red">#121212</span>
-
-						<br>
-						<span class="invoice-info-label">Date:</span>
-						<span class="blue">04/04/2014</span>
-					</div>
-
-					<div class="widget-toolbar hidden-480">
-						<a href="#">
-							<i class="ace-icon fa fa-print"></i>
-						</a>
-					</div>
-				</div>
-
-				<div class="widget-body">
-					<div class="widget-main padding-24">
-						<div class="row">
-							<div class="col-sm-6">
-								<div class="row">
-									<div class="col-xs-11 label label-lg label-info arrowed-in arrowed-right">
-										<b>Company Info</b>
-									</div>
-								</div>
-
-								<div>
-									<ul class="list-unstyled spaced">
-										<li>
-											<i class="ace-icon fa fa-caret-right blue"></i>Street, City
-										</li>
-
-										<li>
-											<i class="ace-icon fa fa-caret-right blue"></i>Zip Code
-										</li>
-
-										<li>
-											<i class="ace-icon fa fa-caret-right blue"></i>State, Country
-										</li>
-
-										<li>
-											<i class="ace-icon fa fa-caret-right blue"></i>
-Phone:
-											<b class="red">111-111-111</b>
-										</li>
-
-										<li class="divider"></li>
-
-										<li>
-											<i class="ace-icon fa fa-caret-right blue"></i>
-											Paymant Info
-										</li>
-									</ul>
-								</div>
-							</div><!-- /.col -->
-
-							<div class="col-sm-6">
-								<div class="row">
-									<div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
-										<b>Customer Info</b>
-									</div>
-								</div>
-
-								<div>
-									<ul class="list-unstyled  spaced">
-										<li>
-											<i class="ace-icon fa fa-caret-right green"></i>Street, City
-										</li>
-
-										<li>
-											<i class="ace-icon fa fa-caret-right green"></i>Zip Code
-										</li>
-
-										<li>
-											<i class="ace-icon fa fa-caret-right green"></i>State, Country
-										</li>
-
-										<li class="divider"></li>
-
-										<li>
-											<i class="ace-icon fa fa-caret-right green"></i>
-											Contact Info
-										</li>
-									</ul>
-								</div>
-							</div><!-- /.col -->
-						</div><!-- /.row -->
-
-						<div class="space"></div>
-
-						<div>
-							<table class="table table-striped table-bordered">
-								<thead>
-									<tr>
-										<th class="center">#</th>
-										<th>Product</th>
-										<th class="hidden-xs">Description</th>
-										<th class="hidden-480">Discount</th>
-										<th>Total</th>
-									</tr>
-								</thead>
-
-								<tbody>
-									<tr>
-										<td class="center">1</td>
-
-										<td>
-											<a href="#">google.com</a>
-										</td>
-										<td class="hidden-xs">
-											1 year domain registration
-										</td>
-										<td class="hidden-480"> --- </td>
-										<td>$10</td>
-									</tr>
-
-									<tr>
-										<td class="center">2</td>
-
-										<td>
-											<a href="#">yahoo.com</a>
-										</td>
-										<td class="hidden-xs">
-											5 year domain registration
-										</td>
-										<td class="hidden-480"> 5% </td>
-										<td>$45</td>
-									</tr>
-
-									<tr>
-										<td class="center">3</td>
-										<td>Hosting</td>
-										<td class="hidden-xs"> 1 year basic hosting </td>
-										<td class="hidden-480"> 10% </td>
-										<td>$90</td>
-									</tr>
-
-									<tr>
-										<td class="center">4</td>
-										<td>Design</td>
-										<td class="hidden-xs"> Theme customization </td>
-										<td class="hidden-480"> 50% </td>
-										<td>$250</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-
-						<div class="hr hr8 hr-double hr-dotted"></div>
-
-						<div class="row">
-							<div class="col-sm-5 pull-right">
-								<h4 class="pull-right">
-									Total amount :
-									<span class="red">$395</span>
-								</h4>
-							</div>
-							<div class="col-sm-7 pull-left"> Extra Information </div>
-						</div>
-
-						<div class="space-6"></div>
-						<div class="well">
-							Thank you for choosing Ace Company products.
-We believe you will be satisfied by our services.
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
