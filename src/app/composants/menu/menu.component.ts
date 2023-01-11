@@ -186,32 +186,32 @@ export class MenuComponent implements OnInit {
     ]
   }
   ,
-  {
-    id: '7',
-    titre: 'gestion des règlements',
-    icon: 'fas fa-praying-hands',
-    url: '',
-    sousMenu: [
-      {
-        id: '71',
-        titre: "Règlement individuel",
-        icon: 'fas fa-tools',
-        url: 'reglement-individuel'
-      },
-      // {
-      //   id: '73',
-      //   titre: "Règlement",
-      //   icon: 'fas fa-toolbox',
-      //   url: 'paiement'
-      // },
-      // {
-      //   id: '72',
-      //   titre: "Règlement groupé",
-      //   icon: 'fas fa-toolbox',
-      //   url: 'reglement-groupe'
-      // }
-    ]
-  },
+  // {
+  //   id: '7',
+  //   titre: 'gestion des règlements',
+  //   icon: 'fas fa-praying-hands',
+  //   url: '',
+  //   sousMenu: [
+  //     {
+  //       id: '71',
+  //       titre: "Règlement individuel",
+  //       icon: 'fas fa-tools',
+  //       url: 'reglement-individuel'
+  //     },
+  //     // {
+  //     //   id: '73',
+  //     //   titre: "Règlement",
+  //     //   icon: 'fas fa-toolbox',
+  //     //   url: 'paiement'
+  //     // },
+  //     // {
+  //     //   id: '72',
+  //     //   titre: "Règlement groupé",
+  //     //   icon: 'fas fa-toolbox',
+  //     //   url: 'reglement-groupe'
+  //     // }
+  //   ]
+  // },
   {
     id: '8',
     titre: 'Gestion comptable',
