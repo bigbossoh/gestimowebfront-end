@@ -149,7 +149,7 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
     );
     this.printService.printQuittanceByPeriode(p,"Seve",this.user.idAgence)
       .subscribe(blob => {
-        
+
         console.log('La taille du fichier' + blob.size);
         saveAs(blob, 'appel_quittance_du_' + p + '.pdf');
 
