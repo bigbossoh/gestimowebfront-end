@@ -91,18 +91,13 @@ export class PageBauxNewComponent implements OnInit {
     this.montantCautionMag = this.montantLoyerMag * this.nombreMoisCautionMag;
   }
   calculMontantCautionVil() {
-    console.log(
-      'here calculMontantCautionVil',
-      this.montantLoyerVil,
-      this.nombreMoisCautionVil
-    );
     this.montantCautionVil = this.montantLoyerVil * this.nombreMoisCautionVil;
   }
 
   //SAVE BAIL APPARTEMENT
   onSaveBailAppartement() {
     this.submitted = true;
-  
+
     if (this.bailAppartementForm?.invalid) {
       return;
     }
@@ -118,9 +113,6 @@ export class PageBauxNewComponent implements OnInit {
   //SAVE BAIL MAGASIN
   onSaveBailMagasin() {
     this.submitted = true;
-    console.log('Le formulaire est le suivant');
-    console.log(this.bailMagainForm?.value);
-
     if (this.bailMagainForm?.invalid) {
       return;
     }

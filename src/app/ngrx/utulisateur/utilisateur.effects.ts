@@ -48,7 +48,7 @@ export class UtilisateurEffects {
         );
       }),
       tap((proprio) => {
-       
+
         if (
           (proprio.type = UtilisateurActionsTypes.GET_ALL_PROPRIETAIRES_ERROR)
         ) {
@@ -81,7 +81,7 @@ export class UtilisateurEffects {
 
           this.sendErrorNotification(
             NotificationType.ERROR,
-            'Une erreur a été rencontré!'
+            proprio.payload.toString()
           );
         }
       })
@@ -91,8 +91,8 @@ export class UtilisateurEffects {
   getAllLocatairesBailEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(UtilisateurActionsTypes.GET_ALL_LOCATAIRES_BAIL),
-      mergeMap((action) => {
-        return this.apiService.getAllLocatairesAvecBail().pipe(
+      mergeMap((action: UtilisateurActions) => {
+        return this.apiService.getAllLocatairesAvecBail(action.payload).pipe(
           map((locatires) => new GetAllLocatairesBailActionsSuccess(locatires)),
           catchError((err) =>
             of(new GetAllLocatairesBailActionsError(err.message))

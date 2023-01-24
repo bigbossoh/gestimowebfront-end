@@ -32,7 +32,7 @@ export class StatistiqueService {
   }
 
   public getAlllocataireAyantBail():Observable<any>{
-    return this.apiService.getAllLocatairesAvecBail();
+    return this.apiService.getAllLocatairesAvecBail(this.v_user);
   }
 
   public getAllBauxActif():Observable<any>{

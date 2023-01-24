@@ -2300,11 +2300,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string",
-                "format" : "byte"
-              }
+              "$ref" : "#/definitions/InputStreamResource"
             }
           }
         }
@@ -2793,9 +2789,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/utilisateur/locataires/ayanbail" : {
+    "gestimoweb/api/v1/utilisateur/locataires/ayanbail/{idAgence}" : {
       "get" : {
         "operationId" : "getAllLocatairesAvecBail",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -4520,6 +4523,37 @@
     "InputStream" : {
       "type" : "object"
     },
+    "InputStreamResource" : {
+      "type" : "object",
+      "properties" : {
+        "inputStream" : {
+          "$ref" : "#/definitions/InputStream"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "open" : {
+          "type" : "boolean"
+        },
+        "file" : {
+          "type" : "file"
+        },
+        "readable" : {
+          "type" : "boolean"
+        },
+        "url" : {
+          "type" : "string",
+          "format" : "url"
+        },
+        "uri" : {
+          "type" : "string",
+          "format" : "uri"
+        },
+        "filename" : {
+          "type" : "string"
+        }
+      }
+    },
     "LocataireEncaisDTO" : {
       "type" : "object",
       "properties" : {
@@ -4596,10 +4630,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -4649,10 +4683,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -4766,15 +4800,15 @@
         "name" : {
           "type" : "string"
         },
-        "empty" : {
-          "type" : "boolean"
-        },
         "bytes" : {
           "type" : "array",
           "items" : {
             "type" : "string",
             "format" : "byte"
           }
+        },
+        "empty" : {
+          "type" : "boolean"
         },
         "size" : {
           "type" : "integer",
@@ -4783,10 +4817,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         }
       }
