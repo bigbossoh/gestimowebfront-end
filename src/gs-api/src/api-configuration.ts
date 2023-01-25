@@ -8,9 +8,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiConfiguration {
-  //  rootUrl: string = 'http://localhost:5000/';
-  rootUrl: string =
-    'http://gestimoserviceweb-env.eba-dpp4ujgi.us-east-1.elasticbeanstalk.com/';
+   rootUrl: string = 'http://localhost:5000/';
+  //rootUrl: string = 'http://gestimoserviceweb-env.eba-dpp4ujgi.us-east-1.elasticbeanstalk.com/'
 }
 
 export interface ApiConfigurationInterface {

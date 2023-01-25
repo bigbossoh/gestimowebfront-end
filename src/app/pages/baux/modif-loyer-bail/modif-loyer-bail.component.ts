@@ -44,6 +44,7 @@ export class ModifLoyerBailComponent implements OnInit {
     }
     this.formGroup = this.fb.group({
       idBail: [this.v_data.id],
+      idAgence: [this.v_data.id.idAgence],
       nombreMoisCaution: [this.v_data.nbreMoisCautionBail],
       nouveauMontantLoyer: [0, Validators.required],
       ancienMontantLoyer: [this.v_loyer],
@@ -53,8 +54,8 @@ export class ModifLoyerBailComponent implements OnInit {
     });
   }
   onSaveForm() {
-
     this.store.dispatch(new ModifierBailActions(this.formGroup?.value));
     this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
+    this.dialogRef.close();
   }
 }

@@ -64,7 +64,7 @@ export class PageBauxComponent implements OnInit {
   pageSize = [5, 10, 15, 20];
   v_bail: any=undefined;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild('sorted') sorted!: MatSort;
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
   appelloyerState$: Observable<AppelLoyerState> | null = null;
@@ -81,7 +81,7 @@ export class PageBauxComponent implements OnInit {
   ) {}
   openModifMontantDialog(loyer: any): void {
     const dialolRef = this.dialog.open(ModifLoyerBailComponent, {
-      data: { id: loyer }, 
+      data: { id: loyer },
     });
     dialolRef.afterClosed().subscribe(() => {});
   }

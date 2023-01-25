@@ -27,6 +27,7 @@ export { EtageDto } from './models/etage-dto';
 export { ImmeubleDto } from './models/immeuble-dto';
 export { ImmeubleEtageDto } from './models/immeuble-etage-dto';
 export { InputStream } from './models/input-stream';
+export { InputStreamResource } from './models/input-stream-resource';
 export { LocataireEncaisDTO } from './models/locataire-encais-dto';
 export { MagasinDto } from './models/magasin-dto';
 export { MagasinResponseDto } from './models/magasin-response-dto';

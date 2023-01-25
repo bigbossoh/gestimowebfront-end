@@ -38,6 +38,7 @@ import { MagasinResponseDto } from '../models/magasin-response-dto';
 import { MagasinDto } from '../models/magasin-dto';
 import { MontantLoyerBailDto } from '../models/montant-loyer-bail-dto';
 import { PaysDto } from '../models/pays-dto';
+import { InputStreamResource } from '../models/input-stream-resource';
 import { QuartierRequestDto } from '../models/quartier-request-dto';
 import { SiteResponseDto } from '../models/site-response-dto';
 import { SiteRequestDto } from '../models/site-request-dto';
@@ -179,7 +180,7 @@ class ApiService extends __BaseService {
   static readonly getUtilisateurByIDPath = 'gestimoweb/api/v1/utilisateur/getutilisateurbyid/{id}';
   static readonly getUtilisateurByUsernamePath = 'gestimoweb/api/v1/utilisateur/getutilisateurbyusername/{username}';
   static readonly getAllLocatairesByOrderPath = 'gestimoweb/api/v1/utilisateur/locataires/all/{idAgence}';
-  static readonly getAllLocatairesAvecBailPath = 'gestimoweb/api/v1/utilisateur/locataires/ayanbail';
+  static readonly getAllLocatairesAvecBailPath = 'gestimoweb/api/v1/utilisateur/locataires/ayanbail/{idAgence}';
   static readonly getAllProprietaireByOrderPath = 'gestimoweb/api/v1/utilisateur/proprietaires/all/{idAgence}';
   static readonly saveUtilisateurPath = 'gestimoweb/api/v1/utilisateur/save';
   static readonly getAllSuperviseursByOrderPath = 'gestimoweb/api/v1/utilisateur/superviseurs/all';
@@ -4050,7 +4051,7 @@ class ApiService extends __BaseService {
    *
    * @return successful operation
    */
-  quittancePeriodeResponse(params: ApiService.QuittancePeriodeParams): __Observable<__StrictHttpResponse<Array<string>>> {
+  quittancePeriodeResponse(params: ApiService.QuittancePeriodeParams): __Observable<__StrictHttpResponse<InputStreamResource>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -4070,7 +4071,7 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<string>>;
+        return _r as __StrictHttpResponse<InputStreamResource>;
       })
     );
   }
@@ -4085,9 +4086,9 @@ class ApiService extends __BaseService {
    *
    * @return successful operation
    */
-  quittancePeriode(params: ApiService.QuittancePeriodeParams): __Observable<Array<string>> {
+  quittancePeriode(params: ApiService.QuittancePeriodeParams): __Observable<InputStreamResource> {
     return this.quittancePeriodeResponse(params).pipe(
-      __map(_r => _r.body as Array<string>)
+      __map(_r => _r.body as InputStreamResource)
     );
   }
 
@@ -4920,15 +4921,17 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param idAgence undefined
    * @return successful operation
    */
-  getAllLocatairesAvecBailResponse(): __Observable<__StrictHttpResponse<Array<LocataireEncaisDTO>>> {
+  getAllLocatairesAvecBailResponse(idAgence: number): __Observable<__StrictHttpResponse<Array<LocataireEncaisDTO>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
+
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/utilisateur/locataires/ayanbail`,
+      this.rootUrl + `gestimoweb/api/v1/utilisateur/locataires/ayanbail/${idAgence}`,
       __body,
       {
         headers: __headers,
@@ -4944,10 +4947,11 @@ class ApiService extends __BaseService {
     );
   }
   /**
+   * @param idAgence undefined
    * @return successful operation
    */
-  getAllLocatairesAvecBail(): __Observable<Array<LocataireEncaisDTO>> {
-    return this.getAllLocatairesAvecBailResponse().pipe(
+  getAllLocatairesAvecBail(idAgence: number): __Observable<Array<LocataireEncaisDTO>> {
+    return this.getAllLocatairesAvecBailResponse(idAgence).pipe(
       __map(_r => _r.body as Array<LocataireEncaisDTO>)
     );
   }
