@@ -103,8 +103,7 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
     this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(''));
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
     this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
-      console.log('les données de appels sont lmes suivants');
-      console.log(data);
+   
     });
   }
   getAppelByPeriode(p: any) {

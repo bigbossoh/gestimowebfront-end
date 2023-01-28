@@ -165,6 +165,21 @@ export class BauxEffects {
             of(new GetAllBientaireByLocatairesActionsError(err.message))
           )
         );
+      }),
+      tap((resultat) => {
+
+        if (resultat.type == OperationActionsTypes.GET_ALL_BIEN_BAIL_BY_LOCATAIRE_ERROR) {
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            resultat.payload.toString()
+          );
+        }
+        if (resultat.type == OperationActionsTypes.GET_ALL_BIEN_BAIL_BY_LOCATAIRE_SUCCES) {
+          this.sendErrorNotification(
+            NotificationType.SUCCESS,
+            'Opération éffectuée avec succès.'
+          );
+        }
       })
     )
   );

@@ -81,9 +81,13 @@ export class Encaissementffects {
         );
       }),
       tap((resultat) => {
-        console.log('Le sresultate est :');
-
-        console.log(resultat);
+        if (
+          resultat.type == EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN_ERROR
+        ) {
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            resultat.payload.toString()   );
+        }
       })
     )
   );
@@ -102,9 +106,13 @@ export class Encaissementffects {
       );
     }),
     tap((resultat) => {
-      console.log('Le sresultate est :');
-
-      console.log(resultat);
+      if (
+        resultat.type == EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN_ERROR
+      ) {
+        this.sendErrorNotification(
+          NotificationType.ERROR,
+          resultat.payload.toString()   );
+      }
     })
   )
 );
