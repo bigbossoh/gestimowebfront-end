@@ -123,7 +123,7 @@ export class UtilisateurEffects {
         );
       }),
       tap((locataire) => {
-        console.log(locataire.payload.length);
+
 
         if (
           locataire.type == UtilisateurActionsTypes.GET_ALL_LOCATAIRES_SUCCES

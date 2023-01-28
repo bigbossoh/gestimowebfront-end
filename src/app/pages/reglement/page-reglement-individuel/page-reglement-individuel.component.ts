@@ -51,18 +51,21 @@ export class PageReglementIndividuelComponent implements OnInit {
 
   public user?: UtilisateurRequestDto;
   encaissementform?: FormGroup;
-  getLesdonne: any;
-  leBonbien: Observable<any> | null = null;
-  leBienSelect = '';
+
+  leBonbien: any;
+  leLocataire: any;
+  leBail: any;
+  idDBail = 0;
+
   submitted = false;
   periode: string = '';
-  bien: number = 0;
+
   moisPaiement = '2022-12';
   getBauxBybien$: Observable<EncaissementState> | null = null;
   listeEncaissementBien$: Observable<EncaissementState> | null = null;
   getBienBylocatairestate$: Observable<BauxState> | null = null;
   saveEncaissementState$: Observable<EncaissementState> | null = null;
-  leBienEncaisse = 0;
+
   affichierformulaire = 0;
   readonly EncaissementStateEnum = EncaissementStateEnum;
   readonly BauxStateEnum = BauxStateEnum;
@@ -95,10 +98,21 @@ export class PageReglementIndividuelComponent implements OnInit {
     this.user = this.userService.getUserFromLocalCache();
 
     //GET ALL LOCATAIRE
-    this.store.dispatch(new GetAllLocatairesBailActions({}));
+    this.store.dispatch(new GetAllLocatairesBailActions(this.user.idAgence));
     this.locataireState$ = this.store.pipe(
       map((state) => state.utilisateurState)
     );
+    this.store.pipe(map((state) => state.utilisateurState)).subscribe(
+      (data) => {
+        if (data.locataireBail.length > 0) {
+          this.leLocataire = data.locataireBail[0]['id'];
+        
+        }
+      },
+      () => {}
+    );
+    this.getBienByLocataire(this.leLocataire);
+    this.getBauxBybien(this.leBonbien);
     this.encaissementform = this.fb.group({
       idAgence: [this.user?.idAgence],
       idCreateur: [this.user?.id],
@@ -125,28 +139,47 @@ export class PageReglementIndividuelComponent implements OnInit {
     // this.store.dispatch(new GetEncaissementBienActions(this.bien));
     this.store
       .pipe(map((state) => state.encaissementState))
-      .subscribe((donnee) =>
-      {
+      .subscribe((donnee) => {
         this.dataSource.data = [];
-          this.dataSource.paginator = null;
+        this.dataSource.paginator = null;
         if (donnee.encaissements.length > 0) {
           this.dataSource.data = donnee.encaissements;
           this.dataSource.paginator = this.paginator;
         }
       });
   }
-  getBienByLocataire(loca: string) {
-    // console.log("nous sommes dans get bien by locataire");
-
+  getBienByLocataire(loca: number) {
     this.store.dispatch(new GetAllBientaireByLocatairesActions(loca));
     this.getBienBylocatairestate$ = this.store.pipe(
       map((state) => state.bauxState)
     );
+    this.store.pipe(map((state) => state.bauxState)).subscribe(
+      (data) => {
+        if (data.baux.length > 0) {
+          console.log('Le Baux est le suivant llllll');
+          console.log(data.baux[0]);
+          this.leBonbien = data.baux[0].idBienImmobilier;
+          this.affichierformulaire = 1;
+          this.idDBail = data.baux[0].id;
+          this.leBail = data.baux[0];
+
+        }
+      },
+      () => {}
+    );
+
+    this.store.dispatch(
+      new GetAllPeriodeReglementByBienActions(this.leBonbien)
+    );
+    this.getBauxBybien$ = this.store.pipe(
+      map((state) => state.encaissementState)
+    );
   }
   getBauxBybien(p: any) {
-    this.bien = p;
+    console.log("On n'est dans le bon baux des baux bien :::: " + p);
+
     this.affichierformulaire = p;
-    this.leBienEncaisse = p;
+
     this.store.dispatch(new GetAllPeriodeReglementByBienActions(p));
     this.getBauxBybien$ = this.store.pipe(
       map((state) => state.encaissementState)
@@ -158,8 +191,6 @@ export class PageReglementIndividuelComponent implements OnInit {
     this.store
       .pipe(map((state) => state.encaissementState))
       .subscribe((data) => {
-        // console.log('Les encaissemnts sont les suivants pour Baux : ');
-        // console.log(data.encaissements);
         this.dataSource.data = [];
         this.dataSource.paginator = null;
         if (data.encaissements.length > 0) {
@@ -173,7 +204,6 @@ export class PageReglementIndividuelComponent implements OnInit {
     this.store
       .pipe(map((state) => state.encaissementState))
       .subscribe((donnee) => {
-      
         this.dataSource.data = [];
         this.dataSource.paginator = null;
         if (donnee.encaissements.length > 0) {

@@ -1,4 +1,4 @@
-<div class="col" >
+<div class="col">
   <div class="row m-3">
     <div class="col-md-8 p-0">
       <h1>Règlement Individuel</h1>
@@ -16,53 +16,74 @@
     </div>
     <hr style="margin-top: 0" />
     <div class="row">
-
-
-    <div class="col-md-6">
-      <ng-container *ngIf="locataireState$ | async as locataireState" [ngSwitch]="locataireState.dataState">
-        <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADING">
+      <div class="col-md-6">
+        <ng-container
+          *ngIf="locataireState$ | async as locataireState"
+          [ngSwitch]="locataireState.dataState"
+        >
+          <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADING">
+          </ng-container>
+          <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
+            <!-- <label>Locataires</label> -->
+            <mat-form-field appearance="outline">
+              <mat-label> Locataires</mat-label>
+              <mat-select
+                #selectionlocataire
+                placeholder=""
+                [value]="leLocataire"
+                (selectionChange)="getBienByLocataire(selectionlocataire.value)"
+              >
+                <mat-option
+                  [value]="locataire.id"
+                  *ngFor="let locataire of locataireState.locataireBail"
+                  >{{ locataire.nom }} {{ locataire.prenom }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </ng-container>
         </ng-container>
-        <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
-          <!-- <label>Locataires</label> -->
-          <mat-form-field appearance="outline">
-            <mat-label> Locataires</mat-label>
-            <mat-select #selectionlocataire placeholder=""
-              (selectionChange)="getBienByLocataire(selectionlocataire.value);getBauxBybien(0)">
-              <mat-option [value]="locataire.id" *ngFor="let locataire of locataireState.locataireBail">{{ locataire.nom
-                }} {{ locataire.prenom }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-
+      </div>
+      <div class="col-md-6">
+        <ng-container
+          *ngIf="getBienBylocatairestate$ | async as biensLocataire"
+          [ngSwitch]="biensLocataire.dataState"
+        >
+          <ng-container *ngSwitchCase="BauxStateEnum.LOADING">
+            <i class="fas fa-sync fa-spin"></i>
+          </ng-container>
+          <ng-container *ngSwitchCase="BauxStateEnum.LOADED">
+            <mat-form-field appearance="outline">
+              <mat-label> Bien immobilier</mat-label>
+              <mat-select
+                #selectBien
+                [value]="leBonbien"
+                (selectionChange)="getBauxBybien(selectBien.value)"
+              >
+                <!-- <mat-option value="">Choisir un bien</mat-option> -->
+                <mat-option
+                  [value]="bien.idBienImmobilier"
+                  *ngFor="let bien of biensLocataire.baux"
+                >
+                  {{ bien.codeAbrvBienImmobilier }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </ng-container>
+          <ng-container *ngSwitchCase="BauxStateEnum.ERROR"> ... </ng-container>
         </ng-container>
-      </ng-container>
+      </div>
     </div>
-    <div class="col-md-6">
-      <ng-container *ngIf="getBienBylocatairestate$ | async as biensLocataire" [ngSwitch]="biensLocataire.dataState">
-        <ng-container *ngSwitchCase="BauxStateEnum.LOADING">
-          <i class="fas fa-sync fa-spin"></i>
-        </ng-container>
-        <ng-container *ngSwitchCase="BauxStateEnum.LOADED">
-          <mat-form-field appearance="outline">
-            <mat-label> Bien immobilier</mat-label>
-            <mat-select #selectBien [(ngModel)]="bien" [compareWith]="compareObjects"
-              (selectionChange)="getBauxBybien(selectBien.value) ">
-              <mat-option value="">Choisir un bien</mat-option>
-              <mat-option [value]="bien.idBienImmobilier" *ngFor="let bien of biensLocataire.baux">
-                {{ bien.codeAbrvBienImmobilier }}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </ng-container>
-        <ng-container *ngSwitchCase="BauxStateEnum.ERROR"> ... </ng-container>
-      </ng-container>
-    </div>
-  </div>
 
-    <div *ngIf="affichierformulaire!=0">
+    <div *ngIf="affichierformulaire != 0">
       <form *ngIf="encaissementform" [formGroup]="encaissementform">
         <!-- <div class="row mb-3"> -->
-          <ng-container *ngIf="getBauxBybien$ | async as bauxBybien" [ngSwitch]="bauxBybien.dataState">
-            <ng-container *ngSwitchCase="BauxBienStateEnum.LOADED">
-              <!-- <div class="col-md-3">
+
+        <ng-container
+          *ngIf="getBauxBybien$ | async as bauxBybien"
+          [ngSwitch]="bauxBybien.dataState"
+        >
+          <ng-container *ngSwitchCase="BauxBienStateEnum.LOADED">
+            <!-- <div class="col-md-3">
               <div class="form-group">
                 <label for="firstName"></label>
                 <mat-label>Loyer de :
@@ -70,25 +91,28 @@
 
               </div>
             </div> -->
-              <div class="row">
-                <div class="col">
-                  <h5>
-                    <i class="fas fa-asterisk blue-color"></i>&nbsp;Montant de règlement
-                  </h5>
-                </div>
+            <div class="row">
+              <div class="col">
+                <h5>
+                  <i class="fas fa-asterisk blue-color"></i>&nbsp;Montant de
+                  règlement
+                </h5>
               </div>
-              <hr style="margin-top: 0" />
-              <mat-form-field hidden>
-
-                <mat-select #selectAppel formControlName="idAppelLoyer" [compareWith]="compareAppels"
-                  [(ngModel)]="bauxBybien.appelloyers.id">
-
-                  <mat-option [value]="bauxBybien.appelloyers.id">
-                    Appel : {{ bauxBybien.appelloyers.id }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <div class="row">
-
+            </div>
+            <hr style="margin-top: 0" />
+            <mat-form-field hidden>
+              <mat-select
+                #selectAppel
+                formControlName="idAppelLoyer"
+                [compareWith]="compareAppels"
+                [value]="bauxBybien.appelloyers.id"
+              >
+                <mat-option [value]="bauxBybien.appelloyers.id">
+                  Appel : {{ bauxBybien.appelloyers.id }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+            <div class="row">
               <div class="col-md-3">
                 <!-- <label>Mode de règlement</label>
                 <select id="modele" name="typeClim" class="form-control" formControlName="modePaiement">
@@ -101,92 +125,112 @@
                 </select> -->
                 <mat-form-field appearance="outline">
                   <mat-label>Mode de règlement*</mat-label>
-                  <mat-select formControlName="modePaiement" placeholder="Mode de règlement">
+                  <mat-select
+                    formControlName="modePaiement"
+                    placeholder="Mode de règlement"
+                  >
                     <mat-option value="ESPESE_MAGISER">Espèce</mat-option>
-                    <mat-option value="MOBILE_MONEY_MAGISER">Money Electronique</mat-option>
-                    <mat-option value="CHEQUE_ECOBANK_MAGISER">Chèque</mat-option>
-                    <mat-option value="VIREMENT_ECOBANK_MAGISER">Virement Banquaire</mat-option>
+                    <mat-option value="MOBILE_MONEY_MAGISER"
+                      >Money Electronique</mat-option
+                    >
+                    <mat-option value="CHEQUE_ECOBANK_MAGISER"
+                      >Chèque</mat-option
+                    >
+                    <mat-option value="VIREMENT_ECOBANK_MAGISER"
+                      >Virement Banquaire</mat-option
+                    >
                   </mat-select>
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
               </div>
 
               <!-- <div class="row mb-3"> -->
-                <div class="col-md-3">
-                  <!-- <label>Montant encaissé</label>
+              <div class="col-md-3">
+                <!-- <label>Montant encaissé</label>
                   <input formControlName="montantEncaissement" type="text" class="form-control"
                     placeholder="Montant encaissé" name="MontantEncaissé" /> -->
-                    <mat-form-field appearance="outline">
-                      <mat-label>Montant encaissé</mat-label>
-                      <input
-                      formControlName="montantEncaissement"
-
-                      type="number"
-                       matInput
-                       placeholder="Montant encaissé"
-                       >
-                      <mat-error>Ce champ est obligatoire.</mat-error>
-                    </mat-form-field>
-                </div>
-                <!-- <div class="col-md-3">
+                <mat-form-field appearance="outline">
+                  <mat-label>Montant encaissé</mat-label>
+                  <input
+                    formControlName="montantEncaissement"
+                    type="number"
+                    matInput
+                    placeholder="Montant encaissé"
+                  />
+                  <mat-error>Ce champ est obligatoire.</mat-error>
+                </mat-form-field>
+              </div>
+              <!-- <div class="col-md-3">
                   <label>Solde loyer</label>
                   <input type="text" class="form-control" placeholder="Solde loyer" name="SoldeLoyer" />
                 </div> -->
-                <div class="col-md-3">
-                  <!-- <label>Montant du loyer</label> -->
+              <div class="col-md-3">
+                <!-- <label>Montant du loyer</label> -->
 
-                    <div class="mat-typography">
-                      <h3>
-                        Montant du loyer :{{ bauxBybien.appelloyers.nouveauMontantLoyer }}
-                      </h3>
-                    </div>
-
-                </div>
-                 <div class="col-md-3">
-                  <button  class="mr-2" mat-raised-button color="primary"  (click)="onSaveEncaissement()"
-                  [disabled]="encaissementform.invalid"
-                  >
-                    <mat-icon>save</mat-icon>
-                    Encaisser
-                  </button>
-                  <button mat-raised-button color="warn" class="mr-1">
-                    <mat-icon>cancel</mat-icon>
-                    Annuler
-                  </button>
-
-                 </div>
-              <!-- </div> -->
-            </div>
-              <div class="row ">
-                <div class="col-md-6">
-                <div class="col panel-body text-right">
-
-
+                <div class="mat-typography">
+                  <h3>
+                    Montant du loyer :{{
+                      bauxBybien.appelloyers.nouveauMontantLoyer
+                    }}
+                  </h3>
                 </div>
               </div>
+              <div class="col-md-3">
+                <button
+                  class="mr-2"
+                  mat-raised-button
+                  color="primary"
+                  (click)="onSaveEncaissement()"
+                  [disabled]="encaissementform.invalid"
+                >
+                  <mat-icon>save</mat-icon>
+                  Encaisser
+                </button>
+                <button mat-raised-button color="warn" class="mr-1">
+                  <mat-icon>cancel</mat-icon>
+                  Annuler
+                </button>
+              </div>
+              <!-- </div> -->
             </div>
-            </ng-container>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="col panel-body text-right"></div>
+              </div>
+            </div>
           </ng-container>
+        </ng-container>
         <!-- </div> -->
       </form>
     </div>
     <div class="row">
       <div class="col">
         <h5>
-          <i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des encaissements
+          <i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des
+          encaissements
         </h5>
       </div>
     </div>
     <hr />
-    <div *ngIf="affichierformulaire!=0">
+    <div *ngIf="affichierformulaire != 0">
       <div class="mat-elevation-z8">
         <div class="example-header">
-          <mat-form-field class="tail-50" style="margin-left: 12px;">
+          <mat-form-field class="tail-50" style="margin-left: 12px">
             <mat-label>Rechercher</mat-label>
-            <input matInput (keyup)="applyFilter($event)" #input placeholder="Rechercher un Encaissement" />
+            <input
+              matInput
+              (keyup)="applyFilter($event)"
+              #input
+              placeholder="Rechercher un Encaissement"
+            />
           </mat-form-field>
         </div>
-        <mat-paginator #matimmeuble showFirstLastButtons [pageSizeOptions]="pageSize" aria-label="Select page of users">
+        <mat-paginator
+          #matimmeuble
+          showFirstLastButtons
+          [pageSizeOptions]="pageSize"
+          aria-label="Select page of users"
+        >
         </mat-paginator>
         <mat-table #tableEncaissemnt [dataSource]="dataSource" matSort>
           <!-- Code colonne -->
@@ -204,7 +248,7 @@
               Date de Paiement
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              {{ row.creationDate | date: "dd / MM / yyyy à HH:mm" }}
+              {{ row.creationDate | date : "dd / MM / yyyy à HH:mm" }}
             </mat-cell>
           </ng-container>
 
@@ -214,7 +258,8 @@
               Période
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              {{ row.appelLoyersFactureDto!.periodeLettre }}</mat-cell>
+              {{ row.appelLoyersFactureDto!.periodeLettre }}</mat-cell
+            >
           </ng-container>
 
           <ng-container matColumnDef="Loyer">
@@ -222,14 +267,16 @@
               Montant Loyer
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              {{ row.appelLoyersFactureDto!.nouveauMontantLoyer }}</mat-cell>
+              {{ row.appelLoyersFactureDto!.nouveauMontantLoyer }}</mat-cell
+            >
           </ng-container>
           <ng-container matColumnDef="MontantPaye">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
               Montant Payé
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              {{ row.montantEncaissement }}</mat-cell>
+              {{ row.montantEncaissement }}</mat-cell
+            >
           </ng-container>
 
           <ng-container matColumnDef="ModedeReglement">
@@ -244,7 +291,8 @@
               Solde du mois
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              {{ row.soldeEncaissement}}</mat-cell>
+              {{ row.soldeEncaissement }}</mat-cell
+            >
           </ng-container>
           <!-- Propriétaire colonne -->
           <ng-container matColumnDef="Status">
@@ -252,16 +300,24 @@
               Status
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <span *ngIf="row.appelLoyersFactureDto!.statusAppelLoyer=='Soldé'"
-                class="badge badge-success">{{row.appelLoyersFactureDto!.statusAppelLoyer}}
+              <span
+                *ngIf="row.appelLoyersFactureDto!.statusAppelLoyer == 'Soldé'"
+                class="badge badge-success"
+                >{{ row.appelLoyersFactureDto!.statusAppelLoyer }}
               </span>
-              <span *ngIf="row.appelLoyersFactureDto!.statusAppelLoyer=='Impayé'"
-                class="badge badge-danger">{{row.appelLoyersFactureDto!.statusAppelLoyer}}
+              <span
+                *ngIf="row.appelLoyersFactureDto!.statusAppelLoyer == 'Impayé'"
+                class="badge badge-danger"
+                >{{ row.appelLoyersFactureDto!.statusAppelLoyer }}
               </span>
-              <span *ngIf="row.appelLoyersFactureDto!.statusAppelLoyer=='partiellement payé'"
-                class="badge badge-warning">{{row.appelLoyersFactureDto!.statusAppelLoyer}}
+              <span
+                *ngIf="
+                  row.appelLoyersFactureDto!.statusAppelLoyer ==
+                  'partiellement payé'
+                "
+                class="badge badge-warning"
+                >{{ row.appelLoyersFactureDto!.statusAppelLoyer }}
               </span>
-
             </mat-cell>
           </ng-container>
           <!-- Actions colonne -->
