@@ -75,6 +75,7 @@ export class PageReglementIndividuelComponent implements OnInit {
   locataireState$: Observable<UtilisteurState> | null = null;
   readonly UtilisteurStateEnum = UtilisteurStateEnum;
   montant_Loyer: number = 0;
+  idDeAppel: any;
 
   constructor(
     private fb: FormBuilder,
@@ -95,6 +96,12 @@ export class PageReglementIndividuelComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+    this.leBonbien = 0;
+    this.leBail = 0;
+    this.leLocataire = 0;
+    this.montant_Loyer = 0;
+    this.idDBail = 0;
+    this.idDeAppel = 0;
     this.user = this.userService.getUserFromLocalCache();
 
     //GET ALL LOCATAIRE
@@ -106,13 +113,11 @@ export class PageReglementIndividuelComponent implements OnInit {
       (data) => {
         if (data.locataireBail.length > 0) {
           this.leLocataire = data.locataireBail[0]['id'];
-        
         }
       },
       () => {}
     );
-    this.getBienByLocataire(this.leLocataire);
-    this.getBauxBybien(this.leBonbien);
+
     this.encaissementform = this.fb.group({
       idAgence: [this.user?.idAgence],
       idCreateur: [this.user?.id],
@@ -130,13 +135,10 @@ export class PageReglementIndividuelComponent implements OnInit {
       return;
     }
     this.submitted = false;
+
     this.store.dispatch(
       new SaveEncaissementActions(this.encaissementform?.value)
     );
-    this.saveEncaissementState$ = this.store.pipe(
-      map((state) => state.encaissementState)
-    );
-    // this.store.dispatch(new GetEncaissementBienActions(this.bien));
     this.store
       .pipe(map((state) => state.encaissementState))
       .subscribe((donnee) => {
@@ -147,6 +149,9 @@ export class PageReglementIndividuelComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
         }
       });
+    this.saveEncaissementState$ = this.store.pipe(
+      map((state) => state.encaissementState)
+    );
   }
   getBienByLocataire(loca: number) {
     this.store.dispatch(new GetAllBientaireByLocatairesActions(loca));
@@ -156,16 +161,16 @@ export class PageReglementIndividuelComponent implements OnInit {
     this.store.pipe(map((state) => state.bauxState)).subscribe(
       (data) => {
         if (data.baux.length > 0) {
-          console.log('Le Baux est le suivant llllll');
-          console.log(data.baux[0]);
           this.leBonbien = data.baux[0].idBienImmobilier;
           this.affichierformulaire = 1;
           this.idDBail = data.baux[0].id;
           this.leBail = data.baux[0];
-
+          this.idDeAppel = data.baux[0].idFirstAppel;
+          console.log('le baux baux baux baux bien est');
+          console.log(data.baux[0]);
         }
-      },
-      () => {}
+      }
+      //() => {}
     );
 
     this.store.dispatch(
@@ -176,14 +181,17 @@ export class PageReglementIndividuelComponent implements OnInit {
     );
   }
   getBauxBybien(p: any) {
-    console.log("On n'est dans le bon baux des baux bien :::: " + p);
-
     this.affichierformulaire = p;
-
     this.store.dispatch(new GetAllPeriodeReglementByBienActions(p));
     this.getBauxBybien$ = this.store.pipe(
       map((state) => state.encaissementState)
     );
+    this.store
+      .pipe(map((state) => state.encaissementState))
+      .subscribe((data) => {
+        console.log('Les baudelaise');
+        console.log(data);
+      });
     this.store.dispatch(new GetEncaissementBienActions(p));
     this.listeEncaissementBien$ = this.store.pipe(
       map((state) => state.encaissementState)

@@ -54,8 +54,8 @@ export class QuittanceAppelLoyerEffects {
           resultat.type == QuittanceAppelLoyerActionsType.PRINT_QUITTANCE_SUCCES
         ) {
           const fileURL = URL.createObjectURL(resultat.payload);
-          saveAs(resultat.payload, 'appel_quittance.pdf');
-          window.open(fileURL);
+          //saveAs(resultat.payload, 'appel_quittance.pdf');
+          //window.open(fileURL);
         }
         if (
           resultat.type == QuittanceAppelLoyerActionsType.PRINT_QUITTANCE_ERROR

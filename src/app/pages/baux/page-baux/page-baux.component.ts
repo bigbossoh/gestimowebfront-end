@@ -55,7 +55,7 @@ export class PageBauxComponent implements OnInit {
     'bail',
     'debut',
     'fin',
-    'Loyer',
+    // 'Loyer',
     'Bail en cours',
     'Actions',
   ];

@@ -53,13 +53,12 @@
           </ng-container>
           <ng-container *ngSwitchCase="BauxStateEnum.LOADED">
             <mat-form-field appearance="outline">
-              <mat-label> Bien immobilier</mat-label>
+              <mat-label> Bien immobilier N° {{leBonbien}}</mat-label>
               <mat-select
-                #selectBien
-                [value]="leBonbien"
-                (selectionChange)="getBauxBybien(selectBien.value)"
+                [(value)]="leBonbien"
+                (valueChange)="getBauxBybien($event.value)"
               >
-                <!-- <mat-option value="">Choisir un bien</mat-option> -->
+                <mat-option value="">Aucun bien</mat-option>
                 <mat-option
                   [value]="bien.idBienImmobilier"
                   *ngFor="let bien of biensLocataire.baux"
@@ -76,21 +75,21 @@
 
     <div *ngIf="affichierformulaire != 0">
       <form *ngIf="encaissementform" [formGroup]="encaissementform">
-        <!-- <div class="row mb-3"> -->
 
         <ng-container
           *ngIf="getBauxBybien$ | async as bauxBybien"
           [ngSwitch]="bauxBybien.dataState"
         >
           <ng-container *ngSwitchCase="BauxBienStateEnum.LOADED">
-            <!-- <div class="col-md-3">
+            <div class="col-md-3">
               <div class="form-group">
                 <label for="firstName"></label>
-                <mat-label>Loyer de :
-                  {{ bauxBybien.appelloyers.periodeLettre }}</mat-label>
-
+                <mat-label
+                  >Loyer de :
+                  {{ bauxBybien.appelloyers.periodeLettre }}</mat-label
+                >
               </div>
-            </div> -->
+            </div>
             <div class="row">
               <div class="col">
                 <h5>
@@ -105,7 +104,7 @@
                 #selectAppel
                 formControlName="idAppelLoyer"
                 [compareWith]="compareAppels"
-                [value]="bauxBybien.appelloyers.id"
+                [(ngModel)]="idDeAppel"
               >
                 <mat-option [value]="bauxBybien.appelloyers.id">
                   Appel : {{ bauxBybien.appelloyers.id }}</mat-option
@@ -156,6 +155,7 @@
                     type="number"
                     matInput
                     placeholder="Montant encaissé"
+                    [(ngModel)]="montant_Loyer"
                   />
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>

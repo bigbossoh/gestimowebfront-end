@@ -76,9 +76,11 @@ class ApiService extends __BaseService {
   static readonly AppelLoyersParIdPath = 'gestimoweb/api/v1/appelloyer/findAppelloyer/{id}';
   static readonly listDesLoyersParBailPath = 'gestimoweb/api/v1/appelloyer/findAppelsByIdBail/{id}';
   static readonly listDesLoyersImpayerParBailPath = 'gestimoweb/api/v1/appelloyer/findAppelsImpayerByIdBail/{id}';
+  static readonly findByIdAndBailPath = 'gestimoweb/api/v1/appelloyer/findByIdAndBail/{idBien}/{periode}';
   static readonly impayeLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/impayeParAnnee/{annee}/{idAgence}';
   static readonly impayeLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/impayeParMois/{periode}/{idAgence}';
   static readonly listOfDistinctAnneeAppelPath = 'gestimoweb/api/v1/appelloyer/listOfDistinctAnneeAppel/{idAgence}';
+  static readonly listeDesloyerSuperieurAUnePeriodePath = 'gestimoweb/api/v1/appelloyer/listeDesloyerSuperieurAUnePeriode/{idBien}/{periode}';
   static readonly payeLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/payeParAnnee/{annee}/{idAgence}';
   static readonly payeLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/payeParMois/{periode}/{idAgence}';
   static readonly ReductionLoyerByPeriodePath = 'gestimoweb/api/v1/appelloyer/reductionLoyerByPeriode';
@@ -1101,6 +1103,53 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param params The `ApiService.FindByIdAndBailParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `idBien`:
+   *
+   * @return successful operation
+   */
+  findByIdAndBailResponse(params: ApiService.FindByIdAndBailParams): __Observable<__StrictHttpResponse<AppelLoyersFactureDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/findByIdAndBail/${params.idBien}/${params.periode}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<AppelLoyersFactureDto>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.FindByIdAndBailParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `idBien`:
+   *
+   * @return successful operation
+   */
+  findByIdAndBail(params: ApiService.FindByIdAndBailParams): __Observable<AppelLoyersFactureDto> {
+    return this.findByIdAndBailResponse(params).pipe(
+      __map(_r => _r.body as AppelLoyersFactureDto)
+    );
+  }
+
+  /**
    * @param params The `ApiService.ImpayeLoyerParAnneeParams` containing the following parameters:
    *
    * - `idAgence`:
@@ -1227,6 +1276,53 @@ class ApiService extends __BaseService {
   listOfDistinctAnneeAppel(idAgence: number): __Observable<Array<number>> {
     return this.listOfDistinctAnneeAppelResponse(idAgence).pipe(
       __map(_r => _r.body as Array<number>)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.ListeDesloyerSuperieurAUnePeriodeParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `idBien`:
+   *
+   * @return successful operation
+   */
+  listeDesloyerSuperieurAUnePeriodeResponse(params: ApiService.ListeDesloyerSuperieurAUnePeriodeParams): __Observable<__StrictHttpResponse<Array<AppelLoyersFactureDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/listeDesloyerSuperieurAUnePeriode/${params.idBien}/${params.periode}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<AppelLoyersFactureDto>>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.ListeDesloyerSuperieurAUnePeriodeParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `idBien`:
+   *
+   * @return successful operation
+   */
+  listeDesloyerSuperieurAUnePeriode(params: ApiService.ListeDesloyerSuperieurAUnePeriodeParams): __Observable<Array<AppelLoyersFactureDto>> {
+    return this.listeDesloyerSuperieurAUnePeriodeResponse(params).pipe(
+      __map(_r => _r.body as Array<AppelLoyersFactureDto>)
     );
   }
 
@@ -5482,6 +5578,14 @@ module ApiService {
   }
 
   /**
+   * Parameters for findByIdAndBail
+   */
+  export interface FindByIdAndBailParams {
+    periode: string;
+    idBien: number;
+  }
+
+  /**
    * Parameters for impayeLoyerParAnnee
    */
   export interface ImpayeLoyerParAnneeParams {
@@ -5495,6 +5599,14 @@ module ApiService {
   export interface ImpayeLoyerParMoisParams {
     periode: string;
     idAgence: number;
+  }
+
+  /**
+   * Parameters for listeDesloyerSuperieurAUnePeriode
+   */
+  export interface ListeDesloyerSuperieurAUnePeriodeParams {
+    periode: string;
+    idBien: number;
   }
 
   /**

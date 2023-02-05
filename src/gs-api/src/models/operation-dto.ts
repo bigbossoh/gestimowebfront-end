@@ -3,6 +3,7 @@ export interface OperationDto {
   id?: number;
   idAgence?: number;
   idCreateur?: number;
+  idFirstAppel?: number;
   creationDate?: number;
   lastModifiedDate?: number;
   dateDebut?: string;

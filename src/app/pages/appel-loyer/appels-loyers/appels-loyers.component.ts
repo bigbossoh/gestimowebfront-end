@@ -100,10 +100,10 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
     this.ngOnInit();
   }
   ngOnInit(): void {
-    this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(''));
+    this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(this.periodePrint));
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
     this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
-   
+
     });
   }
   getAppelByPeriode(p: any) {

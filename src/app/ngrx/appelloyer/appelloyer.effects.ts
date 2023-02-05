@@ -127,11 +127,6 @@ export class AppelLoyerEffects {
       }),
       tap((resultat) =>
             {
-              console.log(
-                'Le bon resultat est le suivant pour la reduction du bail'
-              );
-              console.log(resultat.type);
-
               if (
                 resultat.type ==
                 AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_SUCCES

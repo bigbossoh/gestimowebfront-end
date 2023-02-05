@@ -550,6 +550,31 @@
         }
       }
     },
+    "gestimoweb/api/v1/appelloyer/findByIdAndBail/{idBien}/{periode}" : {
+      "get" : {
+        "operationId" : "findByIdAndBail",
+        "parameters" : [ {
+          "name" : "idBien",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "periode",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/AppelLoyersFactureDto"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/appelloyer/impayeParAnnee/{annee}/{idAgence}" : {
       "get" : {
         "operationId" : "impayeLoyerParAnnee",
@@ -621,6 +646,34 @@
               "items" : {
                 "type" : "integer",
                 "format" : "int32"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appelloyer/listeDesloyerSuperieurAUnePeriode/{idBien}/{periode}" : {
+      "get" : {
+        "operationId" : "listeDesloyerSuperieurAUnePeriode",
+        "parameters" : [ {
+          "name" : "idBien",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "periode",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AppelLoyersFactureDto"
               }
             }
           }
@@ -4630,10 +4683,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -4683,10 +4736,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -4800,15 +4853,15 @@
         "name" : {
           "type" : "string"
         },
+        "empty" : {
+          "type" : "boolean"
+        },
         "bytes" : {
           "type" : "array",
           "items" : {
             "type" : "string",
             "format" : "byte"
           }
-        },
-        "empty" : {
-          "type" : "boolean"
         },
         "size" : {
           "type" : "integer",
@@ -4876,6 +4929,10 @@
           "format" : "int64"
         },
         "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idFirstAppel" : {
           "type" : "integer",
           "format" : "int64"
         },
