@@ -104,14 +104,18 @@ export class PageReglementIndividuelComponent implements OnInit {
     this.idDeAppel = 0;
     this.user = this.userService.getUserFromLocalCache();
 
-    //GET ALL LOCATAIRE
+    //RAMENER TOUS LES LOCATAIRES QUI ONT UN BAIL ACTIF
     this.store.dispatch(new GetAllLocatairesBailActions(this.user.idAgence));
     this.locataireState$ = this.store.pipe(
       map((state) => state.utilisateurState)
     );
     this.store.pipe(map((state) => state.utilisateurState)).subscribe(
       (data) => {
-        if (data.locataireBail.length > 0) {
+        if (data.locataireBail.length > 0)
+        {
+          console.log("Le bail est le suivant qui est bon trop bon meme :::: :::: ::: ");
+          console.log(data);
+          console.log("::::: ::::: :::::: :::: :::: ::::: ::::: :: ::: :");
           this.leLocataire = data.locataireBail[0]['id'];
         }
       },
@@ -166,8 +170,6 @@ export class PageReglementIndividuelComponent implements OnInit {
           this.idDBail = data.baux[0].id;
           this.leBail = data.baux[0];
           this.idDeAppel = data.baux[0].idFirstAppel;
-          console.log('le baux baux baux baux bien est');
-          console.log(data.baux[0]);
         }
       }
       //() => {}

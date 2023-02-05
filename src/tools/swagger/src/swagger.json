@@ -9,7 +9,7 @@
       "email" : "michel.bossoh@outlook.fr"
     }
   },
-  "basePath" : "http://localhost:5000",
+  "basePath" : "http://localhost:8282/",
   "paths" : {
     "gestimoweb/api/v1/agences/all/{idAgence}" : {
       "get" : {
@@ -4614,10 +4614,31 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idBien" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAppel" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "montantloyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "mois" : {
+          "type" : "string"
+        },
+        "moisEnLettre" : {
+          "type" : "string"
+        },
         "nom" : {
           "type" : "string"
         },
         "prenom" : {
+          "type" : "string"
+        },
+        "codeDescBail" : {
           "type" : "string"
         }
       }
@@ -4683,10 +4704,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -4736,10 +4757,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }

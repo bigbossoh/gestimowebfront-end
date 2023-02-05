@@ -16,7 +16,7 @@ export interface UtilisteurState {
   utilisateurs: UtilisateurAfficheDto[];
   errorMessage: string;
   dataState: UtilisteurStateEnum;
-  locataireBail: LocataireEncaisDTO[];
+  locataireBail: UtilisateurAfficheDto[];
 }
 const initState: UtilisteurState = {
   utilisateurs: [],
