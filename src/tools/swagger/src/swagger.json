@@ -9,7 +9,7 @@
       "email" : "michel.bossoh@outlook.fr"
     }
   },
-  "basePath" : "http://localhost:8282/",
+  "basePath" : "http://localhost:5000",
   "paths" : {
     "gestimoweb/api/v1/agences/all/{idAgence}" : {
       "get" : {
@@ -816,6 +816,32 @@
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/Utilisateur"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bail/bailLocataireetbien/{locataire}/{bien}" : {
+      "get" : {
+        "operationId" : "bailByLocataireEtBien",
+        "parameters" : [ {
+          "name" : "locataire",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "bien",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/LocataireEncaisDTO"
             }
           }
         }
@@ -4704,10 +4730,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -4757,10 +4783,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }

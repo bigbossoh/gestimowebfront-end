@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
@@ -11,6 +12,8 @@ import {
   SaveEncaissementActionsError,
   GetAllPeriodeReglementByBienActionsSuccess,
   GetAllPeriodeReglementByBienActionsError,
+  GetLocataireEncaissementActionsSuccess,
+  GetLocataireEncaissementActionsError,
 } from './reglement.actions';
 import { NotificationType } from '../../enum/natification-type.enum';
 import { NotificationService } from '../../services/notification/notification.service';
@@ -65,7 +68,36 @@ export class Encaissementffects {
     //   }
     // })
   )
-);
+  );
+    //LISTE DES LOCATAIRES BAILS
+    getAllLocatairesEncaissEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT),
+      mergeMap((action: EncaissementActions) => {
+        return this.apiService.bailByLocataireEtBien(action.payload).pipe(
+          map(
+            (locatires) => new GetLocataireEncaissementActionsSuccess(locatires)
+          ),
+          catchError((err) =>
+            of(new GetLocataireEncaissementActionsError(err.message))
+          )
+        );
+      }),
+      tap((locataire) =>
+      {
+        console.log("LE LOCA ENCAISS *******");
+        console.log(locataire.payload);
+
+
+        if (
+          locataire.type ==
+          EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT_ERROR
+        ) {
+          this.sendErrorNotification(NotificationType.ERROR, locataire.payload);
+        }
+      })
+    )
+  );
   getAllPeriodebyBienEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN),

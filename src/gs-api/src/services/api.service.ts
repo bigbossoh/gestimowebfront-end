@@ -19,6 +19,7 @@ import { PourcentageAppelDto } from '../models/pourcentage-appel-dto';
 import { AppelLoyerRequestDto } from '../models/appel-loyer-request-dto';
 import { Utilisateur } from '../models/utilisateur';
 import { AuthRequestDto } from '../models/auth-request-dto';
+import { LocataireEncaisDTO } from '../models/locataire-encais-dto';
 import { OperationDto } from '../models/operation-dto';
 import { BailModifDto } from '../models/bail-modif-dto';
 import { BailAppartementDto } from '../models/bail-appartement-dto';
@@ -45,7 +46,6 @@ import { SiteRequestDto } from '../models/site-request-dto';
 import { SuivieDepenseDto } from '../models/suivie-depense-dto';
 import { UtilisateurAfficheDto } from '../models/utilisateur-affiche-dto';
 import { UtilisateurRequestDto } from '../models/utilisateur-request-dto';
-import { LocataireEncaisDTO } from '../models/locataire-encais-dto';
 import { VillaDto } from '../models/villa-dto';
 import { VilleDto } from '../models/ville-dto';
 @Injectable({
@@ -87,6 +87,7 @@ class ApiService extends __BaseService {
   static readonly saveAppelLoyersPath = 'gestimoweb/api/v1/appelloyer/save';
   static readonly verifyAccountPath = 'gestimoweb/api/v1/auth/accountVerification/{token}';
   static readonly loginPath = 'gestimoweb/api/v1/auth/login';
+  static readonly bailByLocataireEtBienPath = 'gestimoweb/api/v1/bail/bailLocataireetbien/{locataire}/{bien}';
   static readonly clotureBailPath = 'gestimoweb/api/v1/bail/clotureBail/{id}';
   static readonly findOperationByIdPath = 'gestimoweb/api/v1/bail/findoperationbyid/{id}';
   static readonly listDesBauxPourUnBienImmobilierPath = 'gestimoweb/api/v1/bail/getallbailbybien/{id}';
@@ -1561,6 +1562,53 @@ class ApiService extends __BaseService {
   login(body?: AuthRequestDto): __Observable<Utilisateur> {
     return this.loginResponse(body).pipe(
       __map(_r => _r.body as Utilisateur)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.BailByLocataireEtBienParams` containing the following parameters:
+   *
+   * - `locataire`:
+   *
+   * - `bien`:
+   *
+   * @return successful operation
+   */
+  bailByLocataireEtBienResponse(params: ApiService.BailByLocataireEtBienParams): __Observable<__StrictHttpResponse<LocataireEncaisDTO>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/bail/bailLocataireetbien/${params.locataire}/${params.bien}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<LocataireEncaisDTO>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.BailByLocataireEtBienParams` containing the following parameters:
+   *
+   * - `locataire`:
+   *
+   * - `bien`:
+   *
+   * @return successful operation
+   */
+  bailByLocataireEtBien(params: ApiService.BailByLocataireEtBienParams): __Observable<LocataireEncaisDTO> {
+    return this.bailByLocataireEtBienResponse(params).pipe(
+      __map(_r => _r.body as LocataireEncaisDTO)
     );
   }
 
@@ -5623,6 +5671,14 @@ module ApiService {
   export interface PayeLoyerParMoisParams {
     periode: string;
     idAgence: number;
+  }
+
+  /**
+   * Parameters for bailByLocataireEtBien
+   */
+  export interface BailByLocataireEtBienParams {
+    locataire: number;
+    bien: number;
   }
 
   /**

@@ -20,6 +20,10 @@ export enum EncaissementActionsTypes {
   TOTAL_ENCAISSEMENT_PAR_JOUR = 'TOTAL ENCAISSEMENT ',
   TOTAL_ENCAISSEMENT_PAR_JOUR_SUCCES = 'TOTAL ENCAISSEMENT SUCCES',
   TOTAL_ENCAISSEMENT_PAR_JOUR_ERROR = 'TOTAL ENCAISSEMENT ERROR',
+
+  GET_LOCATAIRE_ENCAISSEMENT = '[UtilisateurRequestDto] Get All Locataires Pour encaissement',
+  GET_LOCATAIRE_ENCAISSEMENT_SUCCES = '[UtilisateurRequestDto] Get All Locataires Pour encaissement Succes',
+  GET_LOCATAIRE_ENCAISSEMENT_ERROR = '[UtilisateurRequestDto] Get All Locataires Pour encaissement Error',
 }
 export class SaveEncaissementActions implements Action {
   type: EncaissementActionsTypes = EncaissementActionsTypes.SAVE_ENCAISSEMENT;
@@ -88,6 +92,24 @@ export class TotalEncaissementParJourActionsError implements Action {
     EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR_ERROR;
   constructor(public payload: string) {}
 }
+
+// SAVE UN UTILISATEUR
+export class GetLocataireEncaissementActions implements Action {
+  type: EncaissementActionsTypes =
+  EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT;
+  constructor(public payload: any) {}
+}
+
+export class GetLocataireEncaissementActionsSuccess implements Action {
+  type: EncaissementActionsTypes =
+  EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT_SUCCES;
+  constructor(public payload: any) {}
+}
+export class GetLocataireEncaissementActionsError implements Action {
+  type: EncaissementActionsTypes =
+  EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT_ERROR;
+  constructor(public payload: string) {}
+}
 export type EncaissementActions =
   | SaveEncaissementActions
   | SaveEncaissementActionsError
@@ -100,4 +122,7 @@ export type EncaissementActions =
   | GetEncaissementBienActionsSuccess
   | TotalEncaissementParJourActions
   | TotalEncaissementParJourActionsError
-  | TotalEncaissementParJourActionsSuccess;
+  | TotalEncaissementParJourActionsSuccess
+  | GetLocataireEncaissementActions
+  | GetLocataireEncaissementActionsError
+  | GetLocataireEncaissementActionsSuccess;
