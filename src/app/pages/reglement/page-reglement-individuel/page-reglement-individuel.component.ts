@@ -21,6 +21,7 @@ import {
   SaveEncaissementActions,
   GetAllPeriodeReglementByBienActions,
   GetEncaissementBienActions,
+  GetLocataireEncaissementActions,
 } from '../../../ngrx/reglement/reglement.actions';
 import { BauxState, BauxStateEnum } from '../../../ngrx/baux/baux.reducer';
 
@@ -51,25 +52,17 @@ export class PageReglementIndividuelComponent implements OnInit {
 
   public user?: UtilisateurRequestDto;
   encaissementform?: FormGroup;
-
-  leBonbien: any;
   leLocataire: any;
-  leBail: any;
-  idDBail = 0;
-
   submitted = false;
   periode: string = '';
 
   moisPaiement = '2022-12';
-  getBauxBybien$: Observable<EncaissementState> | null = null;
   listeEncaissementBien$: Observable<EncaissementState> | null = null;
-  getBienBylocatairestate$: Observable<BauxState> | null = null;
+  locataireEncaissement$: Observable<UtilisteurState> | null = null;
   saveEncaissementState$: Observable<EncaissementState> | null = null;
 
-  affichierformulaire = 0;
   readonly EncaissementStateEnum = EncaissementStateEnum;
-  readonly BauxStateEnum = BauxStateEnum;
-  readonly BauxBienStateEnum = EncaissementStateEnum;
+  readonly LocaEncaisseState = EncaissementStateEnum;
   readonly EncaissBienStateEnum = EncaissementStateEnum;
 
   locataireState$: Observable<UtilisteurState> | null = null;
@@ -96,12 +89,7 @@ export class PageReglementIndividuelComponent implements OnInit {
     }
   }
   ngOnInit(): void {
-    this.leBonbien = 0;
-    this.leBail = 0;
-    this.leLocataire = 0;
-    this.montant_Loyer = 0;
-    this.idDBail = 0;
-    this.idDeAppel = 0;
+    this.leLocataire = null;
     this.user = this.userService.getUserFromLocalCache();
 
     //RAMENER TOUS LES LOCATAIRES QUI ONT UN BAIL ACTIF
@@ -111,17 +99,20 @@ export class PageReglementIndividuelComponent implements OnInit {
     );
     this.store.pipe(map((state) => state.utilisateurState)).subscribe(
       (data) => {
-        if (data.locataireBail.length > 0)
-        {
-          console.log("Le bail est le suivant qui est bon trop bon meme :::: :::: ::: ");
-          console.log(data);
-          console.log("::::: ::::: :::::: :::: :::: ::::: ::::: :: ::: :");
-          this.leLocataire = data.locataireBail[0]['id'];
+        if (data.locataireBail.length > 0) {
+          console.log('Le locataire est le suivant::::  ');
+          console.log(data.locataireBail[0]);
+          this.leLocataire = data.locataireBail[0];
+          this.idDeAppel = data.locataireBail[0].idAppel;
+          this.montant_Loyer = data.locataireBail[0].montantloyer;
         }
       },
-      () => {}
+      () => {
+        this.leLocataire;
+      }
     );
-
+    this.getLocatairePourEncaissement(this.leLocataire);
+    this.getAllEncaissementByBienImmobilier(this.leLocataire);
     this.encaissementform = this.fb.group({
       idAgence: [this.user?.idAgence],
       idCreateur: [this.user?.id],
@@ -134,11 +125,10 @@ export class PageReglementIndividuelComponent implements OnInit {
     });
   }
   onSaveEncaissement() {
-    this.submitted = true;
-    if (this.encaissementform?.invalid) {
-      return;
-    }
     this.submitted = false;
+    console.log("LE FORMULAIRE EST LE SUIVANT :::: :::: ::::");
+    console.log(this.encaissementform?.value);
+
 
     this.store.dispatch(
       new SaveEncaissementActions(this.encaissementform?.value)
@@ -156,61 +146,32 @@ export class PageReglementIndividuelComponent implements OnInit {
     this.saveEncaissementState$ = this.store.pipe(
       map((state) => state.encaissementState)
     );
+    this.getAllEncaissementByBienImmobilier(this.leLocataire);
   }
-  getBienByLocataire(loca: number) {
-    this.store.dispatch(new GetAllBientaireByLocatairesActions(loca));
-    this.getBienBylocatairestate$ = this.store.pipe(
-      map((state) => state.bauxState)
-    );
-    this.store.pipe(map((state) => state.bauxState)).subscribe(
-      (data) => {
-        if (data.baux.length > 0) {
-          this.leBonbien = data.baux[0].idBienImmobilier;
-          this.affichierformulaire = 1;
-          this.idDBail = data.baux[0].id;
-          this.leBail = data.baux[0];
-          this.idDeAppel = data.baux[0].idFirstAppel;
-        }
-      }
-      //() => {}
-    );
-
+  getLocatairePourEncaissement(locataire: any) {
     this.store.dispatch(
-      new GetAllPeriodeReglementByBienActions(this.leBonbien)
+      new GetLocataireEncaissementActions({
+        locataire: locataire.id,
+        bien: locataire.idBien,
+      })
     );
-    this.getBauxBybien$ = this.store.pipe(
-      map((state) => state.encaissementState)
-    );
-  }
-  getBauxBybien(p: any) {
-    this.affichierformulaire = p;
-    this.store.dispatch(new GetAllPeriodeReglementByBienActions(p));
-    this.getBauxBybien$ = this.store.pipe(
+    this.locataireEncaissement$ = this.store.pipe(
       map((state) => state.encaissementState)
     );
     this.store
       .pipe(map((state) => state.encaissementState))
       .subscribe((data) => {
-        console.log('Les baudelaise');
-        console.log(data);
-      });
-    this.store.dispatch(new GetEncaissementBienActions(p));
-    this.listeEncaissementBien$ = this.store.pipe(
-      map((state) => state.encaissementState)
-    );
-    this.store
-      .pipe(map((state) => state.encaissementState))
-      .subscribe((data) => {
-        this.dataSource.data = [];
-        this.dataSource.paginator = null;
-        if (data.encaissements.length > 0) {
-          this.dataSource.data = data.encaissements;
-          this.dataSource.paginator = this.paginator;
+        if (data.leLocataire) {
+          console.log(data);
+          this.idDeAppel = data.leLocataire.idAppel;
+          this.montant_Loyer = data.leLocataire.montantloyer;
         }
       });
   }
   getAllEncaissementByBienImmobilier(p: any) {
-    this.store.dispatch(new GetEncaissementBienActions(p));
+    console.log("le bien");
+    console.log(p);
+    this.store.dispatch(new GetEncaissementBienActions(p.idBien));
     this.store
       .pipe(map((state) => state.encaissementState))
       .subscribe((donnee) => {

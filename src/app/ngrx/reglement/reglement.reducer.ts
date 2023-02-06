@@ -8,7 +8,9 @@ export enum EncaissementStateEnum {
   INITIAL = 'Initial',
   NEW = 'New',
   EDIT = 'Edit',
-  LOADEDBYIMMEUNLE = 'LoadedByImmeuble'
+  LOADEDBYIMMEUNLE = 'LoadedByImmeuble',
+
+
 
 }
 export interface EncaissementState {
@@ -17,6 +19,7 @@ export interface EncaissementState {
   errorMessage: string;
   montantEncaisse: number;
   dataState: EncaissementStateEnum;
+  leLocataire: any;
 }
 const initState: EncaissementState = {
   encaissements: [],
@@ -24,6 +27,7 @@ const initState: EncaissementState = {
   montantEncaisse:0,
   errorMessage: '',
   dataState: EncaissementStateEnum.INITIAL,
+  leLocataire: null,
 };
 export function encaissementReducer(
   state: EncaissementState = initState,
@@ -90,6 +94,22 @@ case EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN_ERROR:
     dataState: EncaissementStateEnum.ERROR,
     errorMessage: (<EncaissementActions>action).payload,
   };
+
+       // GET ALL LOCATIRES POUR ENCAISSEMENT
+       case EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT:
+        return { ...state, dataState: EncaissementStateEnum.LOADING };
+      case EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT_SUCCES:
+        return {
+          ...state,
+          dataState: EncaissementStateEnum.LOADED,
+          leLocataire: (<EncaissementActions>action).payload,
+        };
+      case EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT_ERROR:
+        return {
+          ...state,
+          dataState: EncaissementStateEnum.ERROR,
+          errorMessage: (<EncaissementActions>action).payload,
+        };
     default:
       return { ...state };
   }

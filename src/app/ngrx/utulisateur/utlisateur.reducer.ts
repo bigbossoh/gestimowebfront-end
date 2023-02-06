@@ -11,18 +11,21 @@ export enum UtilisteurStateEnum {
   LOADED = 'Loaded',
   ERROR = 'Error',
   INITIAL = 'Initial',
+  LOADED_ENC='Loading encaisse'
 }
 export interface UtilisteurState {
   utilisateurs: UtilisateurAfficheDto[];
   errorMessage: string;
   dataState: UtilisteurStateEnum;
-  locataireBail: UtilisateurAfficheDto[];
+  locataireBail: LocataireEncaisDTO[];
+  leLocataire: any;
 }
 const initState: UtilisteurState = {
   utilisateurs: [],
-  locataireBail:[],
+  locataireBail: [],
   errorMessage: '',
   dataState: UtilisteurStateEnum.INITIAL,
+  leLocataire: null,
 };
 export function utilisateurReducer(
   state: UtilisteurState = initState,
@@ -59,21 +62,22 @@ export function utilisateurReducer(
         errorMessage: (<UtilisateurActions>action).payload,
       };
 
-        // GET ALL LOCATIRES
-        case UtilisateurActionsTypes.GET_ALL_LOCATAIRES:
-          return { ...state, dataState: UtilisteurStateEnum.LOADING };
-        case UtilisateurActionsTypes.GET_ALL_LOCATAIRES_SUCCES:
-          return {
-            ...state,
-            dataState: UtilisteurStateEnum.LOADED,
-            utilisateurs: (<UtilisateurActions>action).payload,
-          };
-        case UtilisateurActionsTypes.GET_ALL_LOCATAIRES_ERROR:
-          return {
-            ...state,
-            dataState: UtilisteurStateEnum.ERROR,
-            errorMessage: (<UtilisateurActions>action).payload,
-          };
+    // GET ALL LOCATIRES
+    case UtilisateurActionsTypes.GET_ALL_LOCATAIRES:
+      return { ...state, dataState: UtilisteurStateEnum.LOADING };
+    case UtilisateurActionsTypes.GET_ALL_LOCATAIRES_SUCCES:
+      return {
+        ...state,
+        dataState: UtilisteurStateEnum.LOADED,
+        utilisateurs: (<UtilisateurActions>action).payload,
+        locataireBail: (<UtilisateurActions>action).payload,
+      };
+    case UtilisateurActionsTypes.GET_ALL_LOCATAIRES_ERROR:
+      return {
+        ...state,
+        dataState: UtilisteurStateEnum.ERROR,
+        errorMessage: (<UtilisateurActions>action).payload,
+      };
 
     // GET ALL UTILISATEURS
     case UtilisateurActionsTypes.GET_ALL_UTLISATEUR:
@@ -112,6 +116,7 @@ export function utilisateurReducer(
         dataState: UtilisteurStateEnum.ERROR,
         errorMessage: (<UtilisateurActions>action).payload,
       };
+ 
 
     default:
       return { ...state };

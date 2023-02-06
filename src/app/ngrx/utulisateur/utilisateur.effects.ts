@@ -5,8 +5,6 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { NotificationType } from 'src/app/enum/natification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
-import { UserService } from 'src/app/services/user/user.service';
-import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { ApiService } from 'src/gs-api/src/services';
 import {
   GetAllUtilisateursActionsSuccess,
@@ -48,7 +46,6 @@ export class UtilisateurEffects {
         );
       }),
       tap((proprio) => {
-
         if (
           (proprio.type = UtilisateurActionsTypes.GET_ALL_PROPRIETAIRES_ERROR)
         ) {
@@ -78,7 +75,6 @@ export class UtilisateurEffects {
       }),
       tap((proprio) => {
         if (proprio.type == UtilisateurActionsTypes.GET_ALL_UTLISATEUR_ERROR) {
-
           this.sendErrorNotification(
             NotificationType.ERROR,
             proprio.payload.toString()
@@ -99,11 +95,16 @@ export class UtilisateurEffects {
           )
         );
       }),
-      tap((locataire) => {
-        console.log(locataire.payload.length);
+      tap((locataire) =>
+      {
+        console.log("LE LOCA ......");
 
-        if (locataire.type==UtilisateurActionsTypes.GET_ALL_LOCATAIRES_BAIL_ERROR) {
+        console.log(locataire.payload);
 
+        if (
+          locataire.type ==
+          UtilisateurActionsTypes.GET_ALL_LOCATAIRES_BAIL_ERROR
+        ) {
           this.sendErrorNotification(
             NotificationType.ERROR,
             locataire.payload.toStrin()
@@ -112,6 +113,7 @@ export class UtilisateurEffects {
       })
     )
   );
+
   //LISTE DES LOCATAIRES
   getAllLocatairesEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
@@ -123,8 +125,6 @@ export class UtilisateurEffects {
         );
       }),
       tap((locataire) => {
-
-
         if (
           locataire.type == UtilisateurActionsTypes.GET_ALL_LOCATAIRES_SUCCES
         ) {
