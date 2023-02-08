@@ -111,14 +111,13 @@ export class MenuComponent implements OnInit {
         titre: "Règlement individuel",
         icon: 'fas fa-tools',
         url: 'reglement-individuel'
+      }      ,
+      {
+        id: '34',
+        titre: "Règlement groupé",
+        icon: 'fas fa-toolbox',
+        url: 'reglement-groupe'
       }
-      // ,
-      // {
-      //   id: '34',
-      //   titre: "Règlement groupé",
-      //   icon: 'fas fa-toolbox',
-      //   url: 'reglement-groupe'
-      // }
 
     ]
   },
@@ -220,7 +219,7 @@ export class MenuComponent implements OnInit {
     sousMenu: [
       {
         id: '81',
-        titre: "Journal de caisse",
+        titre: "Sortie de Caisse",
         icon: 'fas fa-virus-slash',
         url: 'journal-caisse'
       },

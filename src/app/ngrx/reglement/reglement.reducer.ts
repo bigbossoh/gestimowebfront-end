@@ -1,6 +1,10 @@
+import { LocataireEncaisDTO } from './../../../gs-api/src/models/locataire-encais-dto';
 import { Action } from '@ngrx/store';
 import { EncaissementPrincipalDTO } from '../../../gs-api/src/models/encaissement-principal-dto';
-import { EncaissementActions, EncaissementActionsTypes } from './reglement.actions';
+import {
+  EncaissementActions,
+  EncaissementActionsTypes,
+} from './reglement.actions';
 export enum EncaissementStateEnum {
   LOADING = 'Loading',
   LOADED = 'Loaded',
@@ -9,9 +13,6 @@ export enum EncaissementStateEnum {
   NEW = 'New',
   EDIT = 'Edit',
   LOADEDBYIMMEUNLE = 'LoadedByImmeuble',
-
-
-
 }
 export interface EncaissementState {
   encaissements: EncaissementPrincipalDTO[];
@@ -19,15 +20,17 @@ export interface EncaissementState {
   errorMessage: string;
   montantEncaisse: number;
   dataState: EncaissementStateEnum;
+  locatairesImpayer: LocataireEncaisDTO[];
   leLocataire: any;
 }
 const initState: EncaissementState = {
   encaissements: [],
   appelloyers: null,
-  montantEncaisse:0,
+  montantEncaisse: 0,
   errorMessage: '',
   dataState: EncaissementStateEnum.INITIAL,
   leLocataire: null,
+  locatairesImpayer: [],
 };
 export function encaissementReducer(
   state: EncaissementState = initState,
@@ -48,68 +51,83 @@ export function encaissementReducer(
         dataState: EncaissementStateEnum.ERROR,
         errorMessage: (<EncaissementActions>action).payload,
       };
-// TOTAL ENCAISSEMENT
-case EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR:
-  return { ...state, dataState: EncaissementStateEnum.LOADING };
-case EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR_SUCCES:
-  return {
-    ...state,
-    dataState: EncaissementStateEnum.LOADED,
-    montantEncaisse: (<EncaissementActions>action).payload,
-  };
-case EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR_ERROR:
-  return {
-    ...state,
-    dataState: EncaissementStateEnum.ERROR,
-    errorMessage: (<EncaissementActions>action).payload,
-  };
-// AFFCHAGE DES LOYERS POUR REGLEMENTS
+    // TOTAL ENCAISSEMENT
+    case EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR:
+      return { ...state, dataState: EncaissementStateEnum.LOADING };
+    case EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR_SUCCES:
+      return {
+        ...state,
+        dataState: EncaissementStateEnum.LOADED,
+        montantEncaisse: (<EncaissementActions>action).payload,
+      };
+    case EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR_ERROR:
+      return {
+        ...state,
+        dataState: EncaissementStateEnum.ERROR,
+        errorMessage: (<EncaissementActions>action).payload,
+      };
+    // AFFCHAGE DES LOYERS POUR REGLEMENTS
 
-case EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN:
-  return { ...state, dataState: EncaissementStateEnum.LOADING };
-case EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN_SUCCES:
-  return {
-    ...state,
-    dataState: EncaissementStateEnum.LOADED,
-    appelloyers: (<EncaissementActions>action).payload,
-  };
-case EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN_ERROR:
-  return {
-    ...state,
-    dataState: EncaissementStateEnum.ERROR,
-    errorMessage: (<EncaissementActions>action).payload,
-  };
-  // listes des encaisements
-case EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN:
-  return { ...state, dataState: EncaissementStateEnum.LOADING };
-case EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN_SUCCES:
-  return {
-    ...state,
-    dataState: EncaissementStateEnum.LOADED,
-    encaissements: (<EncaissementActions>action).payload,
-  };
-case EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN_ERROR:
-  return {
-    ...state,
-    dataState: EncaissementStateEnum.ERROR,
-    errorMessage: (<EncaissementActions>action).payload,
-  };
+    case EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN:
+      return { ...state, dataState: EncaissementStateEnum.LOADING };
+    case EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN_SUCCES:
+      return {
+        ...state,
+        dataState: EncaissementStateEnum.LOADED,
+        appelloyers: (<EncaissementActions>action).payload,
+      };
+    case EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN_ERROR:
+      return {
+        ...state,
+        dataState: EncaissementStateEnum.ERROR,
+        errorMessage: (<EncaissementActions>action).payload,
+      };
+    // listes des encaisements
+    case EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN:
+      return { ...state, dataState: EncaissementStateEnum.LOADING };
+    case EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN_SUCCES:
+      return {
+        ...state,
+        dataState: EncaissementStateEnum.LOADED,
+        encaissements: (<EncaissementActions>action).payload,
+      };
+    case EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN_ERROR:
+      return {
+        ...state,
+        dataState: EncaissementStateEnum.ERROR,
+        errorMessage: (<EncaissementActions>action).payload,
+      };
 
-       // GET ALL LOCATIRES POUR ENCAISSEMENT
-       case EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT:
-        return { ...state, dataState: EncaissementStateEnum.LOADING };
-      case EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT_SUCCES:
-        return {
-          ...state,
-          dataState: EncaissementStateEnum.LOADED,
-          leLocataire: (<EncaissementActions>action).payload,
-        };
-      case EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT_ERROR:
-        return {
-          ...state,
-          dataState: EncaissementStateEnum.ERROR,
-          errorMessage: (<EncaissementActions>action).payload,
-        };
+    // GET ALL LOCATIRES POUR ENCAISSEMENT
+    case EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT:
+      return { ...state, dataState: EncaissementStateEnum.LOADING };
+    case EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT_SUCCES:
+      return {
+        ...state,
+        dataState: EncaissementStateEnum.LOADED,
+        leLocataire: (<EncaissementActions>action).payload,
+      };
+    case EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT_ERROR:
+      return {
+        ...state,
+        dataState: EncaissementStateEnum.ERROR,
+        errorMessage: (<EncaissementActions>action).payload,
+      };
+    // GET ALL LOCATIRES POUR ENCAISSEMENT
+    case EncaissementActionsTypes.GET_LISTE_LOCATAIRE_ENCAISSEMENT:
+      return { ...state, dataState: EncaissementStateEnum.LOADING };
+    case EncaissementActionsTypes.GET_LISTE_LOCATAIRE_ENCAISSEMENT_SUCCES:
+      return {
+        ...state,
+        dataState: EncaissementStateEnum.LOADED,
+        locatairesImpayer: (<EncaissementActions>action).payload,
+      };
+    case EncaissementActionsTypes.GET_LISTE_LOCATAIRE_ENCAISSEMENT_ERROR:
+      return {
+        ...state,
+        dataState: EncaissementStateEnum.ERROR,
+        errorMessage: (<EncaissementActions>action).payload,
+      };
     default:
       return { ...state };
   }

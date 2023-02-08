@@ -24,6 +24,10 @@ export enum EncaissementActionsTypes {
   GET_LOCATAIRE_ENCAISSEMENT = '[UtilisateurRequestDto] Get All Locataires Pour encaissement',
   GET_LOCATAIRE_ENCAISSEMENT_SUCCES = '[UtilisateurRequestDto] Get All Locataires Pour encaissement Succes',
   GET_LOCATAIRE_ENCAISSEMENT_ERROR = '[UtilisateurRequestDto] Get All Locataires Pour encaissement Error',
+
+  GET_LISTE_LOCATAIRE_ENCAISSEMENT = '[UtilisateurRequestDto] Get LISTE Locataires Pour encaissement',
+  GET_LISTE_LOCATAIRE_ENCAISSEMENT_SUCCES = '[UtilisateurRequestDto] Get LISTE Locataires Pour encaissement Succes',
+  GET_LISTE_LOCATAIRE_ENCAISSEMENT_ERROR = '[UtilisateurRequestDto] Get LISTE Locataires Pour encaissement Error',
 }
 export class SaveEncaissementActions implements Action {
   type: EncaissementActionsTypes = EncaissementActionsTypes.SAVE_ENCAISSEMENT;
@@ -96,18 +100,42 @@ export class TotalEncaissementParJourActionsError implements Action {
 // SAVE UN UTILISATEUR
 export class GetLocataireEncaissementActions implements Action {
   type: EncaissementActionsTypes =
-  EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT;
+    EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT;
   constructor(public payload: any) {}
 }
 
 export class GetLocataireEncaissementActionsSuccess implements Action {
   type: EncaissementActionsTypes =
-  EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT_SUCCES;
+    EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT_SUCCES;
   constructor(public payload: any) {}
 }
 export class GetLocataireEncaissementActionsError implements Action {
   type: EncaissementActionsTypes =
-  EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT_ERROR;
+    EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT_ERROR;
+  constructor(public payload: string) {}
+}
+
+// LIST UN UTILISATEUR
+export class GetListImayerLocataireEncaissementPeriodeActions
+  implements Action
+{
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.GET_LISTE_LOCATAIRE_ENCAISSEMENT;
+  constructor(public payload: any) {}
+}
+
+export class GetListImayerLocataireEncaissementPeriodeActionsSuccess
+  implements Action
+{
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.GET_LISTE_LOCATAIRE_ENCAISSEMENT_SUCCES;
+  constructor(public payload: any) {}
+}
+export class GetListImayerLocataireEncaissementPeriodeActionsError
+  implements Action
+{
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.GET_LISTE_LOCATAIRE_ENCAISSEMENT_ERROR;
   constructor(public payload: string) {}
 }
 export type EncaissementActions =
@@ -125,4 +153,7 @@ export type EncaissementActions =
   | TotalEncaissementParJourActionsSuccess
   | GetLocataireEncaissementActions
   | GetLocataireEncaissementActionsError
-  | GetLocataireEncaissementActionsSuccess;
+  | GetLocataireEncaissementActionsSuccess
+  | GetListImayerLocataireEncaissementPeriodeActions
+  | GetListImayerLocataireEncaissementPeriodeActionsError
+  | GetListImayerLocataireEncaissementPeriodeActionsSuccess;

@@ -18,7 +18,7 @@ import {
 import { NotificationType } from '../../enum/natification-type.enum';
 import { NotificationService } from '../../services/notification/notification.service';
 import { OperationActions } from '../baux/baux.actions';
-import { GetEncaissementBienActionsSuccess, GetEncaissementBienActionsError, TotalEncaissementParJourActionsSuccess, TotalEncaissementParJourActionsError } from './reglement.actions';
+import { GetEncaissementBienActionsSuccess, GetEncaissementBienActionsError, TotalEncaissementParJourActionsSuccess, TotalEncaissementParJourActionsError, GetListImayerLocataireEncaissementPeriodeActionsSuccess, GetListImayerLocataireEncaissementPeriodeActionsError } from './reglement.actions';
 
 @Injectable()
 export class Encaissementffects {
@@ -85,11 +85,7 @@ export class Encaissementffects {
       }),
       tap((locataire) =>
       {
-        console.log("LE LOCA ENCAISS *******");
-        console.log(locataire.payload);
-
-
-        if (
+           if (
           locataire.type ==
           EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT_ERROR
         ) {
@@ -97,7 +93,33 @@ export class Encaissementffects {
         }
       })
     )
-  );
+    );
+
+      //LISTE DES LOCATAIRES IMPAYER
+      getAllLocatairesImpayerEncaissEffect: Observable<Action> = createEffect(() =>
+      this.effectActions.pipe(
+        ofType(EncaissementActionsTypes.GET_LISTE_LOCATAIRE_ENCAISSEMENT),
+        mergeMap((action: EncaissementActions) => {
+          return this.apiService.listeLocataireImpayerParAgenceEtPeriode(action.payload).pipe(
+            map(
+              (locatires) => new GetListImayerLocataireEncaissementPeriodeActionsSuccess(locatires)
+            ),
+            catchError((err) =>
+              of(new GetListImayerLocataireEncaissementPeriodeActionsError(err.message))
+            )
+          );
+        }),
+        tap((locataire) =>
+        {
+             if (
+            locataire.type ==
+            EncaissementActionsTypes.GET_LISTE_LOCATAIRE_ENCAISSEMENT_ERROR
+          ) {
+            this.sendErrorNotification(NotificationType.ERROR, locataire.payload);
+          }
+        })
+      )
+    );
   getAllPeriodebyBienEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN),
