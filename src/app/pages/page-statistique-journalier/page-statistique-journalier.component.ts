@@ -62,6 +62,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   v_agence = 0;
   v_jour: any;
   v_encaissemnt: number = 0;
+  
   constructor(
     private store: Store<any>,
     private _adapter: DateAdapter<Date>,

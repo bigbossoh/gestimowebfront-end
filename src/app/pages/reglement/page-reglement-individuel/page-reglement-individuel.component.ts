@@ -19,13 +19,10 @@ import {
 import { UtilisateurRequestDto } from '../../../../gs-api/src/models/utilisateur-request-dto';
 import {
   SaveEncaissementActions,
-  GetAllPeriodeReglementByBienActions,
   GetEncaissementBienActions,
   GetLocataireEncaissementActions,
 } from '../../../ngrx/reglement/reglement.actions';
-import { BauxState, BauxStateEnum } from '../../../ngrx/baux/baux.reducer';
 
-import { GetAllBientaireByLocatairesActions } from '../../../ngrx/baux/baux.actions';
 
 @Component({
   selector: 'app-page-reglement-individuel',
@@ -88,6 +85,9 @@ export class PageReglementIndividuelComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  ngAfterViewInit(): void {
+    this.ngOnInit();
+  }
   ngOnInit(): void {
     this.leLocataire = null;
     this.user = this.userService.getUserFromLocalCache();
@@ -126,11 +126,7 @@ export class PageReglementIndividuelComponent implements OnInit {
   }
   onSaveEncaissement() {
     this.submitted = false;
-    console.log("LE FORMULAIRE EST LE SUIVANT :::: :::: ::::");
-    console.log(this.encaissementform?.value);
-
-
-    this.store.dispatch(
+      this.store.dispatch(
       new SaveEncaissementActions(this.encaissementform?.value)
     );
     this.store
@@ -169,8 +165,6 @@ export class PageReglementIndividuelComponent implements OnInit {
       });
   }
   getAllEncaissementByBienImmobilier(p: any) {
-    console.log("le bien");
-    console.log(p);
     this.store.dispatch(new GetEncaissementBienActions(p.idBien));
     this.store
       .pipe(map((state) => state.encaissementState))
@@ -183,4 +177,5 @@ export class PageReglementIndividuelComponent implements OnInit {
         }
       });
   }
+
 }

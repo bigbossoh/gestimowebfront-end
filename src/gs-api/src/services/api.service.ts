@@ -124,6 +124,7 @@ class ApiService extends __BaseService {
   static readonly findAllEncaissementByIdBienImmobilierPath = 'gestimoweb/api/v1/encaissement/allencaissementByIdBien/{id}';
   static readonly listTousEncaissementsPrincipalPath = 'gestimoweb/api/v1/encaissement/findAllEncaissementPrincipal/{idAgence}';
   static readonly findByIdEncaissementPath = 'gestimoweb/api/v1/encaissement/findByIdEncaissement/{id}';
+  static readonly listeLocataireImpayerParAgenceEtPeriodePath = 'gestimoweb/api/v1/encaissement/listeLocataireImpayerParAgenceEtPeriode/{agence}/{periode}';
   static readonly saveEncaissementPath = 'gestimoweb/api/v1/encaissement/saveencaissement';
   static readonly saveEncaissementAvecretourDeListePath = 'gestimoweb/api/v1/encaissement/saveencaissementavecretour';
   static readonly saveEncaissementMassePath = 'gestimoweb/api/v1/encaissement/saveencaissementmasse';
@@ -2906,6 +2907,53 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param params The `ApiService.ListeLocataireImpayerParAgenceEtPeriodeParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `agence`:
+   *
+   * @return successful operation
+   */
+  listeLocataireImpayerParAgenceEtPeriodeResponse(params: ApiService.ListeLocataireImpayerParAgenceEtPeriodeParams): __Observable<__StrictHttpResponse<Array<LocataireEncaisDTO>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/encaissement/listeLocataireImpayerParAgenceEtPeriode/${params.agence}/${params.periode}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<LocataireEncaisDTO>>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.ListeLocataireImpayerParAgenceEtPeriodeParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `agence`:
+   *
+   * @return successful operation
+   */
+  listeLocataireImpayerParAgenceEtPeriode(params: ApiService.ListeLocataireImpayerParAgenceEtPeriodeParams): __Observable<Array<LocataireEncaisDTO>> {
+    return this.listeLocataireImpayerParAgenceEtPeriodeResponse(params).pipe(
+      __map(_r => _r.body as Array<LocataireEncaisDTO>)
+    );
+  }
+
+  /**
    * @param body undefined
    * @return successful operation
    */
@@ -5679,6 +5727,14 @@ module ApiService {
   export interface BailByLocataireEtBienParams {
     locataire: number;
     bien: number;
+  }
+
+  /**
+   * Parameters for listeLocataireImpayerParAgenceEtPeriode
+   */
+  export interface ListeLocataireImpayerParAgenceEtPeriodeParams {
+    periode: string;
+    agence: number;
   }
 
   /**
