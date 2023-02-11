@@ -30,7 +30,7 @@
               <mat-select
                 #selectionlocataire
                 placeholder=""
-                [value]="leLocataire"
+                [(value)]="leLocataire"
                 (selectionChange)="
                   getLocatairePourEncaissement(selectionlocataire.value);
                   getAllEncaissementByBienImmobilier(selectionlocataire.value)
@@ -48,6 +48,7 @@
               [ngSwitch]="locataireBailState.dataState"
             >
               <ng-container *ngSwitchCase="LocaEncaisseState.LOADED">
+                Bonjour le monde !
                 <form *ngIf="encaissementform" [formGroup]="encaissementform">
                   <div class="col-md-12">
                     <div class="form-group">
