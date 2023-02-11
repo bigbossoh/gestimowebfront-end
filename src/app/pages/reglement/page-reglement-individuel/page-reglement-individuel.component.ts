@@ -153,8 +153,8 @@ alert('mon Locataire qui est bon')
         this.dataSource.paginator = null;
         if (donnee.encaissements.length > 0)
         {
-console.log("mon locataire du log");
-console.log(donnee.encaissements);
+// console.log("mon locataire du log");
+// console.log(donnee.encaissements);
 
           this.dataSource.data = donnee.encaissements;
           this.dataSource.paginator = this.paginator;
@@ -178,9 +178,9 @@ console.log(donnee.encaissements);
       .subscribe((data) => {
         if (data.leLocataire)
         {
-          console.log("Le locataire est les suivants qui ne veu pas s'afficher est::::");
+          // console.log("Le locataire est les suivants qui ne veu pas s'afficher est::::");
 
-          console.log(data);
+          //console.log(data);
           this.idDeAppel = data.leLocataire.idAppel;
           this.montant_Loyer = data.leLocataire.montantloyer;
         }
@@ -188,7 +188,7 @@ console.log(donnee.encaissements);
   }
   getAllEncaissementByBienImmobilier(p: any)
   {
-    alert('Liste encaissement le suivant : : : '+p.id+'***'+p.idBien)
+    // alert('Liste encaissement le suivant : : : '+p.id+'***'+p.idBien)
     this.store.dispatch(new GetEncaissementBienActions(p.idBien));
 
     this.store

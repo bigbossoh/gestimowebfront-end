@@ -3,7 +3,9 @@
     <div class="col-md-8 p-0">
       <h1>Règlement Individuel</h1>
     </div>
-    <div class="col-md-4 text-right"></div>
+    <div class="col-md-4 text-right">
+
+    </div>
   </div>
 
   <div class="col">
@@ -16,54 +18,55 @@
     </div>
     <hr style="margin-top: 0" />
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-12">
         <ng-container
           *ngIf="locataireState$ | async as locataireState"
-          [ngSwitch]="locataireState.dataState"
-        >
+          [ngSwitch]="locataireState.dataState">
           <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADING">
           </ng-container>
           <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
             <!-- <label>Locataires</label> -->
-            <mat-form-field appearance="outline">
-              <mat-label> Locataires</mat-label>
-              <mat-select
-                #selectionlocataire
-                placeholder=""
-                [(value)]="leLocataire"
-                (selectionChange)="
-                  getLocatairePourEncaissement(selectionlocataire.value);
-                  getAllEncaissementByBienImmobilier(selectionlocataire.value)
-                "
-              >
-                <mat-option
-                  [value]="locataire"
-                  *ngFor="let locataire of locataireState.locataireBail"
-                  >{{ locataire.codeDescBail }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <div class="col-md-6">
+              <mat-form-field appearance="outline">
+                <mat-label> Locataires</mat-label>
+                <mat-select
+                  #selectionlocataire
+                  placeholder=""
+                  [(value)]="leLocataire"
+                  (selectionChange)="
+                    getLocatairePourEncaissement(selectionlocataire.value);
+                    getAllEncaissementByBienImmobilier(selectionlocataire.value)
+                  "
+                >
+                  <mat-option
+                    [value]="locataire"
+                    *ngFor="let locataire of locataireState.locataireBail"
+                    >{{ locataire.codeDescBail }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+
             <ng-container
               *ngIf="locataireEncaissement$ | async as locataireBailState"
               [ngSwitch]="locataireBailState.dataState"
             >
               <ng-container *ngSwitchCase="LocaEncaisseState.LOADED">
-                Bonjour le monde !
                 <form *ngIf="encaissementform" [formGroup]="encaissementform">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label for="firstName"></label>
-                      <mat-label
-                        >Loyer de :
-                        {{ locataireBailState.leLocataire.moisEnLettre }}
-                      </mat-label>
-                    </div>
-                  </div>
                   <div class="row">
-                    <div class="col">
+                    <div class="col-md-8">
                       <h5>
                         <i class="fas fa-asterisk blue-color"></i>&nbsp;Montant
                         de règlement
+                      </h5>
+                    </div>
+                    <div class="col-md-4">
+                      <h5>
+                        <i class="fas fa-asterisk blue-color"></i>&nbsp;Dernier loyer impayé :
+                        {{ locataireBailState.leLocataire.moisEnLettre }}
                       </h5>
                     </div>
                   </div>
