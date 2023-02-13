@@ -23,7 +23,6 @@ import {
   GetLocataireEncaissementActions,
 } from '../../../ngrx/reglement/reglement.actions';
 
-
 @Component({
   selector: 'app-page-reglement-individuel',
   templateUrl: './page-reglement-individuel.component.html',
@@ -85,9 +84,14 @@ export class PageReglementIndividuelComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  // ngAfterViewInit(): void {
-  //   this.ngOnInit();
-  // }
+  ngAfterViewInit(): void
+  {
+
+    this.getLocatairePourEncaissement(this.leLocataire);
+    //alert("after view 2"+this.leLocataire.id)
+    this.getAllEncaissementByBienImmobilier(this.leLocataire);
+    //alert("after view 3"+this.leLocataire.idBien)
+  }
   ngOnInit(): void {
     this.leLocataire = null;
     this.user = this.userService.getUserFromLocalCache();
@@ -122,13 +126,32 @@ export class PageReglementIndividuelComponent implements OnInit {
       intituleDepense: [''],
       entiteOperation: ['MAGISER'],
     });
+    this.store.dispatch(
+      new GetLocataireEncaissementActions({
+        locataire: this.leLocataire.id,
+        bien: this.leLocataire.idBien,
+      })
+    );
+    this.locataireEncaissement$ = this.store.pipe(
+      map((state) => state.encaissementState)
+    );
+    this.store
+      .pipe(map((state) => state.encaissementState))
+      .subscribe((data) => {
+        if (data.leLocataire) {
+          console.log('Le locataire initié::::');
 
-     this.getLocatairePourEncaissement(this.leLocataire);
-     this.getAllEncaissementByBienImmobilier(this.leLocataire);
+          console.log(data);
+          this.idDeAppel = data.leLocataire.idAppel;
+          this.montant_Loyer = data.leLocataire.montantloyer;
+        }
+      });
+    //this.getLocatairePourEncaissement(this.leLocataire);
+    //this.getAllEncaissementByBienImmobilier(this.leLocataire);
   }
   onSaveEncaissement() {
     this.submitted = false;
-      this.store.dispatch(
+    this.store.dispatch(
       new SaveEncaissementActions(this.encaissementform?.value)
     );
     this.store
@@ -145,25 +168,26 @@ export class PageReglementIndividuelComponent implements OnInit {
       map((state) => state.encaissementState)
     );
 
-    this.store.dispatch(new GetEncaissementBienActions(this.leLocataire.idBien));
-alert('mon Locataire qui est bon')
+    this.store.dispatch(
+      new GetEncaissementBienActions(this.leLocataire.idBien)
+    );
+    
     this.store
       .pipe(map((state) => state.encaissementState))
       .subscribe((donnee) => {
         this.dataSource.data = [];
         this.dataSource.paginator = null;
-        if (donnee.encaissements.length > 0)
-        {
-// console.log("mon locataire du log");
-// console.log(donnee.encaissements);
+        if (donnee.encaissements.length > 0) {
+          // console.log("mon locataire du log");
+          // console.log(donnee.encaissements);
 
           this.dataSource.data = donnee.encaissements;
           this.dataSource.paginator = this.paginator;
         }
       });
+    this.ngAfterViewInit();
   }
-  getLocatairePourEncaissement(locataire: any)
-  {
+  getLocatairePourEncaissement(locataire: any) {
     this.store.dispatch(
       new GetLocataireEncaissementActions({
         locataire: locataire.id,
@@ -172,23 +196,20 @@ alert('mon Locataire qui est bon')
     );
     this.locataireEncaissement$ = this.store.pipe(
       map((state) => state.encaissementState)
-
     );
     this.store
       .pipe(map((state) => state.encaissementState))
       .subscribe((data) => {
-        if (data.leLocataire)
-        {
-          // console.log("Le locataire est les suivants qui ne veu pas s'afficher est::::");
+        if (data.leLocataire) {
+          console.log('Le locataire initié::::');
 
-          //console.log(data);
+          console.log(data);
           this.idDeAppel = data.leLocataire.idAppel;
           this.montant_Loyer = data.leLocataire.montantloyer;
         }
       });
   }
-  getAllEncaissementByBienImmobilier(p: any)
-  {
+  getAllEncaissementByBienImmobilier(p: any) {
     // alert('Liste encaissement le suivant : : : '+p.id+'***'+p.idBien)
     this.store.dispatch(new GetEncaissementBienActions(p.idBien));
 
@@ -197,13 +218,10 @@ alert('mon Locataire qui est bon')
       .subscribe((donnee) => {
         this.dataSource.data = [];
         this.dataSource.paginator = null;
-        if (donnee.encaissements.length > 0)
-        {
-
+        if (donnee.encaissements.length > 0) {
           this.dataSource.data = donnee.encaissements;
           this.dataSource.paginator = this.paginator;
         }
       });
   }
-
 }

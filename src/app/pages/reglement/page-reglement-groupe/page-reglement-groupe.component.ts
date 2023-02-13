@@ -107,7 +107,10 @@ export class PageReglementGroupeComponent implements OnInit {
     this.store
       .pipe(map((state) => state.encaissementState))
       .subscribe((data) => {
-        if (data.locatairesImpayer.length > 0) {
+        this.dataSource.data = [];
+        this.dataSource.paginator = null;
+        if (data.locatairesImpayer.length > 0)
+        {
           this.dataSource.data = data.locatairesImpayer;
         }
       });
@@ -143,5 +146,6 @@ export class PageReglementGroupeComponent implements OnInit {
       }
     }
     alert('Fin de la procedure.');
+    this. getListeLocataireImpayer(this.periode)
   }
 }
