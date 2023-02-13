@@ -122,8 +122,9 @@ export class PageReglementIndividuelComponent implements OnInit {
       intituleDepense: [''],
       entiteOperation: ['MAGISER'],
     });
-    // this.getLocatairePourEncaissement(this.leLocataire);
-    // this.getAllEncaissementByBienImmobilier(this.leLocataire);
+
+     this.getLocatairePourEncaissement(this.leLocataire);
+     this.getAllEncaissementByBienImmobilier(this.leLocataire);
   }
   onSaveEncaissement() {
     this.submitted = false;
