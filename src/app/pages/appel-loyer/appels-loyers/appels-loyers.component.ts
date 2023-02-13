@@ -96,8 +96,11 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  ngAfterViewInit(): void {
+  ngAfterViewInit(): void
+  {
+
     this.ngOnInit();
+   
   }
   ngOnInit(): void {
     this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(this.periodePrint));
