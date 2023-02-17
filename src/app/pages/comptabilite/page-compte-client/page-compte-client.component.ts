@@ -1,3 +1,8 @@
+import { GetAllAppelLoyerByBienActions, GetAllSmsByLocataireActions } from './../../../ngrx/appelloyer/appelloyer.actions';
+import {
+  AppelLoyerState,
+  AppelLoyerStateEnum,
+} from 'src/app/ngrx/appelloyer/appelloyer.reducer';
 import { BauxState, BauxStateEnum } from './../../../ngrx/baux/baux.reducer';
 import {
   GetEncaissementBienActions,
@@ -41,33 +46,54 @@ export class PageCompteClientComponent implements OnInit {
     'Status',
     'Actions',
   ];
+  displayedColumnsAppel = [
+    'idEncaiss',
+    'Periode',
+    'Loyer',
+    'solde',
+    'Status',
+    'Actions',
+  ];
+  displayedColumnsSms = [
+    'dateEnvoi',
+    'destinaireNomPrenom',
+    'typeMessage',
+    'textMessage',
+    'envoer',
+    'Actions',
+  ];
+
+
+  dataSourceAppel: MatTableDataSource<any> = new MatTableDataSource();
+  pageSizeAppel = [5, 10, 15, 20, 40];
+
+  @ViewChild('paginator') paginatorAppel!: MatPaginator;
+  @ViewChild(MatSort) sortAppel!: MatSort;
+
+  appelLoyerState$: Observable<AppelLoyerState> | null = null;
+  readonly AppelLoyerStateEnum = AppelLoyerStateEnum;
+
+  smsState$: Observable<AppelLoyerState> | null = null;
+  readonly SmsStateEnum = AppelLoyerStateEnum;
+
+
+  dataSourceSms: MatTableDataSource<any> = new MatTableDataSource();
+  pageSizeSms = [5, 10, 15, 20];
+  @ViewChild('paginatorSms') paginatorSms!: MatPaginator;
+
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   pageSize = [5, 10, 15, 20];
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild('paginatorEncaissenent') paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
   locataireState$: Observable<UtilisteurState> | null = null;
   readonly UtilisteurStateEnum = UtilisteurStateEnum;
   public user?: UtilisateurRequestDto;
 
-  getLesdonne: any;
-  leBonbien: Observable<any> | null = null;
-  leBienSelect = '';
-  submitted = false;
-  periode: string = '';
-  bien: number = 0;
-  moisPaiement = '2022-12';
-  getBauxBybien$: Observable<EncaissementState> | null = null;
   listeEncaissementBien$: Observable<EncaissementState> | null = null;
-  getBienBylocatairestate$: Observable<BauxState> | null = null;
-  saveEncaissementState$: Observable<EncaissementState> | null = null;
-  leBienEncaisse = 0;
-  affichierformulaire = 0;
-
   readonly EncaissementStateEnum = EncaissementStateEnum;
-  readonly BauxStateEnum = BauxStateEnum;
-  readonly BauxBienStateEnum = EncaissementStateEnum;
-  readonly EncaissBienStateEnum = EncaissementStateEnum;
+
   locataire: any;
   constructor(private store: Store<any>, private userService: UserService) {}
 
@@ -79,25 +105,40 @@ export class PageCompteClientComponent implements OnInit {
     this.locataireState$ = this.store.pipe(
       map((state) => state.utilisateurState)
     );
-    this.store.pipe(
-      map((state) => state.utilisateurState)
-    ).subscribe(data =>
-    {
-      if (data.locataireBail.lenght>0) {
-        console.log("My DAta est :::::");
-        console.log(data.locataireBail);
-        this.locataire=data.locataireBail[0]
-      }
-
-
-    });
+    this.store
+      .pipe(map((state) => state.utilisateurState))
+      .subscribe((data) => {
+        if (data.locataireBail.lenght > 0)
+        {
+          console.log("Le Loca Bail::: ");
+          console.log(data.locataireBail);
+          this.locataire = data.locataireBail[0];
+        }
+      });
   }
-  ngAfterViewInit(): void {}
+  ngAfterViewInit()
+  {
+    this.dataSourceAppel.paginator = this.paginatorAppel;
+    this.dataSource.paginator = this.paginator;
+    this.dataSourceSms.paginator = this.paginatorSms;
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
+    }
+    this.dataSourceAppel.filter = filterValue.trim().toLowerCase();
+    if (this.dataSourceAppel.paginator) {
+      this.dataSourceAppel.paginator.firstPage();
+    }
+  }
+  applyFilterAppel(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+
+    this.dataSourceAppel.filter = filterValue.trim().toLowerCase();
+    if (this.dataSourceAppel.paginator) {
+      this.dataSourceAppel.paginator.firstPage();
     }
   }
 
@@ -113,5 +154,45 @@ export class PageCompteClientComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
         }
       });
+  }
+  getAllAppelLoyerByBien(bien: any) {
+    this.store.dispatch(new GetAllAppelLoyerByBienActions(bien.idBien));
+    this.appelLoyerState$ = this.store.pipe(
+      map((state) => state.appelLoyerState)
+    );
+    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
+
+      this.dataSourceAppel.data = [];
+      this.dataSourceAppel.paginator = null;
+      if (data.appelloyers.length > 0)
+      {
+        console.log('Mes Appels sont les suivants : : : :');
+        console.log(data.appelloyers);
+        this.dataSourceAppel.data = data.appelloyers;
+        this.dataSourceAppel.paginator = this.paginatorAppel;
+      }
+    });
+  }
+  getAllSmsByLocataire(locatire: any)
+  {
+    this.store.dispatch(new GetAllSmsByLocataireActions(locatire.username));
+  
+    this.smsState$ = this.store.pipe(
+      map((state) => state.appelLoyerState)
+    );
+    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
+
+      this.dataSourceSms.data = [];
+      this.dataSourceSms.paginator = null;
+      console.log('Mes SMS sont les suivants : : : :');
+      console.log(data.smss);
+      if (data.smss.length > 0)
+      {
+        console.log('Mes SMS sont les suivants : : : :');
+        console.log(data.smss);
+        this.dataSourceSms.data = data.smss;
+        this.dataSourceSms.paginator = this.paginatorSms;
+      }
+    });
   }
 }

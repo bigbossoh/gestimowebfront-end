@@ -27,9 +27,9 @@
             <div class="col-md-6">
               <mat-form-field appearance="outline">
                 <mat-label> Locataires</mat-label>
-                <mat-select #selectionlocataire [(ngModel)]="leLocataire"
+                <mat-select #selectionlocataire [(value)]="leLocataire"
                   (valueChange)="getLocatairePourEncaissement(selectionlocataire.value);
-                  getAllEncaissementByBienImmobilier(selectionlocataire.value);compareObjects(selectionlocataire.value,0)">
+                  getAllEncaissementByBienImmobilier(selectionlocataire.value)">
                   <mat-option [value]="0">Selectionner un locataie / Bail
                   </mat-option>
                   <mat-option [value]="locataire" *ngFor="let locataire of locataireState.locataireBail">{{

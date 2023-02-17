@@ -21,6 +21,10 @@ import {
   GetPayerLoyerParPeriodeActionsError,
   SaveReductionActionsSuccess,
   SaveReductionActionsError,
+  GetAllAppelLoyerByBienActionsSuccess,
+  GetAllAppelLoyerByBienActionsError,
+  GetAllSmsByLocataireActionsSuccess,
+  GetAllSmsByLocataireActionsError,
 } from './appelloyer.actions';
 import {
   AppelLoyerctionsTypes,
@@ -125,27 +129,22 @@ export class AppelLoyerEffects {
           catchError((err) => of(new SaveReductionActionsError(err.message)))
         );
       }),
-      tap((resultat) =>
-            {
-              if (
-                resultat.type ==
-                AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_SUCCES
-              ) {
-                this.sendErrorNotification(
-                  NotificationType.SUCCESS,
-                  'Le Bail a été modifié avec succès.'
-                );
-              }
-              if (
-                resultat.type ==
-                AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_ERROR
-              ) {
-                this.sendErrorNotification(
-                  NotificationType.ERROR,
-                  'Une erreur a été rencontrée: ' + resultat.payload
-                );
-              }
-            })
+      tap((resultat) => {
+        if (
+          resultat.type == AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_SUCCES
+        ) {
+          this.sendErrorNotification(
+            NotificationType.SUCCESS,
+            'Le Bail a été modifié avec succès.'
+          );
+        }
+        if (resultat.type == AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_ERROR) {
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            'Une erreur a été rencontrée: ' + resultat.payload
+          );
+        }
+      })
     )
   );
   //LISTES DES APPEL LOYER PAR PERIODE
@@ -179,8 +178,7 @@ export class AppelLoyerEffects {
             catchError((err) =>
               of(new GetAllAppelLoyerAnneeActionsError(err.message))
             ),
-            tap((resultat) =>
-            {
+            tap((resultat) => {
               console.log(
                 'Le bon resultat est le suivant pour la reduction du bail'
               );
@@ -209,6 +207,63 @@ export class AppelLoyerEffects {
       })
     )
   );
+
+  // SAVE REDUCTION LOYER
+
+  getAllAppelLoyerByBienEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BIEN),
+      mergeMap((action: AppelLoyerActions) => {
+        return this.apiService.listDesLoyersParBail(action.payload).pipe(
+          map(
+            (appelloyers) =>
+              new GetAllAppelLoyerByBienActionsSuccess(appelloyers)
+          ),
+          catchError((err) =>
+            of(new GetAllAppelLoyerByBienActionsError(err.message))
+          )
+        );
+      }),
+      tap((resultat) => {
+        if (
+          resultat.type ==
+          AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BIEN_ERROR
+        ) {
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            'Une erreur a été rencontrée: ' + resultat.payload
+          );
+        }
+      })
+    )
+  );
+
+  //GAT ALL SMS SEND BY LOCATAIRE
+  getAllSmsSendByLocataireEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(AppelLoyerctionsTypes.GET_ALL_SMS_BY_LOCATAIRE),
+      mergeMap((action: AppelLoyerActions) => {
+        return this.apiService
+          .listMessageEnvoyerAUnLocataire(action.payload)
+          .pipe(
+            map((sms) => new GetAllSmsByLocataireActionsSuccess(sms)),
+            catchError((err) =>
+              of(new GetAllSmsByLocataireActionsError(err.message))
+            )
+          );
+      }),
+      tap((resultat) => {
+        if (
+          resultat.type == AppelLoyerctionsTypes.GET_ALL_SMS_BY_LOCATAIRE_ERROR
+        ) {
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            'Une erreur a été rencontrée: ' + resultat.payload
+          );
+        }
+      })
+    )
+  );
   // Notification
   private sendErrorNotification(
     notificationType: NotificationType,
@@ -223,4 +278,8 @@ export class AppelLoyerEffects {
       );
     }
   }
+}
+
+export function findAppelsByIdBail(payload: any) {
+  throw new Error('Function not implemented.');
 }

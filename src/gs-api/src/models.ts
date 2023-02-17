@@ -32,6 +32,7 @@ export { InputStreamResource } from './models/input-stream-resource';
 export { LocataireEncaisDTO } from './models/locataire-encais-dto';
 export { MagasinDto } from './models/magasin-dto';
 export { MagasinResponseDto } from './models/magasin-response-dto';
+export { MessageEnvoyerDto } from './models/message-envoyer-dto';
 export { MontantLoyerBail } from './models/montant-loyer-bail';
 export { MontantLoyerBailDto } from './models/montant-loyer-bail-dto';
 export { MultipartFile } from './models/multipart-file';
