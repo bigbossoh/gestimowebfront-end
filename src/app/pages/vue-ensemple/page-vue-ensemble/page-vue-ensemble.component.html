@@ -1,6 +1,28 @@
 
  <div class="container ml-6 mt-4">
      <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Chapitre</mat-label>
+        <mat-select
+          [(ngModel)]="chapitre"
+          #selectionChapitre
+          (selectionChange)="getNombreBienImmobiliers(selectionChapitre.value);getNombreBienImmobiliersOqp(selectionChapitre.value)"
+        >
+          <mat-option [value]=0>
+            Tout
+          </mat-option>
+          <mat-option
+          [value]=1
+        >
+         Magiser
+        </mat-option>
+        <mat-option
+        [value]=2
+      >
+       Ebimpe
+      </mat-option>
+        </mat-select>
+      </mat-form-field>
          <div class="col-md-4 col-xl-3">
              <div class="card bg-c-blue order-card">
                  <div class="card-block">
@@ -31,7 +53,7 @@
              </div>
          </div>
 
-         <div class="col-md-4 col-xl-3">
+         <!-- <div class="col-md-4 col-xl-3">
              <div class="card bg-c-pink order-card">
                  <div class="card-block">
                      <h6 class="m-b-20">Nombre de reservations</h6>
@@ -39,7 +61,7 @@
                      <p class="m-b-0">Meublés disponibles<span class="f-right">0</span></p>
                  </div>
              </div>
-         </div>
+         </div> -->
    </div>
 
    <!-- <div class="row">
@@ -76,5 +98,5 @@
         </div>
     </div>
 </div> -->
-<app-page-statistique-journalier></app-page-statistique-journalier>
+<app-page-statistique-journalier [chapitre]="chapitre"></app-page-statistique-journalier>
  </div>

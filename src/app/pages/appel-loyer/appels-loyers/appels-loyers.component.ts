@@ -35,6 +35,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { PrintServiceService } from 'src/app/services/Print/print-service.service';
 import { saveAs } from 'file-saver';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-appels-loyers',
@@ -78,6 +79,8 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
   datePaysBail = '';
   defauldPeriode = '';
   ngSelect = 1;
+  annee = new Date();
+  printAnnee = 0;
   public user?: UtilisateurRequestDto;
   constructor(
     public dialog: MatDialog,
@@ -96,18 +99,22 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  ngAfterViewInit(): void
-  {
-
+  ngAfterViewInit(): void {
     this.ngOnInit();
-   
+    this.getAllPeriodeByAnnee(this.printAnnee);
+    const periode_jour = formatDate(this.annee, 'yyyy-MM', 'en');
+    this.periodePrint = periode_jour;
+    this.getAppelByPeriode(this.periodePrint)
   }
   ngOnInit(): void {
-    this.store.dispatch(new GetAllAppelLoyerByPeriodeActions(this.periodePrint));
+    this.printAnnee = this.annee.getFullYear();
+    this.store.dispatch(
+      new GetAllAppelLoyerByPeriodeActions(this.periodePrint)
+    );
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
-    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
-
-    });
+    this.store
+      .pipe(map((state) => state.appelLoyerState))
+      .subscribe((data) => {});
   }
   getAppelByPeriode(p: any) {
     this.user = this.userService.getUserFromLocalCache();
@@ -126,7 +133,7 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  getAllPeriodeByAnnee(a: string) {
+  getAllPeriodeByAnnee(a: any) {
     this.user = this.userService.getUserFromLocalCache();
     this.afficheAppelTable = 0;
 
@@ -149,12 +156,11 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
     this.ptQuittance$ = this.store.pipe(
       map((state) => state.quittanceAppelState)
     );
-    this.printService.printQuittanceByPeriode(p,"Seve",this.user.idAgence)
-      .subscribe(blob => {
-
+    this.printService
+      .printQuittanceByPeriode(p, 'Seve', this.user.idAgence)
+      .subscribe((blob) => {
         console.log('La taille du fichier' + blob.size);
         saveAs(blob, 'appel_quittance_du_' + p + '.pdf');
-
       });
   }
   sendQuittanceGrouper(periode: string) {

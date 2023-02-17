@@ -107,7 +107,7 @@ export class UtilisateurEffects {
         ) {
           this.sendErrorNotification(
             NotificationType.ERROR,
-            locataire.payload.toStrin()
+            locataire.payload.toString()
           );
         }
       })

@@ -1,5 +1,6 @@
 /* tslint:disable */
 import { Utilisateur } from './utilisateur';
+import { Chapitre } from './chapitre';
 export interface Bienimmobilier {
   id?: number;
   idAgence?: number;
@@ -14,5 +15,6 @@ export interface Bienimmobilier {
   bienMeublerResidence?: boolean;
   utilisateurProprietaire?: Utilisateur;
   nombrePieceBien?: number;
+  chapitre?: Chapitre;
   occupied?: boolean;
 }

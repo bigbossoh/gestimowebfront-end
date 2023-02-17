@@ -68,22 +68,31 @@ export class PageCompteClientComponent implements OnInit {
   readonly BauxStateEnum = BauxStateEnum;
   readonly BauxBienStateEnum = EncaissementStateEnum;
   readonly EncaissBienStateEnum = EncaissementStateEnum;
+  locataire: any;
   constructor(private store: Store<any>, private userService: UserService) {}
 
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
-    //GET ALL LOCATAIRE
-    this.store.dispatch(new GetAllLocatairesBailActions({}));
+
+    //RAMENER TOUS LES LOCATAIRES QUI ONT UN BAIL ACTIF
+    this.store.dispatch(new GetAllLocatairesBailActions(this.user.idAgence));
     this.locataireState$ = this.store.pipe(
       map((state) => state.utilisateurState)
     );
+    this.store.pipe(
+      map((state) => state.utilisateurState)
+    ).subscribe(data =>
+    {
+      if (data.locataireBail.lenght>0) {
+        console.log("My DAta est :::::");
+        console.log(data.locataireBail);
+        this.locataire=data.locataireBail[0]
+      }
+
+
+    });
   }
-  compareObjects(o1: any, o2: any): boolean {
-    return o1 !== o2;
-  }
-  compareAppels(o1: any, o2: any): boolean {
-    return o1 == o2;
-  }
+  ngAfterViewInit(): void {}
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -91,38 +100,9 @@ export class PageCompteClientComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  getBienByLocataire(loca: string) {
-     this.store.dispatch(new GetAllBientaireByLocatairesActions(loca));
-    this.getBienBylocatairestate$ = this.store.pipe(
-      map((state) => state.bauxState)
-    );
-  }
-  getBauxBybien(p: any) {
-    this.bien = p;
-    this.affichierformulaire = p;
-    this.leBienEncaisse = p;
-    this.store.dispatch(new GetAllPeriodeReglementByBienActions(p));
-    this.getBauxBybien$ = this.store.pipe(
-      map((state) => state.encaissementState)
-    );
-    this.store.dispatch(new GetEncaissementBienActions(p));
-    this.listeEncaissementBien$ = this.store.pipe(
-      map((state) => state.encaissementState)
-    );
-    this.store
-      .pipe(map((state) => state.encaissementState))
-      .subscribe((data) => {
 
-        this.dataSource.data = [];
-        this.dataSource.paginator = null;
-        if (data.encaissements.length > 0) {
-          this.dataSource.data = data.encaissements;
-          this.dataSource.paginator = this.paginator;
-        }
-      });
-  }
   getAllEncaissementByBienImmobilier(p: any) {
-    this.store.dispatch(new GetEncaissementBienActions(p));
+    this.store.dispatch(new GetEncaissementBienActions(p.idBien));
     this.store
       .pipe(map((state) => state.encaissementState))
       .subscribe((donnee) => {

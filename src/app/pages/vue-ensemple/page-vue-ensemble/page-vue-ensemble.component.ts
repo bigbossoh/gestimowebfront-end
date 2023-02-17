@@ -27,12 +27,13 @@ export class PageVueEnsembleComponent implements OnInit {
   totsignal:number=0
   PrcentageBiens:number=0
   public user?:UtilisateurRequestDto;
+chapitre: any;
 
   constructor( private statistique: StatistiqueService, private userService:UserService) { }
 
   ngOnInit(): void {
-    this.getNombreBienImmobiliers()
-    this.getNombreBienImmobiliersOqp()
+    this.getNombreBienImmobiliers(0)
+    this.getNombreBienImmobiliersOqp(0)
     this.getNbreLocataire();
     this.getIdAgence();
     this.getNbreLocataireActif();
@@ -41,8 +42,8 @@ export class PageVueEnsembleComponent implements OnInit {
   private getIdAgence(): number{
     return this.userService.getUserFromLocalCache().idAgence!;
   }
-  private getNombreBienImmobiliers(){
-    this.statistique.getAllBienImmobilier().subscribe(
+  public getNombreBienImmobiliers(chapitre:any){
+    this.statistique.getAllBienImmobilier(chapitre).subscribe(
       (response)=>{
         this.totalBiens=response.length
       },
@@ -52,8 +53,8 @@ export class PageVueEnsembleComponent implements OnInit {
     )
   }
 
-  private getNombreBienImmobiliersOqp(){
-    this.statistique.getAllBienImmobilierOccuper().subscribe(
+  public getNombreBienImmobiliersOqp(chapitre:number){
+    this.statistique.getAllBienImmobilierOccuper(chapitre).subscribe(
       (response)=>{
         this.totalBiensOQp=response.length
       },

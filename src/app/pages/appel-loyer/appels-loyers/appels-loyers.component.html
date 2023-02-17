@@ -36,9 +36,7 @@
                   id="modele"
                   name="typeClim"
                   #selectionAnnee
-                  [(ngModel)]="finBail"
-                  [(value)]="periodePrint"
-
+                  [(value)]="printAnnee"
                   (selectionChange)="getAllPeriodeByAnnee(selectionAnnee.value)"
                 >
                   <mat-option
@@ -68,7 +66,7 @@
             <mat-form-field appearance="outline">
               <mat-label>Période</mat-label>
               <mat-select
-                [(ngModel)]="periodePrint"
+                [(value)]="periodePrint"
                 #selectionPeriode
                 (selectionChange)="getAppelByPeriode(selectionPeriode.value)"
               >

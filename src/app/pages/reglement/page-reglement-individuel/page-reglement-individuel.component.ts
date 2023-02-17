@@ -84,13 +84,9 @@ export class PageReglementIndividuelComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  ngAfterViewInit(): void
-  {
-
+  ngAfterViewInit(): void {
     this.getLocatairePourEncaissement(this.leLocataire);
-    //alert("after view 2"+this.leLocataire.id)
     this.getAllEncaissementByBienImmobilier(this.leLocataire);
-    //alert("after view 3"+this.leLocataire.idBien)
   }
   ngOnInit(): void {
     this.leLocataire = null;
@@ -104,8 +100,6 @@ export class PageReglementIndividuelComponent implements OnInit {
     this.store.pipe(map((state) => state.utilisateurState)).subscribe(
       (data) => {
         if (data.locataireBail.length > 0) {
-          console.log('Le locataire est le suivant::::  ');
-          console.log(data.locataireBail[0]);
           this.leLocataire = data.locataireBail[0];
           this.idDeAppel = data.locataireBail[0].idAppel;
           this.montant_Loyer = data.locataireBail[0].montantloyer;
@@ -146,8 +140,6 @@ export class PageReglementIndividuelComponent implements OnInit {
           this.montant_Loyer = data.leLocataire.montantloyer;
         }
       });
-    //this.getLocatairePourEncaissement(this.leLocataire);
-    //this.getAllEncaissementByBienImmobilier(this.leLocataire);
   }
   onSaveEncaissement() {
     this.submitted = false;
@@ -171,7 +163,7 @@ export class PageReglementIndividuelComponent implements OnInit {
     this.store.dispatch(
       new GetEncaissementBienActions(this.leLocataire.idBien)
     );
-    
+
     this.store
       .pipe(map((state) => state.encaissementState))
       .subscribe((donnee) => {

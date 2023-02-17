@@ -18,117 +18,31 @@
     <hr style="margin-top: 0" />
   </div>
   <div class="row">
-    <div class="col-md-6">
-      <!-- <ng-container *ngIf="locataireState$ | async as locataireState" [ngSwitch]="locataireState.dataState"> -->
 
-      <!-- </ng-container> -->
-      <!-- </ng-container> -->
-    </div>
     <div class="col-md-6">
-      <ng-container
-        *ngIf="locataireState$ | async as locataireState"
-        [ngSwitch]="locataireState.dataState"
-      >
+      <ng-container *ngIf="locataireState$ | async as locataireState" [ngSwitch]="locataireState.dataState">
         <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADING">
         </ng-container>
         <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
           <!-- <label>Locataires</label> -->
           <mat-form-field appearance="outline">
             <mat-label> Locataires</mat-label>
-            <mat-select
-              #selectionlocataire
-              placeholder=""
-              (selectionChange)="
-                getBienByLocataire(selectionlocataire.value); getBauxBybien(0)
-              "
-            >
-              <mat-option
-                [value]="locataire.id"
-                *ngFor="let locataire of locataireState.locataireBail"
-                >{{ locataire.nom }} {{ locataire.prenom }}</mat-option
-              >
+            <mat-select #selectionlocataire [(value)]="locataire"
+              (valueChange)="getAllEncaissementByBienImmobilier(locataire)">
+              <mat-option [value]="locataire" *ngFor="let locataire of locataireState.locataireBail">{{
+                locataire.codeDescBail }}</mat-option>
             </mat-select>
           </mat-form-field>
         </ng-container>
       </ng-container>
     </div>
-    <div class="col-md-6">
-      <ng-container
-        *ngIf="getBienBylocatairestate$ | async as biensLocataire"
-        [ngSwitch]="biensLocataire.dataState"
-      >
-        <ng-container *ngSwitchCase="BauxStateEnum.LOADING">
-          <i class="fas fa-sync fa-spin"></i>
-        </ng-container>
-        <ng-container *ngSwitchCase="BauxStateEnum.LOADED">
-          <mat-form-field appearance="outline">
-            <mat-label> Bien immobilier</mat-label>
-            <mat-select
-              #selectBien
-              [(ngModel)]="bien"
-              [compareWith]="compareObjects"
-              (selectionChange)="getBauxBybien(selectBien.value)"
-            >
-              <mat-option value="">Choisir un bien</mat-option>
-              <mat-option
-                [value]="bien.idBienImmobilier"
-                *ngFor="let bien of biensLocataire.baux"
-              >
-                {{ bien.codeAbrvBienImmobilier }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field>
-        </ng-container>
-        <ng-container *ngSwitchCase="BauxStateEnum.ERROR"> ... </ng-container>
-      </ng-container>
-    </div>
+
   </div>
-  <div *ngIf="affichierformulaire!=0">
-    <ng-container *ngIf="getBienBylocatairestate$ | async as bauxBybien" [ngSwitch]="bauxBybien.dataState">
-      <ng-container *ngSwitchCase="BauxBienStateEnum.LOADED">
 
-        <div class="row">
-          <div class="col">
-            <h5>
-              <i class="fas fa-asterisk blue-color"></i>&nbsp;Détail du bail
-            </h5>
-          </div>
-        </div>
-        <hr style="margin-top: 0" />
-       <div class="row">
-        <div class="col-md-3">
-            <mat-label>Début du bail : {{bauxBybien.baux[0].dateDebut|date:"dd/MM/yyyy"}}</mat-label>
-        </div>
+  <!-- <div class="row mb-3"> -->
 
-          <div class="col-md-3">
-                <mat-label>Fin du bail :{{bauxBybien.baux[0].dateFin|date:"dd/MM/yyyy"}} </mat-label>
-          </div>
-          <div class="col-md-3">
-              <div class="mat-typography">
-                <mat-label>Valeur du Bail : A remplir avec la somme des montants des loyers </mat-label>
-              </div>
-          </div>
-
-      </div>
-        <div class="row ">
-          <div class="col-md-6">
-          <div class="col panel-body text-right">
-            <mat-label>Solde du Bail : A remplir avec le solde du bail</mat-label>
-          </div>
-          <div class="col-md-6">
-            <div class="col panel-body text-right">
-              <mat-label>Total encaissemnt : A remplir avec le total des encaissement du bail</mat-label>
-            </div>
-          </div>
-        </div>
-      </div>
-      </ng-container>
-    </ng-container>
-  </div>
-         <!-- <div class="row mb-3"> -->
-
-        <!-- </div> -->
-  <div *ngIf="affichierformulaire!=0">
+  <!-- </div> -->
+  <div>
     <div class="mat-elevation-z8">
       <div class="example-header">
         <mat-form-field class="tail-50" style="margin-left: 12px;">
@@ -235,4 +149,3 @@
     </div>
   </div>
 </div>
-
