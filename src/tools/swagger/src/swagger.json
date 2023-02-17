@@ -575,7 +575,7 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/impayeParAnnee/{annee}/{idAgence}" : {
+    "gestimoweb/api/v1/appelloyer/impayeParAnnee/{annee}/{idAgence}/{chapitre}" : {
       "get" : {
         "operationId" : "impayeLoyerParAnnee",
         "parameters" : [ {
@@ -586,6 +586,12 @@
           "format" : "int32"
         }, {
           "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "chapitre",
           "in" : "path",
           "required" : true,
           "type" : "integer",
@@ -602,7 +608,7 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/impayeParMois/{periode}/{idAgence}" : {
+    "gestimoweb/api/v1/appelloyer/impayeParMois/{periode}/{idAgence}/{chapitre}" : {
       "get" : {
         "operationId" : "impayeLoyerParMois",
         "parameters" : [ {
@@ -612,6 +618,12 @@
           "type" : "string"
         }, {
           "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "chapitre",
           "in" : "path",
           "required" : true,
           "type" : "integer",
@@ -680,7 +692,7 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/payeParAnnee/{annee}/{idAgence}" : {
+    "gestimoweb/api/v1/appelloyer/payeParAnnee/{annee}/{idAgence}/{chapitre}" : {
       "get" : {
         "operationId" : "payeLoyerParAnnee",
         "parameters" : [ {
@@ -691,6 +703,12 @@
           "format" : "int32"
         }, {
           "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "chapitre",
           "in" : "path",
           "required" : true,
           "type" : "integer",
@@ -707,7 +725,7 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/payeParMois/{periode}/{idAgence}" : {
+    "gestimoweb/api/v1/appelloyer/payeParMois/{periode}/{idAgence}/{chapitre}" : {
       "get" : {
         "operationId" : "payeLoyerParMois",
         "parameters" : [ {
@@ -717,6 +735,12 @@
           "type" : "string"
         }, {
           "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "chapitre",
           "in" : "path",
           "required" : true,
           "type" : "integer",
@@ -1348,11 +1372,17 @@
         }
       }
     },
-    "gestimoweb/api/v1/bienImmobilier/all/{idAgence}" : {
+    "gestimoweb/api/v1/bienImmobilier/all/{idAgence}/{chapitre}" : {
       "get" : {
         "operationId" : "findAllBien",
         "parameters" : [ {
           "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "chapitre",
           "in" : "path",
           "required" : true,
           "type" : "integer",
@@ -1371,11 +1401,17 @@
         }
       }
     },
-    "gestimoweb/api/v1/bienImmobilier/allBienOccuper/{idAgence}" : {
+    "gestimoweb/api/v1/bienImmobilier/allBienOccuper/{idAgence}/{chapitre}" : {
       "get" : {
         "operationId" : "findAllBienOqp",
         "parameters" : [ {
           "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "chapitre",
           "in" : "path",
           "required" : true,
           "type" : "integer",
@@ -1720,7 +1756,7 @@
         }
       }
     },
-    "gestimoweb/api/v1/encaissement/totalencaissementjournalier/{jour}/{idAgence}" : {
+    "gestimoweb/api/v1/encaissement/totalencaissementjournalier/{jour}/{idAgence}/{chapitre}" : {
       "get" : {
         "operationId" : "totalEncaissementParJour",
         "parameters" : [ {
@@ -1730,6 +1766,12 @@
           "type" : "string"
         }, {
           "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "chapitre",
           "in" : "path",
           "required" : true,
           "type" : "integer",
@@ -4194,8 +4236,29 @@
           "type" : "integer",
           "format" : "int32"
         },
+        "chapitre" : {
+          "$ref" : "#/definitions/Chapitre"
+        },
         "occupied" : {
           "type" : "boolean"
+        }
+      }
+    },
+    "Chapitre" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "libelleChapitre" : {
+          "type" : "string"
+        },
+        "biens" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Bienimmobilier"
+          }
         }
       }
     },

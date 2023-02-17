@@ -13,7 +13,7 @@ import { PeriodeState } from './../../../ngrx/appelloyer/peiodeappel/periodeappe
 import { AnneeState } from './../../../ngrx/annee/annee.reducer';
 import { AppelLoyerState } from 'src/app/ngrx/appelloyer/appelloyer.reducer';
 import { Observable } from 'rxjs';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, AfterViewInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -29,11 +29,13 @@ export class PageReglementGroupeComponent implements OnInit {
   periode = '2023-01';
   date = new FormControl(new Date());
   encaissementform?: FormGroup;
+
   saveEncaissementState$: Observable<EncaissementState> | null = null;
 
   displayedColumns: string[] = [
     'select',
     'appel',
+    'periode',
     'bail',
     'loyer',
     'solde',
@@ -76,12 +78,17 @@ export class PageReglementGroupeComponent implements OnInit {
     @Inject(MAT_DATE_LOCALE) private _locale: string,
     private fb: FormBuilder
   ) {}
-
+  ngAfterViewInit(): void
+  {
+    const periode_jour = formatDate(this.selectedDate, 'yyyy-MM', 'en');
+    this.periode = periode_jour;
+    this.getListeLocataireImpayer(this.periode);
+  }
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
     this.store.dispatch(new GetAllPeriodeActions(this.user.idAgence));
     this.periodeState$ = this.store.pipe(map((state) => state.periodeState));
-    this.getListeLocataireImpayer(this.periode);
+    //this.getListeLocataireImpayer(this.periode);
     this.encaissementform = this.fb.group({
       idAgence: [this.user?.idAgence],
       idCreateur: [this.user?.id],
@@ -92,7 +99,8 @@ export class PageReglementGroupeComponent implements OnInit {
       intituleDepense: [''],
       entiteOperation: ['MAGISER'],
     });
-  }
+    }
+
   getListeLocataireImpayer(periode: any) {
     this.user = this.userService.getUserFromLocalCache();
     this.store.dispatch(
@@ -112,6 +120,7 @@ export class PageReglementGroupeComponent implements OnInit {
         if (data.locatairesImpayer.length > 0)
         {
           this.dataSource.data = data.locatairesImpayer;
+          console.log("Période de locataire");
         }
       });
   }

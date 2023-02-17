@@ -77,12 +77,12 @@ class ApiService extends __BaseService {
   static readonly listDesLoyersParBailPath = 'gestimoweb/api/v1/appelloyer/findAppelsByIdBail/{id}';
   static readonly listDesLoyersImpayerParBailPath = 'gestimoweb/api/v1/appelloyer/findAppelsImpayerByIdBail/{id}';
   static readonly findByIdAndBailPath = 'gestimoweb/api/v1/appelloyer/findByIdAndBail/{idBien}/{periode}';
-  static readonly impayeLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/impayeParAnnee/{annee}/{idAgence}';
-  static readonly impayeLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/impayeParMois/{periode}/{idAgence}';
+  static readonly impayeLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/impayeParAnnee/{annee}/{idAgence}/{chapitre}';
+  static readonly impayeLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/impayeParMois/{periode}/{idAgence}/{chapitre}';
   static readonly listOfDistinctAnneeAppelPath = 'gestimoweb/api/v1/appelloyer/listOfDistinctAnneeAppel/{idAgence}';
   static readonly listeDesloyerSuperieurAUnePeriodePath = 'gestimoweb/api/v1/appelloyer/listeDesloyerSuperieurAUnePeriode/{idBien}/{periode}';
-  static readonly payeLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/payeParAnnee/{annee}/{idAgence}';
-  static readonly payeLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/payeParMois/{periode}/{idAgence}';
+  static readonly payeLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/payeParAnnee/{annee}/{idAgence}/{chapitre}';
+  static readonly payeLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/payeParMois/{periode}/{idAgence}/{chapitre}';
   static readonly ReductionLoyerByPeriodePath = 'gestimoweb/api/v1/appelloyer/reductionLoyerByPeriode';
   static readonly saveAppelLoyersPath = 'gestimoweb/api/v1/appelloyer/save';
   static readonly verifyAccountPath = 'gestimoweb/api/v1/auth/accountVerification/{token}';
@@ -112,8 +112,8 @@ class ApiService extends __BaseService {
   static readonly findBailVillaByIDPath = 'gestimoweb/api/v1/bailvilla/findById/{id}';
   static readonly findBailVillaByNamePath = 'gestimoweb/api/v1/bailvilla/findByName/{name}';
   static readonly saveBailVillaPath = 'gestimoweb/api/v1/bailvilla/save';
-  static readonly findAllBienPath = 'gestimoweb/api/v1/bienImmobilier/all/{idAgence}';
-  static readonly findAllBienOqpPath = 'gestimoweb/api/v1/bienImmobilier/allBienOccuper/{idAgence}';
+  static readonly findAllBienPath = 'gestimoweb/api/v1/bienImmobilier/all/{idAgence}/{chapitre}';
+  static readonly findAllBienOqpPath = 'gestimoweb/api/v1/bienImmobilier/allBienOccuper/{idAgence}/{chapitre}';
   static readonly findAllCommunePath = 'gestimoweb/api/v1/commune/all';
   static readonly deleteCommunePath = 'gestimoweb/api/v1/commune/delete/{id}';
   static readonly findCommuneByIDPath = 'gestimoweb/api/v1/commune/findById/{id}';
@@ -129,7 +129,7 @@ class ApiService extends __BaseService {
   static readonly saveEncaissementAvecretourDeListePath = 'gestimoweb/api/v1/encaissement/saveencaissementavecretour';
   static readonly saveEncaissementMassePath = 'gestimoweb/api/v1/encaissement/saveencaissementmasse';
   static readonly totalencaissementParIdAppelLoyerPath = 'gestimoweb/api/v1/encaissement/totalencaissement/{id}';
-  static readonly totalEncaissementParJourPath = 'gestimoweb/api/v1/encaissement/totalencaissementjournalier/{jour}/{idAgence}';
+  static readonly totalEncaissementParJourPath = 'gestimoweb/api/v1/encaissement/totalencaissementjournalier/{jour}/{idAgence}/{chapitre}';
   static readonly sendMailGrouperWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendmailgrouper/{periode}/{idAgence}';
   static readonly sendMailQuittanceWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendquittancebymail/{id}';
   static readonly saveEspeceEncaissementPath = 'gestimoweb/api/v1/especeencaissement/save';
@@ -1156,6 +1156,8 @@ class ApiService extends __BaseService {
    *
    * - `idAgence`:
    *
+   * - `chapitre`:
+   *
    * - `annee`:
    *
    * @return successful operation
@@ -1166,9 +1168,10 @@ class ApiService extends __BaseService {
     let __body: any = null;
 
 
+
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/appelloyer/impayeParAnnee/${params.annee}/${params.idAgence}`,
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/impayeParAnnee/${params.annee}/${params.idAgence}/${params.chapitre}`,
       __body,
       {
         headers: __headers,
@@ -1188,6 +1191,8 @@ class ApiService extends __BaseService {
    *
    * - `idAgence`:
    *
+   * - `chapitre`:
+   *
    * - `annee`:
    *
    * @return successful operation
@@ -1205,6 +1210,8 @@ class ApiService extends __BaseService {
    *
    * - `idAgence`:
    *
+   * - `chapitre`:
+   *
    * @return successful operation
    */
   impayeLoyerParMoisResponse(params: ApiService.ImpayeLoyerParMoisParams): __Observable<__StrictHttpResponse<number>> {
@@ -1213,9 +1220,10 @@ class ApiService extends __BaseService {
     let __body: any = null;
 
 
+
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/appelloyer/impayeParMois/${params.periode}/${params.idAgence}`,
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/impayeParMois/${params.periode}/${params.idAgence}/${params.chapitre}`,
       __body,
       {
         headers: __headers,
@@ -1236,6 +1244,8 @@ class ApiService extends __BaseService {
    * - `periode`:
    *
    * - `idAgence`:
+   *
+   * - `chapitre`:
    *
    * @return successful operation
    */
@@ -1333,6 +1343,8 @@ class ApiService extends __BaseService {
    *
    * - `idAgence`:
    *
+   * - `chapitre`:
+   *
    * - `annee`:
    *
    * @return successful operation
@@ -1343,9 +1355,10 @@ class ApiService extends __BaseService {
     let __body: any = null;
 
 
+
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/appelloyer/payeParAnnee/${params.annee}/${params.idAgence}`,
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/payeParAnnee/${params.annee}/${params.idAgence}/${params.chapitre}`,
       __body,
       {
         headers: __headers,
@@ -1365,6 +1378,8 @@ class ApiService extends __BaseService {
    *
    * - `idAgence`:
    *
+   * - `chapitre`:
+   *
    * - `annee`:
    *
    * @return successful operation
@@ -1382,6 +1397,8 @@ class ApiService extends __BaseService {
    *
    * - `idAgence`:
    *
+   * - `chapitre`:
+   *
    * @return successful operation
    */
   payeLoyerParMoisResponse(params: ApiService.PayeLoyerParMoisParams): __Observable<__StrictHttpResponse<number>> {
@@ -1390,9 +1407,10 @@ class ApiService extends __BaseService {
     let __body: any = null;
 
 
+
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/appelloyer/payeParMois/${params.periode}/${params.idAgence}`,
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/payeParMois/${params.periode}/${params.idAgence}/${params.chapitre}`,
       __body,
       {
         headers: __headers,
@@ -1413,6 +1431,8 @@ class ApiService extends __BaseService {
    * - `periode`:
    *
    * - `idAgence`:
+   *
+   * - `chapitre`:
    *
    * @return successful operation
    */
@@ -2478,17 +2498,23 @@ class ApiService extends __BaseService {
   }
 
   /**
-   * @param idAgence undefined
+   * @param params The `ApiService.FindAllBienParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `chapitre`:
+   *
    * @return successful operation
    */
-  findAllBienResponse(idAgence: number): __Observable<__StrictHttpResponse<Array<BienImmobilierAffiheDto>>> {
+  findAllBienResponse(params: ApiService.FindAllBienParams): __Observable<__StrictHttpResponse<Array<BienImmobilierAffiheDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
 
+
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/bienImmobilier/all/${idAgence}`,
+      this.rootUrl + `gestimoweb/api/v1/bienImmobilier/all/${params.idAgence}/${params.chapitre}`,
       __body,
       {
         headers: __headers,
@@ -2504,27 +2530,38 @@ class ApiService extends __BaseService {
     );
   }
   /**
-   * @param idAgence undefined
+   * @param params The `ApiService.FindAllBienParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `chapitre`:
+   *
    * @return successful operation
    */
-  findAllBien(idAgence: number): __Observable<Array<BienImmobilierAffiheDto>> {
-    return this.findAllBienResponse(idAgence).pipe(
+  findAllBien(params: ApiService.FindAllBienParams): __Observable<Array<BienImmobilierAffiheDto>> {
+    return this.findAllBienResponse(params).pipe(
       __map(_r => _r.body as Array<BienImmobilierAffiheDto>)
     );
   }
 
   /**
-   * @param idAgence undefined
+   * @param params The `ApiService.FindAllBienOqpParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `chapitre`:
+   *
    * @return successful operation
    */
-  findAllBienOqpResponse(idAgence: number): __Observable<__StrictHttpResponse<Array<BienImmobilierAffiheDto>>> {
+  findAllBienOqpResponse(params: ApiService.FindAllBienOqpParams): __Observable<__StrictHttpResponse<Array<BienImmobilierAffiheDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
 
+
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/bienImmobilier/allBienOccuper/${idAgence}`,
+      this.rootUrl + `gestimoweb/api/v1/bienImmobilier/allBienOccuper/${params.idAgence}/${params.chapitre}`,
       __body,
       {
         headers: __headers,
@@ -2540,11 +2577,16 @@ class ApiService extends __BaseService {
     );
   }
   /**
-   * @param idAgence undefined
+   * @param params The `ApiService.FindAllBienOqpParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `chapitre`:
+   *
    * @return successful operation
    */
-  findAllBienOqp(idAgence: number): __Observable<Array<BienImmobilierAffiheDto>> {
-    return this.findAllBienOqpResponse(idAgence).pipe(
+  findAllBienOqp(params: ApiService.FindAllBienOqpParams): __Observable<Array<BienImmobilierAffiheDto>> {
+    return this.findAllBienOqpResponse(params).pipe(
       __map(_r => _r.body as Array<BienImmobilierAffiheDto>)
     );
   }
@@ -3104,6 +3146,8 @@ class ApiService extends __BaseService {
    *
    * - `idAgence`:
    *
+   * - `chapitre`:
+   *
    * @return successful operation
    */
   totalEncaissementParJourResponse(params: ApiService.TotalEncaissementParJourParams): __Observable<__StrictHttpResponse<number>> {
@@ -3112,9 +3156,10 @@ class ApiService extends __BaseService {
     let __body: any = null;
 
 
+
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/encaissement/totalencaissementjournalier/${params.jour}/${params.idAgence}`,
+      this.rootUrl + `gestimoweb/api/v1/encaissement/totalencaissementjournalier/${params.jour}/${params.idAgence}/${params.chapitre}`,
       __body,
       {
         headers: __headers,
@@ -3135,6 +3180,8 @@ class ApiService extends __BaseService {
    * - `jour`:
    *
    * - `idAgence`:
+   *
+   * - `chapitre`:
    *
    * @return successful operation
    */
@@ -5686,6 +5733,7 @@ module ApiService {
    */
   export interface ImpayeLoyerParAnneeParams {
     idAgence: number;
+    chapitre: number;
     annee: number;
   }
 
@@ -5695,6 +5743,7 @@ module ApiService {
   export interface ImpayeLoyerParMoisParams {
     periode: string;
     idAgence: number;
+    chapitre: number;
   }
 
   /**
@@ -5710,6 +5759,7 @@ module ApiService {
    */
   export interface PayeLoyerParAnneeParams {
     idAgence: number;
+    chapitre: number;
     annee: number;
   }
 
@@ -5719,6 +5769,7 @@ module ApiService {
   export interface PayeLoyerParMoisParams {
     periode: string;
     idAgence: number;
+    chapitre: number;
   }
 
   /**
@@ -5727,6 +5778,22 @@ module ApiService {
   export interface BailByLocataireEtBienParams {
     locataire: number;
     bien: number;
+  }
+
+  /**
+   * Parameters for findAllBien
+   */
+  export interface FindAllBienParams {
+    idAgence: number;
+    chapitre: number;
+  }
+
+  /**
+   * Parameters for findAllBienOqp
+   */
+  export interface FindAllBienOqpParams {
+    idAgence: number;
+    chapitre: number;
   }
 
   /**
@@ -5743,6 +5810,7 @@ module ApiService {
   export interface TotalEncaissementParJourParams {
     jour: string;
     idAgence: number;
+    chapitre: number;
   }
 
   /**

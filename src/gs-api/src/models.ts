@@ -15,6 +15,7 @@ export { BailModifDto } from './models/bail-modif-dto';
 export { BailVillaDto } from './models/bail-villa-dto';
 export { BienImmobilierAffiheDto } from './models/bien-immobilier-affihe-dto';
 export { Bienimmobilier } from './models/bienimmobilier';
+export { Chapitre } from './models/chapitre';
 export { Charges } from './models/charges';
 export { CommuneRequestDto } from './models/commune-request-dto';
 export { CommuneResponseDto } from './models/commune-response-dto';

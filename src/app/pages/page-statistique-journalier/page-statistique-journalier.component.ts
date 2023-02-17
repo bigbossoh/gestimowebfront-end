@@ -18,7 +18,7 @@ import { map } from 'rxjs/operators';
 import { GetAllAnneeActions } from './../../ngrx/annee/annee.actions';
 import { AnneeState, AnneeStateEnum } from './../../ngrx/annee/annee.reducer';
 import { Observable } from 'rxjs';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
@@ -53,7 +53,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   periode_model =
     this.selectedDate.getFullYear() + '-' + this.selectedDate.getMonth();
   annee_model = this.selectedDate.getFullYear();
-
+  @Input() chapitre = 0;
   v_impayer_annee = 0;
   v_payer_annee = 0;
   v_impayer_mois = 0;
@@ -62,7 +62,8 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   v_agence = 0;
   v_jour: any;
   v_encaissemnt: number = 0;
-  
+
+
   constructor(
     private store: Store<any>,
     private _adapter: DateAdapter<Date>,
@@ -75,8 +76,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
   }
 
   getEncaissementPayerJour(jour: any) {
-    // jour = jour.replaceAll('/', '-');
-    //jour = jour.replace('/', '-');
+
     const jour2 = jour.replaceAll('/', '-');
 
     this.user = this.userService.getUserFromLocalCache();
@@ -84,6 +84,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
       new TotalEncaissementParJourActions({
         jour: jour2,
         idAgence: this.user.idAgence,
+        chapitre:this.chapitre
       })
     );
     this.totalEncaissementState$ = this.store.pipe(
@@ -98,6 +99,8 @@ export class PageStatistiqueJournalierComponent implements OnInit {
       new GetImpayerLoyerParPeriodeActions({
         periode: periode,
         idAgence: this.user!.idAgence,
+        chapitre:this.chapitre
+
       })
     );
     this.appelLoyerImpayerMoisState$ = this.store.pipe(
@@ -114,6 +117,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
       new GetImayerLoyerParAnneeActions({
         idAgence: this.user!.idAgence,
         annee: annee,
+        chapitre:this.chapitre
       })
     );
     this.appelLoyerState$ = this.store.pipe(
@@ -129,6 +133,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
       new GetPayerLoyerParAnneeActions({
         idAgence: this.user!.idAgence,
         annee: annee,
+        chapitre:this.chapitre
       })
     );
     this.appelLoyerPayerState$ = this.store.pipe(
@@ -145,6 +150,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
       new GetPayerLoyerParPeriodeActions({
         periode: periode,
         idAgence: this.user!.idAgence,
+        chapitre:this.chapitre
       })
     );
     this.appelLoyerPayerMoisState$ = this.store.pipe(
@@ -154,7 +160,9 @@ export class PageStatistiqueJournalierComponent implements OnInit {
       this.v_payer_mois = data.payerPeriode;
     });
   }
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
+    this.chapitre = 0;
     this.user = this.userService.getUserFromLocalCache();
     this.store.dispatch(new GetAllAnneeActions(this.user!.idAgence));
     this.anneeState$ = this.store.pipe(map((state) => state.anneeState));
@@ -168,6 +176,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
       new GetImayerLoyerParAnneeActions({
         idAgence: this.user!.idAgence,
         annee: this.annee_model,
+        chapitre:this.chapitre
       })
     );
     this.appelLoyerState$ = this.store.pipe(
@@ -183,6 +192,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
       new GetPayerLoyerParAnneeActions({
         idAgence: this.user!.idAgence,
         annee: this.annee_model,
+        chapitre:this.chapitre
       })
     );
     this.appelLoyerPayerState$ = this.store.pipe(
@@ -198,6 +208,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
       new TotalEncaissementParJourActions({
         jour: date_du_jour,
         idAgence: this.user.idAgence,
+        chapitre:this.chapitre
       })
     );
     this.totalEncaissementState$ = this.store.pipe(
@@ -222,6 +233,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
       new GetImpayerLoyerParPeriodeActions({
         periode: this.periode_model,
         idAgence: this.user!.idAgence,
+        chapitre:this.chapitre
       })
     );
     this.appelLoyerImpayerMoisState$ = this.store.pipe(
@@ -237,6 +249,7 @@ export class PageStatistiqueJournalierComponent implements OnInit {
       new GetPayerLoyerParPeriodeActions({
         periode: this.periode_model,
         idAgence: this.user!.idAgence,
+        chapitre:this.chapitre
       })
     );
     this.appelLoyerPayerMoisState$ = this.store.pipe(
