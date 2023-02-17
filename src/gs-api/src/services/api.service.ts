@@ -15,6 +15,7 @@ import { AppelLoyersFactureDto } from '../models/appel-loyers-facture-dto';
 import { PeriodeDto } from '../models/periode-dto';
 import { AnneeAppelLoyersDto } from '../models/annee-appel-loyers-dto';
 import { AppelLoyerDto } from '../models/appel-loyer-dto';
+import { MessageEnvoyerDto } from '../models/message-envoyer-dto';
 import { PourcentageAppelDto } from '../models/pourcentage-appel-dto';
 import { AppelLoyerRequestDto } from '../models/appel-loyer-request-dto';
 import { Utilisateur } from '../models/utilisateur';
@@ -79,6 +80,7 @@ class ApiService extends __BaseService {
   static readonly findByIdAndBailPath = 'gestimoweb/api/v1/appelloyer/findByIdAndBail/{idBien}/{periode}';
   static readonly impayeLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/impayeParAnnee/{annee}/{idAgence}/{chapitre}';
   static readonly impayeLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/impayeParMois/{periode}/{idAgence}/{chapitre}';
+  static readonly listMessageEnvoyerAUnLocatairePath = 'gestimoweb/api/v1/appelloyer/listMessageEnvoyerAUnLocataire/{login}';
   static readonly listOfDistinctAnneeAppelPath = 'gestimoweb/api/v1/appelloyer/listOfDistinctAnneeAppel/{idAgence}';
   static readonly listeDesloyerSuperieurAUnePeriodePath = 'gestimoweb/api/v1/appelloyer/listeDesloyerSuperieurAUnePeriode/{idBien}/{periode}';
   static readonly payeLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/payeParAnnee/{annee}/{idAgence}/{chapitre}';
@@ -1252,6 +1254,42 @@ class ApiService extends __BaseService {
   impayeLoyerParMois(params: ApiService.ImpayeLoyerParMoisParams): __Observable<number> {
     return this.impayeLoyerParMoisResponse(params).pipe(
       __map(_r => _r.body as number)
+    );
+  }
+
+  /**
+   * @param login undefined
+   * @return successful operation
+   */
+  listMessageEnvoyerAUnLocataireResponse(login: string): __Observable<__StrictHttpResponse<Array<MessageEnvoyerDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/listMessageEnvoyerAUnLocataire/${login}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<MessageEnvoyerDto>>;
+      })
+    );
+  }
+  /**
+   * @param login undefined
+   * @return successful operation
+   */
+  listMessageEnvoyerAUnLocataire(login: string): __Observable<Array<MessageEnvoyerDto>> {
+    return this.listMessageEnvoyerAUnLocataireResponse(login).pipe(
+      __map(_r => _r.body as Array<MessageEnvoyerDto>)
     );
   }
 

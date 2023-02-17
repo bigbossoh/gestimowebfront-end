@@ -640,6 +640,28 @@
         }
       }
     },
+    "gestimoweb/api/v1/appelloyer/listMessageEnvoyerAUnLocataire/{login}" : {
+      "get" : {
+        "operationId" : "listMessageEnvoyerAUnLocataire",
+        "parameters" : [ {
+          "name" : "login",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/MessageEnvoyerDto"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/appelloyer/listOfDistinctAnneeAppel/{idAgence}" : {
       "get" : {
         "operationId" : "listOfDistinctAnneeAppel",
@@ -4757,6 +4779,9 @@
         },
         "codeDescBail" : {
           "type" : "string"
+        },
+        "username" : {
+          "type" : "string"
         }
       }
     },
@@ -4879,6 +4904,34 @@
         },
         "underBuildingMagasin" : {
           "type" : "boolean"
+        }
+      }
+    },
+    "MessageEnvoyerDto" : {
+      "type" : "object",
+      "properties" : {
+        "idDestinaire" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "dateEnvoi" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "destinaireNomPrenom" : {
+          "type" : "string"
+        },
+        "login" : {
+          "type" : "string"
+        },
+        "textMessage" : {
+          "type" : "string"
+        },
+        "envoer" : {
+          "type" : "boolean"
+        },
+        "typeMessage" : {
+          "type" : "string"
         }
       }
     },
@@ -5008,10 +5061,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         }
       }

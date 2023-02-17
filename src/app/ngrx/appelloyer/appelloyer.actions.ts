@@ -41,6 +41,14 @@ export enum AppelLoyerctionsTypes {
   GET_PAYER_LOYER_PAR_PERIODE = '[AppelLoyersFactureDto] Get Payer par PERIODE',
   GET_PAYER_LOYER_PAR_PERIODE_SUCCES = '[AppelLoyersFactureDto] Get Payer par PERIODE Success',
   GET_PAYER_LOYER_PAR_PERIODE_ERROR = '[AppelLoyersFactureDto] Get Payer par PERIODE Error',
+
+  GET_ALL_APPELLOYER_BY_BIEN = '[AppelLoyer] Get All AppelLoyer BY BIEN ',
+  GET_ALL_APPELLOYER_BY_BIEN_SUCCES = '[AppelLoyer] Get All AppelLoyer Succes BY BIEN',
+  GET_ALL_APPELLOYER_BY_BIEN_ERROR = '[AppelLoyer] Get All AppelLoyer Error BY BIEN',
+
+  GET_ALL_SMS_BY_LOCATAIRE = '[AppelLoyer] Get All SMS  BY LOCATAIRE',
+  GET_ALL_SMS_BY_LOCATAIRE_SUCCES = '[AppelLoyer] Get All SMS  BY LOCATAIRE Succes BY BIEN',
+  GET_ALL_SMS_BY_LOCATAIRE_ERROR = '[AppelLoyer] Get All SMS  BY LOCATAIRE Error BY BIEN',
 }
 
 //GET IMPAYER PAR ANNEE
@@ -176,10 +184,45 @@ export class SaveReductionActionsError implements Action {
     AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_ERROR;
   constructor(public payload: string) {}
 }
+
+// GET ALL APPEL LOYER BY BIEN
+export class GetAllAppelLoyerByBienActions implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BIEN;
+  constructor(public payload: any) {}
+}
+
+export class GetAllAppelLoyerByBienActionsSuccess implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BIEN_SUCCES;
+  constructor(public payload: AppelLoyerDto[]) {}
+}
+export class GetAllAppelLoyerByBienActionsError implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BIEN_ERROR;
+  constructor(public payload: string) {}
+}
+
+// GET ALL SMS BY LOGIN LOCATAIRE
+export class GetAllSmsByLocataireActions implements Action {
+  type: AppelLoyerctionsTypes = AppelLoyerctionsTypes.GET_ALL_SMS_BY_LOCATAIRE;
+  constructor(public payload: any) {}
+}
+
+export class GetAllSmsByLocataireActionsSuccess implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_ALL_SMS_BY_LOCATAIRE_SUCCES;
+  constructor(public payload: any) {}
+}
+export class GetAllSmsByLocataireActionsError implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_ALL_SMS_BY_LOCATAIRE_ERROR;
+  constructor(public payload: string) {}
+}
 export type AppelLoyerActions =
-  |SaveReductionActions
-  |SaveReductionActionsError
-  |SaveReductionActionsSuccess
+  | SaveReductionActions
+  | SaveReductionActionsError
+  | SaveReductionActionsSuccess
   | GetAllAppelLoyerActions
   | GetAllAppelLoyerActionsError
   | GetAllAppelLoyerActionsSuccess
@@ -199,4 +242,10 @@ export type AppelLoyerActions =
   | GetImpayerLoyerParPeriodeActionsError
   | GetPayerLoyerParPeriodeActions
   | GetPayerLoyerParPeriodeActionsError
-  | GetPayerLoyerParPeriodeActionsSuccess;
+  | GetPayerLoyerParPeriodeActionsSuccess
+  | GetAllAppelLoyerByBienActions
+  | GetAllAppelLoyerByBienActionsSuccess
+  | GetAllAppelLoyerByBienActionsError
+  | GetAllSmsByLocataireActions
+  | GetAllSmsByLocataireActionsError
+  |GetAllSmsByLocataireActionsSuccess;

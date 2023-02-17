@@ -83,17 +83,19 @@ export class PageBienImmobilierComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.ngOnInit();
   }
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
+
     this.user = this.userService.getUserFromLocalCache();
     // RECUPERER LES BIENS
 
-    if (this.user.idAgence != undefined) {
-      this.v_agence = this.user.idAgence;
-    } else {
-      this.v_agence=0
-    }
+    // if (this.user.idAgence != undefined) {
+    //   this.v_agence = this.user.idAgence;
+    // } else {
+    //   this.v_agence=0
+    // }
 
-    this.store.dispatch(new GetAllBiensActions(this.v_agence));
+    this.store.dispatch(new GetAllBiensActions({ idAgence: this.user.idAgence,chapitre:0}));
     this.bienImmobilierState$ = this.store.pipe(
       map((state) => state.biensState)
     );
@@ -106,20 +108,20 @@ export class PageBienImmobilierComponent implements OnInit, AfterViewInit {
     });
 
     // RECUPERER LES APPARTEMENTS DANS LE STORES
-    this.store.dispatch(new GetAllAppartementActions(this.v_agence));
+    this.store.dispatch(new GetAllAppartementActions(this.user.idAgence));
     this.appartementState$ = this.store.pipe(
       map((state) => state.appartementState)
     );
     // RECUPERER LES MAGASINS DANS LE STORES
-    this.store.dispatch(new GetAllMagasinActions(this.v_agence));
+    this.store.dispatch(new GetAllMagasinActions(this.user.idAgence));
     this.magasinState$ = this.store.pipe(map((state) => state.magasinState));
 
     // RECUPERER LES VILLAS DANS LE STORES
-    this.store.dispatch(new GetAllVillaActions(this.v_agence));
+    this.store.dispatch(new GetAllVillaActions(this.user.idAgence));
     this.villaState$ = this.store.pipe(map((state) => state.villaState));
 
     //RECUPERER LES VILLES
-    this.store.dispatch(new GetAllVilleActions(this.v_agence));
+    this.store.dispatch(new GetAllVilleActions(this.user.idAgence));
     this.villeState$ = this.store.pipe(map((state) => state.villeState));
    }
   applyFilter(event: Event) {
@@ -141,7 +143,7 @@ export class PageBienImmobilierComponent implements OnInit, AfterViewInit {
   onEditBien(bien: any) {
     const dialolRef = this.dialog.open(PageBienImmobilierNewComponent, {
       data:{bienimmo:bien}
-      //  width: '1024px',
+
     });
   }
 }

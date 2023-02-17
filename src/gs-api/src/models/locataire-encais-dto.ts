@@ -9,4 +9,5 @@ export interface LocataireEncaisDTO {
   nom?: string;
   prenom?: string;
   codeDescBail?: string;
+  username?: string;
 }

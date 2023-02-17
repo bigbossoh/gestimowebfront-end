@@ -63,8 +63,8 @@ export class PageBauxComponent implements OnInit {
   expandedElement?: OperationDto;
   pageSize = [5, 10, 15, 20];
   v_bail: any=undefined;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild('sorted') sorted!: MatSort;
+  @ViewChild('matbaux') paginator!: MatPaginator;
+  @ViewChild(MatSort) sorted!: MatSort;
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
   appelloyerState$: Observable<AppelLoyerState> | null = null;
@@ -104,6 +104,10 @@ export class PageBauxComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
       }
     });
+  }
+  ngAfterViewInit()
+  {
+    this.dataSource.paginator = this.paginator;
   }
   onActionEmmit($event: any) {
     this.ngOnInit();
@@ -148,6 +152,20 @@ export class PageBauxComponent implements OnInit {
     this.appelloyerState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
     );
+    this.store.pipe(
+      map((state) => state.appelLoyerState)
+    ).subscribe(data =>
+    {
+      console.log("Dqto");
+      console.log(data);
+      this.dataSource.data = [];
+      this.dataSource.paginator = null;
+      if (data.baux.length > 0) {
+        this.dataSource.data = data.baux;
+        this.dataSource.paginator = this.paginator;
+      }
+
+    });
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

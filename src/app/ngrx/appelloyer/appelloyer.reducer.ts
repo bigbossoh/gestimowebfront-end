@@ -13,7 +13,9 @@ export enum AppelLoyerStateEnum {
   EDIT = 'Edit',
   LOADEDBYIMMEUNLE = 'LoadedByImmeuble',
 }
-export interface AppelLoyerState {
+export interface AppelLoyerState
+{
+  smss: any;
   appelloyers: AppelLoyersFactureDto[];
   anneesAppel: AnneeAppelLoyersDto[];
   periodes: PeriodeDto[];
@@ -25,6 +27,7 @@ export interface AppelLoyerState {
   dataState: AppelLoyerStateEnum;
 }
 const initState: AppelLoyerState = {
+ smss:null,
   appelloyers: [],
   anneesAppel: [],
   periodes: [],
@@ -159,6 +162,36 @@ case AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_ERROR:
         anneesAppel: (<AppelLoyerActions>action).payload,
       };
     case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_ANNEE_ERROR:
+      return {
+        ...state,
+        dataState: AppelLoyerStateEnum.ERROR,
+        errorMessage: (<AppelLoyerActions>action).payload,
+      };
+  // GET ALL APPEL LOYER BY BIEN
+  case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BIEN:
+    return { ...state, dataState: AppelLoyerStateEnum.LOADING };
+  case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BIEN_SUCCES:
+    return {
+      ...state,
+      dataState: AppelLoyerStateEnum.LOADED,
+      appelloyers: (<AppelLoyerActions>action).payload,
+    };
+  case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BIEN_ERROR:
+    return {
+      ...state,
+      dataState: AppelLoyerStateEnum.ERROR,
+      errorMessage: (<AppelLoyerActions>action).payload,
+    };
+    // GET ALL SMS BY LOCATAIRE
+    case AppelLoyerctionsTypes.GET_ALL_SMS_BY_LOCATAIRE:
+      return { ...state, dataState: AppelLoyerStateEnum.LOADING };
+    case AppelLoyerctionsTypes.GET_ALL_SMS_BY_LOCATAIRE_SUCCES:
+      return {
+        ...state,
+        dataState: AppelLoyerStateEnum.LOADED,
+        smss: (<AppelLoyerActions>action).payload,
+      };
+    case AppelLoyerctionsTypes.GET_ALL_SMS_BY_LOCATAIRE_ERROR:
       return {
         ...state,
         dataState: AppelLoyerStateEnum.ERROR,
