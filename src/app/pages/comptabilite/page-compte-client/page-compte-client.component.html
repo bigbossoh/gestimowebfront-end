@@ -28,7 +28,7 @@
           <mat-form-field appearance="outline">
             <mat-label> Locataires</mat-label>
             <mat-select #selectionlocataire [(value)]="locataire"
-              (valueChange)="getAllEncaissementByBienImmobilier(locataire);getAllAppelLoyerByBien(locataire);getAllSmsByLocataire(locataire)">
+              (valueChange)="getAllEncaissementByBienImmobilier(locataire);getAllAppelLoyerByBail(locataire);getAllSmsByLocataire(locataire)">
               <mat-option [value]="loca" *ngFor="let loca of locataireState.locataireBail">{{
                 loca.codeDescBail }}</mat-option>
             </mat-select>

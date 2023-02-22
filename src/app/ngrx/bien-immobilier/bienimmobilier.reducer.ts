@@ -58,6 +58,22 @@ export function bienReducer(
         dataState: BienImmobilierStateEnum.ERROR,
         errorMessage: (<BienImmobilierActions>action).payload,
       };
+
+     /** NEW BIEN IMMOBILIER */
+     case BienImmobilierActionsTypes.RATTACHER_BIEN_CHAPITRE:
+      return { ...state, dataState: BienImmobilierStateEnum.NEW };
+    case BienImmobilierActionsTypes.RATTACHER_BIEN_CHAPITRE_BIENS_SUCCES:
+      return {
+        ...state,
+        dataState: BienImmobilierStateEnum.LOADED,
+        bienImmoblilier: (<BienImmobilierActions>action).payload,
+      };
+    case BienImmobilierActionsTypes.RATTACHER_BIEN_CHAPITRE_BIENS_ERROR:
+      return {
+        ...state,
+        dataState: BienImmobilierStateEnum.ERROR,
+        errorMessage: (<BienImmobilierActions>action).payload,
+      };
     default:
       return { ...state };
   }

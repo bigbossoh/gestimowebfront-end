@@ -42,9 +42,9 @@ export enum AppelLoyerctionsTypes {
   GET_PAYER_LOYER_PAR_PERIODE_SUCCES = '[AppelLoyersFactureDto] Get Payer par PERIODE Success',
   GET_PAYER_LOYER_PAR_PERIODE_ERROR = '[AppelLoyersFactureDto] Get Payer par PERIODE Error',
 
-  GET_ALL_APPELLOYER_BY_BIEN = '[AppelLoyer] Get All AppelLoyer BY BIEN ',
-  GET_ALL_APPELLOYER_BY_BIEN_SUCCES = '[AppelLoyer] Get All AppelLoyer Succes BY BIEN',
-  GET_ALL_APPELLOYER_BY_BIEN_ERROR = '[AppelLoyer] Get All AppelLoyer Error BY BIEN',
+  GET_ALL_APPELLOYER_BY_BAIL = '[AppelLoyer] Get All AppelLoyer BY BIEN ',
+  GET_ALL_APPELLOYER_BY_BAIL_SUCCES = '[AppelLoyer] Get All AppelLoyer Succes BY BIEN',
+  GET_ALL_APPELLOYER_BY_BAIL_ERROR = '[AppelLoyer] Get All AppelLoyer Error BY BIEN',
 
   GET_ALL_SMS_BY_LOCATAIRE = '[AppelLoyer] Get All SMS  BY LOCATAIRE',
   GET_ALL_SMS_BY_LOCATAIRE_SUCCES = '[AppelLoyer] Get All SMS  BY LOCATAIRE Succes BY BIEN',
@@ -186,20 +186,20 @@ export class SaveReductionActionsError implements Action {
 }
 
 // GET ALL APPEL LOYER BY BIEN
-export class GetAllAppelLoyerByBienActions implements Action {
+export class GetAllAppelLoyerByBailActions implements Action {
   type: AppelLoyerctionsTypes =
-    AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BIEN;
+    AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BAIL;
   constructor(public payload: any) {}
 }
 
-export class GetAllAppelLoyerByBienActionsSuccess implements Action {
+export class GetAllAppelLoyerByBailActionsSuccess implements Action {
   type: AppelLoyerctionsTypes =
-    AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BIEN_SUCCES;
-  constructor(public payload: AppelLoyerDto[]) {}
+    AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BAIL_SUCCES;
+  constructor(public payload: any) {}
 }
-export class GetAllAppelLoyerByBienActionsError implements Action {
+export class GetAllAppelLoyerByBailActionsError implements Action {
   type: AppelLoyerctionsTypes =
-    AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BIEN_ERROR;
+    AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BAIL_ERROR;
   constructor(public payload: string) {}
 }
 
@@ -243,9 +243,9 @@ export type AppelLoyerActions =
   | GetPayerLoyerParPeriodeActions
   | GetPayerLoyerParPeriodeActionsError
   | GetPayerLoyerParPeriodeActionsSuccess
-  | GetAllAppelLoyerByBienActions
-  | GetAllAppelLoyerByBienActionsSuccess
-  | GetAllAppelLoyerByBienActionsError
+  | GetAllAppelLoyerByBailActions
+  | GetAllAppelLoyerByBailActionsSuccess
+  | GetAllAppelLoyerByBailActionsError
   | GetAllSmsByLocataireActions
   | GetAllSmsByLocataireActionsError
-  |GetAllSmsByLocataireActionsSuccess;
+  | GetAllSmsByLocataireActionsSuccess;

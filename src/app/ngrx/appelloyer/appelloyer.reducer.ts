@@ -13,8 +13,7 @@ export enum AppelLoyerStateEnum {
   EDIT = 'Edit',
   LOADEDBYIMMEUNLE = 'LoadedByImmeuble',
 }
-export interface AppelLoyerState
-{
+export interface AppelLoyerState {
   smss: any;
   appelloyers: AppelLoyersFactureDto[];
   anneesAppel: AnneeAppelLoyersDto[];
@@ -27,7 +26,7 @@ export interface AppelLoyerState
   dataState: AppelLoyerStateEnum;
 }
 const initState: AppelLoyerState = {
- smss:null,
+  smss: null,
   appelloyers: [],
   anneesAppel: [],
   periodes: [],
@@ -75,21 +74,21 @@ export function appelLoyerReducer(
         errorMessage: (<AppelLoyerActions>action).payload,
       };
 
-// SAVE REDUCTION LOYER
-case AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER:
-  return { ...state, dataState: AppelLoyerStateEnum.LOADING };
-case AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_SUCCES:
-  return {
-    ...state,
-    dataState: AppelLoyerStateEnum.LOADED,
-    appelloyers: (<AppelLoyerActions>action).payload,
-  };
-case AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_ERROR:
-  return {
-    ...state,
-    dataState: AppelLoyerStateEnum.ERROR,
-    errorMessage: (<AppelLoyerActions>action).payload,
-  };
+    // SAVE REDUCTION LOYER
+    case AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER:
+      return { ...state, dataState: AppelLoyerStateEnum.LOADING };
+    case AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_SUCCES:
+      return {
+        ...state,
+        dataState: AppelLoyerStateEnum.LOADED,
+        appelloyers: (<AppelLoyerActions>action).payload,
+      };
+    case AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_ERROR:
+      return {
+        ...state,
+        dataState: AppelLoyerStateEnum.ERROR,
+        errorMessage: (<AppelLoyerActions>action).payload,
+      };
 
     // GET IMPAYER PAR ANNEE
     case AppelLoyerctionsTypes.GET_IMPAYER_LOYER_PAR_ANNEE:
@@ -167,21 +166,21 @@ case AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_ERROR:
         dataState: AppelLoyerStateEnum.ERROR,
         errorMessage: (<AppelLoyerActions>action).payload,
       };
-  // GET ALL APPEL LOYER BY BIEN
-  case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BIEN:
-    return { ...state, dataState: AppelLoyerStateEnum.LOADING };
-  case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BIEN_SUCCES:
-    return {
-      ...state,
-      dataState: AppelLoyerStateEnum.LOADED,
-      appelloyers: (<AppelLoyerActions>action).payload,
-    };
-  case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BIEN_ERROR:
-    return {
-      ...state,
-      dataState: AppelLoyerStateEnum.ERROR,
-      errorMessage: (<AppelLoyerActions>action).payload,
-    };
+    // GET ALL APPEL LOYER BY BIEN
+    case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BAIL:
+      return { ...state, dataState: AppelLoyerStateEnum.LOADING };
+    case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BAIL_SUCCES:
+      return {
+        ...state,
+        dataState: AppelLoyerStateEnum.LOADED,
+        appelloyers: (<AppelLoyerActions>action).payload,
+      };
+    case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BAIL_ERROR:
+      return {
+        ...state,
+        dataState: AppelLoyerStateEnum.ERROR,
+        errorMessage: (<AppelLoyerActions>action).payload,
+      };
     // GET ALL SMS BY LOCATAIRE
     case AppelLoyerctionsTypes.GET_ALL_SMS_BY_LOCATAIRE:
       return { ...state, dataState: AppelLoyerStateEnum.LOADING };

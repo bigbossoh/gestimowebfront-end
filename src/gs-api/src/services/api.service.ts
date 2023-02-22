@@ -75,7 +75,7 @@ class ApiService extends __BaseService {
   static readonly findAllPeriodeByAnneePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeByAnnee/{annee}/{idAgence}';
   static readonly findAllPeriodeChiffreEtLettreByAnneePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeChiffreEtLettreByAnnee/{annee}/{idAgence}';
   static readonly AppelLoyersParIdPath = 'gestimoweb/api/v1/appelloyer/findAppelloyer/{id}';
-  static readonly listDesLoyersParBailPath = 'gestimoweb/api/v1/appelloyer/findAppelsByIdBail/{id}';
+  static readonly listDesLoyersParBailPath = 'gestimoweb/api/v1/appelloyer/findAppelsByIdBail/{idBail}';
   static readonly listDesLoyersImpayerParBailPath = 'gestimoweb/api/v1/appelloyer/findAppelsImpayerByIdBail/{id}';
   static readonly findByIdAndBailPath = 'gestimoweb/api/v1/appelloyer/findByIdAndBail/{idBien}/{periode}';
   static readonly impayeLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/impayeParAnnee/{annee}/{idAgence}/{chapitre}';
@@ -83,6 +83,8 @@ class ApiService extends __BaseService {
   static readonly listMessageEnvoyerAUnLocatairePath = 'gestimoweb/api/v1/appelloyer/listMessageEnvoyerAUnLocataire/{login}';
   static readonly listOfDistinctAnneeAppelPath = 'gestimoweb/api/v1/appelloyer/listOfDistinctAnneeAppel/{idAgence}';
   static readonly listeDesloyerSuperieurAUnePeriodePath = 'gestimoweb/api/v1/appelloyer/listeDesloyerSuperieurAUnePeriode/{idBien}/{periode}';
+  static readonly nombreImpayerLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/nombreImpayerLoyerParMois/{periode}/{idAgence}/{chapitre}';
+  static readonly nombrePayerLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/nombrePayerLoyerParMois/{periode}/{idAgence}/{chapitre}';
   static readonly payeLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/payeParAnnee/{annee}/{idAgence}/{chapitre}';
   static readonly payeLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/payeParMois/{periode}/{idAgence}/{chapitre}';
   static readonly ReductionLoyerByPeriodePath = 'gestimoweb/api/v1/appelloyer/reductionLoyerByPeriode';
@@ -116,6 +118,7 @@ class ApiService extends __BaseService {
   static readonly saveBailVillaPath = 'gestimoweb/api/v1/bailvilla/save';
   static readonly findAllBienPath = 'gestimoweb/api/v1/bienImmobilier/all/{idAgence}/{chapitre}';
   static readonly findAllBienOqpPath = 'gestimoweb/api/v1/bienImmobilier/allBienOccuper/{idAgence}/{chapitre}';
+  static readonly rattacherUnBienAUnChapitrePath = 'gestimoweb/api/v1/bienImmobilier/rattacherUnBienAUnChapitre/{idBien}/{chapitre}';
   static readonly findAllCommunePath = 'gestimoweb/api/v1/commune/all';
   static readonly deleteCommunePath = 'gestimoweb/api/v1/commune/delete/{id}';
   static readonly findCommuneByIDPath = 'gestimoweb/api/v1/commune/findById/{id}';
@@ -1035,17 +1038,17 @@ class ApiService extends __BaseService {
   }
 
   /**
-   * @param id undefined
+   * @param idBail undefined
    * @return successful operation
    */
-  listDesLoyersParBailResponse(id: number): __Observable<__StrictHttpResponse<Array<AppelLoyerDto>>> {
+  listDesLoyersParBailResponse(idBail: number): __Observable<__StrictHttpResponse<Array<AppelLoyerDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
 
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/appelloyer/findAppelsByIdBail/${id}`,
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/findAppelsByIdBail/${idBail}`,
       __body,
       {
         headers: __headers,
@@ -1061,11 +1064,11 @@ class ApiService extends __BaseService {
     );
   }
   /**
-   * @param id undefined
+   * @param idBail undefined
    * @return successful operation
    */
-  listDesLoyersParBail(id: number): __Observable<Array<AppelLoyerDto>> {
-    return this.listDesLoyersParBailResponse(id).pipe(
+  listDesLoyersParBail(idBail: number): __Observable<Array<AppelLoyerDto>> {
+    return this.listDesLoyersParBailResponse(idBail).pipe(
       __map(_r => _r.body as Array<AppelLoyerDto>)
     );
   }
@@ -1373,6 +1376,110 @@ class ApiService extends __BaseService {
   listeDesloyerSuperieurAUnePeriode(params: ApiService.ListeDesloyerSuperieurAUnePeriodeParams): __Observable<Array<AppelLoyersFactureDto>> {
     return this.listeDesloyerSuperieurAUnePeriodeResponse(params).pipe(
       __map(_r => _r.body as Array<AppelLoyersFactureDto>)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.NombreImpayerLoyerParMoisParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `idAgence`:
+   *
+   * - `chapitre`:
+   *
+   * @return successful operation
+   */
+  nombreImpayerLoyerParMoisResponse(params: ApiService.NombreImpayerLoyerParMoisParams): __Observable<__StrictHttpResponse<number>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/nombreImpayerLoyerParMois/${params.periode}/${params.idAgence}/${params.chapitre}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: parseFloat((_r as HttpResponse<any>).body as string) }) as __StrictHttpResponse<number>
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.NombreImpayerLoyerParMoisParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `idAgence`:
+   *
+   * - `chapitre`:
+   *
+   * @return successful operation
+   */
+  nombreImpayerLoyerParMois(params: ApiService.NombreImpayerLoyerParMoisParams): __Observable<number> {
+    return this.nombreImpayerLoyerParMoisResponse(params).pipe(
+      __map(_r => _r.body as number)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.NombrePayerLoyerParMoisParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `idAgence`:
+   *
+   * - `chapitre`:
+   *
+   * @return successful operation
+   */
+  nombrePayerLoyerParMoisResponse(params: ApiService.NombrePayerLoyerParMoisParams): __Observable<__StrictHttpResponse<number>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/nombrePayerLoyerParMois/${params.periode}/${params.idAgence}/${params.chapitre}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: parseFloat((_r as HttpResponse<any>).body as string) }) as __StrictHttpResponse<number>
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.NombrePayerLoyerParMoisParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `idAgence`:
+   *
+   * - `chapitre`:
+   *
+   * @return successful operation
+   */
+  nombrePayerLoyerParMois(params: ApiService.NombrePayerLoyerParMoisParams): __Observable<number> {
+    return this.nombrePayerLoyerParMoisResponse(params).pipe(
+      __map(_r => _r.body as number)
     );
   }
 
@@ -2626,6 +2733,53 @@ class ApiService extends __BaseService {
   findAllBienOqp(params: ApiService.FindAllBienOqpParams): __Observable<Array<BienImmobilierAffiheDto>> {
     return this.findAllBienOqpResponse(params).pipe(
       __map(_r => _r.body as Array<BienImmobilierAffiheDto>)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.RattacherUnBienAUnChapitreParams` containing the following parameters:
+   *
+   * - `idBien`:
+   *
+   * - `chapitre`:
+   *
+   * @return successful operation
+   */
+  rattacherUnBienAUnChapitreResponse(params: ApiService.RattacherUnBienAUnChapitreParams): __Observable<__StrictHttpResponse<BienImmobilierAffiheDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/bienImmobilier/rattacherUnBienAUnChapitre/${params.idBien}/${params.chapitre}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<BienImmobilierAffiheDto>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.RattacherUnBienAUnChapitreParams` containing the following parameters:
+   *
+   * - `idBien`:
+   *
+   * - `chapitre`:
+   *
+   * @return successful operation
+   */
+  rattacherUnBienAUnChapitre(params: ApiService.RattacherUnBienAUnChapitreParams): __Observable<BienImmobilierAffiheDto> {
+    return this.rattacherUnBienAUnChapitreResponse(params).pipe(
+      __map(_r => _r.body as BienImmobilierAffiheDto)
     );
   }
 
@@ -5793,6 +5947,24 @@ module ApiService {
   }
 
   /**
+   * Parameters for nombreImpayerLoyerParMois
+   */
+  export interface NombreImpayerLoyerParMoisParams {
+    periode: string;
+    idAgence: number;
+    chapitre: number;
+  }
+
+  /**
+   * Parameters for nombrePayerLoyerParMois
+   */
+  export interface NombrePayerLoyerParMoisParams {
+    periode: string;
+    idAgence: number;
+    chapitre: number;
+  }
+
+  /**
    * Parameters for payeLoyerParAnnee
    */
   export interface PayeLoyerParAnneeParams {
@@ -5831,6 +6003,14 @@ module ApiService {
    */
   export interface FindAllBienOqpParams {
     idAgence: number;
+    chapitre: number;
+  }
+
+  /**
+   * Parameters for rattacherUnBienAUnChapitre
+   */
+  export interface RattacherUnBienAUnChapitreParams {
+    idBien: number;
     chapitre: number;
   }
 
