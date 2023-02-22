@@ -504,11 +504,11 @@
         }
       }
     },
-    "gestimoweb/api/v1/appelloyer/findAppelsByIdBail/{id}" : {
+    "gestimoweb/api/v1/appelloyer/findAppelsByIdBail/{idBail}" : {
       "get" : {
         "operationId" : "listDesLoyersParBail",
         "parameters" : [ {
-          "name" : "id",
+          "name" : "idBail",
           "in" : "path",
           "required" : true,
           "type" : "integer",
@@ -709,6 +709,70 @@
               "items" : {
                 "$ref" : "#/definitions/AppelLoyersFactureDto"
               }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appelloyer/nombreImpayerLoyerParMois/{periode}/{idAgence}/{chapitre}" : {
+      "get" : {
+        "operationId" : "nombreImpayerLoyerParMois",
+        "parameters" : [ {
+          "name" : "periode",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "chapitre",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int64"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appelloyer/nombrePayerLoyerParMois/{periode}/{idAgence}/{chapitre}" : {
+      "get" : {
+        "operationId" : "nombrePayerLoyerParMois",
+        "parameters" : [ {
+          "name" : "periode",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "chapitre",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int64"
             }
           }
         }
@@ -1447,6 +1511,32 @@
               "items" : {
                 "$ref" : "#/definitions/BienImmobilierAffiheDto"
               }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/bienImmobilier/rattacherUnBienAUnChapitre/{idBien}/{chapitre}" : {
+      "get" : {
+        "operationId" : "rattacherUnBienAUnChapitre",
+        "parameters" : [ {
+          "name" : "idBien",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "chapitre",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/BienImmobilierAffiheDto"
             }
           }
         }
@@ -4204,6 +4294,9 @@
         "nomPrenomProprio" : {
           "type" : "string"
         },
+        "chapitre" : {
+          "type" : "string"
+        },
         "occupied" : {
           "type" : "boolean"
         }
@@ -4754,6 +4847,10 @@
           "format" : "int64"
         },
         "idBien" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idBail" : {
           "type" : "integer",
           "format" : "int64"
         },

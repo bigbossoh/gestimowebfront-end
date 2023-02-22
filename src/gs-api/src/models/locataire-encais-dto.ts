@@ -2,6 +2,7 @@
 export interface LocataireEncaisDTO {
   id?: number;
   idBien?: number;
+  idBail?: number;
   idAppel?: number;
   montantloyer?: number;
   mois?: string;

@@ -21,8 +21,8 @@ import {
   GetPayerLoyerParPeriodeActionsError,
   SaveReductionActionsSuccess,
   SaveReductionActionsError,
-  GetAllAppelLoyerByBienActionsSuccess,
-  GetAllAppelLoyerByBienActionsError,
+  GetAllAppelLoyerByBailActionsSuccess,
+  GetAllAppelLoyerByBailActionsError,
   GetAllSmsByLocataireActionsSuccess,
   GetAllSmsByLocataireActionsError,
 } from './appelloyer.actions';
@@ -212,22 +212,22 @@ export class AppelLoyerEffects {
 
   getAllAppelLoyerByBienEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
-      ofType(AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BIEN),
+      ofType(AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BAIL),
       mergeMap((action: AppelLoyerActions) => {
         return this.apiService.listDesLoyersParBail(action.payload).pipe(
           map(
             (appelloyers) =>
-              new GetAllAppelLoyerByBienActionsSuccess(appelloyers)
+              new GetAllAppelLoyerByBailActionsSuccess(appelloyers)
           ),
           catchError((err) =>
-            of(new GetAllAppelLoyerByBienActionsError(err.message))
+            of(new GetAllAppelLoyerByBailActionsError(err.message))
           )
         );
       }),
       tap((resultat) => {
         if (
           resultat.type ==
-          AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BIEN_ERROR
+          AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_BAIL_ERROR
         ) {
           this.sendErrorNotification(
             NotificationType.ERROR,

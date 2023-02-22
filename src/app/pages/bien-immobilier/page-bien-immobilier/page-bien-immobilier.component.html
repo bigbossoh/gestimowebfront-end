@@ -4,77 +4,10 @@
       <h1>Liste des biens immobiliers</h1>
     </div>
     <div class="col-md-4 text-right">
-      <app-action-button-bien
-        (bienImmobilierEmmiter)="onActionEvent($event)"
-      ></app-action-button-bien>
+      <app-action-button-bien (bienImmobilierEmmiter)="onActionEvent($event)"></app-action-button-bien>
     </div>
   </div>
   <div class="col">
-    <!-- <div class="row">
-      <div class="col">
-        <h5><i class="fas fa-asterisk blue-color"></i>&nbsp;Filtre</h5>
-      </div>
-    </div> -->
-    <!-- <hr style="margin-top: 0" /> -->
-    <!-- <div class="row mb-3"> -->
-      <!-- <div class="col-md-3">
-        <ng-container
-          *ngIf="villeState$ | async as state"
-          [ngSwitch]="state.dataState"
-        >
-          <ng-container *ngSwitchCase="VilleStateEnum.ERROR">
-            <div class="p-2 invalid-feedback">Erreur est survenue</div>
-          </ng-container>
-          <ng-container *ngSwitchCase="VilleStateEnum.LOADED">
-            <label>Ville</label>
-            <select
-              id="modele"
-              name="typeClim"
-              class="form-control"
-              (change)="findCommuneByPays($event)"
-            >
-              <option [value]="vil.id" *ngFor="let vil of state.villes">
-                {{ vil.nomVille }}
-              </option>
-            </select>
-          </ng-container>
-        </ng-container>
-      </div> -->
-      <!-- <div class="col-md-3">
-        <ng-container
-          *ngIf="commeState$ | async as state"
-          [ngSwitch]="state.dataState"
-        >
-          <ng-container *ngSwitchCase="CommunesStateEnum.ERROR">
-            <div class="p-2 invalid-feedback">Erreur est survenue</div>
-          </ng-container>
-          <ng-container *ngSwitchCase="CommunesStateEnum.LOADED">
-            <label>Commune</label>
-            <select id="modele" name="typeClim" class="form-control">
-              <option [value]="comm.id" *ngFor="let comm of state.communes">
-                {{ comm.nomCommune }}
-              </option>
-            </select>
-          </ng-container>
-        </ng-container>
-      </div> -->
-      <!-- <div class="col-md-3">
-        <label>Type de bien</label>
-        <select id="modele" name="typeClim" class="form-control">
-          <option value="0">selectionnez un type de bien</option>
-          <option value="Janvier 2022">Immeuble</option>
-          <option value="Février 2022">Villa</option>
-        </select>
-      </div> -->
-      <!-- <div class="col-md-3 mt-4">
-        <button type="button" class="mb-sm btn btn-primary mr-1">
-          Nouveau
-        </button>
-        <button type="button" class="mb-sm btn btn-success mr-1">
-          Rappel d'appel
-        </button>
-      </div> -->
-    <!-- </div> -->
 
     <div class="row">
       <div class="col">
@@ -86,30 +19,47 @@
     </div>
     <hr style="margin-top: 0" />
     <!-- main content -->
-    <div class="example-header">
+    <div class="example-header espace">
+      <div>
+
+      </div>
       <mat-form-field>
-        <input
-          matInput
-          (keyup)="applyFilter($event)"
-          #input
-          placeholder="Rechercher un Immeuble"
-        />
+        <input matInput (keyup)="applyFilter($event)" #input placeholder="Rechercher un Immeuble" />
+      </mat-form-field>
+      <div></div>
+      <mat-form-field appearance="outline">
+        <mat-label>Chapitre</mat-label>
+        <mat-select [(ngModel)]="chapitre" #selectionChapitre
+          (selectionChange)="getAllBienBiChapite(selectionChapitre.value)">
+          <mat-option [value]=0>
+            Tout
+          </mat-option>
+          <mat-option [value]=1>
+            Magiser
+          </mat-option>
+          <mat-option [value]=2>
+            Ebimpe
+          </mat-option>
+        </mat-select>
       </mat-form-field>
     </div>
-    <!-- MAT TABLE AFFICHE -->
-    <ng-container
-      *ngIf="bienImmobilierState$ | async as bienImmobilierState"
-      [ngSwitch]="bienImmobilierState.dataState"
-    >
+    <!-- MAT TABLE AFFICHE  -->
+    <ng-container *ngIf="bienImmobilierState$ | async as bienImmobilierState"
+      [ngSwitch]="bienImmobilierState.dataState">
       <ng-container *ngSwitchCase="BienImmobilierStateEnum.LOADED">
         <div class="mat-elevation-z8">
-          <mat-paginator
-            #matimmeuble
-            showFirstLastButtons
-            [pageSizeOptions]="pageSize"
-            [length]="totalRecords!"
-          ></mat-paginator>
+          <mat-paginator #matimmeuble showFirstLastButtons [pageSizeOptions]="pageSize"
+            [length]="totalRecords!"></mat-paginator>
           <mat-table #table [dataSource]="dataSource" matSort>
+            <!-- Code colonne -->
+            <ng-container matColumnDef="Chapitre">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Chapitre
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{ row.chapitre }}
+              </mat-cell>
+            </ng-container>
             <!-- Code colonne -->
             <ng-container matColumnDef="Code">
               <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -144,13 +94,8 @@
                 Status
               </mat-header-cell>
               <mat-cell *matCellDef="let row">
-                <span [hidden]="row.occupied" class="badge badge-success"
-                  >Libre</span
-                >
-                <span [hidden]="!row.occupied" class="badge badge-danger"
-                  >Occupé</span
-                ></mat-cell
-              >
+                <span [hidden]="row.occupied" class="badge badge-success">Libre</span>
+                <span [hidden]="!row.occupied" class="badge badge-danger">Occupé</span></mat-cell>
             </ng-container>
             <!-- Actions colonne -->
             <ng-container matColumnDef="Actions">
@@ -160,12 +105,20 @@
                   <button mat-icon-button color="primary" (click)="onEditBien(row)">
                     <mat-icon>edit</mat-icon>
                   </button>
-                  <button   mat-icon-button color="warn">
+                  <button mat-icon-button color="warn">
                     <mat-icon>delete</mat-icon>
                   </button>
+                  <button (click)="updateBienChapitre(row.id,row.codeAbrvBienImmobilier)" mat-icon-button color="black">
+                    <div *ngIf="row.chapitre=='EBIMPE'">
+                      <mat-icon>build</mat-icon>
+                      Transférer vers MAGISER
+                    </div>
+                    <div *ngIf="row.chapitre=='MAGISER'">
+                      <mat-icon>build</mat-icon>
+                      Transférer vers EBIMPE
+                    </div>
+                  </button>
                 </td>
-
-
               </mat-cell>
             </ng-container>
 

@@ -15,44 +15,68 @@ export enum BienImmobilierActionsTypes {
   NEW_BIENS = '[BienImmobilierDto] New Biens Immobilier',
   NEW_BIENS_SUCCES = '[BienImmobilierDto] New Biens Immobilier Succes',
   NEW_BIENS_ERROR = '[BienImmobilierDto] New Biens Immobilier Error',
+
+  //NOUVEAU BIEN IMMOBILIER
+  RATTACHER_BIEN_CHAPITRE = '[BienImmobilierDto] RATTACHER Biens Immobilier',
+  RATTACHER_BIEN_CHAPITRE_BIENS_SUCCES = '[BienImmobilierDto] RATTACHER Biens Immobilier Succes',
+  RATTACHER_BIEN_CHAPITRE_BIENS_ERROR = '[BienImmobilierDto] RATTACHER Biens Immobilier Error',
 }
 // CREER LES DIFFERENTES ACTIONS
 export class GetAllBiensActions implements Action {
   type: BienImmobilierActionsTypes = BienImmobilierActionsTypes.GET_ALL_BIENS;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {}
 }
 
 export class GetAllBiensActionsSuccess implements Action {
   type: BienImmobilierActionsTypes =
     BienImmobilierActionsTypes.GET_ALL_BIENS_SUCCES;
-  constructor(public payload: BienImmobilierAffiheDto[]) { }
+  constructor(public payload: BienImmobilierAffiheDto[]) {}
 }
 export class GetAllBiensActionsError implements Action {
   type: BienImmobilierActionsTypes =
     BienImmobilierActionsTypes.GET_ALL_BIENS_ERROR;
-  constructor(public payload: string) { }
+  constructor(public payload: string) {}
 }
 // CREER NOUVEAU LES DIFFERENTES ACTIONS
 export class NewBiensActions implements Action {
   type: BienImmobilierActionsTypes = BienImmobilierActionsTypes.NEW_BIENS;
-  constructor(public payload: any) { }
+  constructor(public payload: any) {}
 }
 
 export class NewBiensActionsSuccess implements Action {
   type: BienImmobilierActionsTypes =
     BienImmobilierActionsTypes.NEW_BIENS_SUCCES;
-  constructor(public payload: BienImmobilierAffiheDto) { }
+  constructor(public payload: BienImmobilierAffiheDto) {}
 }
 export class NewBiensActionsError implements Action {
+  type: BienImmobilierActionsTypes = BienImmobilierActionsTypes.NEW_BIENS_ERROR;
+  constructor(public payload: string) {}
+}
+
+// CREER NOUVEAU LES DIFFERENTES ACTIONS
+export class RattacherBiensChapitreActions implements Action {
   type: BienImmobilierActionsTypes =
-    BienImmobilierActionsTypes.NEW_BIENS_ERROR;
-  constructor(public payload: string) { }
+    BienImmobilierActionsTypes.RATTACHER_BIEN_CHAPITRE;
+  constructor(public payload: any) {}
+}
+
+export class RattacherBiensChapitreActionsSuccess implements Action {
+  type: BienImmobilierActionsTypes =
+    BienImmobilierActionsTypes.RATTACHER_BIEN_CHAPITRE_BIENS_SUCCES;
+  constructor(public payload: BienImmobilierAffiheDto) {}
+}
+export class RattacherBiensChapitreActionsError implements Action {
+  type: BienImmobilierActionsTypes =
+    BienImmobilierActionsTypes.RATTACHER_BIEN_CHAPITRE_BIENS_ERROR;
+  constructor(public payload: string) {}
 }
 export type BienImmobilierActions =
   | GetAllBiensActions
   | GetAllBiensActionsError
   | GetAllBiensActionsSuccess
-
   | NewBiensActions
   | NewBiensActionsError
-  | NewBiensActionsSuccess;
+  | NewBiensActionsSuccess
+  | RattacherBiensChapitreActions
+  | RattacherBiensChapitreActionsError
+  | RattacherBiensChapitreActionsSuccess;

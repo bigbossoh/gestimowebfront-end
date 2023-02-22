@@ -1,4 +1,7 @@
-import { GetAllAppelLoyerByBienActions, GetAllSmsByLocataireActions } from './../../../ngrx/appelloyer/appelloyer.actions';
+import {
+  GetAllAppelLoyerByBailActions,
+  GetAllSmsByLocataireActions,
+} from './../../../ngrx/appelloyer/appelloyer.actions';
 import {
   AppelLoyerState,
   AppelLoyerStateEnum,
@@ -63,7 +66,6 @@ export class PageCompteClientComponent implements OnInit {
     'Actions',
   ];
 
-
   dataSourceAppel: MatTableDataSource<any> = new MatTableDataSource();
   pageSizeAppel = [5, 10, 15, 20, 40];
 
@@ -75,7 +77,6 @@ export class PageCompteClientComponent implements OnInit {
 
   smsState$: Observable<AppelLoyerState> | null = null;
   readonly SmsStateEnum = AppelLoyerStateEnum;
-
 
   dataSourceSms: MatTableDataSource<any> = new MatTableDataSource();
   pageSizeSms = [5, 10, 15, 20];
@@ -108,16 +109,15 @@ export class PageCompteClientComponent implements OnInit {
     this.store
       .pipe(map((state) => state.utilisateurState))
       .subscribe((data) => {
-        if (data.locataireBail.lenght > 0)
-        {
-          console.log("Le Loca Bail::: ");
-          console.log(data.locataireBail);
+        if (data.locataireBail.lenght > 0) {
+          console.log('kkkkkk');
+
           this.locataire = data.locataireBail[0];
+          console.log(this.locataire);
         }
       });
   }
-  ngAfterViewInit()
-  {
+  ngAfterViewInit() {
     this.dataSourceAppel.paginator = this.paginatorAppel;
     this.dataSource.paginator = this.paginator;
     this.dataSourceSms.paginator = this.paginatorSms;
@@ -155,41 +155,30 @@ export class PageCompteClientComponent implements OnInit {
         }
       });
   }
-  getAllAppelLoyerByBien(bien: any) {
-    this.store.dispatch(new GetAllAppelLoyerByBienActions(bien.idBien));
+  getAllAppelLoyerByBail(bien: any) {
+    this.store.dispatch(new GetAllAppelLoyerByBailActions(bien.idBail));
     this.appelLoyerState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
     );
     this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
-
       this.dataSourceAppel.data = [];
       this.dataSourceAppel.paginator = null;
-      if (data.appelloyers.length > 0)
-      {
-        console.log('Mes Appels sont les suivants : : : :');
-        console.log(data.appelloyers);
+      if (data.appelloyers.length > 0) {
+
         this.dataSourceAppel.data = data.appelloyers;
         this.dataSourceAppel.paginator = this.paginatorAppel;
       }
     });
   }
-  getAllSmsByLocataire(locatire: any)
-  {
+  getAllSmsByLocataire(locatire: any) {
     this.store.dispatch(new GetAllSmsByLocataireActions(locatire.username));
-  
-    this.smsState$ = this.store.pipe(
-      map((state) => state.appelLoyerState)
-    );
-    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
 
+    this.smsState$ = this.store.pipe(map((state) => state.appelLoyerState));
+    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
       this.dataSourceSms.data = [];
       this.dataSourceSms.paginator = null;
-      console.log('Mes SMS sont les suivants : : : :');
-      console.log(data.smss);
-      if (data.smss.length > 0)
-      {
-        console.log('Mes SMS sont les suivants : : : :');
-        console.log(data.smss);
+
+      if (data.smss.length > 0) {
         this.dataSourceSms.data = data.smss;
         this.dataSourceSms.paginator = this.paginatorSms;
       }

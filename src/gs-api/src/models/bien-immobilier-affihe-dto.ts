@@ -10,5 +10,6 @@ export interface BienImmobilierAffiheDto {
   superficieBien?: number;
   bienMeublerResidence?: boolean;
   nomPrenomProprio?: string;
+  chapitre?: string;
   occupied?: boolean;
 }
