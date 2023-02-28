@@ -82,6 +82,7 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
   annee = new Date();
   printAnnee = 0;
   public user?: UtilisateurRequestDto;
+  filtreAppel: any;
   constructor(
     public dialog: MatDialog,
     private store: Store<any>,
@@ -99,12 +100,18 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  applyFilterOption(event: any) {
+    this.dataSource.filter = event.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
   ngAfterViewInit(): void {
     this.ngOnInit();
     this.getAllPeriodeByAnnee(this.printAnnee);
     const periode_jour = formatDate(this.annee, 'yyyy-MM', 'en');
     this.periodePrint = periode_jour;
-    this.getAppelByPeriode(this.periodePrint)
+    this.getAppelByPeriode(this.periodePrint);
   }
   ngOnInit(): void {
     this.printAnnee = this.annee.getFullYear();
@@ -112,9 +119,8 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
       new GetAllAppelLoyerByPeriodeActions(this.periodePrint)
     );
     this.appelState$ = this.store.pipe(map((state) => state.appelLoyerState));
-    this.store
-      .pipe(map((state) => state.appelLoyerState))
-      .subscribe((data) => {});
+    this.store.pipe(map((state) => state.appelLoyerState));
+    this.filtreAppel = '';
   }
   getAppelByPeriode(p: any) {
     this.user = this.userService.getUserFromLocalCache();

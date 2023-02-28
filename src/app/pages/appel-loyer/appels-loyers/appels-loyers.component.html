@@ -16,10 +16,7 @@
     <hr style="margin-top: 0" />
     <div class="row mb-3">
       <div class="col-md-6">
-        <ng-container
-          *ngIf="anneeState$ | async as anneeState"
-          [ngSwitch]="anneeState.dataState"
-        >
+        <ng-container *ngIf="anneeState$ | async as anneeState" [ngSwitch]="anneeState.dataState">
           <ng-container>
             <ng-container *ngSwitchCase="AnneeStateEnum.LOADING">
               <i class="fas fa-sync fa-spin"></i>
@@ -32,17 +29,9 @@
             <ng-container *ngSwitchCase="AnneeStateEnum.LOADED">
               <mat-form-field appearance="outline">
                 <mat-label>Année</mat-label>
-                <mat-select
-                  id="modele"
-                  name="typeClim"
-                  #selectionAnnee
-                  [(value)]="printAnnee"
-                  (selectionChange)="getAllPeriodeByAnnee(selectionAnnee.value)"
-                >
-                  <mat-option
-                    [value]="annee"
-                    *ngFor="let annee of anneeState.annees"
-                  >
+                <mat-select id="modele" name="typeClim" #selectionAnnee [(value)]="printAnnee"
+                  (selectionChange)="getAllPeriodeByAnnee(selectionAnnee.value)">
+                  <mat-option [value]="annee" *ngFor="let annee of anneeState.annees">
                     {{ annee }}
                   </mat-option>
                 </mat-select>
@@ -52,10 +41,7 @@
         </ng-container>
       </div>
       <div class="col-md-6">
-        <ng-container
-          *ngIf="periodeState$ | async as periodeState"
-          [ngSwitch]="periodeState.dataState"
-        >
+        <ng-container *ngIf="periodeState$ | async as periodeState" [ngSwitch]="periodeState.dataState">
           <ng-container *ngSwitchCase="PeriodeStateEnum.LOADING">
             <i class="fas fa-sync fa-spin"></i>
           </ng-container>
@@ -65,15 +51,9 @@
           <ng-container *ngSwitchCase="PeriodeStateEnum.LOADED">
             <mat-form-field appearance="outline">
               <mat-label>Période</mat-label>
-              <mat-select
-                [(value)]="periodePrint"
-                #selectionPeriode
-                (selectionChange)="getAppelByPeriode(selectionPeriode.value)"
-              >
-                <mat-option
-                  [value]="periode.periodeAppelLoyer"
-                  *ngFor="let periode of periodeState.periodes"
-                >
+              <mat-select [(value)]="periodePrint" #selectionPeriode
+                (selectionChange)="getAppelByPeriode(selectionPeriode.value)">
+                <mat-option [value]="periode.periodeAppelLoyer" *ngFor="let periode of periodeState.periodes">
                   {{ periode.periodeLettre }}
                 </mat-option>
               </mat-select>
@@ -83,10 +63,7 @@
       </div>
     </div>
     <div *ngIf="afficheAppelTable != 0">
-      <ng-container
-        *ngIf="appelState$ | async as appelState"
-        [ngSwitch]="appelState.dataState"
-      >
+      <ng-container *ngIf="appelState$ | async as appelState" [ngSwitch]="appelState.dataState">
         <ng-container ng-container *ngSwitchCase="AppelLoyerStateEnum.LOADING">
           <i class="fas fa-sync fa-spin"></i>
         </ng-container>
@@ -101,8 +78,8 @@
                 <h3>
                   Du
                   {{
-                    appelState.appelloyers[0].dateDebutMoisAppelLoyer
-                      | date : "dd / MM / yyyy"
+                  appelState.appelloyers[0].dateDebutMoisAppelLoyer
+                  | date : "dd / MM / yyyy"
                   }}
                 </h3>
               </div>
@@ -113,8 +90,8 @@
                 <h3>
                   Au
                   {{
-                    appelState.appelloyers[0].dateFinMoisAppelLoyer
-                      | date : "dd / MM / yyyy"
+                  appelState.appelloyers[0].dateFinMoisAppelLoyer
+                  | date : "dd / MM / yyyy"
                   }}
                 </h3>
               </div>
@@ -124,46 +101,30 @@
                 <h3>
                   Payer avant
                   {{
-                    appelState.appelloyers[0].datePaiementPrevuAppelLoyer
-                      | date : "dd / MM / yyyy"
+                  appelState.appelloyers[0].datePaiementPrevuAppelLoyer
+                  | date : "dd / MM / yyyy"
                   }}
                 </h3>
               </div>
             </div>
             <div class="col-md-3 text-center">
-              <button
-                class="mr-2"
-                mat-raised-button
-                color="primary"
-                type="button"
-                (click)="printQuittance(periodePrint)"
-              >
+              <button class="mr-2" mat-raised-button color="primary" type="button"
+                (click)="printQuittance(periodePrint)">
                 <mat-icon>print</mat-icon>
                 Imprimer
               </button>
-              <ng-container
-                *ngIf="ptQuittance$ | async as qtState"
-                [ngSwitch]="qtState.dataState"
-              >
+              <ng-container *ngIf="ptQuittance$ | async as qtState" [ngSwitch]="qtState.dataState">
                 <ng-container *ngSwitchCase="QuittanceloyerStateEnum.Requested">
                   <i class="fas fa-sync fa-spin"></i>
                 </ng-container>
               </ng-container>
-              <button
-                mat-raised-button
-                color="primary"
-                type="button"
-                class="mr-1"
-                (click)="sendQuittanceGrouper(periodePrint)"
-              >
+              <button mat-raised-button color="primary" type="button" class="mr-1"
+                (click)="sendQuittanceGrouper(periodePrint)">
                 <mat-icon>mail</mat-icon>
                 Envoi par mail
               </button>
 
-              <ng-container
-                *ngIf="sendMailState$ | async as sendState"
-                [ngSwitch]="sendState.dataState"
-              >
+              <ng-container *ngIf="sendMailState$ | async as sendState" [ngSwitch]="sendState.dataState">
                 <ng-container *ngSwitchCase="MailStateEnum.LOADING">
                   Chargement des données ...
                 </ng-container>
@@ -183,25 +144,17 @@
           <i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des Appels
         </h5>
       </div>
-      <ng-container
-        *ngIf="appelState$ | async as appelState"
-        [ngSwitch]="appelState.dataState"
-      >
+      <ng-container *ngIf="appelState$ | async as appelState" [ngSwitch]="appelState.dataState">
         <ng-container ng - container *ngSwitchCase="AppelLoyerStateEnum.LOADED">
           <div class="col">
             <h5>
               le Taux de Réduction est de
               <span style="color: red">{{
                 appelState.appelloyers[0].pourcentageReduction
-              }}</span>
+                }}</span>
 
-              <button
-                mat-raised-button
-                color="primary"
-                type="button"
-                class="mr-1"
-                (click)="reductionLoyerAppel(periodePrint)"
-              >
+              <button mat-raised-button color="primary" type="button" class="mr-1"
+                (click)="reductionLoyerAppel(periodePrint)">
                 <mat-icon>percent</mat-icon>
                 Appliquer une réduction
               </button>
@@ -217,19 +170,17 @@
         <!-- user table -->
         <div class="mat-elevation-z8">
           <mat-form-field class="tail-50">
-            <input
-              matInput
-              (keyup)="applyFilter($event)"
-              #input
-              placeholder="Rechercher un Utilisateur"
-            />
+            <input matInput (keyup)="applyFilter($event)" #input placeholder="Rechercher un Utilisateur" />
           </mat-form-field>
-          <mat-paginator
-            #matimmeuble
-            showFirstLastButtons
-            [pageSizeOptions]="pageSize"
-            [length]="totalRecords!"
-          ></mat-paginator>
+          <mat-radio-group (change)=" applyFilterOption(filtreAppel)" [(ngModel)]="filtreAppel" arial-label="Select an option">
+            <mat-radio-button value=""><label style="font-size: 30px;">Tous</label> </mat-radio-button>
+            <mat-radio-button value="soldé"><label style="font-size: 30px;">Soldé</label> </mat-radio-button>
+            <mat-radio-button value="impayé"><label style="font-size: 30px;">Impayé</label> </mat-radio-button>
+            <mat-radio-button value="partiellement payé"><label style="font-size: 30px;">Partiellement payé</label>
+            </mat-radio-button>
+          </mat-radio-group>
+          <mat-paginator #matimmeuble showFirstLastButtons [pageSizeOptions]="pageSize"
+            [length]="totalRecords!"></mat-paginator>
           <mat-table #table [dataSource]="dataSource" matSort>
             <!-- Code colonne -->
             <ng-container matColumnDef="periode">
@@ -258,8 +209,7 @@
                 Montant Loyer
               </mat-header-cell>
               <mat-cell *matCellDef="let row">
-                {{ row.nouveauMontantLoyer }}</mat-cell
-              >
+                {{ row.nouveauMontantLoyer }}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="solde">
@@ -267,8 +217,7 @@
                 Solde
               </mat-header-cell>
               <mat-cell *matCellDef="let row">
-                {{ row.soldeAppelLoyer }}</mat-cell
-              >
+                {{ row.soldeAppelLoyer }}</mat-cell>
             </ng-container>
             <!-- Propriétaire colonne -->
             <ng-container matColumnDef="Status">
@@ -276,21 +225,12 @@
                 Status
               </mat-header-cell>
               <mat-cell *matCellDef="let row">
-                <span
-                  *ngIf="row.statusAppelLoyer == 'Soldé'"
-                  class="badge badge-success"
-                  >{{ row.statusAppelLoyer }}</span
-                >
-                <span
-                  *ngIf="row.statusAppelLoyer == 'Impayé'"
-                  class="badge badge-danger"
-                  >{{ row.statusAppelLoyer }}</span
-                >
-                <span
-                  *ngIf="row.statusAppelLoyer == 'partiellement payé'"
-                  class="badge badge-warning"
-                  >{{ row.statusAppelLoyer }}</span
-                >
+                <span *ngIf="row.statusAppelLoyer == 'Soldé'" class="badge badge-success">{{ row.statusAppelLoyer
+                  }}</span>
+                <span *ngIf="row.statusAppelLoyer == 'Impayé'" class="badge badge-danger">{{ row.statusAppelLoyer
+                  }}</span>
+                <span *ngIf="row.statusAppelLoyer == 'partiellement payé'" class="badge badge-warning">{{
+                  row.statusAppelLoyer }}</span>
               </mat-cell>
             </ng-container>
             <!-- Actions colonne -->

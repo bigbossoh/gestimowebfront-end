@@ -141,6 +141,7 @@ import { periodeReducer } from './ngrx/appelloyer/peiodeappel/periodeappel.reduc
 import { AgenceUpdateComponent } from './pages/agence/agence-update/agence-update.component';
 import { ButtonNewUserActionComponent } from './composants/button-new-user-action/button-new-user-action.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatCardModule } from '@angular/material/card';
@@ -214,6 +215,7 @@ import { suiviDepenseReducer } from './ngrx/journal-caisse/journal-caisse.reduce
   imports: [
     FormsModule,
     MatButtonModule,
+    MatRadioModule,
     MatTableModule,
     MatSelectModule,
     MatExpansionModule,
