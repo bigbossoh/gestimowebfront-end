@@ -30,6 +30,8 @@ export class PageReglementGroupeComponent implements OnInit {
   date = new FormControl(new Date());
   encaissementform?: FormGroup;
 
+  nbreLoyerNonPayer:0 | undefined;
+
   saveEncaissementState$: Observable<EncaissementState> | null = null;
 
   displayedColumns: string[] = [
@@ -120,7 +122,8 @@ export class PageReglementGroupeComponent implements OnInit {
         if (data.locatairesImpayer.length > 0)
         {
           this.dataSource.data = data.locatairesImpayer;
-          console.log("Période de locataire");
+          this.nbreLoyerNonPayer=data.locatairesImpayer.length;
+          //console.log("Période de locataire");
         }
       });
   }
