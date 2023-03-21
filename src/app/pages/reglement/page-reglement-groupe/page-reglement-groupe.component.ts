@@ -25,6 +25,7 @@ import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
   templateUrl: './page-reglement-groupe.component.html',
   styleUrls: ['./page-reglement-groupe.component.css'],
 })
+
 export class PageReglementGroupeComponent implements OnInit {
   periode = '2023-01';
   date = new FormControl(new Date());
@@ -70,10 +71,13 @@ export class PageReglementGroupeComponent implements OnInit {
   selectedDate = new Date();
   date_du_jour = formatDate(this.selectedDate, 'dd-MM-yyyy', 'en');
   public user?: UtilisateurRequestDto;
-
+  modeDePaiement = 'ESPESE_MAGISER';
+  leId = 0;
+  laDateDepa: any;
   periodeState$: Observable<PeriodeState> | null = null;
   locataiireState$: Observable<EncaissementState> | null = null;
   PeriodeStateEnum = PeriodeStateEnum;
+  tableauPaiement: ModePaiement[] = [];
   constructor(
     private userService: UserService,
     private store: Store<any>,
@@ -95,7 +99,7 @@ export class PageReglementGroupeComponent implements OnInit {
       idAgence: [this.user?.idAgence],
       idCreateur: [this.user?.id],
       idAppelLoyer: [],
-      modePaiement: ['ESPESE_MAGISER'],
+      modePaiement: [this.modeDePaiement],
       operationType: ['CREDIT'],
       montantEncaissement: [0],
       intituleDepense: [''],
@@ -123,11 +127,26 @@ export class PageReglementGroupeComponent implements OnInit {
         {
           this.dataSource.data = data.locatairesImpayer;
           this.nbreLoyerNonPayer=data.locatairesImpayer.length;
-          //console.log("Période de locataire");
+          console.log(data.locatairesImpayer);
+
         }
       });
   }
-  paiementGroupe() {
+  paiementGroupe()
+  {
+    if (this.selection.selected.length > 0)
+    {
+      if(this.tableauPaiement.length>0){
+        for (let index = 0; index < this.tableauPaiement.length; index++) {
+          this.tableauPaiement.splice(index,1);
+        }
+      }
+      for (let index = 0; index < this.selection.selected.length; index++)
+      {
+        this.getModePaiement(this.selection.selected[index].idAppel,this.selection.selected[index].idAppel,this.selection.selected[index].idAppel)
+      }
+    }
+
     if (this.selection.selected.length > 0) {
       for (let index = 0; index < this.selection.selected.length; index++) {
         this.encaissementform = this.fb.group({
@@ -160,4 +179,15 @@ export class PageReglementGroupeComponent implements OnInit {
     alert('Fin de la procedure.');
     this. getListeLocataireImpayer(this.periode)
   }
+  getModePaiement(id: any, dateP: any, paiement: any)
+  {
+    console.log
+    (id+"-"+"-"+paiement+"-"+dateP)
+  }
+}
+export interface ModePaiement
+{
+  id: number;
+  date: Date;
+  paiement: string;
 }

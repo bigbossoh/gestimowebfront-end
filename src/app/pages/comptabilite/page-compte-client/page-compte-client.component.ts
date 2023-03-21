@@ -164,24 +164,29 @@ export class PageCompteClientComponent implements OnInit {
       this.dataSourceAppel.data = [];
       this.dataSourceAppel.paginator = null;
       if (data.appelloyers.length > 0) {
-
         this.dataSourceAppel.data = data.appelloyers;
         this.dataSourceAppel.paginator = this.paginatorAppel;
       }
     });
   }
-  getAllSmsByLocataire(locatire: any) {
+  getAllSmsByLocataire(locatire: any)
+  {
+    alert(locatire.username)
     this.store.dispatch(new GetAllSmsByLocataireActions(locatire.username));
 
     this.smsState$ = this.store.pipe(map((state) => state.appelLoyerState));
     this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
+ 
       this.dataSourceSms.data = [];
       this.dataSourceSms.paginator = null;
 
       if (data.smss.length > 0) {
+        console.log(data.smss);
+
         this.dataSourceSms.data = data.smss;
         this.dataSourceSms.paginator = this.paginatorSms;
       }
+
     });
   }
 }

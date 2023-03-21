@@ -4,9 +4,9 @@ export interface InputStreamResource {
   inputStream?: InputStream;
   description?: string;
   open?: boolean;
-  file?: Blob;
   readable?: boolean;
   url?: string;
+  file?: Blob;
   uri?: string;
   filename?: string;
 }
