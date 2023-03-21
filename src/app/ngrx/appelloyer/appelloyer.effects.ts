@@ -252,7 +252,12 @@ export class AppelLoyerEffects {
             )
           );
       }),
-      tap((resultat) => {
+      tap((resultat) =>
+      {
+        console.log("le resultat pour les SMS sont les suivants ::::");
+        console.log(resultat);
+
+
         if (
           resultat.type == AppelLoyerctionsTypes.GET_ALL_SMS_BY_LOCATAIRE_ERROR
         ) {

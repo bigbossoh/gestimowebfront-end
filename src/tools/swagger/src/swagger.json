@@ -4820,15 +4820,15 @@
         "open" : {
           "type" : "boolean"
         },
-        "file" : {
-          "type" : "file"
-        },
         "readable" : {
           "type" : "boolean"
         },
         "url" : {
           "type" : "string",
           "format" : "url"
+        },
+        "file" : {
+          "type" : "file"
         },
         "uri" : {
           "type" : "string",
@@ -4943,10 +4943,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -4996,10 +4996,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
