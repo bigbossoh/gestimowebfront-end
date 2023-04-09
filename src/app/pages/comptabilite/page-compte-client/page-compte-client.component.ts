@@ -171,12 +171,10 @@ export class PageCompteClientComponent implements OnInit {
   }
   getAllSmsByLocataire(locatire: any)
   {
-    alert(locatire.username)
     this.store.dispatch(new GetAllSmsByLocataireActions(locatire.username));
-
     this.smsState$ = this.store.pipe(map((state) => state.appelLoyerState));
     this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
- 
+
       this.dataSourceSms.data = [];
       this.dataSourceSms.paginator = null;
 
