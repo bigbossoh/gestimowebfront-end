@@ -95,9 +95,8 @@ export class UtilisateurEffects {
           )
         );
       }),
-      tap((locataire) =>
-      {
-        console.log("LE LOCA ......");
+      tap((locataire) => {
+        console.log('LE LOCA ......');
 
         console.log(locataire.payload);
 

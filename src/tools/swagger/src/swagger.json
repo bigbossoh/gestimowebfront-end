@@ -4943,10 +4943,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -4996,10 +4996,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -5158,10 +5158,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         }
       }
