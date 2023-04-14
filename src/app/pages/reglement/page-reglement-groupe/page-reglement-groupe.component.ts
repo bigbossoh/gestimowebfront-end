@@ -138,19 +138,19 @@ export class PageReglementGroupeComponent implements OnInit {
     if (this.selection.selected.length > 0) {
       console.log(this.tableauPaiement);
       for (let index = 0; index < this.selection.selected.length; index++) {
-        this.idAppel = this.selection.selected[index].idAppel;
-        var resulta = this.tableauPaiement.findIndex(
-          (x) => x.id == this.selection.selected[index].idAppel
-        );
-        if (resulta >= 0) {
-          this.modeDePaiement = this.tableauPaiement[resulta].paiement;
-        }
+        // this.idAppel = this.selection.selected[index].idAppel;
+        // var resulta = this.tableauPaiement.findIndex(
+        //   (x) => x.id == this.selection.selected[index].idAppel
+        // );
+        // if (resulta >= 0) {
+        //   this.modeDePaiement = this.tableauPaiement[resulta].paiement;
+        // }
 
         this.encaissementform = this.fb.group({
           idAgence: [this.user?.idAgence],
           idCreateur: [this.user?.id],
           idAppelLoyer: [this.selection.selected[index].idAppel],
-          modePaiement: [this.modeDePaiement],
+          modePaiement: ['ESPECE_MAGISER'],
           operationType: ['CREDIT'],
           montantEncaissement: [this.selection.selected[index].montantloyer],
           intituleDepense: [''],
