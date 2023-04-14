@@ -1,3 +1,4 @@
+import { state } from '@angular/animations';
 import { Action } from '@ngrx/store';
 import { OperationDto } from 'src/gs-api/src/models';
 import { AppelLoyersFactureDto } from '../../../gs-api/src/models/appel-loyers-facture-dto';
@@ -24,6 +25,7 @@ export interface BauxState {
   cloture: boolean;
   supprimer: boolean;
   operation: any;
+  idBaux: any;
 }
 const initState: BauxState = {
   baux: [],
@@ -33,6 +35,7 @@ const initState: BauxState = {
   cloture: false,
   supprimer: false,
   operation: null,
+  idBaux: 0,
 };
 export function bauxReducer(
   state: BauxState = initState,
@@ -103,27 +106,18 @@ export function bauxReducer(
 
     //CLOTURER BAIL
     case OperationActionsTypes.CLOTURE_BAIL:
-
-      return { ...state, dataState: BauxStateEnum.LOADING };
+      return {
+        ...state,
+        dataState: BauxStateEnum.LOADING,
+        idBaux: (<OperationActions>action).payload,
+      };
     case OperationActionsTypes.CLOTURE_BAIL_SUCCES:
-      const lesBauxModifier = state.baux.filter((bail) => {
-        console.log("Le bail est : ");
-        console.log(bail);
-        console.log("Le payload est : ");
-        console.log((<OperationActions>action).payload);
 
-
-
-
-        return bail== (<OperationActions>action).payload
-          ? bail:(<OperationActions>action).payload
-          ;
-      });
       return {
         ...state,
         dataState: BauxStateEnum.LOADED,
-        cloture: (<OperationActions>action).payload,
-        baux: lesBauxModifier,
+        //cloture: (<OperationActions>action).payload,
+        baux: (<OperationActions>action).payload,
       };
     case OperationActionsTypes.GET_ALL_BAIL_ERROR:
       return {

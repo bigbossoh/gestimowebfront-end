@@ -971,7 +971,10 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "boolean"
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/OperationDto"
+              }
             }
           }
         }
@@ -2088,6 +2091,79 @@
             "schema" : {
               "$ref" : "#/definitions/EtageDto"
             }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/groupeDroit/" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/GroupeDroitDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/groupeDroit/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/GroupeDroitDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int64"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/groupeDroit/{groupedroitid}" : {
+      "get" : {
+        "operationId" : "findById",
+        "parameters" : [ {
+          "name" : "groupedroitid",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/GroupeDroitDto"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "groupedroitid",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
           }
         }
       }
@@ -4695,6 +4771,27 @@
         }
       }
     },
+    "GroupeDroitDto" : {
+      "type" : "object",
+      "required" : [ "groupeDroit" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "groupeDroit" : {
+          "type" : "string"
+        }
+      }
+    },
     "ImmeubleDto" : {
       "type" : "object",
       "properties" : {
@@ -5158,10 +5255,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         }
       }
