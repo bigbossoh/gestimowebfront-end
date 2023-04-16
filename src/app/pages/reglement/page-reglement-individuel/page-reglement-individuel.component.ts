@@ -144,6 +144,10 @@ export class PageReglementIndividuelComponent implements OnInit {
   }
   onSaveEncaissement() {
     this.submitted = false;
+    console.log('nouveau encaissement');
+    console.log(this.encaissementform);
+
+
     this.store.dispatch(
       new SaveEncaissementActions(this.encaissementform?.value)
     );
@@ -171,6 +175,8 @@ export class PageReglementIndividuelComponent implements OnInit {
         this.dataSource.data = [];
         this.dataSource.paginator = null;
         if (donnee.encaissements.length > 0) {
+          // console.log("mon locataire du log");
+          // console.log(donnee.encaissements);
 
           this.dataSource.data = donnee.encaissements;
           this.dataSource.paginator = this.paginator;
@@ -201,7 +207,7 @@ export class PageReglementIndividuelComponent implements OnInit {
       });
   }
   getAllEncaissementByBienImmobilier(p: any) {
- 
+    // alert('Liste encaissement le suivant : : : '+p.id+'***'+p.idBien)
     this.store.dispatch(new GetEncaissementBienActions(p.idBien));
 
     this.store
