@@ -13,4 +13,5 @@ export interface EncaissementPrincipalDTO {
   intituleDepense?: string;
   entiteOperation?: 'MAGISER' | 'SEVEINVEST';
   appelLoyersFactureDto?: AppelLoyersFactureDto;
+  typePaiement?: string;
 }

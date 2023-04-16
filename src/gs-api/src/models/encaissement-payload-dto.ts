@@ -9,4 +9,5 @@ export interface EncaissementPayloadDto {
   montantEncaissement?: number;
   intituleDepense?: string;
   entiteOperation?: 'MAGISER' | 'SEVEINVEST';
+  typePaiement?: string;
 }

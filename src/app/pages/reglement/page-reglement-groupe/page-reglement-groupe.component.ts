@@ -34,6 +34,7 @@ export class PageReglementGroupeComponent implements OnInit {
   displayedColumns: string[] = [
     'select',
     'appel',
+    'periode',
     'bail',
     'loyer',
     'solde',
@@ -83,7 +84,7 @@ export class PageReglementGroupeComponent implements OnInit {
     this.user = this.userService.getUserFromLocalCache();
     this.store.dispatch(new GetAllPeriodeActions(this.user.idAgence));
     this.periodeState$ = this.store.pipe(map((state) => state.periodeState));
-    this.getListeLocataireImpayer(this.periode);
+
     this.encaissementform = this.fb.group({
       idAgence: [this.user?.idAgence],
       idCreateur: [this.user?.id],
@@ -93,12 +94,35 @@ export class PageReglementGroupeComponent implements OnInit {
       montantEncaissement: [0],
       intituleDepense: [''],
       entiteOperation: ['MAGISER'],
+      typePaiement:['ENCAISSEMENT_GROUPE']
     });
-  }
-  ngAfterViewInit(): void {
     const periode_jour = formatDate(this.selectedDate, 'yyyy-MM', 'en');
     this.periode = periode_jour;
-    this.getListeLocataireImpayer(this.periode);
+    // this.getListeLocataireImpayer(this.periode);
+    // CHARGEMENT DES IMPAYES
+  }
+  ngAfterViewInit(): void {
+    this.user = this.userService.getUserFromLocalCache();
+    this.store.dispatch(
+      new GetListImayerLocataireEncaissementPeriodeActions({
+        agence: this.user.idAgence,
+        periode: this.periode,
+      })
+    );
+    this.locataiireState$ = this.store.pipe(
+      map((state) => state.encaissementState)
+    );
+    this.store
+      .pipe(map((state) => state.encaissementState))
+      .subscribe((data) =>
+      {
+        this.nbreLoyerNonPayer = 0;
+        this.dataSource.data = [];
+        if (data.locatairesImpayer.length > 0) {
+          this.nbreLoyerNonPayer = data.locatairesImpayer.length;
+          this.dataSource.data = data.locatairesImpayer;
+        }
+      });
   }
   getListeLocataireImpayer(periode: any) {
     this.user = this.userService.getUserFromLocalCache();
@@ -111,11 +135,14 @@ export class PageReglementGroupeComponent implements OnInit {
     this.locataiireState$ = this.store.pipe(
       map((state) => state.encaissementState)
     );
+
     this.store
       .pipe(map((state) => state.encaissementState))
-      .subscribe((data) => {
-        if (data.locatairesImpayer.length > 0)
-        {
+      .subscribe((data) =>
+      {
+        this.nbreLoyerNonPayer = 0;
+    this.dataSource.data = [];
+        if (data.locatairesImpayer.length > 0) {
           this.nbreLoyerNonPayer = data.locatairesImpayer.length;
           this.dataSource.data = data.locatairesImpayer;
         }
@@ -133,6 +160,7 @@ export class PageReglementGroupeComponent implements OnInit {
           montantEncaissement: [this.selection.selected[index].montantloyer],
           intituleDepense: [''],
           entiteOperation: ['MAGISER'],
+          typePaiement:['ENCAISSEMENT_GROUPE']
         });
         this.store.dispatch(
           new SaveEncaissementActions(this.encaissementform?.value)
@@ -140,8 +168,8 @@ export class PageReglementGroupeComponent implements OnInit {
         this.store
           .pipe(map((state) => state.encaissementState))
           .subscribe((donnee) => {
+            this.nbreLoyerNonPayer = 0;
             this.dataSource.data = [];
-            this.dataSource.paginator = null;
             if (donnee.encaissements.length > 0) {
               this.dataSource.data = donnee.encaissements;
             }
@@ -151,8 +179,13 @@ export class PageReglementGroupeComponent implements OnInit {
         );
       }
     }
-    this.getListeLocataireImpayer(this.periode);
-    alert('Fin de la procedure.');
+    this.ngAfterViewInit();
+    const periode_jour = formatDate(
+      this.periode,
+      'MMMM-yyyy',
+      'fr'
+    ).toLocaleUpperCase();
+    alert('Paiement groupé de la periode de ' + periode_jour + ' est terminé.');
   }
   getModePaiement(id: any, paiement: any) {
     if (this.tableauPaiement.length > 0) {
