@@ -37,7 +37,6 @@
         </ng-container>
       </div>
       <div class="col-md-6">
-
       </div>
     </div>
     <div>
@@ -55,7 +54,16 @@
                 <h3></h3>
               </div>
             </div>
-            <div class="col-md-3 text-center"></div>
+            <div class="col-md-3 text-center">
+              <mat-form-field>
+                <input
+                  matInput
+                  (keyup)="applyFilter($event)"
+                  #input
+                  placeholder="Rechercher un Bail"
+                />
+              </mat-form-field>
+            </div>
           </div>
         </ng-container>
       </ng-container>
@@ -66,15 +74,10 @@
           <h5>
             <i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des loyers
             impayés ({{nbreLoyerNonPayer}})
-            <!-- <span style="text-align: right;">Nombre loyer(s) non payer {{nbreLoyerNonPayer}}</span> -->
           </h5>
         </div>
-        <!-- <div class="col-md-6"> -->
-        <!-- Nombre loyer(s) non payer {{nbreLoyerNonPayer}} -->
-        <!-- </div> -->
       </div>
       <div class="row">
-
         <hr style="margin-top: 0" />
       </div>
 
