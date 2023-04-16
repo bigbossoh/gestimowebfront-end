@@ -23,8 +23,8 @@
               <mat-select [(value)]="periode" #selectionmois (valueChange)="
                   getListeLocataireImpayer(selectionmois.value)
                 ">
-                <mat-option [value]="periode.periodeAppelLoyer" *ngFor="let periode of periodeState.periodes">
-                  {{ periode.periodeLettre }}
+                <mat-option [value]="period.periodeAppelLoyer" *ngFor="let period of periodeState.periodes">
+                  {{ period.periodeLettre }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
