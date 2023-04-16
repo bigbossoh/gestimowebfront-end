@@ -96,7 +96,8 @@ export class PageBauxComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
       }
     });
-    this.filtreAppel = 'encours';
+    this.filtreAppel = '';
+    this.applyFilterOption(this.filtreAppel)
   }
   ngAfterViewInit() {
     this.ngOnInit();
@@ -131,8 +132,6 @@ export class PageBauxComponent implements OnInit {
       this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
       this.store.pipe(map((state) => state.bauxState)).subscribe((data) => {
         if (data.baux.length > 0) {
-          console.log('the bail apres cloture');
-          console.log(data.baux);
 
           this.totalRecords = data.baux.length;
           this.dataSource.data = data.baux;
@@ -148,16 +147,7 @@ export class PageBauxComponent implements OnInit {
     this.appelloyerState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
     );
-    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
-      console.log('Dqto');
-      console.log(data);
-      this.dataSource.data = [];
-      this.dataSource.paginator = null;
-      if (data.baux.length > 0) {
-        this.dataSource.data = data.baux;
-        this.dataSource.paginator = this.paginator;
-      }
-    });
+
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
