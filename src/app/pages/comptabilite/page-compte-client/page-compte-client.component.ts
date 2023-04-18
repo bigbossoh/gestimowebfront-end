@@ -110,8 +110,12 @@ export class PageCompteClientComponent implements OnInit {
       .pipe(map((state) => state.utilisateurState))
       .subscribe((data) => {
         if (data.locataireBail.lenght > 0) {
-          console.log('kkkkkk');
-
+          console.log("voici la liste ",data.locataireBail);
+          data.locataireBail.sort((a: { codeDescBail
+            : string; }, b: { codeDescBail
+              : any; }) => a.codeDescBail
+              .localeCompare(b.codeDescBail
+                ));
           this.locataire = data.locataireBail[0];
           console.log(this.locataire);
         }

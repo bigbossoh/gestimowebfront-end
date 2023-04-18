@@ -96,9 +96,9 @@ export class UtilisateurEffects {
         );
       }),
       tap((locataire) => {
-        console.log('LE LOCA ......');
+       // console.log('LE LOCA ......');
 
-        console.log(locataire.payload);
+       // console.log(locataire.payload);
 
         if (
           locataire.type ==

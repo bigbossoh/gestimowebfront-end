@@ -26,7 +26,7 @@ import { PageProprietaireComponent } from './pages/utilisateurs/propriétaire/pa
 import { PageSuperviseurComponent } from './pages/utilisateurs/superviseur/page-superviseur/page-superviseur.component';
 import { PageVueEnsembleComponent } from './pages/vue-ensemple/page-vue-ensemble/page-vue-ensemble.component';
 import { PieComponent } from './composants/widgets/pie/pie.component';
-import { HighchartsChartModule } from 'highcharts-angular';
+// import { HighchartsChartModule } from 'highcharts-angular';
 import { AppelsLoyersComponent } from './pages/appel-loyer/appels-loyers/appels-loyers.component';
 import { RelanceAppelsComponent } from './pages/appel-loyer/relance-appels/relance-appels.component';
 import { PageBienImmobilierComponent } from './pages/bien-immobilier/page-bien-immobilier/page-bien-immobilier.component';
@@ -233,7 +233,7 @@ import { suiviDepenseReducer } from './ngrx/journal-caisse/journal-caisse.reduce
     NgxPaginationModule,
     MatDatepickerModule,
     NoticationModule,
-    HighchartsChartModule,
+    // HighchartsChartModule,
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,
