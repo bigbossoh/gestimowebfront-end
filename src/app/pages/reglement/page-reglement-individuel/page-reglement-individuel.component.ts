@@ -119,6 +119,7 @@ export class PageReglementIndividuelComponent implements OnInit {
       montantEncaissement: [0],
       intituleDepense: [''],
       entiteOperation: ['MAGISER'],
+      typePaiement:['ENCAISSEMENT_INDIVIDUEL']
     });
     this.store.dispatch(
       new GetLocataireEncaissementActions({
@@ -143,6 +144,10 @@ export class PageReglementIndividuelComponent implements OnInit {
   }
   onSaveEncaissement() {
     this.submitted = false;
+    console.log('nouveau encaissement');
+    console.log(this.encaissementform);
+
+
     this.store.dispatch(
       new SaveEncaissementActions(this.encaissementform?.value)
     );

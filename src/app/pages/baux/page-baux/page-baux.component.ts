@@ -1,9 +1,8 @@
-import { FindBailByIdActions } from './../../../ngrx/baux/baux.actions';
 import { UserService } from 'src/app/services/user/user.service';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Component, OnInit, ViewChild,ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -51,20 +50,13 @@ export interface DialogData {
   ],
 })
 export class PageBauxComponent implements OnInit {
-  columnsToDisplay = [
-    'bail',
-    'debut',
-    'fin',
-    // 'Loyer',
-    'Bail en cours',
-    'Actions',
-  ];
+  columnsToDisplay = ['bail', 'debut', 'fin', 'Bail en cours', 'Actions'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement?: OperationDto;
-  pageSize = [5, 10, 15, 20];
-  v_bail: any=undefined;
+  pageSize = [5, 10, 15, 20, 50, 100];
+  v_bail: any = undefined;
   @ViewChild('matbaux') paginator!: MatPaginator;
-  @ViewChild(MatSort) sorted!: MatSort;
+  @ViewChild('hBSort') sorted!: MatSort;
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
 
   appelloyerState$: Observable<AppelLoyerState> | null = null;
@@ -74,6 +66,9 @@ export class PageBauxComponent implements OnInit {
   readonly AppelLoyerStateEnum = AppelLoyerStateEnum;
   public user?: UtilisateurRequestDto;
   v_agence: number = 0;
+  filtreAppel: any;
+  // Create a property to hold the filter input value
+  isActiveFilter: string = '';
   constructor(
     public dialog: MatDialog,
     private store: Store<any>,
@@ -92,9 +87,6 @@ export class PageBauxComponent implements OnInit {
     } else {
       this.v_agence = 0;
     }
-    this.totalRecords = 0;
-    this.dataSource.data = [];
-    this.dataSource.paginator = null;
     this.store.dispatch(new GetAllOperationActions(this.user.idAgence));
     this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
     this.store.pipe(map((state) => state.bauxState)).subscribe((data) => {
@@ -104,10 +96,11 @@ export class PageBauxComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
       }
     });
+    this.filtreAppel = '';
+    this.applyFilterOption(this.filtreAppel)
   }
-  ngAfterViewInit()
-  {
-    this.dataSource.paginator = this.paginator;
+  ngAfterViewInit() {
+    this.ngOnInit();
   }
   onActionEmmit($event: any) {
     this.ngOnInit();
@@ -135,16 +128,18 @@ export class PageBauxComponent implements OnInit {
     }
     if (confirm('Vous allez Cloturer un Bail ' + nomBail)) {
       this.store.dispatch(new ClotureOperationActions(idBail));
-      this.ngOnInit();
+
       this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
       this.store.pipe(map((state) => state.bauxState)).subscribe((data) => {
         if (data.baux.length > 0) {
+
           this.totalRecords = data.baux.length;
           this.dataSource.data = data.baux;
           this.dataSource.paginator = this.paginator;
         }
       });
     }
+    this.ngAfterViewInit();
   }
 
   chargerAppels(evt: any) {
@@ -152,24 +147,29 @@ export class PageBauxComponent implements OnInit {
     this.appelloyerState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
     );
-    this.store.pipe(
-      map((state) => state.appelLoyerState)
-    ).subscribe(data =>
-    {
-      console.log("Dqto");
-      console.log(data);
-      this.dataSource.data = [];
-      this.dataSource.paginator = null;
-      if (data.baux.length > 0) {
-        this.dataSource.data = data.baux;
-        this.dataSource.paginator = this.paginator;
-      }
 
-    });
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+  applyFilterOption(event: any) {
+    if (event == 'encours') {
+      this.dataSource.filterPredicate = (data: any) => {
+        return data.enCoursBail == true;
+      };
+    }
+
+    if (event == 'cloturer') {
+      this.dataSource.filterPredicate = (data: any) => {
+        return data.enCoursBail == false;
+      };
+    }
+
+    this.dataSource.filter = event.trim().toLowerCase();
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }

@@ -971,7 +971,10 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "type" : "boolean"
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/OperationDto"
+              }
             }
           }
         }
@@ -2088,6 +2091,79 @@
             "schema" : {
               "$ref" : "#/definitions/EtageDto"
             }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/groupeDroit/" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/GroupeDroitDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/groupeDroit/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/GroupeDroitDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int64"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/groupeDroit/{groupedroitid}" : {
+      "get" : {
+        "operationId" : "findById",
+        "parameters" : [ {
+          "name" : "groupedroitid",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/GroupeDroitDto"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "groupedroitid",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
           }
         }
       }
@@ -3694,6 +3770,9 @@
         "messageReduction" : {
           "type" : "string"
         },
+        "typePaiement" : {
+          "type" : "string"
+        },
         "bailLocationAppelLoyer" : {
           "$ref" : "#/definitions/BailLocation"
         },
@@ -3929,6 +4008,9 @@
           "format" : "double"
         },
         "messageReduction" : {
+          "type" : "string"
+        },
+        "typePaiement" : {
           "type" : "string"
         },
         "solderAppelLoyer" : {
@@ -4554,6 +4636,9 @@
         "entiteOperation" : {
           "type" : "string",
           "enum" : [ "MAGISER", "SEVEINVEST" ]
+        },
+        "typePaiement" : {
+          "type" : "string"
         }
       }
     },
@@ -4605,6 +4690,9 @@
         },
         "appelLoyersFactureDto" : {
           "$ref" : "#/definitions/AppelLoyersFactureDto"
+        },
+        "typePaiement" : {
+          "type" : "string"
         }
       }
     },
@@ -4692,6 +4780,27 @@
         "nombrePieceSurEtage" : {
           "type" : "integer",
           "format" : "int32"
+        }
+      }
+    },
+    "GroupeDroitDto" : {
+      "type" : "object",
+      "required" : [ "groupeDroit" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "groupeDroit" : {
+          "type" : "string"
         }
       }
     },
@@ -5158,10 +5267,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         }
       }

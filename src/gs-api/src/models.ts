@@ -25,6 +25,7 @@ export { EncaissementPrincipalDTO } from './models/encaissement-principal-dto';
 export { EspeceEncaissementDto } from './models/espece-encaissement-dto';
 export { EtageAfficheDto } from './models/etage-affiche-dto';
 export { EtageDto } from './models/etage-dto';
+export { GroupeDroitDto } from './models/groupe-droit-dto';
 export { ImmeubleDto } from './models/immeuble-dto';
 export { ImmeubleEtageDto } from './models/immeuble-etage-dto';
 export { InputStream } from './models/input-stream';
