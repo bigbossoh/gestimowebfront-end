@@ -25,25 +25,11 @@
                 <textarea formControlName="designation" matInput></textarea>
               </mat-form-field>
             </ng-container>
-            <!-- <ng-container>
-              <ng-container>
-                <mat-form-field appearance="outline">
-                  <mat-label>Code de la Transaction</mat-label>
-                  <input
-                    formControlName="codeTransaction"
-                    type="text"
-                    matInput
-                    placeholder="Montant encaissé"
-                  />
-                  <mat-error>Ce champ est obligatoire.</mat-error>
-                </mat-form-field>
-              </ng-container>
-            </ng-container> -->
           </div>
           <div class="col-md-6">
             <ng-container>
               <ng-container>
-                <label>Type d'opérations</label>
+                 <label>Type d'opérations</label>
                 <select
                   id="operationType"
                   name="operationType"
@@ -59,15 +45,29 @@
                     Remboursement espèce
                   </option>
                 </select>
+                <!-- <mat-form-field appearance="outline">
+                  <mat-label>Type d'opérations*</mat-label>
+                  <mat-select formControlName="operationType" placeholder="Type d'operation"
+                    name="operationType">
+
+                    <mat-option value="DEBIT">Débit</mat-option>
+                    <mat-option value="REMOURSEMENT_CHEQUE">Remboursement de chèque</mat-option>
+                    <mat-option value="REMBOURSEMENT_ESPECE">Remboursement espèce</mat-option>
+
+                  </mat-select>
+                  <mat-error>Ce champ est obligatoire.</mat-error>
+                </mat-form-field> -->
               </ng-container>
             </ng-container>
           </div>
         </div>
 
         <!-- <div class="row mb-3"> -->
-        <ng-container>
+        <!-- <ng-container> -->
+
+          <div class="row">
           <ng-container>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="form-group">
                 <mat-form-field appearance="outline">
                   <mat-label>Mode de règlement*</mat-label>
@@ -90,20 +90,12 @@
                 </mat-form-field>
               </div>
             </div>
-            <div class="row">
-              <div class="col">
-                <h5>
-                  <i class="fas fa-asterisk blue-color"></i>&nbsp;Montant de
-                  règlement
-                </h5>
-              </div>
-            </div>
-            <hr style="margin-top: 0" />
 
-            <div class="row">
-              <div class="col-md-3"></div>
 
-              <div class="col-md-3">
+            <!-- <div class="row"> -->
+              <!-- <div class="col-md-3"></div> -->
+
+              <div class="col-md-4">
                 <mat-form-field appearance="outline">
                   <mat-label>Montant encaissé</mat-label>
                   <input
@@ -116,9 +108,9 @@
                 </mat-form-field>
               </div>
 
-              <div class="col-md-3">
+              <div class="col-md-4 flex2">
                 <button
-                  class="mr-2"
+                  class="mr-2 flex-items"
                   mat-raised-button
                   color="primary"
                   (click)="onSaveForm()"
@@ -126,28 +118,29 @@
                   <mat-icon>save</mat-icon>
                   Décaissement
                 </button>
-                <button mat-raised-button color="warn" class="mr-1">
+                <button mat-raised-button color="warn" class="mr-1 flex-items">
                   <mat-icon>cancel</mat-icon>
                   Annuler
                 </button>
               </div>
               <!-- </div> -->
-            </div>
+            <!-- </div> -->
             <div class="row">
               <div class="col-md-6">
                 <div class="col panel-body text-right"></div>
               </div>
             </div>
           </ng-container>
-        </ng-container>
+        </div>
+        <!-- </ng-container> -->
         <!-- </div> -->
       </form>
     </div>
     <div class="row">
       <div class="col">
         <h5>
-          <i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des
-          encaissements
+          <i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des sorties
+          de caisse
         </h5>
       </div>
     </div>

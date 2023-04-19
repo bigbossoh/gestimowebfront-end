@@ -19,3 +19,14 @@
 .tail-50{
   width: 50%;
 }
+.flex2 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-items {
+  width: 100%;
+  height:50%;
+  text-align: center;
+
+ }

@@ -76,7 +76,7 @@
               <!-- <mat-label  appearance="outline"> -->
               <div class="mat-typography">
                 <h3>
-                  Du
+                  Appel loyer pour la période du
                   {{
                   appelState.appelloyers[0].dateDebutMoisAppelLoyer
                   | date : "dd / MM / yyyy"
@@ -112,12 +112,13 @@
                 (click)="printQuittance(periodePrint)">
                 <mat-icon>print</mat-icon>
                 Imprimer
-              </button>
+
               <ng-container *ngIf="ptQuittance$ | async as qtState" [ngSwitch]="qtState.dataState">
                 <ng-container *ngSwitchCase="QuittanceloyerStateEnum.Requested">
                   <i class="fas fa-sync fa-spin"></i>
                 </ng-container>
               </ng-container>
+            </button>
               <button mat-raised-button color="primary" type="button" class="mr-1"
                 (click)="sendQuittanceGrouper(periodePrint)">
                 <mat-icon>mail</mat-icon>
@@ -169,14 +170,15 @@
       <div class="tab-content" id="myTabContent">
         <!-- user table -->
         <div class="mat-elevation-z8">
-          <mat-form-field class="tail-50">
-            <input matInput (keyup)="applyFilter($event)" #input placeholder="Rechercher un Utilisateur" />
+          <mat-form-field class="tail-40">
+            <input matInput (keyup)="applyFilter($event)" #input placeholder="Rechercher générale dans le tableau" />
           </mat-form-field>
-          <mat-radio-group (change)=" applyFilterOption(filtreAppel)" [(ngModel)]="filtreAppel" arial-label="Select an option">
-            <mat-radio-button value=""><label style="font-size: 30px;">Tous</label> </mat-radio-button>
-            <mat-radio-button value="soldé"><label style="font-size: 30px;">Soldé</label> </mat-radio-button>
-            <mat-radio-button value="impayé"><label style="font-size: 30px;">Impayé</label> </mat-radio-button>
-            <mat-radio-button value="partiellement payé"><label style="font-size: 30px;">Partiellement payé</label>
+          <mat-radio-group class="tail-60" (change)=" applyFilterOption(filtreAppel)" [(ngModel)]="filtreAppel" arial-label="Select an option">
+            <span class="font-weight-bold" style="margin-right: 20px;">Filtre sur le status du loyer :</span>
+            <mat-radio-button value=""><label style="font-size: 18px;">Tous</label> </mat-radio-button>
+            <mat-radio-button value="soldé"><label style="font-size: 18px;">Soldé</label> </mat-radio-button>
+            <mat-radio-button value="impayé"><label style="font-size: 18px;">Impayé</label> </mat-radio-button>
+            <mat-radio-button value="partiellement payé"><label style="font-size: 18px;">Partiellement payé</label>
             </mat-radio-button>
           </mat-radio-group>
           <mat-paginator #matimmeuble showFirstLastButtons [pageSizeOptions]="pageSize"

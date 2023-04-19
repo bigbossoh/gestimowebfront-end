@@ -59,7 +59,7 @@ export class PageJournalCaisseComponent implements OnInit {
       codeTransaction: [''],
       montantDepense: [0],
       modePaiement: ['ESPESE_MAGISER'],
-      operationType: ['CREDIT'],
+      operationType: ['DEBIT'],
     });
 
     this.store.dispatch(new GetAllSuiviDepenseActions(this.user.idAgence));

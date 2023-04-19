@@ -11,3 +11,10 @@
   flex-wrap: inherit !important;
 }
 
+@media screen and (max-width:600px)
+{
+  .main-container{
+    margin: 20px;
+  }
+
+}
