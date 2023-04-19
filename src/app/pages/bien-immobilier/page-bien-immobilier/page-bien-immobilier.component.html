@@ -44,6 +44,9 @@
       </mat-form-field>
     </div>
     <!-- MAT TABLE AFFICHE  -->
+    <div class="table-responsive">
+
+
     <ng-container *ngIf="bienImmobilierState$ | async as bienImmobilierState"
       [ngSwitch]="bienImmobilierState.dataState">
       <ng-container *ngSwitchCase="BienImmobilierStateEnum.LOADED">
@@ -135,5 +138,6 @@
         </div>
       </ng-container>
     </ng-container>
+  </div>
   </div>
 </div>

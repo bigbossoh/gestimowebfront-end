@@ -31,16 +31,18 @@
         <div>
           <mat-form-field>
             <input
+            class="tail-40"
               matInput
               (keyup)="applyFilter($event)"
               #input
-              placeholder="Rechercher un Bail"
+              placeholder="Rechercher générale das le tableau"
             />
           </mat-form-field>
-          <mat-radio-group (change)=" applyFilterOption(filtreAppel)" [(ngModel)]="filtreAppel" arial-label="Select an option">
-            <mat-radio-button value="encours"><label style="font-size: 30px;">Baux encours</label> </mat-radio-button>
-            <mat-radio-button value="cloturer"><label style="font-size: 30px;">Baux Cloturés</label> </mat-radio-button>
-            <mat-radio-button value=""><label style="font-size: 30px;">Tous les baux</label> </mat-radio-button>
+          <mat-radio-group class="tail-60" (change)=" applyFilterOption(filtreAppel)" [(ngModel)]="filtreAppel" arial-label="Select an option">
+            <span class="font-weight-bold" style="margin-right: 20px;">Filtre sur le status du bail :</span>
+            <mat-radio-button value="encours"><label style="font-size: 18px;">Baux encours</label> </mat-radio-button>
+            <mat-radio-button value="cloturer"><label style="font-size: 18px;">Baux Cloturés</label> </mat-radio-button>
+            <mat-radio-button value=""><label style="font-size: 18px;">Tous les baux</label> </mat-radio-button>
 
           </mat-radio-group>
           <mat-paginator
