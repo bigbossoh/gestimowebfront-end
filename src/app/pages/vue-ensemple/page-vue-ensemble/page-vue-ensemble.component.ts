@@ -38,6 +38,7 @@ chapitre: any;
     this.getIdAgence();
     this.getNbreLocataireActif();
     this.getNbrebauxActif();
+    this.getNbrebauxNonActif();
   }
   private getIdAgence(): number{
     return this.userService.getUserFromLocalCache().idAgence!;
@@ -68,6 +69,7 @@ chapitre: any;
     this.statistique.getAllLocatire().subscribe(
       (response)=>{
         this.totalLocataireParAgence=response.length
+       // alert(this.totalLocataireParAgence)
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -95,5 +97,16 @@ this.statistique.getAllBauxActif().subscribe(
   }
 )
   }
+
+  private getNbrebauxNonActif(){
+    this.statistique.getAllBauxNonActif().subscribe(
+      (resp)=>{
+        this.totalBauxNonActif=resp;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
+      }
 
 }

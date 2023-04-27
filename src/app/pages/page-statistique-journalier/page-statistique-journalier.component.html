@@ -207,11 +207,26 @@
           [ngSwitch]="totalEncaissementState.dataState"
         >
           <mat-card-content *ngSwitchCase="EncaissementStateEnum.ERROR">
-            0
+            Une erreur c'est produite
           </mat-card-content>
           <mat-card-content *ngSwitchCase="EncaissementStateEnum.LOADED">
             <li>
-              <span>
+              Total encaissements
+              <span class="text-success">
+                {{ totalEncaissementState.montantEncaisse | number }} F
+                CFA</span
+              >
+            </li>
+            <li>
+              Total sortie de caisse
+              <span class="text-danger">
+                {{ totalEncaissementState.montantEncaisse | number }} F
+                CFA</span
+              >
+            </li>
+            <li>
+              Solde journalier
+              <span class="text-primary">
                 {{ totalEncaissementState.montantEncaisse | number }} F
                 CFA</span
               >

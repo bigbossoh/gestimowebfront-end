@@ -24,9 +24,12 @@
       <ng-container *ngSwitchCase="BauxStateEnum.ERROR">
         <div class="p-2">Une erreur est survenue.</div>
       </ng-container>
-      <!-- <ng-container *ngSwitchCase="BauxStateEnum.LOADING">
-        <mat-spinner></mat-spinner>
-      </ng-container> -->
+      
+        <ng-container *ngSwitchCase="BauxStateEnum.LOADING">
+          <mat-spinner class="sprinner"diameter="50"></mat-spinner>
+        </ng-container>
+
+
       <ng-container *ngSwitchCase="BauxStateEnum.LOADED">
         <div>
           <mat-form-field>
