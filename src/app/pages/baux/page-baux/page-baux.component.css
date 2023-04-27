@@ -12,6 +12,9 @@ table {
   width: 40%;
   margin-left: 10px;
 }
+.centrer_spinner{
+  text-align: center;
+}
 .tail-60{
   width: 60%;
   text-align: right;
