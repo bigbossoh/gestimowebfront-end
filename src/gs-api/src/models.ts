@@ -19,6 +19,8 @@ export { Chapitre } from './models/chapitre';
 export { Charges } from './models/charges';
 export { CommuneRequestDto } from './models/commune-request-dto';
 export { CommuneResponseDto } from './models/commune-response-dto';
+export { DroitAccesDTO } from './models/droit-acces-dto';
+export { DroitAccesPayloadDTO } from './models/droit-acces-payload-dto';
 export { Encaissement } from './models/encaissement';
 export { EncaissementPayloadDto } from './models/encaissement-payload-dto';
 export { EncaissementPrincipalDTO } from './models/encaissement-principal-dto';

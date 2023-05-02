@@ -64,19 +64,9 @@
          </div> -->
    </div>
 
-   <!-- <div class="row">
-    <div class="col-md-4 col-xl-6">
-      <div class="card bg-c-blue-gradiant order-card">
-        <div class="card-block">
-          <i class="fa fa-check-circle f-left mr-1" ></i>&nbsp;
-          <h6 class="m-b-20">200 Response</h6>
-          <h2 class="text-right" ><span>486</span></h2>
-          <p class="m-b-0">Updated:<span  class="f-right">cool man</span></p>
-        </div>
-      </div>
-    </div>
+   
 
-
+ <!--
 
     <div class="col-md-4 col-xl-3">
         <div class="card bg-c-yellow order-card">
@@ -100,3 +90,39 @@
 </div> -->
 <app-page-statistique-journalier [chapitre]="chapitre"></app-page-statistique-journalier>
  </div>
+
+ <div class="container mt-3">
+  <div class="row">
+    <div class="col-md-6 col-xl-6">
+      <div class="card">
+        <div class="card-block">
+          <div>
+            <canvas baseChart
+                    [chartType]="chartType"
+                    [datasets]="dataset"
+                    [labels]="labels"
+                    [options]="chartOptions"
+                    [legend]="true"
+                    [title]="'My awesome chart'"
+    
+            ></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-xl-6">
+      <div class="card">
+        <div style="display: block">
+          <canvas baseChart
+            [datasets]="lineChartData"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [legend]="lineChartLegend"
+            [chartType]="lineChartType"
+            [plugins]="lineChartPlugins">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

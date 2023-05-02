@@ -28,7 +28,7 @@ export interface UtilisateurAfficheDto {
   agenceDto?: number;
   roleRequestDto?: RoleRequestDto;
   userCreate?: number;
-  active?: boolean;
   activated?: boolean;
   nonLocked?: boolean;
+  active?: boolean;
 }

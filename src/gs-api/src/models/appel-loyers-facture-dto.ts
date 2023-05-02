@@ -41,6 +41,6 @@ export interface AppelLoyersFactureDto {
   pourcentageReduction?: number;
   messageReduction?: string;
   typePaiement?: string;
-  solderAppelLoyer?: boolean;
   cloturer?: boolean;
+  solderAppelLoyer?: boolean;
 }

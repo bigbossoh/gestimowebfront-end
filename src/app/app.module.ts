@@ -150,6 +150,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReductionAppelLoyerComponent } from './pages/appel-loyer/reduction-appel-loyer/reduction-appel-loyer.component';
 import { registerLocaleData } from '@angular/common';
 import { suiviDepenseReducer } from './ngrx/journal-caisse/journal-caisse.reducer';
+import { ChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     PageStatistiqueJournalierComponent,
@@ -245,6 +246,7 @@ import { suiviDepenseReducer } from './ngrx/journal-caisse/journal-caisse.reduce
     ScrollingModule,
     MatCardModule,
     MatTooltipModule,
+    ChartsModule,
 
     //ToastrModule.forRoot(),
     StoreModule.forRoot({
