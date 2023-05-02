@@ -1664,6 +1664,79 @@
         }
       }
     },
+    "gestimoweb/api/v1/droitAccess/" : {
+      "get" : {
+        "operationId" : "findAll",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/DroitAccesDTO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/droitAccess/save" : {
+      "post" : {
+        "operationId" : "save",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/DroitAccesPayloadDTO"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int64"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/droitAccess/{droitAccessid}" : {
+      "get" : {
+        "operationId" : "findById",
+        "parameters" : [ {
+          "name" : "droitAccessid",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/DroitAccesDTO"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "droitAccessid",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/encaissement/allEncaissementByIdLocatire/{idLocatire}" : {
       "get" : {
         "operationId" : "findAllEncaissementByIdLocatire",
@@ -1748,6 +1821,77 @@
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/EncaissementPrincipalDTO"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/encaissement/getTotalEncaissementsEtMontantsDeLoyerParMois/{idAgence}/{datedebut}/{datefin}" : {
+      "get" : {
+        "operationId" : "getTotalEncaissementsEtMontantsDeLoyerParMois",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "datedebut",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "datefin",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "number",
+                  "format" : "double"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/encaissement/getTotalEncaissementsParMois/{idAgence}/{datedebut}/{datefin}" : {
+      "get" : {
+        "operationId" : "getTotalEncaissementsParMois",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "datedebut",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "datefin",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "number",
+                "format" : "double"
+              }
             }
           }
         }
@@ -1845,6 +1989,37 @@
             "description" : "successful operation",
             "schema" : {
               "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/encaissement/sommeEncaissementParAgenceEtParPeriode/{idAgence}/{datedebut}/{datefin}" : {
+      "get" : {
+        "operationId" : "sommeEncaissementParAgenceEtParPeriode",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "datedebut",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "datefin",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "number",
+              "format" : "double"
             }
           }
         }
@@ -3782,10 +3957,10 @@
             "$ref" : "#/definitions/Encaissement"
           }
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         }
       }
@@ -4013,10 +4188,10 @@
         "typePaiement" : {
           "type" : "string"
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         }
       }
@@ -4560,6 +4735,51 @@
         }
       }
     },
+    "DroitAccesDTO" : {
+      "type" : "object",
+      "required" : [ "codeDroit", "libelleDroit" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "codeDroit" : {
+          "type" : "string"
+        },
+        "libelleDroit" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DroitAccesPayloadDTO" : {
+      "type" : "object",
+      "required" : [ "libelleDroit" ],
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "libelleDroit" : {
+          "type" : "string"
+        }
+      }
+    },
     "Encaissement" : {
       "type" : "object",
       "properties" : {
@@ -4929,9 +5149,6 @@
         "open" : {
           "type" : "boolean"
         },
-        "readable" : {
-          "type" : "boolean"
-        },
         "url" : {
           "type" : "string",
           "format" : "url"
@@ -4939,12 +5156,15 @@
         "file" : {
           "type" : "file"
         },
-        "uri" : {
-          "type" : "string",
-          "format" : "uri"
+        "readable" : {
+          "type" : "boolean"
         },
         "filename" : {
           "type" : "string"
+        },
+        "uri" : {
+          "type" : "string",
+          "format" : "uri"
         }
       }
     },
@@ -5250,15 +5470,15 @@
         "name" : {
           "type" : "string"
         },
-        "empty" : {
-          "type" : "boolean"
-        },
         "bytes" : {
           "type" : "array",
           "items" : {
             "type" : "string",
             "format" : "byte"
           }
+        },
+        "empty" : {
+          "type" : "boolean"
         },
         "size" : {
           "type" : "integer",
@@ -5267,10 +5487,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         }
       }
@@ -5752,13 +5972,13 @@
             "$ref" : "#/definitions/Bienimmobilier"
           }
         },
-        "active" : {
-          "type" : "boolean"
-        },
         "activated" : {
           "type" : "boolean"
         },
         "nonLocked" : {
+          "type" : "boolean"
+        },
+        "active" : {
           "type" : "boolean"
         }
       }
@@ -5861,13 +6081,13 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "active" : {
-          "type" : "boolean"
-        },
         "activated" : {
           "type" : "boolean"
         },
         "nonLocked" : {
+          "type" : "boolean"
+        },
+        "active" : {
           "type" : "boolean"
         }
       }
@@ -5970,13 +6190,13 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "active" : {
-          "type" : "boolean"
-        },
         "activated" : {
           "type" : "boolean"
         },
         "nonLocked" : {
+          "type" : "boolean"
+        },
+        "active" : {
           "type" : "boolean"
         }
       }

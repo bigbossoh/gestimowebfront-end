@@ -29,6 +29,8 @@ import { BailVillaDto } from '../models/bail-villa-dto';
 import { BienImmobilierAffiheDto } from '../models/bien-immobilier-affihe-dto';
 import { CommuneRequestDto } from '../models/commune-request-dto';
 import { CommuneResponseDto } from '../models/commune-response-dto';
+import { DroitAccesDTO } from '../models/droit-acces-dto';
+import { DroitAccesPayloadDTO } from '../models/droit-acces-payload-dto';
 import { EncaissementPrincipalDTO } from '../models/encaissement-principal-dto';
 import { EncaissementPayloadDto } from '../models/encaissement-payload-dto';
 import { EspeceEncaissementDto } from '../models/espece-encaissement-dto';
@@ -126,14 +128,21 @@ class ApiService extends __BaseService {
   static readonly findCommuneByIdPaysPath = 'gestimoweb/api/v1/commune/findByIdVille/{id}';
   static readonly findCommuneByNamePath = 'gestimoweb/api/v1/commune/findByName/{name}';
   static readonly saveCommunePath = 'gestimoweb/api/v1/commune/save';
+  static readonly findAllPath = 'gestimoweb/api/v1/droitAccess/';
+  static readonly savePath = 'gestimoweb/api/v1/droitAccess/save';
+  static readonly findByIdPath = 'gestimoweb/api/v1/droitAccess/{droitAccessid}';
+  static readonly deletePath = 'gestimoweb/api/v1/droitAccess/{droitAccessid}';
   static readonly findAllEncaissementByIdLocatirePath = 'gestimoweb/api/v1/encaissement/allEncaissementByIdLocatire/{idLocatire}';
   static readonly findAllEncaissementByIdBienImmobilierPath = 'gestimoweb/api/v1/encaissement/allencaissementByIdBien/{id}';
   static readonly listTousEncaissementsPrincipalPath = 'gestimoweb/api/v1/encaissement/findAllEncaissementPrincipal/{idAgence}';
   static readonly findByIdEncaissementPath = 'gestimoweb/api/v1/encaissement/findByIdEncaissement/{id}';
+  static readonly getTotalEncaissementsEtMontantsDeLoyerParMoisPath = 'gestimoweb/api/v1/encaissement/getTotalEncaissementsEtMontantsDeLoyerParMois/{idAgence}/{datedebut}/{datefin}';
+  static readonly getTotalEncaissementsParMoisPath = 'gestimoweb/api/v1/encaissement/getTotalEncaissementsParMois/{idAgence}/{datedebut}/{datefin}';
   static readonly listeLocataireImpayerParAgenceEtPeriodePath = 'gestimoweb/api/v1/encaissement/listeLocataireImpayerParAgenceEtPeriode/{agence}/{periode}';
   static readonly saveEncaissementPath = 'gestimoweb/api/v1/encaissement/saveencaissement';
   static readonly saveEncaissementAvecretourDeListePath = 'gestimoweb/api/v1/encaissement/saveencaissementavecretour';
   static readonly saveEncaissementMassePath = 'gestimoweb/api/v1/encaissement/saveencaissementmasse';
+  static readonly sommeEncaissementParAgenceEtParPeriodePath = 'gestimoweb/api/v1/encaissement/sommeEncaissementParAgenceEtParPeriode/{idAgence}/{datedebut}/{datefin}';
   static readonly totalencaissementParIdAppelLoyerPath = 'gestimoweb/api/v1/encaissement/totalencaissement/{id}';
   static readonly totalEncaissementParJourPath = 'gestimoweb/api/v1/encaissement/totalencaissementjournalier/{jour}/{idAgence}/{chapitre}';
   static readonly sendMailGrouperWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendmailgrouper/{periode}/{idAgence}';
@@ -145,10 +154,10 @@ class ApiService extends __BaseService {
   static readonly affichageDesEtageParImmeublePath = 'gestimoweb/api/v1/etage/findByIdImmeuble/{id}';
   static readonly findEtageByNamePath = 'gestimoweb/api/v1/etage/findByName/{name}';
   static readonly saveEtagePath = 'gestimoweb/api/v1/etage/save';
-  static readonly findAllPath = 'gestimoweb/api/v1/groupeDroit/';
-  static readonly savePath = 'gestimoweb/api/v1/groupeDroit/save';
-  static readonly findByIdPath = 'gestimoweb/api/v1/groupeDroit/{groupedroitid}';
-  static readonly deletePath = 'gestimoweb/api/v1/groupeDroit/{groupedroitid}';
+  static readonly findAll_1Path = 'gestimoweb/api/v1/groupeDroit/';
+  static readonly save_1Path = 'gestimoweb/api/v1/groupeDroit/save';
+  static readonly findById_1Path = 'gestimoweb/api/v1/groupeDroit/{groupedroitid}';
+  static readonly delete_1Path = 'gestimoweb/api/v1/groupeDroit/{groupedroitid}';
   static readonly affichageDesImmeublesPath = 'gestimoweb/api/v1/immeuble/affichetoutlesimmeubles/{idAgence}';
   static readonly findAllImmeublePath = 'gestimoweb/api/v1/immeuble/all/{idAgence}';
   static readonly deleteImmeublePath = 'gestimoweb/api/v1/immeuble/deleteImmeuble/{id}';
@@ -181,7 +190,7 @@ class ApiService extends __BaseService {
   static readonly deleteSitePath = 'gestimoweb/api/v1/sites/delete/{id}';
   static readonly findSiteByIDPath = 'gestimoweb/api/v1/sites/findById/{id}';
   static readonly findSiteByNamePath = 'gestimoweb/api/v1/sites/findByName/{name}';
-  static readonly save_1Path = 'gestimoweb/api/v1/sites/save';
+  static readonly save_2Path = 'gestimoweb/api/v1/sites/save';
   static readonly saveSitePath = 'gestimoweb/api/v1/sites/savesite';
   static readonly getAllEncaissementSuivieDepenseParAgencePath = 'gestimoweb/api/v1/suiviedepense/allSuivieDepense/{idAgence}';
   static readonly getSuivieDepenseByCodeTransactionPath = 'gestimoweb/api/v1/suiviedepense/getSuivieDepenseByCodeTransaction/{codeTransaction}';
@@ -3002,6 +3011,145 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @return successful operation
+   */
+  findAllResponse(): __Observable<__StrictHttpResponse<Array<DroitAccesDTO>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/droitAccess/`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<DroitAccesDTO>>;
+      })
+    );
+  }
+  /**
+   * @return successful operation
+   */
+  findAll(): __Observable<Array<DroitAccesDTO>> {
+    return this.findAllResponse().pipe(
+      __map(_r => _r.body as Array<DroitAccesDTO>)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveResponse(body?: DroitAccesPayloadDTO): __Observable<__StrictHttpResponse<number>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/droitAccess/save`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: parseFloat((_r as HttpResponse<any>).body as string) }) as __StrictHttpResponse<number>
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  save(body?: DroitAccesPayloadDTO): __Observable<number> {
+    return this.saveResponse(body).pipe(
+      __map(_r => _r.body as number)
+    );
+  }
+
+  /**
+   * @param droitAccessid undefined
+   * @return successful operation
+   */
+  findByIdResponse(droitAccessid: number): __Observable<__StrictHttpResponse<DroitAccesDTO>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/droitAccess/${droitAccessid}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<DroitAccesDTO>;
+      })
+    );
+  }
+  /**
+   * @param droitAccessid undefined
+   * @return successful operation
+   */
+  findById(droitAccessid: number): __Observable<DroitAccesDTO> {
+    return this.findByIdResponse(droitAccessid).pipe(
+      __map(_r => _r.body as DroitAccesDTO)
+    );
+  }
+
+  /**
+   * @param droitAccessid undefined
+   */
+  deleteResponse(droitAccessid: number): __Observable<__StrictHttpResponse<null>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'DELETE',
+      this.rootUrl + `gestimoweb/api/v1/droitAccess/${droitAccessid}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<null>;
+      })
+    );
+  }
+  /**
+   * @param droitAccessid undefined
+   */
+  delete(droitAccessid: number): __Observable<null> {
+    return this.deleteResponse(droitAccessid).pipe(
+      __map(_r => _r.body as null)
+    );
+  }
+
+  /**
    * @param idLocatire undefined
    * @return successful operation
    */
@@ -3142,6 +3290,110 @@ class ApiService extends __BaseService {
   findByIdEncaissement(id: number): __Observable<EncaissementPrincipalDTO> {
     return this.findByIdEncaissementResponse(id).pipe(
       __map(_r => _r.body as EncaissementPrincipalDTO)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.GetTotalEncaissementsEtMontantsDeLoyerParMoisParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `datefin`:
+   *
+   * - `datedebut`:
+   *
+   * @return successful operation
+   */
+  getTotalEncaissementsEtMontantsDeLoyerParMoisResponse(params: ApiService.GetTotalEncaissementsEtMontantsDeLoyerParMoisParams): __Observable<__StrictHttpResponse<{[key: string]: Array<number>}>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/encaissement/getTotalEncaissementsEtMontantsDeLoyerParMois/${params.idAgence}/${params.datedebut}/${params.datefin}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<{[key: string]: Array<number>}>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.GetTotalEncaissementsEtMontantsDeLoyerParMoisParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `datefin`:
+   *
+   * - `datedebut`:
+   *
+   * @return successful operation
+   */
+  getTotalEncaissementsEtMontantsDeLoyerParMois(params: ApiService.GetTotalEncaissementsEtMontantsDeLoyerParMoisParams): __Observable<{[key: string]: Array<number>}> {
+    return this.getTotalEncaissementsEtMontantsDeLoyerParMoisResponse(params).pipe(
+      __map(_r => _r.body as {[key: string]: Array<number>})
+    );
+  }
+
+  /**
+   * @param params The `ApiService.GetTotalEncaissementsParMoisParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `datefin`:
+   *
+   * - `datedebut`:
+   *
+   * @return successful operation
+   */
+  getTotalEncaissementsParMoisResponse(params: ApiService.GetTotalEncaissementsParMoisParams): __Observable<__StrictHttpResponse<{[key: string]: number}>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/encaissement/getTotalEncaissementsParMois/${params.idAgence}/${params.datedebut}/${params.datefin}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<{[key: string]: number}>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.GetTotalEncaissementsParMoisParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `datefin`:
+   *
+   * - `datedebut`:
+   *
+   * @return successful operation
+   */
+  getTotalEncaissementsParMois(params: ApiService.GetTotalEncaissementsParMoisParams): __Observable<{[key: string]: number}> {
+    return this.getTotalEncaissementsParMoisResponse(params).pipe(
+      __map(_r => _r.body as {[key: string]: number})
     );
   }
 
@@ -3297,6 +3549,58 @@ class ApiService extends __BaseService {
   saveEncaissementMasse(body?: Array<EncaissementPayloadDto>): __Observable<boolean> {
     return this.saveEncaissementMasseResponse(body).pipe(
       __map(_r => _r.body as boolean)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.SommeEncaissementParAgenceEtParPeriodeParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `datefin`:
+   *
+   * - `datedebut`:
+   *
+   * @return successful operation
+   */
+  sommeEncaissementParAgenceEtParPeriodeResponse(params: ApiService.SommeEncaissementParAgenceEtParPeriodeParams): __Observable<__StrictHttpResponse<number>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/encaissement/sommeEncaissementParAgenceEtParPeriode/${params.idAgence}/${params.datedebut}/${params.datefin}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: parseFloat((_r as HttpResponse<any>).body as string) }) as __StrictHttpResponse<number>
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.SommeEncaissementParAgenceEtParPeriodeParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `datefin`:
+   *
+   * - `datedebut`:
+   *
+   * @return successful operation
+   */
+  sommeEncaissementParAgenceEtParPeriode(params: ApiService.SommeEncaissementParAgenceEtParPeriodeParams): __Observable<number> {
+    return this.sommeEncaissementParAgenceEtParPeriodeResponse(params).pipe(
+      __map(_r => _r.body as number)
     );
   }
 
@@ -3726,7 +4030,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAllResponse(): __Observable<__StrictHttpResponse<Array<GroupeDroitDto>>> {
+  findAll_1Response(): __Observable<__StrictHttpResponse<Array<GroupeDroitDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3750,8 +4054,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll(): __Observable<Array<GroupeDroitDto>> {
-    return this.findAllResponse().pipe(
+  findAll_1(): __Observable<Array<GroupeDroitDto>> {
+    return this.findAll_1Response().pipe(
       __map(_r => _r.body as Array<GroupeDroitDto>)
     );
   }
@@ -3760,7 +4064,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveResponse(body?: GroupeDroitDto): __Observable<__StrictHttpResponse<number>> {
+  save_1Response(body?: GroupeDroitDto): __Observable<__StrictHttpResponse<number>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3786,8 +4090,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save(body?: GroupeDroitDto): __Observable<number> {
-    return this.saveResponse(body).pipe(
+  save_1(body?: GroupeDroitDto): __Observable<number> {
+    return this.save_1Response(body).pipe(
       __map(_r => _r.body as number)
     );
   }
@@ -3796,7 +4100,7 @@ class ApiService extends __BaseService {
    * @param groupedroitid undefined
    * @return successful operation
    */
-  findByIdResponse(groupedroitid: number): __Observable<__StrictHttpResponse<GroupeDroitDto>> {
+  findById_1Response(groupedroitid: number): __Observable<__StrictHttpResponse<GroupeDroitDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3822,8 +4126,8 @@ class ApiService extends __BaseService {
    * @param groupedroitid undefined
    * @return successful operation
    */
-  findById(groupedroitid: number): __Observable<GroupeDroitDto> {
-    return this.findByIdResponse(groupedroitid).pipe(
+  findById_1(groupedroitid: number): __Observable<GroupeDroitDto> {
+    return this.findById_1Response(groupedroitid).pipe(
       __map(_r => _r.body as GroupeDroitDto)
     );
   }
@@ -3831,7 +4135,7 @@ class ApiService extends __BaseService {
   /**
    * @param groupedroitid undefined
    */
-  deleteResponse(groupedroitid: number): __Observable<__StrictHttpResponse<null>> {
+  delete_1Response(groupedroitid: number): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3856,8 +4160,8 @@ class ApiService extends __BaseService {
   /**
    * @param groupedroitid undefined
    */
-  delete(groupedroitid: number): __Observable<null> {
-    return this.deleteResponse(groupedroitid).pipe(
+  delete_1(groupedroitid: number): __Observable<null> {
+    return this.delete_1Response(groupedroitid).pipe(
       __map(_r => _r.body as null)
     );
   }
@@ -5031,7 +5335,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_1Response(body?: SiteRequestDto): __Observable<__StrictHttpResponse<boolean>> {
+  save_2Response(body?: SiteRequestDto): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -5057,8 +5361,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_1(body?: SiteRequestDto): __Observable<boolean> {
-    return this.save_1Response(body).pipe(
+  save_2(body?: SiteRequestDto): __Observable<boolean> {
+    return this.save_2Response(body).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -6159,11 +6463,38 @@ module ApiService {
   }
 
   /**
+   * Parameters for getTotalEncaissementsEtMontantsDeLoyerParMois
+   */
+  export interface GetTotalEncaissementsEtMontantsDeLoyerParMoisParams {
+    idAgence: number;
+    datefin: string;
+    datedebut: string;
+  }
+
+  /**
+   * Parameters for getTotalEncaissementsParMois
+   */
+  export interface GetTotalEncaissementsParMoisParams {
+    idAgence: number;
+    datefin: string;
+    datedebut: string;
+  }
+
+  /**
    * Parameters for listeLocataireImpayerParAgenceEtPeriode
    */
   export interface ListeLocataireImpayerParAgenceEtPeriodeParams {
     periode: string;
     agence: number;
+  }
+
+  /**
+   * Parameters for sommeEncaissementParAgenceEtParPeriode
+   */
+  export interface SommeEncaissementParAgenceEtParPeriodeParams {
+    idAgence: number;
+    datefin: string;
+    datedebut: string;
   }
 
   /**

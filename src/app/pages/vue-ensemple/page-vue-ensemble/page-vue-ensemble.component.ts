@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { StatistiqueService } from '../../../services/statistique_dashboard/statistique.service';
 import { UserService } from '../../../services/user/user.service';
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
+import { Label } from 'ng2-charts';
+import { ApiService } from 'src/gs-api/src/services';
 
 @Component({
   selector: 'app-page-vue-ensemble',
@@ -28,8 +31,43 @@ export class PageVueEnsembleComponent implements OnInit {
   PrcentageBiens:number=0
   public user?:UtilisateurRequestDto;
 chapitre: any;
+chartType: ChartType = 'line';
+  dataset: ChartDataSets[] = [];
+  labels: Label[] = [];
+  chartOptions: any = {
+    legend: {
+      position: 'bottom',
+      labels: {
+        fontSize: 16,
+        usePointStyle: true
+      }
+    }
+  };
 
-  constructor( private statistique: StatistiqueService, private userService:UserService) { }
+  public lineChartData: ChartDataSets[] = [];
+  public lineChartLabels: Label[] = [];
+  public lineChartOptions: ChartOptions = {
+  responsive: true,
+  scales: {
+  xAxes: [{
+  type: 'time',
+  time: {
+  unit: 'month'
+  }
+  }],
+  yAxes: [{
+  ticks: {
+  beginAtZero: true
+  }
+  }]
+  }
+  };
+  public lineChartType: ChartType = 'line';
+  public lineChartLegend = true;
+  public lineChartPlugins = [];
+
+
+  constructor( private statistique: StatistiqueService, private userService:UserService, private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.getNombreBienImmobiliers(0)
@@ -39,10 +77,15 @@ chapitre: any;
     this.getNbreLocataireActif();
     this.getNbrebauxActif();
     this.getNbrebauxNonActif();
+
+    const startMonth = '2023-01';
+    const endMonth = '2023-12';
+    
   }
   private getIdAgence(): number{
     return this.userService.getUserFromLocalCache().idAgence!;
   }
+  
   public getNombreBienImmobiliers(chapitre:any){
     this.statistique.getAllBienImmobilier(chapitre).subscribe(
       (response)=>{
