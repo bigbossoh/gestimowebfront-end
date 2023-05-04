@@ -29,6 +29,9 @@ import { PageImmeubleComponent } from './pages/bien-immobilier/immeuble/page-imm
 import { PageEtageComponent } from './pages/bien-immobilier/page-etage/page-etage/page-etage.component';
 import { TachesPlanifieesComponent } from './pages/tachesPlanifiees/taches-planifiees/taches-planifiees.component';
 import { PageGestionDroitComponent } from './pages/roles-droits/page-gestion-droit/page-gestion-droit.component';
+import { PageReservationResidenceComponent } from './pages/residence/page-reservation/page-reservation-residence/page-reservation-residence.component';
+import { PageDisponibiliteResidenceComponent } from './pages/residence/page-disponibilite-appartement/page-disponibilite-residence/page-disponibilite-residence.component';
+import { PageClientResidenceComponent } from './pages/residence/page-client-residence/page-client-residence/page-client-residence.component';
 
 const routes: Routes = [
   {
@@ -184,6 +187,28 @@ const routes: Routes = [
     {
       path:'liste-gestion-roles-droits',
       component:PageGestionDroitComponent,
+      canActivate:[ApplicationGuardService]
+    }
+    ,
+    {
+      path:'reservation-residence',
+      component:PageReservationResidenceComponent,
+      canActivate:[ApplicationGuardService]
+    },
+    {
+      path:'paiement-residence',
+      component:PageReservationResidenceComponent,
+      canActivate:[ApplicationGuardService]
+    },
+    {
+      path:'disponibilite-residence',
+      component:PageDisponibiliteResidenceComponent,
+      canActivate:[ApplicationGuardService]
+    }
+    ,
+    {
+      path:'client-residence',
+      component:PageClientResidenceComponent,
       canActivate:[ApplicationGuardService]
     }
 

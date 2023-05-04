@@ -151,6 +151,12 @@ import { ReductionAppelLoyerComponent } from './pages/appel-loyer/reduction-appe
 import { registerLocaleData } from '@angular/common';
 import { suiviDepenseReducer } from './ngrx/journal-caisse/journal-caisse.reducer';
 import { ChartsModule } from 'ng2-charts';
+import { PageReservationResidenceComponent } from './pages/residence/page-reservation/page-reservation-residence/page-reservation-residence.component';
+import { PageReglementResidenceComponent } from './pages/residence/page-reglement/page-reglement-residence/page-reglement-residence.component';
+import { PageParametreResidenceComponent } from './pages/residence/page-parametre-residence/page-parametre-residence/page-parametre-residence.component';
+import { PageDisponibiliteResidenceComponent } from './pages/residence/page-disponibilite-appartement/page-disponibilite-residence/page-disponibilite-residence.component';
+import { PageClientResidenceComponent } from './pages/residence/page-client-residence/page-client-residence/page-client-residence.component';
+
 @NgModule({
   declarations: [
     PageStatistiqueJournalierComponent,
@@ -212,6 +218,12 @@ import { ChartsModule } from 'ng2-charts';
     AgenceUpdateComponent,
     ButtonNewUserActionComponent,
     ReductionAppelLoyerComponent,
+    PageReservationResidenceComponent,
+    PageReglementResidenceComponent,
+    PageParametreResidenceComponent,
+    PageDisponibiliteResidenceComponent,
+    PageClientResidenceComponent,
+
   ],
   imports: [
     FormsModule,
