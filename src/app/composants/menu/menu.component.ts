@@ -185,32 +185,38 @@ export class MenuComponent implements OnInit {
     ]
   }
   ,
-  // {
-  //   id: '7',
-  //   titre: 'gestion des règlements',
-  //   icon: 'fas fa-praying-hands',
-  //   url: '',
-  //   sousMenu: [
-  //     {
-  //       id: '71',
-  //       titre: "Règlement individuel",
-  //       icon: 'fas fa-tools',
-  //       url: 'reglement-individuel'
-  //     },
-  //     // {
-  //     //   id: '73',
-  //     //   titre: "Règlement",
-  //     //   icon: 'fas fa-toolbox',
-  //     //   url: 'paiement'
-  //     // },
-  //     // {
-  //     //   id: '72',
-  //     //   titre: "Règlement groupé",
-  //     //   icon: 'fas fa-toolbox',
-  //     //   url: 'reglement-groupe'
-  //     // }
-  //   ]
-  // },
+  {
+    id: '7',
+    titre: 'gestion des residences',
+    icon: 'fas fa-home',
+    url: '',
+    sousMenu: [
+      {
+        id: '70',
+        titre: "client residence",
+        icon: 'fas fa-address-card',
+        url: 'client-residence'
+      },
+      {
+        id: '71',
+        titre: "Reservation",
+        icon: 'fas fa-bed',
+        url: 'reservation-residence'
+      },
+      {
+        id: '72',
+        titre: "disponibilité",
+        icon: 'far fa-calendar-check',
+        url: 'disponibilite-residence'
+      },
+      {
+        id: '73',
+        titre: "paiement",
+        icon: 'fas fa-credit-card',
+        url: 'paiement-residence'
+      }
+    ]
+  },
   {
     id: '8',
     titre: 'Gestion comptable',
