@@ -116,7 +116,7 @@
             <button mat-icon-button color="primary">
               <mat-icon>print</mat-icon>
             </button>
-            <button *ngIf="row.statusAppelLoyer=='Soldé'" mat-icon-button style="color: rgb(255, 0, 0);" (click)="supprimerUnLoyer(row.id)">
+            <button *ngIf="row.statusAppelLoyer!='Impayé'" mat-icon-button style="color: rgb(255, 0, 0);" (click)="supprimerUnLoyer(row.id)">
               <mat-icon>cancel</mat-icon>
             </button>
           </mat-cell>
