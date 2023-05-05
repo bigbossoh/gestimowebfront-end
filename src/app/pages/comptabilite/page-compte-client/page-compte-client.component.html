@@ -37,6 +37,102 @@
       </ng-container>
     </div>
   </div>
+    <div class="col">
+    <div class="row">
+      <div class="col">
+        <h5>
+          <i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des loyers
+        </h5>
+      </div>
+    </div>
+    <hr style="margin-top: 0" />
+  </div>
+  <div>
+    <div class="mat-elevation-z8">
+      <div class="example-header">
+        <mat-form-field class="tail-50" style="margin-left: 12px;">
+          <mat-label>Rechercher</mat-label>
+          <input matInput (keyup)="applyFilterAppel($event)" #input placeholder="Rechercher un Appel" />
+        </mat-form-field>
+      </div>
+      <mat-paginator #paginator showFirstLastButtons [length]="100" [pageSizeOptions] ="pageSizeAppel" aria-label="Select page of users">
+      </mat-paginator>
+      <mat-table #tableAppel [dataSource]="dataSourceAppel" matSort>
+        <!-- Code colonne -->
+        <ng-container matColumnDef="idEncaiss">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            id
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{ row.id }}
+          </mat-cell>
+        </ng-container>
+        <!-- Dénomination colonne -->
+
+        <!-- Propriétaire colonne -->
+        <ng-container matColumnDef="Periode">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Période
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{ row.periodeAppelLoyer| date: "MMMM yyyy" }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Loyer">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Montant Loyer
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{ row.montantBailLPeriode }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="solde">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Solde du Mois
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{ row.soldeAppelLoyer }}</mat-cell>
+        </ng-container>
+        <!-- Propriétaire colonne -->
+        <ng-container matColumnDef="Status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Status
+          </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <span *ngIf="row.statusAppelLoyer=='Soldé'"
+              class="badge badge-success">{{row.statusAppelLoyer}}
+            </span>
+            <span *ngIf="row.statusAppelLoyer=='Impayé'"
+              class="badge badge-danger">{{row.statusAppelLoyer}}
+            </span>
+            <span *ngIf="row.statusAppelLoyer=='partiellement payé'"
+              class="badge badge-warning">{{row.statusAppelLoyer}}
+            </span>
+
+          </mat-cell>
+        </ng-container>
+        <!-- Actions colonne -->
+        <ng-container matColumnDef="Actions">
+          <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <button mat-icon-button color="primary">
+              <mat-icon>print</mat-icon>
+            </button>
+            <button *ngIf="row.statusAppelLoyer=='Soldé'" mat-icon-button style="color: rgb(255, 0, 0);" (click)="supprimerUnLoyer(row.id)">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumnsAppel"> </mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumnsAppel"></mat-row>
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">
+            Aucune donnée enregistrée {{ input.value }}
+          </td>
+        </tr>
+      </mat-table>
+    </div>
+  </div>
+  <!-- LISTE DES APPELS PAR BIEN -->
   <div class="col">
     <div class="row">
       <div class="col">
@@ -153,99 +249,8 @@
       </mat-table>
     </div>
   </div>
-  <div class="col">
-    <div class="row">
-      <div class="col">
-        <h5>
-          <i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des loyers
-        </h5>
-      </div>
-    </div>
-    <hr style="margin-top: 0" />
-  </div>
-  <!-- LISTE DES APPELS PAR BIEN -->
-  <div>
-    <div class="mat-elevation-z8">
-      <div class="example-header">
-        <mat-form-field class="tail-50" style="margin-left: 12px;">
-          <mat-label>Rechercher</mat-label>
-          <input matInput (keyup)="applyFilterAppel($event)" #input placeholder="Rechercher un Appel" />
-        </mat-form-field>
-      </div>
-      <mat-paginator #paginator showFirstLastButtons [length]="100" [pageSizeOptions] ="pageSizeAppel" aria-label="Select page of users">
-      </mat-paginator>
-      <mat-table #tableAppel [dataSource]="dataSourceAppel" matSort>
-        <!-- Code colonne -->
-        <ng-container matColumnDef="idEncaiss">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
-            id
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            {{ row.id }}
-          </mat-cell>
-        </ng-container>
-        <!-- Dénomination colonne -->
 
-        <!-- Propriétaire colonne -->
-        <ng-container matColumnDef="Periode">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Période
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            {{ row.periodeAppelLoyer| date: "MMMM yyyy" }}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="Loyer">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Montant Loyer
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            {{ row.montantBailLPeriode }}</mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="solde">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Solde du Mois
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            {{ row.soldeAppelLoyer }}</mat-cell>
-        </ng-container>
-        <!-- Propriétaire colonne -->
-        <ng-container matColumnDef="Status">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Status
-          </mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            <span *ngIf="row.statusAppelLoyer=='Soldé'"
-              class="badge badge-success">{{row.statusAppelLoyer}}
-            </span>
-            <span *ngIf="row.statusAppelLoyer=='Impayé'"
-              class="badge badge-danger">{{row.statusAppelLoyer}}
-            </span>
-            <span *ngIf="row.statusAppelLoyer=='partiellement payé'"
-              class="badge badge-warning">{{row.statusAppelLoyer}}
-            </span>
 
-          </mat-cell>
-        </ng-container>
-        <!-- Actions colonne -->
-        <ng-container matColumnDef="Actions">
-          <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            <button mat-icon-button color="primary">
-              <mat-icon>print</mat-icon>
-            </button>
-          </mat-cell>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef="displayedColumnsAppel"> </mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumnsAppel"></mat-row>
-        <!-- Row shown when there is no matching data. -->
-        <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">
-            Aucune donnée enregistrée {{ input.value }}
-          </td>
-        </tr>
-      </mat-table>
-    </div>
-  </div>
   <div class="col">
     <div class="row">
       <div class="col">

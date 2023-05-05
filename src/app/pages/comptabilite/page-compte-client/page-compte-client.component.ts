@@ -1,6 +1,7 @@
 import {
   GetAllAppelLoyerByBailActions,
   GetAllSmsByLocataireActions,
+  SaveSupprimerActions as SaveSupprimerLoyerActions,
 } from './../../../ngrx/appelloyer/appelloyer.actions';
 import {
   AppelLoyerState,
@@ -159,8 +160,9 @@ export class PageCompteClientComponent implements OnInit {
         }
       });
   }
-  getAllAppelLoyerByBail(bien: any) {
-    this.store.dispatch(new GetAllAppelLoyerByBailActions(bien.idBail));
+  getAllAppelLoyerByBail(bien: any)
+  {
+   this.store.dispatch(new GetAllAppelLoyerByBailActions(bien.idBail));
     this.appelLoyerState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
     );
@@ -172,6 +174,27 @@ export class PageCompteClientComponent implements OnInit {
         this.dataSourceAppel.paginator = this.paginatorAppel;
       }
     });
+  }
+  supprimerUnLoyer(idAppel:any)
+  {
+
+   if (confirm("Vous allez annuler ce paiement  de façon irreversible")) {
+    this.store.dispatch(new SaveSupprimerLoyerActions({idPeriode:idAppel,idBail:this.locataire.idBail}));
+    this.appelLoyerState$ = this.store.pipe(
+      map((state) => state.appelLoyerState)
+    );
+    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
+      this.dataSourceAppel.data = [];
+      this.dataSourceAppel.paginator = null;
+      if (data.appelloyers.length > 0) {
+        this.dataSourceAppel.data = data.appelloyers;
+        this.dataSourceAppel.paginator = this.paginatorAppel;
+      }
+    });
+     this.getAllAppelLoyerByBail(this.locataire)
+     this.getAllEncaissementByBienImmobilier(this.locataire)
+   }
+
   }
   getAllSmsByLocataire(locatire: any)
   {

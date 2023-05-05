@@ -27,6 +27,7 @@ import { BailAppartementDto } from '../models/bail-appartement-dto';
 import { BailMagasinDto } from '../models/bail-magasin-dto';
 import { BailVillaDto } from '../models/bail-villa-dto';
 import { BienImmobilierAffiheDto } from '../models/bien-immobilier-affihe-dto';
+import { CategoryChambreSaveOrUpdateDto } from '../models/category-chambre-save-or-update-dto';
 import { CommuneRequestDto } from '../models/commune-request-dto';
 import { CommuneResponseDto } from '../models/commune-response-dto';
 import { DroitAccesDTO } from '../models/droit-acces-dto';
@@ -43,8 +44,12 @@ import { MagasinResponseDto } from '../models/magasin-response-dto';
 import { MagasinDto } from '../models/magasin-dto';
 import { MontantLoyerBailDto } from '../models/montant-loyer-bail-dto';
 import { PaysDto } from '../models/pays-dto';
+import { PrestationSaveOrUpdateDto } from '../models/prestation-save-or-update-dto';
 import { InputStreamResource } from '../models/input-stream-resource';
 import { QuartierRequestDto } from '../models/quartier-request-dto';
+import { ReservationSaveOrUpdateDto } from '../models/reservation-save-or-update-dto';
+import { ReservationAfficheDto } from '../models/reservation-affiche-dto';
+import { PrestationAdditionnelReservationSaveOrrUpdate } from '../models/prestation-additionnel-reservation-save-orr-update';
 import { SiteResponseDto } from '../models/site-response-dto';
 import { SiteRequestDto } from '../models/site-request-dto';
 import { SuivieDepenseDto } from '../models/suivie-depense-dto';
@@ -65,6 +70,7 @@ class ApiService extends __BaseService {
   static readonly authenticateAgencePath = 'gestimoweb/api/v1/agences/signup';
   static readonly findAllAppartementPath = 'gestimoweb/api/v1/appartement/all/{id}';
   static readonly findAllAppartementLibrePath = 'gestimoweb/api/v1/appartement/alllibre/{id}';
+  static readonly findAllAppartementMeublePath = 'gestimoweb/api/v1/appartement/allmeuble/{id}';
   static readonly deleteAppartementPath = 'gestimoweb/api/v1/appartement/delete/{id}';
   static readonly findByIDAppartementPath = 'gestimoweb/api/v1/appartement/findById/{id}';
   static readonly findByIdEtageAppartementPath = 'gestimoweb/api/v1/appartement/findByIdEtage/{id}';
@@ -92,6 +98,7 @@ class ApiService extends __BaseService {
   static readonly payeLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/payeParMois/{periode}/{idAgence}/{chapitre}';
   static readonly ReductionLoyerByPeriodePath = 'gestimoweb/api/v1/appelloyer/reductionLoyerByPeriode';
   static readonly saveAppelLoyersPath = 'gestimoweb/api/v1/appelloyer/save';
+  static readonly supprimerPaiementAppelPath = 'gestimoweb/api/v1/appelloyer/supprimerPaiementAppel/{idPeriode}/{idBail}';
   static readonly verifyAccountPath = 'gestimoweb/api/v1/auth/accountVerification/{token}';
   static readonly loginPath = 'gestimoweb/api/v1/auth/login';
   static readonly bailByLocataireEtBienPath = 'gestimoweb/api/v1/bail/bailLocataireetbien/{locataire}/{bien}';
@@ -122,8 +129,12 @@ class ApiService extends __BaseService {
   static readonly findAllBienPath = 'gestimoweb/api/v1/bienImmobilier/all/{idAgence}/{chapitre}';
   static readonly findAllBienOqpPath = 'gestimoweb/api/v1/bienImmobilier/allBienOccuper/{idAgence}/{chapitre}';
   static readonly rattacherUnBienAUnChapitrePath = 'gestimoweb/api/v1/bienImmobilier/rattacherUnBienAUnChapitre/{idBien}/{chapitre}';
+  static readonly findAllCategorieChambrePath = 'gestimoweb/api/v1/categoriechambre/all';
+  static readonly deleteCommunePath = 'gestimoweb/api/v1/categoriechambre/delete/{id}';
+  static readonly findCategorieChambreByIDPath = 'gestimoweb/api/v1/categoriechambre/findById/{id}';
+  static readonly saveorupdatePath = 'gestimoweb/api/v1/categoriechambre/saveorupdate';
   static readonly findAllCommunePath = 'gestimoweb/api/v1/commune/all';
-  static readonly deleteCommunePath = 'gestimoweb/api/v1/commune/delete/{id}';
+  static readonly deleteCommune_1Path = 'gestimoweb/api/v1/commune/delete/{id}';
   static readonly findCommuneByIDPath = 'gestimoweb/api/v1/commune/findById/{id}';
   static readonly findCommuneByIdPaysPath = 'gestimoweb/api/v1/commune/findByIdVille/{id}';
   static readonly findCommuneByNamePath = 'gestimoweb/api/v1/commune/findByName/{name}';
@@ -178,6 +189,10 @@ class ApiService extends __BaseService {
   static readonly findPaysByIDPath = 'gestimoweb/api/v1/pays/findById/{id}';
   static readonly findPaysByNamePath = 'gestimoweb/api/v1/pays/findByName/{name}';
   static readonly savePaysPath = 'gestimoweb/api/v1/pays/save';
+  static readonly findAllServiceAdditionnelPath = 'gestimoweb/api/v1/prestation/all';
+  static readonly deleteServiceAdditionnelPath = 'gestimoweb/api/v1/prestation/delete/{id}';
+  static readonly findServiceAdditionnelByIDPath = 'gestimoweb/api/v1/prestation/findById/{id}';
+  static readonly saveorupdate_1Path = 'gestimoweb/api/v1/prestation/saveorupdate';
   static readonly sampleQuitancePath = 'gestimoweb/api/v1/print/quittance/{id}';
   static readonly quittancePeriodePath = 'gestimoweb/api/v1/print/quittancegrouper/{periode}/{idAgence}/{proprio}';
   static readonly findAllQuartiersPath = 'gestimoweb/api/v1/quartier/all/{idAgence}';
@@ -186,6 +201,15 @@ class ApiService extends __BaseService {
   static readonly findAllQuartierByIdCommunePath = 'gestimoweb/api/v1/quartier/findByIdCommune/{id}';
   static readonly findByNameQuartierPath = 'gestimoweb/api/v1/quartier/findByName/{name}';
   static readonly saveQuartierPath = 'gestimoweb/api/v1/quartier/save';
+  static readonly findAllCategorieChambre_1Path = 'gestimoweb/api/v1/reservation/all';
+  static readonly deleteCommune_2Path = 'gestimoweb/api/v1/reservation/delete/{id}';
+  static readonly findCategorieChambreByID_1Path = 'gestimoweb/api/v1/reservation/findById/{id}';
+  static readonly saveorupdate_2Path = 'gestimoweb/api/v1/reservation/saveorupdate';
+  static readonly saveorupdategoodPath = 'gestimoweb/api/v1/reservation/saveorupdategood';
+  static readonly findAllServiceAdditionnel_1Path = 'gestimoweb/api/v1/serviceadditionnel/all';
+  static readonly deleteServiceAdditionnel_1Path = 'gestimoweb/api/v1/serviceadditionnel/delete/{id}';
+  static readonly findServiceAdditionnelByID_1Path = 'gestimoweb/api/v1/serviceadditionnel/findById/{id}';
+  static readonly saveorupdate_3Path = 'gestimoweb/api/v1/serviceadditionnel/saveorupdate';
   static readonly findAllSitesPath = 'gestimoweb/api/v1/sites/all/{idAgence}';
   static readonly deleteSitePath = 'gestimoweb/api/v1/sites/delete/{id}';
   static readonly findSiteByIDPath = 'gestimoweb/api/v1/sites/findById/{id}';
@@ -546,6 +570,42 @@ class ApiService extends __BaseService {
    */
   findAllAppartementLibre(id: number): __Observable<Array<AppartementDto>> {
     return this.findAllAppartementLibreResponse(id).pipe(
+      __map(_r => _r.body as Array<AppartementDto>)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findAllAppartementMeubleResponse(id: number): __Observable<__StrictHttpResponse<Array<AppartementDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appartement/allmeuble/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<AppartementDto>>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findAllAppartementMeuble(id: number): __Observable<Array<AppartementDto>> {
+    return this.findAllAppartementMeubleResponse(id).pipe(
       __map(_r => _r.body as Array<AppartementDto>)
     );
   }
@@ -1670,6 +1730,53 @@ class ApiService extends __BaseService {
   saveAppelLoyers(body?: AppelLoyerRequestDto): __Observable<Array<string>> {
     return this.saveAppelLoyersResponse(body).pipe(
       __map(_r => _r.body as Array<string>)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.SupprimerPaiementAppelParams` containing the following parameters:
+   *
+   * - `idPeriode`:
+   *
+   * - `idBail`:
+   *
+   * @return successful operation
+   */
+  supprimerPaiementAppelResponse(params: ApiService.SupprimerPaiementAppelParams): __Observable<__StrictHttpResponse<Array<AppelLoyersFactureDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/supprimerPaiementAppel/${params.idPeriode}/${params.idBail}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<AppelLoyersFactureDto>>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.SupprimerPaiementAppelParams` containing the following parameters:
+   *
+   * - `idPeriode`:
+   *
+   * - `idBail`:
+   *
+   * @return successful operation
+   */
+  supprimerPaiementAppel(params: ApiService.SupprimerPaiementAppelParams): __Observable<Array<AppelLoyersFactureDto>> {
+    return this.supprimerPaiementAppelResponse(params).pipe(
+      __map(_r => _r.body as Array<AppelLoyersFactureDto>)
     );
   }
 
@@ -2800,6 +2907,145 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
+  findAllCategorieChambreResponse(): __Observable<__StrictHttpResponse<Array<CategoryChambreSaveOrUpdateDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/categoriechambre/all`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<CategoryChambreSaveOrUpdateDto>>;
+      })
+    );
+  }
+  /**
+   * @return successful operation
+   */
+  findAllCategorieChambre(): __Observable<Array<CategoryChambreSaveOrUpdateDto>> {
+    return this.findAllCategorieChambreResponse().pipe(
+      __map(_r => _r.body as Array<CategoryChambreSaveOrUpdateDto>)
+    );
+  }
+
+  /**
+   * @param id undefined
+   */
+  deleteCommuneResponse(id: number): __Observable<__StrictHttpResponse<null>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'DELETE',
+      this.rootUrl + `gestimoweb/api/v1/categoriechambre/delete/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<null>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   */
+  deleteCommune(id: number): __Observable<null> {
+    return this.deleteCommuneResponse(id).pipe(
+      __map(_r => _r.body as null)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findCategorieChambreByIDResponse(id: number): __Observable<__StrictHttpResponse<CategoryChambreSaveOrUpdateDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/categoriechambre/findById/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<CategoryChambreSaveOrUpdateDto>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findCategorieChambreByID(id: number): __Observable<CategoryChambreSaveOrUpdateDto> {
+    return this.findCategorieChambreByIDResponse(id).pipe(
+      __map(_r => _r.body as CategoryChambreSaveOrUpdateDto)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveorupdateResponse(body?: CategoryChambreSaveOrUpdateDto): __Observable<__StrictHttpResponse<CategoryChambreSaveOrUpdateDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/categoriechambre/saveorupdate`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<CategoryChambreSaveOrUpdateDto>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveorupdate(body?: CategoryChambreSaveOrUpdateDto): __Observable<CategoryChambreSaveOrUpdateDto> {
+    return this.saveorupdateResponse(body).pipe(
+      __map(_r => _r.body as CategoryChambreSaveOrUpdateDto)
+    );
+  }
+
+  /**
+   * @return successful operation
+   */
   findAllCommuneResponse(): __Observable<__StrictHttpResponse<Array<CommuneRequestDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
@@ -2834,7 +3080,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  deleteCommuneResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
+  deleteCommune_1Response(id: number): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -2860,8 +3106,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  deleteCommune(id: number): __Observable<boolean> {
-    return this.deleteCommuneResponse(id).pipe(
+  deleteCommune_1(id: number): __Observable<boolean> {
+    return this.deleteCommune_1Response(id).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -4884,6 +5130,145 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @return successful operation
+   */
+  findAllServiceAdditionnelResponse(): __Observable<__StrictHttpResponse<Array<PrestationSaveOrUpdateDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/prestation/all`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<PrestationSaveOrUpdateDto>>;
+      })
+    );
+  }
+  /**
+   * @return successful operation
+   */
+  findAllServiceAdditionnel(): __Observable<Array<PrestationSaveOrUpdateDto>> {
+    return this.findAllServiceAdditionnelResponse().pipe(
+      __map(_r => _r.body as Array<PrestationSaveOrUpdateDto>)
+    );
+  }
+
+  /**
+   * @param id undefined
+   */
+  deleteServiceAdditionnelResponse(id: number): __Observable<__StrictHttpResponse<null>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'DELETE',
+      this.rootUrl + `gestimoweb/api/v1/prestation/delete/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<null>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   */
+  deleteServiceAdditionnel(id: number): __Observable<null> {
+    return this.deleteServiceAdditionnelResponse(id).pipe(
+      __map(_r => _r.body as null)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findServiceAdditionnelByIDResponse(id: number): __Observable<__StrictHttpResponse<PrestationSaveOrUpdateDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/prestation/findById/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<PrestationSaveOrUpdateDto>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findServiceAdditionnelByID(id: number): __Observable<PrestationSaveOrUpdateDto> {
+    return this.findServiceAdditionnelByIDResponse(id).pipe(
+      __map(_r => _r.body as PrestationSaveOrUpdateDto)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveorupdate_1Response(body?: PrestationSaveOrUpdateDto): __Observable<__StrictHttpResponse<PrestationSaveOrUpdateDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/prestation/saveorupdate`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<PrestationSaveOrUpdateDto>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveorupdate_1(body?: PrestationSaveOrUpdateDto): __Observable<PrestationSaveOrUpdateDto> {
+    return this.saveorupdate_1Response(body).pipe(
+      __map(_r => _r.body as PrestationSaveOrUpdateDto)
+    );
+  }
+
+  /**
    * @param id undefined
    * @return successful operation
    */
@@ -5184,6 +5569,320 @@ class ApiService extends __BaseService {
   saveQuartier(body?: QuartierRequestDto): __Observable<QuartierRequestDto> {
     return this.saveQuartierResponse(body).pipe(
       __map(_r => _r.body as QuartierRequestDto)
+    );
+  }
+
+  /**
+   * @return successful operation
+   */
+  findAllCategorieChambre_1Response(): __Observable<__StrictHttpResponse<Array<ReservationSaveOrUpdateDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/reservation/all`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<ReservationSaveOrUpdateDto>>;
+      })
+    );
+  }
+  /**
+   * @return successful operation
+   */
+  findAllCategorieChambre_1(): __Observable<Array<ReservationSaveOrUpdateDto>> {
+    return this.findAllCategorieChambre_1Response().pipe(
+      __map(_r => _r.body as Array<ReservationSaveOrUpdateDto>)
+    );
+  }
+
+  /**
+   * @param id undefined
+   */
+  deleteCommune_2Response(id: number): __Observable<__StrictHttpResponse<null>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'DELETE',
+      this.rootUrl + `gestimoweb/api/v1/reservation/delete/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<null>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   */
+  deleteCommune_2(id: number): __Observable<null> {
+    return this.deleteCommune_2Response(id).pipe(
+      __map(_r => _r.body as null)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findCategorieChambreByID_1Response(id: number): __Observable<__StrictHttpResponse<ReservationSaveOrUpdateDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/reservation/findById/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<ReservationSaveOrUpdateDto>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findCategorieChambreByID_1(id: number): __Observable<ReservationSaveOrUpdateDto> {
+    return this.findCategorieChambreByID_1Response(id).pipe(
+      __map(_r => _r.body as ReservationSaveOrUpdateDto)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveorupdate_2Response(body?: ReservationSaveOrUpdateDto): __Observable<__StrictHttpResponse<ReservationSaveOrUpdateDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/reservation/saveorupdate`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<ReservationSaveOrUpdateDto>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveorupdate_2(body?: ReservationSaveOrUpdateDto): __Observable<ReservationSaveOrUpdateDto> {
+    return this.saveorupdate_2Response(body).pipe(
+      __map(_r => _r.body as ReservationSaveOrUpdateDto)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveorupdategoodResponse(body?: ReservationSaveOrUpdateDto): __Observable<__StrictHttpResponse<ReservationAfficheDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/reservation/saveorupdategood`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<ReservationAfficheDto>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveorupdategood(body?: ReservationSaveOrUpdateDto): __Observable<ReservationAfficheDto> {
+    return this.saveorupdategoodResponse(body).pipe(
+      __map(_r => _r.body as ReservationAfficheDto)
+    );
+  }
+
+  /**
+   * @return successful operation
+   */
+  findAllServiceAdditionnel_1Response(): __Observable<__StrictHttpResponse<Array<PrestationAdditionnelReservationSaveOrrUpdate>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/serviceadditionnel/all`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<PrestationAdditionnelReservationSaveOrrUpdate>>;
+      })
+    );
+  }
+  /**
+   * @return successful operation
+   */
+  findAllServiceAdditionnel_1(): __Observable<Array<PrestationAdditionnelReservationSaveOrrUpdate>> {
+    return this.findAllServiceAdditionnel_1Response().pipe(
+      __map(_r => _r.body as Array<PrestationAdditionnelReservationSaveOrrUpdate>)
+    );
+  }
+
+  /**
+   * @param id undefined
+   */
+  deleteServiceAdditionnel_1Response(id: number): __Observable<__StrictHttpResponse<null>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'DELETE',
+      this.rootUrl + `gestimoweb/api/v1/serviceadditionnel/delete/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<null>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   */
+  deleteServiceAdditionnel_1(id: number): __Observable<null> {
+    return this.deleteServiceAdditionnel_1Response(id).pipe(
+      __map(_r => _r.body as null)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findServiceAdditionnelByID_1Response(id: number): __Observable<__StrictHttpResponse<PrestationAdditionnelReservationSaveOrrUpdate>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/serviceadditionnel/findById/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<PrestationAdditionnelReservationSaveOrrUpdate>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findServiceAdditionnelByID_1(id: number): __Observable<PrestationAdditionnelReservationSaveOrrUpdate> {
+    return this.findServiceAdditionnelByID_1Response(id).pipe(
+      __map(_r => _r.body as PrestationAdditionnelReservationSaveOrrUpdate)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveorupdate_3Response(body?: PrestationAdditionnelReservationSaveOrrUpdate): __Observable<__StrictHttpResponse<PrestationAdditionnelReservationSaveOrrUpdate>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/serviceadditionnel/saveorupdate`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<PrestationAdditionnelReservationSaveOrrUpdate>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveorupdate_3(body?: PrestationAdditionnelReservationSaveOrrUpdate): __Observable<PrestationAdditionnelReservationSaveOrrUpdate> {
+    return this.saveorupdate_3Response(body).pipe(
+      __map(_r => _r.body as PrestationAdditionnelReservationSaveOrrUpdate)
     );
   }
 
@@ -6428,6 +7127,14 @@ module ApiService {
     periode: string;
     idAgence: number;
     chapitre: number;
+  }
+
+  /**
+   * Parameters for supprimerPaiementAppel
+   */
+  export interface SupprimerPaiementAppelParams {
+    idPeriode: number;
+    idBail: number;
   }
 
   /**

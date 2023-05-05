@@ -14,6 +14,10 @@ export enum AppelLoyerctionsTypes {
   SAVE_REDUCTION_LOYER_SUCCES = '[AppelLoyer] SAVE REDUCTION Succes',
   SAVE_REDUCTION_LOYER_ERROR = '[AppelLoyer] SAVE REDUCTION Error',
 
+  SAVE_SUPPRIMER_LOYER = '[AppelLoyer] SAVE SUPPRIMER',
+  SAVE_SUPPRIMER_LOYER_SUCCES = '[AppelLoyer] SAVE SUPPRIMER Succes',
+  SAVE_SUPPRIMER_LOYER_ERROR = '[AppelLoyer] SAVE SUPPRIMER Error',
+
   GET_ALL_APPELLOYER_ANNEE = '[AppelLoyer] Get All AppelLoyer Année',
   GET_ALL_APPELLOYER_ANNEE_SUCCES = '[AppelLoyer] Get All AppelLoyer Années Succes',
   GET_ALL_APPELLOYER_ANNEE_ERROR = '[AppelLoyer] Get All AppelLoyer AnnéEtagesState Error',
@@ -184,6 +188,22 @@ export class SaveReductionActionsError implements Action {
     AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_ERROR;
   constructor(public payload: string) {}
 }
+// SAVE SUPPRIMER
+export class SaveSupprimerActions implements Action {
+  type: AppelLoyerctionsTypes = AppelLoyerctionsTypes.SAVE_SUPPRIMER_LOYER;
+  constructor(public payload: any) {}
+}
+
+export class SaveSupprimerActionsSuccess implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.SAVE_SUPPRIMER_LOYER_SUCCES;
+  constructor(public payload: AppelLoyersFactureDto[]) {}
+}
+export class SaveSupprimerActionsError implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.SAVE_SUPPRIMER_LOYER_ERROR;
+  constructor(public payload: string) {}
+}
 
 // GET ALL APPEL LOYER BY BIEN
 export class GetAllAppelLoyerByBailActions implements Action {
@@ -220,6 +240,9 @@ export class GetAllSmsByLocataireActionsError implements Action {
   constructor(public payload: string) {}
 }
 export type AppelLoyerActions =
+  | SaveSupprimerActions
+  | SaveSupprimerActionsError
+  |SaveReductionActionsSuccess
   | SaveReductionActions
   | SaveReductionActionsError
   | SaveReductionActionsSuccess
