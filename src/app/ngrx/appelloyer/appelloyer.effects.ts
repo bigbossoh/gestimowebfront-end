@@ -25,6 +25,8 @@ import {
   GetAllAppelLoyerByBailActionsError,
   GetAllSmsByLocataireActionsSuccess,
   GetAllSmsByLocataireActionsError,
+  SaveSupprimerActionsSuccess,
+  SaveSupprimerActionsError,
 } from './appelloyer.actions';
 import {
   AppelLoyerctionsTypes,
@@ -139,6 +141,35 @@ export class AppelLoyerEffects {
           );
         }
         if (resultat.type == AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_ERROR) {
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            'Une erreur a été rencontrée: ' + resultat.payload
+          );
+        }
+      })
+    )
+  );
+    // SAVE REDUCTION LOYER
+
+    saveSupprimerLoyerPeriodeEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(AppelLoyerctionsTypes.SAVE_SUPPRIMER_LOYER),
+      mergeMap((action: AppelLoyerActions) => {
+        return this.apiService.supprimerPaiementAppel(action.payload).pipe(
+          map((appelloyers) => new SaveSupprimerActionsSuccess(appelloyers)),
+          catchError((err) => of(new SaveSupprimerActionsError(err.message)))
+        );
+      }),
+      tap((resultat) => {
+        if (
+          resultat.type == AppelLoyerctionsTypes.SAVE_SUPPRIMER_LOYER_SUCCES
+        ) {
+          this.sendErrorNotification(
+            NotificationType.SUCCESS,
+            'Le Bail a été modifié avec succès.'
+          );
+        }
+        if (resultat.type == AppelLoyerctionsTypes.SAVE_SUPPRIMER_LOYER_ERROR) {
           this.sendErrorNotification(
             NotificationType.ERROR,
             'Une erreur a été rencontrée: ' + resultat.payload

@@ -166,7 +166,12 @@ export class PageStatistiqueJournalierComponent implements OnInit {
     this.user = this.userService.getUserFromLocalCache();
     this.store.dispatch(new GetAllAnneeActions(this.user!.idAgence));
     this.anneeState$ = this.store.pipe(map((state) => state.anneeState));
-
+    this.periode_model =
+    this.selectedDate.getFullYear() + '-' + this.selectedDate.getMonth();
+   if (this.selectedDate.getMonth()<10) {
+    this.periode_model =
+    this.selectedDate.getFullYear() + '-0' + this.selectedDate.getMonth();
+   }
     this.store.dispatch(new GetAllPeriodeActions(this.user!.idAgence));
     this.periodeState$ = this.store.pipe(map((state) => state.periodeState));
     //alert("1: " + this.selectedDate + " " + this.annee_model + " " + this.periode_model)

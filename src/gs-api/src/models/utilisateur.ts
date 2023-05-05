@@ -34,7 +34,7 @@ export interface Utilisateur {
   operationUser?: Array<Operation>;
   encaissementsUtilisateur?: Array<Encaissement>;
   biensUtilisateur?: Array<Bienimmobilier>;
+  active?: boolean;
   activated?: boolean;
   nonLocked?: boolean;
-  active?: boolean;
 }
