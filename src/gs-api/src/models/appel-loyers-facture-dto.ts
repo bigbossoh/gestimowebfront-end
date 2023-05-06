@@ -43,4 +43,5 @@ export interface AppelLoyersFactureDto {
   typePaiement?: string;
   solderAppelLoyer?: boolean;
   cloturer?: boolean;
+  unLock?: boolean;
 }

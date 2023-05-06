@@ -27,4 +27,5 @@ export interface AppelLoyer {
   encaissementsAppelLoyer?: Array<Encaissement>;
   solderAppelLoyer?: boolean;
   cloturer?: boolean;
+  unLock?: boolean;
 }

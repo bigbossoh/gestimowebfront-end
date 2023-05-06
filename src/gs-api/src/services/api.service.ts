@@ -78,7 +78,6 @@ class ApiService extends __BaseService {
   static readonly saveAppartementPath = 'gestimoweb/api/v1/appartement/save';
   static readonly deleteAppelDtoPath = 'gestimoweb/api/v1/appelloyer/clotureOfAppelDtoByID/{id}';
   static readonly AppelLoyersParPeriodePath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerByPeriode/{periode}/{idAgence}';
-  static readonly getFirstLoyerImpayerByBienPath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerBybien/{id}';
   static readonly listTousAppelsLoyersPath = 'gestimoweb/api/v1/appelloyer/findAllAppelsLoyer/{idAgence}';
   static readonly findAllPeriodePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeAppel/{idAgence}';
   static readonly findAllPeriodeByAnneePath = 'gestimoweb/api/v1/appelloyer/findAllPeriodeByAnnee/{annee}/{idAgence}';
@@ -87,6 +86,7 @@ class ApiService extends __BaseService {
   static readonly listDesLoyersParBailPath = 'gestimoweb/api/v1/appelloyer/findAppelsByIdBail/{idBail}';
   static readonly listDesLoyersImpayerParBailPath = 'gestimoweb/api/v1/appelloyer/findAppelsImpayerByIdBail/{id}';
   static readonly findByIdAndBailPath = 'gestimoweb/api/v1/appelloyer/findByIdAndBail/{idBien}/{periode}';
+  static readonly getFirstLoyerImpayerByBienPath = 'gestimoweb/api/v1/appelloyer/getFirstLoyerImpayerByBien/{id}';
   static readonly impayeLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/impayeParAnnee/{annee}/{idAgence}/{chapitre}';
   static readonly impayeLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/impayeParMois/{periode}/{idAgence}/{chapitre}';
   static readonly listMessageEnvoyerAUnLocatairePath = 'gestimoweb/api/v1/appelloyer/listMessageEnvoyerAUnLocataire/{login}';
@@ -874,42 +874,6 @@ class ApiService extends __BaseService {
   }
 
   /**
-   * @param id undefined
-   * @return successful operation
-   */
-  getFirstLoyerImpayerByBienResponse(id: number): __Observable<__StrictHttpResponse<AppelLoyersFactureDto>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-
-    let req = new HttpRequest<any>(
-      'GET',
-      this.rootUrl + `gestimoweb/api/v1/appelloyer/findAllAppelloyerBybien/${id}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<AppelLoyersFactureDto>;
-      })
-    );
-  }
-  /**
-   * @param id undefined
-   * @return successful operation
-   */
-  getFirstLoyerImpayerByBien(id: number): __Observable<AppelLoyersFactureDto> {
-    return this.getFirstLoyerImpayerByBienResponse(id).pipe(
-      __map(_r => _r.body as AppelLoyersFactureDto)
-    );
-  }
-
-  /**
    * @param idAgence undefined
    * @return successful operation
    */
@@ -1226,6 +1190,42 @@ class ApiService extends __BaseService {
    */
   findByIdAndBail(params: ApiService.FindByIdAndBailParams): __Observable<AppelLoyersFactureDto> {
     return this.findByIdAndBailResponse(params).pipe(
+      __map(_r => _r.body as AppelLoyersFactureDto)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  getFirstLoyerImpayerByBienResponse(id: number): __Observable<__StrictHttpResponse<AppelLoyersFactureDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/getFirstLoyerImpayerByBien/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<AppelLoyersFactureDto>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  getFirstLoyerImpayerByBien(id: number): __Observable<AppelLoyersFactureDto> {
+    return this.getFirstLoyerImpayerByBienResponse(id).pipe(
       __map(_r => _r.body as AppelLoyersFactureDto)
     );
   }
