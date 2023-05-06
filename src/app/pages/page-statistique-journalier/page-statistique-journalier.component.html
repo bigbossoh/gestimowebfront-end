@@ -127,7 +127,7 @@
       <mat-card-content>
         <ul class="police" *ngIf="v_impayer_annee + v_payer_annee != 0">
           <li>
-            Total des loyers impayés
+            Total loyers impayés
             <ng-container
               *ngIf="appelLoyerState$ | async as appelLoyerState"
               [ngSwitch]="appelLoyerState.dataState"
