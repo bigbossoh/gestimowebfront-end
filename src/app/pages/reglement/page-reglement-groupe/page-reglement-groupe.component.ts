@@ -94,7 +94,7 @@ export class PageReglementGroupeComponent implements OnInit {
       montantEncaissement: [0],
       intituleDepense: [''],
       entiteOperation: ['MAGISER'],
-      typePaiement:['ENCAISSEMENT_GROUPE']
+      typePaiement: ['ENCAISSEMENT_GROUPE'],
     });
     const periode_jour = formatDate(this.selectedDate, 'yyyy-MM', 'en');
     this.periode = periode_jour;
@@ -114,8 +114,7 @@ export class PageReglementGroupeComponent implements OnInit {
     );
     this.store
       .pipe(map((state) => state.encaissementState))
-      .subscribe((data) =>
-      {
+      .subscribe((data) => {
         this.nbreLoyerNonPayer = 0;
         this.dataSource.data = [];
         if (data.locatairesImpayer.length > 0) {
@@ -138,13 +137,14 @@ export class PageReglementGroupeComponent implements OnInit {
 
     this.store
       .pipe(map((state) => state.encaissementState))
-      .subscribe((data) =>
-      {
+      .subscribe((data) => {
         this.nbreLoyerNonPayer = 0;
-    this.dataSource.data = [];
+        this.dataSource.data = [];
         if (data.locatairesImpayer.length > 0) {
           this.nbreLoyerNonPayer = data.locatairesImpayer.length;
           this.dataSource.data = data.locatairesImpayer;
+          console.log('**** liste des paiements goupe ****');
+          console.log(data.locatairesImpayer);
         }
       });
   }
@@ -160,7 +160,7 @@ export class PageReglementGroupeComponent implements OnInit {
           montantEncaissement: [this.selection.selected[index].montantloyer],
           intituleDepense: [''],
           entiteOperation: ['MAGISER'],
-          typePaiement:['ENCAISSEMENT_GROUPE']
+          typePaiement: ['ENCAISSEMENT_GROUPE'],
         });
         this.store.dispatch(
           new SaveEncaissementActions(this.encaissementform?.value)

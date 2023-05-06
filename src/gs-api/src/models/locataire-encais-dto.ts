@@ -11,4 +11,5 @@ export interface LocataireEncaisDTO {
   prenom?: string;
   codeDescBail?: string;
   username?: string;
+  unlock?: boolean;
 }
