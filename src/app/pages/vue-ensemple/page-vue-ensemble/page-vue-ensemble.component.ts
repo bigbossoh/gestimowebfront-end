@@ -6,6 +6,12 @@ import { UserService } from '../../../services/user/user.service';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { ApiService } from 'src/gs-api/src/services';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { StatistiqueChartState } from 'src/app/ngrx/statistique-chart/statistiquechart.reducer';
+import { GetAllStatistiquePeriodeAction } from 'src/app/ngrx/statistique-chart/statistiquechart.action';
+import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-page-vue-ensemble',
@@ -67,7 +73,9 @@ chartType: ChartType = 'line';
   public lineChartPlugins = [];
 
 
-  constructor( private statistique: StatistiqueService, private userService:UserService, private apiService: ApiService) { }
+  chartState$:Observable<StatistiqueChartState> | null=null ;
+
+  constructor( private statistique: StatistiqueService, private userService:UserService, private apiService: ApiService, private store:Store<any>) { }
 
   ngOnInit(): void {
     this.getNombreBienImmobiliers(0)
@@ -80,12 +88,25 @@ chartType: ChartType = 'line';
 
     const startMonth = '2023-01';
     const endMonth = '2023-12';
-    
+
+    this.store.dispatch( new GetAllStatistiquePeriodeAction({idAgence:1,datedebut:'01-01-2023',datefin:'01-12-2023'}))
+    this.chartState$=this.store.pipe(map((state) =>
+    state.statistiqueChartState)
+    )
+    this.store.pipe(map((state) =>
+    state.statistiqueChartState)
+    ).subscribe((data)=>{
+
+        console.log("################################");
+      console.log(data.datachart);
+
+
+    })
   }
   private getIdAgence(): number{
     return this.userService.getUserFromLocalCache().idAgence!;
   }
-  
+
   public getNombreBienImmobiliers(chapitre:any){
     this.statistique.getAllBienImmobilier(chapitre).subscribe(
       (response)=>{

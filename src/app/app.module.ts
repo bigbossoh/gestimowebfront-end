@@ -156,6 +156,8 @@ import { PageReglementResidenceComponent } from './pages/residence/page-reglemen
 import { PageParametreResidenceComponent } from './pages/residence/page-parametre-residence/page-parametre-residence/page-parametre-residence.component';
 import { PageDisponibiliteResidenceComponent } from './pages/residence/page-disponibilite-appartement/page-disponibilite-residence/page-disponibilite-residence.component';
 import { PageClientResidenceComponent } from './pages/residence/page-client-residence/page-client-residence/page-client-residence.component';
+import { StatistiqueChartReducer } from './ngrx/statistique-chart/statistiquechart.reducer';
+import { StatistiqueChartEffect } from './ngrx/statistique-chart/statistiquechart.effects';
 
 @NgModule({
   declarations: [
@@ -290,6 +292,7 @@ import { PageClientResidenceComponent } from './pages/residence/page-client-resi
       periodeState: periodeReducer,
       imageState: imageReducer,
       suiviDepenseState: suiviDepenseReducer,
+      statistiqueChartState:StatistiqueChartReducer
     }),
     EffectsModule.forRoot([
       AnneeEffects,
@@ -318,6 +321,7 @@ import { PageClientResidenceComponent } from './pages/residence/page-client-resi
       Encaissementffects,
       ImageEffects,
       SuiviDepenseEffects,
+      StatistiqueChartEffect
     ]),
 
     StoreDevtoolsModule.instrument(),
