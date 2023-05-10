@@ -27,7 +27,7 @@ import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 })
 export class PageReglementGroupeComponent implements OnInit {
   periode: any = '2023-01';
-  selectedDate = new Date();
+  selectedDate : Date = new Date();
   toutSelectionner = true;
   date = new FormControl(new Date());
   encaissementform?: FormGroup;
@@ -98,22 +98,23 @@ export class PageReglementGroupeComponent implements OnInit {
       entiteOperation: ['MAGISER'],
       typePaiement: ['ENCAISSEMENT_GROUPE'],
     });
-    const periode_jour = formatDate(this.selectedDate, 'yyyy-MM', 'en');
-    this.periode = this.selectedDate.getFullYear() + '-' + this.selectedDate.getMonth();
-    if (this.selectedDate.getMonth()<=9)
+
+    this.periode = this.selectedDate.getFullYear() + '-' + this.selectedDate.getMonth()+1;
+    if (this.selectedDate.getMonth()+1<=9)
     {
-      this.periode = this.selectedDate.getFullYear() + '-0' + this.selectedDate.getMonth();
+      var mois=this.selectedDate.getMonth()+1
+      this.periode = this.selectedDate.getFullYear() + '-0' + mois;
     }
-    // this.getListeLocataireImpayer(this.periode);
-    // CHARGEMENT DES IMPAYES
     this.getListeLocataireImpayer(this.periode)
   }
+
   ngAfterViewInit(): void
   {
-    this.periode = this.selectedDate.getFullYear() + '-' + this.selectedDate.getMonth();
-    if (this.selectedDate.getMonth()<=9)
+    this.periode = this.selectedDate.getFullYear() + '-' + this.selectedDate.getMonth()+1;
+    if (this.selectedDate.getMonth()+1<=9)
     {
-      this.periode = this.selectedDate.getFullYear() + '-0' + this.selectedDate.getMonth();
+      var mois=this.selectedDate.getMonth()+1
+      this.periode = this.selectedDate.getFullYear() + '-0' + mois;
     }
 
      this.getListeLocataireImpayer(this.periode)
@@ -217,4 +218,8 @@ export class PageReglementGroupeComponent implements OnInit {
 export interface ModePaiement {
   id: number;
   paiement: string;
+}
+function getMonth(date:any) {
+  var month = date.getMonth() + 1;
+  return month < 10 ? '0' + month : '' + month; // ('' + month) for string result
 }
