@@ -737,6 +737,26 @@
         }
       }
     },
+    "gestimoweb/api/v1/appelloyer/miseAjourDesUnlockDesBaux/{idAgence}" : {
+      "get" : {
+        "operationId" : "impayeLoyerParMois",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/appelloyer/nombreImpayerLoyerParMois/{periode}/{idAgence}/{chapitre}" : {
       "get" : {
         "operationId" : "nombreImpayerLoyerParMois",
@@ -5552,15 +5572,15 @@
         "open" : {
           "type" : "boolean"
         },
+        "file" : {
+          "type" : "file"
+        },
         "readable" : {
           "type" : "boolean"
         },
         "url" : {
           "type" : "string",
           "format" : "url"
-        },
-        "file" : {
-          "type" : "file"
         },
         "uri" : {
           "type" : "string",
@@ -5611,6 +5631,10 @@
         },
         "username" : {
           "type" : "string"
+        },
+        "soldeAppelLoyer" : {
+          "type" : "number",
+          "format" : "double"
         },
         "unlock" : {
           "type" : "boolean"
@@ -5678,10 +5702,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -5731,10 +5755,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }

@@ -26,7 +26,9 @@ import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
   styleUrls: ['./page-reglement-groupe.component.css'],
 })
 export class PageReglementGroupeComponent implements OnInit {
-  periode = '2023-01';
+  periode: any = '2023-01';
+  selectedDate = new Date();
+  toutSelectionner = true;
   date = new FormControl(new Date());
   encaissementform?: FormGroup;
   saveEncaissementState$: Observable<EncaissementState> | null = null;
@@ -66,7 +68,7 @@ export class PageReglementGroupeComponent implements OnInit {
     }
     return "${this.selection.isSelected(row)?'deselect':'select'}";
   }
-  selectedDate = new Date();
+
   date_du_jour = formatDate(this.selectedDate, 'dd-MM-yyyy', 'en');
   public user?: UtilisateurRequestDto;
 
@@ -84,7 +86,7 @@ export class PageReglementGroupeComponent implements OnInit {
     this.user = this.userService.getUserFromLocalCache();
     this.store.dispatch(new GetAllPeriodeActions(this.user.idAgence));
     this.periodeState$ = this.store.pipe(map((state) => state.periodeState));
-
+    this.toutSelectionner = true;
     this.encaissementform = this.fb.group({
       idAgence: [this.user?.idAgence],
       idCreateur: [this.user?.id],
@@ -97,13 +99,24 @@ export class PageReglementGroupeComponent implements OnInit {
       typePaiement: ['ENCAISSEMENT_GROUPE'],
     });
     const periode_jour = formatDate(this.selectedDate, 'yyyy-MM', 'en');
-    this.periode = periode_jour;
+    this.periode = this.selectedDate.getFullYear() + '-' + this.selectedDate.getMonth();
+    if (this.selectedDate.getMonth()<=9)
+    {
+      this.periode = this.selectedDate.getFullYear() + '-0' + this.selectedDate.getMonth();
+    }
     // this.getListeLocataireImpayer(this.periode);
     // CHARGEMENT DES IMPAYES
+    this.getListeLocataireImpayer(this.periode)
   }
   ngAfterViewInit(): void
   {
-    this.getListeLocataireImpayer(this.periode)
+    this.periode = this.selectedDate.getFullYear() + '-' + this.selectedDate.getMonth();
+    if (this.selectedDate.getMonth()<=9)
+    {
+      this.periode = this.selectedDate.getFullYear() + '-0' + this.selectedDate.getMonth();
+    }
+
+     this.getListeLocataireImpayer(this.periode)
   }
   getListeLocataireImpayer(periode: any) {
     this.user = this.userService.getUserFromLocalCache();
@@ -125,10 +138,25 @@ export class PageReglementGroupeComponent implements OnInit {
         if (data.locatairesImpayer.length > 0) {
           this.nbreLoyerNonPayer = data.locatairesImpayer.length;
           this.dataSource.data = data.locatairesImpayer;
+          for (let index = 0; index < data.locatairesImpayer.length; index++) {
+            const element = data.locatairesImpayer[index];
+           if (data.locatairesImpayer[index].unlock == false) {
+            this.toutSelectionner = false;
+           }
+
+
+          }
+          console.log
+          (data.locatairesImpayer)
         }
       });
   }
-  paiementGroupe() {
+  paiementGroupe()
+  {
+    console.log("************ Nombre de selectionné ************");
+    console.log(this.selection.selected.length);
+    console.log("************ sélection ************");
+    console.log(this.selection);
     if (this.selection.selected.length > 0) {
       for (let index = 0; index < this.selection.selected.length; index++) {
         this.encaissementform = this.fb.group({
@@ -137,7 +165,7 @@ export class PageReglementGroupeComponent implements OnInit {
           idAppelLoyer: [this.selection.selected[index].idAppel],
           modePaiement: ['ESPESE_MAGISER'],
           operationType: ['CREDIT'],
-          montantEncaissement: [this.selection.selected[index].montantloyer],
+          montantEncaissement: [this.selection.selected[index].soldeAppelLoyer],
           intituleDepense: [''],
           entiteOperation: ['MAGISER'],
           typePaiement: ['ENCAISSEMENT_GROUPE'],
@@ -159,13 +187,15 @@ export class PageReglementGroupeComponent implements OnInit {
         );
       }
     }
-    this.ngAfterViewInit();
+
     const periode_jour = formatDate(
       this.periode,
       'MMMM-yyyy',
       'fr'
     ).toLocaleUpperCase();
     alert('Paiement groupé de la periode de ' + periode_jour + ' est terminé.');
+    //this.getListeLocataireImpayer(this.periode)
+    this.ngAfterViewInit();
   }
   getModePaiement(id: any, paiement: any) {
     if (this.tableauPaiement.length > 0) {

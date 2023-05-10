@@ -30,7 +30,12 @@ export class Encaissementffects {
   saveEncaissementEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(EncaissementActionsTypes.SAVE_ENCAISSEMENT),
-      mergeMap((action: EncaissementActions) => {
+      mergeMap((action: EncaissementActions) =>
+      {
+        console.log("**** payload encaissement ****");
+        console.log(action.payload);
+
+
         return this.apiService.saveEncaissementAvecretourDeListe(action.payload).pipe(
           map((quartier) => new SaveEncaissementActionsSuccess(quartier)),
           catchError((err) => of(new SaveEncaissementActionsError(err.message)))

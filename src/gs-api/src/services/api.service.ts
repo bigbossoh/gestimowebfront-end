@@ -92,6 +92,7 @@ class ApiService extends __BaseService {
   static readonly listMessageEnvoyerAUnLocatairePath = 'gestimoweb/api/v1/appelloyer/listMessageEnvoyerAUnLocataire/{login}';
   static readonly listOfDistinctAnneeAppelPath = 'gestimoweb/api/v1/appelloyer/listOfDistinctAnneeAppel/{idAgence}';
   static readonly listeDesloyerSuperieurAUnePeriodePath = 'gestimoweb/api/v1/appelloyer/listeDesloyerSuperieurAUnePeriode/{idBien}/{periode}';
+  static readonly impayeLoyerParMois_1Path = 'gestimoweb/api/v1/appelloyer/miseAjourDesUnlockDesBaux/{idAgence}';
   static readonly nombreImpayerLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/nombreImpayerLoyerParMois/{periode}/{idAgence}/{chapitre}';
   static readonly nombrePayerLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/nombrePayerLoyerParMois/{periode}/{idAgence}/{chapitre}';
   static readonly payeLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/payeParAnnee/{annee}/{idAgence}/{chapitre}';
@@ -1450,6 +1451,42 @@ class ApiService extends __BaseService {
   listeDesloyerSuperieurAUnePeriode(params: ApiService.ListeDesloyerSuperieurAUnePeriodeParams): __Observable<Array<AppelLoyersFactureDto>> {
     return this.listeDesloyerSuperieurAUnePeriodeResponse(params).pipe(
       __map(_r => _r.body as Array<AppelLoyersFactureDto>)
+    );
+  }
+
+  /**
+   * @param idAgence undefined
+   * @return successful operation
+   */
+  impayeLoyerParMois_1Response(idAgence: number): __Observable<__StrictHttpResponse<boolean>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/miseAjourDesUnlockDesBaux/${idAgence}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: (_r as HttpResponse<any>).body === 'true' }) as __StrictHttpResponse<boolean>
+      })
+    );
+  }
+  /**
+   * @param idAgence undefined
+   * @return successful operation
+   */
+  impayeLoyerParMois_1(idAgence: number): __Observable<boolean> {
+    return this.impayeLoyerParMois_1Response(idAgence).pipe(
+      __map(_r => _r.body as boolean)
     );
   }
 
