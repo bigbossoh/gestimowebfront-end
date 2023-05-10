@@ -45,12 +45,7 @@
           <div class="row mb-3">
             <div class="col-md-6">
               <mat-form-field>
-                <input
-                  matInput
-                  (keyup)="applyFilter($event)"
-                  #input
-                  placeholder="Rechercher un Bail"
-                />
+                <input matInput (keyup)="applyFilter($event)" #input placeholder="Rechercher un Bail" />
               </mat-form-field>
             </div>
           </div>
@@ -78,10 +73,11 @@
               [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()"></mat-checkbox>
           </th>
           <td mat-cell *matCellDef="let row">
-            <mat-checkbox *ngIf="row.unlock==true" (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-              [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+            <mat-checkbox *ngIf="row.unlock==true" (click)="$event.stopPropagation()"
+              (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)"
+              [aria-label]="checkboxLabel(row)">
             </mat-checkbox>
-            <span class="material-icons" *ngIf="row.unlock==false" >lock</span>
+            <span class="material-icons" *ngIf="row.unlock==false">lock</span>
           </td>
 
         </ng-container>
@@ -133,7 +129,8 @@
           <td mat-cell *matCellDef="let element">
             <mat-form-field appearance="outline">
               <mat-label>Mode de règlement*</mat-label>
-              <mat-select id="element.id" value="ESPESE_MAGISER" (selectionChange)="getModePaiement(element.idAppel,$event.value)">
+              <mat-select id="element.id" value="ESPESE_MAGISER"
+                (selectionChange)="getModePaiement(element.idAppel,$event.value)">
                 <mat-option value="ESPESE_MAGISER">Espèce</mat-option>
                 <mat-option value="MOBILE_MONEY_MAGISER">Money Electronique</mat-option>
                 <mat-option value="CHEQUE_ECOBANK_MAGISER">Chèque</mat-option>

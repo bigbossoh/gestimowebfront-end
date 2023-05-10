@@ -101,27 +101,9 @@ export class PageReglementGroupeComponent implements OnInit {
     // this.getListeLocataireImpayer(this.periode);
     // CHARGEMENT DES IMPAYES
   }
-  ngAfterViewInit(): void {
-    this.user = this.userService.getUserFromLocalCache();
-    this.store.dispatch(
-      new GetListImayerLocataireEncaissementPeriodeActions({
-        agence: this.user.idAgence,
-        periode: this.periode,
-      })
-    );
-    this.locataiireState$ = this.store.pipe(
-      map((state) => state.encaissementState)
-    );
-    this.store
-      .pipe(map((state) => state.encaissementState))
-      .subscribe((data) => {
-        this.nbreLoyerNonPayer = 0;
-        this.dataSource.data = [];
-        if (data.locatairesImpayer.length > 0) {
-          this.nbreLoyerNonPayer = data.locatairesImpayer.length;
-          this.dataSource.data = data.locatairesImpayer;
-        }
-      });
+  ngAfterViewInit(): void
+  {
+    this.getListeLocataireImpayer(this.periode)
   }
   getListeLocataireImpayer(periode: any) {
     this.user = this.userService.getUserFromLocalCache();
@@ -143,8 +125,6 @@ export class PageReglementGroupeComponent implements OnInit {
         if (data.locatairesImpayer.length > 0) {
           this.nbreLoyerNonPayer = data.locatairesImpayer.length;
           this.dataSource.data = data.locatairesImpayer;
-          console.log('**** liste des paiements goupe ****');
-          console.log(data.locatairesImpayer);
         }
       });
   }
