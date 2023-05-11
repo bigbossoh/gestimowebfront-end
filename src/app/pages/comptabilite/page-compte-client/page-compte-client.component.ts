@@ -121,11 +121,21 @@ export class PageCompteClientComponent implements OnInit {
           console.log(this.locataire);
         }
       });
+
   }
   ngAfterViewInit() {
-    this.dataSourceAppel.paginator = this.paginatorAppel;
-    this.dataSource.paginator = this.paginator;
-    this.dataSourceSms.paginator = this.paginatorSms;
+    //
+     alert("Annulation d'appel effectuée avec succès ")
+     this.getAllAppelLoyerByBail(this.locataire);
+     alert("Annulation de sms effectuées avec succès")
+     this.getAllSmsByLocataire(this.locataire)
+       alert("Annulation de l'encaissementl effectuée avec succès")
+     this.getAllEncaissementByBienImmobilier(this.locataire);
+
+    // this.dataSourceAppel.paginator = this.paginatorAppel;
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSourceSms.paginator = this.paginatorSms;
+
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -178,7 +188,7 @@ export class PageCompteClientComponent implements OnInit {
   supprimerUnLoyer(idAppel:any)
   {
 
-   if (confirm("Vous allez annuler ce paiement  de façon irreversible")) {
+   if (confirm("Vous allez annuler ce paiement de façon irreversible")) {
     this.store.dispatch(new SaveSupprimerLoyerActions({idPeriode:idAppel,idBail:this.locataire.idBail}));
     this.appelLoyerState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
@@ -191,8 +201,9 @@ export class PageCompteClientComponent implements OnInit {
         this.dataSourceAppel.paginator = this.paginatorAppel;
       }
     });
-     this.getAllAppelLoyerByBail(this.locataire)
-     this.getAllEncaissementByBienImmobilier(this.locataire)
+    //  this.getAllAppelLoyerByBail(this.locataire)
+    //  this.getAllEncaissementByBienImmobilier(this.locataire)
+     this.ngAfterViewInit();
    }
 
   }

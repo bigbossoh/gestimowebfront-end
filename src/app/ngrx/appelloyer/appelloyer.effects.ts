@@ -166,8 +166,9 @@ export class AppelLoyerEffects {
         ) {
           this.sendErrorNotification(
             NotificationType.SUCCESS,
-            'Le Bail a été modifié avec succès.'
+            "L'encaissement a été annulé avec succès."
           );
+          // alert("L'encaissement a été annulé avec succès.")
         }
         if (resultat.type == AppelLoyerctionsTypes.SAVE_SUPPRIMER_LOYER_ERROR) {
           this.sendErrorNotification(
