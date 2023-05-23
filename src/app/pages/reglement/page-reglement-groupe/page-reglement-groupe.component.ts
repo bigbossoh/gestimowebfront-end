@@ -27,7 +27,7 @@ import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 })
 export class PageReglementGroupeComponent implements OnInit {
   periode: any = '2023-01';
-  selectedDate : Date = new Date();
+  selectedDate: Date = new Date();
   toutSelectionner = true;
   date = new FormControl(new Date());
   encaissementform?: FormGroup;
@@ -99,25 +99,23 @@ export class PageReglementGroupeComponent implements OnInit {
       typePaiement: ['ENCAISSEMENT_GROUPE'],
     });
 
-    this.periode = this.selectedDate.getFullYear() + '-' + this.selectedDate.getMonth()+1;
-    if (this.selectedDate.getMonth()+1<=9)
-    {
-      var mois=this.selectedDate.getMonth()+1
+    this.periode =
+      this.selectedDate.getFullYear() + '-' + this.selectedDate.getMonth() + 1;
+    if (this.selectedDate.getMonth() + 1 <= 9) {
+      var mois = this.selectedDate.getMonth() + 1;
       this.periode = this.selectedDate.getFullYear() + '-0' + mois;
     }
-    this.getListeLocataireImpayer(this.periode)
+    this.getListeLocataireImpayer(this.periode);
   }
 
-  ngAfterViewInit(): void
-  {
-    this.periode = this.selectedDate.getFullYear() + '-' + this.selectedDate.getMonth()+1;
-    if (this.selectedDate.getMonth()+1<=9)
-    {
-      var mois=this.selectedDate.getMonth()+1
+  ngAfterViewInit(): void {
+    this.periode =
+      this.selectedDate.getFullYear() + '-' + this.selectedDate.getMonth() + 1;
+    if (this.selectedDate.getMonth() + 1 <= 9) {
+      var mois = this.selectedDate.getMonth() + 1;
       this.periode = this.selectedDate.getFullYear() + '-0' + mois;
     }
-
-     this.getListeLocataireImpayer(this.periode)
+    this.getListeLocataireImpayer(this.periode);
   }
   getListeLocataireImpayer(periode: any) {
     this.user = this.userService.getUserFromLocalCache();
@@ -141,107 +139,37 @@ export class PageReglementGroupeComponent implements OnInit {
           this.dataSource.data = data.locatairesImpayer;
           for (let index = 0; index < data.locatairesImpayer.length; index++) {
             const element = data.locatairesImpayer[index];
-           if (data.locatairesImpayer[index].unlock == false) {
-            this.toutSelectionner = false;
-           }
-
-
+            if (data.locatairesImpayer[index].unlock == false) {
+              this.toutSelectionner = false;
+            }
           }
-          console.log
-          (data.locatairesImpayer)
         }
       });
   }
-  paiementGroupe()
-  {
-    console.log("************ Nombre de selectionné ************");
-    console.log(this.selection.selected.length);
-    console.log("************ sélection ************");
-    console.log(this.selection);
+  paiementGrouper() {
     if (this.selection.selected.length > 0) {
-      for (let index = 0; index < this.selection.selected.length+1; index++) {
-        this.encaissementform = this.fb.group({
-          idAgence: [this.user?.idAgence],
-          idCreateur: [this.user?.id],
-
-          idAppelLoyer: [this.selection.selected[index].idAppel],
-          modePaiement: ['ESPESE_MAGISER'],
-          operationType: ['CREDIT'],
-          montantEncaissement: [this.selection.selected[index].soldeAppelLoyer],
-          intituleDepense: [''],
-          entiteOperation: ['MAGISER'],
-          typePaiement: ['ENCAISSEMENT_GROUPE'],
-        });
-        console.log(this.selection.selected[index].idAppel,this.encaissementform?.value)
-        this.store.dispatch(
-          new SaveEncaissementActions(this.encaissementform?.value)
-        );
-        console.log(this.selection.selected[index].idAppel)
-          console.log(this.encaissementform?.value)
+      for (let index = 0; index < this.selection.selected.length; index++) {
+        const payloadForm = {
+          idAgence: this.user?.idAgence,
+          idCreateur: this.user?.id,
+          idAppelLoyer: this.selection.selected[index].idAppel,
+          modePaiement: 'ESPESE_MAGISER',
+          operationType: 'CREDIT',
+          montantEncaissement: this.selection.selected[index].soldeAppelLoyer,
+          intituleDepense: '',
+          entiteOperation: 'MAGISER',
+          typePaiement: 'ENCAISSEMENT_GROUPE',
+        };
+        this.store.dispatch(new SaveEncaissementActions(payloadForm));
       }
-      this.store
-          .pipe(map((state) => state.encaissementState))
-          .subscribe((donnee) => {
-            this.nbreLoyerNonPayer = 0;
-            this.dataSource.data = [];
-            if (donnee.encaissements.length > 0) {
-              this.dataSource.data = donnee.encaissements;
-            }
-          });
-        this.saveEncaissementState$ = this.store.pipe(
-          map((state) => state.encaissementState)
-        );
+      this.saveEncaissementState$ = this.store.pipe(
+        map((state) => state.encaissementState)
+      );
     }
-
-    const periode_jour = formatDate(
-      this.periode,
-      'MMMM-yyyy',
-      'fr'
-    ).toLocaleUpperCase();
-    alert('Paiement groupé de la periode de ' + periode_jour + ' est terminé.');
-    //this.getListeLocataireImpayer(this.periode)
+    this.getListeLocataireImpayer(this.periode);
     this.ngAfterViewInit();
   }
-  // paiementGroupe() {
-  //   console.log("************ Nombre de sélectionnés ************");
-  //   console.log(this.selection.selected.length);
-  //   console.log("************ Sélection ************");
-  //   console.log(this.selection);
 
-  //   if (this.selection.selected.length > 0) {
-  //     this.selection.selected.forEach(item => {
-  //       const encaissementform = this.fb.group({
-  //         idAgence: [this.user?.idAgence],
-  //         idCreateur: [this.user?.id],
-  //         idAppelLoyer: [item.idAppel],
-  //         modePaiement: ['ESPESE_MAGISER'],
-  //         operationType: ['CREDIT'],
-  //         montantEncaissement: [item.soldeAppelLoyer],
-  //         intituleDepense: [''],
-  //         entiteOperation: ['MAGISER'],
-  //         typePaiement: ['ENCAISSEMENT_GROUPE'],
-  //       });
-
-  //       this.store.dispatch(new SaveEncaissementActions(encaissementform?.value));
-
-  //       this.store.select(state => state.encaissementState)
-  //         .subscribe(donnee => {
-  //           this.nbreLoyerNonPayer = 0;
-  //           this.dataSource.data = [];
-  //           if (donnee.encaissements.length > 0) {
-  //             this.dataSource.data = donnee.encaissements;
-  //           }
-  //         });
-  //     });
-  //   }
-
-  //   const periode_jour = formatDate(this.periode, 'MMMM-yyyy', 'fr').toLocaleUpperCase();
-  //   alert('Paiement groupé de la période de ' + periode_jour + ' est terminé.');
-
-  //   // Appeler les méthodes suivantes si nécessaire :
-  //   // this.getListeLocataireImpayer(this.periode);
-  //   // this.ngAfterViewInit();
-  // }
   getModePaiement(id: any, paiement: any) {
     if (this.tableauPaiement.length > 0) {
       var pushValue: ModePaiement = { id: id, paiement: paiement };
@@ -263,7 +191,7 @@ export interface ModePaiement {
   id: number;
   paiement: string;
 }
-function getMonth(date:any) {
+function getMonth(date: any) {
   var month = date.getMonth() + 1;
   return month < 10 ? '0' + month : '' + month; // ('' + month) for string result
 }

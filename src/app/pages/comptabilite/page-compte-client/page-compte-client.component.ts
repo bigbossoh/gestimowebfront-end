@@ -111,31 +111,27 @@ export class PageCompteClientComponent implements OnInit {
       .pipe(map((state) => state.utilisateurState))
       .subscribe((data) => {
         if (data.locataireBail.lenght > 0) {
-          console.log("voici la liste ",data.locataireBail);
-          data.locataireBail.sort((a: { codeDescBail
-            : string; }, b: { codeDescBail
-              : any; }) => a.codeDescBail
-              .localeCompare(b.codeDescBail
-                ));
+          console.log('voici la liste ', data.locataireBail);
+          data.locataireBail.sort(
+            (a: { codeDescBail: string }, b: { codeDescBail: any }) =>
+              a.codeDescBail.localeCompare(b.codeDescBail)
+          );
           this.locataire = data.locataireBail[0];
           console.log(this.locataire);
         }
       });
-
   }
   ngAfterViewInit() {
-    //
-     alert("Annulation d'appel effectuée avec succès ")
-     this.getAllAppelLoyerByBail(this.locataire);
-     alert("Annulation de sms effectuées avec succès")
-     this.getAllSmsByLocataire(this.locataire)
-       alert("Annulation de l'encaissementl effectuée avec succès")
-     this.getAllEncaissementByBienImmobilier(this.locataire);
 
+    if (this.locataire != undefined)
+    {
+    this.getAllAppelLoyerByBail(this.locataire);
+    this.getAllSmsByLocataire(this.locataire);
+    this.getAllEncaissementByBienImmobilier(this.locataire);
+    }
     // this.dataSourceAppel.paginator = this.paginatorAppel;
     // this.dataSource.paginator = this.paginator;
     // this.dataSourceSms.paginator = this.paginatorSms;
-
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -170,9 +166,8 @@ export class PageCompteClientComponent implements OnInit {
         }
       });
   }
-  getAllAppelLoyerByBail(bien: any)
-  {
-   this.store.dispatch(new GetAllAppelLoyerByBailActions(bien.idBail));
+  getAllAppelLoyerByBail(bien: any) {
+    this.store.dispatch(new GetAllAppelLoyerByBailActions(bien.idBail));
     this.appelLoyerState$ = this.store.pipe(
       map((state) => state.appelLoyerState)
     );
@@ -185,34 +180,36 @@ export class PageCompteClientComponent implements OnInit {
       }
     });
   }
-  supprimerUnLoyer(idAppel:any)
-  {
+  supprimerUnLoyer(idAppel: any) {
+    if (confirm('Vous allez annuler ce paiement de façon irreversible')) {
+      this.store.dispatch(
+        new SaveSupprimerLoyerActions({
+          idPeriode: idAppel,
+          idBail: this.locataire.idBail,
+        })
+      );
+      this.appelLoyerState$ = this.store.pipe(
+        map((state) => state.appelLoyerState)
+      );
+      this.store
+        .pipe(map((state) => state.appelLoyerState))
+        .subscribe((data) => {
+          this.dataSourceAppel.data = [];
+          this.dataSourceAppel.paginator = null;
+          if (data.appelloyers.length > 0) {
+            this.dataSourceAppel.data = data.appelloyers;
+            this.dataSourceAppel.paginator = this.paginatorAppel;
+          }
+        });
 
-   if (confirm("Vous allez annuler ce paiement de façon irreversible")) {
-    this.store.dispatch(new SaveSupprimerLoyerActions({idPeriode:idAppel,idBail:this.locataire.idBail}));
-    this.appelLoyerState$ = this.store.pipe(
-      map((state) => state.appelLoyerState)
-    );
-    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
-      this.dataSourceAppel.data = [];
-      this.dataSourceAppel.paginator = null;
-      if (data.appelloyers.length > 0) {
-        this.dataSourceAppel.data = data.appelloyers;
-        this.dataSourceAppel.paginator = this.paginatorAppel;
-      }
-    });
-    //  this.getAllAppelLoyerByBail(this.locataire)
-    //  this.getAllEncaissementByBienImmobilier(this.locataire)
-     this.ngAfterViewInit();
-   }
-
+        alert("Annulation d'appel effectuée avec succès ")
+    }
+    this.ngAfterViewInit();
   }
-  getAllSmsByLocataire(locatire: any)
-  {
+  getAllSmsByLocataire(locatire: any) {
     this.store.dispatch(new GetAllSmsByLocataireActions(locatire.username));
     this.smsState$ = this.store.pipe(map((state) => state.appelLoyerState));
     this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
-
       this.dataSourceSms.data = [];
       this.dataSourceSms.paginator = null;
 
@@ -222,7 +219,6 @@ export class PageCompteClientComponent implements OnInit {
         this.dataSourceSms.data = data.smss;
         this.dataSourceSms.paginator = this.paginatorSms;
       }
-
     });
   }
 }
