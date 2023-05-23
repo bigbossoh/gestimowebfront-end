@@ -31,7 +31,7 @@ export enum EncaissementActionsTypes {
 }
 export class SaveEncaissementActions implements Action {
   type: EncaissementActionsTypes = EncaissementActionsTypes.SAVE_ENCAISSEMENT;
-  constructor(public payload: EncaissementPayloadDto) {}
+  constructor(public payload: any) {}
 }
 
 export class SaveEncaissementActionsSuccess implements Action {
