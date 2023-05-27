@@ -222,7 +222,6 @@ export class PageStatistiqueJournalierComponent implements OnInit {
     this.store
       .pipe(map((state) => state.encaissementState))
       .subscribe((data) => {
-        console.log(data);
 
         this.v_encaissemnt = data.montantEncaisse;
       });

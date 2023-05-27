@@ -110,13 +110,21 @@ export class PageReglementGroupeComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.periode =
-      this.selectedDate.getFullYear() + '-' + this.selectedDate.getMonth() + 1;
-    if (this.selectedDate.getMonth() + 1 <= 9) {
-      var mois = this.selectedDate.getMonth() + 1;
-      this.periode = this.selectedDate.getFullYear() + '-0' + mois;
-    }
+    // this.periode =
+    //   this.selectedDate.getFullYear() + '-' + this.selectedDate.getMonth() + 1;
+    // if (this.selectedDate.getMonth() + 1 <= 9) {
+    //   var mois = this.selectedDate.getMonth() + 1;
+    //   this.periode = this.selectedDate.getFullYear() + '-0' + mois;
+    // }
+
     this.getListeLocataireImpayer(this.periode);
+    console.log("***** THE SELECTION IS *****");
+    console.log(this.selection.selected);
+    console.log(" THE SELECTION AFTER DELETE IS ");
+    if (this.selection.selected.length>0) {
+      this.selection.selected.splice(0,this.selection.selected.length)
+      console.log(this.selection.selected);
+    }
   }
   getListeLocataireImpayer(periode: any) {
     this.user = this.userService.getUserFromLocalCache();
@@ -138,18 +146,11 @@ export class PageReglementGroupeComponent implements OnInit {
         if (data.locatairesImpayer.length > 0) {
           this.nbreLoyerNonPayer = data.locatairesImpayer.length;
           this.dataSource.data = data.locatairesImpayer;
-          for (let index = 0; index < data.locatairesImpayer.length; index++) {
-            const element = data.locatairesImpayer[index];
-            if (data.locatairesImpayer[index].unlock == false) {
-              this.toutSelectionner = false;
-            }
-          }
         }
       });
   }
   paiementGrouper() {
     if (this.selection.selected.length > 0) {
-      console.log('*****************====AAAAAA====************************');
 
       for (let index = 0; index < this.selection.selected.length; index++) {
         const payloadForm = {
@@ -164,35 +165,20 @@ export class PageReglementGroupeComponent implements OnInit {
           typePaiement: 'ENCAISSEMENT_GROUPE',
         };
         this.store.dispatch(new SaveEncaissementGroupeActions(payloadForm));
+        this.locataiireState$ = this.store.pipe(
+          map((state) => state.encaissementState)
+        );
+
       }
-      this.locataiireState$ = this.store.pipe(
-        map((state) => state.encaissementState)
-      );
-      this.store
-      .pipe(map((state) => state.encaissementState))
-      .subscribe((data) => {
-        this.nbreLoyerNonPayer = 0;
-        this.dataSource.data = [];
 
-        if (data.locatairesImpayer.length > 0) {
-          console.log('*****************====SELECTION====************************');
-
-          // if (this.selection.selected.length=1) {
-          //   this.selection.selected.slice(0)
-          // }
-          // if (this.selection.selected.length>1) {
-          //   this.selection.selected.slice(0,this.selection.selected.length-1)
-          // }
-          console.log(this.selection.selected);
-          console.log('*****************==== SELECTION END ====************************');
-          this.nbreLoyerNonPayer = data.locatairesImpayer.length;
-          this.dataSource.data = data.locatairesImpayer;
-        }
-      });
-      console.log('*****************====BBBBB====************************');
     }
     //  this.getListeLocataireImpayer(this.periode);
     //this.ngAfterViewInit();
+    this.selection.deselect();
+    console.log("***** DESELECTION *****");
+console.log(this.selection.deselect());
+
+
   }
 
   getModePaiement(id: any, paiement: any) {
