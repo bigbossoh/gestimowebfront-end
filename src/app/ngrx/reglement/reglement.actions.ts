@@ -9,6 +9,10 @@ export enum EncaissementActionsTypes {
   SAVE_ENCAISSEMENT_SUCCES = '[EncaissementPayloadDto] Save Encaissement SUCCES',
   SAVE_ENCAISSEMENT_ERROR = '[EncaissementPayloadDto] Save Encaissement ERROR',
 
+  SAVE_ENCAISSEMENT_GROUPE = '[EncaissementPayloadDto] Save Encaissement GRPOUE',
+  SAVE_ENCAISSEMENT_GROUPE_SUCCES = '[EncaissementPayloadDto] Save Encaissement GROUPE SUCCES',
+  SAVE_ENCAISSEMENT_GROUPE_ERROR = '[EncaissementPayloadDto] Save Encaissement GROUPE ERROR',
+
   GET_ENCAISSEMENT_BY_BIEN = '[EncaissementPayloadDto] Get Encaissement By Bien',
   GET_ENCAISSEMENT_BY_BIEN_SUCCES = '[EncaissementPayloadDto] Get Encaissement By Bien SUCCES',
   GET_ENCAISSEMENT_BY_BIEN_ERROR = '[EncaissementPayloadDto] Get Encaissement By Bien ERROR',
@@ -42,6 +46,21 @@ export class SaveEncaissementActionsSuccess implements Action {
 export class SaveEncaissementActionsError implements Action {
   type: EncaissementActionsTypes =
     EncaissementActionsTypes.SAVE_ENCAISSEMENT_ERROR;
+  constructor(public payload: string) {}
+}
+export class SaveEncaissementGroupeActions implements Action {
+  type: EncaissementActionsTypes = EncaissementActionsTypes.SAVE_ENCAISSEMENT_GROUPE;
+  constructor(public payload: any) {}
+}
+
+export class SaveEncaissementGroupeActionsSuccess implements Action {
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.SAVE_ENCAISSEMENT_GROUPE_SUCCES;
+  constructor(public payload: any) {}
+}
+export class SaveEncaissementGroupeActionsError implements Action {
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.SAVE_ENCAISSEMENT_GROUPE_ERROR;
   constructor(public payload: string) {}
 }
 // GET ALL PERIODE BY BIEN
@@ -156,4 +175,7 @@ export type EncaissementActions =
   | GetLocataireEncaissementActionsSuccess
   | GetListImayerLocataireEncaissementPeriodeActions
   | GetListImayerLocataireEncaissementPeriodeActionsError
-  | GetListImayerLocataireEncaissementPeriodeActionsSuccess;
+  | GetListImayerLocataireEncaissementPeriodeActionsSuccess
+  |SaveEncaissementGroupeActions
+  |SaveEncaissementGroupeActionsSuccess
+  |SaveEncaissementGroupeActionsError;

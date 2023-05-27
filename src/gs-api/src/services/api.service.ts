@@ -154,6 +154,7 @@ class ApiService extends __BaseService {
   static readonly saveEncaissementPath = 'gestimoweb/api/v1/encaissement/saveencaissement';
   static readonly saveEncaissementAvecretourDeListePath = 'gestimoweb/api/v1/encaissement/saveencaissementavecretour';
   static readonly saveEncaissementMassePath = 'gestimoweb/api/v1/encaissement/saveencaissementmasse';
+  static readonly saveEncaissementMasseAvecretourDeListePath = 'gestimoweb/api/v1/encaissement/saveencaissementmasseavecretour';
   static readonly sommeEncaissementParAgenceEtParPeriodePath = 'gestimoweb/api/v1/encaissement/sommeEncaissementParAgenceEtParPeriode/{idAgence}/{datedebut}/{datefin}';
   static readonly totalencaissementParIdAppelLoyerPath = 'gestimoweb/api/v1/encaissement/totalencaissement/{id}';
   static readonly totalEncaissementParJourPath = 'gestimoweb/api/v1/encaissement/totalencaissementjournalier/{jour}/{idAgence}/{chapitre}';
@@ -3832,6 +3833,42 @@ class ApiService extends __BaseService {
   saveEncaissementMasse(body?: Array<EncaissementPayloadDto>): __Observable<boolean> {
     return this.saveEncaissementMasseResponse(body).pipe(
       __map(_r => _r.body as boolean)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveEncaissementMasseAvecretourDeListeResponse(body?: EncaissementPayloadDto): __Observable<__StrictHttpResponse<Array<LocataireEncaisDTO>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/encaissement/saveencaissementmasseavecretour`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<LocataireEncaisDTO>>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveEncaissementMasseAvecretourDeListe(body?: EncaissementPayloadDto): __Observable<Array<LocataireEncaisDTO>> {
+    return this.saveEncaissementMasseAvecretourDeListeResponse(body).pipe(
+      __map(_r => _r.body as Array<LocataireEncaisDTO>)
     );
   }
 

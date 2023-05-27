@@ -2,7 +2,7 @@
   "name": "gestimo-web-front",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
+    "ng": "nx",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -12,7 +12,8 @@
     "gs-api:create-dist": "mkdir -p tools/swagger/dist && mkdir -p tools/swagger/src",
     "gs-api:download": "cp /Users/miche/Documents/Projet\\ JEE/GestimoSpringBackend/target/GestimoSpringBackend-0.0.1-SNAPSHOT.jar ./tools/swagger/dist && cp /Users/miche/Documents/Projet\\ JEE/GestimoSpringBackend/target/swagger.json ./tools/swagger/src",
     "gs-api:extract": "node ./src/tools/swagger/src/swagger.json 0.0.1-SNAPSHOT",
-    "gs-api:swagger-gen": "ng-swagger-gen -i ./src/tools/swagger/src/swagger.json -o src/gs-api/src"
+    "gs-api:swagger-gen": "ng-swagger-gen -i ./src/tools/swagger/src/swagger.json -o src/gs-api/src",
+    "postinstall": "node ./decorate-angular-cli.js"
   },
   "private": true,
   "dependencies": {
@@ -32,6 +33,7 @@
     "@ngrx/effects": "^13.2.0",
     "@ngrx/store": "^13.2.0",
     "@ngrx/store-devtools": "^13.2.0",
+    "@nrwl/angular": "^14.8.8",
     "angular-notifier": "^11.0.0",
     "angular2-chartjs": "^0.5.1",
     "autoprefixer": "10.4.5",
@@ -58,6 +60,7 @@
     "@angular-devkit/build-angular": "^13.3.7",
     "@angular/cli": "~13.3.7",
     "@angular/compiler-cli": "~13.3.10",
+    "@nrwl/workspace": "^14.8.8",
     "@types/file-saver": "^2.0.5",
     "@types/jasmine": "~3.8.0",
     "@types/node": "^12.11.1",
@@ -70,6 +73,8 @@
     "mkdirp": "^1.0.4",
     "ng-packagr": "^13.3.1",
     "ng-swagger-gen": "^1.8.1",
+    "nx": "^14.8.8",
+    "nx-cloud": "14.7.0",
     "typescript": "~4.6.4"
   }
 }
