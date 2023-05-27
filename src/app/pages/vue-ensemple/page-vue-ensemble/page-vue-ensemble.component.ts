@@ -96,11 +96,6 @@ chartType: ChartType = 'line';
     this.store.pipe(map((state) =>
     state.statistiqueChartState)
     ).subscribe((data)=>{
-
-        console.log("################################");
-      console.log(data.datachart);
-
-
     })
   }
   private getIdAgence(): number{
