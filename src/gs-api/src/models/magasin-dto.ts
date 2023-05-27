@@ -16,6 +16,6 @@ export interface MagasinDto {
   idUtilisateur?: number;
   proprietaire?: string;
   idmmeuble?: number;
-  underBuildingMagasin?: boolean;
   occupied?: boolean;
+  underBuildingMagasin?: boolean;
 }

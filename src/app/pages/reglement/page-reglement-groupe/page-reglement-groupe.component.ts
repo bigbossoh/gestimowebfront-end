@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import {
   GetListImayerLocataireEncaissementPeriodeActions,
   SaveEncaissementActions,
+  SaveEncaissementGroupeActions,
 } from './../../../ngrx/reglement/reglement.actions';
 import { EncaissementState } from './../../../ngrx/reglement/reglement.reducer';
 import { PeriodeStateEnum } from 'src/app/ngrx/appelloyer/peiodeappel/periodeappel.reducer';
@@ -148,6 +149,8 @@ export class PageReglementGroupeComponent implements OnInit {
   }
   paiementGrouper() {
     if (this.selection.selected.length > 0) {
+      console.log('*****************====AAAAAA====************************');
+
       for (let index = 0; index < this.selection.selected.length; index++) {
         const payloadForm = {
           idAgence: this.user?.idAgence,
@@ -160,14 +163,36 @@ export class PageReglementGroupeComponent implements OnInit {
           entiteOperation: 'MAGISER',
           typePaiement: 'ENCAISSEMENT_GROUPE',
         };
-        this.store.dispatch(new SaveEncaissementActions(payloadForm));
+        this.store.dispatch(new SaveEncaissementGroupeActions(payloadForm));
       }
-      this.saveEncaissementState$ = this.store.pipe(
+      this.locataiireState$ = this.store.pipe(
         map((state) => state.encaissementState)
       );
+      this.store
+      .pipe(map((state) => state.encaissementState))
+      .subscribe((data) => {
+        this.nbreLoyerNonPayer = 0;
+        this.dataSource.data = [];
+
+        if (data.locatairesImpayer.length > 0) {
+          console.log('*****************====SELECTION====************************');
+
+          // if (this.selection.selected.length=1) {
+          //   this.selection.selected.slice(0)
+          // }
+          // if (this.selection.selected.length>1) {
+          //   this.selection.selected.slice(0,this.selection.selected.length-1)
+          // }
+          console.log(this.selection.selected);
+          console.log('*****************==== SELECTION END ====************************');
+          this.nbreLoyerNonPayer = data.locatairesImpayer.length;
+          this.dataSource.data = data.locatairesImpayer;
+        }
+      });
+      console.log('*****************====BBBBB====************************');
     }
-    this.getListeLocataireImpayer(this.periode);
-    this.ngAfterViewInit();
+    //  this.getListeLocataireImpayer(this.periode);
+    //this.ngAfterViewInit();
   }
 
   getModePaiement(id: any, paiement: any) {

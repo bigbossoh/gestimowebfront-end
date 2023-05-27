@@ -51,6 +51,22 @@ export function encaissementReducer(
         dataState: EncaissementStateEnum.ERROR,
         errorMessage: (<EncaissementActions>action).payload,
       };
+
+      //ENCAISSEMENT GROUPE
+      case EncaissementActionsTypes.SAVE_ENCAISSEMENT_GROUPE:
+        return { ...state, dataState: EncaissementStateEnum.LOADING };
+      case EncaissementActionsTypes.SAVE_ENCAISSEMENT_GROUPE_SUCCES:
+        return {
+          ...state,
+          dataState: EncaissementStateEnum.LOADED,
+          locatairesImpayer: (<EncaissementActions>action).payload,
+        };
+      case EncaissementActionsTypes.SAVE_ENCAISSEMENT_GROUPE_ERROR:
+        return {
+          ...state,
+          dataState: EncaissementStateEnum.ERROR,
+          errorMessage: (<EncaissementActions>action).payload,
+        };
     // TOTAL ENCAISSEMENT
     case EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR:
       return { ...state, dataState: EncaissementStateEnum.LOADING };

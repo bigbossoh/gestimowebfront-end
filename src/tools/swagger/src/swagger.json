@@ -2140,6 +2140,30 @@
         }
       }
     },
+    "gestimoweb/api/v1/encaissement/saveencaissementmasseavecretour" : {
+      "post" : {
+        "operationId" : "saveEncaissementMasseAvecretourDeListe",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/EncaissementPayloadDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/LocataireEncaisDTO"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/encaissement/sommeEncaissementParAgenceEtParPeriode/{idAgence}/{datedebut}/{datefin}" : {
       "get" : {
         "operationId" : "sommeEncaissementParAgenceEtParPeriode",
@@ -5702,10 +5726,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -5755,10 +5779,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -5900,15 +5924,15 @@
         "name" : {
           "type" : "string"
         },
-        "empty" : {
-          "type" : "boolean"
-        },
         "bytes" : {
           "type" : "array",
           "items" : {
             "type" : "string",
             "format" : "byte"
           }
+        },
+        "empty" : {
+          "type" : "boolean"
         },
         "size" : {
           "type" : "integer",
@@ -5917,10 +5941,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         }
       }

@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
@@ -14,11 +13,20 @@ import {
   GetAllPeriodeReglementByBienActionsError,
   GetLocataireEncaissementActionsSuccess,
   GetLocataireEncaissementActionsError,
+  SaveEncaissementGroupeActionsSuccess,
+  SaveEncaissementGroupeActionsError,
 } from './reglement.actions';
 import { NotificationType } from '../../enum/natification-type.enum';
 import { NotificationService } from '../../services/notification/notification.service';
 import { OperationActions } from '../baux/baux.actions';
-import { GetEncaissementBienActionsSuccess, GetEncaissementBienActionsError, TotalEncaissementParJourActionsSuccess, TotalEncaissementParJourActionsError, GetListImayerLocataireEncaissementPeriodeActionsSuccess, GetListImayerLocataireEncaissementPeriodeActionsError } from './reglement.actions';
+import {
+  GetEncaissementBienActionsSuccess,
+  GetEncaissementBienActionsError,
+  TotalEncaissementParJourActionsSuccess,
+  TotalEncaissementParJourActionsError,
+  GetListImayerLocataireEncaissementPeriodeActionsSuccess,
+  GetListImayerLocataireEncaissementPeriodeActionsError,
+} from './reglement.actions';
 
 @Injectable()
 export class Encaissementffects {
@@ -30,52 +38,81 @@ export class Encaissementffects {
   saveEncaissementEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(EncaissementActionsTypes.SAVE_ENCAISSEMENT),
-      mergeMap((action: EncaissementActions) =>
-      {
-        console.log("**** payload encaissement ****");
-        console.log(action.payload);
-
-
-        return this.apiService.saveEncaissementAvecretourDeListe(action.payload).pipe(
-          map((quartier) => new SaveEncaissementActionsSuccess(quartier)),
-          catchError((err) => of(new SaveEncaissementActionsError(err.message)))
-        );
+      mergeMap((action: EncaissementActions) => {
+        return this.apiService
+          .saveEncaissementAvecretourDeListe(action.payload)
+          .pipe(
+            map((quartier) => new SaveEncaissementActionsSuccess(quartier)),
+            catchError((err) =>
+              of(new SaveEncaissementActionsError(err.message))
+            )
+          );
       }),
       tap((resultat) => {
-        if (resultat.type == EncaissementActionsTypes.SAVE_ENCAISSEMENT_SUCCES) {
+        if (
+          resultat.type == EncaissementActionsTypes.SAVE_ENCAISSEMENT_SUCCES
+        ) {
           this.sendErrorNotification(
             NotificationType.SUCCESS,
             'Enregistrement éffectué avec succès !'
           );
-        } else {
+        }
+        if (
+          resultat.type == EncaissementActionsTypes.SAVE_ENCAISSEMENT_ERROR
+        )
+        {
+          this.sendErrorNotification(NotificationType.ERROR, resultat.payload);
+        }
+      })
+    )
+  );
+  saveEncaissementGroupeEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(EncaissementActionsTypes.SAVE_ENCAISSEMENT_GROUPE),
+      mergeMap((action: EncaissementActions) => {
+        console.log('**** payload encaissement groupe ****');
+        console.log(action.payload);
+        return this.apiService
+          .saveEncaissementMasseAvecretourDeListe(action.payload)
+          .pipe(
+            map((encaisse) => new SaveEncaissementGroupeActionsSuccess(encaisse)),
+            catchError((err) =>
+              of(new SaveEncaissementGroupeActionsError(err.message))
+            )
+          );
+      }),
+      tap((resultat) => {
+        if (
+          resultat.type == EncaissementActionsTypes.SAVE_ENCAISSEMENT_GROUPE_SUCCES
+        ) {
+          this.sendErrorNotification(
+            NotificationType.SUCCESS,
+            'Enregistrement éffectué avec succès !'
+          );
+        }
+        if (
+          resultat.type == EncaissementActionsTypes.SAVE_ENCAISSEMENT_GROUPE_ERROR
+        ){
           this.sendErrorNotification(NotificationType.ERROR, resultat.payload);
         }
       })
     )
   );
   totalEncaissementJournalierEffect: Observable<Action> = createEffect(() =>
-  this.effectActions.pipe(
-    ofType(EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR),
-    mergeMap((action: EncaissementActions) => {
-      return this.apiService.totalEncaissementParJour(action.payload).pipe(
-        map((encaiss) => new TotalEncaissementParJourActionsSuccess(encaiss)),
-        catchError((err) => of(new TotalEncaissementParJourActionsError(err.message)))
-      );
-    }),
-    // tap((resultat) => {
-    //   if (resultat.type == EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR_SUCCES) {
-    //     this.sendErrorNotification(
-    //       NotificationType.SUCCESS,
-    //       'Enregistrement éffectué avec succès !'
-    //     );
-    //   } else {
-    //     this.sendErrorNotification(NotificationType.ERROR, resultat.payload);
-    //   }
-    // })
-  )
+    this.effectActions.pipe(
+      ofType(EncaissementActionsTypes.TOTAL_ENCAISSEMENT_PAR_JOUR),
+      mergeMap((action: EncaissementActions) => {
+        return this.apiService.totalEncaissementParJour(action.payload).pipe(
+          map((encaiss) => new TotalEncaissementParJourActionsSuccess(encaiss)),
+          catchError((err) =>
+            of(new TotalEncaissementParJourActionsError(err.message))
+          )
+        );
+      })
+    )
   );
-    //LISTE DES LOCATAIRES BAILS
-    getAllLocatairesEncaissEffect: Observable<Action> = createEffect(() =>
+  //LISTE DES LOCATAIRES BAILS
+  getAllLocatairesEncaissEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT),
       mergeMap((action: EncaissementActions) => {
@@ -88,9 +125,8 @@ export class Encaissementffects {
           )
         );
       }),
-      tap((locataire) =>
-      {
-           if (
+      tap((locataire) => {
+        if (
           locataire.type ==
           EncaissementActionsTypes.GET_LOCATAIRE_ENCAISSEMENT_ERROR
         ) {
@@ -98,33 +134,41 @@ export class Encaissementffects {
         }
       })
     )
-    );
+  );
 
-      //LISTE DES LOCATAIRES IMPAYER
-      getAllLocatairesImpayerEncaissEffect: Observable<Action> = createEffect(() =>
-      this.effectActions.pipe(
-        ofType(EncaissementActionsTypes.GET_LISTE_LOCATAIRE_ENCAISSEMENT),
-        mergeMap((action: EncaissementActions) => {
-          return this.apiService.listeLocataireImpayerParAgenceEtPeriode(action.payload).pipe(
+  //LISTE DES LOCATAIRES IMPAYER
+  getAllLocatairesImpayerEncaissEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(EncaissementActionsTypes.GET_LISTE_LOCATAIRE_ENCAISSEMENT),
+      mergeMap((action: EncaissementActions) => {
+        return this.apiService
+          .listeLocataireImpayerParAgenceEtPeriode(action.payload)
+          .pipe(
             map(
-              (locatires) => new GetListImayerLocataireEncaissementPeriodeActionsSuccess(locatires)
+              (locatires) =>
+                new GetListImayerLocataireEncaissementPeriodeActionsSuccess(
+                  locatires
+                )
             ),
             catchError((err) =>
-              of(new GetListImayerLocataireEncaissementPeriodeActionsError(err.message))
+              of(
+                new GetListImayerLocataireEncaissementPeriodeActionsError(
+                  err.message
+                )
+              )
             )
           );
-        }),
-        tap((locataire) =>
-        {
-             if (
-            locataire.type ==
-            EncaissementActionsTypes.GET_LISTE_LOCATAIRE_ENCAISSEMENT_ERROR
-          ) {
-            this.sendErrorNotification(NotificationType.ERROR, locataire.payload);
-          }
-        })
-      )
-    );
+      }),
+      tap((locataire) => {
+        if (
+          locataire.type ==
+          EncaissementActionsTypes.GET_LISTE_LOCATAIRE_ENCAISSEMENT_ERROR
+        ) {
+          this.sendErrorNotification(NotificationType.ERROR, locataire.payload);
+        }
+      })
+    )
+  );
   getAllPeriodebyBienEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN),
@@ -141,40 +185,45 @@ export class Encaissementffects {
       }),
       tap((resultat) => {
         if (
-          resultat.type == EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN_ERROR
+          resultat.type ==
+          EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN_ERROR
         ) {
           this.sendErrorNotification(
             NotificationType.ERROR,
-            resultat.payload.toString()   );
+            resultat.payload.toString()
+          );
         }
       })
     )
   );
   getEncaissementbyBienEffect: Observable<Action> = createEffect(() =>
-  this.effectActions.pipe(
-    ofType(EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN),
-    mergeMap((action: OperationActions) => {
-      return this.apiService.findAllEncaissementByIdBienImmobilier(action.payload).pipe(
-        map(
-          (operations) =>
-            new GetEncaissementBienActionsSuccess(operations)
-        ),
-        catchError((err) =>
-          of(new GetEncaissementBienActionsError(err.message))
-        )
-      );
-    }),
-    tap((resultat) => {
-      if (
-        resultat.type == EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN_ERROR
-      ) {
-        this.sendErrorNotification(
-          NotificationType.ERROR,
-          resultat.payload.toString()   );
-      }
-    })
-  )
-);
+    this.effectActions.pipe(
+      ofType(EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN),
+      mergeMap((action: OperationActions) => {
+        return this.apiService
+          .findAllEncaissementByIdBienImmobilier(action.payload)
+          .pipe(
+            map(
+              (operations) => new GetEncaissementBienActionsSuccess(operations)
+            ),
+            catchError((err) =>
+              of(new GetEncaissementBienActionsError(err.message))
+            )
+          );
+      }),
+      tap((resultat) => {
+        if (
+          resultat.type ==
+          EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN_ERROR
+        ) {
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            resultat.payload.toString()
+          );
+        }
+      })
+    )
+  );
   private sendErrorNotification(
     notificationType: NotificationType,
     message: string
