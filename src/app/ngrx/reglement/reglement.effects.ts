@@ -70,8 +70,8 @@ export class Encaissementffects {
     this.effectActions.pipe(
       ofType(EncaissementActionsTypes.SAVE_ENCAISSEMENT_GROUPE),
       mergeMap((action: EncaissementActions) => {
-        console.log('**** payload encaissement groupe ****');
-        console.log(action.payload);
+        // console.log('**** payload encaissement groupe ****');
+        // console.log(action.payload);
         return this.apiService
           .saveEncaissementMasseAvecretourDeListe(action.payload)
           .pipe(
@@ -82,14 +82,14 @@ export class Encaissementffects {
           );
       }),
       tap((resultat) => {
-        if (
-          resultat.type == EncaissementActionsTypes.SAVE_ENCAISSEMENT_GROUPE_SUCCES
-        ) {
-          this.sendErrorNotification(
-            NotificationType.SUCCESS,
-            'Enregistrement éffectué avec succès !'
-          );
-        }
+        // if (
+        //   resultat.type == EncaissementActionsTypes.SAVE_ENCAISSEMENT_GROUPE_SUCCES
+        // ) {
+        //   this.sendErrorNotification(
+        //     NotificationType.SUCCESS,
+        //     'Enregistrement éffectué avec succès !'
+        //   );
+        // }
         if (
           resultat.type == EncaissementActionsTypes.SAVE_ENCAISSEMENT_GROUPE_ERROR
         ){

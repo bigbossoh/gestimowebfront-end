@@ -118,11 +118,11 @@ export class PageReglementGroupeComponent implements OnInit {
     // }
 
     this.getListeLocataireImpayer(this.periode);
-    console.log("***** THE SELECTION IS *****");
+    console.log('***** THE SELECTION IS *****');
     console.log(this.selection.selected);
-    console.log(" THE SELECTION AFTER DELETE IS ");
-    if (this.selection.selected.length>0) {
-      this.selection.selected.splice(0,this.selection.selected.length)
+    console.log(' THE SELECTION AFTER DELETE IS ');
+    if (this.selection.selected.length > 0) {
+      this.selection.selected.splice(0, this.selection.selected.length);
       console.log(this.selection.selected);
     }
   }
@@ -151,7 +151,6 @@ export class PageReglementGroupeComponent implements OnInit {
   }
   paiementGrouper() {
     if (this.selection.selected.length > 0) {
-
       for (let index = 0; index < this.selection.selected.length; index++) {
         const payloadForm = {
           idAgence: this.user?.idAgence,
@@ -168,17 +167,14 @@ export class PageReglementGroupeComponent implements OnInit {
         this.locataiireState$ = this.store.pipe(
           map((state) => state.encaissementState)
         );
-
       }
-
+      alert('Opération terminée avec succès. ');
     }
     //  this.getListeLocataireImpayer(this.periode);
     //this.ngAfterViewInit();
     this.selection.deselect();
-    console.log("***** DESELECTION *****");
-console.log(this.selection.deselect());
-
-
+    console.log('***** DESELECTION *****');
+    console.log(this.selection.deselect());
   }
 
   getModePaiement(id: any, paiement: any) {
