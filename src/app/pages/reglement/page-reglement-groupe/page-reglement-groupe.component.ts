@@ -41,7 +41,7 @@ export class PageReglementGroupeComponent implements OnInit {
     'bail',
     'loyer',
     'solde',
-    'montant_encaisser',
+    // 'montant_encaisser',
     'date_encaissement',
     'mode_reglement',
   ];
