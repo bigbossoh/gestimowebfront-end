@@ -168,6 +168,27 @@ export class AppelsLoyersComponent implements OnInit, AfterViewInit {
         console.log('La taille du fichier' + blob.size);
         saveAs(blob, 'appel_quittance_du_' + p + '.pdf');
       });
+
+      const pdfUrl = 'appel_quittance_du_' + p + '.pdf';
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = pdfUrl;
+      document.body.appendChild(iframe);
+      iframe.contentWindow?.print();
+  }
+  saveQuittance(p: string) {
+    this.user = this.userService.getUserFromLocalCache();
+
+    this.store.dispatch(new PrintQuittanceLoyerActions(p));
+    this.ptQuittance$ = this.store.pipe(
+      map((state) => state.quittanceAppelState)
+    );
+    this.printService
+      .printQuittanceByPeriode(p, 'Seve', this.user.idAgence)
+      .subscribe((blob) => {
+        console.log('La taille du fichier' + blob.size);
+        saveAs(blob, 'appel_quittance_du_' + p + '.pdf');
+      });
   }
   sendQuittanceGrouper(periode: string) {
     this.user = this.userService.getUserFromLocalCache();

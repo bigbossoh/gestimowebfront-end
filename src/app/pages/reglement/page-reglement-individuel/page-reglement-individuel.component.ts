@@ -89,7 +89,6 @@ export class PageReglementIndividuelComponent implements OnInit {
     this.getAllEncaissementByBienImmobilier(this.leLocataire);
   }
   ngOnInit(): void {
-    this.leLocataire = null;
     this.user = this.userService.getUserFromLocalCache();
 
     //RAMENER TOUS LES LOCATAIRES QUI ONT UN BAIL ACTIF
@@ -105,9 +104,9 @@ export class PageReglementIndividuelComponent implements OnInit {
           this.montant_Loyer = data.locataireBail[0].montantloyer;
         }
       },
-      () => {
-        this.leLocataire;
-      }
+      // () => {
+      //   this.leLocataire;
+      // }
     );
 
     this.encaissementform = this.fb.group({
@@ -144,12 +143,11 @@ export class PageReglementIndividuelComponent implements OnInit {
   }
   onSaveEncaissement() {
     this.submitted = false;
-    console.log('nouveau encaissement');
-    console.log(this.encaissementform);
-
-
     this.store.dispatch(
       new SaveEncaissementActions(this.encaissementform?.value)
+    );
+    this.saveEncaissementState$ = this.store.pipe(
+      map((state) => state.encaissementState)
     );
     this.store
       .pipe(map((state) => state.encaissementState))
@@ -161,9 +159,6 @@ export class PageReglementIndividuelComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
         }
       });
-    this.saveEncaissementState$ = this.store.pipe(
-      map((state) => state.encaissementState)
-    );
 
     this.store.dispatch(
       new GetEncaissementBienActions(this.leLocataire.idBien)

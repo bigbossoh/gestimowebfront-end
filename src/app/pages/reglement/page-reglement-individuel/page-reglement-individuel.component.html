@@ -39,9 +39,7 @@
               </mat-form-field>
             </div>
             <div class="col-md-6">
-
             </div>
-
             <ng-container *ngIf="locataireEncaissement$ | async as locataireBailState"
               [ngSwitch]="locataireBailState.dataState">
               <ng-container *ngSwitchCase="LocaEncaisseState.LOADED">
