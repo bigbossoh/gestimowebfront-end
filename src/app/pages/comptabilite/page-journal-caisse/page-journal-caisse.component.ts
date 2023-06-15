@@ -42,6 +42,9 @@ export class PageJournalCaisseComponent implements OnInit {
   suiviDepenseState$: Observable<SuiviDepenseState> | null = null;
   allSuiviDepenseState$: Observable<SuiviDepenseState> | null = null;
   formGroup?: FormGroup;
+  selectedDate = new Date();
+descdepense: any;
+montantencaisse: any;
   constructor(
     private store: Store<any>,
     private fb: FormBuilder,
@@ -54,7 +57,7 @@ export class PageJournalCaisseComponent implements OnInit {
       id: [0],
       idAgence: [this.user.idAgence],
       idCreateur: [this.user.id],
-      dateEncaissement: [formatDate(new Date(), 'yyyy-MM-dd', 'fr')],
+      dateEncaissement: [],
       designation: ['', Validators.required],
       codeTransaction: [''],
       montantDepense: [0],
@@ -77,6 +80,10 @@ export class PageJournalCaisseComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
         }
       });
+  }
+  ngAfterViewInit(): void {
+this.descdepense="";
+this.montantencaisse=0;
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -107,5 +114,6 @@ export class PageJournalCaisseComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
         }
       });
+      this.ngAfterViewInit();
   }
 }

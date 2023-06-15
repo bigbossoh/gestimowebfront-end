@@ -22,7 +22,7 @@
             <ng-container>
               <mat-form-field appearance="outline">
                 <label>Description de la dépense</label>
-                <textarea formControlName="designation" matInput></textarea>
+                <textarea formControlName="designation" matInput [(ngModel)]="descdepense"></textarea>
               </mat-form-field>
             </ng-container>
           </div>
@@ -45,18 +45,23 @@
                     Remboursement espèce
                   </option>
                 </select>
-                <!-- <mat-form-field appearance="outline">
-                  <mat-label>Type d'opérations*</mat-label>
-                  <mat-select formControlName="operationType" placeholder="Type d'operation"
-                    name="operationType">
+                <mat-form-field appearance="outline">
+                  <mat-label>Choisir une date</mat-label>
+                  <input
+                    [(ngModel)]="selectedDate"
+                    #refDate
+                    formControlName="dateEncaissement"
+                    matInput
+                    [matDatepicker]="picker"
+                    data-date-format="yyyy-mm-dd"
+                  />
 
-                    <mat-option value="DEBIT">Débit</mat-option>
-                    <mat-option value="REMOURSEMENT_CHEQUE">Remboursement de chèque</mat-option>
-                    <mat-option value="REMBOURSEMENT_ESPECE">Remboursement espèce</mat-option>
-
-                  </mat-select>
-                  <mat-error>Ce champ est obligatoire.</mat-error>
-                </mat-form-field> -->
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
               </ng-container>
             </ng-container>
           </div>
@@ -103,6 +108,7 @@
                     type="number"
                     matInput
                     placeholder="Montant encaissé"
+                    [(ngModel)]="montantencaisse"
                   />
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
