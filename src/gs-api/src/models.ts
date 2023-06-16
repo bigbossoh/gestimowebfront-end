@@ -29,6 +29,8 @@ export { EspeceEncaissementDto } from './models/espece-encaissement-dto';
 export { EtageAfficheDto } from './models/etage-affiche-dto';
 export { EtageDto } from './models/etage-dto';
 export { GroupeDroitDto } from './models/groupe-droit-dto';
+export { ImageData } from './models/image-data';
+export { ImageDataDto } from './models/image-data-dto';
 export { ImmeubleDto } from './models/immeuble-dto';
 export { ImmeubleEtageDto } from './models/immeuble-etage-dto';
 export { InputStream } from './models/input-stream';

@@ -32,6 +32,8 @@ import { GetAllBientaireByLocatairesActions } from 'src/app/ngrx/baux/baux.actio
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import * as saveAs from 'file-saver';
+import { PrintServiceService } from 'src/app/services/Print/print-service.service';
 
 @Component({
   selector: 'app-page-compte-client',
@@ -97,7 +99,8 @@ export class PageCompteClientComponent implements OnInit {
   readonly EncaissementStateEnum = EncaissementStateEnum;
 
   locataire: any;
-  constructor(private store: Store<any>, private userService: UserService) {}
+  constructor(private store: Store<any>, private userService: UserService,
+    private printService: PrintServiceService ) {}
 
   ngOnInit(): void {
     this.user = this.userService.getUserFromLocalCache();
@@ -129,9 +132,7 @@ export class PageCompteClientComponent implements OnInit {
     this.getAllSmsByLocataire(this.locataire);
     this.getAllEncaissementByBienImmobilier(this.locataire);
     }
-    // this.dataSourceAppel.paginator = this.paginatorAppel;
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSourceSms.paginator = this.paginatorSms;
+
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -220,5 +221,14 @@ export class PageCompteClientComponent implements OnInit {
         this.dataSourceSms.paginator = this.paginatorSms;
       }
     });
+  }
+  printRecu(p: any) {
+
+    this.printService
+      .printRecuEncaissement(p)
+      .subscribe((blob) => {
+        console.log('La taille du fichier' + blob.size);
+        saveAs(blob, 'appel_quittance_du_' + p + '.pdf');
+      });
   }
 }

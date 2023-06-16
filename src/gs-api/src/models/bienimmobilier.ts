@@ -1,6 +1,7 @@
 /* tslint:disable */
 import { Utilisateur } from './utilisateur';
 import { Chapitre } from './chapitre';
+import { ImageData } from './image-data';
 export interface Bienimmobilier {
   id?: number;
   idAgence?: number;
@@ -16,5 +17,6 @@ export interface Bienimmobilier {
   utilisateurProprietaire?: Utilisateur;
   nombrePieceBien?: number;
   chapitre?: Chapitre;
+  imageDatas?: Array<ImageData>;
   occupied?: boolean;
 }

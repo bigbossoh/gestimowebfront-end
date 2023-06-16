@@ -11,6 +11,8 @@ import {
   QuittanceAppelLoyerActions,
   PrintQuittanceLoyerActionsSuccess,
   PrintQuittanceLoyerActionsError,
+  PrintRecuLoyerActionsSuccess,
+  PrintRecuLoyerActionsError,
 } from './quittance-appel-loyer.action';
 import { map, mergeMap, catchError, tap } from 'rxjs/operators';
 import { PrintServiceService } from '../../../services/Print/print-service.service';
@@ -65,4 +67,44 @@ export class QuittanceAppelLoyerEffects {
       })
     )
   );
+  //IMPRIMER RECU
+  printRecuPaiementAppelLoyerEffect: Observable<Action> = createEffect(() =>
+  this.effectActions.pipe(
+    ofType(QuittanceAppelLoyerActionsType.PRINT_RECU),
+    mergeMap((action: QuittanceAppelLoyerActions) => {
+      this.user = this.userService.getUserFromLocalCache();
+      return this.apiService
+        .printRecuEncaissement(
+          action.payload
+        )
+        .pipe(
+          map(
+            (quittances) => new PrintRecuLoyerActionsSuccess(quittances)
+          ),
+          catchError((err) =>
+            of(new PrintRecuLoyerActionsError(err.message))
+          )
+        );
+    }),
+    tap((resultat) => {
+      console.log(
+        '***** Le resultat est du telechargement est le suivant : *********'
+      );
+      console.log(resultat);
+
+      if (
+        resultat.type == QuittanceAppelLoyerActionsType.PRINT_RECU_SUCCES
+      ) {
+        const fileURL = URL.createObjectURL(resultat.payload);
+        //saveAs(resultat.payload, 'appel_quittance.pdf');
+        //window.open(fileURL);
+      }
+      if (
+        resultat.type == QuittanceAppelLoyerActionsType.PRINT_RECU_ERROR
+      ) {
+        alert('Erreur lor du telechagement !' + resultat.payload);
+      }
+    })
+  )
+);
 }
