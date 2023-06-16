@@ -29,6 +29,20 @@ export function quittanceAppelReducer(
   action: Action
 ): QuittanceLoyerState {
   switch (action.type) {
+    case QuittanceAppelLoyerActionsType.PRINT_RECU:
+      return { ...state, dataState: QuittanceloyerStateEnum.Requested };
+    case QuittanceAppelLoyerActionsType.PRINT_RECU_SUCCES:
+      return {
+        ...state,
+        dataState: QuittanceloyerStateEnum.Started,
+        quittance: (<QuittanceAppelLoyerActions>action).payload,
+      };
+    case QuittanceAppelLoyerActionsType.PRINT_RECU_ERROR:
+      return {
+        ...state,
+        dataState: QuittanceloyerStateEnum.Failed,
+        quittance: (<QuittanceAppelLoyerActions>action).payload,
+      };
     case QuittanceAppelLoyerActionsType.PRINT_QUITTANCE:
       return { ...state, dataState: QuittanceloyerStateEnum.Requested };
     case QuittanceAppelLoyerActionsType.PRINT_QUITTANCE_SUCCES:

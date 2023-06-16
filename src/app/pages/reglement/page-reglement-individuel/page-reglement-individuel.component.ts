@@ -22,7 +22,11 @@ import {
   GetEncaissementBienActions,
   GetLocataireEncaissementActions,
 } from '../../../ngrx/reglement/reglement.actions';
-
+import { PrintQuittanceLoyerActions, PrintRecuLoyerActions } from 'src/app/ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.action';
+import { PrintServiceService } from 'src/app/services/Print/print-service.service';
+import { saveAs } from 'file-saver';
+import { QuittanceLoyerState } from 'src/app/ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.reducer';
+import { QuittanceloyerStateEnum } from '../../../ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.reducer';
 @Component({
   selector: 'app-page-reglement-individuel',
   templateUrl: './page-reglement-individuel.component.html',
@@ -65,12 +69,13 @@ export class PageReglementIndividuelComponent implements OnInit {
   readonly UtilisteurStateEnum = UtilisteurStateEnum;
   montant_Loyer: number = 0;
   idDeAppel: any;
-
+  printQuittance$: Observable<QuittanceLoyerState>  | null = null;
+  readonly QuittanceloyerStateEnum = QuittanceloyerStateEnum;
   constructor(
     private fb: FormBuilder,
     private store: Store<any>,
-    private userService: UserService
-  ) {}
+    private userService: UserService ,
+    private printService: PrintServiceService ) {}
   compareObjects(o1: any, o2: any): boolean {
     return o1 !== o2;
   }
@@ -104,9 +109,7 @@ export class PageReglementIndividuelComponent implements OnInit {
           this.montant_Loyer = data.locataireBail[0].montantloyer;
         }
       },
-      // () => {
-      //   this.leLocataire;
-      // }
+
     );
 
     this.encaissementform = this.fb.group({
@@ -214,6 +217,16 @@ export class PageReglementIndividuelComponent implements OnInit {
           this.dataSource.data = donnee.encaissements;
           this.dataSource.paginator = this.paginator;
         }
+      });
+  }
+
+  printRecu(p: any) {
+
+    this.printService
+      .printRecuEncaissement(p)
+      .subscribe((blob) => {
+        console.log('La taille du fichier' + blob.size);
+        saveAs(blob, 'appel_quittance_du_' + p + '.pdf');
       });
   }
 }

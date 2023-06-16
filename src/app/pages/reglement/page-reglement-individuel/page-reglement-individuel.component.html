@@ -231,8 +231,20 @@
                           Actions
                         </mat-header-cell>
                         <mat-cell *matCellDef="let row">
-                          <button mat-icon-button color="primary">
+                          <button mat-icon-button color="primary"
+                          (click)="printRecu(row.id)"
+                          >
                             <mat-icon>print</mat-icon>
+                            <ng-container
+                            *ngIf="printQuittance$ | async as qtState"
+                            [ngSwitch]="qtState.dataState"
+                          >
+                            <ng-container
+                              *ngSwitchCase="QuittanceloyerStateEnum.Requested"
+                            >
+                              <i class="fas fa-sync fa-spin"></i>
+                            </ng-container>
+                          </ng-container>
                           </button>
                         </mat-cell>
                       </ng-container>

@@ -10,6 +10,21 @@ import { Observable } from 'rxjs';
 })
 export class PrintServiceService {
   constructor(private http: HttpClient, private apiConfig: ApiConfiguration) {}
+  printRecuEncaissement(idEncaissement: any):Observable<Blob> {
+    console.log(
+      this.apiConfig.rootUrl +
+        'gestimoweb/api/v1/print/recupaiment/' +
+        idEncaissement
+    );
+    return this.http
+      .get(
+        this.apiConfig.rootUrl +
+          'gestimoweb/api/v1/print/recupaiment/' +
+          idEncaissement ,
+        { responseType: 'blob' }
+      )
+
+  }
   printQuittanceByPeriode(periode: string, proprio: string, idAgence: any):Observable<Blob> {
     console.log(
       this.apiConfig.rootUrl +
@@ -31,11 +46,7 @@ export class PrintServiceService {
           proprio,
         { responseType: 'blob' }
       )
-      // .pipe(
-      //   map((res) => {
-      //     return new Blob([res], { type: 'application/pdf' });
-      //   })
-      // );
+
   }
   savelogo(body: any) {
     // console.log('');
