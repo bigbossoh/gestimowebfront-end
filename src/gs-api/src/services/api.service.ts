@@ -18,6 +18,7 @@ import { AppelLoyerDto } from '../models/appel-loyer-dto';
 import { MessageEnvoyerDto } from '../models/message-envoyer-dto';
 import { PourcentageAppelDto } from '../models/pourcentage-appel-dto';
 import { AppelLoyerRequestDto } from '../models/appel-loyer-request-dto';
+import { StatistiquePeriodeDto } from '../models/statistique-periode-dto';
 import { Utilisateur } from '../models/utilisateur';
 import { AuthRequestDto } from '../models/auth-request-dto';
 import { LocataireEncaisDTO } from '../models/locataire-encais-dto';
@@ -38,6 +39,7 @@ import { EspeceEncaissementDto } from '../models/espece-encaissement-dto';
 import { EtageDto } from '../models/etage-dto';
 import { EtageAfficheDto } from '../models/etage-affiche-dto';
 import { GroupeDroitDto } from '../models/groupe-droit-dto';
+import { ImageDataDto } from '../models/image-data-dto';
 import { ImmeubleEtageDto } from '../models/immeuble-etage-dto';
 import { ImmeubleDto } from '../models/immeuble-dto';
 import { MagasinResponseDto } from '../models/magasin-response-dto';
@@ -65,8 +67,6 @@ class ApiService extends __BaseService {
   static readonly deleteAgenceByIdAgencePath = 'gestimoweb/api/v1/agences/deleteagence/{id}';
   static readonly getAgenceByEmailAgencePath = 'gestimoweb/api/v1/agences/getagencebyemail/{email}';
   static readonly getAgenceByIDAgencePath = 'gestimoweb/api/v1/agences/getagencebyid/{id}';
-  static readonly getlogoPath = 'gestimoweb/api/v1/agences/getlogo/{id}';
-  static readonly saveLogoPath = 'gestimoweb/api/v1/agences/savelogo';
   static readonly authenticateAgencePath = 'gestimoweb/api/v1/agences/signup';
   static readonly findAllAppartementPath = 'gestimoweb/api/v1/appartement/all/{id}';
   static readonly findAllAppartementLibrePath = 'gestimoweb/api/v1/appartement/alllibre/{id}';
@@ -88,17 +88,18 @@ class ApiService extends __BaseService {
   static readonly findByIdAndBailPath = 'gestimoweb/api/v1/appelloyer/findByIdAndBail/{idBien}/{periode}';
   static readonly getFirstLoyerImpayerByBienPath = 'gestimoweb/api/v1/appelloyer/getFirstLoyerImpayerByBien/{id}';
   static readonly impayeLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/impayeParAnnee/{annee}/{idAgence}/{chapitre}';
-  static readonly impayeLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/impayeParMois/{periode}/{idAgence}/{chapitre}';
+  static readonly impayeLoyerParMoisAppelLoyerPath = 'gestimoweb/api/v1/appelloyer/impayeParMois/{periode}/{idAgence}/{chapitre}';
   static readonly listMessageEnvoyerAUnLocatairePath = 'gestimoweb/api/v1/appelloyer/listMessageEnvoyerAUnLocataire/{login}';
   static readonly listOfDistinctAnneeAppelPath = 'gestimoweb/api/v1/appelloyer/listOfDistinctAnneeAppel/{idAgence}';
   static readonly listeDesloyerSuperieurAUnePeriodePath = 'gestimoweb/api/v1/appelloyer/listeDesloyerSuperieurAUnePeriode/{idBien}/{periode}';
-  static readonly impayeLoyerParMois_1Path = 'gestimoweb/api/v1/appelloyer/miseAjourDesUnlockDesBaux/{idAgence}';
+  static readonly miseAjourDesUnlockDesBauxPath = 'gestimoweb/api/v1/appelloyer/miseAjourDesUnlockDesBaux/{idAgence}';
   static readonly nombreImpayerLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/nombreImpayerLoyerParMois/{periode}/{idAgence}/{chapitre}';
   static readonly nombrePayerLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/nombrePayerLoyerParMois/{periode}/{idAgence}/{chapitre}';
   static readonly payeLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/payeParAnnee/{annee}/{idAgence}/{chapitre}';
   static readonly payeLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/payeParMois/{periode}/{idAgence}/{chapitre}';
   static readonly ReductionLoyerByPeriodePath = 'gestimoweb/api/v1/appelloyer/reductionLoyerByPeriode';
   static readonly saveAppelLoyersPath = 'gestimoweb/api/v1/appelloyer/save';
+  static readonly staisiqueLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/staisiqueLoyerParMois/{periode}/{idAgence}/{chapitre}';
   static readonly supprimerPaiementAppelPath = 'gestimoweb/api/v1/appelloyer/supprimerPaiementAppel/{idPeriode}/{idBail}';
   static readonly verifyAccountPath = 'gestimoweb/api/v1/auth/accountVerification/{token}';
   static readonly loginPath = 'gestimoweb/api/v1/auth/login';
@@ -131,19 +132,19 @@ class ApiService extends __BaseService {
   static readonly findAllBienOqpPath = 'gestimoweb/api/v1/bienImmobilier/allBienOccuper/{idAgence}/{chapitre}';
   static readonly rattacherUnBienAUnChapitrePath = 'gestimoweb/api/v1/bienImmobilier/rattacherUnBienAUnChapitre/{idBien}/{chapitre}';
   static readonly findAllCategorieChambrePath = 'gestimoweb/api/v1/categoriechambre/all';
-  static readonly deleteCommunePath = 'gestimoweb/api/v1/categoriechambre/delete/{id}';
+  static readonly deleteCategoryChambrePath = 'gestimoweb/api/v1/categoriechambre/delete/{id}';
   static readonly findCategorieChambreByIDPath = 'gestimoweb/api/v1/categoriechambre/findById/{id}';
-  static readonly saveorupdatePath = 'gestimoweb/api/v1/categoriechambre/saveorupdate';
+  static readonly saveorupdateCategoryChambrePath = 'gestimoweb/api/v1/categoriechambre/saveorupdate';
   static readonly findAllCommunePath = 'gestimoweb/api/v1/commune/all';
-  static readonly deleteCommune_1Path = 'gestimoweb/api/v1/commune/delete/{id}';
+  static readonly deleteCommunePath = 'gestimoweb/api/v1/commune/delete/{id}';
   static readonly findCommuneByIDPath = 'gestimoweb/api/v1/commune/findById/{id}';
   static readonly findCommuneByIdPaysPath = 'gestimoweb/api/v1/commune/findByIdVille/{id}';
   static readonly findCommuneByNamePath = 'gestimoweb/api/v1/commune/findByName/{name}';
   static readonly saveCommunePath = 'gestimoweb/api/v1/commune/save';
-  static readonly findAllPath = 'gestimoweb/api/v1/droitAccess/';
-  static readonly savePath = 'gestimoweb/api/v1/droitAccess/save';
-  static readonly findByIdPath = 'gestimoweb/api/v1/droitAccess/{droitAccessid}';
-  static readonly deletePath = 'gestimoweb/api/v1/droitAccess/{droitAccessid}';
+  static readonly findAllDroitAccessPath = 'gestimoweb/api/v1/droitAccess/';
+  static readonly saveDroitAccessPath = 'gestimoweb/api/v1/droitAccess/save';
+  static readonly findByIdDroitAccessPath = 'gestimoweb/api/v1/droitAccess/{droitAccessid}';
+  static readonly deleteDroitAccessPath = 'gestimoweb/api/v1/droitAccess/{droitAccessid}';
   static readonly findAllEncaissementByIdLocatirePath = 'gestimoweb/api/v1/encaissement/allEncaissementByIdLocatire/{idLocatire}';
   static readonly findAllEncaissementByIdBienImmobilierPath = 'gestimoweb/api/v1/encaissement/allencaissementByIdBien/{id}';
   static readonly listTousEncaissementsPrincipalPath = 'gestimoweb/api/v1/encaissement/findAllEncaissementPrincipal/{idAgence}';
@@ -167,10 +168,12 @@ class ApiService extends __BaseService {
   static readonly affichageDesEtageParImmeublePath = 'gestimoweb/api/v1/etage/findByIdImmeuble/{id}';
   static readonly findEtageByNamePath = 'gestimoweb/api/v1/etage/findByName/{name}';
   static readonly saveEtagePath = 'gestimoweb/api/v1/etage/save';
-  static readonly findAll_1Path = 'gestimoweb/api/v1/groupeDroit/';
-  static readonly save_1Path = 'gestimoweb/api/v1/groupeDroit/save';
-  static readonly findById_1Path = 'gestimoweb/api/v1/groupeDroit/{groupedroitid}';
-  static readonly delete_1Path = 'gestimoweb/api/v1/groupeDroit/{groupedroitid}';
+  static readonly findAllGroupeDroitPath = 'gestimoweb/api/v1/groupeDroit/';
+  static readonly saveGroupeDroitPath = 'gestimoweb/api/v1/groupeDroit/save';
+  static readonly findByIdGroupeDroitPath = 'gestimoweb/api/v1/groupeDroit/{groupedroitid}';
+  static readonly deleteGroupeDroitPath = 'gestimoweb/api/v1/groupeDroit/{groupedroitid}';
+  static readonly telechagerImagePath = 'gestimoweb/api/v1/image/imagesbybien/{id}';
+  static readonly uploadImagePath = 'gestimoweb/api/v1/image/upload/{id}/{name}/';
   static readonly affichageDesImmeublesPath = 'gestimoweb/api/v1/immeuble/affichetoutlesimmeubles/{idAgence}';
   static readonly findAllImmeublePath = 'gestimoweb/api/v1/immeuble/all/{idAgence}';
   static readonly deleteImmeublePath = 'gestimoweb/api/v1/immeuble/deleteImmeuble/{id}';
@@ -185,39 +188,39 @@ class ApiService extends __BaseService {
   static readonly findByNameMagasinDtoPath = 'gestimoweb/api/v1/magasin/findByName/{name}';
   static readonly findByIDMagasinPath = 'gestimoweb/api/v1/magasin/findmagasinById/{id}';
   static readonly saveMagasinReturnDtoPath = 'gestimoweb/api/v1/magasin/savemagasin';
-  static readonly findByIDQuartiersPath = 'gestimoweb/api/v1/montantloyerbail/findMontantByBail/{id}';
+  static readonly findByIDMontantLoyerBailPath = 'gestimoweb/api/v1/montantloyerbail/findMontantByBail/{id}';
   static readonly findAllPaysPath = 'gestimoweb/api/v1/pays/all';
   static readonly deletePaysPath = 'gestimoweb/api/v1/pays/delete/{id}';
   static readonly findPaysByIDPath = 'gestimoweb/api/v1/pays/findById/{id}';
   static readonly findPaysByNamePath = 'gestimoweb/api/v1/pays/findByName/{name}';
   static readonly savePaysPath = 'gestimoweb/api/v1/pays/save';
-  static readonly findAllServiceAdditionnelPath = 'gestimoweb/api/v1/prestation/all';
-  static readonly deleteServiceAdditionnelPath = 'gestimoweb/api/v1/prestation/delete/{id}';
-  static readonly findServiceAdditionnelByIDPath = 'gestimoweb/api/v1/prestation/findById/{id}';
-  static readonly saveorupdate_1Path = 'gestimoweb/api/v1/prestation/saveorupdate';
+  static readonly findAllServiceAdditionnelPrestationPath = 'gestimoweb/api/v1/prestation/all';
+  static readonly deleteServiceAdditionnelPrestationPath = 'gestimoweb/api/v1/prestation/delete/{id}';
+  static readonly findServiceAdditionnelByIDPrestationPath = 'gestimoweb/api/v1/prestation/findById/{id}';
+  static readonly saveorupdatePrestationPath = 'gestimoweb/api/v1/prestation/saveorupdate';
   static readonly sampleQuitancePath = 'gestimoweb/api/v1/print/quittance/{id}';
   static readonly quittancePeriodePath = 'gestimoweb/api/v1/print/quittancegrouper/{periode}/{idAgence}/{proprio}';
   static readonly recuPaimentPath = 'gestimoweb/api/v1/print/recupaiment/{idEncaissement}';
   static readonly findAllQuartiersPath = 'gestimoweb/api/v1/quartier/all/{idAgence}';
   static readonly deleteQuartierPath = 'gestimoweb/api/v1/quartier/delete/{id}';
-  static readonly findByIDQuartiers_1Path = 'gestimoweb/api/v1/quartier/findById/{id}';
+  static readonly findByIDQuartiersPath = 'gestimoweb/api/v1/quartier/findById/{id}';
   static readonly findAllQuartierByIdCommunePath = 'gestimoweb/api/v1/quartier/findByIdCommune/{id}';
   static readonly findByNameQuartierPath = 'gestimoweb/api/v1/quartier/findByName/{name}';
   static readonly saveQuartierPath = 'gestimoweb/api/v1/quartier/save';
-  static readonly findAllCategorieChambre_1Path = 'gestimoweb/api/v1/reservation/all';
-  static readonly deleteCommune_2Path = 'gestimoweb/api/v1/reservation/delete/{id}';
-  static readonly findCategorieChambreByID_1Path = 'gestimoweb/api/v1/reservation/findById/{id}';
-  static readonly saveorupdate_2Path = 'gestimoweb/api/v1/reservation/saveorupdate';
+  static readonly findAllCategorieChambreReservationPath = 'gestimoweb/api/v1/reservation/all';
+  static readonly deleteReservationPath = 'gestimoweb/api/v1/reservation/delete/{id}';
+  static readonly findCategorieChambreByIDReservationPath = 'gestimoweb/api/v1/reservation/findById/{id}';
+  static readonly saveorupdateReservationPath = 'gestimoweb/api/v1/reservation/saveorupdate';
   static readonly saveorupdategoodPath = 'gestimoweb/api/v1/reservation/saveorupdategood';
-  static readonly findAllServiceAdditionnel_1Path = 'gestimoweb/api/v1/serviceadditionnel/all';
-  static readonly deleteServiceAdditionnel_1Path = 'gestimoweb/api/v1/serviceadditionnel/delete/{id}';
-  static readonly findServiceAdditionnelByID_1Path = 'gestimoweb/api/v1/serviceadditionnel/findById/{id}';
-  static readonly saveorupdate_3Path = 'gestimoweb/api/v1/serviceadditionnel/saveorupdate';
+  static readonly findAllServiceAdditionnelPrestationAdditionnelPath = 'gestimoweb/api/v1/serviceadditionnel/all';
+  static readonly deleteServiceAdditionnelPrestationAdditionnelPath = 'gestimoweb/api/v1/serviceadditionnel/delete/{id}';
+  static readonly findServiceAdditionnelByIDPrestationAdditionnelPath = 'gestimoweb/api/v1/serviceadditionnel/findById/{id}';
+  static readonly saveorupdatePrestationAdditionnelPath = 'gestimoweb/api/v1/serviceadditionnel/saveorupdate';
   static readonly findAllSitesPath = 'gestimoweb/api/v1/sites/all/{idAgence}';
   static readonly deleteSitePath = 'gestimoweb/api/v1/sites/delete/{id}';
   static readonly findSiteByIDPath = 'gestimoweb/api/v1/sites/findById/{id}';
   static readonly findSiteByNamePath = 'gestimoweb/api/v1/sites/findByName/{name}';
-  static readonly save_2Path = 'gestimoweb/api/v1/sites/save';
+  static readonly saveSitesPath = 'gestimoweb/api/v1/sites/save';
   static readonly saveSitePath = 'gestimoweb/api/v1/sites/savesite';
   static readonly getAllEncaissementSuivieDepenseParAgencePath = 'gestimoweb/api/v1/suiviedepense/allSuivieDepense/{idAgence}';
   static readonly getSuivieDepenseByCodeTransactionPath = 'gestimoweb/api/v1/suiviedepense/getSuivieDepenseByCodeTransaction/{codeTransaction}';
@@ -394,78 +397,6 @@ class ApiService extends __BaseService {
   getAgenceByIDAgence(id: number): __Observable<AgenceResponseDto> {
     return this.getAgenceByIDAgenceResponse(id).pipe(
       __map(_r => _r.body as AgenceResponseDto)
-    );
-  }
-
-  /**
-   * @param id undefined
-   * @return successful operation
-   */
-  getlogoResponse(id: number): __Observable<__StrictHttpResponse<Array<string>>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-
-    let req = new HttpRequest<any>(
-      'GET',
-      this.rootUrl + `gestimoweb/api/v1/agences/getlogo/${id}`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<Array<string>>;
-      })
-    );
-  }
-  /**
-   * @param id undefined
-   * @return successful operation
-   */
-  getlogo(id: number): __Observable<Array<string>> {
-    return this.getlogoResponse(id).pipe(
-      __map(_r => _r.body as Array<string>)
-    );
-  }
-
-  /**
-   * @param body undefined
-   * @return successful operation
-   */
-  saveLogoResponse(body?: AgenceRequestDto): __Observable<__StrictHttpResponse<Array<string>>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-    __body = body;
-    let req = new HttpRequest<any>(
-      'POST',
-      this.rootUrl + `gestimoweb/api/v1/agences/savelogo`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<Array<string>>;
-      })
-    );
-  }
-  /**
-   * @param body undefined
-   * @return successful operation
-   */
-  saveLogo(body?: AgenceRequestDto): __Observable<Array<string>> {
-    return this.saveLogoResponse(body).pipe(
-      __map(_r => _r.body as Array<string>)
     );
   }
 
@@ -1286,7 +1217,7 @@ class ApiService extends __BaseService {
   }
 
   /**
-   * @param params The `ApiService.ImpayeLoyerParMoisParams` containing the following parameters:
+   * @param params The `ApiService.ImpayeLoyerParMoisAppelLoyerParams` containing the following parameters:
    *
    * - `periode`:
    *
@@ -1296,7 +1227,7 @@ class ApiService extends __BaseService {
    *
    * @return successful operation
    */
-  impayeLoyerParMoisResponse(params: ApiService.ImpayeLoyerParMoisParams): __Observable<__StrictHttpResponse<number>> {
+  impayeLoyerParMoisAppelLoyerResponse(params: ApiService.ImpayeLoyerParMoisAppelLoyerParams): __Observable<__StrictHttpResponse<number>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1321,7 +1252,7 @@ class ApiService extends __BaseService {
     );
   }
   /**
-   * @param params The `ApiService.ImpayeLoyerParMoisParams` containing the following parameters:
+   * @param params The `ApiService.ImpayeLoyerParMoisAppelLoyerParams` containing the following parameters:
    *
    * - `periode`:
    *
@@ -1331,8 +1262,8 @@ class ApiService extends __BaseService {
    *
    * @return successful operation
    */
-  impayeLoyerParMois(params: ApiService.ImpayeLoyerParMoisParams): __Observable<number> {
-    return this.impayeLoyerParMoisResponse(params).pipe(
+  impayeLoyerParMoisAppelLoyer(params: ApiService.ImpayeLoyerParMoisAppelLoyerParams): __Observable<number> {
+    return this.impayeLoyerParMoisAppelLoyerResponse(params).pipe(
       __map(_r => _r.body as number)
     );
   }
@@ -1460,7 +1391,7 @@ class ApiService extends __BaseService {
    * @param idAgence undefined
    * @return successful operation
    */
-  impayeLoyerParMois_1Response(idAgence: number): __Observable<__StrictHttpResponse<boolean>> {
+  miseAjourDesUnlockDesBauxResponse(idAgence: number): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -1486,8 +1417,8 @@ class ApiService extends __BaseService {
    * @param idAgence undefined
    * @return successful operation
    */
-  impayeLoyerParMois_1(idAgence: number): __Observable<boolean> {
-    return this.impayeLoyerParMois_1Response(idAgence).pipe(
+  miseAjourDesUnlockDesBaux(idAgence: number): __Observable<boolean> {
+    return this.miseAjourDesUnlockDesBauxResponse(idAgence).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -1769,6 +1700,58 @@ class ApiService extends __BaseService {
   saveAppelLoyers(body?: AppelLoyerRequestDto): __Observable<Array<string>> {
     return this.saveAppelLoyersResponse(body).pipe(
       __map(_r => _r.body as Array<string>)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.StaisiqueLoyerParMoisParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `idAgence`:
+   *
+   * - `chapitre`:
+   *
+   * @return successful operation
+   */
+  staisiqueLoyerParMoisResponse(params: ApiService.StaisiqueLoyerParMoisParams): __Observable<__StrictHttpResponse<StatistiquePeriodeDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/staisiqueLoyerParMois/${params.periode}/${params.idAgence}/${params.chapitre}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<StatistiquePeriodeDto>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.StaisiqueLoyerParMoisParams` containing the following parameters:
+   *
+   * - `periode`:
+   *
+   * - `idAgence`:
+   *
+   * - `chapitre`:
+   *
+   * @return successful operation
+   */
+  staisiqueLoyerParMois(params: ApiService.StaisiqueLoyerParMoisParams): __Observable<StatistiquePeriodeDto> {
+    return this.staisiqueLoyerParMoisResponse(params).pipe(
+      __map(_r => _r.body as StatistiquePeriodeDto)
     );
   }
 
@@ -2979,7 +2962,7 @@ class ApiService extends __BaseService {
   /**
    * @param id undefined
    */
-  deleteCommuneResponse(id: number): __Observable<__StrictHttpResponse<null>> {
+  deleteCategoryChambreResponse(id: number): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3004,8 +2987,8 @@ class ApiService extends __BaseService {
   /**
    * @param id undefined
    */
-  deleteCommune(id: number): __Observable<null> {
-    return this.deleteCommuneResponse(id).pipe(
+  deleteCategoryChambre(id: number): __Observable<null> {
+    return this.deleteCategoryChambreResponse(id).pipe(
       __map(_r => _r.body as null)
     );
   }
@@ -3050,7 +3033,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveorupdateResponse(body?: CategoryChambreSaveOrUpdateDto): __Observable<__StrictHttpResponse<CategoryChambreSaveOrUpdateDto>> {
+  saveorupdateCategoryChambreResponse(body?: CategoryChambreSaveOrUpdateDto): __Observable<__StrictHttpResponse<CategoryChambreSaveOrUpdateDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3076,8 +3059,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveorupdate(body?: CategoryChambreSaveOrUpdateDto): __Observable<CategoryChambreSaveOrUpdateDto> {
-    return this.saveorupdateResponse(body).pipe(
+  saveorupdateCategoryChambre(body?: CategoryChambreSaveOrUpdateDto): __Observable<CategoryChambreSaveOrUpdateDto> {
+    return this.saveorupdateCategoryChambreResponse(body).pipe(
       __map(_r => _r.body as CategoryChambreSaveOrUpdateDto)
     );
   }
@@ -3119,7 +3102,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  deleteCommune_1Response(id: number): __Observable<__StrictHttpResponse<boolean>> {
+  deleteCommuneResponse(id: number): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3145,8 +3128,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  deleteCommune_1(id: number): __Observable<boolean> {
-    return this.deleteCommune_1Response(id).pipe(
+  deleteCommune(id: number): __Observable<boolean> {
+    return this.deleteCommuneResponse(id).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -3298,7 +3281,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAllResponse(): __Observable<__StrictHttpResponse<Array<DroitAccesDTO>>> {
+  findAllDroitAccessResponse(): __Observable<__StrictHttpResponse<Array<DroitAccesDTO>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3322,8 +3305,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll(): __Observable<Array<DroitAccesDTO>> {
-    return this.findAllResponse().pipe(
+  findAllDroitAccess(): __Observable<Array<DroitAccesDTO>> {
+    return this.findAllDroitAccessResponse().pipe(
       __map(_r => _r.body as Array<DroitAccesDTO>)
     );
   }
@@ -3332,7 +3315,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveResponse(body?: DroitAccesPayloadDTO): __Observable<__StrictHttpResponse<number>> {
+  saveDroitAccessResponse(body?: DroitAccesPayloadDTO): __Observable<__StrictHttpResponse<number>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3358,8 +3341,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save(body?: DroitAccesPayloadDTO): __Observable<number> {
-    return this.saveResponse(body).pipe(
+  saveDroitAccess(body?: DroitAccesPayloadDTO): __Observable<number> {
+    return this.saveDroitAccessResponse(body).pipe(
       __map(_r => _r.body as number)
     );
   }
@@ -3368,7 +3351,7 @@ class ApiService extends __BaseService {
    * @param droitAccessid undefined
    * @return successful operation
    */
-  findByIdResponse(droitAccessid: number): __Observable<__StrictHttpResponse<DroitAccesDTO>> {
+  findByIdDroitAccessResponse(droitAccessid: number): __Observable<__StrictHttpResponse<DroitAccesDTO>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3394,8 +3377,8 @@ class ApiService extends __BaseService {
    * @param droitAccessid undefined
    * @return successful operation
    */
-  findById(droitAccessid: number): __Observable<DroitAccesDTO> {
-    return this.findByIdResponse(droitAccessid).pipe(
+  findByIdDroitAccess(droitAccessid: number): __Observable<DroitAccesDTO> {
+    return this.findByIdDroitAccessResponse(droitAccessid).pipe(
       __map(_r => _r.body as DroitAccesDTO)
     );
   }
@@ -3403,7 +3386,7 @@ class ApiService extends __BaseService {
   /**
    * @param droitAccessid undefined
    */
-  deleteResponse(droitAccessid: number): __Observable<__StrictHttpResponse<null>> {
+  deleteDroitAccessResponse(droitAccessid: number): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -3428,8 +3411,8 @@ class ApiService extends __BaseService {
   /**
    * @param droitAccessid undefined
    */
-  delete(droitAccessid: number): __Observable<null> {
-    return this.deleteResponse(droitAccessid).pipe(
+  deleteDroitAccess(droitAccessid: number): __Observable<null> {
+    return this.deleteDroitAccessResponse(droitAccessid).pipe(
       __map(_r => _r.body as null)
     );
   }
@@ -4351,7 +4334,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_1Response(): __Observable<__StrictHttpResponse<Array<GroupeDroitDto>>> {
+  findAllGroupeDroitResponse(): __Observable<__StrictHttpResponse<Array<GroupeDroitDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -4375,8 +4358,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAll_1(): __Observable<Array<GroupeDroitDto>> {
-    return this.findAll_1Response().pipe(
+  findAllGroupeDroit(): __Observable<Array<GroupeDroitDto>> {
+    return this.findAllGroupeDroitResponse().pipe(
       __map(_r => _r.body as Array<GroupeDroitDto>)
     );
   }
@@ -4385,7 +4368,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_1Response(body?: GroupeDroitDto): __Observable<__StrictHttpResponse<number>> {
+  saveGroupeDroitResponse(body?: GroupeDroitDto): __Observable<__StrictHttpResponse<number>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -4411,8 +4394,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_1(body?: GroupeDroitDto): __Observable<number> {
-    return this.save_1Response(body).pipe(
+  saveGroupeDroit(body?: GroupeDroitDto): __Observable<number> {
+    return this.saveGroupeDroitResponse(body).pipe(
       __map(_r => _r.body as number)
     );
   }
@@ -4421,7 +4404,7 @@ class ApiService extends __BaseService {
    * @param groupedroitid undefined
    * @return successful operation
    */
-  findById_1Response(groupedroitid: number): __Observable<__StrictHttpResponse<GroupeDroitDto>> {
+  findByIdGroupeDroitResponse(groupedroitid: number): __Observable<__StrictHttpResponse<GroupeDroitDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -4447,8 +4430,8 @@ class ApiService extends __BaseService {
    * @param groupedroitid undefined
    * @return successful operation
    */
-  findById_1(groupedroitid: number): __Observable<GroupeDroitDto> {
-    return this.findById_1Response(groupedroitid).pipe(
+  findByIdGroupeDroit(groupedroitid: number): __Observable<GroupeDroitDto> {
+    return this.findByIdGroupeDroitResponse(groupedroitid).pipe(
       __map(_r => _r.body as GroupeDroitDto)
     );
   }
@@ -4456,7 +4439,7 @@ class ApiService extends __BaseService {
   /**
    * @param groupedroitid undefined
    */
-  delete_1Response(groupedroitid: number): __Observable<__StrictHttpResponse<null>> {
+  deleteGroupeDroitResponse(groupedroitid: number): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -4481,9 +4464,97 @@ class ApiService extends __BaseService {
   /**
    * @param groupedroitid undefined
    */
-  delete_1(groupedroitid: number): __Observable<null> {
-    return this.delete_1Response(groupedroitid).pipe(
+  deleteGroupeDroit(groupedroitid: number): __Observable<null> {
+    return this.deleteGroupeDroitResponse(groupedroitid).pipe(
       __map(_r => _r.body as null)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  telechagerImageResponse(id: number): __Observable<__StrictHttpResponse<Array<ImageDataDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/image/imagesbybien/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<ImageDataDto>>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  telechagerImage(id: number): __Observable<Array<ImageDataDto>> {
+    return this.telechagerImageResponse(id).pipe(
+      __map(_r => _r.body as Array<ImageDataDto>)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.UploadImageParams` containing the following parameters:
+   *
+   * - `name`:
+   *
+   * - `id`:
+   *
+   * - `file`:
+   *
+   * @return successful operation
+   */
+  uploadImageResponse(params: ApiService.UploadImageParams): __Observable<__StrictHttpResponse<boolean>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    if (params.file != null) __params = __params.set('file', params.file.toString());
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/image/upload/${params.id}/${params.name}/`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: (_r as HttpResponse<any>).body === 'true' }) as __StrictHttpResponse<boolean>
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.UploadImageParams` containing the following parameters:
+   *
+   * - `name`:
+   *
+   * - `id`:
+   *
+   * - `file`:
+   *
+   * @return successful operation
+   */
+  uploadImage(params: ApiService.UploadImageParams): __Observable<boolean> {
+    return this.uploadImageResponse(params).pipe(
+      __map(_r => _r.body as boolean)
     );
   }
 
@@ -4995,7 +5066,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIDQuartiersResponse(id: number): __Observable<__StrictHttpResponse<Array<MontantLoyerBailDto>>> {
+  findByIDMontantLoyerBailResponse(id: number): __Observable<__StrictHttpResponse<Array<MontantLoyerBailDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -5021,8 +5092,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIDQuartiers(id: number): __Observable<Array<MontantLoyerBailDto>> {
-    return this.findByIDQuartiersResponse(id).pipe(
+  findByIDMontantLoyerBail(id: number): __Observable<Array<MontantLoyerBailDto>> {
+    return this.findByIDMontantLoyerBailResponse(id).pipe(
       __map(_r => _r.body as Array<MontantLoyerBailDto>)
     );
   }
@@ -5207,7 +5278,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAllServiceAdditionnelResponse(): __Observable<__StrictHttpResponse<Array<PrestationSaveOrUpdateDto>>> {
+  findAllServiceAdditionnelPrestationResponse(): __Observable<__StrictHttpResponse<Array<PrestationSaveOrUpdateDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -5231,8 +5302,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAllServiceAdditionnel(): __Observable<Array<PrestationSaveOrUpdateDto>> {
-    return this.findAllServiceAdditionnelResponse().pipe(
+  findAllServiceAdditionnelPrestation(): __Observable<Array<PrestationSaveOrUpdateDto>> {
+    return this.findAllServiceAdditionnelPrestationResponse().pipe(
       __map(_r => _r.body as Array<PrestationSaveOrUpdateDto>)
     );
   }
@@ -5240,7 +5311,7 @@ class ApiService extends __BaseService {
   /**
    * @param id undefined
    */
-  deleteServiceAdditionnelResponse(id: number): __Observable<__StrictHttpResponse<null>> {
+  deleteServiceAdditionnelPrestationResponse(id: number): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -5265,8 +5336,8 @@ class ApiService extends __BaseService {
   /**
    * @param id undefined
    */
-  deleteServiceAdditionnel(id: number): __Observable<null> {
-    return this.deleteServiceAdditionnelResponse(id).pipe(
+  deleteServiceAdditionnelPrestation(id: number): __Observable<null> {
+    return this.deleteServiceAdditionnelPrestationResponse(id).pipe(
       __map(_r => _r.body as null)
     );
   }
@@ -5275,7 +5346,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findServiceAdditionnelByIDResponse(id: number): __Observable<__StrictHttpResponse<PrestationSaveOrUpdateDto>> {
+  findServiceAdditionnelByIDPrestationResponse(id: number): __Observable<__StrictHttpResponse<PrestationSaveOrUpdateDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -5301,8 +5372,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findServiceAdditionnelByID(id: number): __Observable<PrestationSaveOrUpdateDto> {
-    return this.findServiceAdditionnelByIDResponse(id).pipe(
+  findServiceAdditionnelByIDPrestation(id: number): __Observable<PrestationSaveOrUpdateDto> {
+    return this.findServiceAdditionnelByIDPrestationResponse(id).pipe(
       __map(_r => _r.body as PrestationSaveOrUpdateDto)
     );
   }
@@ -5311,7 +5382,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveorupdate_1Response(body?: PrestationSaveOrUpdateDto): __Observable<__StrictHttpResponse<PrestationSaveOrUpdateDto>> {
+  saveorupdatePrestationResponse(body?: PrestationSaveOrUpdateDto): __Observable<__StrictHttpResponse<PrestationSaveOrUpdateDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -5337,8 +5408,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveorupdate_1(body?: PrestationSaveOrUpdateDto): __Observable<PrestationSaveOrUpdateDto> {
-    return this.saveorupdate_1Response(body).pipe(
+  saveorupdatePrestation(body?: PrestationSaveOrUpdateDto): __Observable<PrestationSaveOrUpdateDto> {
+    return this.saveorupdatePrestationResponse(body).pipe(
       __map(_r => _r.body as PrestationSaveOrUpdateDto)
     );
   }
@@ -5543,7 +5614,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIDQuartiers_1Response(id: number): __Observable<__StrictHttpResponse<QuartierRequestDto>> {
+  findByIDQuartiersResponse(id: number): __Observable<__StrictHttpResponse<QuartierRequestDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -5569,8 +5640,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findByIDQuartiers_1(id: number): __Observable<QuartierRequestDto> {
-    return this.findByIDQuartiers_1Response(id).pipe(
+  findByIDQuartiers(id: number): __Observable<QuartierRequestDto> {
+    return this.findByIDQuartiersResponse(id).pipe(
       __map(_r => _r.body as QuartierRequestDto)
     );
   }
@@ -5686,7 +5757,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAllCategorieChambre_1Response(): __Observable<__StrictHttpResponse<Array<ReservationSaveOrUpdateDto>>> {
+  findAllCategorieChambreReservationResponse(): __Observable<__StrictHttpResponse<Array<ReservationSaveOrUpdateDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -5710,8 +5781,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAllCategorieChambre_1(): __Observable<Array<ReservationSaveOrUpdateDto>> {
-    return this.findAllCategorieChambre_1Response().pipe(
+  findAllCategorieChambreReservation(): __Observable<Array<ReservationSaveOrUpdateDto>> {
+    return this.findAllCategorieChambreReservationResponse().pipe(
       __map(_r => _r.body as Array<ReservationSaveOrUpdateDto>)
     );
   }
@@ -5719,7 +5790,7 @@ class ApiService extends __BaseService {
   /**
    * @param id undefined
    */
-  deleteCommune_2Response(id: number): __Observable<__StrictHttpResponse<null>> {
+  deleteReservationResponse(id: number): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -5744,8 +5815,8 @@ class ApiService extends __BaseService {
   /**
    * @param id undefined
    */
-  deleteCommune_2(id: number): __Observable<null> {
-    return this.deleteCommune_2Response(id).pipe(
+  deleteReservation(id: number): __Observable<null> {
+    return this.deleteReservationResponse(id).pipe(
       __map(_r => _r.body as null)
     );
   }
@@ -5754,7 +5825,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findCategorieChambreByID_1Response(id: number): __Observable<__StrictHttpResponse<ReservationSaveOrUpdateDto>> {
+  findCategorieChambreByIDReservationResponse(id: number): __Observable<__StrictHttpResponse<ReservationSaveOrUpdateDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -5780,8 +5851,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findCategorieChambreByID_1(id: number): __Observable<ReservationSaveOrUpdateDto> {
-    return this.findCategorieChambreByID_1Response(id).pipe(
+  findCategorieChambreByIDReservation(id: number): __Observable<ReservationSaveOrUpdateDto> {
+    return this.findCategorieChambreByIDReservationResponse(id).pipe(
       __map(_r => _r.body as ReservationSaveOrUpdateDto)
     );
   }
@@ -5790,7 +5861,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveorupdate_2Response(body?: ReservationSaveOrUpdateDto): __Observable<__StrictHttpResponse<ReservationSaveOrUpdateDto>> {
+  saveorupdateReservationResponse(body?: ReservationSaveOrUpdateDto): __Observable<__StrictHttpResponse<ReservationSaveOrUpdateDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -5816,8 +5887,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveorupdate_2(body?: ReservationSaveOrUpdateDto): __Observable<ReservationSaveOrUpdateDto> {
-    return this.saveorupdate_2Response(body).pipe(
+  saveorupdateReservation(body?: ReservationSaveOrUpdateDto): __Observable<ReservationSaveOrUpdateDto> {
+    return this.saveorupdateReservationResponse(body).pipe(
       __map(_r => _r.body as ReservationSaveOrUpdateDto)
     );
   }
@@ -5861,7 +5932,7 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAllServiceAdditionnel_1Response(): __Observable<__StrictHttpResponse<Array<PrestationAdditionnelReservationSaveOrrUpdate>>> {
+  findAllServiceAdditionnelPrestationAdditionnelResponse(): __Observable<__StrictHttpResponse<Array<PrestationAdditionnelReservationSaveOrrUpdate>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -5885,8 +5956,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAllServiceAdditionnel_1(): __Observable<Array<PrestationAdditionnelReservationSaveOrrUpdate>> {
-    return this.findAllServiceAdditionnel_1Response().pipe(
+  findAllServiceAdditionnelPrestationAdditionnel(): __Observable<Array<PrestationAdditionnelReservationSaveOrrUpdate>> {
+    return this.findAllServiceAdditionnelPrestationAdditionnelResponse().pipe(
       __map(_r => _r.body as Array<PrestationAdditionnelReservationSaveOrrUpdate>)
     );
   }
@@ -5894,7 +5965,7 @@ class ApiService extends __BaseService {
   /**
    * @param id undefined
    */
-  deleteServiceAdditionnel_1Response(id: number): __Observable<__StrictHttpResponse<null>> {
+  deleteServiceAdditionnelPrestationAdditionnelResponse(id: number): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -5919,8 +5990,8 @@ class ApiService extends __BaseService {
   /**
    * @param id undefined
    */
-  deleteServiceAdditionnel_1(id: number): __Observable<null> {
-    return this.deleteServiceAdditionnel_1Response(id).pipe(
+  deleteServiceAdditionnelPrestationAdditionnel(id: number): __Observable<null> {
+    return this.deleteServiceAdditionnelPrestationAdditionnelResponse(id).pipe(
       __map(_r => _r.body as null)
     );
   }
@@ -5929,7 +6000,7 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findServiceAdditionnelByID_1Response(id: number): __Observable<__StrictHttpResponse<PrestationAdditionnelReservationSaveOrrUpdate>> {
+  findServiceAdditionnelByIDPrestationAdditionnelResponse(id: number): __Observable<__StrictHttpResponse<PrestationAdditionnelReservationSaveOrrUpdate>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -5955,8 +6026,8 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findServiceAdditionnelByID_1(id: number): __Observable<PrestationAdditionnelReservationSaveOrrUpdate> {
-    return this.findServiceAdditionnelByID_1Response(id).pipe(
+  findServiceAdditionnelByIDPrestationAdditionnel(id: number): __Observable<PrestationAdditionnelReservationSaveOrrUpdate> {
+    return this.findServiceAdditionnelByIDPrestationAdditionnelResponse(id).pipe(
       __map(_r => _r.body as PrestationAdditionnelReservationSaveOrrUpdate)
     );
   }
@@ -5965,7 +6036,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveorupdate_3Response(body?: PrestationAdditionnelReservationSaveOrrUpdate): __Observable<__StrictHttpResponse<PrestationAdditionnelReservationSaveOrrUpdate>> {
+  saveorupdatePrestationAdditionnelResponse(body?: PrestationAdditionnelReservationSaveOrrUpdate): __Observable<__StrictHttpResponse<PrestationAdditionnelReservationSaveOrrUpdate>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -5991,8 +6062,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveorupdate_3(body?: PrestationAdditionnelReservationSaveOrrUpdate): __Observable<PrestationAdditionnelReservationSaveOrrUpdate> {
-    return this.saveorupdate_3Response(body).pipe(
+  saveorupdatePrestationAdditionnel(body?: PrestationAdditionnelReservationSaveOrrUpdate): __Observable<PrestationAdditionnelReservationSaveOrrUpdate> {
+    return this.saveorupdatePrestationAdditionnelResponse(body).pipe(
       __map(_r => _r.body as PrestationAdditionnelReservationSaveOrrUpdate)
     );
   }
@@ -6145,7 +6216,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_2Response(body?: SiteRequestDto): __Observable<__StrictHttpResponse<boolean>> {
+  saveSitesResponse(body?: SiteRequestDto): __Observable<__StrictHttpResponse<boolean>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -6171,8 +6242,8 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  save_2(body?: SiteRequestDto): __Observable<boolean> {
-    return this.save_2Response(body).pipe(
+  saveSites(body?: SiteRequestDto): __Observable<boolean> {
+    return this.saveSitesResponse(body).pipe(
       __map(_r => _r.body as boolean)
     );
   }
@@ -7188,9 +7259,9 @@ module ApiService {
   }
 
   /**
-   * Parameters for impayeLoyerParMois
+   * Parameters for impayeLoyerParMoisAppelLoyer
    */
-  export interface ImpayeLoyerParMoisParams {
+  export interface ImpayeLoyerParMoisAppelLoyerParams {
     periode: string;
     idAgence: number;
     chapitre: number;
@@ -7235,6 +7306,15 @@ module ApiService {
    * Parameters for payeLoyerParMois
    */
   export interface PayeLoyerParMoisParams {
+    periode: string;
+    idAgence: number;
+    chapitre: number;
+  }
+
+  /**
+   * Parameters for staisiqueLoyerParMois
+   */
+  export interface StaisiqueLoyerParMoisParams {
     periode: string;
     idAgence: number;
     chapitre: number;
@@ -7330,6 +7410,15 @@ module ApiService {
   export interface SendMailGrouperWithAttachmentParams {
     periode: string;
     idAgence: number;
+  }
+
+  /**
+   * Parameters for uploadImage
+   */
+  export interface UploadImageParams {
+    name: string;
+    id: number;
+    file: any;
   }
 
   /**

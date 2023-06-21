@@ -1,10 +1,8 @@
 //CREER LES DIFFERENTES TYPES D'ACTION QUI VONT DECLANCHER LES EVENE,ENT DANS LE
 
-import { AnyForUntypedForms } from '@angular/forms';
 import { Action } from '@ngrx/store';
 
 import { OperationDto } from 'src/gs-api/src/models';
-import { AppelLoyersFactureDto } from '../../../gs-api/src/models/appel-loyers-facture-dto';
 
 //STORE
 export enum OperationActionsTypes {

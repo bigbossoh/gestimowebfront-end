@@ -158,7 +158,7 @@ import { PageDisponibiliteResidenceComponent } from './pages/residence/page-disp
 import { PageClientResidenceComponent } from './pages/residence/page-client-residence/page-client-residence/page-client-residence.component';
 import { StatistiqueChartReducer } from './ngrx/statistique-chart/statistiquechart.reducer';
 import { StatistiqueChartEffect } from './ngrx/statistique-chart/statistiquechart.effects';
-
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 @NgModule({
   declarations: [
     PageStatistiqueJournalierComponent,
@@ -228,6 +228,7 @@ import { StatistiqueChartEffect } from './ngrx/statistique-chart/statistiquechar
 
   ],
   imports: [
+    CanvasJSAngularChartsModule,
     FormsModule,
     MatButtonModule,
     MatRadioModule,

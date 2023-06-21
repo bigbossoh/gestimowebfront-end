@@ -27,6 +27,8 @@ import {
   GetAllSmsByLocataireActionsError,
   SaveSupprimerActionsSuccess,
   SaveSupprimerActionsError,
+  GetStatLoyerParPeriodeActionsSuccess,
+  GetStatLoyerParPeriodeActionsError,
 } from './appelloyer.actions';
 import {
   AppelLoyerctionsTypes,
@@ -59,10 +61,10 @@ export class AppelLoyerEffects {
     this.effectActions.pipe(
       ofType(AppelLoyerctionsTypes.GET_IMPAYER_LOYER_PAR_PERIODE),
       mergeMap((action: AppelLoyerActions) => {
-        return this.apiService.impayeLoyerParMois(action.payload).pipe(
+        return this.apiService.impayeLoyerParMoisAppelLoyer(action.payload).pipe(
           map(
-            (appelloyers) =>
-              new GetImpayerLoyerParPeriodeActionsSuccess(appelloyers)
+            (appello) =>
+              new GetImpayerLoyerParPeriodeActionsSuccess(appello)
           ),
           catchError((err) =>
             of(new GetImpayerLoyerParPeriodeActionsError(err.message))
@@ -71,6 +73,24 @@ export class AppelLoyerEffects {
       })
     )
   );
+  //STAT PERIODE
+  getStatParPeriodeEffect: Observable<Action> = createEffect(() =>
+  this.effectActions.pipe(
+    ofType(AppelLoyerctionsTypes.GET_STAT_LOYER_PAR_PERIODE),
+    mergeMap((action: AppelLoyerActions) => {
+      return this.apiService.staisiqueLoyerParMois(action.payload).pipe(
+        map(
+          (appelloyers) =>
+            new GetStatLoyerParPeriodeActionsSuccess(appelloyers)
+        ),
+        catchError((err) =>
+          of(new GetStatLoyerParPeriodeActionsError(err.message))
+        )
+      );
+    })
+  )
+);
+  //SIN STAT PERIODE
   getPayerParPeriodEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(AppelLoyerctionsTypes.GET_PAYER_LOYER_PAR_PERIODE),

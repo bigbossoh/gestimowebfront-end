@@ -10,9 +10,6 @@
     }
   },
   "basePath" : "http://localhost:8282/",
-  "tags" : [ {
-    "name" : "Image controlleur"
-  } ],
   "paths" : {
     "gestimoweb/api/v1/agences/all/{idAgence}" : {
       "get" : {
@@ -91,55 +88,6 @@
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/AgenceResponseDto"
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/agences/getlogo/{id}" : {
-      "get" : {
-        "operationId" : "getlogo",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "required" : true,
-          "type" : "integer",
-          "format" : "int64"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string",
-                "format" : "byte"
-              }
-            }
-          }
-        }
-      }
-    },
-    "gestimoweb/api/v1/agences/savelogo" : {
-      "post" : {
-        "operationId" : "saveLogo",
-        "parameters" : [ {
-          "in" : "body",
-          "name" : "body",
-          "required" : false,
-          "schema" : {
-            "$ref" : "#/definitions/AgenceRequestDto"
-          }
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "successful operation",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "type" : "string",
-                "format" : "byte"
-              }
             }
           }
         }
@@ -636,7 +584,7 @@
     },
     "gestimoweb/api/v1/appelloyer/impayeParMois/{periode}/{idAgence}/{chapitre}" : {
       "get" : {
-        "operationId" : "impayeLoyerParMois",
+        "operationId" : "impayeLoyerParMoisAppelLoyer",
         "parameters" : [ {
           "name" : "periode",
           "in" : "path",
@@ -742,7 +690,7 @@
     },
     "gestimoweb/api/v1/appelloyer/miseAjourDesUnlockDesBaux/{idAgence}" : {
       "get" : {
-        "operationId" : "impayeLoyerParMois",
+        "operationId" : "miseAjourDesUnlockDesBaux",
         "parameters" : [ {
           "name" : "idAgence",
           "in" : "path",
@@ -932,6 +880,37 @@
               "items" : {
                 "type" : "string"
               }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/appelloyer/staisiqueLoyerParMois/{periode}/{idAgence}/{chapitre}" : {
+      "get" : {
+        "operationId" : "staisiqueLoyerParMois",
+        "parameters" : [ {
+          "name" : "periode",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "chapitre",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/StatistiquePeriodeDto"
             }
           }
         }
@@ -1638,7 +1617,7 @@
     },
     "gestimoweb/api/v1/categoriechambre/delete/{id}" : {
       "delete" : {
-        "operationId" : "deleteCommune",
+        "operationId" : "deleteCategoryChambre",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1675,7 +1654,7 @@
     },
     "gestimoweb/api/v1/categoriechambre/saveorupdate" : {
       "post" : {
-        "operationId" : "saveorupdate",
+        "operationId" : "saveorupdateCategoryChambre",
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -1815,7 +1794,7 @@
     },
     "gestimoweb/api/v1/droitAccess/" : {
       "get" : {
-        "operationId" : "findAll",
+        "operationId" : "findAllDroitAccess",
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -1831,7 +1810,7 @@
     },
     "gestimoweb/api/v1/droitAccess/save" : {
       "post" : {
-        "operationId" : "save",
+        "operationId" : "saveDroitAccess",
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -1853,7 +1832,7 @@
     },
     "gestimoweb/api/v1/droitAccess/{droitAccessid}" : {
       "get" : {
-        "operationId" : "findById",
+        "operationId" : "findByIdDroitAccess",
         "parameters" : [ {
           "name" : "droitAccessid",
           "in" : "path",
@@ -1871,7 +1850,7 @@
         }
       },
       "delete" : {
-        "operationId" : "delete",
+        "operationId" : "deleteDroitAccess",
         "parameters" : [ {
           "name" : "droitAccessid",
           "in" : "path",
@@ -2445,7 +2424,7 @@
     },
     "gestimoweb/api/v1/groupeDroit/" : {
       "get" : {
-        "operationId" : "findAll",
+        "operationId" : "findAllGroupeDroit",
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -2461,7 +2440,7 @@
     },
     "gestimoweb/api/v1/groupeDroit/save" : {
       "post" : {
-        "operationId" : "save",
+        "operationId" : "saveGroupeDroit",
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -2483,7 +2462,7 @@
     },
     "gestimoweb/api/v1/groupeDroit/{groupedroitid}" : {
       "get" : {
-        "operationId" : "findById",
+        "operationId" : "findByIdGroupeDroit",
         "parameters" : [ {
           "name" : "groupedroitid",
           "in" : "path",
@@ -2501,7 +2480,7 @@
         }
       },
       "delete" : {
-        "operationId" : "delete",
+        "operationId" : "deleteGroupeDroit",
         "parameters" : [ {
           "name" : "groupedroitid",
           "in" : "path",
@@ -2518,7 +2497,6 @@
     },
     "gestimoweb/api/v1/image/imagesbybien/{id}" : {
       "get" : {
-        "tags" : [ "Image controlleur" ],
         "operationId" : "telechagerImage",
         "parameters" : [ {
           "name" : "id",
@@ -2542,7 +2520,6 @@
     },
     "gestimoweb/api/v1/image/upload/{id}/{name}/" : {
       "post" : {
-        "tags" : [ "Image controlleur" ],
         "summary" : "Téléchargder une image",
         "description" : "",
         "operationId" : "uploadImage",
@@ -2875,7 +2852,7 @@
     },
     "gestimoweb/api/v1/montantloyerbail/findMontantByBail/{id}" : {
       "get" : {
-        "operationId" : "findByIDQuartiers",
+        "operationId" : "findByIDMontantLoyerBail",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -2994,7 +2971,7 @@
     },
     "gestimoweb/api/v1/prestation/all" : {
       "get" : {
-        "operationId" : "findAllServiceAdditionnel",
+        "operationId" : "findAllServiceAdditionnelPrestation",
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -3010,7 +2987,7 @@
     },
     "gestimoweb/api/v1/prestation/delete/{id}" : {
       "delete" : {
-        "operationId" : "deleteServiceAdditionnel",
+        "operationId" : "deleteServiceAdditionnelPrestation",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -3027,7 +3004,7 @@
     },
     "gestimoweb/api/v1/prestation/findById/{id}" : {
       "get" : {
-        "operationId" : "findServiceAdditionnelByID",
+        "operationId" : "findServiceAdditionnelByIDPrestation",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -3047,7 +3024,7 @@
     },
     "gestimoweb/api/v1/prestation/saveorupdate" : {
       "post" : {
-        "operationId" : "saveorupdate",
+        "operationId" : "saveorupdatePrestation",
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -3270,7 +3247,7 @@
     },
     "gestimoweb/api/v1/reservation/all" : {
       "get" : {
-        "operationId" : "findAllCategorieChambre",
+        "operationId" : "findAllCategorieChambreReservation",
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -3286,7 +3263,7 @@
     },
     "gestimoweb/api/v1/reservation/delete/{id}" : {
       "delete" : {
-        "operationId" : "deleteCommune",
+        "operationId" : "deleteReservation",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -3303,7 +3280,7 @@
     },
     "gestimoweb/api/v1/reservation/findById/{id}" : {
       "get" : {
-        "operationId" : "findCategorieChambreByID",
+        "operationId" : "findCategorieChambreByIDReservation",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -3323,7 +3300,7 @@
     },
     "gestimoweb/api/v1/reservation/saveorupdate" : {
       "post" : {
-        "operationId" : "saveorupdate",
+        "operationId" : "saveorupdateReservation",
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -3365,7 +3342,7 @@
     },
     "gestimoweb/api/v1/serviceadditionnel/all" : {
       "get" : {
-        "operationId" : "findAllServiceAdditionnel",
+        "operationId" : "findAllServiceAdditionnelPrestationAdditionnel",
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -3381,7 +3358,7 @@
     },
     "gestimoweb/api/v1/serviceadditionnel/delete/{id}" : {
       "delete" : {
-        "operationId" : "deleteServiceAdditionnel",
+        "operationId" : "deleteServiceAdditionnelPrestationAdditionnel",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -3398,7 +3375,7 @@
     },
     "gestimoweb/api/v1/serviceadditionnel/findById/{id}" : {
       "get" : {
-        "operationId" : "findServiceAdditionnelByID",
+        "operationId" : "findServiceAdditionnelByIDPrestationAdditionnel",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -3418,7 +3395,7 @@
     },
     "gestimoweb/api/v1/serviceadditionnel/saveorupdate" : {
       "post" : {
-        "operationId" : "saveorupdate",
+        "operationId" : "saveorupdatePrestationAdditionnel",
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -3521,7 +3498,7 @@
     },
     "gestimoweb/api/v1/sites/save" : {
       "post" : {
-        "operationId" : "save",
+        "operationId" : "saveSites",
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -4450,10 +4427,10 @@
             "$ref" : "#/definitions/Encaissement"
           }
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         },
         "unLock" : {
@@ -4684,10 +4661,10 @@
         "typePaiement" : {
           "type" : "string"
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         },
         "unLock" : {
@@ -6095,10 +6072,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         }
       }
@@ -6670,6 +6647,26 @@
         }
       }
     },
+    "StatistiquePeriodeDto" : {
+      "type" : "object",
+      "properties" : {
+        "impayer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "payer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "recouvrement" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "periode" : {
+          "type" : "string"
+        }
+      }
+    },
     "SuivieDepenseDto" : {
       "type" : "object",
       "properties" : {
@@ -6768,7 +6765,7 @@
           "type" : "string",
           "format" : "date"
         },
-        "nationalité" : {
+        "nationalite" : {
           "type" : "string"
         },
         "genre" : {
@@ -6887,7 +6884,7 @@
           "type" : "string",
           "format" : "date"
         },
-        "nationalité" : {
+        "nationalite" : {
           "type" : "string"
         },
         "genre" : {
@@ -6996,7 +6993,7 @@
           "type" : "string",
           "format" : "date"
         },
-        "nationalité" : {
+        "nationalite" : {
           "type" : "string"
         },
         "genre" : {

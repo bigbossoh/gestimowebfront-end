@@ -57,6 +57,7 @@ export { Role } from './models/role';
 export { RoleRequestDto } from './models/role-request-dto';
 export { SiteRequestDto } from './models/site-request-dto';
 export { SiteResponseDto } from './models/site-response-dto';
+export { StatistiquePeriodeDto } from './models/statistique-periode-dto';
 export { SuivieDepenseDto } from './models/suivie-depense-dto';
 export { Utilisateur } from './models/utilisateur';
 export { UtilisateurAfficheDto } from './models/utilisateur-affiche-dto';
