@@ -44,29 +44,29 @@ export class ImageEffects {
   //   )
   // );
 //GET LOGO
-getLogoEffect: Observable<Action> = createEffect(() =>
-this.effectActions.pipe(
-  ofType(ImagesActionsTypes.GET_LOGO),
-  mergeMap((actions: ImagesActions) => {
-    console.log("Le payload est ");
-    console.log(actions.payload);
-    return this.apiService.getlogo(actions.payload).pipe(
-      map((logo) => new GetLogoAcionsSuccess(logo)),
-      catchError((err) =>
-        of(new GetLogoAcionsError(err.message))
-      )
-    );
-  }),
-  tap((resultat) => {
-    if (resultat.type == ImagesActionsTypes.UPLOAD_LOGO_ERROR) {
-      this.sendErrorNotification(
-        NotificationType.ERROR,
-        resultat.payload.toString()
-      );
-    }
-  })
-)
-);
+// getLogoEffect: Observable<Action> = createEffect(() =>
+// this.effectActions.pipe(
+//   ofType(ImagesActionsTypes.GET_LOGO),
+//   mergeMap((actions: ImagesActions) => {
+//     console.log("Le payload est ");
+//     console.log(actions.payload);
+//     return this.apiService.getlogo(actions.payload).pipe(
+//       map((logo) => new GetLogoAcionsSuccess(logo)),
+//       catchError((err) =>
+//         of(new GetLogoAcionsError(err.message))
+//       )
+//     );
+//   }),
+//   tap((resultat) => {
+//     if (resultat.type == ImagesActionsTypes.UPLOAD_LOGO_ERROR) {
+//       this.sendErrorNotification(
+//         NotificationType.ERROR,
+//         resultat.payload.toString()
+//       );
+//     }
+//   })
+// )
+// );
   private sendErrorNotification(
     notificationType: NotificationType,
     message: string

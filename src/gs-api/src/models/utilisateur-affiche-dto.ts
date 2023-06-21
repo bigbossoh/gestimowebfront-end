@@ -15,7 +15,7 @@ export interface UtilisateurAfficheDto {
   numeroPieceIdentite?: string;
   dateDebutPiece?: string;
   dateFinPiece?: string;
-  nationalité?: string;
+  nationalite?: string;
   genre?: string;
   username?: string;
   password?: string;

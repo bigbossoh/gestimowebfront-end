@@ -1,7 +1,7 @@
 .example-card {
   max-width: 500px;
   margin-bottom: 8px;
-  
+
 }
 .example-additional-selection {
   opacity: 1;
@@ -25,3 +25,15 @@
   font-weight: bolder;
 }
 
+.backButton {
+	border-radius: 4px;
+	padding: 8px;
+	border: none;
+	font-size: 16px;
+	background-color: #2eacd1;
+	color: white;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+}

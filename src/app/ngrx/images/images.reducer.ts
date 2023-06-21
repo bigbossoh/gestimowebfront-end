@@ -1,6 +1,4 @@
-import { noUndefined } from '@angular/compiler/src/util';
 import { Action } from '@ngrx/store';
-import { EtageDto } from 'src/gs-api/src/models';
 import { ImagesActions, ImagesActionsTypes } from './images.action';
 
 export enum ImagesStateEnum {

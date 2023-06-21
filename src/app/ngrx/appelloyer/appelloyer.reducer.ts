@@ -15,6 +15,7 @@ export enum AppelLoyerStateEnum {
 }
 export interface AppelLoyerState {
   smss: any;
+  statPeriode:any;
   appelloyers: AppelLoyersFactureDto[];
   anneesAppel: AnneeAppelLoyersDto[];
   periodes: PeriodeDto[];
@@ -27,6 +28,7 @@ export interface AppelLoyerState {
 }
 const initState: AppelLoyerState = {
   smss: null,
+  statPeriode:null,
   appelloyers: [],
   anneesAppel: [],
   periodes: [],
@@ -57,7 +59,21 @@ export function appelLoyerReducer(
         dataState: AppelLoyerStateEnum.ERROR,
         errorMessage: (<AppelLoyerActions>action).payload,
       };
-
+    // GET ALL APPEL LOYER
+    case AppelLoyerctionsTypes.GET_STAT_LOYER_PAR_PERIODE:
+      return { ...state, dataState: AppelLoyerStateEnum.LOADING };
+    case AppelLoyerctionsTypes.GET_STAT_LOYER_PAR_PERIODE_SUCCES:
+      return {
+        ...state,
+        dataState: AppelLoyerStateEnum.LOADED,
+        statPeriode: (<AppelLoyerActions>action).payload,
+      };
+    case AppelLoyerctionsTypes.GET_STAT_LOYER_PAR_PERIODE_ERROR:
+      return {
+        ...state,
+        dataState: AppelLoyerStateEnum.ERROR,
+        errorMessage: (<AppelLoyerActions>action).payload,
+      };
     // GET ALL APPEL LOYER BY PERIODE
     case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_PERIODE:
       return { ...state, dataState: AppelLoyerStateEnum.LOADING };

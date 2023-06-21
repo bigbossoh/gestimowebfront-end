@@ -34,6 +34,10 @@ export enum AppelLoyerctionsTypes {
   GET_IMPAYER_LOYER_PAR_ANNEE_SUCCES = '[AppelLoyersFactureDto] Get Impayer par annee Success',
   GET_IMPAYER_LOYER_PAR_ANNEE_ERROR = '[AppelLoyersFactureDto] Get Impayer par annee Error',
 
+  GET_STAT_LOYER_PAR_PERIODE = 'Get stat par preiode',
+  GET_STAT_LOYER_PAR_PERIODE_SUCCES = ' Get stat par periode Success',
+  GET_STAT_LOYER_PAR_PERIODE_ERROR = ' Get stat par periode Error',
+
   GET_PAYER_LOYER_PAR_ANNEE = '[AppelLoyersFactureDto] Get Payer par annee',
   GET_PAYER_LOYER_PAR_ANNEE_SUCCES = '[AppelLoyersFactureDto] Get Payer par annee Success',
   GET_PAYER_LOYER_PAR_ANNEE_ERROR = '[AppelLoyersFactureDto] Get Payer par annee Error',
@@ -104,6 +108,24 @@ export class GetImpayerLoyerParPeriodeActionsSuccess implements Action {
 export class GetImpayerLoyerParPeriodeActionsError implements Action {
   type: AppelLoyerctionsTypes =
     AppelLoyerctionsTypes.GET_IMPAYER_LOYER_PAR_PERIODE_ERROR;
+  constructor(public payload: string) {}
+}
+
+//GET IMPAYER PAR PERIODE
+export class GetStatLoyerParPeriodeActions implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_STAT_LOYER_PAR_PERIODE;
+  constructor(public payload: any) {}
+}
+
+export class GetStatLoyerParPeriodeActionsSuccess implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_STAT_LOYER_PAR_PERIODE_SUCCES;
+  constructor(public payload: any) {}
+}
+export class GetStatLoyerParPeriodeActionsError implements Action {
+  type: AppelLoyerctionsTypes =
+    AppelLoyerctionsTypes.GET_STAT_LOYER_PAR_PERIODE_ERROR;
   constructor(public payload: string) {}
 }
 //GET PAYER PAR ANNEE
@@ -271,4 +293,7 @@ export type AppelLoyerActions =
   | GetAllAppelLoyerByBailActionsError
   | GetAllSmsByLocataireActions
   | GetAllSmsByLocataireActionsError
-  | GetAllSmsByLocataireActionsSuccess;
+  | GetAllSmsByLocataireActionsSuccess
+  |GetStatLoyerParPeriodeActions
+  |GetStatLoyerParPeriodeActionsSuccess
+  |GetStatLoyerParPeriodeActionsError;
