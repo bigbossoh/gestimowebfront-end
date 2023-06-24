@@ -11,6 +11,7 @@ import {
   GetImpayerLoyerParPeriodeActions,
   GetPayerLoyerParAnneeActions,
   GetPayerLoyerParPeriodeActions,
+  GetStatLoyerParAnneeActions,
   GetStatLoyerParPeriodeActions,
 } from './../../ngrx/appelloyer/appelloyer.actions';
 import { AppelLoyerStateEnum } from './../../ngrx/appelloyer/appelloyer.reducer';
@@ -24,7 +25,7 @@ import { FormControl } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import { formatDate, registerLocaleData } from '@angular/common';
+import { formatDate } from '@angular/common';
 import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { Chart } from 'chart.js';
@@ -75,9 +76,14 @@ export class PageStatistiqueJournalierComponent implements OnInit, data {
   realdata: any[] = [];
   colordata: any[] = [ ];
 
-  RenderChart(labeldata:any,maindata:any,colordata:any,type:any,id:any) {
+  chartdataannee: any;
+  labeldataannee: any[] = [];
+  realdataannee: any[] = [];
+  colordataannee: any[] = [ ];
 
-    const pich = new Chart(id, {
+  RenderChart(labeldata:any,maindata:any,colordata:any,type:any) {
+
+    const pich = new Chart("piechart", {
       type: type,
       data: {
         labels: labeldata,
@@ -92,13 +98,48 @@ export class PageStatistiqueJournalierComponent implements OnInit, data {
       },
       options: {
         legend: {
-          display: false,
+          display: true,
         },
         scales: {
           xAxes: [
             {
               display: true,
-              
+
+            },
+          ],
+          yAxes: [
+            {
+              display: true,
+            },
+          ],
+        },
+      },
+    });
+  }
+  RenderChartAnnee(labeldata:any,maindata:any,colordata:any,type:any) {
+
+    const pich = new Chart("piechartannee", {
+      type: type,
+      data: {
+        labels: labeldata,
+        datasets: [
+          {
+            label: '# of Votes',
+            data: maindata,
+            borderWidth: 1,
+            backgroundColor:colordata
+          },
+        ],
+      },
+      options: {
+        legend: {
+          display: true,
+        },
+        scales: {
+          xAxes: [
+            {
+              display: true,
+
             },
           ],
           yAxes: [
@@ -148,20 +189,25 @@ getStatPeriode(periode:string){
     })
   );
   this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
-    this.v_impayer_mois = data.impayerPeriode;
     if (data.statPeriode!=null) {
-
-
+      this.chartdata=[];
+      if (this.labeldata.length>0) {
+        this.labeldata.splice(0,this.labeldata.length);
+      }
+     if (this.realdata.length>0) {
+      this.realdata.splice(0,this.realdata.length);
+     }
+     if (this.colordata.length>0) {
+      this.colordata.splice(0,this.colordata.length);
+     }
       this.chartdata=[data.statPeriode];
-      this.labeldata.push(data.statPeriode.periode);
       this.realdata.push(data.statPeriode.impayer);
+      this.labeldata.push("Impayé");
       this.colordata.push("Red");
       this.realdata.push(data.statPeriode.payer);
+      this.labeldata.push("Payé");
       this.colordata.push("Green");
-
-
-
-      this.RenderChart(this.labeldata,this.realdata,this.colordata,"pie","piechart");
+      this.RenderChart(this.labeldata,this.realdata,this.colordata,"pie");
     }
   });
 
@@ -202,6 +248,39 @@ getStatPeriode(periode:string){
     this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
       this.v_impayer_annee = data.impayerAnnee;
 
+    });
+  }
+  getStatParAnnee(annee: number) {
+    this.user = this.userService.getUserFromLocalCache();
+    this.store.dispatch(
+      new GetStatLoyerParAnneeActions({
+        idAgence: this.user!.idAgence,
+        annee: annee,
+        chapitre: this.chapitre,
+      })
+    );
+
+    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
+      if (data.statAnnee!=null) {
+        this.chartdataannee=[];
+        if (this.labeldataannee.length>0) {
+          this.labeldataannee.splice(0,this.labeldataannee.length);
+        }
+       if (this.realdataannee.length>0) {
+        this.realdataannee.splice(0,this.realdataannee.length);
+       }
+       if (this.colordataannee.length>0) {
+        this.colordataannee.splice(0,this.colordataannee.length);
+       }
+        this.chartdataannee=[data.statAnnee];
+        this.realdataannee.push(data.statAnnee.impayer);
+        this.labeldataannee.push("Impayé");
+        this.colordataannee.push("Red");
+        this.realdataannee.push(data.statAnnee.payer);
+        this.labeldataannee.push("Payé");
+        this.colordataannee.push("Green");
+        this.RenderChartAnnee(this.labeldataannee,this.realdataannee,this.colordataannee,"pie");
+      }
     });
   }
   getPayerParAnnee(annee: number) {
@@ -306,12 +385,6 @@ getStatPeriode(periode:string){
         this.v_encaissemnt = data.montantEncaisse;
       });
     // FIN ANCAISSEMENT JOURNALIER
-
-    // alert(
-    //   this.selectedDate + ' ' + this.annee_model + ' ' + this.periode_model
-    // );
-    // this.getImpayerParAnnee(this.annee_model);
-    // this.getPayerParAnnee(this.annee_model);
     // IMPAYER PAR PERIODE
     this.store.dispatch(
       new GetImpayerLoyerParPeriodeActions({
@@ -344,6 +417,10 @@ getStatPeriode(periode:string){
     });
     // FIN PAYER PAR PERIODE
   }
+  ngAfterViewInit(): void {
+    this.getStatPeriode(this.periode_model);
+    this.getStatParAnnee(this.annee_model);
+  }
   longText = ``;
   toppings = new FormControl('');
 
@@ -356,131 +433,5 @@ getStatPeriode(periode:string){
     'Tomato',
   ];
 
-  /*CHART DATA*/
-  chart: any;
-  isButtonVisible = false;
 
-  visitorsChartDrilldownHandler = (e: any) => {
-    this.chart.options = this.visitorsDrilldownedChartOptions;
-    this.chart.options.data = this.options[e.dataPoint.name];
-    this.chart.options.title = { text: e.dataPoint.name };
-    this.chart.render();
-    this.isButtonVisible = true;
-  };
-
-  visitorsDrilldownedChartOptions = {
-    animationEnabled: true,
-    theme: 'light2',
-    axisY: {
-      gridThickness: 0,
-      lineThickness: 1,
-    },
-    data: [],
-  };
-
-  newVSReturningVisitorsOptions = {
-    animationEnabled: true,
-    theme: 'light2',
-    title: {
-      text: 'Statistiques par Période',
-    },
-    subtitles: [
-      {
-        text: 'Click on Any Segment to Drilldown',
-        backgroundColor: '#2eacd1',
-        fontSize: 16,
-        fontColor: 'white',
-        padding: 5,
-      },
-    ],
-    data: [],
-  };
-
-  options: data = {
-    'Statistiques par Période': [
-      {
-        type: 'pie',
-        name: 'Statistiques par Période',
-        startAngle: 90,
-        cursor: 'pointer',
-        explodeOnClick: false,
-        showInLegend: true,
-        legendMarkerType: 'square',
-        click: this.visitorsChartDrilldownHandler,
-        indexLabelPlacement: 'inside',
-        indexLabelFontColor: 'white',
-        dataPoints: [
-          {
-            y: this.v_impayer_mois,
-            name: 'Loyers impayés ',
-            color: '#058dc7',
-            indexLabel: '62.56%',
-          },
-          {
-            y: this.v_payer_mois,
-            name: 'Loyer payés',
-            color: '#50b432',
-            indexLabel: '37.44%',
-          },
-        ],
-      },
-    ],
-    'Loyers impayés ': [
-      {
-        color: '#058dc7',
-        name: 'Loyers impayés ',
-        type: 'column',
-        dataPoints: [
-          { label: 'Jan', y: 42600 },
-          { label: 'Feb', y: 44960 },
-          { label: 'Mar', y: 46160 },
-          { label: 'Apr', y: 48240 },
-          { label: 'May', y: 48200 },
-          { label: 'Jun', y: 49600 },
-          { label: 'Jul', y: 51560 },
-          { label: 'Aug', y: 49280 },
-          { label: 'Sep', y: 46800 },
-          { label: 'Oct', y: 57720 },
-          { label: 'Nov', y: 59840 },
-          { label: 'Dec', y: 54400 },
-        ],
-      },
-    ],
-    'Loyer payés': [
-      {
-        color: '#50b432',
-        name: 'Loyer payés',
-        type: 'column',
-        dataPoints: [
-          { label: 'Jan', y: 21800 },
-          { label: 'Feb', y: 25040 },
-          { label: 'Mar', y: 23840 },
-          { label: 'Apr', y: 24760 },
-          { label: 'May', y: 25800 },
-          { label: 'Jun', y: 26400 },
-          { label: 'Jul', y: 27440 },
-          { label: 'Aug', y: 29720 },
-          { label: 'Sep', y: 29200 },
-          { label: 'Oct', y: 31280 },
-          { label: 'Nov', y: 33160 },
-          { label: 'Dec', y: 31400 },
-        ],
-      },
-    ],
-  };
-
-  handleClick(event: Event) {
-    this.chart.options = this.newVSReturningVisitorsOptions;
-    this.chart.options.data = this.options['Statistiques par Période'];
-    this.chart.render();
-    this.isButtonVisible = false;
-  }
-
-  getChartInstance(chart: object) {
-    this.chart = chart;
-    this.chart.options = this.newVSReturningVisitorsOptions;
-    this.chart.options.data = this.options['Statistiques par Période'];
-    this.chart.render();
-  }
-  /** FIN DATA */
 }

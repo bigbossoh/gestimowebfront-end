@@ -110,7 +110,8 @@
                 #selectionAnnee
                 (selectionChange)="
                   getImpayerParAnnee(selectionAnnee.value);
-                  getPayerParAnnee(selectionAnnee.value)
+                  getPayerParAnnee(selectionAnnee.value);
+                  getStatParAnnee(selectionAnnee.value);
                 "
               >
                 <mat-option
@@ -244,14 +245,15 @@
     </mat-card-content>
   </mat-card>
 </div>
- <div style="display: flex; flex-direction: row">
+ <div style="display: flex; flex-direction: column">
   <mat-card class="example-card">
     <mat-card-title-group>
-      <mat-card-title>Statistiques sur les Baux</mat-card-title>
-      <mat-card-subtitle>Small</mat-card-subtitle>
+      <mat-card-title>Statistique par année</mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
     </mat-card-title-group>
     <mat-card-content>
-
+<canvas id="piechartannee">
+</canvas>
     </mat-card-content>
   </mat-card>
 </div>

@@ -43,8 +43,8 @@ export class PageJournalCaisseComponent implements OnInit {
   allSuiviDepenseState$: Observable<SuiviDepenseState> | null = null;
   formGroup?: FormGroup;
   selectedDate = new Date();
-descdepense: any;
-montantencaisse: any;
+  descdepense: any;
+  montantencaisse: any;
   constructor(
     private store: Store<any>,
     private fb: FormBuilder,
@@ -82,8 +82,26 @@ montantencaisse: any;
       });
   }
   ngAfterViewInit(): void {
-this.descdepense="";
-this.montantencaisse=0;
+
+    this.user = this.userService.getUserFromLocalCache();
+    this.store.dispatch(new GetAllSuiviDepenseActions(this.user.idAgence));
+    this.allSuiviDepenseState$ = this.store.pipe(
+      map((state) => state.suiviDepenseState)
+    );
+
+    this.store
+      .pipe(map((state) => state.suiviDepenseState))
+      .subscribe((data) => {
+        this.dataSource.data = [];
+        this.dataSource.paginator = null;
+        if (data.dataState == 'Loaded') {
+          console.log(data.suiviDepenses);
+          this.dataSource.data = data.suiviDepenses;
+          this.dataSource.paginator = this.paginator;
+        }
+      });
+    this.descdepense = '';
+    this.montantencaisse = 0;
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -98,22 +116,7 @@ this.montantencaisse=0;
     this.suiviDepenseState$ = this.store.pipe(
       map((state) => state.suiviDepenseState)
     );
-    this.user = this.userService.getUserFromLocalCache();
-    this.store.dispatch(new GetAllSuiviDepenseActions(this.user.idAgence));
-    this.allSuiviDepenseState$ = this.store.pipe(
-      map((state) => state.suiviDepenseState)
-    );
 
-    this.store
-      .pipe(map((state) => state.suiviDepenseState))
-      .subscribe((data) => {
-        console.log(data);
-        if (data.dataState == 'Loaded') {
-          console.log(data.suiviDepenses);
-          this.dataSource.data = data.suiviDepenses;
-          this.dataSource.paginator = this.paginator;
-        }
-      });
-      this.ngAfterViewInit();
+    this.ngAfterViewInit();
   }
 }

@@ -916,6 +916,38 @@
         }
       }
     },
+    "gestimoweb/api/v1/appelloyer/statistiqueLoyerParAnnee/{annee}/{idAgence}/{chapitre}" : {
+      "get" : {
+        "operationId" : "statistiqueLoyerParAnnee",
+        "parameters" : [ {
+          "name" : "annee",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "chapitre",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/StatistiquePeriodeDto"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/appelloyer/supprimerPaiementAppel/{idPeriode}/{idBail}" : {
       "get" : {
         "operationId" : "supprimerPaiementAppel",
@@ -3615,7 +3647,10 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/SuivieDepenseDto"
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/SuivieDepenseDto"
+              }
             }
           }
         }
@@ -4427,10 +4462,10 @@
             "$ref" : "#/definitions/Encaissement"
           }
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         },
         "unLock" : {
@@ -4661,10 +4696,10 @@
         "typePaiement" : {
           "type" : "string"
         },
-        "cloturer" : {
+        "solderAppelLoyer" : {
           "type" : "boolean"
         },
-        "solderAppelLoyer" : {
+        "cloturer" : {
           "type" : "boolean"
         },
         "unLock" : {
