@@ -29,6 +29,8 @@ import {
   SaveSupprimerActionsError,
   GetStatLoyerParPeriodeActionsSuccess,
   GetStatLoyerParPeriodeActionsError,
+  GetStatLoyerParAnneeActionsSuccess,
+  GetStatLoyerParAnneeActionsError,
 } from './appelloyer.actions';
 import {
   AppelLoyerctionsTypes,
@@ -85,6 +87,23 @@ export class AppelLoyerEffects {
         ),
         catchError((err) =>
           of(new GetStatLoyerParPeriodeActionsError(err.message))
+        )
+      );
+    })
+  )
+);
+  //STAT ANNEE
+  getStatParAnneeEffect: Observable<Action> = createEffect(() =>
+  this.effectActions.pipe(
+    ofType(AppelLoyerctionsTypes.GET_STAT_LOYER_PAR_ANNEE),
+    mergeMap((action: AppelLoyerActions) => {
+      return this.apiService.statistiqueLoyerParAnnee(action.payload).pipe(
+        map(
+          (appelloyers) =>
+            new GetStatLoyerParAnneeActionsSuccess(appelloyers)
+        ),
+        catchError((err) =>
+          of(new GetStatLoyerParAnneeActionsError(err.message))
         )
       );
     })

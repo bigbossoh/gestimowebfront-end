@@ -100,6 +100,7 @@ class ApiService extends __BaseService {
   static readonly ReductionLoyerByPeriodePath = 'gestimoweb/api/v1/appelloyer/reductionLoyerByPeriode';
   static readonly saveAppelLoyersPath = 'gestimoweb/api/v1/appelloyer/save';
   static readonly staisiqueLoyerParMoisPath = 'gestimoweb/api/v1/appelloyer/staisiqueLoyerParMois/{periode}/{idAgence}/{chapitre}';
+  static readonly statistiqueLoyerParAnneePath = 'gestimoweb/api/v1/appelloyer/statistiqueLoyerParAnnee/{annee}/{idAgence}/{chapitre}';
   static readonly supprimerPaiementAppelPath = 'gestimoweb/api/v1/appelloyer/supprimerPaiementAppel/{idPeriode}/{idBail}';
   static readonly verifyAccountPath = 'gestimoweb/api/v1/auth/accountVerification/{token}';
   static readonly loginPath = 'gestimoweb/api/v1/auth/login';
@@ -1751,6 +1752,58 @@ class ApiService extends __BaseService {
    */
   staisiqueLoyerParMois(params: ApiService.StaisiqueLoyerParMoisParams): __Observable<StatistiquePeriodeDto> {
     return this.staisiqueLoyerParMoisResponse(params).pipe(
+      __map(_r => _r.body as StatistiquePeriodeDto)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.StatistiqueLoyerParAnneeParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `chapitre`:
+   *
+   * - `annee`:
+   *
+   * @return successful operation
+   */
+  statistiqueLoyerParAnneeResponse(params: ApiService.StatistiqueLoyerParAnneeParams): __Observable<__StrictHttpResponse<StatistiquePeriodeDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appelloyer/statistiqueLoyerParAnnee/${params.annee}/${params.idAgence}/${params.chapitre}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<StatistiquePeriodeDto>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.StatistiqueLoyerParAnneeParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `chapitre`:
+   *
+   * - `annee`:
+   *
+   * @return successful operation
+   */
+  statistiqueLoyerParAnnee(params: ApiService.StatistiqueLoyerParAnneeParams): __Observable<StatistiquePeriodeDto> {
+    return this.statistiqueLoyerParAnneeResponse(params).pipe(
       __map(_r => _r.body as StatistiquePeriodeDto)
     );
   }
@@ -6396,7 +6449,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveSuivieDepenseResponse(body?: SuivieDepenseDto): __Observable<__StrictHttpResponse<SuivieDepenseDto>> {
+  saveSuivieDepenseResponse(body?: SuivieDepenseDto): __Observable<__StrictHttpResponse<Array<SuivieDepenseDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -6414,7 +6467,7 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<SuivieDepenseDto>;
+        return _r as __StrictHttpResponse<Array<SuivieDepenseDto>>;
       })
     );
   }
@@ -6422,9 +6475,9 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveSuivieDepense(body?: SuivieDepenseDto): __Observable<SuivieDepenseDto> {
+  saveSuivieDepense(body?: SuivieDepenseDto): __Observable<Array<SuivieDepenseDto>> {
     return this.saveSuivieDepenseResponse(body).pipe(
-      __map(_r => _r.body as SuivieDepenseDto)
+      __map(_r => _r.body as Array<SuivieDepenseDto>)
     );
   }
 
@@ -7318,6 +7371,15 @@ module ApiService {
     periode: string;
     idAgence: number;
     chapitre: number;
+  }
+
+  /**
+   * Parameters for statistiqueLoyerParAnnee
+   */
+  export interface StatistiqueLoyerParAnneeParams {
+    idAgence: number;
+    chapitre: number;
+    annee: number;
   }
 
   /**

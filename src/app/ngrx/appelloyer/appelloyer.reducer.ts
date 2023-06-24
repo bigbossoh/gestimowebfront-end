@@ -16,6 +16,7 @@ export enum AppelLoyerStateEnum {
 export interface AppelLoyerState {
   smss: any;
   statPeriode:any;
+  statAnnee:any;
   appelloyers: AppelLoyersFactureDto[];
   anneesAppel: AnneeAppelLoyersDto[];
   periodes: PeriodeDto[];
@@ -29,6 +30,7 @@ export interface AppelLoyerState {
 const initState: AppelLoyerState = {
   smss: null,
   statPeriode:null,
+  statAnnee:null,
   appelloyers: [],
   anneesAppel: [],
   periodes: [],
@@ -59,7 +61,7 @@ export function appelLoyerReducer(
         dataState: AppelLoyerStateEnum.ERROR,
         errorMessage: (<AppelLoyerActions>action).payload,
       };
-    // GET ALL APPEL LOYER
+    // GET STAT PAR  APPEL LOYER
     case AppelLoyerctionsTypes.GET_STAT_LOYER_PAR_PERIODE:
       return { ...state, dataState: AppelLoyerStateEnum.LOADING };
     case AppelLoyerctionsTypes.GET_STAT_LOYER_PAR_PERIODE_SUCCES:
@@ -74,6 +76,21 @@ export function appelLoyerReducer(
         dataState: AppelLoyerStateEnum.ERROR,
         errorMessage: (<AppelLoyerActions>action).payload,
       };
+//GET STAT PAR ANNEE
+      case AppelLoyerctionsTypes.GET_STAT_LOYER_PAR_ANNEE:
+        return { ...state, dataState: AppelLoyerStateEnum.LOADING };
+      case AppelLoyerctionsTypes.GET_STAT_LOYER_PAR_ANNEE_SUCCES:
+        return {
+          ...state,
+          dataState: AppelLoyerStateEnum.LOADED,
+          statAnnee: (<AppelLoyerActions>action).payload,
+        };
+      case AppelLoyerctionsTypes.GET_STAT_LOYER_PAR_ANNEE_ERROR:
+        return {
+          ...state,
+          dataState: AppelLoyerStateEnum.ERROR,
+          errorMessage: (<AppelLoyerActions>action).payload,
+        };
     // GET ALL APPEL LOYER BY PERIODE
     case AppelLoyerctionsTypes.GET_ALL_APPELLOYER_BY_PERIODE:
       return { ...state, dataState: AppelLoyerStateEnum.LOADING };

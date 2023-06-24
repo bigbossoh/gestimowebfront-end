@@ -29,12 +29,10 @@ export function suiviDepenseReducer(
     case SuiviDepenseActionsTypes.SAVE_SUIVI_DEPENSE:
       return { ...state, dataState: SuiviDepenseStateEnum.LOADING };
     case SuiviDepenseActionsTypes.SAVE_SUIVI_DEPENSE_SUCCES:
-      let sdpense: SuivieDepenseDto[] = [...state.suiviDepenses];
-      sdpense.push((<JournalCaisseActions>action).payload);
       return {
         ...state,
         dataState: SuiviDepenseStateEnum.LOADED,
-        suiviDepenses: sdpense,
+        suiviDepenses: (<JournalCaisseActions>action).payload,
       };
     case SuiviDepenseActionsTypes.SAVE_SUIVI_DEPENSE_ERROR:
       return {
@@ -59,7 +57,7 @@ export function suiviDepenseReducer(
         dataState: SuiviDepenseStateEnum.ERROR,
         errorMessage: (<JournalCaisseActions>action).payload,
       };
-    
+
     default:
       return { ...state };
   }
