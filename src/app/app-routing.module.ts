@@ -32,6 +32,7 @@ import { PageGestionDroitComponent } from './pages/roles-droits/page-gestion-dro
 import { PageReservationResidenceComponent } from './pages/residence/page-reservation/page-reservation-residence/page-reservation-residence.component';
 import { PageDisponibiliteResidenceComponent } from './pages/residence/page-disponibilite-appartement/page-disponibilite-residence/page-disponibilite-residence.component';
 import { PageClientResidenceComponent } from './pages/residence/page-client-residence/page-client-residence/page-client-residence.component';
+import { PageChatIaComponent } from './pages/Chatgpt/page-chat-ia/page-chat-ia.component';
 
 const routes: Routes = [
   {
@@ -211,7 +212,12 @@ const routes: Routes = [
       component:PageClientResidenceComponent,
       canActivate:[ApplicationGuardService]
     }
-
+    ,
+    {
+      path:'chat-ia',
+      component:PageChatIaComponent,
+      canActivate:[ApplicationGuardService]
+    }
   ]
   }
 ];

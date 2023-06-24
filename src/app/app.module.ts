@@ -159,6 +159,7 @@ import { PageClientResidenceComponent } from './pages/residence/page-client-resi
 import { StatistiqueChartReducer } from './ngrx/statistique-chart/statistiquechart.reducer';
 import { StatistiqueChartEffect } from './ngrx/statistique-chart/statistiquechart.effects';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { PageChatIaComponent } from './pages/Chatgpt/page-chat-ia/page-chat-ia.component';
 @NgModule({
   declarations: [
     PageStatistiqueJournalierComponent,
@@ -225,6 +226,7 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
     PageParametreResidenceComponent,
     PageDisponibiliteResidenceComponent,
     PageClientResidenceComponent,
+    PageChatIaComponent,
 
   ],
   imports: [
