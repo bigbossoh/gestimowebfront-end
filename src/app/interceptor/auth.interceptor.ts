@@ -27,6 +27,13 @@ export class AuthInterceptor implements HttpInterceptor {
     ) {
       return httpHandler.handle(httpRequest);
     }
+    if (
+      httpRequest.url.includes(
+        `https://api.openai.com/v1/chat/completions`
+      )
+    ) {
+      return httpHandler.handle(httpRequest);
+    }
 
     this.userService.loadToken();
     const token = this.userService.getToken();

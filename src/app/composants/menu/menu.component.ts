@@ -286,10 +286,18 @@ export class MenuComponent implements OnInit {
 
       },
       {
-        id: '94',
+        id: '95',
         titre: 'Gestion tâches planifiées',
         icon: 'fa fa-tasks',
         url: 'liste-taches-planifiees',
+
+      }
+      ,
+      {
+        id: '96',
+        titre: 'Chat avec IA',
+        icon: 'fas fa-robot',
+        url: 'chat-ia',
 
       }
     ]
