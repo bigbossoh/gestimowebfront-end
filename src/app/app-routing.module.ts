@@ -33,6 +33,7 @@ import { PageReservationResidenceComponent } from './pages/residence/page-reserv
 import { PageDisponibiliteResidenceComponent } from './pages/residence/page-disponibilite-appartement/page-disponibilite-residence/page-disponibilite-residence.component';
 import { PageClientResidenceComponent } from './pages/residence/page-client-residence/page-client-residence/page-client-residence.component';
 import { PageChatIaComponent } from './pages/Chatgpt/page-chat-ia/page-chat-ia.component';
+import { PageConsultationReglementLoyerPeriodeComponent } from './pages/comptabilite/page-consultation-reglement-loyer-periode/page-consultation-reglement-loyer-periode.component';
 
 const routes: Routes = [
   {
@@ -216,6 +217,12 @@ const routes: Routes = [
     {
       path:'chat-ia',
       component:PageChatIaComponent,
+      canActivate:[ApplicationGuardService]
+    }
+    ,
+    {
+      path:'reglement-periode-loyer',
+      component:PageConsultationReglementLoyerPeriodeComponent,
       canActivate:[ApplicationGuardService]
     }
   ]

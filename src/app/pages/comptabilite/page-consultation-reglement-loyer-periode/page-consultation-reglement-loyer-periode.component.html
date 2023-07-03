@@ -1,0 +1,47 @@
+<div class="col">
+  <div class="row m-3">
+    <div class="col-md-8 p-0">
+      <h1>Consultation des reglements de loyer</h1>
+    </div>
+    <div class="col-md-4 text-right"></div>
+  </div>
+
+
+    <div class="row">
+      <div class="col">
+        <h5>
+          <i class="fas fa-asterisk blue-color"></i>&nbsp;Selection de la periode
+        </h5>
+      </div>
+    </div>
+    <hr style="margin-top: 0" />
+    <div class="row mt-2 ml-2" style="display: flex; justify-content: flex-start; align-items: center; gap: 10px;">
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Date début</mat-label>
+          <input matInput [matDatepicker]="picker" data-date-format="yyyy-mm-dd" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Date fin</mat-label>
+          <input matInput [matDatepicker]="picker1" data-date-format="yyyy-mm-dd" />
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div style="flex-grow: 1;">
+        <button mat-raised-button color="primary" type="button" class="mr-1" style="height: 40px;">
+          <mat-icon>search</mat-icon>
+          Recherche
+        </button>
+      </div>
+    </div>
+
+
+
+
+
+</div>

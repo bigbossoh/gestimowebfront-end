@@ -60,31 +60,6 @@ export class MenuComponent implements OnInit {
         icon: 'fas fa-hotel',
         url: 'agences'
       }
-      // ,
-      // {
-      //   id: '22',
-      //   titre: 'Locataires',
-      //   icon: 'fa fa-key',
-      //   url: 'locataires'
-      // },
-      // {
-      //   id: '23',
-      //   titre: 'Gérants',
-      //   icon: 'fas fa-street-view',
-      //   url: 'gerants'
-      // },
-      // {
-      //   id: '24',
-      //   titre: 'Proprietaire',
-      //   icon: 'fas fa-user-graduate',
-      //   url: 'proprietaires'
-      // },
-      // {
-      //   id: '25',
-      //   titre: 'Administrateur',
-      //   icon: 'fas fa-crown',
-      //   url: 'Superviseurs'
-      // }
     ]
   },
 
@@ -100,12 +75,6 @@ export class MenuComponent implements OnInit {
         icon: 'fas fa-virus-slash',
         url: 'appelloyers'
       },
-      // {
-      //   id: '32',
-      //   titre: "Relance loyer",
-      //   icon: 'fas fa-headset',
-      //   url: 'relance'
-      // },
       {
         id: '33',
         titre: "Règlement individuel",
@@ -127,12 +96,6 @@ export class MenuComponent implements OnInit {
     icon: 'fas fa-city',
     url: '',
     sousMenu: [
-      // {
-      //   id: '41',
-      //   titre: "biens par site",
-      //   icon: '',
-      //   url: 'bien-par-site'
-      // },
       {
         id: '42',
         titre: "biens immobiliers",
@@ -142,26 +105,6 @@ export class MenuComponent implements OnInit {
 
     ]
   },
-  /* {
-    id: '5',
-    titre: 'Gestion des locataires',
-    icon: 'fas fa-wind',
-    url: '',
-    sousMenu: [
-      {
-        id: '51',
-        titre: "Equipements",
-        icon: 'fas fa-fan',
-        url: ''
-      },
-      {
-        id: '52',
-        titre: "Pièce Equipements",
-        icon: 'fas fa-door-open',
-        url: ''
-      }
-    ]
-  }, */
   {
     id: '6',
     titre: 'Gestion des baux',
@@ -173,15 +116,7 @@ export class MenuComponent implements OnInit {
         titre: "contrat de bail",
         icon: 'fas fa-file-signature',
         url: 'baux'
-      },
-      // {
-      //   id: '62',
-      //   titre: "loyers par bail",
-      //   icon: 'fa fa-book'
-      //   ,
-      //   url: 'bail-loyers'
-      // }
-
+      }
     ]
   }
   ,
@@ -235,6 +170,7 @@ export class MenuComponent implements OnInit {
         icon: 'fas fa-users-cog',
         url: 'compte-client'
       },
+
       {
         id: '83',
         titre: "Compte Agence",
@@ -246,6 +182,12 @@ export class MenuComponent implements OnInit {
         titre: "Grand compte",
         icon: 'fas fa-users-cog',
         url: 'grand-compte'
+      },
+      {
+        id: '85',
+        titre: "Consultation reglement",
+        icon: 'fas fa-users-cog',
+        url: 'reglement-periode-loyer'
       }
 
     ]

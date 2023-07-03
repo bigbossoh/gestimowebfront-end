@@ -131,6 +131,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 
 import { MatSortModule } from '@angular/material/sort';
+
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AppButtonNewAgenceActionComponent } from './composants/app-button-new-agence-action/app-button-new-agence-action.component';
 import { TachesPlanifieesComponent } from './pages/tachesPlanifiees/taches-planifiees/taches-planifiees.component';
@@ -147,6 +148,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatCardModule } from '@angular/material/card';
 import { imageReducer } from './ngrx/images/images.reducer';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTableExporterModule } from 'mat-table-exporter';
 import { ReductionAppelLoyerComponent } from './pages/appel-loyer/reduction-appel-loyer/reduction-appel-loyer.component';
 import { registerLocaleData } from '@angular/common';
 import { suiviDepenseReducer } from './ngrx/journal-caisse/journal-caisse.reducer';
@@ -160,6 +162,7 @@ import { StatistiqueChartReducer } from './ngrx/statistique-chart/statistiquecha
 import { StatistiqueChartEffect } from './ngrx/statistique-chart/statistiquechart.effects';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { PageChatIaComponent } from './pages/Chatgpt/page-chat-ia/page-chat-ia.component';
+import { PageConsultationReglementLoyerPeriodeComponent } from './pages/comptabilite/page-consultation-reglement-loyer-periode/page-consultation-reglement-loyer-periode.component';
 @NgModule({
   declarations: [
     PageStatistiqueJournalierComponent,
@@ -227,6 +230,7 @@ import { PageChatIaComponent } from './pages/Chatgpt/page-chat-ia/page-chat-ia.c
     PageDisponibiliteResidenceComponent,
     PageClientResidenceComponent,
     PageChatIaComponent,
+    PageConsultationReglementLoyerPeriodeComponent,
 
   ],
   imports: [
@@ -235,6 +239,7 @@ import { PageChatIaComponent } from './pages/Chatgpt/page-chat-ia/page-chat-ia.c
     MatButtonModule,
     MatRadioModule,
     MatTableModule,
+
     MatSelectModule,
     MatExpansionModule,
     MatIconModule,
@@ -264,6 +269,7 @@ import { PageChatIaComponent } from './pages/Chatgpt/page-chat-ia/page-chat-ia.c
     MatCardModule,
     MatTooltipModule,
     ChartsModule,
+    MatTableExporterModule,
 
     //ToastrModule.forRoot(),
     StoreModule.forRoot({

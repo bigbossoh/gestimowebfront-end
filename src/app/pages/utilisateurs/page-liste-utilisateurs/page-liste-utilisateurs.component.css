@@ -63,3 +63,7 @@ body {
   border: 0;
   margin-bottom: 1rem;
 }
+.m-2 {
+  margin: 2px;
+  padding: 10px;
+}

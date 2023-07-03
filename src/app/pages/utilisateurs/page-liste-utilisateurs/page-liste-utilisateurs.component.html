@@ -34,13 +34,12 @@
                   placeholder="Ex. Locataire"
                 />
               </mat-form-field>
+
               </div>
                 <div class="mat-elevation-z8">
 
-              <mat-table [dataSource]="dataSource" matSort>
-               
-
-                <!-- ID colonne -->
+              <mat-table #table matTableExporter [dataSource]="dataSource" matSort #exporter="matTableExporter">
+                  <!-- ID colonne -->
                 <ng-container matColumnDef="ID">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>
                     ID
@@ -130,13 +129,16 @@
                   </td>
                 </tr>
               </mat-table>
-              <!-- <mat-paginator
-                #paginatorUser
-                showFirstLastButtons
-                [pageSizeOptions]="pageSize"
-                [length]="totalRecords!"
-              ></mat-paginator> -->
+
+              <div class="col m-2" style="display: flex; justify-content: space-between;">
+                <button class="mr-1" mat-button mat-raised-button color="accent"
+                (click)="exporter.exportTable('xlsx', {fileName:'Liste_utilisateur'})">
+                Exporter en Excel
+                <mat-icon>insert_drive_file</mat-icon>
+              </button>
               <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+              </div>
+
             </div>
           </ng-container>
         </ng-container>
