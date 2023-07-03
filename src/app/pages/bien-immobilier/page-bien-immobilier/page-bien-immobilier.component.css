@@ -8,3 +8,12 @@
       width: 50%;
     }
   }
+  .tail-40{
+    width: 40%;
+    margin-left: 10px;
+  }
+  mat-header-cell,
+mat-cell {
+  width: 100px; /* Ajustez la largeur selon vos besoins */
+}
+

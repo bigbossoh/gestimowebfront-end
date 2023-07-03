@@ -23,10 +23,6 @@
       <div>
 
       </div>
-      <mat-form-field>
-        <input matInput (keyup)="applyFilter($event)" #input placeholder="Rechercher un Immeuble" />
-      </mat-form-field>
-      <div></div>
       <mat-form-field appearance="outline">
         <mat-label>Chapitre</mat-label>
         <mat-select [(ngModel)]="chapitre" #selectionChapitre
@@ -42,6 +38,11 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+
+      <div></div>
+      <mat-form-field class="tail-40">
+        <input matInput (keyup)="applyFilter($event)" #input placeholder="Rechercher un Immeuble" />
+      </mat-form-field>
     </div>
     <!-- MAT TABLE AFFICHE  -->
     <div class="table-responsive">
@@ -51,32 +52,43 @@
       [ngSwitch]="bienImmobilierState.dataState">
       <ng-container *ngSwitchCase="BienImmobilierStateEnum.LOADED">
         <div class="mat-elevation-z8">
-          <mat-paginator #matimmeuble showFirstLastButtons [pageSizeOptions]="pageSize"
+          <div class="col" style="display: flex; justify-content: space-between;">
+            <button mat-button mat-raised-button color="accent"
+                (click)="exporter.exportTable('xlsx', {fileName:'liste_biens_immobiliers'})">
+
+                Exporter en Excel
+                <mat-icon>insert_drive_file</mat-icon>
+              </button>
+              <mat-paginator #matimmeuble showFirstLastButtons [pageSizeOptions]="pageSize"
             [length]="totalRecords!"></mat-paginator>
-          <mat-table #table [dataSource]="dataSource" matSort>
+          </div>
+
+          <mat-table #table matTableExporter [dataSource]="dataSource" matSort #exporter="matTableExporter">
+
             <!-- Code colonne -->
             <ng-container matColumnDef="Chapitre">
               <mat-header-cell *matHeaderCellDef mat-sort-header>
-                Chapitre
+                <b>Chapitre</b>
               </mat-header-cell>
               <mat-cell *matCellDef="let row">
                 {{ row.chapitre }}
               </mat-cell>
             </ng-container>
-            <!-- Code colonne -->
-            <ng-container matColumnDef="Code">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>
-                Code
-              </mat-header-cell>
-              <mat-cell *matCellDef="let row">
-                {{ row.codeAbrvBienImmobilier }}
-              </mat-cell>
-            </ng-container>
+
+             <!-- Code colonne avec espace supplémentaire -->
+  <ng-container matColumnDef="Code">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>
+      <b>Code</b>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.codeAbrvBienImmobilier }}
+    </mat-cell>
+  </ng-container>
 
             <!-- Dénomination colonne -->
             <ng-container matColumnDef="Denomination">
               <mat-header-cell *matHeaderCellDef mat-sort-header>
-                Dénomination
+                <b>Dénomination</b>
               </mat-header-cell>
               <mat-cell *matCellDef="let row">
                 {{ row.nomBaptiserBienImmobilier }}
@@ -86,23 +98,29 @@
             <!-- Propriétaire colonne -->
             <ng-container matColumnDef="Proprietaire">
               <mat-header-cell *matHeaderCellDef mat-sort-header>
-                Propriétaire
+                <b>Propriétaire</b>
               </mat-header-cell>
               <mat-cell *matCellDef="let row">
-                {{ row.nomPrenomProprio }}</mat-cell>
+                {{ row.nomPrenomProprio }}
+              </mat-cell>
             </ng-container>
-            <!-- Propriétaire colonne -->
+
+            <!-- Status colonne -->
             <ng-container matColumnDef="Status">
               <mat-header-cell *matHeaderCellDef mat-sort-header>
-                Status
+                <b>Status</b>
               </mat-header-cell>
               <mat-cell *matCellDef="let row">
                 <span [hidden]="row.occupied" class="badge badge-success">Libre</span>
-                <span [hidden]="!row.occupied" class="badge badge-danger">Occupé</span></mat-cell>
+                <span [hidden]="!row.occupied" class="badge badge-danger">Occupé</span>
+              </mat-cell>
             </ng-container>
+
             <!-- Actions colonne -->
             <ng-container matColumnDef="Actions">
-              <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+              <mat-header-cell *matHeaderCellDef>
+                <b>Actions</b>
+              </mat-header-cell>
               <mat-cell *matCellDef="let row">
                 <td class="">
                   <button mat-icon-button color="primary" (click)="onEditBien(row)">
@@ -111,7 +129,7 @@
                   <button mat-icon-button color="warn">
                     <mat-icon>delete</mat-icon>
                   </button>
-                  <button (click)="updateBienChapitre(row.id,row.codeAbrvBienImmobilier)" mat-icon-button color="black">
+                  <button (click)="updateBienChapitre(row.id, row.codeAbrvBienImmobilier)" mat-icon-button color="black">
                     <div *ngIf="row.chapitre=='EBIMPE'">
                       <mat-icon>build</mat-icon>
                       Transférer vers MAGISER
@@ -125,13 +143,14 @@
               </mat-cell>
             </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumns">
-            </mat-header-row>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-            <!-- Row shown when there is no matching data. -->
+
+            <!-- Ligne affichée lorsqu'il n'y a pas de données correspondantes -->
+
             <tr class="mat-row" *matNoDataRow>
               <td class="mat-cell" colspan="4">
-                Aucune donnée enregistrées "{{ input.value }}"
+                Aucune donnée enregistrée "{{ input.value }}"
               </td>
             </tr>
           </mat-table>

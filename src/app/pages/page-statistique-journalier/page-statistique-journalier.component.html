@@ -233,27 +233,35 @@
   </div>
 </div>
 <!-- Cards with media area -->
-<div>
-<mat-card class="example-card">
-    <mat-card-title-group>
-      <mat-card-title>Statistique par mois</mat-card-title>
-      <mat-card-subtitle></mat-card-subtitle>
-    </mat-card-title-group>
-    <mat-card-content>
-   <canvas id="piechart">
-   </canvas>
-    </mat-card-content>
-  </mat-card>
+<div class="row mt-3">
+  <div class="col-md-6">
+    <div>
+      <mat-card class="example-card">
+          <mat-card-title-group>
+            <mat-card-title>Statistique par mois</mat-card-title>
+            <mat-card-subtitle></mat-card-subtitle>
+          </mat-card-title-group>
+          <mat-card-content>
+         <canvas id="piechart">
+         </canvas>
+          </mat-card-content>
+        </mat-card>
+      </div>
+  </div>
+  <div class="col-md-6">
+    <div style="display: flex; flex-direction: column">
+      <mat-card class="example-card">
+        <mat-card-title-group>
+          <mat-card-title>Statistique par année</mat-card-title>
+          <mat-card-subtitle></mat-card-subtitle>
+        </mat-card-title-group>
+        <mat-card-content>
+    <canvas id="piechartannee">
+    </canvas>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
 </div>
- <div style="display: flex; flex-direction: column">
-  <mat-card class="example-card">
-    <mat-card-title-group>
-      <mat-card-title>Statistique par année</mat-card-title>
-      <mat-card-subtitle></mat-card-subtitle>
-    </mat-card-title-group>
-    <mat-card-content>
-<canvas id="piechartannee">
-</canvas>
-    </mat-card-content>
-  </mat-card>
-</div>
+
+
