@@ -1,0 +1,116 @@
+<div class="col">
+  <div class="row m-3">
+    <div class="col-md-8 p-0">
+      <h3>Ajout reservation</h3>
+    </div>
+    <div class="col-md-4 text-right">
+
+    </div>
+  </div>
+  <div class="col">
+    <div class="row">
+      <div class="col">
+        <h5>
+          <i class="fas fa-asterisk blue-color"></i>&nbsp;Choix residence et residence meublé
+        </h5>
+      </div>
+    </div>
+    <hr style="margin-top: 0" />
+  </div>
+  <div class="col">
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field appearance="outline">
+          <mat-label> Resident(e)</mat-label>
+          <mat-select #selectionlocataire>
+            <mat-option [value]="0">Selectionner un resident(e)
+            </mat-option>
+            <mat-option>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline">
+          <mat-label> Catégorie des résidences</mat-label>
+          <mat-select #selectionlocataire>
+            <mat-option [value]="0">Selectionner d'une catégorie de résidence
+            </mat-option>
+            <mat-option>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline">
+          <mat-label> residence meublée</mat-label>
+          <mat-select #selectionlocataire>
+            <mat-option [value]="0">Selectionner une residence meublée
+            </mat-option>
+            <mat-option>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row m-2">
+  <div class="col">
+    <h5>
+      <i class="fas fa-asterisk blue-color"></i>&nbsp;Choix de la période d'occupation
+    </h5>
+  </div>
+  <hr style="margin-top: 0" />
+</div>
+<div class="row m-2">
+<div class="col-md-4">
+  <mat-card-subtitle>
+    <mat-form-field appearance="outline">
+      <mat-label>Date debut</mat-label>
+      <input
+
+        #refDate
+        matInput
+        [matDatepicker]="picker"
+        data-date-format="yyyy-mm-dd"
+
+      />
+
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </mat-card-subtitle>
+
+</div>
+<div class="col-md-4">
+  <mat-card-subtitle>
+    <mat-form-field appearance="outline">
+      <mat-label>Date Fin</mat-label>
+      <input
+
+        #refDateFin
+        matInput
+        [matDatepicker]="pickerFin"
+        data-date-format="yyyy-mm-dd"
+
+      />
+
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="pickerFin"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #pickerFin></mat-datepicker>
+    </mat-form-field>
+  </mat-card-subtitle>
+</div>
+<div class="col-md-4">
+  <mat-card-subtitle>
+    <span>0 jours </span>
+  </mat-card-subtitle>
+</div>
+</div>
