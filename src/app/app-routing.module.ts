@@ -34,6 +34,8 @@ import { PageDisponibiliteResidenceComponent } from './pages/residence/page-disp
 import { PageClientResidenceComponent } from './pages/residence/page-client-residence/page-client-residence/page-client-residence.component';
 import { PageChatIaComponent } from './pages/Chatgpt/page-chat-ia/page-chat-ia.component';
 import { PageConsultationReglementLoyerPeriodeComponent } from './pages/comptabilite/page-consultation-reglement-loyer-periode/page-consultation-reglement-loyer-periode.component';
+import { PageDashboardResidenceComponent } from './pages/residence/page-dashboard-residence/page-dashboard-residence.component';
+import { PageAjoutReservationComponent } from './pages/residence/page-ajout-reservation/page-ajout-reservation.component';
 
 const routes: Routes = [
   {
@@ -223,6 +225,18 @@ const routes: Routes = [
     {
       path:'reglement-periode-loyer',
       component:PageConsultationReglementLoyerPeriodeComponent,
+      canActivate:[ApplicationGuardService]
+    }
+    ,
+    {
+      path:'dashboard-residence',
+      component:PageDashboardResidenceComponent,
+      canActivate:[ApplicationGuardService]
+    }
+    ,
+    {
+      path:'ajout-reservation',
+      component:PageAjoutReservationComponent,
       canActivate:[ApplicationGuardService]
     }
   ]

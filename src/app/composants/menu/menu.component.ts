@@ -128,28 +128,36 @@ export class MenuComponent implements OnInit {
     sousMenu: [
       {
         id: '70',
+        titre: "Tableau de bord",
+        icon: 'fas fa-pie-chart',
+        url: 'dashboard-residence'
+      },
+      {
+        id: '71',
         titre: "client residence",
         icon: 'fas fa-address-card',
         url: 'client-residence'
       },
       {
-        id: '71',
+        id: '72',
         titre: "Reservation",
         icon: 'fas fa-bed',
         url: 'reservation-residence'
       },
       {
-        id: '72',
+        id: '73',
         titre: "disponibilité",
         icon: 'far fa-calendar-check',
         url: 'disponibilite-residence'
       },
+
       {
-        id: '73',
+        id: '74',
         titre: "paiement",
         icon: 'fas fa-credit-card',
         url: 'paiement-residence'
       }
+
     ]
   },
   {

@@ -163,6 +163,8 @@ import { StatistiqueChartEffect } from './ngrx/statistique-chart/statistiquechar
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { PageChatIaComponent } from './pages/Chatgpt/page-chat-ia/page-chat-ia.component';
 import { PageConsultationReglementLoyerPeriodeComponent } from './pages/comptabilite/page-consultation-reglement-loyer-periode/page-consultation-reglement-loyer-periode.component';
+import { PageDashboardResidenceComponent } from './pages/residence/page-dashboard-residence/page-dashboard-residence.component';
+import { PageAjoutReservationComponent } from './pages/residence/page-ajout-reservation/page-ajout-reservation.component';
 @NgModule({
   declarations: [
     PageStatistiqueJournalierComponent,
@@ -231,6 +233,8 @@ import { PageConsultationReglementLoyerPeriodeComponent } from './pages/comptabi
     PageClientResidenceComponent,
     PageChatIaComponent,
     PageConsultationReglementLoyerPeriodeComponent,
+    PageDashboardResidenceComponent,
+    PageAjoutReservationComponent,
 
   ],
   imports: [
