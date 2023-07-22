@@ -13,6 +13,8 @@ import {
   SaveSuiviDepenseActionsError,
   GetAllSuiviDepenseActionsSuccess,
   GetAllSuiviDepenseActionsError,
+  SaveSupprSuiviDepenseActionsError,
+  SaveSupprSuiviDepenseActionsSuccess,
 } from './journal-caisse.actions';
 @Injectable()
 export class SuiviDepenseEffects {
@@ -32,14 +34,6 @@ export class SuiviDepenseEffects {
       }),
       tap((resultat) => {
         if (
-          resultat.type == SuiviDepenseActionsTypes.SAVE_SUIVI_DEPENSE_SUCCES
-        ) {
-          this.sendErrorNotification(
-            NotificationType.SUCCESS,
-            'Enregistrement réussi .'
-          );
-        }
-        if (
           resultat.type == SuiviDepenseActionsTypes.SAVE_SUIVI_DEPENSE_ERROR
         ) {
           this.sendErrorNotification(
@@ -50,6 +44,38 @@ export class SuiviDepenseEffects {
       })
     )
   );
+  //SUPPRIMER UN ENCAISSEMENT
+  saveSupprSuiviDepenseEffect: Observable<Action> = createEffect(() =>
+  this.effectActions.pipe(
+    ofType(SuiviDepenseActionsTypes.SAVE_SUPPR_SUIVI_DEPENSE),
+    mergeMap((action: JournalCaisseActions) => {
+
+      return this.apiService.suprimerSuiviParId(action.payload).pipe(
+        map((suivis) => new SaveSupprSuiviDepenseActionsSuccess(suivis)),
+        catchError((err) => of(new SaveSupprSuiviDepenseActionsError(err.message)))
+      );
+    }),
+    tap((resultat) => {
+
+      if (
+        resultat.type == SuiviDepenseActionsTypes.SAVE_SUPPR_SUIVI_DEPENSE_ERROR
+      ) {
+        this.sendErrorNotification(
+          NotificationType.ERROR,
+          resultat.payload.toString()
+        );
+      }
+      if (
+        resultat.type == SuiviDepenseActionsTypes.SAVE_SUPPR_SUIVI_DEPENSE_SUCCES
+      ) {
+        this.sendErrorNotification(
+          NotificationType.SUCCESS,
+          "Suppression a été éffectuée avec succès."
+        );
+      }
+    })
+  )
+);
   //GET ALL SUIVI DEPESNSE
   getAllSuiviDepenseEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(

@@ -1986,6 +1986,39 @@
         }
       }
     },
+    "gestimoweb/api/v1/encaissement/getTotalEncaissementparPeriode/{idAgence}/{datedebut}/{datefin}" : {
+      "get" : {
+        "operationId" : "getTotalEncaissementparPeriode",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "datedebut",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "datefin",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/EncaissementPrincipalDTO"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/encaissement/getTotalEncaissementsEtMontantsDeLoyerParMois/{idAgence}/{datedebut}/{datefin}" : {
       "get" : {
         "operationId" : "getTotalEncaissementsEtMontantsDeLoyerParMois",
@@ -3642,6 +3675,35 @@
           "schema" : {
             "$ref" : "#/definitions/SuivieDepenseDto"
           }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/SuivieDepenseDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/suiviedepense/suprimerSuiviParId/{id}/{idAgence}" : {
+      "post" : {
+        "operationId" : "suprimerSuiviParId",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
         } ],
         "responses" : {
           "200" : {

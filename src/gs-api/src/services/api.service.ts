@@ -150,6 +150,7 @@ class ApiService extends __BaseService {
   static readonly findAllEncaissementByIdBienImmobilierPath = 'gestimoweb/api/v1/encaissement/allencaissementByIdBien/{id}';
   static readonly listTousEncaissementsPrincipalPath = 'gestimoweb/api/v1/encaissement/findAllEncaissementPrincipal/{idAgence}';
   static readonly findByIdEncaissementPath = 'gestimoweb/api/v1/encaissement/findByIdEncaissement/{id}';
+  static readonly getTotalEncaissementparPeriodePath = 'gestimoweb/api/v1/encaissement/getTotalEncaissementparPeriode/{idAgence}/{datedebut}/{datefin}';
   static readonly getTotalEncaissementsEtMontantsDeLoyerParMoisPath = 'gestimoweb/api/v1/encaissement/getTotalEncaissementsEtMontantsDeLoyerParMois/{idAgence}/{datedebut}/{datefin}';
   static readonly getTotalEncaissementsParMoisPath = 'gestimoweb/api/v1/encaissement/getTotalEncaissementsParMois/{idAgence}/{datedebut}/{datefin}';
   static readonly listeLocataireImpayerParAgenceEtPeriodePath = 'gestimoweb/api/v1/encaissement/listeLocataireImpayerParAgenceEtPeriode/{agence}/{periode}';
@@ -227,6 +228,7 @@ class ApiService extends __BaseService {
   static readonly getSuivieDepenseByCodeTransactionPath = 'gestimoweb/api/v1/suiviedepense/getSuivieDepenseByCodeTransaction/{codeTransaction}';
   static readonly getSuivieDepenseByIdPath = 'gestimoweb/api/v1/suiviedepense/getSuivieDepenseById/{id}';
   static readonly saveSuivieDepensePath = 'gestimoweb/api/v1/suiviedepense/saveSuivieDepense';
+  static readonly suprimerSuiviParIdPath = 'gestimoweb/api/v1/suiviedepense/suprimerSuiviParId/{id}/{idAgence}';
   static readonly getAllUtilisateursByOrderPath = 'gestimoweb/api/v1/utilisateur/all/{idAgence}';
   static readonly getAllGerantsByOrderPath = 'gestimoweb/api/v1/utilisateur/gerants/all/{idAgence}';
   static readonly getUtilisateurByAgencePath = 'gestimoweb/api/v1/utilisateur/getAllutilisateurbyAgence/{idAgence}';
@@ -3615,6 +3617,58 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param params The `ApiService.GetTotalEncaissementparPeriodeParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `datefin`:
+   *
+   * - `datedebut`:
+   *
+   * @return successful operation
+   */
+  getTotalEncaissementparPeriodeResponse(params: ApiService.GetTotalEncaissementparPeriodeParams): __Observable<__StrictHttpResponse<Array<EncaissementPrincipalDTO>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/encaissement/getTotalEncaissementparPeriode/${params.idAgence}/${params.datedebut}/${params.datefin}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<EncaissementPrincipalDTO>>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.GetTotalEncaissementparPeriodeParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `datefin`:
+   *
+   * - `datedebut`:
+   *
+   * @return successful operation
+   */
+  getTotalEncaissementparPeriode(params: ApiService.GetTotalEncaissementparPeriodeParams): __Observable<Array<EncaissementPrincipalDTO>> {
+    return this.getTotalEncaissementparPeriodeResponse(params).pipe(
+      __map(_r => _r.body as Array<EncaissementPrincipalDTO>)
+    );
+  }
+
+  /**
    * @param params The `ApiService.GetTotalEncaissementsEtMontantsDeLoyerParMoisParams` containing the following parameters:
    *
    * - `idAgence`:
@@ -6482,6 +6536,53 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param params The `ApiService.SuprimerSuiviParIdParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `id`:
+   *
+   * @return successful operation
+   */
+  suprimerSuiviParIdResponse(params: ApiService.SuprimerSuiviParIdParams): __Observable<__StrictHttpResponse<Array<SuivieDepenseDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/suiviedepense/suprimerSuiviParId/${params.id}/${params.idAgence}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<SuivieDepenseDto>>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.SuprimerSuiviParIdParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `id`:
+   *
+   * @return successful operation
+   */
+  suprimerSuiviParId(params: ApiService.SuprimerSuiviParIdParams): __Observable<Array<SuivieDepenseDto>> {
+    return this.suprimerSuiviParIdResponse(params).pipe(
+      __map(_r => _r.body as Array<SuivieDepenseDto>)
+    );
+  }
+
+  /**
    * @param idAgence undefined
    * @return successful operation
    */
@@ -7423,6 +7524,15 @@ module ApiService {
   }
 
   /**
+   * Parameters for getTotalEncaissementparPeriode
+   */
+  export interface GetTotalEncaissementparPeriodeParams {
+    idAgence: number;
+    datefin: string;
+    datedebut: string;
+  }
+
+  /**
    * Parameters for getTotalEncaissementsEtMontantsDeLoyerParMois
    */
   export interface GetTotalEncaissementsEtMontantsDeLoyerParMoisParams {
@@ -7490,6 +7600,14 @@ module ApiService {
     proprio: string;
     periode: string;
     idAgence: number;
+  }
+
+  /**
+   * Parameters for suprimerSuiviParId
+   */
+  export interface SuprimerSuiviParIdParams {
+    idAgence: number;
+    id: number;
   }
 }
 

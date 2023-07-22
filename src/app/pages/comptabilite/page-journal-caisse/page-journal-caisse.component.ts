@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import {
   SaveSuiviDepenseActions,
   GetAllSuiviDepenseActions,
+  SaveSupprSuiviDepenseActions,
 } from './../../../ngrx/journal-caisse/journal-caisse.actions';
 import { SuiviDepenseState } from './../../../ngrx/journal-caisse/journal-caisse.reducer';
 import { Observable } from 'rxjs';
@@ -13,7 +14,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-page-journal-caisse',
@@ -21,6 +21,7 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./page-journal-caisse.component.css'],
 })
 export class PageJournalCaisseComponent implements OnInit {
+
   displayedColumns = [
     'id',
     'dateEncaissement',
@@ -82,7 +83,6 @@ export class PageJournalCaisseComponent implements OnInit {
       });
   }
   ngAfterViewInit(): void {
-
     this.user = this.userService.getUserFromLocalCache();
     this.store.dispatch(new GetAllSuiviDepenseActions(this.user.idAgence));
     this.allSuiviDepenseState$ = this.store.pipe(
@@ -117,6 +117,16 @@ export class PageJournalCaisseComponent implements OnInit {
       map((state) => state.suiviDepenseState)
     );
 
+    this.ngAfterViewInit();
+  }
+  supprimerUnEncaissement(idEncaiss: any) {
+    this.user = this.userService.getUserFromLocalCache();
+    if (confirm('Vous allez annuler ce paiement de façon irreversible')) {
+      this.store.dispatch(
+        new SaveSupprSuiviDepenseActions({id:idEncaiss,idAgence:this.user.idAgence})
+      );
+
+    }
     this.ngAfterViewInit();
   }
 }
