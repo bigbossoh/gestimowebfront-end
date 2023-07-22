@@ -231,6 +231,9 @@
             <mat-cell *matCellDef="let row">
               <button mat-icon-button color="primary">
                 <mat-icon>print</mat-icon>
+                <button mat-icon-button style="color: rgb(255, 0, 0);" (click)="supprimerUnEncaissement(row.id)">
+                  <mat-icon>cancel</mat-icon>
+                </button>
               </button>
             </mat-cell>
           </ng-container>

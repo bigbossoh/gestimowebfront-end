@@ -11,6 +11,10 @@ export enum SuiviDepenseActionsTypes {
   SAVE_SUIVI_DEPENSE_SUCCES = '[SuivieDepenseDto] Save Suivi Depense Succes',
   SAVE_SUIVI_DEPENSE_ERROR = '[SuivieDepenseDto] Save Suivi Depense Error',
 
+  SAVE_SUPPR_SUIVI_DEPENSE = '[SuivieDepenseDto] Save Suppr Suivi Depense',
+  SAVE_SUPPR_SUIVI_DEPENSE_SUCCES = '[SuivieDepenseDto] Save Suppr Suivi Depense Succes',
+  SAVE_SUPPR_SUIVI_DEPENSE_ERROR = '[SuivieDepenseDto] Save Suppr Suivi Depense Error',
+
   GET_ALL_SUIVI_DEPENSE = '[SuivieDepenseDto] Get All Suivi Depense',
   GET_ALL_SUIVI_DEPENSE_SUCCES = '[SuivieDepenseDto] Get All Suivi Depense Succes',
   GET_ALL_SUIVI_DEPENSE_ERROR = '[SuivieDepenseDto] Get All Suivi Depense Error',
@@ -29,6 +33,23 @@ export class SaveSuiviDepenseActionsSuccess implements Action {
 export class SaveSuiviDepenseActionsError implements Action {
   type: SuiviDepenseActionsTypes =
     SuiviDepenseActionsTypes.SAVE_SUIVI_DEPENSE_ERROR;
+  constructor(public payload: string) {}
+}
+// SUPPRIMER UN ENREGISTREMENT
+export class SaveSupprSuiviDepenseActions implements Action {
+  type: SuiviDepenseActionsTypes =
+    SuiviDepenseActionsTypes.SAVE_SUPPR_SUIVI_DEPENSE;
+  constructor(public payload: any) {}
+}
+
+export class SaveSupprSuiviDepenseActionsSuccess implements Action {
+  type: SuiviDepenseActionsTypes =
+    SuiviDepenseActionsTypes.SAVE_SUPPR_SUIVI_DEPENSE_SUCCES;
+  constructor(public payload: any) {}
+}
+export class SaveSupprSuiviDepenseActionsError implements Action {
+  type: SuiviDepenseActionsTypes =
+    SuiviDepenseActionsTypes.SAVE_SUPPR_SUIVI_DEPENSE_ERROR;
   constructor(public payload: string) {}
 }
 
@@ -55,4 +76,7 @@ export type JournalCaisseActions =
   | SaveSuiviDepenseActionsError
   | GetAllSuiviDepenseActions
   | GetAllSuiviDepenseActionsError
-  | GetAllSuiviDepenseActionsSuccess;
+  | GetAllSuiviDepenseActionsSuccess
+  | SaveSupprSuiviDepenseActions
+  | SaveSupprSuiviDepenseActionsError
+  | SaveSupprSuiviDepenseActionsSuccess;

@@ -40,6 +40,22 @@ export function suiviDepenseReducer(
         dataState: SuiviDepenseStateEnum.ERROR,
         errorMessage: (<JournalCaisseActions>action).payload,
       };
+      //SUPPRIMER UN ENCAISSEMENT
+
+    case SuiviDepenseActionsTypes.SAVE_SUPPR_SUIVI_DEPENSE:
+      return { ...state, dataState: SuiviDepenseStateEnum.LOADING };
+    case SuiviDepenseActionsTypes.SAVE_SUPPR_SUIVI_DEPENSE_SUCCES:
+      return {
+        ...state,
+        dataState: SuiviDepenseStateEnum.LOADED,
+        suiviDepenses: (<JournalCaisseActions>action).payload,
+      };
+    case SuiviDepenseActionsTypes.SAVE_SUPPR_SUIVI_DEPENSE_ERROR:
+      return {
+        ...state,
+        dataState: SuiviDepenseStateEnum.ERROR,
+        errorMessage: (<JournalCaisseActions>action).payload,
+      };
     // GET ALL SUIVI DEPENSE
     case SuiviDepenseActionsTypes.GET_ALL_SUIVI_DEPENSE:
       return { ...state, dataState: SuiviDepenseStateEnum.LOADING };
