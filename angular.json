@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["chart.js"],
+            "allowedCommonJsDependencies": ["chart.js","rxjs-compat"],
             "outputPath": "dist/GestimoWebFront",
             "index": "src/index.html",
             "main": "src/main.ts",

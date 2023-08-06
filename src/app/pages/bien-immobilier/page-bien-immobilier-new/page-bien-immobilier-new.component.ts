@@ -128,10 +128,15 @@ export class PageBienImmobilierNewComponent implements OnInit {
     if (this.appartementForm?.invalid) {
       return;
     }
+    console.log(this.appartementForm?.value);
+
     this.submitted = false;
     this.store.dispatch(
       new SaveAppartementActions(this.appartementForm?.value)
     );
+    console.log("After save");
+
+    console.log(this.appartementForm?.value);
     this.appartementState$ = this.store.pipe(
       map((state) => state.appartementState)
     );
@@ -253,7 +258,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
                 idAgence: [this.user?.idAgence],
                 idCreateur: [this.user?.id],
                 idEtageAppartement: [data.appartement.idEtageAppartement],
-                meubleApp: [data.appartement.bienMeublerResidence],
+                bienMeublerResidence: [data.appartement.bienMeublerResidence],
                 nbrPieceApp: [data.appartement.nbrPieceApp],
                 nbreChambreApp: [data.appartement.nbreChambreApp],
                 nbrSalonApp: [data.appartement.nbreSalonApp],
