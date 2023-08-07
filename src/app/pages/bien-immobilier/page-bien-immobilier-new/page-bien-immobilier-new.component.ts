@@ -298,9 +298,6 @@ export class PageBienImmobilierNewComponent implements OnInit {
         idSite: [0],
         idUtilisateur: [0],
         occupied: [false],
-
-        //APPARTEMENT
-
         //MAGASIN
         abrvNomMagasin: [''],
         nmbrPieceMagasin: [0],
