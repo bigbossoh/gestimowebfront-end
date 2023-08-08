@@ -55,6 +55,7 @@ import { PrestationAdditionnelReservationSaveOrrUpdate } from '../models/prestat
 import { SiteResponseDto } from '../models/site-response-dto';
 import { SiteRequestDto } from '../models/site-request-dto';
 import { SuivieDepenseDto } from '../models/suivie-depense-dto';
+import { SuivieDepenseEncaisPeriodeDto } from '../models/suivie-depense-encais-periode-dto';
 import { UtilisateurAfficheDto } from '../models/utilisateur-affiche-dto';
 import { UtilisateurRequestDto } from '../models/utilisateur-request-dto';
 import { VillaDto } from '../models/villa-dto';
@@ -229,6 +230,7 @@ class ApiService extends __BaseService {
   static readonly getSuivieDepenseByIdPath = 'gestimoweb/api/v1/suiviedepense/getSuivieDepenseById/{id}';
   static readonly saveSuivieDepensePath = 'gestimoweb/api/v1/suiviedepense/saveSuivieDepense';
   static readonly suprimerSuiviParIdPath = 'gestimoweb/api/v1/suiviedepense/suprimerSuiviParId/{id}/{idAgence}';
+  static readonly totalSortieDeuxDatePath = 'gestimoweb/api/v1/suiviedepense/totalSortieDeuxDate/{idAgence}/{debut}/{fin}';
   static readonly getAllUtilisateursByOrderPath = 'gestimoweb/api/v1/utilisateur/all/{idAgence}';
   static readonly getAllGerantsByOrderPath = 'gestimoweb/api/v1/utilisateur/gerants/all/{idAgence}';
   static readonly getUtilisateurByAgencePath = 'gestimoweb/api/v1/utilisateur/getAllutilisateurbyAgence/{idAgence}';
@@ -6583,6 +6585,58 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param params The `ApiService.TotalSortieDeuxDateParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `fin`:
+   *
+   * - `debut`:
+   *
+   * @return successful operation
+   */
+  totalSortieDeuxDateResponse(params: ApiService.TotalSortieDeuxDateParams): __Observable<__StrictHttpResponse<SuivieDepenseEncaisPeriodeDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/suiviedepense/totalSortieDeuxDate/${params.idAgence}/${params.debut}/${params.fin}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<SuivieDepenseEncaisPeriodeDto>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.TotalSortieDeuxDateParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `fin`:
+   *
+   * - `debut`:
+   *
+   * @return successful operation
+   */
+  totalSortieDeuxDate(params: ApiService.TotalSortieDeuxDateParams): __Observable<SuivieDepenseEncaisPeriodeDto> {
+    return this.totalSortieDeuxDateResponse(params).pipe(
+      __map(_r => _r.body as SuivieDepenseEncaisPeriodeDto)
+    );
+  }
+
+  /**
    * @param idAgence undefined
    * @return successful operation
    */
@@ -7608,6 +7662,15 @@ module ApiService {
   export interface SuprimerSuiviParIdParams {
     idAgence: number;
     id: number;
+  }
+
+  /**
+   * Parameters for totalSortieDeuxDate
+   */
+  export interface TotalSortieDeuxDateParams {
+    idAgence: number;
+    fin: string;
+    debut: string;
   }
 }
 

@@ -3718,6 +3718,36 @@
         }
       }
     },
+    "gestimoweb/api/v1/suiviedepense/totalSortieDeuxDate/{idAgence}/{debut}/{fin}" : {
+      "get" : {
+        "operationId" : "totalSortieDeuxDate",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "debut",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "fin",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/SuivieDepenseEncaisPeriodeDto"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/utilisateur/all/{idAgence}" : {
       "get" : {
         "operationId" : "getAllUtilisateursByOrder",
@@ -6800,6 +6830,33 @@
         "operationType" : {
           "type" : "string",
           "enum" : [ "CREDIT", "DEBIT" ]
+        }
+      }
+    },
+    "SuivieDepenseEncaisPeriodeDto" : {
+      "type" : "object",
+      "properties" : {
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "dateDebutEncaissement" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateFinEncaissement" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "designation" : {
+          "type" : "string"
+        },
+        "codeTransaction" : {
+          "type" : "string"
+        },
+        "totalMontantDepense" : {
+          "type" : "number",
+          "format" : "double"
         }
       }
     },
