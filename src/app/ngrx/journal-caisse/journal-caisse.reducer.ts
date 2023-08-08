@@ -12,10 +12,12 @@ export enum SuiviDepenseStateEnum {
 }
 export interface SuiviDepenseState {
   suiviDepenses: SuivieDepenseDto[];
+  totalEncaisse: any;
   errorMessage: string;
   dataState: SuiviDepenseStateEnum;
 }
 const initState: SuiviDepenseState = {
+  totalEncaisse: 0,
   suiviDepenses: [],
   errorMessage: '',
   dataState: SuiviDepenseStateEnum.LOADING,
@@ -40,7 +42,22 @@ export function suiviDepenseReducer(
         dataState: SuiviDepenseStateEnum.ERROR,
         errorMessage: (<JournalCaisseActions>action).payload,
       };
-      //SUPPRIMER UN ENCAISSEMENT
+    //GET ALL SUIVI DEPENSE
+    case SuiviDepenseActionsTypes.GET_SUIVI_DEPENSE_PAR_PERIODE:
+      return { ...state, dataState: SuiviDepenseStateEnum.LOADING };
+    case SuiviDepenseActionsTypes.GET_SUIVI_DEPENSE_PAR_PERIODE_SUCCES:
+      return {
+        ...state,
+        dataState: SuiviDepenseStateEnum.LOADED,
+        totalEncaisse: (<JournalCaisseActions>action).payload,
+      };
+    case SuiviDepenseActionsTypes.GET_SUIVI_DEPENSE_PAR_PERIODE_ERROR:
+      return {
+        ...state,
+        dataState: SuiviDepenseStateEnum.ERROR,
+        errorMessage: (<JournalCaisseActions>action).payload,
+      };
+    //SUPPRIMER UN ENCAISSEMENT
 
     case SuiviDepenseActionsTypes.SAVE_SUPPR_SUIVI_DEPENSE:
       return { ...state, dataState: SuiviDepenseStateEnum.LOADING };
