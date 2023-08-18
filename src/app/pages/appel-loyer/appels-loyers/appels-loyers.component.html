@@ -232,7 +232,7 @@
                 Montant Loyer
               </mat-header-cell>
               <mat-cell *matCellDef="let row">
-                {{ row.nouveauMontantLoyer }}</mat-cell>
+                {{ row.nouveauMontantLoyer | currency: 'XOF' : 'symbol'}}</mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="solde">
@@ -240,7 +240,7 @@
                 Solde
               </mat-header-cell>
               <mat-cell *matCellDef="let row">
-                {{ row.soldeAppelLoyer }}</mat-cell>
+                {{ row.soldeAppelLoyer | currency: 'XOF' : 'symbol'}}</mat-cell>
             </ng-container>
             <!-- Propriétaire colonne -->
             <ng-container matColumnDef="Status">

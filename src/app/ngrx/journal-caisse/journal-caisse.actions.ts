@@ -22,6 +22,10 @@ export enum SuiviDepenseActionsTypes {
   GET_SUIVI_DEPENSE_PAR_PERIODE = '[SuivieDepenseDto] Save Suivi Depense TOTAL',
   GET_SUIVI_DEPENSE_PAR_PERIODE_SUCCES = '[SuivieDepenseDto] Save Suivi Depense Succes TOTAL ',
   GET_SUIVI_DEPENSE_PAR_PERIODE_ERROR = '[SuivieDepenseDto] Save Suivi Depense Error TOTAL',
+
+  GET_ALL_SUIVI_DEPENSE_DEUX_DATE = '[SuivieDepenseDto] Get All Suivi Depense Deux Dates',
+  GET_ALL_SUIVI_DEPENSE_DEUX_DATE_SUCCES = '[SuivieDepenseDto] Get All Suivi Depense Deux Dates Succes',
+  GET_ALL_SUIVI_DEPENSE_DEUX_DATE_ERROR = '[SuivieDepenseDto] Get All Suivi Depense Deux Dates Error',
 }
 
 export class SaveSuiviDepenseActions implements Action {
@@ -93,6 +97,25 @@ export class GetSuiviDepenseTotalActionsError implements Action {
     SuiviDepenseActionsTypes.GET_SUIVI_DEPENSE_PAR_PERIODE_ERROR;
   constructor(public payload: string) {}
 }
+
+// ALL SUIVI ENTRE DEUX PERODES
+
+export class GetSuiviDepenseDeuxDateActions implements Action {
+  type: SuiviDepenseActionsTypes =
+    SuiviDepenseActionsTypes.GET_ALL_SUIVI_DEPENSE_DEUX_DATE;
+  constructor(public payload: any) {}
+}
+
+export class GetSuiviDepenseDeuxDateActionsSuccess implements Action {
+  type: SuiviDepenseActionsTypes =
+    SuiviDepenseActionsTypes.GET_ALL_SUIVI_DEPENSE_DEUX_DATE_SUCCES;
+  constructor(public payload: any) {}
+}
+export class GetSuiviDepenseDeuxDateActionsError implements Action {
+  type: SuiviDepenseActionsTypes =
+    SuiviDepenseActionsTypes.GET_ALL_SUIVI_DEPENSE_DEUX_DATE_ERROR;
+  constructor(public payload: string) {}
+}
 export type JournalCaisseActions =
   | SaveSuiviDepenseActions
   | SaveSuiviDepenseActionsSuccess
@@ -105,4 +128,7 @@ export type JournalCaisseActions =
   | SaveSupprSuiviDepenseActionsSuccess
   | GetSuiviDepenseTotalActions
   | GetSuiviDepenseTotalActionsSuccess
-  | GetSuiviDepenseTotalActionsError;
+  | GetSuiviDepenseTotalActionsError
+  | GetSuiviDepenseDeuxDateActions
+  | GetSuiviDepenseDeuxDateActionsError
+  | GetSuiviDepenseDeuxDateActionsSuccess;

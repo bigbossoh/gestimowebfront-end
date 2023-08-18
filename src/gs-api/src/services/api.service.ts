@@ -176,7 +176,7 @@ class ApiService extends __BaseService {
   static readonly findByIdGroupeDroitPath = 'gestimoweb/api/v1/groupeDroit/{groupedroitid}';
   static readonly deleteGroupeDroitPath = 'gestimoweb/api/v1/groupeDroit/{groupedroitid}';
   static readonly telechagerImagePath = 'gestimoweb/api/v1/image/imagesbybien/{id}';
-  static readonly uploadImagePath = 'gestimoweb/api/v1/image/upload/{id}/{name}/';
+  static readonly uploadImagePath = 'gestimoweb/api/v1/image/upload/{id}/{name}';
   static readonly affichageDesImmeublesPath = 'gestimoweb/api/v1/immeuble/affichetoutlesimmeubles/{idAgence}';
   static readonly findAllImmeublePath = 'gestimoweb/api/v1/immeuble/all/{idAgence}';
   static readonly deleteImmeublePath = 'gestimoweb/api/v1/immeuble/deleteImmeuble/{id}';
@@ -228,6 +228,7 @@ class ApiService extends __BaseService {
   static readonly getAllEncaissementSuivieDepenseParAgencePath = 'gestimoweb/api/v1/suiviedepense/allSuivieDepense/{idAgence}';
   static readonly getSuivieDepenseByCodeTransactionPath = 'gestimoweb/api/v1/suiviedepense/getSuivieDepenseByCodeTransaction/{codeTransaction}';
   static readonly getSuivieDepenseByIdPath = 'gestimoweb/api/v1/suiviedepense/getSuivieDepenseById/{id}';
+  static readonly listSortieDeuxDatePath = 'gestimoweb/api/v1/suiviedepense/listSortieDeuxDate/{idAgence}/{debut}/{fin}';
   static readonly saveSuivieDepensePath = 'gestimoweb/api/v1/suiviedepense/saveSuivieDepense';
   static readonly suprimerSuiviParIdPath = 'gestimoweb/api/v1/suiviedepense/suprimerSuiviParId/{id}/{idAgence}';
   static readonly totalSortieDeuxDatePath = 'gestimoweb/api/v1/suiviedepense/totalSortieDeuxDate/{idAgence}/{debut}/{fin}';
@@ -4635,7 +4636,7 @@ class ApiService extends __BaseService {
     if (params.file != null) __params = __params.set('file', params.file.toString());
     let req = new HttpRequest<any>(
       'POST',
-      this.rootUrl + `gestimoweb/api/v1/image/upload/${params.id}/${params.name}/`,
+      this.rootUrl + `gestimoweb/api/v1/image/upload/${params.id}/${params.name}`,
       __body,
       {
         headers: __headers,
@@ -6502,6 +6503,58 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param params The `ApiService.ListSortieDeuxDateParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `fin`:
+   *
+   * - `debut`:
+   *
+   * @return successful operation
+   */
+  listSortieDeuxDateResponse(params: ApiService.ListSortieDeuxDateParams): __Observable<__StrictHttpResponse<Array<SuivieDepenseDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/suiviedepense/listSortieDeuxDate/${params.idAgence}/${params.debut}/${params.fin}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<SuivieDepenseDto>>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.ListSortieDeuxDateParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `fin`:
+   *
+   * - `debut`:
+   *
+   * @return successful operation
+   */
+  listSortieDeuxDate(params: ApiService.ListSortieDeuxDateParams): __Observable<Array<SuivieDepenseDto>> {
+    return this.listSortieDeuxDateResponse(params).pipe(
+      __map(_r => _r.body as Array<SuivieDepenseDto>)
+    );
+  }
+
+  /**
    * @param body undefined
    * @return successful operation
    */
@@ -7654,6 +7707,15 @@ module ApiService {
     proprio: string;
     periode: string;
     idAgence: number;
+  }
+
+  /**
+   * Parameters for listSortieDeuxDate
+   */
+  export interface ListSortieDeuxDateParams {
+    idAgence: number;
+    fin: string;
+    debut: string;
   }
 
   /**

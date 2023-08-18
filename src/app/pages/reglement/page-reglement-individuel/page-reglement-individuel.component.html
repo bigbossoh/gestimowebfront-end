@@ -93,7 +93,7 @@
                       <div class="mat-typography">
                         <h3 *ngIf="locataireBailState.leLocataire">
                           Montant du loyer :{{
-                          locataireBailState.leLocataire.montantloyer
+                          locataireBailState.leLocataire.montantloyer| currency: 'XOF' : 'symbol'
                           }}
                         </h3>
                       </div>
@@ -176,7 +176,7 @@
                         </mat-header-cell>
                         <mat-cell *matCellDef="let row">
                           {{
-                          row.appelLoyersFactureDto!.nouveauMontantLoyer
+                          row.appelLoyersFactureDto!.nouveauMontantLoyer| currency: 'XOF' : 'symbol'
                           }}</mat-cell>
                       </ng-container>
                       <ng-container matColumnDef="MontantPaye">
@@ -184,7 +184,7 @@
                           Montant Payé
                         </mat-header-cell>
                         <mat-cell *matCellDef="let row">
-                          {{ row.montantEncaissement }}</mat-cell>
+                          {{ row.montantEncaissement | currency: 'XOF' : 'symbol'}}</mat-cell>
                       </ng-container>
 
                       <ng-container matColumnDef="ModedeReglement">
@@ -200,7 +200,7 @@
                           Solde du mois
                         </mat-header-cell>
                         <mat-cell *matCellDef="let row">
-                          {{ row.soldeEncaissement }}</mat-cell>
+                          {{ row.soldeEncaissement| currency: 'XOF' : 'symbol' }}</mat-cell>
                       </ng-container>
                       <!-- Propriétaire colonne -->
                       <ng-container matColumnDef="Status">

@@ -42,6 +42,21 @@ export function suiviDepenseReducer(
         dataState: SuiviDepenseStateEnum.ERROR,
         errorMessage: (<JournalCaisseActions>action).payload,
       };
+    //GET ALL SUIVIS DEPENSES ENTRE DEUX DATES
+    case SuiviDepenseActionsTypes.GET_ALL_SUIVI_DEPENSE_DEUX_DATE:
+      return { ...state, dataState: SuiviDepenseStateEnum.LOADING };
+    case SuiviDepenseActionsTypes.GET_ALL_SUIVI_DEPENSE_DEUX_DATE_SUCCES:
+      return {
+        ...state,
+        dataState: SuiviDepenseStateEnum.LOADED,
+        suiviDepenses: (<JournalCaisseActions>action).payload,
+      };
+    case SuiviDepenseActionsTypes.GET_ALL_SUIVI_DEPENSE_DEUX_DATE_ERROR:
+      return {
+        ...state,
+        dataState: SuiviDepenseStateEnum.ERROR,
+        errorMessage: (<JournalCaisseActions>action).payload,
+      };
     //GET ALL SUIVI DEPENSE
     case SuiviDepenseActionsTypes.GET_SUIVI_DEPENSE_PAR_PERIODE:
       return { ...state, dataState: SuiviDepenseStateEnum.LOADING };

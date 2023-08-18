@@ -2583,7 +2583,7 @@
         }
       }
     },
-    "gestimoweb/api/v1/image/upload/{id}/{name}/" : {
+    "gestimoweb/api/v1/image/upload/{id}/{name}" : {
       "post" : {
         "summary" : "Téléchargder une image",
         "description" : "",
@@ -3660,6 +3660,39 @@
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/SuivieDepenseDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/suiviedepense/listSortieDeuxDate/{idAgence}/{debut}/{fin}" : {
+      "get" : {
+        "operationId" : "listSortieDeuxDate",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "debut",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "fin",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/SuivieDepenseDto"
+              }
             }
           }
         }

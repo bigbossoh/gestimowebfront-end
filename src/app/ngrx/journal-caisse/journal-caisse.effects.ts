@@ -17,6 +17,8 @@ import {
   SaveSupprSuiviDepenseActionsSuccess,
   GetSuiviDepenseTotalActionsSuccess,
   GetSuiviDepenseTotalActionsError,
+  GetSuiviDepenseDeuxDateActionsSuccess,
+  GetSuiviDepenseDeuxDateActionsError,
 } from './journal-caisse.actions';
 @Injectable()
 export class SuiviDepenseEffects {
@@ -131,6 +133,32 @@ export class SuiviDepenseEffects {
       tap((resultat) => {
         if (
           resultat.type == SuiviDepenseActionsTypes.GET_ALL_SUIVI_DEPENSE_ERROR
+        ) {
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            resultat.payload.toString()
+          );
+        }
+      })
+    )
+  );
+    //GET ALL SUIVI DEPESNSE
+    getAllSuiviDepenseDeuxDateEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(SuiviDepenseActionsTypes.GET_ALL_SUIVI_DEPENSE_DEUX_DATE),
+      mergeMap((action: JournalCaisseActions) => {
+            return this.apiService
+          .listSortieDeuxDate(action.payload)
+          .pipe(
+            map((suivis) => new GetSuiviDepenseDeuxDateActionsSuccess(suivis)),
+            catchError((err) =>
+              of(new GetSuiviDepenseDeuxDateActionsError(err.message))
+            )
+          );
+      }),
+      tap((resultat) => {
+        if (
+          resultat.type == SuiviDepenseActionsTypes.GET_ALL_SUIVI_DEPENSE_DEUX_DATE_ERROR
         ) {
           this.sendErrorNotification(
             NotificationType.ERROR,
