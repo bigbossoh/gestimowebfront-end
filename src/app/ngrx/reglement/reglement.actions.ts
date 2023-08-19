@@ -32,6 +32,14 @@ export enum EncaissementActionsTypes {
   GET_LISTE_LOCATAIRE_ENCAISSEMENT = '[UtilisateurRequestDto] Get LISTE Locataires Pour encaissement',
   GET_LISTE_LOCATAIRE_ENCAISSEMENT_SUCCES = '[UtilisateurRequestDto] Get LISTE Locataires Pour encaissement Succes',
   GET_LISTE_LOCATAIRE_ENCAISSEMENT_ERROR = '[UtilisateurRequestDto] Get LISTE Locataires Pour encaissement Error',
+
+  TOTAL_ENCAISSEMENT_ENTRE_DEUX_DATE = 'TOTAL ENCAISSEMENT ENTRE DEUX DATES ',
+  TOTAL_ENCAISSEMENT_ENTRE_DEUX_DATE_SUCCES = 'TOTAL ENCAISSEMENT ENTRE DEUX DATES SUCCES',
+  TOTAL_ENCAISSEMENT_ENTRE_DEUX_DATE_ERROR = 'TOTAL ENCAISSEMENT ENTRE DEUX DATES ERROR',
+
+  SOMME_ENCAISSEMENT_ENTRE_DEUX_DATE = 'SOMME ENCAISSEMENT ENTRE DEUX DATES ',
+  SOMME_ENCAISSEMENT_ENTRE_DEUX_DATE_SUCCES = 'SOMME ENCAISSEMENT ENTRE DEUX DATES SUCCES',
+  SOMME_ENCAISSEMENT_ENTRE_DEUX_DATE_ERROR = 'SOMME ENCAISSEMENT ENTRE DEUX DATES ERROR',
 }
 export class SaveEncaissementActions implements Action {
   type: EncaissementActionsTypes = EncaissementActionsTypes.SAVE_ENCAISSEMENT;
@@ -49,7 +57,8 @@ export class SaveEncaissementActionsError implements Action {
   constructor(public payload: string) {}
 }
 export class SaveEncaissementGroupeActions implements Action {
-  type: EncaissementActionsTypes = EncaissementActionsTypes.SAVE_ENCAISSEMENT_GROUPE;
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.SAVE_ENCAISSEMENT_GROUPE;
   constructor(public payload: any) {}
 }
 
@@ -157,6 +166,42 @@ export class GetListImayerLocataireEncaissementPeriodeActionsError
     EncaissementActionsTypes.GET_LISTE_LOCATAIRE_ENCAISSEMENT_ERROR;
   constructor(public payload: string) {}
 }
+// GET TOTAL ENCAISSEMENTS ENTRE DEUX DATES
+export class TotalEncaissementEntreDeuxDatesActions implements Action {
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.TOTAL_ENCAISSEMENT_ENTRE_DEUX_DATE;
+  constructor(public payload: any) {}
+}
+
+export class TotalEncaissementEntreDeuxDatesActionsSuccess implements Action {
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.TOTAL_ENCAISSEMENT_ENTRE_DEUX_DATE_SUCCES;
+  constructor(public payload: any) {}
+}
+export class TotalEncaissementEntreDeuxDatesActionsError implements Action {
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.TOTAL_ENCAISSEMENT_ENTRE_DEUX_DATE_ERROR;
+  constructor(public payload: string) {}
+}
+
+// GET SOMME ENCAISSEMENTS ENTRE DEUX DATES
+export class SommeEncaissementEntreDeuxDatesActions implements Action {
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.SOMME_ENCAISSEMENT_ENTRE_DEUX_DATE;
+  constructor(public payload: any) {}
+}
+
+export class SommeEncaissementEntreDeuxDatesActionsSuccess implements Action {
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.SOMME_ENCAISSEMENT_ENTRE_DEUX_DATE_SUCCES;
+  constructor(public payload: any) {}
+}
+export class SommeEncaissementEntreDeuxDatesActionsError implements Action {
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.SOMME_ENCAISSEMENT_ENTRE_DEUX_DATE_ERROR;
+  constructor(public payload: string) {}
+}
+
 export type EncaissementActions =
   | SaveEncaissementActions
   | SaveEncaissementActionsError
@@ -176,6 +221,12 @@ export type EncaissementActions =
   | GetListImayerLocataireEncaissementPeriodeActions
   | GetListImayerLocataireEncaissementPeriodeActionsError
   | GetListImayerLocataireEncaissementPeriodeActionsSuccess
-  |SaveEncaissementGroupeActions
-  |SaveEncaissementGroupeActionsSuccess
-  |SaveEncaissementGroupeActionsError;
+  | SaveEncaissementGroupeActions
+  | SaveEncaissementGroupeActionsSuccess
+  | SaveEncaissementGroupeActionsError
+  | TotalEncaissementEntreDeuxDatesActions
+  | TotalEncaissementEntreDeuxDatesActionsSuccess
+  | TotalEncaissementEntreDeuxDatesActionsError
+  | SommeEncaissementEntreDeuxDatesActions
+  | SommeEncaissementEntreDeuxDatesActionsError
+  | SommeEncaissementEntreDeuxDatesActionsSuccess;

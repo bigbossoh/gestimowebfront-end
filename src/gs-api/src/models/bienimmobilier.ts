@@ -2,6 +2,7 @@
 import { Utilisateur } from './utilisateur';
 import { Chapitre } from './chapitre';
 import { ImageData } from './image-data';
+import { Site } from './site';
 export interface Bienimmobilier {
   id?: number;
   idAgence?: number;
@@ -18,5 +19,6 @@ export interface Bienimmobilier {
   nombrePieceBien?: number;
   chapitre?: Chapitre;
   imageDatas?: Array<ImageData>;
+  site?: Site;
   occupied?: boolean;
 }

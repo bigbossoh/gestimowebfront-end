@@ -15,6 +15,10 @@ import {
   GetLocataireEncaissementActionsError,
   SaveEncaissementGroupeActionsSuccess,
   SaveEncaissementGroupeActionsError,
+  TotalEncaissementEntreDeuxDatesActionsSuccess,
+  TotalEncaissementEntreDeuxDatesActionsError,
+  SommeEncaissementEntreDeuxDatesActionsSuccess,
+  SommeEncaissementEntreDeuxDatesActionsError,
 } from './reglement.actions';
 import { NotificationType } from '../../enum/natification-type.enum';
 import { NotificationService } from '../../services/notification/notification.service';
@@ -111,6 +115,31 @@ export class Encaissementffects {
       })
     )
   );
+  //SOMME ENCAISSEMENT PAR JOUR
+  sommeEncaissementJournalierEffect: Observable<Action> = createEffect(() =>
+  this.effectActions.pipe(
+    ofType(EncaissementActionsTypes.SOMME_ENCAISSEMENT_ENTRE_DEUX_DATE),
+    mergeMap((action: EncaissementActions) => {
+      return this.apiService.sommeEncaissementParAgenceEtParPeriode(action.payload).pipe(
+        map((encaiss) => new SommeEncaissementEntreDeuxDatesActionsSuccess(encaiss)),
+        catchError((err) =>
+          of(new SommeEncaissementEntreDeuxDatesActionsError(err.message))
+        )
+      );
+    }),
+    tap((resultat) => {
+      if (
+        resultat.type ==
+        EncaissementActionsTypes.SOMME_ENCAISSEMENT_ENTRE_DEUX_DATE_ERROR
+      ) {
+        this.sendErrorNotification(
+          NotificationType.ERROR,
+          resultat.payload.toString()
+        );
+      }
+    })
+  )
+);
   //LISTE DES LOCATAIRES BAILS
   getAllLocatairesEncaissEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
@@ -224,6 +253,31 @@ export class Encaissementffects {
       })
     )
   );
+  // LISTE DES ENCAISSEMENT ENTRE DEUX DATES
+  totalEncaissementEntreDeuxDateEffect: Observable<Action> = createEffect(() =>
+  this.effectActions.pipe(
+    ofType(EncaissementActionsTypes.TOTAL_ENCAISSEMENT_ENTRE_DEUX_DATE),
+    mergeMap((action: EncaissementActions) => {
+      return this.apiService
+        .listeEncaisseLoyerEntreDeuxDate(action.payload)
+        .pipe(
+          map((quartier) => new TotalEncaissementEntreDeuxDatesActionsSuccess(quartier)),
+          catchError((err) =>
+            of(new TotalEncaissementEntreDeuxDatesActionsError(err.message))
+          )
+        );
+    }),
+    tap((resultat) => {
+
+      if (
+        resultat.type == EncaissementActionsTypes.TOTAL_ENCAISSEMENT_ENTRE_DEUX_DATE_ERROR
+      )
+      {
+        this.sendErrorNotification(NotificationType.ERROR, resultat.payload);
+      }
+    })
+  )
+);
   private sendErrorNotification(
     notificationType: NotificationType,
     message: string

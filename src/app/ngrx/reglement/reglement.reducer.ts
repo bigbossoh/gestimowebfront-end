@@ -16,6 +16,7 @@ export enum EncaissementStateEnum {
 }
 export interface EncaissementState {
   encaissements: EncaissementPrincipalDTO[];
+  encaissementsLoyer: any;
   appelloyers: any;
   errorMessage: string;
   montantEncaisse: number;
@@ -25,6 +26,7 @@ export interface EncaissementState {
 }
 const initState: EncaissementState = {
   encaissements: [],
+  encaissementsLoyer:null,
   appelloyers: null,
   montantEncaisse: 0,
   errorMessage: '',
@@ -84,6 +86,22 @@ export function encaissementReducer(
       };
     // AFFCHAGE DES LOYERS POUR REGLEMENTS
 
+    // SOMME ENCAISSEMENT
+   case EncaissementActionsTypes.SOMME_ENCAISSEMENT_ENTRE_DEUX_DATE:
+    return { ...state, dataState: EncaissementStateEnum.LOADING };
+  case EncaissementActionsTypes.SOMME_ENCAISSEMENT_ENTRE_DEUX_DATE_SUCCES:
+    return {
+      ...state,
+      dataState: EncaissementStateEnum.LOADED,
+      montantEncaisse: (<EncaissementActions>action).payload,
+    };
+  case EncaissementActionsTypes.SOMME_ENCAISSEMENT_ENTRE_DEUX_DATE_ERROR:
+    return {
+      ...state,
+      dataState: EncaissementStateEnum.ERROR,
+      errorMessage: (<EncaissementActions>action).payload,
+    };
+
     case EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN:
       return { ...state, dataState: EncaissementStateEnum.LOADING };
     case EncaissementActionsTypes.GET_ALL_PERIODE_REGLEMENT_BY_BIEN_SUCCES:
@@ -98,6 +116,22 @@ export function encaissementReducer(
         dataState: EncaissementStateEnum.ERROR,
         errorMessage: (<EncaissementActions>action).payload,
       };
+      //LISTE DES ENCAISSEMENTS ENTRE DEUX DATES
+      case EncaissementActionsTypes.TOTAL_ENCAISSEMENT_ENTRE_DEUX_DATE:
+        return { ...state, dataState: EncaissementStateEnum.LOADING };
+      case EncaissementActionsTypes.TOTAL_ENCAISSEMENT_ENTRE_DEUX_DATE_SUCCES:
+        return {
+          ...state,
+          dataState: EncaissementStateEnum.LOADED,
+          encaissementsLoyer: (<EncaissementActions>action).payload,
+        };
+      case EncaissementActionsTypes.TOTAL_ENCAISSEMENT_ENTRE_DEUX_DATE_ERROR:
+        return {
+          ...state,
+          dataState: EncaissementStateEnum.ERROR,
+          errorMessage: (<EncaissementActions>action).payload,
+        };
+
     // listes des encaisements
     case EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN:
       return { ...state, dataState: EncaissementStateEnum.LOADING };

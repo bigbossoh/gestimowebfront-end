@@ -35,6 +35,6 @@ export interface Utilisateur {
   encaissementsUtilisateur?: Array<Encaissement>;
   biensUtilisateur?: Array<Bienimmobilier>;
   active?: boolean;
-  activated?: boolean;
   nonLocked?: boolean;
+  activated?: boolean;
 }

@@ -34,6 +34,7 @@ import { CommuneResponseDto } from '../models/commune-response-dto';
 import { DroitAccesDTO } from '../models/droit-acces-dto';
 import { DroitAccesPayloadDTO } from '../models/droit-acces-payload-dto';
 import { EncaissementPrincipalDTO } from '../models/encaissement-principal-dto';
+import { AppelLoyerEncaissDto } from '../models/appel-loyer-encaiss-dto';
 import { EncaissementPayloadDto } from '../models/encaissement-payload-dto';
 import { EspeceEncaissementDto } from '../models/espece-encaissement-dto';
 import { EtageDto } from '../models/etage-dto';
@@ -154,6 +155,7 @@ class ApiService extends __BaseService {
   static readonly getTotalEncaissementparPeriodePath = 'gestimoweb/api/v1/encaissement/getTotalEncaissementparPeriode/{idAgence}/{datedebut}/{datefin}';
   static readonly getTotalEncaissementsEtMontantsDeLoyerParMoisPath = 'gestimoweb/api/v1/encaissement/getTotalEncaissementsEtMontantsDeLoyerParMois/{idAgence}/{datedebut}/{datefin}';
   static readonly getTotalEncaissementsParMoisPath = 'gestimoweb/api/v1/encaissement/getTotalEncaissementsParMois/{idAgence}/{datedebut}/{datefin}';
+  static readonly listeEncaisseLoyerEntreDeuxDatePath = 'gestimoweb/api/v1/encaissement/listeEncaisseLoyerEntreDeuxDate/{idAgence}/{datedebut}/{datefin}';
   static readonly listeLocataireImpayerParAgenceEtPeriodePath = 'gestimoweb/api/v1/encaissement/listeLocataireImpayerParAgenceEtPeriode/{agence}/{periode}';
   static readonly saveEncaissementPath = 'gestimoweb/api/v1/encaissement/saveencaissement';
   static readonly saveEncaissementAvecretourDeListePath = 'gestimoweb/api/v1/encaissement/saveencaissementavecretour';
@@ -3772,6 +3774,58 @@ class ApiService extends __BaseService {
   getTotalEncaissementsParMois(params: ApiService.GetTotalEncaissementsParMoisParams): __Observable<{[key: string]: number}> {
     return this.getTotalEncaissementsParMoisResponse(params).pipe(
       __map(_r => _r.body as {[key: string]: number})
+    );
+  }
+
+  /**
+   * @param params The `ApiService.ListeEncaisseLoyerEntreDeuxDateParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `datefin`:
+   *
+   * - `datedebut`:
+   *
+   * @return successful operation
+   */
+  listeEncaisseLoyerEntreDeuxDateResponse(params: ApiService.ListeEncaisseLoyerEntreDeuxDateParams): __Observable<__StrictHttpResponse<Array<AppelLoyerEncaissDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/encaissement/listeEncaisseLoyerEntreDeuxDate/${params.idAgence}/${params.datedebut}/${params.datefin}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<AppelLoyerEncaissDto>>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.ListeEncaisseLoyerEntreDeuxDateParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `datefin`:
+   *
+   * - `datedebut`:
+   *
+   * @return successful operation
+   */
+  listeEncaisseLoyerEntreDeuxDate(params: ApiService.ListeEncaisseLoyerEntreDeuxDateParams): __Observable<Array<AppelLoyerEncaissDto>> {
+    return this.listeEncaisseLoyerEntreDeuxDateResponse(params).pipe(
+      __map(_r => _r.body as Array<AppelLoyerEncaissDto>)
     );
   }
 
@@ -7652,6 +7706,15 @@ module ApiService {
    * Parameters for getTotalEncaissementsParMois
    */
   export interface GetTotalEncaissementsParMoisParams {
+    idAgence: number;
+    datefin: string;
+    datedebut: string;
+  }
+
+  /**
+   * Parameters for listeEncaisseLoyerEntreDeuxDate
+   */
+  export interface ListeEncaisseLoyerEntreDeuxDateParams {
     idAgence: number;
     datefin: string;
     datedebut: string;

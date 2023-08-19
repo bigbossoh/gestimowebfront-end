@@ -3,3 +3,40 @@
   justify-content: space-between;
   align-items: center;
 }
+.mat-select{
+  max-width: max-content !important;
+  min-width: 100%;
+}
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 26px;
+
+
+}
+
+.mat-form-field{
+  width: 100%;
+}
+.widthForm{
+  width: 75%;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+.tail-40{
+  width: 40%;
+  margin-left: 10px;
+}
+.tail-60{
+  width: 60%;
+  text-align: right;
+  margin-left: 30px;
+}
+.align-right {
+  margin-left: auto;
+}
