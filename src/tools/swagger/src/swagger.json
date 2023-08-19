@@ -2090,6 +2090,39 @@
         }
       }
     },
+    "gestimoweb/api/v1/encaissement/listeEncaisseLoyerEntreDeuxDate/{idAgence}/{datedebut}/{datefin}" : {
+      "get" : {
+        "operationId" : "listeEncaisseLoyerEntreDeuxDate",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "datedebut",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "datefin",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AppelLoyerEncaissDto"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/encaissement/listeLocataireImpayerParAgenceEtPeriode/{agence}/{periode}" : {
       "get" : {
         "operationId" : "listeLocataireImpayerParAgenceEtPeriode",
@@ -2583,7 +2616,7 @@
         }
       }
     },
-    "gestimoweb/api/v1/image/upload/{id}/{name}/" : {
+    "gestimoweb/api/v1/image/upload/{id}/{name}" : {
       "post" : {
         "summary" : "Téléchargder une image",
         "description" : "",
@@ -3665,6 +3698,39 @@
         }
       }
     },
+    "gestimoweb/api/v1/suiviedepense/listSortieDeuxDate/{idAgence}/{debut}/{fin}" : {
+      "get" : {
+        "operationId" : "listSortieDeuxDate",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "debut",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "fin",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/SuivieDepenseDto"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/suiviedepense/saveSuivieDepense" : {
       "post" : {
         "operationId" : "saveSuivieDepense",
@@ -4626,6 +4692,171 @@
         }
       }
     },
+    "AppelLoyerEncaissDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "periodeAppelLoyer" : {
+          "type" : "string"
+        },
+        "statusAppelLoyer" : {
+          "type" : "string"
+        },
+        "datePaiementPrevuAppelLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateDebutMoisAppelLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateFinMoisAppelLoyer" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "periodeLettre" : {
+          "type" : "string"
+        },
+        "moisUniquementLettre" : {
+          "type" : "string"
+        },
+        "anneeAppelLoyer" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "moisChiffreAppelLoyer" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "descAppelLoyer" : {
+          "type" : "string"
+        },
+        "montantLoyerBailLPeriode" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "montantPaye" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "soldeAppelLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nomLocataire" : {
+          "type" : "string"
+        },
+        "prenomLocataire" : {
+          "type" : "string"
+        },
+        "genreLocataire" : {
+          "type" : "string"
+        },
+        "emailLocatire" : {
+          "type" : "string"
+        },
+        "idLocataire" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nomAgence" : {
+          "type" : "string"
+        },
+        "telAgence" : {
+          "type" : "string"
+        },
+        "compteContribuableAgence" : {
+          "type" : "string"
+        },
+        "emailAgence" : {
+          "type" : "string"
+        },
+        "mobileAgence" : {
+          "type" : "string"
+        },
+        "regimeFiscaleAgence" : {
+          "type" : "string"
+        },
+        "faxAgence" : {
+          "type" : "string"
+        },
+        "sigleAgence" : {
+          "type" : "string"
+        },
+        "bienImmobilierFullName" : {
+          "type" : "string"
+        },
+        "abrvBienimmobilier" : {
+          "type" : "string"
+        },
+        "commune" : {
+          "type" : "string"
+        },
+        "chapitre" : {
+          "type" : "string"
+        },
+        "typeBien" : {
+          "type" : "string"
+        },
+        "nomPropietaire" : {
+          "type" : "string"
+        },
+        "prenomPropietaire" : {
+          "type" : "string"
+        },
+        "genrePropietaire" : {
+          "type" : "string"
+        },
+        "mailProprietaire" : {
+          "type" : "string"
+        },
+        "idBailLocation" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrvCodeBail" : {
+          "type" : "string"
+        },
+        "nouveauMontantLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "ancienMontant" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "pourcentageReduction" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "messageReduction" : {
+          "type" : "string"
+        },
+        "typePaiement" : {
+          "type" : "string"
+        },
+        "solderAppelLoyer" : {
+          "type" : "boolean"
+        },
+        "cloturer" : {
+          "type" : "boolean"
+        },
+        "unLock" : {
+          "type" : "boolean"
+        }
+      }
+    },
     "AppelLoyerRequestDto" : {
       "type" : "object",
       "properties" : {
@@ -5220,6 +5451,9 @@
             "$ref" : "#/definitions/ImageData"
           }
         },
+        "site" : {
+          "$ref" : "#/definitions/Site"
+        },
         "occupied" : {
           "type" : "boolean"
         }
@@ -5320,6 +5554,46 @@
         },
         "bailLocataireCharge" : {
           "$ref" : "#/definitions/BailLocation"
+        }
+      }
+    },
+    "Commune" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrvCommune" : {
+          "type" : "string"
+        },
+        "nomCommune" : {
+          "type" : "string"
+        },
+        "ville" : {
+          "$ref" : "#/definitions/Ville"
+        },
+        "quartiers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Quartier"
+          }
         }
       }
     },
@@ -6324,6 +6598,43 @@
         }
       }
     },
+    "Pays" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrvPays" : {
+          "type" : "string"
+        },
+        "nomPays" : {
+          "type" : "string"
+        },
+        "villes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Ville"
+          }
+        }
+      }
+    },
     "PaysDto" : {
       "type" : "object",
       "properties" : {
@@ -6431,6 +6742,46 @@
         "amount" : {
           "type" : "number",
           "format" : "double"
+        }
+      }
+    },
+    "Quartier" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrvQuartier" : {
+          "type" : "string"
+        },
+        "nomQuartier" : {
+          "type" : "string"
+        },
+        "commune" : {
+          "$ref" : "#/definitions/Commune"
+        },
+        "sites" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Site"
+          }
         }
       }
     },
@@ -6731,6 +7082,46 @@
         }
       }
     },
+    "Site" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrSite" : {
+          "type" : "string"
+        },
+        "nomSite" : {
+          "type" : "string"
+        },
+        "quartier" : {
+          "$ref" : "#/definitions/Quartier"
+        },
+        "bienImmobiliers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Bienimmobilier"
+          }
+        }
+      }
+    },
     "SiteRequestDto" : {
       "type" : "object",
       "properties" : {
@@ -6979,10 +7370,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -7088,10 +7479,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -7197,10 +7588,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -7272,6 +7663,46 @@
         },
         "occupied" : {
           "type" : "boolean"
+        }
+      }
+    },
+    "Ville" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "abrvVille" : {
+          "type" : "string"
+        },
+        "nomVille" : {
+          "type" : "string"
+        },
+        "pays" : {
+          "$ref" : "#/definitions/Pays"
+        },
+        "communes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Commune"
+          }
         }
       }
     },

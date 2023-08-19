@@ -100,12 +100,12 @@
         <!--  loyer column-->
         <ng-container matColumnDef="loyer">
           <th mat-header-cell *matHeaderCellDef>Loyer</th>
-          <td mat-cell *matCellDef="let element">{{ element.montantloyer }}</td>
+          <td mat-cell *matCellDef="let element">{{ element.montantloyer| currency: 'XOF' : 'symbol' }}</td>
         </ng-container>
         <!--  solde column-->
         <ng-container matColumnDef="solde">
           <th mat-header-cell *matHeaderCellDef>Solde</th>
-          <td mat-cell *matCellDef="let element">{{ element.soldeAppelLoyer }}</td>
+          <td mat-cell *matCellDef="let element">{{ element.soldeAppelLoyer| currency: 'XOF' : 'symbol' }}</td>
         </ng-container>
         <!--  montant_encaisser column-->
         <!-- <ng-container matColumnDef="montant_encaisser">

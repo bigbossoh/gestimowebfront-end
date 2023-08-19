@@ -27,6 +27,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Date début</mat-label>
         <input
+          id="debut"
           [(ngModel)]="debut"
           matInput
           [matDatepicker]="picker"
@@ -40,6 +41,7 @@
       <mat-form-field appearance="outline">
         <mat-label>Date fin</mat-label>
         <input
+          id="fin"
           [(ngModel)]="fin"
           matInput
           [matDatepicker]="picker1"
@@ -54,7 +56,12 @@
     </div>
     <div style="flex-grow: 1">
       <button
-        (click)="getAllEncaissementParPeriode(debut, fin)"
+        (click)="
+          getAllSuiviDepenseParPeriode(debut, fin);
+          getListEncaissementParPeriode(debut, fin);
+          getListPaiementloyerEntreDeuxDate(debut, fin);
+          getSommeEncaissementEntreDeuxDate(debut, fin)
+        "
         mat-raised-button
         color="primary"
         type="button"
@@ -65,18 +72,361 @@
         Recherche
       </button>
     </div>
-    <div style="flex-grow: 1">
-      Total Sortie de caisse :
-      <ng-container
-        *ngIf="suiviDepense$ | async as suiviDepenseState"
-        [ngSwitch]="suiviDepenseState.dataState"
-      >
-        <ng-container *ngSwitchCase="SuiviDepenseStateEnum.LOADED">
-          <h5>
-            {{ suiviDepenseState.totalEncaisse.totalMontantDepense}} F CFA
-          </h5>
+  </div>
+  <div class="tab-content" id="myTabContent">
+    <div class="col-md-8 p-0">
+      <h2>Sortie de caisse</h2>
+    </div>
+    <!-- user table -->
+    <div class="mat-elevation-z8">
+      <mat-form-field class="tail-40">
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          #input
+          placeholder="Rechercher générale dans le tableau"
+        />
+      </mat-form-field>
+      <div style="flex-grow: 2">
+        <ng-container
+          *ngIf="suiviDepense$ | async as suiviDepenseState"
+          [ngSwitch]="suiviDepenseState.dataState"
+        >
+          <ng-container *ngSwitchCase="SuiviDepenseStateEnum.LOADED">
+            <h5>
+              {{
+                suiviDepenseState.totalEncaisse.totalMontantDepense
+                  | currency : "XOF" : "symbol"
+              }}
+            </h5>
+          </ng-container>
         </ng-container>
-      </ng-container>
+      </div>
+      <div class="row m-3">
+        <div class="col-md-6 p-0">
+          <!-- <button mat-button color="warn">Warn</button> -->
+          <button
+            mat-button
+            mat-raised-button
+            color="accent"
+            (click)="
+              exporterSuivi.exportTable('xlsx', { fileName: 'sorti_caisse' })
+            "
+          >
+            Exporter en Excel
+            <mat-icon>insert_drive_file</mat-icon>
+          </button>
+        </div>
+        <!-- SORTI DE CAISSE PAR PERIODES-------->
+        <mat-paginator
+          id="paginatorSuivi"
+          #paginatorSuivi
+          showFirstLastButtons
+          [pageSizeOptions]="pageSizeSuivi"
+          aria-label="Select page of users"
+          [length]="totalRecordsSuivi!"
+        >
+        </mat-paginator>
+        <mat-table
+          #tableDepense
+          [dataSource]="dataSourceSuivi"
+          matTableExporter
+          #exporterSuivi="matTableExporter"
+          matSort
+        >
+          <!-- Code colonne -->
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              id
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{ row.id }}
+            </mat-cell>
+          </ng-container>
+          <!-- Dénomination colonne -->
+          <ng-container matColumnDef="dateEncaissement">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Date d'encaissement
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{ row.dateEncaissement | date : "dd/MM/yyyy" }}
+            </mat-cell>
+          </ng-container>
+
+          <!-- Propriétaire colonne -->
+          <ng-container matColumnDef="codeTransaction">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Code Transaction
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{ row.codeTransaction }}</mat-cell
+            >
+          </ng-container>
+
+          <ng-container matColumnDef="montantDepense">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Montant
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{ row.montantDepense | currency : "XOF" : "symbol" }}</mat-cell
+            >
+          </ng-container>
+          <ng-container matColumnDef="designation">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Description
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.designation }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="modePaiement">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Mode de Paiement
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.modePaiement }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="operationType">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Type d'opération
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.operationType }}</mat-cell>
+          </ng-container>
+          <!-- Propriétaire colonne -->
+          <!-- Actions colonne -->
+          <mat-header-row *matHeaderRowDef="displayedColumnsSuiviDepense">
+          </mat-header-row>
+          <mat-row
+            *matRowDef="let row; columns: displayedColumnsSuiviDepense"
+          ></mat-row>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">
+              Aucune donnée enregistrée {{ input.value }}
+            </td>
+          </tr>
+        </mat-table>
+        <!-- FIN TABLE DEPENSE-->
+      </div>
+    </div>
+    <div class="tab-content" id="myTabContent">
+      <div class="col-md-8 p-0">
+        <h2>Recouvrement des loyers</h2>
+      </div>
+      <!-- user table -->
+      <div class="tab-content" id="myTabContent">
+        <!-- user table -->
+        <div class="mat-elevation-z8">
+          <mat-form-field class="tail-40">
+            <input
+              matInput
+              (keyup)="applyFilter($event)"
+              #input
+              placeholder="Rechercher générale dans le tableau"
+            />
+          </mat-form-field>
+          <div style="flex-grow: 2">
+            <ng-container
+              *ngIf="
+                encaissementLoyerSomme$ | async as encaissementLoyerSommeState
+              "
+              [ngSwitch]="encaissementLoyerSommeState.dataState"
+            >
+              <ng-container *ngSwitchCase="EncaissementSommeStateEnum.LOADED">
+                <h5>
+                  {{
+                    encaissementLoyerSommeState.montantEncaisse
+                      | currency : "XOF" : "symbol"
+                  }}
+                </h5>
+              </ng-container>
+            </ng-container>
+          </div>
+          <mat-radio-group
+            class="tail-60"
+            (change)="applyFilterOption(filtreAppel)"
+            [(ngModel)]="filtreAppel"
+            arial-label="Select an option"
+          >
+            <span class="font-weight-bold" style="margin-right: 20px"
+              >Filtre sur le status du loyer :</span
+            >
+            <mat-radio-button value=""
+              ><label style="font-size: 18px">Tous</label>
+            </mat-radio-button>
+            <mat-radio-button value="soldé"
+              ><label style="font-size: 18px">Soldé</label>
+            </mat-radio-button>
+            <mat-radio-button value="impayé"
+              ><label style="font-size: 18px">Impayé</label>
+            </mat-radio-button>
+            <mat-radio-button value="partiellement payé"
+              ><label style="font-size: 18px">Partiellement payé</label>
+            </mat-radio-button>
+          </mat-radio-group>
+          <div class="row m-3">
+            <div class="col-md-6 p-0">
+              <!-- <button mat-button color="warn">Warn</button> -->
+              <button
+                mat-button
+                mat-raised-button
+                color="accent"
+                (click)="
+                  exporter.exportTable('xlsx', {
+                    fileName: 'encaissement_loyer'
+                  })
+                "
+              >
+                Exporter en Excel
+                <mat-icon>insert_drive_file</mat-icon>
+              </button>
+            </div>
+            <div class="col-md-6 text-right">
+              <mat-paginator
+                id="paginator"
+                #paginator
+                showFirstLastButtons
+                [pageSizeOptions]="pageSize"
+                [length]="totalRecords!"
+                aria-label="Select page of users"
+              >
+              </mat-paginator>
+            </div>
+          </div>
+          <mat-table
+            #tableappel
+            matTableExporter
+            [dataSource]="dataSource"
+            matSort
+            #exporter="matTableExporter"
+          >
+            <!-- commune -->
+            <ng-container matColumnDef="chapitre">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Chapitre
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{ row.chapitre }}
+              </mat-cell>
+            </ng-container>
+            <!-- commune -->
+            <ng-container matColumnDef="commune">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Commune
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{ row.commune }}
+              </mat-cell>
+            </ng-container>
+            <!-- Bien colonne -->
+            <ng-container matColumnDef="bien">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Bien
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{ row.abrvBienimmobilier }}
+              </mat-cell>
+            </ng-container>
+            <!-- Code colonne -->
+            <ng-container matColumnDef="periode">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Période
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{ row.periodeLettre }}
+              </mat-cell>
+            </ng-container>
+
+            <!-- Dénomination colonne -->
+            <ng-container matColumnDef="bail">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Bail
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{ row.nomLocataire }} {{ row.prenomLocataire }} \
+                {{ row.abrvBienimmobilier }}
+              </mat-cell>
+            </ng-container>
+            <!-- Propriétaire colonne -->
+            <ng-container matColumnDef="montantpaye">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Montant Loyer
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{
+                  row.montantLoyerBailLPeriode | currency : "XOF" : "symbol"
+                }}</mat-cell
+              >
+            </ng-container>
+            <!-- Propriétaire colonne -->
+            <ng-container matColumnDef="montantloyer">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Montant Payé
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{ row.montantPaye | currency : "XOF" : "symbol" }}</mat-cell
+              >
+            </ng-container>
+            <ng-container matColumnDef="typepaiement">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Type de paiement
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{ row.descAppelLoyer }}</mat-cell
+              >
+            </ng-container>
+            <ng-container matColumnDef="solde">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Solde
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{
+                  row.soldeAppelLoyer | currency : "XOF" : "symbol"
+                }}</mat-cell
+              >
+            </ng-container>
+            <!-- Propriétaire colonne -->
+            <ng-container matColumnDef="Status">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                Status
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <span
+                  *ngIf="row.statusAppelLoyer == 'Soldé'"
+                  class="badge badge-success"
+                  >{{ row.statusAppelLoyer }}</span
+                >
+                <span
+                  *ngIf="row.statusAppelLoyer == 'Impayé'"
+                  class="badge badge-danger"
+                  >{{ row.statusAppelLoyer }}</span
+                >
+                <span
+                  *ngIf="row.statusAppelLoyer == 'partiellement payé'"
+                  class="badge badge-warning"
+                  >{{ row.statusAppelLoyer }}</span
+                >
+              </mat-cell>
+            </ng-container>
+            <!-- Actions colonne -->
+            <ng-container matColumnDef="pourcent">
+              <mat-header-cell *matHeaderCellDef> Recouvrement</mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <span *ngIf="row.montantLoyerBailLPeriode > 0">
+                  {{ row.montantPaye / row.montantLoyerBailLPeriode | percent }}
+                </span>
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns">
+            </mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">
+                Aucune donnée enregistrée {{ input.value }}
+              </td>
+            </tr>
+          </mat-table>
+        </div>
+      </div>
     </div>
   </div>
 </div>
