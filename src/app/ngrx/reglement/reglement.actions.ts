@@ -40,7 +40,12 @@ export enum EncaissementActionsTypes {
   SOMME_ENCAISSEMENT_ENTRE_DEUX_DATE = 'SOMME ENCAISSEMENT ENTRE DEUX DATES ',
   SOMME_ENCAISSEMENT_ENTRE_DEUX_DATE_SUCCES = 'SOMME ENCAISSEMENT ENTRE DEUX DATES SUCCES',
   SOMME_ENCAISSEMENT_ENTRE_DEUX_DATE_ERROR = 'SOMME ENCAISSEMENT ENTRE DEUX DATES ERROR',
+
+  SOMME_DUE_ENTRE_DEUX_DATE = 'SOMME DUE ENTRE DEUX DATES ',
+  SOMME_DUE_ENTRE_DEUX_DATE_SUCCES = 'SOMME DUE ENTRE DEUX DATES SUCCES',
+  SOMME_DUE_ENTRE_DEUX_DATE_ERROR = 'SOMME DUE ENTRE DEUX DATES ERROR',
 }
+
 export class SaveEncaissementActions implements Action {
   type: EncaissementActionsTypes = EncaissementActionsTypes.SAVE_ENCAISSEMENT;
   constructor(public payload: any) {}
@@ -201,6 +206,23 @@ export class SommeEncaissementEntreDeuxDatesActionsError implements Action {
     EncaissementActionsTypes.SOMME_ENCAISSEMENT_ENTRE_DEUX_DATE_ERROR;
   constructor(public payload: string) {}
 }
+// GET SOMME ENCAISSEMENTS ENTRE DEUX DATES
+export class SommeDueEntreDeuxDatesActions implements Action {
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.SOMME_DUE_ENTRE_DEUX_DATE;
+  constructor(public payload: any) {}
+}
+
+export class SommeDuentreDeuxDatesActionsSuccess implements Action {
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.SOMME_DUE_ENTRE_DEUX_DATE_SUCCES;
+  constructor(public payload: any) {}
+}
+export class SommeDueEntreDeuxDatesActionsError implements Action {
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.SOMME_DUE_ENTRE_DEUX_DATE_ERROR;
+  constructor(public payload: string) {}
+}
 
 export type EncaissementActions =
   | SaveEncaissementActions
@@ -229,4 +251,7 @@ export type EncaissementActions =
   | TotalEncaissementEntreDeuxDatesActionsError
   | SommeEncaissementEntreDeuxDatesActions
   | SommeEncaissementEntreDeuxDatesActionsError
-  | SommeEncaissementEntreDeuxDatesActionsSuccess;
+  | SommeEncaissementEntreDeuxDatesActionsSuccess
+  | SommeDueEntreDeuxDatesActions
+  | SommeDueEntreDeuxDatesActionsError
+  | SommeDuentreDeuxDatesActionsSuccess;

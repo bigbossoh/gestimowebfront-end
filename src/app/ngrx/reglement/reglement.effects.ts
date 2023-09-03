@@ -19,6 +19,8 @@ import {
   TotalEncaissementEntreDeuxDatesActionsError,
   SommeEncaissementEntreDeuxDatesActionsSuccess,
   SommeEncaissementEntreDeuxDatesActionsError,
+  SommeDuentreDeuxDatesActionsSuccess,
+  SommeDueEntreDeuxDatesActionsError,
 } from './reglement.actions';
 import { NotificationType } from '../../enum/natification-type.enum';
 import { NotificationService } from '../../services/notification/notification.service';
@@ -139,6 +141,30 @@ export class Encaissementffects {
       }
     })
   )
+);
+sommeDueEntreDeuxDateEffect: Observable<Action> = createEffect(() =>
+this.effectActions.pipe(
+  ofType(EncaissementActionsTypes.SOMME_DUE_ENTRE_DEUX_DATE),
+  mergeMap((action: EncaissementActions) => {
+    return this.apiService.sommeLoyerParAgenceEtParPeriode(action.payload).pipe(
+      map((encaiss) => new SommeDuentreDeuxDatesActionsSuccess(encaiss)),
+      catchError((err) =>
+        of(new SommeDueEntreDeuxDatesActionsError(err.message))
+      )
+    );
+  }),
+  tap((resultat) => {
+    if (
+      resultat.type ==
+      EncaissementActionsTypes.SOMME_DUE_ENTRE_DEUX_DATE_ERROR
+    ) {
+      this.sendErrorNotification(
+        NotificationType.ERROR,
+        resultat.payload.toString()
+      );
+    }
+  })
+)
 );
   //LISTE DES LOCATAIRES BAILS
   getAllLocatairesEncaissEffect: Observable<Action> = createEffect(() =>

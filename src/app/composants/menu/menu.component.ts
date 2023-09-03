@@ -32,7 +32,7 @@ export class MenuComponent implements OnInit {
     id: '1',
     titre: 'Tableau de bord',
     icon: 'fas fa-chart-line',
-    url: '',
+    url: 'dashboard',
     sousMenu: [
       {
         id: '11',
@@ -193,9 +193,15 @@ export class MenuComponent implements OnInit {
       },
       {
         id: '85',
-        titre: "Consultation reglement",
+        titre: "Consultation reglement des loyers",
         icon: 'fas fa-users-cog',
         url: 'reglement-periode-loyer'
+      },
+      {
+        id: '85',
+        titre: "Consultation des dépense",
+        icon: 'fas fa-users-cog',
+        url: 'page-consultation-depense'
       }
 
     ]

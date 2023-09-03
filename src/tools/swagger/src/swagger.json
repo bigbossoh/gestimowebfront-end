@@ -2275,6 +2275,37 @@
         }
       }
     },
+    "gestimoweb/api/v1/encaissement/sommeLoyerParAgenceEtParPeriode/{idAgence}/{datedebut}/{datefin}" : {
+      "get" : {
+        "operationId" : "sommeLoyerParAgenceEtParPeriode",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "datedebut",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "datefin",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "number",
+              "format" : "double"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/encaissement/totalencaissement/{id}" : {
       "get" : {
         "operationId" : "totalencaissementParIdAppelLoyer",
@@ -4754,6 +4785,10 @@
           "type" : "number",
           "format" : "double"
         },
+        "dateEncaissement" : {
+          "type" : "string",
+          "format" : "date"
+        },
         "nomLocataire" : {
           "type" : "string"
         },
@@ -5999,7 +6034,8 @@
           }
         },
         "bienimmobilier" : {
-          "$ref" : "#/definitions/Bienimmobilier"
+          "type" : "integer",
+          "format" : "int64"
         }
       }
     },
@@ -6258,10 +6294,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -6311,10 +6347,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -6473,10 +6509,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         }
       }
@@ -7182,6 +7218,13 @@
         },
         "periode" : {
           "type" : "string"
+        },
+        "periodeFin" : {
+          "type" : "string"
+        },
+        "totalLoyer" : {
+          "type" : "number",
+          "format" : "double"
         }
       }
     },
@@ -7370,10 +7413,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -7479,10 +7522,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -7588,10 +7631,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }

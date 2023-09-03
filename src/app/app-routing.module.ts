@@ -36,6 +36,7 @@ import { PageChatIaComponent } from './pages/Chatgpt/page-chat-ia/page-chat-ia.c
 import { PageConsultationReglementLoyerPeriodeComponent } from './pages/comptabilite/page-consultation-reglement-loyer-periode/page-consultation-reglement-loyer-periode.component';
 import { PageDashboardResidenceComponent } from './pages/residence/page-dashboard-residence/page-dashboard-residence.component';
 import { PageAjoutReservationComponent } from './pages/residence/page-ajout-reservation/page-ajout-reservation.component';
+import { PageConsultationDepenseComponent } from './pages/comptabilite/page-consultation-depense/page-consultation-depense.component';
 
 const routes: Routes = [
   {
@@ -239,6 +240,13 @@ const routes: Routes = [
       component:PageAjoutReservationComponent,
       canActivate:[ApplicationGuardService]
     }
+    ,
+    {
+      path:'page-consultation-depense',
+      component:PageConsultationDepenseComponent,
+      canActivate:[ApplicationGuardService]
+    }
+
   ]
   }
 ];

@@ -1,3 +1,4 @@
+import { PageConsultationDepenseComponent } from './pages/comptabilite/page-consultation-depense/page-consultation-depense.component';
 import { SuiviDepenseEffects } from './ngrx/journal-caisse/journal-caisse.effects';
 import * as fr from '@angular/common/locales/fr';
 import { ImageEffects } from './ngrx/images/images.effects';
@@ -167,6 +168,7 @@ import { PageDashboardResidenceComponent } from './pages/residence/page-dashboar
 import { PageAjoutReservationComponent } from './pages/residence/page-ajout-reservation/page-ajout-reservation.component';
 @NgModule({
   declarations: [
+    PageConsultationDepenseComponent,
     PageStatistiqueJournalierComponent,
     PageImmeubleComponent,
     PageImmeubleNewComponent,
