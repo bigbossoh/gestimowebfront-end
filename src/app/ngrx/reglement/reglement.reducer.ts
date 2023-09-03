@@ -20,19 +20,21 @@ export interface EncaissementState {
   appelloyers: any;
   errorMessage: string;
   montantEncaisse: number;
+  montantDue:number;
   dataState: EncaissementStateEnum;
   locatairesImpayer: LocataireEncaisDTO[];
   leLocataire: any;
 }
 const initState: EncaissementState = {
   encaissements: [],
-  encaissementsLoyer:null,
+  encaissementsLoyer: null,
   appelloyers: null,
   montantEncaisse: 0,
   errorMessage: '',
   dataState: EncaissementStateEnum.INITIAL,
   leLocataire: null,
   locatairesImpayer: [],
+  montantDue: 0
 };
 export function encaissementReducer(
   state: EncaissementState = initState,
@@ -116,6 +118,23 @@ export function encaissementReducer(
         dataState: EncaissementStateEnum.ERROR,
         errorMessage: (<EncaissementActions>action).payload,
       };
+
+         // SOMME ENCAISSEMENT
+   case EncaissementActionsTypes.SOMME_DUE_ENTRE_DEUX_DATE:
+    return { ...state, dataState: EncaissementStateEnum.LOADING };
+  case EncaissementActionsTypes.SOMME_DUE_ENTRE_DEUX_DATE_SUCCES:
+    return {
+      ...state,
+      dataState: EncaissementStateEnum.LOADED,
+      montantDue: (<EncaissementActions>action).payload,
+    };
+  case EncaissementActionsTypes.SOMME_DUE_ENTRE_DEUX_DATE_ERROR:
+    return {
+      ...state,
+      dataState: EncaissementStateEnum.ERROR,
+      errorMessage: (<EncaissementActions>action).payload,
+    };
+
       //LISTE DES ENCAISSEMENTS ENTRE DEUX DATES
       case EncaissementActionsTypes.TOTAL_ENCAISSEMENT_ENTRE_DEUX_DATE:
         return { ...state, dataState: EncaissementStateEnum.LOADING };

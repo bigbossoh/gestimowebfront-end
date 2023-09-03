@@ -4,4 +4,6 @@ export interface StatistiquePeriodeDto {
   payer?: number;
   recouvrement?: number;
   periode?: string;
+  periodeFin?: string;
+  totalLoyer?: number;
 }

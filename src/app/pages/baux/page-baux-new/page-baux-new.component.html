@@ -26,13 +26,22 @@
         <div class="card-body">
           <form *ngIf="formGroup" [formGroup]="formGroup">
             <div class="mb-2">
-
               <mat-form-field appearance="outline">
                 <mat-label>Type de Contrat*</mat-label>
-                <mat-select formControlName="idTypeContrat" placeholder="Type de biens" [(ngModel)]="ngSelectTypeContrat"
-                  name="idTypeContrat">
-                  <mat-option [value]="20000">Sélectionnez un type de contrat</mat-option>
-                  <mat-option [value]="biens" *ngFor="let biens of listTypeContrat">{{ biens }}</mat-option>
+                <mat-select
+                  formControlName="idTypeContrat"
+                  placeholder="Type de biens"
+                  [(ngModel)]="ngSelectTypeContrat"
+                  name="idTypeContrat"
+                >
+                  <mat-option [value]="20000"
+                    >Sélectionnez un type de contrat</mat-option
+                  >
+                  <mat-option
+                    [value]="biens"
+                    *ngFor="let biens of listTypeContrat"
+                    >{{ biens }}</mat-option
+                  >
                 </mat-select>
                 <mat-error>Ce champ est obligatoire.</mat-error>
               </mat-form-field>
@@ -60,41 +69,47 @@
                 </ng-container>
                 <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
                   <div class="form-group">
-
                     <mat-form-field appearance="outline">
                       <mat-label>Locataire*</mat-label>
-                      <mat-select formControlName="idLocataire" placeholder="Type de biens"
+                      <mat-select
+                        formControlName="idLocataire"
+                        placeholder="Type de biens"
                       >
-                        <mat-option [value]="0">Sélection un Locataire</mat-option>
-                        <mat-option [value]="utilis.id" *ngFor="let utilis of state.utilisateurs">{{ utilis.nom }} {{ utilis.prenom }}</mat-option>
+                        <mat-option [value]="0"
+                          >Sélection un Locataire</mat-option
+                        >
+                        <mat-option
+                          [value]="utilis.id"
+                          *ngFor="let utilis of state.utilisateurs"
+                          >{{ utilis.nom }} {{ utilis.prenom }}</mat-option
+                        >
                       </mat-select>
                       <mat-error>Ce champ est obligatoire.</mat-error>
                     </mat-form-field>
-
                   </div>
                 </ng-container>
               </ng-container>
             </div>
             <div class="mb-2">
               <!-- <div class="col-sm-9"> -->
-                <ng-container
-                  *ngIf="villaState$ | async as state"
-                  [ngSwitch]="state.dataState"
-                >
-                  <ng-container *ngSwitchCase="VillaStateEnum.INITIAL">
-                    <mat-spinner> </mat-spinner>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="VillaStateEnum.ERROR">
-                    <div class="p-2 invalid-feedback">
-                      Une erreur est survenue
-                    </div>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="VillaStateEnum.LOADED">
-                    <!-- <label class="big mb-6" for="inputUsername"
+              <ng-container
+                *ngIf="villaState$ | async as state"
+                [ngSwitch]="state.dataState"
+              >
+                <ng-container *ngSwitchCase="VillaStateEnum.INITIAL">
+                  <mat-spinner> </mat-spinner>
+                </ng-container>
+                <ng-container *ngSwitchCase="VillaStateEnum.ERROR">
+                  <div class="p-2 invalid-feedback">
+                    Une erreur est survenue
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="VillaStateEnum.LOADED">
+                  <!-- <label class="big mb-6" for="inputUsername"
                       >Choisir la Villa</label
                     > -->
-                   <div class="mb-2">
-                       <!-- <select
+                  <div class="mb-2">
+                    <!-- <select
                         [ngClass]="{
                           'is-invalid':
                             submitted &&
@@ -127,39 +142,48 @@
 
                     <mat-form-field appearance="outline">
                       <mat-label>Choisir la Villa*</mat-label>
-                      <mat-select formControlName="idVilla" placeholder="Villa"
-                      >
+                      <mat-select formControlName="idVilla" placeholder="Villa">
                         <mat-option [value]="0">Sélection un villa</mat-option>
-                        <mat-option [value]="villa.id" *ngFor="let villa of state.villas">{{ villa.codeAbrvBienImmobilier }}</mat-option>
+                        <mat-option
+                          [value]="villa.id"
+                          *ngFor="let villa of state.villas"
+                          >{{ villa.codeAbrvBienImmobilier }}</mat-option
+                        >
                       </mat-select>
                       <mat-error>Ce champ est obligatoire.</mat-error>
                     </mat-form-field>
                   </div>
-                  </ng-container>
                 </ng-container>
+              </ng-container>
               <!-- </div> -->
             </div>
             <!-- Form Row-->
             <div class="row gx-3 mb-2">
               <!-- Form Group (first name)-->
               <div class="col-md-6">
-
                 <mat-form-field appearance="outline">
                   <mat-label>Désignation*</mat-label>
-                  <input formControlName="designationBail" type="text" matInput placeholder="Désignation*">
+                  <input
+                    formControlName="designationBail"
+                    type="text"
+                    matInput
+                    placeholder="Désignation*"
+                  />
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
-
               </div>
               <!-- Form Group (last name)-->
               <div class="col-md-6">
-
                 <mat-form-field appearance="outline">
                   <mat-label>Loyer*</mat-label>
-                  <input formControlName="nouveauMontantLoyer"
-                  type="number" matInput placeholder="Loyer*"
-                  [(ngModel)]="montantLoyerVil"
-                  (ngModelChange)="calculMontantCautionVil()">
+                  <input
+                    formControlName="nouveauMontantLoyer"
+                    type="number"
+                    matInput
+                    placeholder="Loyer*"
+                    [(ngModel)]="montantLoyerVil"
+                    (ngModelChange)="calculMontantCautionVil()"
+                  />
 
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
@@ -181,9 +205,13 @@
                 /> -->
                 <mat-form-field appearance="outline">
                   <mat-label>Nombre de mois de caution*</mat-label>
-                  <input formControlName="nbreMoisCautionBail" type="number" matInput
-                  [(ngModel)]="nombreMoisCautionVil"
-                  (ngModelChange)="calculMontantCautionVil()">
+                  <input
+                    formControlName="nbreMoisCautionBail"
+                    type="number"
+                    matInput
+                    [(ngModel)]="nombreMoisCautionVil"
+                    (ngModelChange)="calculMontantCautionVil()"
+                  />
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
               </div>
@@ -201,9 +229,13 @@
                 /> -->
                 <mat-form-field appearance="outline">
                   <mat-label>Montant caution*</mat-label>
-                  <input formControlName="montantCautionBail"
-                  type="number" matInput placeholder="Montant cautionn*"
-                  [(ngModel)]="montantCautionVil">
+                  <input
+                    formControlName="montantCautionBail"
+                    type="number"
+                    matInput
+                    placeholder="Montant cautionn*"
+                    [(ngModel)]="montantCautionVil"
+                  />
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
               </div>
@@ -228,60 +260,45 @@
                 /> -->
                 <mat-form-field appearance="outline">
                   <mat-label>Début du contrat</mat-label>
-                  <input formControlName="dateDebut" matInput [matDatepicker]="picker">
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <input
+                    formControlName="dateDebut"
+                    matInput
+                    [matDatepicker]="picker"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-                <!-- <div
-                  *ngIf="submitted && bailvillaForm.controls.dateDebut.errors"
-                  class="invalid-feedback"
-                >
-                  <div *ngIf="bailvillaForm.controls.dateDebut.errors.required">
-                    *Champ obligatoire
-                  </div>
-                </div> -->
+
               </div>
               <!-- Form Group (birthday)-->
               <div class="col-md-6">
-                <!-- <label class="small mb-1" for="inputBirthday"
-                  >Date de fin</label
-                >
-                <input
-                  [ngClass]="{
-                    'is-invalid':
-                      submitted && bailvillaForm.controls.dateFin.errors
-                  }"
-                  formControlName="dateFin"
-                  class="form-control"
-                  id="inputBirthday"
-                  type="date"
-                  name="birthday"
-                /> -->
+
                 <mat-form-field appearance="outline">
                   <mat-label>Date de fin</mat-label>
-                  <input formControlName="dateFin" matInput [matDatepicker]="picker1">
-                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <input
+                    formControlName="dateFin"
+                    matInput
+                    [matDatepicker]="picker1"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker1"
+                  ></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
-                <!-- <div
-                  *ngIf="submitted && bailvillaForm.controls.dateFin.errors"
-                  class="invalid-feedback"
-                >
-                  <div *ngIf="bailvillaForm.controls.dateFin.errors.required">
-                    *Champ obligatoire
-                  </div>
-                </div> -->
+
               </div>
             </div>
-            <!-- Save changes button-->
-            <!-- <button
-              class="btn btn-primary"
-              type="button"
+
+            <button
+              mat-raised-button
+              color="primary"
               (click)="onSaveBailVilla()"
+              [disabled]="bailvillaForm.invalid"
             >
-              Valider
-            </button> -->
-            <button  mat-raised-button color="primary" (click)="onSaveBailVilla()" [disabled]="bailvillaForm.invalid">
               <mat-icon>save</mat-icon>
               Valider
             </button>
@@ -308,13 +325,20 @@
                 </ng-container>
                 <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
                   <div class="form-group">
-
                     <mat-form-field appearance="outline">
                       <mat-label>Locataire*</mat-label>
-                      <mat-select formControlName="idLocataire" placeholder="locataires"
+                      <mat-select
+                        formControlName="idLocataire"
+                        placeholder="locataires"
                       >
-                        <mat-option [value]="0">Sélection un Locataire</mat-option>
-                        <mat-option [value]="utilis.id" *ngFor="let utilis of state.utilisateurs">{{ utilis.nom }} {{ utilis.prenom }}</mat-option>
+                        <mat-option [value]="0"
+                          >Sélection un Locataire</mat-option
+                        >
+                        <mat-option
+                          [value]="utilis.id"
+                          *ngFor="let utilis of state.utilisateurs"
+                          >{{ utilis.nom }} {{ utilis.prenom }}</mat-option
+                        >
                       </mat-select>
                       <mat-error>Ce champ est obligatoire.</mat-error>
                     </mat-form-field>
@@ -323,57 +347,71 @@
               </ng-container>
             </div>
             <!-- <div class="form-group"> -->
-              <div class="mb-3">
-                <ng-container
-                  *ngIf="magasinState$ | async as stateMagasin"
-                  [ngSwitch]="stateMagasin.dataState"
-                >
-                  <ng-container *ngSwitchCase="MagasinStateEnum.INITIAL">
-                    <mat-spinner> </mat-spinner>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="MagasinStateEnum.ERROR">
-                    <div class="p-2 invalid-feedback">
-                      Une erreur est survenue.
-                    </div>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="MagasinStateEnum.LOADED">
-
-                    <!-- <div class="form-group"> -->
-
-                      <mat-form-field appearance="outline">
-                      <mat-label>Magasin*</mat-label>
-                      <mat-select formControlName="idMagasin" placeholder="Magasins"
-                      >
-                        <mat-option [value]="0">Sélectionnez un magasin</mat-option>
-                        <mat-option *ngFor="let maga of stateMagasin.magasins"
-                        [value]="maga.id">{{ maga.codeAbrvBienImmobilier }}</mat-option>
-                      </mat-select>
-                      <mat-error>Ce champ est obligatoire.</mat-error>
-                    </mat-form-field>
-                    <!-- </div> -->
-                  </ng-container>
+            <div class="mb-3">
+              <ng-container
+                *ngIf="magasinState$ | async as stateMagasin"
+                [ngSwitch]="stateMagasin.dataState"
+              >
+                <ng-container *ngSwitchCase="MagasinStateEnum.INITIAL">
+                  <mat-spinner> </mat-spinner>
                 </ng-container>
-              </div>
+                <ng-container *ngSwitchCase="MagasinStateEnum.ERROR">
+                  <div class="p-2 invalid-feedback">
+                    Une erreur est survenue.
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="MagasinStateEnum.LOADED">
+                  <!-- <div class="form-group"> -->
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Magasin*</mat-label>
+                    <mat-select
+                      formControlName="idMagasin"
+                      placeholder="Magasins"
+                    >
+                      <mat-option [value]="0"
+                        >Sélectionnez un magasin</mat-option
+                      >
+                      <mat-option
+                        *ngFor="let maga of stateMagasin.magasins"
+                        [value]="maga.id"
+                        >{{ maga.codeAbrvBienImmobilier }}</mat-option
+                      >
+                    </mat-select>
+                    <mat-error>Ce champ est obligatoire.</mat-error>
+                  </mat-form-field>
+                  <!-- </div> -->
+                </ng-container>
+              </ng-container>
+            </div>
             <!-- </div> -->
             <!-- Form Row-->
             <div class="row gx-3 mb-3">
               <!-- Form Group (first name)-->
               <div class="col-md-6">
-
                 <mat-form-field appearance="outline">
                   <mat-label>Désignation*</mat-label>
-                  <input formControlName="designationBail" type="text" matInput placeholder="Désignation*">
+                  <input
+                    formControlName="designationBail"
+                    type="text"
+                    matInput
+                    placeholder="Désignation*"
+                  />
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
               </div>
               <!-- Form Group (last name)-->
               <div class="col-md-6">
-
                 <mat-form-field appearance="outline">
                   <mat-label>Loyer*</mat-label>
-                  <input formControlName="nouveauMontantLoyer" type="number" matInput placeholder="Loyer*"
-                  [(ngModel)]="montantLoyerMag"
-                  (ngModelChange)="calculMontantCautionMag()">
+                  <input
+                    formControlName="nouveauMontantLoyer"
+                    type="number"
+                    matInput
+                    placeholder="Loyer*"
+                    [(ngModel)]="montantLoyerMag"
+                    (ngModelChange)="calculMontantCautionMag()"
+                  />
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
               </div>
@@ -382,25 +420,29 @@
             <div class="row gx-3 mb-3">
               <!-- Form Group (organization name)-->
               <div class="col-md-6">
-
                 <mat-form-field appearance="outline">
                   <mat-label>Nombre de mois de caution*</mat-label>
-                  <input formControlName="nbreMoisCautionBail"
-                  type="number" matInput placeholder="Loyer*"
-                  [(ngModel)]="nombreMoisCautionMag"
-                  (ngModelChange)="calculMontantCautionMag()">
+                  <input
+                    formControlName="nbreMoisCautionBail"
+                    type="number"
+                    matInput
+                    placeholder="Loyer*"
+                    [(ngModel)]="nombreMoisCautionMag"
+                    (ngModelChange)="calculMontantCautionMag()"
+                  />
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
               </div>
               <!-- Form Group (location)-->
               <div class="col-md-6">
-
                 <mat-form-field appearance="outline">
                   <mat-label>Montant caution*</mat-label>
-                  <input formControlName="montantCautionBail"
-                  type="number" matInput
-                  [(ngModel)]="montantCautionMag"
-                  >
+                  <input
+                    formControlName="montantCautionBail"
+                    type="number"
+                    matInput
+                    [(ngModel)]="montantCautionMag"
+                  />
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
               </div>
@@ -410,27 +452,44 @@
             <div class="row gx-3 mb-3">
               <!-- Form Group (phone number)-->
               <div class="col-md-6">
-
                 <mat-form-field appearance="outline">
                   <mat-label>Date de début</mat-label>
-                  <input formControlName="dateDebut" matInput [matDatepicker]="picker3">
-                  <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                  <input
+                    formControlName="dateDebut"
+                    matInput
+                    [matDatepicker]="picker3"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker3"
+                  ></mat-datepicker-toggle>
                   <mat-datepicker #picker3></mat-datepicker>
                 </mat-form-field>
               </div>
               <!-- Form Group (birthday)-->
               <div class="col-md-6">
-
                 <mat-form-field appearance="outline">
                   <mat-label>Date de fin</mat-label>
-                  <input formControlName="dateFin" matInput [matDatepicker]="picker4">
-                  <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                  <input
+                    formControlName="dateFin"
+                    matInput
+                    [matDatepicker]="picker4"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker4"
+                  ></mat-datepicker-toggle>
                   <mat-datepicker #picker4></mat-datepicker>
                 </mat-form-field>
               </div>
             </div>
 
-            <button  mat-raised-button color="primary" (click)="onSaveBailMagasin()" [disabled]="bailMagainForm.invalid">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="onSaveBailMagasin()"
+              [disabled]="bailMagainForm.invalid"
+            >
               <mat-icon>save</mat-icon>
               Valider
             </button>
@@ -462,86 +521,105 @@
                     class="form-group"
                     *ngIf="state.utilisateurs.length != 0"
                   >
-
                     <mat-form-field appearance="outline">
                       <mat-label>Locataire*</mat-label>
-                      <mat-select formControlName="idLocataire" placeholder="locataires"
+                      <mat-select
+                        formControlName="idLocataire"
+                        placeholder="locataires"
                       >
-                        <mat-option [value]="0">Sélection un Locataire</mat-option>
-                        <mat-option [value]="utilis.id" *ngFor="let utilis of state.utilisateurs">
+                        <mat-option [value]="0"
+                          >Sélection un Locataire</mat-option
+                        >
+                        <mat-option
+                          [value]="utilis.id"
+                          *ngFor="let utilis of state.utilisateurs"
+                        >
                           {{ utilis.nom }} {{ utilis.prenom }}
                         </mat-option>
                       </mat-select>
                       <mat-error>Ce champ est obligatoire.</mat-error>
                     </mat-form-field>
                   </div>
-
                 </ng-container>
               </ng-container>
             </div>
             <div class="mb-2">
               <!-- <div class="col-sm-9"> -->
-                <ng-container
-                  *ngIf="appartementState$ | async as state"
-                  [ngSwitch]="state.dataState"
-                >
-                  <ng-container *ngSwitchCase="AppartementStateEnum.INITIAL">
-                    <mat-spinner> </mat-spinner>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="AppartementStateEnum.ERROR">
-                    <div class="p-2 invalid-feedback">
-                      Une erreur est survenue.
-                    </div>
-                  </ng-container>
-                  <ng-container *ngSwitchCase="AppartementStateEnum.LOADED">
-                    <div *ngIf="state.appartements.length == 0">
-                      Aucun appartement libre ou créer
-                    </div>
-                    <div *ngIf="state.appartements.length != 0">
-                      <!-- <label class="big mb-6" for="inputUsername"
+              <ng-container
+                *ngIf="appartementState$ | async as state"
+                [ngSwitch]="state.dataState"
+              >
+                <ng-container *ngSwitchCase="AppartementStateEnum.INITIAL">
+                  <mat-spinner> </mat-spinner>
+                </ng-container>
+                <ng-container *ngSwitchCase="AppartementStateEnum.ERROR">
+                  <div class="p-2 invalid-feedback">
+                    Une erreur est survenue.
+                  </div>
+                </ng-container>
+                <ng-container *ngSwitchCase="AppartementStateEnum.LOADED">
+                  <div *ngIf="state.appartements.length == 0">
+                    Aucun appartement libre ou créer
+                  </div>
+                  <div *ngIf="state.appartements.length != 0">
+                    <!-- <label class="big mb-6" for="inputUsername"
                         >Choisir un appartement</label
                       > -->
-                      Aucun appartement libre ou créer
-                      <!-- <div class="form-group"> -->
+                    Aucun appartement libre ou créer
+                    <!-- <div class="form-group"> -->
 
-                        <mat-form-field appearance="outline">
-                          <mat-label>Appartement*</mat-label>
-                          <mat-select formControlName="idAppartement" placeholder="Appartement"
-                          >
-                            <mat-option [value]="0">Sélection un appartement</mat-option>
-                            <mat-option [value]="appar.id"
-                            *ngFor="let appar of state.appartements">
-                            {{ appar.codeAbrvBienImmobilier }}
-                            </mat-option>
-                          </mat-select>
-                          <mat-error>Ce champ est obligatoire.</mat-error>
-                        </mat-form-field>
+                    <mat-form-field appearance="outline">
+                      <mat-label>Appartement*</mat-label>
+                      <mat-select
+                        formControlName="idAppartement"
+                        placeholder="Appartement"
+                      >
+                        <mat-option [value]="0"
+                          >Sélection un appartement</mat-option
+                        >
+                        <mat-option
+                          [value]="appar.id"
+                          *ngFor="let appar of state.appartements"
+                        >
+                          {{ appar.codeAbrvBienImmobilier }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error>Ce champ est obligatoire.</mat-error>
+                    </mat-form-field>
 
-                      <!-- </div> -->
-                    </div>
-                  </ng-container>
+                    <!-- </div> -->
+                  </div>
                 </ng-container>
+              </ng-container>
               <!-- </div> -->
             </div>
             <!-- Form Row-->
             <div class="row gx-3 mb-3">
               <!-- Form Group (first name)-->
               <div class="col-md-6">
-
                 <mat-form-field appearance="outline">
                   <mat-label>Désignation*</mat-label>
-                  <input formControlName="designationBail" type="text" matInput placeholder="Désignation*">
+                  <input
+                    formControlName="designationBail"
+                    type="text"
+                    matInput
+                    placeholder="Désignation*"
+                  />
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
               </div>
               <!-- Form Group (last name)-->
               <div class="col-md-6">
-
                 <mat-form-field appearance="outline">
                   <mat-label>Loyer*</mat-label>
-                  <input formControlName="nouveauMontantLoyer" type="number" matInput placeholder="Loyer*"
-                  [(ngModel)]="montantLoyerApp"
-                  (ngModelChange)="calculMontantCautionApp()">
+                  <input
+                    formControlName="nouveauMontantLoyer"
+                    type="number"
+                    matInput
+                    placeholder="Loyer*"
+                    [(ngModel)]="montantLoyerApp"
+                    (ngModelChange)="calculMontantCautionApp()"
+                  />
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
               </div>
@@ -550,12 +628,16 @@
             <div class="row gx-3 mb-3">
               <!-- Form Group (organization name)-->
               <div class="col-md-6">
-
                 <mat-form-field appearance="outline">
                   <mat-label>Nombre de mois de caution</mat-label>
-                  <input formControlName="nbreMoisCautionBail" type="number" matInput placeholder="caution*"
-                  [(ngModel)]="nombreMoisCautionApp"
-                  (ngModelChange)="calculMontantCautionApp()">
+                  <input
+                    formControlName="nbreMoisCautionBail"
+                    type="number"
+                    matInput
+                    placeholder="caution*"
+                    [(ngModel)]="nombreMoisCautionApp"
+                    (ngModelChange)="calculMontantCautionApp()"
+                  />
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
               </div>
@@ -572,9 +654,13 @@
                 /> -->
                 <mat-form-field appearance="outline">
                   <mat-label>Montant caution</mat-label>
-                  <input formControlName="montantCautionBail" type="number" matInput placeholder="caution*"
-                  [(ngModel)]="montantCautionApp"
-                  >
+                  <input
+                    formControlName="montantCautionBail"
+                    type="number"
+                    matInput
+                    placeholder="caution*"
+                    [(ngModel)]="montantCautionApp"
+                  />
                   <mat-error>Ce champ est obligatoire.</mat-error>
                 </mat-form-field>
               </div>
@@ -584,36 +670,44 @@
             <div class="row gx-3 mb-3">
               <!-- Form Group (phone number)-->
               <div class="col-md-6">
-
                 <mat-form-field appearance="outline">
                   <mat-label>Date de début</mat-label>
-                  <input formControlName="dateDebut" matInput [matDatepicker]="picker5">
-                  <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                  <input
+                    formControlName="dateDebut"
+                    matInput
+                    [matDatepicker]="picker5"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker5"
+                  ></mat-datepicker-toggle>
                   <mat-datepicker #picker5></mat-datepicker>
                 </mat-form-field>
               </div>
               <!-- Form Group (birthday)-->
               <div class="col-md-6">
-
                 <mat-form-field appearance="outline">
-                  <mat-label>Date de début</mat-label>
-                  <input formControlName="dateFin" matInput [matDatepicker]="picker6">
-                  <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+                  <mat-label>Date de fin</mat-label>
+                  <input
+                    formControlName="dateFin"
+                    matInput
+                    [matDatepicker]="picker6"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker6"
+                  ></mat-datepicker-toggle>
                   <mat-datepicker #picker6></mat-datepicker>
                 </mat-form-field>
               </div>
             </div>
-            <!-- Save changes button-->
-            <!-- <button
-              class="btn btn-primary"
-              type="button"
+
+            <button
+              mat-raised-button
+              color="primary"
               (click)="onSaveBailAppartement()"
+              [disabled]="bailAppartementForm.invalid"
             >
-              Valider
-            </button> -->
-            <button  mat-raised-button color="primary"
-            (click)="onSaveBailAppartement()"
-            [disabled]="bailAppartementForm.invalid">
               <mat-icon>save</mat-icon>
               Valider
             </button>

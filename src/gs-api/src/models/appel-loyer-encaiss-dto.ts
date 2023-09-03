@@ -16,6 +16,7 @@ export interface AppelLoyerEncaissDto {
   montantLoyerBailLPeriode?: number;
   montantPaye?: number;
   soldeAppelLoyer?: number;
+  dateEncaissement?: string;
   nomLocataire?: string;
   prenomLocataire?: string;
   genreLocataire?: string;

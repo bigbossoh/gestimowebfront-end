@@ -162,6 +162,7 @@ class ApiService extends __BaseService {
   static readonly saveEncaissementMassePath = 'gestimoweb/api/v1/encaissement/saveencaissementmasse';
   static readonly saveEncaissementMasseAvecretourDeListePath = 'gestimoweb/api/v1/encaissement/saveencaissementmasseavecretour';
   static readonly sommeEncaissementParAgenceEtParPeriodePath = 'gestimoweb/api/v1/encaissement/sommeEncaissementParAgenceEtParPeriode/{idAgence}/{datedebut}/{datefin}';
+  static readonly sommeLoyerParAgenceEtParPeriodePath = 'gestimoweb/api/v1/encaissement/sommeLoyerParAgenceEtParPeriode/{idAgence}/{datedebut}/{datefin}';
   static readonly totalencaissementParIdAppelLoyerPath = 'gestimoweb/api/v1/encaissement/totalencaissement/{id}';
   static readonly totalEncaissementParJourPath = 'gestimoweb/api/v1/encaissement/totalencaissementjournalier/{jour}/{idAgence}/{chapitre}';
   static readonly sendMailGrouperWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendmailgrouper/{periode}/{idAgence}';
@@ -4073,6 +4074,58 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param params The `ApiService.SommeLoyerParAgenceEtParPeriodeParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `datefin`:
+   *
+   * - `datedebut`:
+   *
+   * @return successful operation
+   */
+  sommeLoyerParAgenceEtParPeriodeResponse(params: ApiService.SommeLoyerParAgenceEtParPeriodeParams): __Observable<__StrictHttpResponse<number>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/encaissement/sommeLoyerParAgenceEtParPeriode/${params.idAgence}/${params.datedebut}/${params.datefin}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: parseFloat((_r as HttpResponse<any>).body as string) }) as __StrictHttpResponse<number>
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.SommeLoyerParAgenceEtParPeriodeParams` containing the following parameters:
+   *
+   * - `idAgence`:
+   *
+   * - `datefin`:
+   *
+   * - `datedebut`:
+   *
+   * @return successful operation
+   */
+  sommeLoyerParAgenceEtParPeriode(params: ApiService.SommeLoyerParAgenceEtParPeriodeParams): __Observable<number> {
+    return this.sommeLoyerParAgenceEtParPeriodeResponse(params).pipe(
+      __map(_r => _r.body as number)
+    );
+  }
+
+  /**
    * @param id undefined
    * @return successful operation
    */
@@ -7732,6 +7785,15 @@ module ApiService {
    * Parameters for sommeEncaissementParAgenceEtParPeriode
    */
   export interface SommeEncaissementParAgenceEtParPeriodeParams {
+    idAgence: number;
+    datefin: string;
+    datedebut: string;
+  }
+
+  /**
+   * Parameters for sommeLoyerParAgenceEtParPeriode
+   */
+  export interface SommeLoyerParAgenceEtParPeriodeParams {
     idAgence: number;
     datefin: string;
     datedebut: string;

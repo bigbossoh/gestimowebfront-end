@@ -57,8 +57,7 @@
     <div style="flex-grow: 1">
       <button
         (click)="
-          getAllSuiviDepenseParPeriode(debut, fin);
-          getListEncaissementParPeriode(debut, fin);
+          loyerDueEntreDeuxDate(debut, fin);
           getListPaiementloyerEntreDeuxDate(debut, fin);
           getSommeEncaissementEntreDeuxDate(debut, fin)
         "
@@ -74,139 +73,6 @@
     </div>
   </div>
   <div class="tab-content" id="myTabContent">
-    <div class="col-md-8 p-0">
-      <h2>Sortie de caisse</h2>
-    </div>
-    <!-- user table -->
-    <div class="mat-elevation-z8">
-      <mat-form-field class="tail-40">
-        <input
-          matInput
-          (keyup)="applyFilter($event)"
-          #input
-          placeholder="Rechercher générale dans le tableau"
-        />
-      </mat-form-field>
-      <div style="flex-grow: 2">
-        <ng-container
-          *ngIf="suiviDepense$ | async as suiviDepenseState"
-          [ngSwitch]="suiviDepenseState.dataState"
-        >
-          <ng-container *ngSwitchCase="SuiviDepenseStateEnum.LOADED">
-            <h5>
-              {{
-                suiviDepenseState.totalEncaisse.totalMontantDepense
-                  | currency : "XOF" : "symbol"
-              }}
-            </h5>
-          </ng-container>
-        </ng-container>
-      </div>
-      <div class="row m-3">
-        <div class="col-md-6 p-0">
-          <!-- <button mat-button color="warn">Warn</button> -->
-          <button
-            mat-button
-            mat-raised-button
-            color="accent"
-            (click)="
-              exporterSuivi.exportTable('xlsx', { fileName: 'sorti_caisse' })
-            "
-          >
-            Exporter en Excel
-            <mat-icon>insert_drive_file</mat-icon>
-          </button>
-        </div>
-        <!-- SORTI DE CAISSE PAR PERIODES-------->
-        <mat-paginator
-          id="paginatorSuivi"
-          #paginatorSuivi
-          showFirstLastButtons
-          [pageSizeOptions]="pageSizeSuivi"
-          aria-label="Select page of users"
-          [length]="totalRecordsSuivi!"
-        >
-        </mat-paginator>
-        <mat-table
-          #tableDepense
-          [dataSource]="dataSourceSuivi"
-          matTableExporter
-          #exporterSuivi="matTableExporter"
-          matSort
-        >
-          <!-- Code colonne -->
-          <ng-container matColumnDef="id">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-              id
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              {{ row.id }}
-            </mat-cell>
-          </ng-container>
-          <!-- Dénomination colonne -->
-          <ng-container matColumnDef="dateEncaissement">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-              Date d'encaissement
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              {{ row.dateEncaissement | date : "dd/MM/yyyy" }}
-            </mat-cell>
-          </ng-container>
-
-          <!-- Propriétaire colonne -->
-          <ng-container matColumnDef="codeTransaction">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-              Code Transaction
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              {{ row.codeTransaction }}</mat-cell
-            >
-          </ng-container>
-
-          <ng-container matColumnDef="montantDepense">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-              Montant
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              {{ row.montantDepense | currency : "XOF" : "symbol" }}</mat-cell
-            >
-          </ng-container>
-          <ng-container matColumnDef="designation">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-              Description
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.designation }}</mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="modePaiement">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-              Mode de Paiement
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.modePaiement }}</mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="operationType">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-              Type d'opération
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.operationType }}</mat-cell>
-          </ng-container>
-          <!-- Propriétaire colonne -->
-          <!-- Actions colonne -->
-          <mat-header-row *matHeaderRowDef="displayedColumnsSuiviDepense">
-          </mat-header-row>
-          <mat-row
-            *matRowDef="let row; columns: displayedColumnsSuiviDepense"
-          ></mat-row>
-          <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">
-              Aucune donnée enregistrée {{ input.value }}
-            </td>
-          </tr>
-        </mat-table>
-        <!-- FIN TABLE DEPENSE-->
-      </div>
-    </div>
     <div class="tab-content" id="myTabContent">
       <div class="col-md-8 p-0">
         <h2>Recouvrement des loyers</h2>
@@ -223,23 +89,65 @@
               placeholder="Rechercher générale dans le tableau"
             />
           </mat-form-field>
-          <div style="flex-grow: 2">
-            <ng-container
-              *ngIf="
-                encaissementLoyerSomme$ | async as encaissementLoyerSommeState
-              "
-              [ngSwitch]="encaissementLoyerSommeState.dataState"
-            >
-              <ng-container *ngSwitchCase="EncaissementSommeStateEnum.LOADED">
-                <h5>
-                  {{
-                    encaissementLoyerSommeState.montantEncaisse
-                      | currency : "XOF" : "symbol"
-                  }}
-                </h5>
+          <div
+            class="row mt-2 ml-2"
+            style="
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              gap: 10px;
+            "
+          >
+            <div>
+              <ng-container
+                *ngIf="
+                  encaissementLoyerSomme$ | async as encaissementLoyerSommeState
+                "
+                [ngSwitch]="encaissementLoyerSommeState.dataState"
+              >
+                <ng-container *ngSwitchCase="EncaissementSommeStateEnum.LOADED">
+                  <h5>
+                    <font color="green">
+                      {{
+                        encaissementLoyerSommeState.montantEncaisse
+                          | currency : "XOF" : "symbol"
+                      }}
+                    </font>
+                  </h5>
+                </ng-container>
               </ng-container>
-            </ng-container>
+            </div>
+            <!-- TOTAL ENCAISSEMENT-->
+            <div>
+              <ng-container
+                *ngIf="loyerDueSomme$ | async as loyerDueSommeState"
+                [ngSwitch]="loyerDueSommeState.dataState"
+              >
+                <ng-container *ngSwitchCase="EncaissementSommeStateEnum.LOADED">
+                  <h5>
+                    <font color="red">
+                      /
+                      {{
+                        loyerDueSommeState.montantDue
+                          | currency : "XOF" : "symbol"
+                      }}
+                    </font>
+
+                    <font color="blue">
+
+                      Recouvrement
+                      {{
+                        loyerDueSommeState.montantEncaisse /
+                          loyerDueSommeState.montantDue| percent:'1.2-2'
+                      }}
+                    </font>
+
+                  </h5>
+                </ng-container>
+              </ng-container>
+            </div>
           </div>
+
           <mat-radio-group
             class="tail-60"
             (change)="applyFilterOption(filtreAppel)"
@@ -365,6 +273,16 @@
                 {{ row.montantPaye | currency : "XOF" : "symbol" }}</mat-cell
               >
             </ng-container>
+            <ng-container matColumnDef="dateencaisse">
+              <mat-header-cell *matHeaderCellDef>
+                Date d'encaissement</mat-header-cell
+              >
+              <mat-cell *matCellDef="let row">
+                <font color="red">
+                  {{ row.dateEncaissement | date : "dd/MM/yyyy" }}</font
+                >
+              </mat-cell>
+            </ng-container>
             <ng-container matColumnDef="typepaiement">
               <mat-header-cell *matHeaderCellDef mat-sort-header>
                 Type de paiement
@@ -407,14 +325,7 @@
               </mat-cell>
             </ng-container>
             <!-- Actions colonne -->
-            <ng-container matColumnDef="pourcent">
-              <mat-header-cell *matHeaderCellDef> Recouvrement</mat-header-cell>
-              <mat-cell *matCellDef="let row">
-                <span *ngIf="row.montantLoyerBailLPeriode > 0">
-                  {{ row.montantPaye / row.montantLoyerBailLPeriode | percent }}
-                </span>
-              </mat-cell>
-            </ng-container>
+
             <mat-header-row *matHeaderRowDef="displayedColumns">
             </mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
