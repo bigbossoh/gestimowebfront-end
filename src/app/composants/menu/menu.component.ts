@@ -199,7 +199,7 @@ export class MenuComponent implements OnInit {
       },
       {
         id: '85',
-        titre: "Consultation des dépense",
+        titre: "Consultation des dépenses",
         icon: 'fas fa-users-cog',
         url: 'page-consultation-depense'
       }
