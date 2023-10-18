@@ -1684,6 +1684,27 @@
         }
       }
     },
+    "gestimoweb/api/v1/categoriechambre/saveOrUpdateCategoryChambre" : {
+      "post" : {
+        "operationId" : "saveOrUpdateCategoryChambre",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/CategoryChambreSaveOrUpdateDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/CategoryChambreSaveOrUpdateDto"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/categoriechambre/saveorupdate" : {
       "post" : {
         "operationId" : "saveorupdateCategoryChambre",
@@ -3248,6 +3269,27 @@
         }
       }
     },
+    "gestimoweb/api/v1/prixparcategorie/saveOrUpDatePrixParCategorie" : {
+      "post" : {
+        "operationId" : "saveOrUpDatePrixParCategorie",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/PrixParCategorieChambreDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/PrixParCategorieChambreDto"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/quartier/all/{idAgence}" : {
       "get" : {
         "operationId" : "findAllQuartiers",
@@ -3383,7 +3425,7 @@
             "schema" : {
               "type" : "array",
               "items" : {
-                "$ref" : "#/definitions/ReservationSaveOrUpdateDto"
+                "$ref" : "#/definitions/ReservationAfficheDto"
               }
             }
           }
@@ -3429,7 +3471,7 @@
     },
     "gestimoweb/api/v1/reservation/saveorupdate" : {
       "post" : {
-        "operationId" : "saveorupdateReservation",
+        "operationId" : "saveorupdateRes",
         "parameters" : [ {
           "in" : "body",
           "name" : "body",
@@ -3457,6 +3499,27 @@
           "required" : false,
           "schema" : {
             "$ref" : "#/definitions/ReservationSaveOrUpdateDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ReservationAfficheDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/reservation/saveorupdatereservation" : {
+      "post" : {
+        "operationId" : "saveorupdatereservation",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/ReservationRequestDto"
           }
         } ],
         "responses" : {
@@ -6294,10 +6357,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -6347,10 +6410,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -6509,10 +6572,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         }
       }
@@ -6781,6 +6844,45 @@
         }
       }
     },
+    "PrixParCategorieChambreDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nombreDeJour" : {
+          "type" : "string"
+        },
+        "prix" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "intervalPrix" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "nbrDiffJour" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "idCategorieChambre" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
     "Quartier" : {
       "type" : "object",
       "properties" : {
@@ -6937,6 +7039,132 @@
         },
         "codeAbrvBienImmobilier" : {
           "type" : "string"
+        },
+        "advancePayment" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "remainingPayment" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "soldReservation" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nmbreHomme" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nmbreFemme" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nmbrEnfant" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "ReservationRequestDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAppartementdDto" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "dateDebut" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateFin" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "idClient" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idBien" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "utilisateurIdApp" : {
+          "type" : "string"
+        },
+        "idUtilisateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "nom" : {
+          "type" : "string"
+        },
+        "prenom" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "username" : {
+          "type" : "string"
+        },
+        "mobile" : {
+          "type" : "string"
+        },
+        "dateDeNaissance" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "lieuNaissance" : {
+          "type" : "string"
+        },
+        "typePieceIdentite" : {
+          "type" : "string"
+        },
+        "numeroPieceIdentite" : {
+          "type" : "string"
+        },
+        "dateDebutPiece" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "dateFinPiece" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "nationalite" : {
+          "type" : "string"
+        },
+        "genre" : {
+          "type" : "string"
+        },
+        "montantCautionBail" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nbreMoisCautionBail" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "nouveauMontantLoyer" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "idBienImmobilier" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "advancePayment" : {
           "type" : "number",
