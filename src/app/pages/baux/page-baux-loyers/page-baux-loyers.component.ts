@@ -29,7 +29,6 @@ export class PageBauxLoyersComponent implements OnInit {
     this.store.dispatch(new GetAllOperationActions(this.user.idAgence));
     this.bauxState$ = this.store.pipe(map((state) => state.bauxState));
   }
-
   onActionEmmit(event: any) {
     this.ngOnInit();
   }

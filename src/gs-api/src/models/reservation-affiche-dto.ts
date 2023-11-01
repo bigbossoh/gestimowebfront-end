@@ -3,6 +3,11 @@ export interface ReservationAfficheDto {
   id?: number;
   idAgence?: number;
   idCreateur?: number;
+  creationDate?: number;
+  lastModifiedDate?: number;
+  email?: string;
+  mobile?: string;
+  username?: string;
   idAppartementdDto?: number;
   dateDebut?: string;
   dateFin?: string;
@@ -24,4 +29,9 @@ export interface ReservationAfficheDto {
   nmbreHomme?: number;
   nmbreFemme?: number;
   nmbrEnfant?: number;
+  descriptionCategori?: string;
+  nameCategori?: string;
+  priceCategori?: number;
+  nbrDiffJourCategori?: number;
+  pourcentReducCategori?: number;
 }

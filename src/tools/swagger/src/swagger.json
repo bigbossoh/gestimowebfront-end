@@ -3416,9 +3416,9 @@
         }
       }
     },
-    "gestimoweb/api/v1/reservation/all" : {
+    "gestimoweb/api/v1/reservation/allreservation" : {
       "get" : {
-        "operationId" : "findAllCategorieChambreReservation",
+        "operationId" : "allreservation",
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -5582,6 +5582,14 @@
         "price" : {
           "type" : "number",
           "format" : "double"
+        },
+        "nbrDiffJour" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "pourcentReduc" : {
+          "type" : "number",
+          "format" : "double"
         }
       }
     },
@@ -6572,10 +6580,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         }
       }
@@ -6987,6 +6995,23 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "mobile" : {
+          "type" : "string"
+        },
+        "username" : {
+          "type" : "string"
+        },
         "idAppartementdDto" : {
           "type" : "integer",
           "format" : "int64"
@@ -7063,6 +7088,24 @@
         "nmbrEnfant" : {
           "type" : "integer",
           "format" : "int32"
+        },
+        "descriptionCategori" : {
+          "type" : "string"
+        },
+        "nameCategori" : {
+          "type" : "string"
+        },
+        "priceCategori" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nbrDiffJourCategori" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "pourcentReducCategori" : {
+          "type" : "number",
+          "format" : "double"
         }
       }
     },

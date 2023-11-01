@@ -166,6 +166,8 @@ import { PageChatIaComponent } from './pages/Chatgpt/page-chat-ia/page-chat-ia.c
 import { PageConsultationReglementLoyerPeriodeComponent } from './pages/comptabilite/page-consultation-reglement-loyer-periode/page-consultation-reglement-loyer-periode.component';
 import { PageDashboardResidenceComponent } from './pages/residence/page-dashboard-residence/page-dashboard-residence.component';
 import { PageAjoutReservationComponent } from './pages/residence/page-ajout-reservation/page-ajout-reservation.component';
+import { reservationReducer } from './ngrx/reservation/reservation.reducer';
+import { ReservationEffects } from './ngrx/reservation/reservation.effects';
 @NgModule({
   declarations: [
     PageConsultationDepenseComponent,
@@ -279,6 +281,7 @@ import { PageAjoutReservationComponent } from './pages/residence/page-ajout-rese
 
     //ToastrModule.forRoot(),
     StoreModule.forRoot({
+    reservationState:reservationReducer,
       bailMagasinState: bailMagasinReducer,
       biensState: bienReducer,
       siteState: siteReducer,
@@ -336,7 +339,8 @@ import { PageAjoutReservationComponent } from './pages/residence/page-ajout-rese
       Encaissementffects,
       ImageEffects,
       SuiviDepenseEffects,
-      StatistiqueChartEffect
+      StatistiqueChartEffect,
+      ReservationEffects
     ]),
 
     StoreDevtoolsModule.instrument(),

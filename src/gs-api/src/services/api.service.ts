@@ -217,7 +217,7 @@ class ApiService extends __BaseService {
   static readonly findAllQuartierByIdCommunePath = 'gestimoweb/api/v1/quartier/findByIdCommune/{id}';
   static readonly findByNameQuartierPath = 'gestimoweb/api/v1/quartier/findByName/{name}';
   static readonly saveQuartierPath = 'gestimoweb/api/v1/quartier/save';
-  static readonly findAllCategorieChambreReservationPath = 'gestimoweb/api/v1/reservation/all';
+  static readonly allreservationPath = 'gestimoweb/api/v1/reservation/allreservation';
   static readonly deleteReservationPath = 'gestimoweb/api/v1/reservation/delete/{id}';
   static readonly findCategorieChambreByIDReservationPath = 'gestimoweb/api/v1/reservation/findById/{id}';
   static readonly saveorupdateResPath = 'gestimoweb/api/v1/reservation/saveorupdate';
@@ -6051,13 +6051,13 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAllCategorieChambreReservationResponse(): __Observable<__StrictHttpResponse<Array<ReservationAfficheDto>>> {
+  allreservationResponse(): __Observable<__StrictHttpResponse<Array<ReservationAfficheDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/reservation/all`,
+      this.rootUrl + `gestimoweb/api/v1/reservation/allreservation`,
       __body,
       {
         headers: __headers,
@@ -6075,8 +6075,8 @@ class ApiService extends __BaseService {
   /**
    * @return successful operation
    */
-  findAllCategorieChambreReservation(): __Observable<Array<ReservationAfficheDto>> {
-    return this.findAllCategorieChambreReservationResponse().pipe(
+  allreservation(): __Observable<Array<ReservationAfficheDto>> {
+    return this.allreservationResponse().pipe(
       __map(_r => _r.body as Array<ReservationAfficheDto>)
     );
   }
