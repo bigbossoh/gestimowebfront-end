@@ -6,4 +6,6 @@ export interface CategoryChambreSaveOrUpdateDto {
   description: string;
   name: string;
   price?: number;
+  nbrDiffJour?: number;
+  pourcentReduc?: number;
 }
