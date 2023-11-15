@@ -29,6 +29,7 @@ import { BailMagasinDto } from '../models/bail-magasin-dto';
 import { BailVillaDto } from '../models/bail-villa-dto';
 import { BienImmobilierAffiheDto } from '../models/bien-immobilier-affihe-dto';
 import { CategoryChambreSaveOrUpdateDto } from '../models/category-chambre-save-or-update-dto';
+import { ClotureCaisseDto } from '../models/cloture-caisse-dto';
 import { CommuneRequestDto } from '../models/commune-request-dto';
 import { CommuneResponseDto } from '../models/commune-response-dto';
 import { DroitAccesDTO } from '../models/droit-acces-dto';
@@ -136,11 +137,16 @@ class ApiService extends __BaseService {
   static readonly findAllBienPath = 'gestimoweb/api/v1/bienImmobilier/all/{idAgence}/{chapitre}';
   static readonly findAllBienOqpPath = 'gestimoweb/api/v1/bienImmobilier/allBienOccuper/{idAgence}/{chapitre}';
   static readonly rattacherUnBienAUnChapitrePath = 'gestimoweb/api/v1/bienImmobilier/rattacherUnBienAUnChapitre/{idBien}/{chapitre}';
-  static readonly findAllCategorieChambrePath = 'gestimoweb/api/v1/categoriechambre/all';
+  static readonly findAllCategorieChambrePath = 'gestimoweb/api/v1/categoriechambre/all/{idAgence}';
   static readonly deleteCategoryChambrePath = 'gestimoweb/api/v1/categoriechambre/delete/{id}';
   static readonly findCategorieChambreByIDPath = 'gestimoweb/api/v1/categoriechambre/findById/{id}';
   static readonly saveOrUpdateCategoryChambrePath = 'gestimoweb/api/v1/categoriechambre/saveOrUpdateCategoryChambre';
   static readonly saveorupdateCategoryChambrePath = 'gestimoweb/api/v1/categoriechambre/saveorupdate';
+  static readonly countInitClotureByCaissiaireAndChampitrePath = 'gestimoweb/api/v1/cloturecaisse/countInitClotureByCaissiaireAndChampitre/{idCaisse}/{chapitre}';
+  static readonly findAllByCaissierAndChapitrePath = 'gestimoweb/api/v1/cloturecaisse/countInitClotureByCaissiaireAndChampitre/{idCaisse}/{chapitre}';
+  static readonly findAllCloturerCaisseByDateAndChapitrePath = 'gestimoweb/api/v1/cloturecaisse/findAllCloturerCaisseByDateAndChapitre/{idCaisse}/{chapitre}/{dateDuJoure}';
+  static readonly findNonCloturerByDateAndCaisseAndChapitrePath = 'gestimoweb/api/v1/cloturecaisse/findNonCloturerByDateAndCaisseAndChapitre/{idCaisse}/{chapitre}/{dateDuJoure}';
+  static readonly saveClotureCaissePath = 'gestimoweb/api/v1/cloturecaisse/savecloturecaisse';
   static readonly findAllCommunePath = 'gestimoweb/api/v1/commune/all';
   static readonly deleteCommunePath = 'gestimoweb/api/v1/commune/delete/{id}';
   static readonly findCommuneByIDPath = 'gestimoweb/api/v1/commune/findById/{id}';
@@ -210,6 +216,7 @@ class ApiService extends __BaseService {
   static readonly sampleQuitancePath = 'gestimoweb/api/v1/print/quittance/{id}';
   static readonly quittancePeriodePath = 'gestimoweb/api/v1/print/quittancegrouper/{periode}/{idAgence}/{proprio}';
   static readonly recuPaimentPath = 'gestimoweb/api/v1/print/recupaiment/{idEncaissement}';
+  static readonly listDesPrixParCategoriPath = 'gestimoweb/api/v1/prixparcategorie/listDesPrixParCategori/{idCategorie}';
   static readonly saveOrUpDatePrixParCategoriePath = 'gestimoweb/api/v1/prixparcategorie/saveOrUpDatePrixParCategorie';
   static readonly findAllQuartiersPath = 'gestimoweb/api/v1/quartier/all/{idAgence}';
   static readonly deleteQuartierPath = 'gestimoweb/api/v1/quartier/delete/{id}';
@@ -2993,15 +3000,17 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param idAgence undefined
    * @return successful operation
    */
-  findAllCategorieChambreResponse(): __Observable<__StrictHttpResponse<Array<CategoryChambreSaveOrUpdateDto>>> {
+  findAllCategorieChambreResponse(idAgence: number): __Observable<__StrictHttpResponse<Array<CategoryChambreSaveOrUpdateDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
+
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/categoriechambre/all`,
+      this.rootUrl + `gestimoweb/api/v1/categoriechambre/all/${idAgence}`,
       __body,
       {
         headers: __headers,
@@ -3017,10 +3026,11 @@ class ApiService extends __BaseService {
     );
   }
   /**
+   * @param idAgence undefined
    * @return successful operation
    */
-  findAllCategorieChambre(): __Observable<Array<CategoryChambreSaveOrUpdateDto>> {
-    return this.findAllCategorieChambreResponse().pipe(
+  findAllCategorieChambre(idAgence: number): __Observable<Array<CategoryChambreSaveOrUpdateDto>> {
+    return this.findAllCategorieChambreResponse(idAgence).pipe(
       __map(_r => _r.body as Array<CategoryChambreSaveOrUpdateDto>)
     );
   }
@@ -3164,6 +3174,240 @@ class ApiService extends __BaseService {
   saveorupdateCategoryChambre(body?: CategoryChambreSaveOrUpdateDto): __Observable<CategoryChambreSaveOrUpdateDto> {
     return this.saveorupdateCategoryChambreResponse(body).pipe(
       __map(_r => _r.body as CategoryChambreSaveOrUpdateDto)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.CountInitClotureByCaissiaireAndChampitreParams` containing the following parameters:
+   *
+   * - `idCaisse`:
+   *
+   * - `chapitre`:
+   *
+   * @return successful operation
+   */
+  countInitClotureByCaissiaireAndChampitreResponse(params: ApiService.CountInitClotureByCaissiaireAndChampitreParams): __Observable<__StrictHttpResponse<number>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/cloturecaisse/countInitClotureByCaissiaireAndChampitre/${params.idCaisse}/${params.chapitre}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: parseFloat((_r as HttpResponse<any>).body as string) }) as __StrictHttpResponse<number>
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.CountInitClotureByCaissiaireAndChampitreParams` containing the following parameters:
+   *
+   * - `idCaisse`:
+   *
+   * - `chapitre`:
+   *
+   * @return successful operation
+   */
+  countInitClotureByCaissiaireAndChampitre(params: ApiService.CountInitClotureByCaissiaireAndChampitreParams): __Observable<number> {
+    return this.countInitClotureByCaissiaireAndChampitreResponse(params).pipe(
+      __map(_r => _r.body as number)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.FindAllByCaissierAndChapitreParams` containing the following parameters:
+   *
+   * - `idCaisse`:
+   *
+   * - `chapitre`:
+   *
+   * @return successful operation
+   */
+  findAllByCaissierAndChapitreResponse(params: ApiService.FindAllByCaissierAndChapitreParams): __Observable<__StrictHttpResponse<Array<ClotureCaisseDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/cloturecaisse/countInitClotureByCaissiaireAndChampitre/${params.idCaisse}/${params.chapitre}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<ClotureCaisseDto>>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.FindAllByCaissierAndChapitreParams` containing the following parameters:
+   *
+   * - `idCaisse`:
+   *
+   * - `chapitre`:
+   *
+   * @return successful operation
+   */
+  findAllByCaissierAndChapitre(params: ApiService.FindAllByCaissierAndChapitreParams): __Observable<Array<ClotureCaisseDto>> {
+    return this.findAllByCaissierAndChapitreResponse(params).pipe(
+      __map(_r => _r.body as Array<ClotureCaisseDto>)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.FindAllCloturerCaisseByDateAndChapitreParams` containing the following parameters:
+   *
+   * - `idCaisse`:
+   *
+   * - `dateDuJoure`:
+   *
+   * - `chapitre`:
+   *
+   * @return successful operation
+   */
+  findAllCloturerCaisseByDateAndChapitreResponse(params: ApiService.FindAllCloturerCaisseByDateAndChapitreParams): __Observable<__StrictHttpResponse<Array<ClotureCaisseDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/cloturecaisse/findAllCloturerCaisseByDateAndChapitre/${params.idCaisse}/${params.chapitre}/${params.dateDuJoure}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<ClotureCaisseDto>>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.FindAllCloturerCaisseByDateAndChapitreParams` containing the following parameters:
+   *
+   * - `idCaisse`:
+   *
+   * - `dateDuJoure`:
+   *
+   * - `chapitre`:
+   *
+   * @return successful operation
+   */
+  findAllCloturerCaisseByDateAndChapitre(params: ApiService.FindAllCloturerCaisseByDateAndChapitreParams): __Observable<Array<ClotureCaisseDto>> {
+    return this.findAllCloturerCaisseByDateAndChapitreResponse(params).pipe(
+      __map(_r => _r.body as Array<ClotureCaisseDto>)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.FindNonCloturerByDateAndCaisseAndChapitreParams` containing the following parameters:
+   *
+   * - `idCaisse`:
+   *
+   * - `dateDuJoure`:
+   *
+   * - `chapitre`:
+   *
+   * @return successful operation
+   */
+  findNonCloturerByDateAndCaisseAndChapitreResponse(params: ApiService.FindNonCloturerByDateAndCaisseAndChapitreParams): __Observable<__StrictHttpResponse<Array<ClotureCaisseDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/cloturecaisse/findNonCloturerByDateAndCaisseAndChapitre/${params.idCaisse}/${params.chapitre}/${params.dateDuJoure}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<ClotureCaisseDto>>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.FindNonCloturerByDateAndCaisseAndChapitreParams` containing the following parameters:
+   *
+   * - `idCaisse`:
+   *
+   * - `dateDuJoure`:
+   *
+   * - `chapitre`:
+   *
+   * @return successful operation
+   */
+  findNonCloturerByDateAndCaisseAndChapitre(params: ApiService.FindNonCloturerByDateAndCaisseAndChapitreParams): __Observable<Array<ClotureCaisseDto>> {
+    return this.findNonCloturerByDateAndCaisseAndChapitreResponse(params).pipe(
+      __map(_r => _r.body as Array<ClotureCaisseDto>)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveClotureCaisseResponse(body?: ClotureCaisseDto): __Observable<__StrictHttpResponse<boolean>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/cloturecaisse/savecloturecaisse`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: (_r as HttpResponse<any>).body === 'true' }) as __StrictHttpResponse<boolean>
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveClotureCaisse(body?: ClotureCaisseDto): __Observable<boolean> {
+    return this.saveClotureCaisseResponse(body).pipe(
+      __map(_r => _r.body as boolean)
     );
   }
 
@@ -5797,6 +6041,42 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param idCategorie undefined
+   * @return successful operation
+   */
+  listDesPrixParCategoriResponse(idCategorie: number): __Observable<__StrictHttpResponse<Array<PrixParCategorieChambreDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/prixparcategorie/listDesPrixParCategori/${idCategorie}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<PrixParCategorieChambreDto>>;
+      })
+    );
+  }
+  /**
+   * @param idCategorie undefined
+   * @return successful operation
+   */
+  listDesPrixParCategori(idCategorie: number): __Observable<Array<PrixParCategorieChambreDto>> {
+    return this.listDesPrixParCategoriResponse(idCategorie).pipe(
+      __map(_r => _r.body as Array<PrixParCategorieChambreDto>)
+    );
+  }
+
+  /**
    * @param body undefined
    * @return successful operation
    */
@@ -7848,6 +8128,40 @@ module ApiService {
   export interface RattacherUnBienAUnChapitreParams {
     idBien: number;
     chapitre: number;
+  }
+
+  /**
+   * Parameters for countInitClotureByCaissiaireAndChampitre
+   */
+  export interface CountInitClotureByCaissiaireAndChampitreParams {
+    idCaisse: number;
+    chapitre: string;
+  }
+
+  /**
+   * Parameters for findAllByCaissierAndChapitre
+   */
+  export interface FindAllByCaissierAndChapitreParams {
+    idCaisse: number;
+    chapitre: string;
+  }
+
+  /**
+   * Parameters for findAllCloturerCaisseByDateAndChapitre
+   */
+  export interface FindAllCloturerCaisseByDateAndChapitreParams {
+    idCaisse: number;
+    dateDuJoure: number;
+    chapitre: string;
+  }
+
+  /**
+   * Parameters for findNonCloturerByDateAndCaisseAndChapitre
+   */
+  export interface FindNonCloturerByDateAndCaisseAndChapitreParams {
+    idCaisse: number;
+    dateDuJoure: number;
+    chapitre: string;
   }
 
   /**

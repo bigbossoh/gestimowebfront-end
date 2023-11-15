@@ -41,6 +41,7 @@
     "boostrap": "^2.0.0",
     "bootstrap": "^4.6.1",
     "bootstrap-icons": "^1.8.2",
+    "cdk-table-exporter": "^10.2.4",
     "chart.js": "^2.9.4",
     "cross-env": "^7.0.3",
     "file-saver": "^2.0.5",

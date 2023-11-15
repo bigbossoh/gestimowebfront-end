@@ -53,7 +53,9 @@ export class UserService {
   public getToken(): string {
     return this.token!;
   }
-
+public initClotureCaisse():boolean{
+return true;
+}
   public isUserLoggedIn(): boolean {
     this.loadToken();
     if (this.token != null && this.token !== ''){
