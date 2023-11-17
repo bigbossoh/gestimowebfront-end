@@ -38,6 +38,7 @@ import { EncaissementPrincipalDTO } from '../models/encaissement-principal-dto';
 import { AppelLoyerEncaissDto } from '../models/appel-loyer-encaiss-dto';
 import { EncaissementPayloadDto } from '../models/encaissement-payload-dto';
 import { EspeceEncaissementDto } from '../models/espece-encaissement-dto';
+import { EtablissementUtilisateurDto } from '../models/etablissement-utilisateur-dto';
 import { EtageDto } from '../models/etage-dto';
 import { EtageAfficheDto } from '../models/etage-affiche-dto';
 import { GroupeDroitDto } from '../models/groupe-droit-dto';
@@ -165,7 +166,9 @@ class ApiService extends __BaseService {
   static readonly getTotalEncaissementsEtMontantsDeLoyerParMoisPath = 'gestimoweb/api/v1/encaissement/getTotalEncaissementsEtMontantsDeLoyerParMois/{idAgence}/{datedebut}/{datefin}';
   static readonly getTotalEncaissementsParMoisPath = 'gestimoweb/api/v1/encaissement/getTotalEncaissementsParMois/{idAgence}/{datedebut}/{datefin}';
   static readonly listeEncaisseLoyerEntreDeuxDatePath = 'gestimoweb/api/v1/encaissement/listeEncaisseLoyerEntreDeuxDate/{idAgence}/{datedebut}/{datefin}';
+  static readonly listeEncaissementEntreDeuxDateParChapitreEtCaissePath = 'gestimoweb/api/v1/encaissement/listeEncaissementEntreDeuxDateParChapitreEtCaisse/{idEncaiss}/{idChapitre}/{debut}/{fin}';
   static readonly listeLocataireImpayerParAgenceEtPeriodePath = 'gestimoweb/api/v1/encaissement/listeLocataireImpayerParAgenceEtPeriode/{agence}/{periode}';
+  static readonly miseAJourEncaissementCloturerPath = 'gestimoweb/api/v1/encaissement/miseAJourEncaissementCloturer/{idEncaiss}';
   static readonly saveEncaissementPath = 'gestimoweb/api/v1/encaissement/saveencaissement';
   static readonly saveEncaissementAvecretourDeListePath = 'gestimoweb/api/v1/encaissement/saveencaissementavecretour';
   static readonly saveEncaissementMassePath = 'gestimoweb/api/v1/encaissement/saveencaissementmasse';
@@ -177,6 +180,7 @@ class ApiService extends __BaseService {
   static readonly sendMailGrouperWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendmailgrouper/{periode}/{idAgence}';
   static readonly sendMailQuittanceWithAttachmentPath = 'gestimoweb/api/v1/envoimail/sendquittancebymail/{id}';
   static readonly saveEspeceEncaissementPath = 'gestimoweb/api/v1/especeencaissement/save';
+  static readonly getDefaultEtablePath = 'gestimoweb/api/v1/etablissement/getDefaultEtable/{id}';
   static readonly findAllEtagePath = 'gestimoweb/api/v1/etage/all/{idAgence}';
   static readonly deleteEtagePath = 'gestimoweb/api/v1/etage/delete/{id}';
   static readonly findEtageByIDPath = 'gestimoweb/api/v1/etage/findById/{id}';
@@ -241,9 +245,12 @@ class ApiService extends __BaseService {
   static readonly saveSitesPath = 'gestimoweb/api/v1/sites/save';
   static readonly saveSitePath = 'gestimoweb/api/v1/sites/savesite';
   static readonly getAllEncaissementSuivieDepenseParAgencePath = 'gestimoweb/api/v1/suiviedepense/allSuivieDepense/{idAgence}';
+  static readonly countSuiviNonCloturerParCaisseEtChapitreAvantDatePath = 'gestimoweb/api/v1/suiviedepense/countSuiviNonCloturerParCaisseEtChapitreAvantDate/{datePriseEnCompteEncaii}/{idCaiss}/{idChapitre}';
   static readonly getSuivieDepenseByCodeTransactionPath = 'gestimoweb/api/v1/suiviedepense/getSuivieDepenseByCodeTransaction/{codeTransaction}';
   static readonly getSuivieDepenseByIdPath = 'gestimoweb/api/v1/suiviedepense/getSuivieDepenseById/{id}';
   static readonly listSortieDeuxDatePath = 'gestimoweb/api/v1/suiviedepense/listSortieDeuxDate/{idAgence}/{debut}/{fin}';
+  static readonly listSuiviDepenseNonCloturerParCaisseEtChapitrAvantDatePath = 'gestimoweb/api/v1/suiviedepense/listSuiviDepenseNonCloturerParCaisseEtChapitrAvantDate/{idcaisse}/{dateDepriseEnCompte}/{idChapitre}';
+  static readonly listSuiviDepenseNonCloturerParCaisseEtChapitreEntreDeuxDatePath = 'gestimoweb/api/v1/suiviedepense/listSuiviDepenseNonCloturerParCaisseEtChapitreEntreDeuxDate/{idcaisse}/{dateDebut}/{dateFin}/{idChapitre}';
   static readonly saveSuivieDepensePath = 'gestimoweb/api/v1/suiviedepense/saveSuivieDepense';
   static readonly suprimerSuiviParIdPath = 'gestimoweb/api/v1/suiviedepense/suprimerSuiviParId/{id}/{idAgence}';
   static readonly totalSortieDeuxDatePath = 'gestimoweb/api/v1/suiviedepense/totalSortieDeuxDate/{idAgence}/{debut}/{fin}';
@@ -4116,6 +4123,63 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param params The `ApiService.ListeEncaissementEntreDeuxDateParChapitreEtCaisseParams` containing the following parameters:
+   *
+   * - `idEncaiss`:
+   *
+   * - `idChapitre`:
+   *
+   * - `fin`:
+   *
+   * - `debut`:
+   *
+   * @return successful operation
+   */
+  listeEncaissementEntreDeuxDateParChapitreEtCaisseResponse(params: ApiService.ListeEncaissementEntreDeuxDateParChapitreEtCaisseParams): __Observable<__StrictHttpResponse<Array<EncaissementPrincipalDTO>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/encaissement/listeEncaissementEntreDeuxDateParChapitreEtCaisse/${params.idEncaiss}/${params.idChapitre}/${params.debut}/${params.fin}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<EncaissementPrincipalDTO>>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.ListeEncaissementEntreDeuxDateParChapitreEtCaisseParams` containing the following parameters:
+   *
+   * - `idEncaiss`:
+   *
+   * - `idChapitre`:
+   *
+   * - `fin`:
+   *
+   * - `debut`:
+   *
+   * @return successful operation
+   */
+  listeEncaissementEntreDeuxDateParChapitreEtCaisse(params: ApiService.ListeEncaissementEntreDeuxDateParChapitreEtCaisseParams): __Observable<Array<EncaissementPrincipalDTO>> {
+    return this.listeEncaissementEntreDeuxDateParChapitreEtCaisseResponse(params).pipe(
+      __map(_r => _r.body as Array<EncaissementPrincipalDTO>)
+    );
+  }
+
+  /**
    * @param params The `ApiService.ListeLocataireImpayerParAgenceEtPeriodeParams` containing the following parameters:
    *
    * - `periode`:
@@ -4159,6 +4223,42 @@ class ApiService extends __BaseService {
   listeLocataireImpayerParAgenceEtPeriode(params: ApiService.ListeLocataireImpayerParAgenceEtPeriodeParams): __Observable<Array<LocataireEncaisDTO>> {
     return this.listeLocataireImpayerParAgenceEtPeriodeResponse(params).pipe(
       __map(_r => _r.body as Array<LocataireEncaisDTO>)
+    );
+  }
+
+  /**
+   * @param idEncaiss undefined
+   * @return successful operation
+   */
+  miseAJourEncaissementCloturerResponse(idEncaiss: number): __Observable<__StrictHttpResponse<boolean>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/encaissement/miseAJourEncaissementCloturer/${idEncaiss}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: (_r as HttpResponse<any>).body === 'true' }) as __StrictHttpResponse<boolean>
+      })
+    );
+  }
+  /**
+   * @param idEncaiss undefined
+   * @return successful operation
+   */
+  miseAJourEncaissementCloturer(idEncaiss: number): __Observable<boolean> {
+    return this.miseAJourEncaissementCloturerResponse(idEncaiss).pipe(
+      __map(_r => _r.body as boolean)
     );
   }
 
@@ -4614,6 +4714,42 @@ class ApiService extends __BaseService {
   saveEspeceEncaissement(body?: EspeceEncaissementDto): __Observable<EspeceEncaissementDto> {
     return this.saveEspeceEncaissementResponse(body).pipe(
       __map(_r => _r.body as EspeceEncaissementDto)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  getDefaultEtableResponse(id: number): __Observable<__StrictHttpResponse<EtablissementUtilisateurDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/etablissement/getDefaultEtable/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<EtablissementUtilisateurDto>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  getDefaultEtable(id: number): __Observable<EtablissementUtilisateurDto> {
+    return this.getDefaultEtableResponse(id).pipe(
+      __map(_r => _r.body as EtablissementUtilisateurDto)
     );
   }
 
@@ -6931,6 +7067,58 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param params The `ApiService.CountSuiviNonCloturerParCaisseEtChapitreAvantDateParams` containing the following parameters:
+   *
+   * - `idChapitre`:
+   *
+   * - `idCaiss`:
+   *
+   * - `datePriseEnCompteEncaii`:
+   *
+   * @return successful operation
+   */
+  countSuiviNonCloturerParCaisseEtChapitreAvantDateResponse(params: ApiService.CountSuiviNonCloturerParCaisseEtChapitreAvantDateParams): __Observable<__StrictHttpResponse<number>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/suiviedepense/countSuiviNonCloturerParCaisseEtChapitreAvantDate/${params.datePriseEnCompteEncaii}/${params.idCaiss}/${params.idChapitre}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'text'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return (_r as HttpResponse<any>).clone({ body: parseFloat((_r as HttpResponse<any>).body as string) }) as __StrictHttpResponse<number>
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.CountSuiviNonCloturerParCaisseEtChapitreAvantDateParams` containing the following parameters:
+   *
+   * - `idChapitre`:
+   *
+   * - `idCaiss`:
+   *
+   * - `datePriseEnCompteEncaii`:
+   *
+   * @return successful operation
+   */
+  countSuiviNonCloturerParCaisseEtChapitreAvantDate(params: ApiService.CountSuiviNonCloturerParCaisseEtChapitreAvantDateParams): __Observable<number> {
+    return this.countSuiviNonCloturerParCaisseEtChapitreAvantDateResponse(params).pipe(
+      __map(_r => _r.body as number)
+    );
+  }
+
+  /**
    * @param codeTransaction undefined
    * @return successful operation
    */
@@ -7050,6 +7238,115 @@ class ApiService extends __BaseService {
    */
   listSortieDeuxDate(params: ApiService.ListSortieDeuxDateParams): __Observable<Array<SuivieDepenseDto>> {
     return this.listSortieDeuxDateResponse(params).pipe(
+      __map(_r => _r.body as Array<SuivieDepenseDto>)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.ListSuiviDepenseNonCloturerParCaisseEtChapitrAvantDateParams` containing the following parameters:
+   *
+   * - `idcaisse`:
+   *
+   * - `idChapitre`:
+   *
+   * - `dateDepriseEnCompte`:
+   *
+   * @return successful operation
+   */
+  listSuiviDepenseNonCloturerParCaisseEtChapitrAvantDateResponse(params: ApiService.ListSuiviDepenseNonCloturerParCaisseEtChapitrAvantDateParams): __Observable<__StrictHttpResponse<Array<SuivieDepenseDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/suiviedepense/listSuiviDepenseNonCloturerParCaisseEtChapitrAvantDate/${params.idcaisse}/${params.dateDepriseEnCompte}/${params.idChapitre}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<SuivieDepenseDto>>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.ListSuiviDepenseNonCloturerParCaisseEtChapitrAvantDateParams` containing the following parameters:
+   *
+   * - `idcaisse`:
+   *
+   * - `idChapitre`:
+   *
+   * - `dateDepriseEnCompte`:
+   *
+   * @return successful operation
+   */
+  listSuiviDepenseNonCloturerParCaisseEtChapitrAvantDate(params: ApiService.ListSuiviDepenseNonCloturerParCaisseEtChapitrAvantDateParams): __Observable<Array<SuivieDepenseDto>> {
+    return this.listSuiviDepenseNonCloturerParCaisseEtChapitrAvantDateResponse(params).pipe(
+      __map(_r => _r.body as Array<SuivieDepenseDto>)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.ListSuiviDepenseNonCloturerParCaisseEtChapitreEntreDeuxDateParams` containing the following parameters:
+   *
+   * - `idcaisse`:
+   *
+   * - `idChapitre`:
+   *
+   * - `dateFin`:
+   *
+   * - `dateDebut`:
+   *
+   * @return successful operation
+   */
+  listSuiviDepenseNonCloturerParCaisseEtChapitreEntreDeuxDateResponse(params: ApiService.ListSuiviDepenseNonCloturerParCaisseEtChapitreEntreDeuxDateParams): __Observable<__StrictHttpResponse<Array<SuivieDepenseDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/suiviedepense/listSuiviDepenseNonCloturerParCaisseEtChapitreEntreDeuxDate/${params.idcaisse}/${params.dateDebut}/${params.dateFin}/${params.idChapitre}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<SuivieDepenseDto>>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.ListSuiviDepenseNonCloturerParCaisseEtChapitreEntreDeuxDateParams` containing the following parameters:
+   *
+   * - `idcaisse`:
+   *
+   * - `idChapitre`:
+   *
+   * - `dateFin`:
+   *
+   * - `dateDebut`:
+   *
+   * @return successful operation
+   */
+  listSuiviDepenseNonCloturerParCaisseEtChapitreEntreDeuxDate(params: ApiService.ListSuiviDepenseNonCloturerParCaisseEtChapitreEntreDeuxDateParams): __Observable<Array<SuivieDepenseDto>> {
+    return this.listSuiviDepenseNonCloturerParCaisseEtChapitreEntreDeuxDateResponse(params).pipe(
       __map(_r => _r.body as Array<SuivieDepenseDto>)
     );
   }
@@ -8201,6 +8498,16 @@ module ApiService {
   }
 
   /**
+   * Parameters for listeEncaissementEntreDeuxDateParChapitreEtCaisse
+   */
+  export interface ListeEncaissementEntreDeuxDateParChapitreEtCaisseParams {
+    idEncaiss: number;
+    idChapitre: number;
+    fin: string;
+    debut: string;
+  }
+
+  /**
    * Parameters for listeLocataireImpayerParAgenceEtPeriode
    */
   export interface ListeLocataireImpayerParAgenceEtPeriodeParams {
@@ -8262,12 +8569,40 @@ module ApiService {
   }
 
   /**
+   * Parameters for countSuiviNonCloturerParCaisseEtChapitreAvantDate
+   */
+  export interface CountSuiviNonCloturerParCaisseEtChapitreAvantDateParams {
+    idChapitre: number;
+    idCaiss: number;
+    datePriseEnCompteEncaii: string;
+  }
+
+  /**
    * Parameters for listSortieDeuxDate
    */
   export interface ListSortieDeuxDateParams {
     idAgence: number;
     fin: string;
     debut: string;
+  }
+
+  /**
+   * Parameters for listSuiviDepenseNonCloturerParCaisseEtChapitrAvantDate
+   */
+  export interface ListSuiviDepenseNonCloturerParCaisseEtChapitrAvantDateParams {
+    idcaisse: number;
+    idChapitre: number;
+    dateDepriseEnCompte: string;
+  }
+
+  /**
+   * Parameters for listSuiviDepenseNonCloturerParCaisseEtChapitreEntreDeuxDate
+   */
+  export interface ListSuiviDepenseNonCloturerParCaisseEtChapitreEntreDeuxDateParams {
+    idcaisse: number;
+    idChapitre: number;
+    dateFin: string;
+    dateDebut: string;
   }
 
   /**

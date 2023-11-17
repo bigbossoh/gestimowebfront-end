@@ -1,3 +1,4 @@
+import { ClotureCaisseComponent } from './pages/cloture-caisse/cloture-caisse.component';
 import { PageConsultationDepenseComponent } from './pages/comptabilite/page-consultation-depense/page-consultation-depense.component';
 import { SuiviDepenseEffects } from './ngrx/journal-caisse/journal-caisse.effects';
 import * as fr from '@angular/common/locales/fr';
@@ -168,8 +169,13 @@ import { PageDashboardResidenceComponent } from './pages/residence/page-dashboar
 import { PageAjoutReservationComponent } from './pages/residence/page-ajout-reservation/page-ajout-reservation.component';
 import { reservationReducer } from './ngrx/reservation/reservation.reducer';
 import { ReservationEffects } from './ngrx/reservation/reservation.effects';
+import { ClotureCaisseffects } from './ngrx/cloture-caisse/cloturecaisse.effects';
+import { EtablissementEffects } from './ngrx/etablissement/etablissement.effects';
+import { ClotureCaisseReducer } from './ngrx/cloture-caisse/cloturecaisse.reducer';
+import { EtablissementReducer } from './ngrx/etablissement/etablissement.reducer';
 @NgModule({
   declarations: [
+    ClotureCaisseComponent,
     PageConsultationDepenseComponent,
     PageStatistiqueJournalierComponent,
     PageImmeubleComponent,
@@ -239,7 +245,6 @@ import { ReservationEffects } from './ngrx/reservation/reservation.effects';
     PageConsultationReglementLoyerPeriodeComponent,
     PageDashboardResidenceComponent,
     PageAjoutReservationComponent,
-
   ],
   imports: [
     CanvasJSAngularChartsModule,
@@ -281,7 +286,7 @@ import { ReservationEffects } from './ngrx/reservation/reservation.effects';
 
     //ToastrModule.forRoot(),
     StoreModule.forRoot({
-    reservationState:reservationReducer,
+      reservationState: reservationReducer,
       bailMagasinState: bailMagasinReducer,
       biensState: bienReducer,
       siteState: siteReducer,
@@ -310,7 +315,9 @@ import { ReservationEffects } from './ngrx/reservation/reservation.effects';
       periodeState: periodeReducer,
       imageState: imageReducer,
       suiviDepenseState: suiviDepenseReducer,
-      statistiqueChartState:StatistiqueChartReducer
+      statistiqueChartState: StatistiqueChartReducer,
+      clotuteCaisseState: ClotureCaisseReducer,
+      etablissementState: EtablissementReducer,
     }),
     EffectsModule.forRoot([
       AnneeEffects,
@@ -340,7 +347,9 @@ import { ReservationEffects } from './ngrx/reservation/reservation.effects';
       ImageEffects,
       SuiviDepenseEffects,
       StatistiqueChartEffect,
-      ReservationEffects
+      ReservationEffects,
+      ClotureCaisseffects,
+      EtablissementEffects,
     ]),
 
     StoreDevtoolsModule.instrument(),

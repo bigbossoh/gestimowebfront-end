@@ -12,4 +12,7 @@ export interface ClotureCaisseDto {
   clientCloture?: string;
   statutCloture?: string;
   chapitreCloture?: string;
+  dateDeDCloture?: string;
+  intervalNextCloture?: number;
+  dateFinCloture?: string;
 }
