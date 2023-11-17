@@ -10,8 +10,13 @@
   </div>
   <div class="col-md-4">
     <div class="row">
-      <div class="col-md-7 text-right">
-        <span>Bonjour,&nbsp;{{user?.nom}} &nbsp;{{user?.prenom}}</span>
+      <div class="col-md-7 text-right" >
+
+        <span>Bonjour,&nbsp;{{user?.nom}} &nbsp;{{user?.prenom}}--
+          <strong style="color:#008000"> <ng-container *ngIf="etablissementState$| async as state" [ngSwitch]="state.dataState">
+            {{state.etabname.nomEtabless}}</ng-container></strong>
+
+        </span>
       </div>
       <div class="col-md-5 ">
         <!-- <a href="javascript:void(0);" [routerLink]="['/profil']">
@@ -22,7 +27,7 @@
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <!-- <span>{{user?.nom}} &nbsp;{{user?.prenom}}</span> -->
           </button>
-        
+
           <div class="dropdown-menu ">
             <a class="dropdown-item" href="javascript:void(0);" [routerLink]="['/profil']"
             style="cursor:pointer"><i class="fas fa-user-circle blue-color"></i>&nbsp;Mon profil</a>

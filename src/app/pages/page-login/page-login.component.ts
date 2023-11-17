@@ -23,7 +23,7 @@ export class PageLoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.userService.isUserLoggedIn()) {
-      this.router.navigateByUrl('/statistiques');
+      this.router.navigateByUrl('/dashboard');
     } else {
       this.router.navigateByUrl('/login');
     }
@@ -39,6 +39,8 @@ export class PageLoginComponent implements OnInit {
           console.log(response.headers);
           const token = response.headers.get(HeaderType.JWT_TOKEN!);
 
+          console.log("*** THE TOKEN IS NEXT -******");
+          console.log(token);
 
           this.userService.saveToken(token!);
           this.userService.addUserToLocalCache(response.body!);
@@ -46,7 +48,7 @@ export class PageLoginComponent implements OnInit {
           this.showLoading = false;
         },
         (errorResponse: HttpErrorResponse) => {
-        console.log(errorResponse);
+        console.log(errorResponse.message);
 
           this.sendErrorNotification(NotificationType.ERROR, errorResponse.error.message);
           this.showLoading = false;

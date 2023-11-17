@@ -1631,9 +1631,16 @@
         }
       }
     },
-    "gestimoweb/api/v1/categoriechambre/all" : {
+    "gestimoweb/api/v1/categoriechambre/all/{idAgence}" : {
       "get" : {
         "operationId" : "findAllCategorieChambre",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
         "responses" : {
           "200" : {
             "description" : "successful operation",
@@ -1721,6 +1728,147 @@
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/CategoryChambreSaveOrUpdateDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/cloturecaisse/countInitClotureByCaissiaireAndChampitre/{idCaisse}/{chapitre}" : {
+      "get" : {
+        "operationId" : "countInitClotureByCaissiaireAndChampitre",
+        "parameters" : [ {
+          "name" : "idCaisse",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "chapitre",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          }
+        }
+      },
+      "post" : {
+        "operationId" : "findAllByCaissierAndChapitre",
+        "parameters" : [ {
+          "name" : "idCaisse",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "chapitre",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ClotureCaisseDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/cloturecaisse/findAllCloturerCaisseByDateAndChapitre/{idCaisse}/{chapitre}/{dateDuJoure}" : {
+      "get" : {
+        "operationId" : "findAllCloturerCaisseByDateAndChapitre",
+        "parameters" : [ {
+          "name" : "dateDuJoure",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "idCaisse",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "chapitre",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ClotureCaisseDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/cloturecaisse/findNonCloturerByDateAndCaisseAndChapitre/{idCaisse}/{chapitre}/{dateDuJoure}" : {
+      "get" : {
+        "operationId" : "findNonCloturerByDateAndCaisseAndChapitre",
+        "parameters" : [ {
+          "name" : "dateDuJoure",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "idCaisse",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "chapitre",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ClotureCaisseDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/cloturecaisse/savecloturecaisse" : {
+      "post" : {
+        "operationId" : "saveClotureCaisse",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/ClotureCaisseDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
             }
           }
         }
@@ -2144,6 +2292,45 @@
         }
       }
     },
+    "gestimoweb/api/v1/encaissement/listeEncaissementEntreDeuxDateParChapitreEtCaisse/{idEncaiss}/{idChapitre}/{debut}/{fin}" : {
+      "get" : {
+        "operationId" : "listeEncaissementEntreDeuxDateParChapitreEtCaisse",
+        "parameters" : [ {
+          "name" : "idEncaiss",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "idChapitre",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "debut",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "fin",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/EncaissementPrincipalDTO"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/encaissement/listeLocataireImpayerParAgenceEtPeriode/{agence}/{periode}" : {
       "get" : {
         "operationId" : "listeLocataireImpayerParAgenceEtPeriode",
@@ -2167,6 +2354,26 @@
               "items" : {
                 "$ref" : "#/definitions/LocataireEncaisDTO"
               }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/encaissement/miseAJourEncaissementCloturer/{idEncaiss}" : {
+      "get" : {
+        "operationId" : "miseAJourEncaissementCloturer",
+        "parameters" : [ {
+          "name" : "idEncaiss",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "boolean"
             }
           }
         }
@@ -2441,6 +2648,26 @@
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/EspeceEncaissementDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/etablissement/getDefaultEtable/{id}" : {
+      "get" : {
+        "operationId" : "getDefaultEtable",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/EtablissementUtilisateurDto"
             }
           }
         }
@@ -3269,6 +3496,29 @@
         }
       }
     },
+    "gestimoweb/api/v1/prixparcategorie/listDesPrixParCategori/{idCategorie}" : {
+      "get" : {
+        "operationId" : "listDesPrixParCategori",
+        "parameters" : [ {
+          "name" : "idCategorie",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/PrixParCategorieChambreDto"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/prixparcategorie/saveOrUpDatePrixParCategorie" : {
       "post" : {
         "operationId" : "saveOrUpDatePrixParCategorie",
@@ -3753,6 +4003,38 @@
         }
       }
     },
+    "gestimoweb/api/v1/suiviedepense/countSuiviNonCloturerParCaisseEtChapitreAvantDate/{datePriseEnCompteEncaii}/{idCaiss}/{idChapitre}" : {
+      "get" : {
+        "operationId" : "countSuiviNonCloturerParCaisseEtChapitreAvantDate",
+        "parameters" : [ {
+          "name" : "datePriseEnCompteEncaii",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "idCaiss",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "idChapitre",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int32"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/suiviedepense/getSuivieDepenseByCodeTransaction/{codeTransaction}" : {
       "get" : {
         "operationId" : "getSuivieDepenseByCodeTransaction",
@@ -3811,6 +4093,79 @@
           "in" : "path",
           "required" : true,
           "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/SuivieDepenseDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/suiviedepense/listSuiviDepenseNonCloturerParCaisseEtChapitrAvantDate/{idcaisse}/{dateDepriseEnCompte}/{idChapitre}" : {
+      "get" : {
+        "operationId" : "listSuiviDepenseNonCloturerParCaisseEtChapitrAvantDate",
+        "parameters" : [ {
+          "name" : "idcaisse",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "dateDepriseEnCompte",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "idChapitre",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/SuivieDepenseDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/suiviedepense/listSuiviDepenseNonCloturerParCaisseEtChapitreEntreDeuxDate/{idcaisse}/{dateDebut}/{dateFin}/{idChapitre}" : {
+      "get" : {
+        "operationId" : "listSuiviDepenseNonCloturerParCaisseEtChapitreEntreDeuxDate",
+        "parameters" : [ {
+          "name" : "idcaisse",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "dateDebut",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "dateFin",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "idChapitre",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
         } ],
         "responses" : {
           "200" : {
@@ -4619,6 +4974,21 @@
         },
         "bienMeublerResidence" : {
           "type" : "boolean"
+        },
+        "nameCategorie" : {
+          "type" : "string"
+        },
+        "priceCategorie" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nbrDiffJourCategorie" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "pourcentReducCategorie" : {
+          "type" : "number",
+          "format" : "double"
         },
         "occupied" : {
           "type" : "boolean"
@@ -5608,6 +5978,12 @@
           "items" : {
             "$ref" : "#/definitions/Bienimmobilier"
           }
+        },
+        "suivisDepenseChapitre" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/SuivieDepense"
+          }
         }
       }
     },
@@ -5660,6 +6036,67 @@
         },
         "bailLocataireCharge" : {
           "$ref" : "#/definitions/BailLocation"
+        }
+      }
+    },
+    "ClotureCaisseDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "entiteCloturer" : {
+          "type" : "string"
+        },
+        "montantEncaissement" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "soldeEncaissement" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "encienSoldReservation" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nvoSoldeReservation" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "totalEncaisse" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "clientCloture" : {
+          "type" : "string"
+        },
+        "statutCloture" : {
+          "type" : "string"
+        },
+        "chapitreCloture" : {
+          "type" : "string"
+        },
+        "dateDeDCloture" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "intervalNextCloture" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "dateFinCloture" : {
+          "type" : "string",
+          "format" : "date"
         }
       }
     },
@@ -5930,6 +6367,9 @@
         },
         "typePaiement" : {
           "type" : "string"
+        },
+        "statureCloture" : {
+          "type" : "string"
         }
       }
     },
@@ -5951,6 +6391,25 @@
         "idAppelLoyerEncaissement" : {
           "type" : "integer",
           "format" : "int64"
+        }
+      }
+    },
+    "EtablissementUtilisateurDto" : {
+      "type" : "object",
+      "properties" : {
+        "chapite" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "utilisateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "defaultChapite" : {
+          "type" : "boolean"
+        },
+        "nomEtabless" : {
+          "type" : "string"
         }
       }
     },
@@ -6580,10 +7039,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         }
       }
@@ -7499,6 +7958,59 @@
         }
       }
     },
+    "SuivieDepense" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "lastModifiedDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "dateEncaissement" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "designation" : {
+          "type" : "string"
+        },
+        "codeTransaction" : {
+          "type" : "string"
+        },
+        "montantDepense" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "cloturerSuivi" : {
+          "type" : "string"
+        },
+        "modePaiement" : {
+          "type" : "string",
+          "enum" : [ "ESPESE_MAGISER", "ESPECE_SEVEINVEST", "CHEQUE_ECOBANK_MAGISER", "CHEQUE_GTBANK_SEVEINVEST", "VIREMENT_ECOBANK_MAGISER", "VIREMENT_GTBANK_SEVEINVEST", "MOBILE_MONEY_MAGISER", "MOBILE_MONEY_SEVEINVEST" ]
+        },
+        "operationType" : {
+          "type" : "string",
+          "enum" : [ "CREDIT", "DEBIT" ]
+        },
+        "chapitreSuivis" : {
+          "$ref" : "#/definitions/Chapitre"
+        }
+      }
+    },
     "SuivieDepenseDto" : {
       "type" : "object",
       "properties" : {
@@ -7535,6 +8047,13 @@
         "operationType" : {
           "type" : "string",
           "enum" : [ "CREDIT", "DEBIT" ]
+        },
+        "cloturerSuivi" : {
+          "type" : "string"
+        },
+        "idChapitre" : {
+          "type" : "integer",
+          "format" : "int64"
         }
       }
     },
