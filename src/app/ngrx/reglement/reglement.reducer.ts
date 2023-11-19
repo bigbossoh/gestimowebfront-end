@@ -17,6 +17,7 @@ export enum EncaissementStateEnum {
 export interface EncaissementState {
   encaissements: EncaissementPrincipalDTO[];
   encaissementsLoyer: any;
+  encaissementsCloture:any;
   appelloyers: any;
   errorMessage: string;
   montantEncaisse: number;
@@ -28,6 +29,7 @@ export interface EncaissementState {
 const initState: EncaissementState = {
   encaissements: [],
   encaissementsLoyer: null,
+  encaissementsCloture:null,
   appelloyers: null,
   montantEncaisse: 0,
   errorMessage: '',
@@ -151,6 +153,21 @@ export function encaissementReducer(
           errorMessage: (<EncaissementActions>action).payload,
         };
 
+              //LISTE DES ENCAISSEMENTS ENTRE DEUX DATES
+      case EncaissementActionsTypes.GET_ENCAISSEMENT_CLOTURE:
+        return { ...state, dataState: EncaissementStateEnum.LOADING };
+      case EncaissementActionsTypes.GET_ENCAISSEMENT_CLOTURE_SUCCES:
+        return {
+          ...state,
+          dataState: EncaissementStateEnum.LOADED,
+          encaissementsCloture: (<EncaissementActions>action).payload,
+        };
+      case EncaissementActionsTypes.GET_ENCAISSEMENT_CLOTURE_ERROR:
+        return {
+          ...state,
+          dataState: EncaissementStateEnum.ERROR,
+          errorMessage: (<EncaissementActions>action).payload,
+        };
     // listes des encaisements
     case EncaissementActionsTypes.GET_ENCAISSEMENT_BY_BIEN:
       return { ...state, dataState: EncaissementStateEnum.LOADING };

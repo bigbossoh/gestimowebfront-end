@@ -44,6 +44,10 @@ export enum EncaissementActionsTypes {
   SOMME_DUE_ENTRE_DEUX_DATE = 'SOMME DUE ENTRE DEUX DATES ',
   SOMME_DUE_ENTRE_DEUX_DATE_SUCCES = 'SOMME DUE ENTRE DEUX DATES SUCCES',
   SOMME_DUE_ENTRE_DEUX_DATE_ERROR = 'SOMME DUE ENTRE DEUX DATES ERROR',
+
+  GET_ENCAISSEMENT_CLOTURE = ' Get All Locataires Pour CLOTURE',
+  GET_ENCAISSEMENT_CLOTURE_SUCCES = 'Get All Locataires Pour encaissement CLOTURE Succes',
+  GET_ENCAISSEMENT_CLOTURE_ERROR = 'Get All Locataires Pour encaissement  CLOTUREError',
 }
 
 export class SaveEncaissementActions implements Action {
@@ -223,6 +227,23 @@ export class SommeDueEntreDeuxDatesActionsError implements Action {
     EncaissementActionsTypes.SOMME_DUE_ENTRE_DEUX_DATE_ERROR;
   constructor(public payload: string) {}
 }
+////////
+export class GetAllEncaissementClotureActions implements Action {
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.GET_ENCAISSEMENT_CLOTURE;
+  constructor(public payload: any) {}
+}
+
+export class GetAllEncaissementClotureActionsSuccess implements Action {
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.GET_ENCAISSEMENT_CLOTURE_SUCCES;
+  constructor(public payload: any) {}
+}
+export class GetAllEncaissementClotureActionsError implements Action {
+  type: EncaissementActionsTypes =
+    EncaissementActionsTypes.GET_ENCAISSEMENT_CLOTURE_ERROR;
+  constructor(public payload: string) {}
+}
 
 export type EncaissementActions =
   | SaveEncaissementActions
@@ -254,4 +275,7 @@ export type EncaissementActions =
   | SommeEncaissementEntreDeuxDatesActionsSuccess
   | SommeDueEntreDeuxDatesActions
   | SommeDueEntreDeuxDatesActionsError
-  | SommeDuentreDeuxDatesActionsSuccess;
+  | SommeDuentreDeuxDatesActionsSuccess
+  | GetAllEncaissementClotureActions
+  | GetAllEncaissementClotureActionsSuccess
+  | GetAllEncaissementClotureActionsError;

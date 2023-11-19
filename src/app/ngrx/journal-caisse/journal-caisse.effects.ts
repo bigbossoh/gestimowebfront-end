@@ -148,7 +148,7 @@ export class SuiviDepenseEffects {
       ofType(SuiviDepenseActionsTypes.GET_ALL_SUIVI_DEPENSE_DEUX_DATE),
       mergeMap((action: JournalCaisseActions) => {
             return this.apiService
-          .listSortieDeuxDate(action.payload)
+          .listSuiviDepenseNonCloturerParCaisseEtChapitreEntreDeuxDate(action.payload)
           .pipe(
             map((suivis) => new GetSuiviDepenseDeuxDateActionsSuccess(suivis)),
             catchError((err) =>

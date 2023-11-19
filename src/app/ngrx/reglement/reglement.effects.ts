@@ -21,6 +21,8 @@ import {
   SommeEncaissementEntreDeuxDatesActionsError,
   SommeDuentreDeuxDatesActionsSuccess,
   SommeDueEntreDeuxDatesActionsError,
+  GetAllEncaissementClotureActionsSuccess,
+  GetAllEncaissementClotureActionsError,
 } from './reglement.actions';
 import { NotificationType } from '../../enum/natification-type.enum';
 import { NotificationService } from '../../services/notification/notification.service';
@@ -304,6 +306,31 @@ this.effectActions.pipe(
     })
   )
 );
+listEncaissementEntreDeuxDatePourClotureEffect: Observable<Action> = createEffect(() =>
+this.effectActions.pipe(
+  ofType(EncaissementActionsTypes.GET_ENCAISSEMENT_CLOTURE),
+  mergeMap((action: EncaissementActions) => {
+    return this.apiService
+      .listeEncaissementEntreDeuxDateParChapitreEtCaisse(action.payload)
+      .pipe(
+        map((encaiss) => new GetAllEncaissementClotureActionsSuccess(encaiss)),
+        catchError((err) =>
+          of(new GetAllEncaissementClotureActionsError(err.message))
+        )
+      );
+  }),
+  tap((resultat) => {
+
+    if (
+      resultat.type == EncaissementActionsTypes.TOTAL_ENCAISSEMENT_ENTRE_DEUX_DATE_ERROR
+    )
+    {
+      this.sendErrorNotification(NotificationType.ERROR, resultat.payload);
+    }
+  })
+)
+);
+
   private sendErrorNotification(
     notificationType: NotificationType,
     message: string

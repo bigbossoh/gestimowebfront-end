@@ -15,4 +15,5 @@ export interface EncaissementPrincipalDTO {
   appelLoyersFactureDto?: AppelLoyersFactureDto;
   typePaiement?: string;
   statureCloture?: string;
+  entite?: string;
 }

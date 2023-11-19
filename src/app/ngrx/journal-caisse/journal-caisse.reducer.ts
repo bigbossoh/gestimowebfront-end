@@ -11,13 +11,15 @@ export enum SuiviDepenseStateEnum {
   ERROR = 'Error',
 }
 export interface SuiviDepenseState {
-  suiviDepenses: SuivieDepenseDto[];
+  suiviDepenses: any;
+  suiviDepensesCloture:any;
   totalEncaisse: any;
   errorMessage: string;
   dataState: SuiviDepenseStateEnum;
 }
 const initState: SuiviDepenseState = {
   totalEncaisse: 0,
+  suiviDepensesCloture:null,
   suiviDepenses: [],
   errorMessage: '',
   dataState: SuiviDepenseStateEnum.LOADING,
@@ -49,7 +51,7 @@ export function suiviDepenseReducer(
       return {
         ...state,
         dataState: SuiviDepenseStateEnum.LOADED,
-        suiviDepenses: (<JournalCaisseActions>action).payload,
+        suiviDepensesCloture: (<JournalCaisseActions>action).payload,
       };
     case SuiviDepenseActionsTypes.GET_ALL_SUIVI_DEPENSE_DEUX_DATE_ERROR:
       return {
