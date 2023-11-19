@@ -14,7 +14,7 @@ export class UserService {
   private loggedInAgence?: string | null;
   private jwtHelper = new JwtHelperService();
   private selectedFile: any = null;
-
+  private defaultChapitre: any = null;
   constructor(private apiService: ApiService, private http: HttpClient) {}
 
   public logOut(): void {
@@ -58,7 +58,7 @@ export class UserService {
         if (!this.jwtHelper.isTokenExpired(this.token)) {
           this.loggedInUsername = this.jwtHelper.decodeToken(this.token).sub;
           console.log('*** PRINT SUBJET ****');
-          console.log(this.getUserFromLocalCache())
+          console.log(this.getUserFromLocalCache());
           console.log('*********************************');
 
           return true;
@@ -81,6 +81,17 @@ export class UserService {
       authRequestDto,
       { observe: 'response' }
     );
+  }
+  public getDefaultChapitre(id: any): Observable<any> {
+    console.log("THE ID IS THE NEXT : ****"+id);
+
+  return  this.http.get<any>(
+      this.apiService.rootUrl +
+        'gestimoweb/api/v1/etablissement/getDefaultEtable/' +
+        id,
+      { observe: 'response' }
+    );
+
   }
   deleteAgenceBy(id: number) {
     return this.apiService.deleteAgenceByIdAgence(id);

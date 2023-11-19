@@ -26,6 +26,11 @@ export enum SuiviDepenseActionsTypes {
   GET_ALL_SUIVI_DEPENSE_DEUX_DATE = '[SuivieDepenseDto] Get All Suivi Depense Deux Dates',
   GET_ALL_SUIVI_DEPENSE_DEUX_DATE_SUCCES = '[SuivieDepenseDto] Get All Suivi Depense Deux Dates Succes',
   GET_ALL_SUIVI_DEPENSE_DEUX_DATE_ERROR = '[SuivieDepenseDto] Get All Suivi Depense Deux Dates Error',
+
+
+  GET_ALL_SUIVI_DEPENSE_ENTRE_DEUX_DATE = '[SuivieDepenseDto] Get All Suivi Depense DEUX DATE',
+  GET_ALL_SUIVI_DEPENSE_ENTRE_DEUX_DATE_SUCCES = '[SuivieDepenseDto] Get All Suivi Depense Succes DEUX DATE',
+  GET_ALL_SUIVI_DEPENSE_ENTRE_DEUX_DATE_ERROR = '[SuivieDepenseDto] Get All Suivi Depense Error DEUX DATE',
 }
 
 export class SaveSuiviDepenseActions implements Action {
@@ -116,6 +121,25 @@ export class GetSuiviDepenseDeuxDateActionsError implements Action {
     SuiviDepenseActionsTypes.GET_ALL_SUIVI_DEPENSE_DEUX_DATE_ERROR;
   constructor(public payload: string) {}
 }
+
+
+// GAT ALL SUIVI DEPENSE
+export class GetAllSuiviDepenseEntreDeuxDateActions implements Action {
+  type: SuiviDepenseActionsTypes =
+    SuiviDepenseActionsTypes.GET_ALL_SUIVI_DEPENSE_DEUX_DATE;
+  constructor(public payload: any) {}
+}
+
+export class GetAllSuiviDepenseEntreDeuxDateActionsSuccess implements Action {
+  type: SuiviDepenseActionsTypes =
+    SuiviDepenseActionsTypes.GET_ALL_SUIVI_DEPENSE_DEUX_DATE_SUCCES;
+  constructor(public payload: any) {}
+}
+export class GetAllSuiviDepenseEntreDeuxDateActionsError implements Action {
+  type: SuiviDepenseActionsTypes =
+    SuiviDepenseActionsTypes.GET_ALL_SUIVI_DEPENSE_DEUX_DATE_ERROR;
+  constructor(public payload: string) {}
+}
 export type JournalCaisseActions =
   | SaveSuiviDepenseActions
   | SaveSuiviDepenseActionsSuccess
@@ -131,4 +155,8 @@ export type JournalCaisseActions =
   | GetSuiviDepenseTotalActionsError
   | GetSuiviDepenseDeuxDateActions
   | GetSuiviDepenseDeuxDateActionsError
-  | GetSuiviDepenseDeuxDateActionsSuccess;
+  | GetSuiviDepenseDeuxDateActionsSuccess
+  |GetAllSuiviDepenseEntreDeuxDateActions
+  |GetAllSuiviDepenseEntreDeuxDateActionsSuccess
+  |GetAllSuiviDepenseEntreDeuxDateActionsError;
+
