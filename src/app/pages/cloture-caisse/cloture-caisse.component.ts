@@ -44,6 +44,7 @@ import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 })
 export class ClotureCaisseComponent implements OnInit {
   selectedDateJour = new Date();
+sommeEncaisseSuivi: any;
   getEncaissementPayerJour(arg0: string) {
     throw new Error('Method not implemented.');
   }
@@ -181,11 +182,19 @@ export class ClotureCaisseComponent implements OnInit {
         console.log(data.suiviDepensesCloture);
         console.log('********************');
         this.dataSourceSuivi.data = [];
-
+        this.sommeEncaisseSuivi=0;
         this.dataSourceSuivi.paginator = null;
         if (data.suiviDepensesCloture.length > 0) {
           this.dataSourceSuivi.data = data.suiviDepensesCloture;
           this.dataSourceSuivi.paginator = this.paginatorAppel;
+          for (
+            let index = 0;
+            index < data.suiviDepensesCloture.length;
+            index++
+          ) {
+            this.sommeEncaisseSuivi +=
+              data.suiviDepensesCloture[index]['montantDepense'];
+          }
         }
       });
   }
