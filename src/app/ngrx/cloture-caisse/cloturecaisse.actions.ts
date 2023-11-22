@@ -6,6 +6,11 @@ export enum ClotureCaisseActionsTypes {
   COUNT_ALL_CLOTURE_INIT = '[ClotureCaisseDto] Count all coture',
   COUNT_ALL_CLOTURE_INIT_SUCCES = '[ClotureCaisseDto] Count all coture SUCCUS',
   COUNT_ALL_CLOTURE_INIT_ERROR = '[ClotureCaisseDto] Count all coture ERROR',
+
+    //GET ETAGE BY IMMEUBLE
+   SAVE_CLOTURE_CAISSE = '[ClotureCaisseDto] SAVE coture',
+   SAVE_CLOTURE_CAISSE_SUCCES = '[ClotureCaisseDto] SAVE  coture SUCCUS',
+   SAVE_CLOTURE_CAISSE_ERROR = '[ClotureCaisseDto] SAVE coture ERROR',
 }
 
 export class GetCountInitClotureCaisseActions implements Action {
@@ -23,7 +28,28 @@ export class GetCountInitClotureCaisseActionsError implements Action {
   ClotureCaisseActionsTypes.COUNT_ALL_CLOTURE_INIT_ERROR;
   constructor(public payload: string) { }
 }
+
+
+export class SaveClotureCaisseActions implements Action {
+  type: ClotureCaisseActionsTypes = ClotureCaisseActionsTypes.SAVE_CLOTURE_CAISSE;
+  constructor(public payload: any) { }
+}
+
+export class SaveClotureCaisseActionsSuccess implements Action {
+  type: ClotureCaisseActionsTypes =
+  ClotureCaisseActionsTypes.SAVE_CLOTURE_CAISSE_SUCCES;
+  constructor(public payload: any) { }
+}
+export class SaveClotureCaisseActionsError implements Action {
+  type: ClotureCaisseActionsTypes =
+  ClotureCaisseActionsTypes.SAVE_CLOTURE_CAISSE_ERROR;
+  constructor(public payload: string) { }
+}
+
 export type ClotureCaisseActions =
   | GetCountInitClotureCaisseActions
   | GetCountInitClotureCaisseActionsSuccess
-  | GetCountInitClotureCaisseActionsError;
+  | GetCountInitClotureCaisseActionsError
+  |SaveClotureCaisseActions
+  |SaveClotureCaisseActionsError
+  |SaveClotureCaisseActionsSuccess;

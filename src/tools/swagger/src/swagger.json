@@ -6054,34 +6054,9 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "entiteCloturer" : {
-          "type" : "string"
-        },
-        "montantEncaissement" : {
-          "type" : "number",
-          "format" : "double"
-        },
-        "soldeEncaissement" : {
-          "type" : "number",
-          "format" : "double"
-        },
-        "encienSoldReservation" : {
-          "type" : "number",
-          "format" : "double"
-        },
-        "nvoSoldeReservation" : {
-          "type" : "number",
-          "format" : "double"
-        },
         "totalEncaisse" : {
           "type" : "number",
           "format" : "double"
-        },
-        "clientCloture" : {
-          "type" : "string"
-        },
-        "statutCloture" : {
-          "type" : "string"
         },
         "chapitreCloture" : {
           "type" : "string"
@@ -7042,10 +7017,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         }
       }
