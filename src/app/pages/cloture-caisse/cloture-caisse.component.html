@@ -69,7 +69,8 @@
                 <mat-datepicker #pickerJour></mat-datepicker>
               </mat-form-field>
             </mat-card-subtitle>
-            <button class="mr-2" mat-raised-button color="primary">
+            <button class="mr-2" mat-raised-button color="primary"
+            (click)="saveFirstCloture()">
               <mat-icon>save</mat-icon>
               Cloturer
             </button>
@@ -182,6 +183,7 @@
   </div>
   <div>
     <div class="mat-elevation-z8">
+      <span> Totol : {{ sommeEncaisseSuivi }}</span>
       <div class="example-header">
         <mat-form-field class="tail-50" style="margin-left: 12px">
           <mat-label>Rechercher</mat-label>
@@ -196,7 +198,7 @@
       <mat-paginator
         #paginatorEncaissenent
         showFirstLastButtons
-        [pageSizeOptions]="pageSize"
+        [pageSizeOptions]="pageSizeSuivi"
         aria-label="Select page of users"
       >
       </mat-paginator>

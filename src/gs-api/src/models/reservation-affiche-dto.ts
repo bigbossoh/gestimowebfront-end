@@ -5,6 +5,7 @@ export interface ReservationAfficheDto {
   idCreateur?: number;
   creationDate?: number;
   lastModifiedDate?: number;
+  idUtilisateur?: number;
   email?: string;
   mobile?: string;
   username?: string;

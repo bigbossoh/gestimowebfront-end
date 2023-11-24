@@ -1691,6 +1691,26 @@
         }
       }
     },
+    "gestimoweb/api/v1/categoriechambre/findCategorieByIdAppartement/{idAppart}" : {
+      "get" : {
+        "operationId" : "findCategorieByIdAppartement",
+        "parameters" : [ {
+          "name" : "idAppart",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/CategoryChambreSaveOrUpdateDto"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/categoriechambre/saveOrUpdateCategoryChambre" : {
       "post" : {
         "operationId" : "saveOrUpdateCategoryChambre",
@@ -3748,7 +3768,7 @@
           "name" : "body",
           "required" : false,
           "schema" : {
-            "$ref" : "#/definitions/ReservationSaveOrUpdateDto"
+            "$ref" : "#/definitions/ReservationRequestDto"
           }
         } ],
         "responses" : {
@@ -4266,6 +4286,29 @@
     "gestimoweb/api/v1/utilisateur/all/{idAgence}" : {
       "get" : {
         "operationId" : "getAllUtilisateursByOrder",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/UtilisateurAfficheDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/utilisateur/clienthotel/all/{idAgence}" : {
+      "get" : {
+        "operationId" : "listOfAllUtilisateurClientHotelOrderbyNameByAgence",
         "parameters" : [ {
           "name" : "idAgence",
           "in" : "path",
@@ -4975,6 +5018,10 @@
         "bienMeublerResidence" : {
           "type" : "boolean"
         },
+        "idCategorie" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "nameCategorie" : {
           "type" : "string"
         },
@@ -4989,6 +5036,9 @@
         "pourcentReducCategorie" : {
           "type" : "number",
           "format" : "double"
+        },
+        "categorieChambre" : {
+          "$ref" : "#/definitions/CategoryChambreSaveOrUpdateDto"
         },
         "occupied" : {
           "type" : "boolean"
@@ -5960,6 +6010,18 @@
         "pourcentReduc" : {
           "type" : "number",
           "format" : "double"
+        },
+        "prixGategorieDto" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/PrixParCategorieChambreDto"
+          }
+        },
+        "appartements" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AppartementDto"
+          }
         }
       }
     },
@@ -6054,34 +6116,9 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "entiteCloturer" : {
-          "type" : "string"
-        },
-        "montantEncaissement" : {
-          "type" : "number",
-          "format" : "double"
-        },
-        "soldeEncaissement" : {
-          "type" : "number",
-          "format" : "double"
-        },
-        "encienSoldReservation" : {
-          "type" : "number",
-          "format" : "double"
-        },
-        "nvoSoldeReservation" : {
-          "type" : "number",
-          "format" : "double"
-        },
         "totalEncaisse" : {
           "type" : "number",
           "format" : "double"
-        },
-        "clientCloture" : {
-          "type" : "string"
-        },
-        "statutCloture" : {
-          "type" : "string"
         },
         "chapitreCloture" : {
           "type" : "string"
@@ -6827,10 +6864,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -6880,10 +6917,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -7042,10 +7079,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         }
       }
@@ -7465,6 +7502,10 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "idUtilisateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
         "email" : {
           "type" : "string"
         },
@@ -7606,9 +7647,6 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "utilisateurIdApp" : {
-          "type" : "string"
-        },
         "idUtilisateur" : {
           "type" : "integer",
           "format" : "int64"
@@ -7619,63 +7657,11 @@
         "prenom" : {
           "type" : "string"
         },
-        "email" : {
-          "type" : "string"
-        },
-        "username" : {
-          "type" : "string"
-        },
-        "mobile" : {
-          "type" : "string"
-        },
-        "dateDeNaissance" : {
-          "type" : "string",
-          "format" : "date"
-        },
-        "lieuNaissance" : {
-          "type" : "string"
-        },
-        "typePieceIdentite" : {
-          "type" : "string"
-        },
-        "numeroPieceIdentite" : {
-          "type" : "string"
-        },
-        "dateDebutPiece" : {
-          "type" : "string",
-          "format" : "date"
-        },
-        "dateFinPiece" : {
-          "type" : "string",
-          "format" : "date"
-        },
-        "nationalite" : {
-          "type" : "string"
-        },
-        "genre" : {
-          "type" : "string"
-        },
-        "montantCautionBail" : {
+        "pourcentageReduction" : {
           "type" : "number",
           "format" : "double"
         },
-        "nbreMoisCautionBail" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "nouveauMontantLoyer" : {
-          "type" : "number",
-          "format" : "double"
-        },
-        "idBienImmobilier" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
-        "advancePayment" : {
-          "type" : "number",
-          "format" : "double"
-        },
-        "remainingPayment" : {
+        "montantReduction" : {
           "type" : "number",
           "format" : "double"
         },
@@ -7683,11 +7669,11 @@
           "type" : "number",
           "format" : "double"
         },
-        "nmbreHomme" : {
-          "type" : "integer",
-          "format" : "int32"
+        "montantPaye" : {
+          "type" : "number",
+          "format" : "double"
         },
-        "nmbreFemme" : {
+        "nmbreAdulte" : {
           "type" : "integer",
           "format" : "int32"
         },
@@ -7716,6 +7702,10 @@
           "$ref" : "#/definitions/UtilisateurRequestDto"
         },
         "idAppartementdDto" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idUtilisateur" : {
           "type" : "integer",
           "format" : "int64"
         },

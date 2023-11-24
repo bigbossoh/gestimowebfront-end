@@ -10,12 +10,14 @@ export enum GerantStateEnum {
 }
 export interface GerantState {
   gerants: UtilisateurRequestDto[];
+  clienthotel: UtilisateurRequestDto[];
   errorMessage: string;
   dataState: GerantStateEnum;
 }
 //Etat initiale du stae Gerant
 const iniState: GerantState = {
   gerants: [],
+  clienthotel:[],
   errorMessage: '',
   dataState: GerantStateEnum.INITIAL,
 };
@@ -38,6 +40,21 @@ export function gerantReducer(
         dataState: GerantStateEnum.ERROR,
         errorMessage: (<GerantActions>action).payload,
       };
+
+      case GerantActionsTypes.GET_ALL_HOTEL:
+        return { ...state, dataState: GerantStateEnum.LOADING };
+      case GerantActionsTypes.GET_ALL_HOTEL_SUCCES:
+        return {
+          ...state,
+          dataState: GerantStateEnum.LOADED,
+          clienthotel: (<GerantActions>action).payload,
+        };
+      case GerantActionsTypes.GET_ALL_HOTEL_ERROR:
+        return {
+          ...state,
+          dataState: GerantStateEnum.ERROR,
+          errorMessage: (<GerantActions>action).payload,
+        };
     default:
       return { ...state };
   }

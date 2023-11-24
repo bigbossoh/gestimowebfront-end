@@ -11,11 +11,13 @@ export enum ClotureCaisseStateEnum {
   LOADEDBYIMMEUNLE = 'LoadedByImmeuble',
 }
 export interface ClotureCaisseState {
+  saveClotureCaisse:any;
   countClotureCaisseInit: any;
   errorMessage: string;
   dataState: ClotureCaisseStateEnum;
 }
 const initState: ClotureCaisseState = {
+  saveClotureCaisse:false,
   countClotureCaisseInit: 0,
   errorMessage: '',
   dataState: ClotureCaisseStateEnum.INITIAL,
@@ -40,6 +42,20 @@ export function ClotureCaisseReducer(
         errorMessage: (<ClotureCaisseActions>action).payload,
       };
 
+      case ClotureCaisseActionsTypes.SAVE_CLOTURE_CAISSE:
+        return { ...state, dataState: ClotureCaisseStateEnum.LOADING };
+      case ClotureCaisseActionsTypes.SAVE_CLOTURE_CAISSE_SUCCES:
+        return {
+          ...state,
+          dataState: ClotureCaisseStateEnum.LOADED,
+          saveClotureCaisse: (<ClotureCaisseActions>action).payload,
+        };
+      case ClotureCaisseActionsTypes.SAVE_CLOTURE_CAISSE_ERROR:
+        return {
+          ...state,
+          dataState: ClotureCaisseStateEnum.ERROR,
+          errorMessage: (<ClotureCaisseActions>action).payload,
+        };
 
     default:
       return { ...state };

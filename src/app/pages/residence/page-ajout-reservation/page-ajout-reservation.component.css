@@ -19,3 +19,28 @@
 .tail-50{
   width: 50%;
 }
+#container {
+  visibility: hidden;
+}
+
+#loader {
+color: #008cff;
+height: 40px;
+width: 30%;
+position: absolute;
+top: 45%;
+left: 45%;
+}
+
+#element {
+  display: block;
+  height: 350px;
+}
+
+#wrapper {
+  width: 250px;
+  margin: 0 auto;
+}
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+  margin-left: 16px;
+}

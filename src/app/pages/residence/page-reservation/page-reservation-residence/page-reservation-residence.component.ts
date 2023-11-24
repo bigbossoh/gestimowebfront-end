@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Route, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { GetListReservation } from 'src/app/ngrx/reservation/reservation.actions';
+import { GetListReservationAction } from 'src/app/ngrx/reservation/reservation.actions';
 import {
   ReservationState,
   ReservationStateEnum,
@@ -16,16 +18,20 @@ import { UtilisateurRequestDto } from 'src/gs-api/src/models';
   styleUrls: ['./page-reservation-residence.component.css'],
 })
 export class PageReservationResidenceComponent implements OnInit {
+  constructor(
+    private store: Store<any>,
+    private userService: UserService,
+    private router: Router
+  ) {}
   public user?: UtilisateurRequestDto;
   reservationState$: Observable<ReservationState> | null = null;
   readonly ReservationStateEnum = ReservationStateEnum;
-  constructor(private store: Store<any>, private userService: UserService) {}
 
   ngOnInit(): void {
     this.afficherLesReservation();
   }
   afficherLesReservation() {
-    this.store.dispatch(new GetListReservation({}));
+    this.store.dispatch(new GetListReservationAction({}));
     this.reservationState$ = this.store.pipe(
       map((state) => state.reservationState)
     );
@@ -37,5 +43,8 @@ export class PageReservationResidenceComponent implements OnInit {
           console.log(data);
         }
       });
+  }
+  creerUneReservation() {
+    this.router.navigateByUrl('/ajout-reservation');
   }
 }

@@ -173,6 +173,8 @@ import { ClotureCaisseffects } from './ngrx/cloture-caisse/cloturecaisse.effects
 import { EtablissementEffects } from './ngrx/etablissement/etablissement.effects';
 import { ClotureCaisseReducer } from './ngrx/cloture-caisse/cloturecaisse.reducer';
 import { EtablissementReducer } from './ngrx/etablissement/etablissement.reducer';
+import { CategorieChambreReducer } from './ngrx/categoriechambre/categoriechambre.reducer';
+import { CategorieChambreEffects } from './ngrx/categoriechambre/categoriechambre.effects';
 @NgModule({
   declarations: [
     ClotureCaisseComponent,
@@ -318,6 +320,7 @@ import { EtablissementReducer } from './ngrx/etablissement/etablissement.reducer
       statistiqueChartState: StatistiqueChartReducer,
       clotuteCaisseState: ClotureCaisseReducer,
       etablissementState: EtablissementReducer,
+      categorieChambreState:CategorieChambreReducer
     }),
     EffectsModule.forRoot([
       AnneeEffects,
@@ -350,6 +353,7 @@ import { EtablissementReducer } from './ngrx/etablissement/etablissement.reducer
       ReservationEffects,
       ClotureCaisseffects,
       EtablissementEffects,
+      CategorieChambreEffects
     ]),
 
     StoreDevtoolsModule.instrument(),

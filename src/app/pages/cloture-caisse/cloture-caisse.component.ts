@@ -1,4 +1,6 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,6 +16,11 @@ import {
   AppelLoyerState,
   AppelLoyerStateEnum,
 } from 'src/app/ngrx/appelloyer/appelloyer.reducer';
+import { SaveClotureCaisseActions } from 'src/app/ngrx/cloture-caisse/cloturecaisse.actions';
+import {
+  ClotureCaisseState,
+  ClotureCaisseStateEnum,
+} from 'src/app/ngrx/cloture-caisse/cloturecaisse.reducer';
 import { GetDefaultEtabNameActions } from 'src/app/ngrx/etablissement/etablisement.action';
 import {
   EtablissementState,
@@ -44,9 +51,13 @@ import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 })
 export class ClotureCaisseComponent implements OnInit {
   selectedDateJour = new Date();
+  sommeEncaisseSuivi: any;
+  etablissementName: any;
   getEncaissementPayerJour(arg0: string) {
     throw new Error('Method not implemented.');
   }
+  encaissementform?: FormGroup;
+
   displayedColumns = ['Datedepaiement', 'Periode', 'Loyer', 'ModedeReglement'];
   displayedColumnsAppel = ['idEncaiss', 'Periode', 'Loyer', 'solde'];
   displayedColumnsSms = [
@@ -75,13 +86,17 @@ export class ClotureCaisseComponent implements OnInit {
   @ViewChild('paginatorSms') paginatorSms!: MatPaginator;
 
   dataSourceSuivi: MatTableDataSource<any> = new MatTableDataSource();
-  pageSize = [5, 10, 15, 20];
+  pageSizeSuivi = [5, 10, 15, 20];
 
-  @ViewChild('paginatorEncaissenent') paginator!: MatPaginator;
+  @ViewChild('paginatorEncaissenent') paginatorSuivi!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   locataireState$: Observable<UtilisteurState> | null = null;
   readonly UtilisteurStateEnum = UtilisteurStateEnum;
+
+  saveClotureCaisseState$: Observable<ClotureCaisseState> | null = null;
+  readonly ClotureCaisseStateEnum = ClotureCaisseStateEnum;
+
   public user?: UtilisateurRequestDto;
 
   etablissementState$: Observable<EtablissementState> | null = null;
@@ -99,12 +114,14 @@ export class ClotureCaisseComponent implements OnInit {
   constructor(
     private store: Store<any>,
     private userService: UserService,
-    private printService: PrintServiceService
+    private fb: FormBuilder,
   ) {}
 
   ngOnInit(): void {
+    var  dateFirstCloture =new Date();
     this.user = this.userService.getUserFromLocalCache();
     // this.etablissement = this.userService.getDefaultChapitre(this.user.id);
+
     this.store.dispatch(new GetDefaultEtabNameActions(this.user.id));
     this.etablissementState$ = this.store.pipe(
       map((state) => state.etablissementState)
@@ -113,7 +130,8 @@ export class ClotureCaisseComponent implements OnInit {
       .pipe(map((state) => state.etablissementState))
       .subscribe((data) => {
         this.etablissement = data;
-        console.log(data);
+        this.etablissementName=data.etabname.nomEtabless
+
       });
     //RAMENER TOUS LES LOCATAIRES QUI ONT UN BAIL ACTIF
     this.store.dispatch(new GetAllLocatairesBailActions(this.user.idAgence));
@@ -132,11 +150,74 @@ export class ClotureCaisseComponent implements OnInit {
         }
       });
   }
+  addDays(date:Date,days:number):Date{
+    date.setDate(date.getDate()+days);
+    return date
+  }
+  saveFirstCloture(){
+    var  dateFirstCloture =new Date();
+
+    var debut:any=formatDate(this.addDays(dateFirstCloture,0),'yyyy-MM-dd','en-US');
+    var fin:any=formatDate(this.addDays(dateFirstCloture,3),'yyyy-MM-dd','en-US');
+    const jdebut = debut.replaceAll('/', '-');
+    const jfin = fin.replaceAll('/', '-');
+
+    this.encaissementform = this.fb.group({
+      idAgence: [this.user?.idAgence],
+      idCreateur: [this.user?.id],
+      totalEncaisse: [this.sommeEncaissePrincipal+this.sommeEncaisseSuivi],
+      chapitreCloture: [this.etablissement],
+      dateDeDCloture: [debut],
+      intervalNextCloture: [3],
+      dateFinCloture: [fin]
+    });
+
+    this.store.dispatch(
+      new SaveClotureCaisseActions({
+        id: 0,
+        idAgence: this.user?.idAgence,
+        idCreateur: this.user?.id,
+        totalEncaisse: this.sommeEncaissePrincipal+this.sommeEncaisseSuivi,
+        chapitreCloture: this.etablissementName,
+        dateDeDCloture: this.addDays(dateFirstCloture,0),
+        intervalNextCloture: 3,
+        dateFinCloture: this.addDays(dateFirstCloture,3),
+      })
+    );
+    this.saveClotureCaisseState$ = this.store.pipe(
+      map((state) => state.clotuteCaisseState)
+    );
+    this.store.pipe(
+      map((state) => state.clotuteCaisseState)
+    ).subscribe(data=>{
+      console.log("***** save cloture data is next ****** ");
+      console.log(data);
+
+    });
+    /**
+     * {
+  id: 0;
+  idAgence: number;
+  idCreateur: number;
+  totalEncaisse: number;
+  chapitreCloture: string;
+  dateDeDCloture: string;
+  intervalNextCloture: 3;
+  dateFinCloture: string;
+}
+
+    */
+  }
   ngAfterViewInit() {
     // if (this.locataire != undefined) {
-    //   this.getAllAppelLoyerByBail(this.locataire);
-    //   this.getAllSmsByLocataire(this.locataire);
-    //   this.getAllEncaissementByBienImmobilier(this.locataire);
+    this.getAllEnciassementParPeriodeCaisseAgence(
+      this.selectedDate,
+      this.selectedDateJour
+    );
+    this.getAllSuiviDepenseentreDeuxDate(
+      this.selectedDate,
+      this.selectedDateJour
+    );
     // }
   }
   applyFilter(event: Event) {
@@ -175,17 +256,20 @@ export class ClotureCaisseComponent implements OnInit {
     this.store
       .pipe(map((state) => state.suiviDepenseState))
       .subscribe((data) => {
-        console.log(
-          '**** LES SUIVI APRES LA PERIODE EST LA SUIVANTE SON TOTAL ****'
-        );
-        console.log(data.suiviDepensesCloture);
-        console.log('********************');
         this.dataSourceSuivi.data = [];
-
+        this.sommeEncaisseSuivi = 0;
         this.dataSourceSuivi.paginator = null;
         if (data.suiviDepensesCloture.length > 0) {
           this.dataSourceSuivi.data = data.suiviDepensesCloture;
           this.dataSourceSuivi.paginator = this.paginatorAppel;
+          for (
+            let index = 0;
+            index < data.suiviDepensesCloture.length;
+            index++
+          ) {
+            this.sommeEncaisseSuivi +=
+              data.suiviDepensesCloture[index]['montantDepense'];
+          }
         }
       });
   }
@@ -224,60 +308,6 @@ export class ClotureCaisseComponent implements OnInit {
       });
   }
 
-  getAllEncaissementByBienImmobilier(p: any) {}
-  // getAllAppelLoyerByBail(bien: any) {
-  //   this.store.dispatch(new GetAllAppelLoyerByBailActions(bien.idBail));
-  //   this.appelLoyerState$ = this.store.pipe(
-  //     map((state) => state.appelLoyerState)
-  //   );
-  //   this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
-  //     this.dataSourceEncaisseLoyer.data = [];
-  //     this.dataSourceEncaisseLoyer.paginator = null;
-  //     if (data.appelloyers.length > 0) {
-  //       this.dataSourceEncaisseLoyer.data = data.appelloyers;
-  //       this.dataSourceEncaisseLoyer.paginator = this.paginatorAppel;
-  //     }
-  //   });
-  // }
-  supprimerUnLoyer(idAppel: any) {
-    if (confirm('Vous allez annuler ce paiement de façon irreversible')) {
-      this.appelLoyerState$ = this.store.pipe(
-        map((state) => state.appelLoyerState)
-      );
-      // this.store
-      //   .pipe(map((state) => state.appelLoyerState))
-      //   .subscribe((data) => {
-      //     this.dataSourceAppel.data = [];
-      //     this.dataSourceAppel.paginator = null;
-      //     if (data.appelloyers.length > 0) {
-      //       this.dataSourceAppel.data = data.appelloyers;
-      //       this.dataSourceAppel.paginator = this.paginatorAppel;
-      //     }
-      //   });
 
-      alert("Annulation d'appel effectuée avec succès ");
-    }
-    this.ngAfterViewInit();
-  }
-  getAllSmsByLocataire(locatire: any) {
-    this.store.dispatch(new GetAllSmsByLocataireActions(locatire.username));
-    this.smsState$ = this.store.pipe(map((state) => state.appelLoyerState));
-    this.store.pipe(map((state) => state.appelLoyerState)).subscribe((data) => {
-      this.dataSourceSms.data = [];
-      this.dataSourceSms.paginator = null;
 
-      if (data.smss.length > 0) {
-        console.log(data.smss);
-
-        this.dataSourceSms.data = data.smss;
-        this.dataSourceSms.paginator = this.paginatorSms;
-      }
-    });
-  }
-  printRecu(p: any) {
-    this.printService.printRecuEncaissement(p).subscribe((blob) => {
-      console.log('La taille du fichier' + blob.size);
-      saveAs(blob, 'appel_quittance_du_' + p + '.pdf');
-    });
-  }
 }

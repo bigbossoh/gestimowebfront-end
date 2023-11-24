@@ -3,15 +3,64 @@
     <div class="col-md-8 p-0">
       <h3>Ajout reservation</h3>
     </div>
-    <div class="col-md-4 text-right">
-
+    <div class="col-md-4 text-right"></div>
+  </div>
+  <div class="col">
+    <div class="row">
+      <div class="col">
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="client">
+          <mat-radio-button value="1">Réservation</mat-radio-button>
+          <mat-radio-button value="2">Entrée en chambre</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div *ngIf="client == 1">
+        Veuillez saisir les informations sur le bien et la durée du séjour puis,
+        valider la réservation.
+      </div>
+      <div *ngIf="client == 2">
+        <ng-container
+          *ngIf="gerantState$ | async as state"
+          [ngSwitch]="state.dataState"
+        >
+          <ng-container *ngSwitchCase="GerantStateEnum.ERROR">
+            <div class="p-2 invalid-feedback">{{state.errorMessage}}</div>
+          </ng-container>
+          <ng-container *ngSwitchCase="GerantStateEnum.LOADING">
+            <div class="p-2">les données sont en chargement ...</div>
+          </ng-container>
+          <ng-container *ngSwitchCase="GerantStateEnum.LOADED">
+            <mat-form-field>
+              <mat-label>Sélectionner un client(Si il est déjà crée)</mat-label>
+              <select matNativeControl [(ngModel)]="idClient">
+                <option value="" selected></option>
+                <option
+                  *ngFor="let clienth of state.clienthotel"
+                  [value]="clienth.id"
+                >
+                  {{ clienth.nom }} {{ clienth.prenom }}
+                </option>
+              </select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Nombre d'adultes</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="nbrAdult" />
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Nombre d'enfants</mat-label>
+              <input matInput placeholder="Placeholder" [(ngModel)]="nbrEnfant" />
+            </mat-form-field>
+          </ng-container></ng-container
+        >
+      </div>
     </div>
+    <hr style="margin-top: 0" />
   </div>
   <div class="col">
     <div class="row">
       <div class="col">
         <h5>
-          <i class="fas fa-asterisk blue-color"></i>&nbsp;Choix residence et residence meublé
+          <i class="fas fa-asterisk blue-color"></i>&nbsp;Choix residence et
+          residence meublé
         </h5>
       </div>
     </div>
@@ -20,24 +69,61 @@
   <div class="col">
     <div class="row">
       <div class="col-md-4">
-        <mat-form-field appearance="outline">
-          <mat-label> Resident(e)</mat-label>
-          <mat-select #selectionlocataire>
-            <mat-option [value]="0">Selectionner un resident(e)
-            </mat-option>
-            <mat-option>
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <ng-container
+          *ngIf="appartementState$ | async as state"
+          [ngSwitch]="state.dataState"
+        >
+          <ng-container *ngSwitchCase="AppartementStateEnum.INITIAL">
+            <mat-spinner> </mat-spinner>
+          </ng-container>
+          <ng-container *ngSwitchCase="AppartementStateEnum.ERROR">
+            <div class="p-2 invalid-feedback">Une erreur est survenue</div>
+          </ng-container>
+          <ng-container *ngSwitchCase="AppartementStateEnum.LOADED">
+            <mat-form-field appearance="outline">
+              <mat-label> Résidence Meublée</mat-label>
+              <mat-select
+                #selectionResidenceMeuble
+                [(ngModel)]="residenceModel"
+                (selectionChange)="
+                  selectMontantLoyer(
+                    residenceModel.categorieChambre.prixGategorieDto
+                  )
+                "
+              >
+                <mat-option [value]="0">Selectionner un résidence </mat-option>
+                <mat-option
+                  [value]="appart"
+                  *ngFor="let appart of state.appartements"
+                >
+                  {{ appart.codeAbrvBienImmobilier }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="row" *ngIf="residenceModel">
+              <div style="color: darkgreen">
+                {{ residenceModel.categorieChambre.description }}
+              </div>
+
+              <div
+                *ngFor="
+                  let prix of residenceModel.categorieChambre.prixGategorieDto
+                "
+              >
+                De {{ prix.nombreDeJour }}:{{ prix.intervalPrix }} FCFA
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
       </div>
       <div class="col-md-4">
         <mat-form-field appearance="outline">
           <mat-label> Catégorie des résidences</mat-label>
           <mat-select #selectionlocataire>
-            <mat-option [value]="0">Selectionner d'une catégorie de résidence
+            <mat-option [value]="0"
+              >Selectionner d'une catégorie de résidence
             </mat-option>
-            <mat-option>
-            </mat-option>
+            <mat-option> </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -45,10 +131,10 @@
         <mat-form-field appearance="outline">
           <mat-label> residence meublée</mat-label>
           <mat-select #selectionlocataire>
-            <mat-option [value]="0">Selectionner une residence meublée
+            <mat-option [value]="0"
+              >Selectionner une residence meublée
             </mat-option>
-            <mat-option>
-            </mat-option>
+            <mat-option> </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -59,58 +145,100 @@
 <div class="row m-2">
   <div class="col">
     <h5>
-      <i class="fas fa-asterisk blue-color"></i>&nbsp;Choix de la période d'occupation
+      <i class="fas fa-asterisk blue-color"></i>&nbsp;Choix de la période
+      d'occupation
     </h5>
   </div>
   <hr style="margin-top: 0" />
 </div>
 <div class="row m-2">
-<div class="col-md-4">
-  <mat-card-subtitle>
-    <mat-form-field appearance="outline">
-      <mat-label>Date debut</mat-label>
-      <input
-
-        #refDate
-        matInput
-        [matDatepicker]="picker"
-        data-date-format="yyyy-mm-dd"
-
-      />
-
+  <div class="col-md-3">
+    <mat-form-field>
+      <mat-label>Saisie la période</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input
+          matStartDate
+          placeholder="Start date"
+          [(ngModel)]="dateDebutSejour"
+        />
+        <input
+          matEndDate
+          placeholder="End date"
+          [(ngModel)]="dateFinSejour"
+          (dateChange)="
+            getDiffDays(dateDebutSejour, dateFinSejour);
+            getMontantNuite(dateDiff, listMontant)
+          "
+        />
+      </mat-date-range-input>
+      <mat-hint>Arrivée – Départ</mat-hint>
       <mat-datepicker-toggle
-        matSuffix
+        matIconSuffix
         [for]="picker"
       ></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+      <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
-  </mat-card-subtitle>
+  </div>
 
-</div>
-<div class="col-md-4">
-  <mat-card-subtitle>
-    <mat-form-field appearance="outline">
-      <mat-label>Date Fin</mat-label>
-      <input
-
-        #refDateFin
-        matInput
-        [matDatepicker]="pickerFin"
-        data-date-format="yyyy-mm-dd"
-
-      />
-
-      <mat-datepicker-toggle
-        matSuffix
-        [for]="pickerFin"
-      ></mat-datepicker-toggle>
-      <mat-datepicker #pickerFin></mat-datepicker>
-    </mat-form-field>
-  </mat-card-subtitle>
-</div>
-<div class="col-md-4">
-  <mat-card-subtitle>
-    <span>0 jours </span>
-  </mat-card-subtitle>
-</div>
+  <div class="col-md-4">
+    <mat-card-subtitle>
+      <span>{{ dateDiff }} jours </span>
+    </mat-card-subtitle>
+  </div>
+  <div class="col-md-4">
+    <mat-card-subtitle>
+      <span>{{ laNuiteMontant }} la nuitée</span>
+    </mat-card-subtitle>
+  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Pourcentace Reduction</mat-label>
+    <input matInput placeholder="Placeholder" [(ngModel)]="reduction" />
+    <mat-icon matSuffix>percent</mat-icon>
+  </mat-form-field>
+  <div class="col-md-4">
+    <mat-card-subtitle>
+      <span
+        >Montant réduction :
+        {{
+          (reduction * dateDiff * laNuiteMontant) / 100
+            | currency : "XOF" : "symbol"
+        }}
+      </span>
+    </mat-card-subtitle>
+  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Montant Payé</mat-label>
+    <input matInput placeholder="Placeholder" [(ngModel)]="montantPayer" />
+  </mat-form-field>
+  <div class="col-md-4">
+    <mat-card-subtitle>
+      <span
+        >Total :
+        {{
+          (1 - reduction / 100) * dateDiff * laNuiteMontant
+            | currency : "XOF" : "symbol"
+        }}
+      </span>
+    </mat-card-subtitle>
+  </div>
+  <div class="col-md-4">
+    <mat-card-subtitle>
+      <span
+        >Reste à payer :
+        {{
+          (1 - reduction / 100) * dateDiff * laNuiteMontant - montantPayer
+            | currency : "XOF" : "symbol"
+        }}
+      </span>
+    </mat-card-subtitle>
+  </div>
+  <div *ngIf="client == 1">
+    <button mat-raised-button color="primary"
+(click)="saveReserver()"
+    >Reverver</button>
+  </div>
+  <div *ngIf="client == 2">
+    <button mat-raised-button color="primary"
+    (click)="saveValider()">Valider</button>
+  </div>
 </div>

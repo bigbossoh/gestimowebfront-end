@@ -13,13 +13,15 @@ export enum ReservationStateEnum {
 
 export interface ReservationState {
   reservations: any;
+  savereservations: any;
   errorMessage: string;
   dataState: ReservationStateEnum;
 }
 const initState: ReservationState = {
   reservations: null,
-  dataState:ReservationStateEnum.INITIAL,
-  errorMessage:""
+  dataState: ReservationStateEnum.INITIAL,
+  errorMessage: "",
+  savereservations: null
 };
 export function reservationReducer(
   state: ReservationState = initState,
@@ -42,6 +44,20 @@ export function reservationReducer(
       };
 
 
+      case ReservationActionTypes.SAVE_RESERVATION:
+        return { ...state, dataState: ReservationStateEnum.LOADING };
+      case ReservationActionTypes.SAVE_RESERVATION_SUCCES:
+        return {
+          ...state,
+          dataState: ReservationStateEnum.LOADED,
+          savereservations: (<ReservationActions>action).payload,
+        };
+      case ReservationActionTypes.SAVE_RESERVATION_ERROR:
+        return {
+          ...state,
+          dataState: ReservationStateEnum.ERROR,
+          errorMessage: (<ReservationActions>action).payload,
+        };
 
     default:
       return { ...state };

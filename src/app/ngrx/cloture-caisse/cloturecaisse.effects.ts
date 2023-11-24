@@ -5,7 +5,7 @@ import { Observable, of } from "rxjs";
 import { mergeMap, map, catchError, tap } from "rxjs/operators";
 import { ApiService } from "src/gs-api/src/services";
 import { CommunesActionsTypes, CommunesActions, GetAllCommunesByVilleActionsSuccess, GetAllCommunesByVilleActionsError } from "../commune/commune.actions";
-import { ClotureCaisseActions, ClotureCaisseActionsTypes, GetCountInitClotureCaisseActionsError, GetCountInitClotureCaisseActionsSuccess } from "./cloturecaisse.actions";
+import { ClotureCaisseActions, ClotureCaisseActionsTypes, GetCountInitClotureCaisseActionsError, GetCountInitClotureCaisseActionsSuccess, SaveClotureCaisseActionsError, SaveClotureCaisseActionsSuccess } from "./cloturecaisse.actions";
 import { NotificationType } from "src/app/enum/natification-type.enum";
 import { NotificationService } from "src/app/services/notification/notification.service";
 
@@ -34,6 +34,37 @@ export class ClotureCaisseffects {
       })
     )
   );
+  saveClotureCaisse: Observable<Action> = createEffect(() =>
+  this.effectActions.pipe(
+    ofType(ClotureCaisseActionsTypes.SAVE_CLOTURE_CAISSE),
+    mergeMap((action: ClotureCaisseActions) => {
+      return this.apiService.saveClotureCaisse(action.payload).pipe(
+        map((cloturesCaisse) => new SaveClotureCaisseActionsSuccess(cloturesCaisse)),
+        catchError((err) => of(new SaveClotureCaisseActionsError(err.message)))
+      );
+    }),
+    tap((resultat) => {
+      if (
+        resultat.type ==
+        ClotureCaisseActionsTypes.SAVE_CLOTURE_CAISSE_ERROR
+      ) {
+        this.sendErrorNotification(
+          NotificationType.ERROR,
+          resultat.payload.toString()
+        );
+      }
+      if (
+        resultat.type ==
+        ClotureCaisseActionsTypes.SAVE_CLOTURE_CAISSE_SUCCES
+      ) {
+        this.sendErrorNotification(
+          NotificationType.SUCCESS,
+         "Cloture éffectuée avec susses"
+        );
+      }
+    })
+  )
+);
   private sendErrorNotification(
     notificationType: NotificationType,
     message: string

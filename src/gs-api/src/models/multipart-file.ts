@@ -6,6 +6,6 @@ export interface MultipartFile {
   empty?: boolean;
   size?: number;
   inputStream?: InputStream;
-  contentType?: string;
   originalFilename?: string;
+  contentType?: string;
 }
