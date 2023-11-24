@@ -225,7 +225,7 @@ export class SaveReductionActions implements Action {
 export class SaveReductionActionsSuccess implements Action {
   type: AppelLoyerctionsTypes =
     AppelLoyerctionsTypes.SAVE_REDUCTION_LOYER_SUCCES;
-  constructor(public payload: AppelLoyersFactureDto[]) {}
+  constructor(public payload: any) {}
 }
 export class SaveReductionActionsError implements Action {
   type: AppelLoyerctionsTypes =

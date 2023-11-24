@@ -141,6 +141,7 @@ class ApiService extends __BaseService {
   static readonly findAllCategorieChambrePath = 'gestimoweb/api/v1/categoriechambre/all/{idAgence}';
   static readonly deleteCategoryChambrePath = 'gestimoweb/api/v1/categoriechambre/delete/{id}';
   static readonly findCategorieChambreByIDPath = 'gestimoweb/api/v1/categoriechambre/findById/{id}';
+  static readonly findCategorieByIdAppartementPath = 'gestimoweb/api/v1/categoriechambre/findCategorieByIdAppartement/{idAppart}';
   static readonly saveOrUpdateCategoryChambrePath = 'gestimoweb/api/v1/categoriechambre/saveOrUpdateCategoryChambre';
   static readonly saveorupdateCategoryChambrePath = 'gestimoweb/api/v1/categoriechambre/saveorupdate';
   static readonly countInitClotureByCaissiaireAndChampitrePath = 'gestimoweb/api/v1/cloturecaisse/countInitClotureByCaissiaireAndChampitre/{idCaisse}/{chapitre}';
@@ -255,6 +256,7 @@ class ApiService extends __BaseService {
   static readonly suprimerSuiviParIdPath = 'gestimoweb/api/v1/suiviedepense/suprimerSuiviParId/{id}/{idAgence}';
   static readonly totalSortieDeuxDatePath = 'gestimoweb/api/v1/suiviedepense/totalSortieDeuxDate/{idAgence}/{debut}/{fin}';
   static readonly getAllUtilisateursByOrderPath = 'gestimoweb/api/v1/utilisateur/all/{idAgence}';
+  static readonly listOfAllUtilisateurClientHotelOrderbyNameByAgencePath = 'gestimoweb/api/v1/utilisateur/clienthotel/all/{idAgence}';
   static readonly getAllGerantsByOrderPath = 'gestimoweb/api/v1/utilisateur/gerants/all/{idAgence}';
   static readonly getUtilisateurByAgencePath = 'gestimoweb/api/v1/utilisateur/getAllutilisateurbyAgence/{idAgence}';
   static readonly getUtilisateurByEmailPath = 'gestimoweb/api/v1/utilisateur/getutilisateurbyemail/{email}';
@@ -3108,6 +3110,42 @@ class ApiService extends __BaseService {
    */
   findCategorieChambreByID(id: number): __Observable<CategoryChambreSaveOrUpdateDto> {
     return this.findCategorieChambreByIDResponse(id).pipe(
+      __map(_r => _r.body as CategoryChambreSaveOrUpdateDto)
+    );
+  }
+
+  /**
+   * @param idAppart undefined
+   * @return successful operation
+   */
+  findCategorieByIdAppartementResponse(idAppart: number): __Observable<__StrictHttpResponse<CategoryChambreSaveOrUpdateDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/categoriechambre/findCategorieByIdAppartement/${idAppart}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<CategoryChambreSaveOrUpdateDto>;
+      })
+    );
+  }
+  /**
+   * @param idAppart undefined
+   * @return successful operation
+   */
+  findCategorieByIdAppartement(idAppart: number): __Observable<CategoryChambreSaveOrUpdateDto> {
+    return this.findCategorieByIdAppartementResponse(idAppart).pipe(
       __map(_r => _r.body as CategoryChambreSaveOrUpdateDto)
     );
   }
@@ -6607,7 +6645,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveorupdategoodResponse(body?: ReservationSaveOrUpdateDto): __Observable<__StrictHttpResponse<ReservationAfficheDto>> {
+  saveorupdategoodResponse(body?: ReservationRequestDto): __Observable<__StrictHttpResponse<ReservationAfficheDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -6633,7 +6671,7 @@ class ApiService extends __BaseService {
    * @param body undefined
    * @return successful operation
    */
-  saveorupdategood(body?: ReservationSaveOrUpdateDto): __Observable<ReservationAfficheDto> {
+  saveorupdategood(body?: ReservationRequestDto): __Observable<ReservationAfficheDto> {
     return this.saveorupdategoodResponse(body).pipe(
       __map(_r => _r.body as ReservationAfficheDto)
     );
@@ -7518,6 +7556,42 @@ class ApiService extends __BaseService {
    */
   getAllUtilisateursByOrder(idAgence: number): __Observable<Array<UtilisateurAfficheDto>> {
     return this.getAllUtilisateursByOrderResponse(idAgence).pipe(
+      __map(_r => _r.body as Array<UtilisateurAfficheDto>)
+    );
+  }
+
+  /**
+   * @param idAgence undefined
+   * @return successful operation
+   */
+  listOfAllUtilisateurClientHotelOrderbyNameByAgenceResponse(idAgence: number): __Observable<__StrictHttpResponse<Array<UtilisateurAfficheDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/utilisateur/clienthotel/all/${idAgence}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<UtilisateurAfficheDto>>;
+      })
+    );
+  }
+  /**
+   * @param idAgence undefined
+   * @return successful operation
+   */
+  listOfAllUtilisateurClientHotelOrderbyNameByAgence(idAgence: number): __Observable<Array<UtilisateurAfficheDto>> {
+    return this.listOfAllUtilisateurClientHotelOrderbyNameByAgenceResponse(idAgence).pipe(
       __map(_r => _r.body as Array<UtilisateurAfficheDto>)
     );
   }

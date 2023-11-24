@@ -171,12 +171,6 @@ export class ClotureCaisseComponent implements OnInit {
       intervalNextCloture: [3],
       dateFinCloture: [fin]
     });
-    console.log("****** formulaire ****");
-
-    console.log(this.encaissementform?.value);
-
-
-  console.log(this.addDays(dateFirstCloture,3));
 
     this.store.dispatch(
       new SaveClotureCaisseActions({

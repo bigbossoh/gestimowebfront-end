@@ -97,6 +97,22 @@ export function appartementReducer(
         dataState: AppartementStateEnum.ERROR,
         errorMessage: (<AppartementActions>action).payload,
       };
+
+        // GET ALL APPARTEMENT
+    case AppartementctionsTypes.GET_ALL_APPARTEMENT_MEUBLE:
+      return { ...state, dataState: AppartementStateEnum.LOADING };
+    case AppartementctionsTypes.GET_ALL_APPARTEMENT_MEUBLE_SUCCES:
+      return {
+        ...state,
+        dataState: AppartementStateEnum.LOADED,
+        appartements: (<AppartementActions>action).payload,
+      };
+    case AppartementctionsTypes.GET_ALL_APPARTEMENT_MEUBLE_ERROR:
+      return {
+        ...state,
+        dataState: AppartementStateEnum.ERROR,
+        errorMessage: (<AppartementActions>action).payload,
+      };
     default:
       return { ...state };
   }

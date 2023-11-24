@@ -1,4 +1,5 @@
 /* tslint:disable */
+import { CategoryChambreSaveOrUpdateDto } from './category-chambre-save-or-update-dto';
 export interface AppartementDto {
   id?: number;
   idAgence?: number;
@@ -16,9 +17,11 @@ export interface AppartementDto {
   description?: string;
   superficieBien?: number;
   bienMeublerResidence?: boolean;
+  idCategorie?: number;
   nameCategorie?: string;
   priceCategorie?: number;
   nbrDiffJourCategorie?: number;
   pourcentReducCategorie?: number;
+  categorieChambre?: CategoryChambreSaveOrUpdateDto;
   occupied?: boolean;
 }

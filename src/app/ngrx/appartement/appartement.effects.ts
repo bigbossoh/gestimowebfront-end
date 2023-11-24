@@ -13,6 +13,8 @@ import {
   GetAllAppartementActionsError,
   GetAppartementByIdActionsSuccess,
   GetAppartementByIdActionsError,
+  GetAllAppartementMeubleActionsSuccess,
+  GetAllAppartementMeubleActionsError,
 } from './appartement.actions';
 import {
   AppartementActions,
@@ -127,7 +129,7 @@ export class AppartementEffects {
         );
       }),
       tap((resultat) => {
-        if (resultat.type == AppartementActionsTypes.SAVE_APPARTEMENT_ERROR) {
+        if (resultat.type == AppartementActionsTypes.GET_ALL_APPARTEMENT_ERROR) {
           this.sendErrorNotification(
             NotificationType.ERROR,
             resultat.payload.toString()
@@ -136,6 +138,32 @@ export class AppartementEffects {
       })
     )
   );
+
+  //LISTE DES APPARTEMENT
+  getAllAppartementMeubleEffect: Observable<Action> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(AppartementActionsTypes.GET_ALL_APPARTEMENT_MEUBLE),
+      mergeMap((actions:AppartementActions) => {
+        return this.apiService.findAllAppartementMeuble(actions.payload).pipe(
+          map(
+            (appartement) => new GetAllAppartementMeubleActionsSuccess(appartement)
+          ),
+          catchError((err) =>
+            of(new GetAllAppartementMeubleActionsError(err.message))
+          )
+        );
+      }),
+      tap((resultat) => {
+        if (resultat.type == AppartementActionsTypes.GET_ALL_APPARTEMENT_MEUBLE_ERROR) {
+          this.sendErrorNotification(
+            NotificationType.ERROR,
+            resultat.payload.toString()
+          );
+        }
+      })
+    )
+  );
+
   private sendErrorNotification(
     notificationType: NotificationType,
     message: string

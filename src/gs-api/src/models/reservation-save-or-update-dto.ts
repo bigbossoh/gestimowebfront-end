@@ -6,6 +6,7 @@ export interface ReservationSaveOrUpdateDto {
   idCreateur?: number;
   utilisateurRequestDto?: UtilisateurRequestDto;
   idAppartementdDto?: number;
+  idUtilisateur?: number;
   dateDebut?: string;
   dateFin?: string;
   bienImmobilierOperation?: string;
