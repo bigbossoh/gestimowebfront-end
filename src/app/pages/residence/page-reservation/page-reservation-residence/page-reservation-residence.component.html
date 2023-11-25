@@ -60,11 +60,11 @@
                       <span class="mr-2 d-block d-sm-inline-block mb-2 mb-sm-0"
                         >Booking Details: Arrivée {{reservation.dateDebut | date:'fullDate'}} - Départ prévu {{reservation.dateFin | date:'fullDate'}} </span
                       >
-                      <span class="bg-light-blue">{{reservation.nmbreHomme}} Hommes | {{reservation.nmbreFemme}} Femmes  | {{reservation.nmbrEnfant}} Enfants </span>
+                      <span class="bg-light-blue">{{reservation.nmbreHomme}} Adultes | {{reservation.nmbrEnfant}} Enfants </span>
                     </div>
                     <div class="mb-3">
                       <span class="mr-2 d-block d-sm-inline-block mb-2 mb-sm-0"
-                        >Price: {{reservation.remainingPayment}}</span
+                        >Price: {{reservation.montantReservation}}</span
                       >
                       <span class="bg-light-blue">$ </span>
                     </div>

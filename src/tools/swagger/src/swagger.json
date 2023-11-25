@@ -3796,7 +3796,7 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/ReservationAfficheDto"
+              "type" : "boolean"
             }
           }
         }
@@ -7568,11 +7568,11 @@
         "codeAbrvBienImmobilier" : {
           "type" : "string"
         },
-        "advancePayment" : {
+        "pourcentageReduction" : {
           "type" : "number",
           "format" : "double"
         },
-        "remainingPayment" : {
+        "montantReduction" : {
           "type" : "number",
           "format" : "double"
         },
@@ -7580,13 +7580,17 @@
           "type" : "number",
           "format" : "double"
         },
-        "nmbreHomme" : {
+        "montantPaye" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nmbreAdulte" : {
           "type" : "integer",
           "format" : "int32"
         },
-        "nmbreFemme" : {
-          "type" : "integer",
-          "format" : "int32"
+        "montantReservation" : {
+          "type" : "number",
+          "format" : "double"
         },
         "nmbrEnfant" : {
           "type" : "integer",
@@ -7632,12 +7636,10 @@
           "format" : "int64"
         },
         "dateDebut" : {
-          "type" : "string",
-          "format" : "date"
+          "type" : "string"
         },
         "dateFin" : {
-          "type" : "string",
-          "format" : "date"
+          "type" : "string"
         },
         "idClient" : {
           "type" : "integer",
@@ -7670,6 +7672,10 @@
           "format" : "double"
         },
         "montantPaye" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "montantReservation" : {
           "type" : "number",
           "format" : "double"
         },
@@ -7755,11 +7761,11 @@
         "codeAbrvBienImmobilier" : {
           "type" : "string"
         },
-        "advancePayment" : {
+        "pourcentageReduction" : {
           "type" : "number",
           "format" : "double"
         },
-        "remainingPayment" : {
+        "montantReduction" : {
           "type" : "number",
           "format" : "double"
         },
@@ -7767,13 +7773,17 @@
           "type" : "number",
           "format" : "double"
         },
-        "nmbreHomme" : {
+        "montantPaye" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nmbreAdulte" : {
           "type" : "integer",
           "format" : "int32"
         },
-        "nmbreFemme" : {
-          "type" : "integer",
-          "format" : "int32"
+        "montantReservation" : {
+          "type" : "number",
+          "format" : "double"
         },
         "nmbrEnfant" : {
           "type" : "integer",
@@ -8196,10 +8206,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -8305,10 +8315,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }
@@ -8414,10 +8424,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         }
       }

@@ -10,6 +10,7 @@ import {
   ReservationActionTypes,
   ReservationActions,
   SaveReservationActionsError,
+  SaveReservationActionsSuccess,
 } from './reservation.actions';
 import { catchError, map, mergeMap, tap } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
@@ -48,13 +49,16 @@ export class ReservationEffects {
       ofType(ReservationActionTypes.SAVE_RESERVATION),
       mergeMap((action: ReservationActions) => {
         return this.apiService.saveorupdatereservation(action.payload).pipe(
-          map((q) => new SaveReductionActionsSuccess(q)),
+          map((q) => new SaveReservationActionsSuccess(q)),
           catchError((err) => of(new SaveReservationActionsError(err.message)))
         );
       }),
       tap((resultat) => {
         if (resultat.type == ReservationActionTypes.SAVE_RESERVATION_SUCCES) {
           this.sendErrorNotification(NotificationType.SUCCESS, "Enregistrement effectué avec succes.");
+        }
+        if (resultat.type == ReservationActionTypes.SAVE_RESERVATION_ERROR) {
+          this.sendErrorNotification(NotificationType.ERROR, resultat.payload.toString());
         }
       })
     )

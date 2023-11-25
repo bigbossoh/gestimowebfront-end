@@ -31,8 +31,9 @@ idClient: any;
   constructor(private store: Store<any>, private userService: UserService, private fb: FormBuilder,) {}
   encaissementform?: FormGroup;
 saveValider() {
+  alert("on est dans validé")
   var debut:any=formatDate(this.addDays(this.dateDebutSejour,0),'yyyy-MM-dd','en-US');
-  var fin:any=formatDate(this.addDays(this.dateFinSejour,3),'yyyy-MM-dd','en-US');
+  var fin:any=formatDate(this.addDays(this.dateFinSejour,0),'yyyy-MM-dd','en-US');
   const jdebut = debut.replaceAll('/', '-');
   const jfin = fin.replaceAll('/', '-');
 
@@ -44,7 +45,7 @@ saveValider() {
     idAppartementdDto: [this.residenceModel.id],
     dateDebut: [jdebut],
     dateFin: [jfin],
-    idClient: [0],
+    idClient: [this.idClient],
     idBien: [this.residenceModel.id],
    // utilisateurIdApp: string;
    idUtilisateur: [this.idClient],
@@ -56,7 +57,8 @@ saveValider() {
     soldReservation: [(1 - this.reduction / 100) * this.dateDiff * this.laNuiteMontant - this.montantPayer],
     montantPaye: [this.montantPayer],
     nmbreAdulte: [this.nbrAdult],
-    nmbrEnfant: [this.nbrEnfant]
+    nmbrEnfant: [this.nbrEnfant],
+    montantReservation:[(1 - this.reduction / 100) * this.dateDiff * this.laNuiteMontant]
   });
   this.store.dispatch(
     new SaveReservationAction(this.encaissementform.value)
@@ -80,16 +82,16 @@ addDays(date:Date,days:number):Date{
   return date
 }
 saveReserver() {
+  alert("on est dans reservé")
   var debut:any=formatDate(this.addDays(this.dateDebutSejour,0),'yyyy-MM-dd','en-US');
-  var fin:any=formatDate(this.addDays(this.dateFinSejour,3),'yyyy-MM-dd','en-US');
+  var fin:any=formatDate(this.addDays(this.dateFinSejour,0),'yyyy-MM-dd','en-US');
   const jdebut = debut.replaceAll('/', '-');
   const jfin = fin.replaceAll('/', '-');
 
   this.encaissementform = this.fb.group({
+    id:[0],
     idAgence: [this.user?.idAgence],
     idCreateur: [this.user?.id],
-    id:[0],
-
     idAppartementdDto: [this.residenceModel.id],
     dateDebut: [jdebut],
     dateFin: [jfin],
@@ -97,18 +99,26 @@ saveReserver() {
     idBien: [this.residenceModel.id],
    // utilisateurIdApp: string;
     idUtilisateur: [0],
-
-    pourcentageReduction:[this.reduction],
     nom: ["XXX"],
     prenom:["XXXXX"],
+    pourcentageReduction:[this.reduction],
+
     montantReduction: [(1 - this.reduction / 100) * this.dateDiff * this.laNuiteMontant],
     soldReservation: [(1 - this.reduction / 100) * this.dateDiff * this.laNuiteMontant - this.montantPayer],
     montantPaye: [this.montantPayer],
-    nmbreAdulte: [this.nbrAdult],
-    nmbrEnfant: [this.nbrEnfant]
+    nmbreAdulte: [0],
+    nmbrEnfant: [0],
+    montantReservation:[(1 - this.reduction / 100) * this.dateDiff * this.laNuiteMontant]
   });
+console.log("*** the form is  ****");
+console.log(this.encaissementform.value);
+console.log("**** fin form value ****");
+
+
   this.store.dispatch(
-    new SaveReservationAction(this.encaissementform.value)
+    new SaveReservationAction(
+     this.encaissementform.value
+    )
   );
   this.reservationState$ = this.store.pipe(
     map((state) => state.reservationState)
@@ -121,10 +131,10 @@ saveReserver() {
 
   });
 }
-  reduction: any=0;
-  montantPayer: any=0;
-nbrAdult: any=0;
-nbrEnfant: any=0;
+  reduction: number=0;
+  montantPayer: number=0;
+nbrAdult: number=0;
+nbrEnfant: number=0;
   selectMontantLoyer(montant: any) {
     this.listMontant = montant;
   }
