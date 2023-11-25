@@ -24,11 +24,12 @@ export interface ReservationAfficheDto {
   idBienImmobilier?: number;
   idLocataire?: number;
   codeAbrvBienImmobilier?: string;
-  advancePayment?: number;
-  remainingPayment?: number;
+  pourcentageReduction?: number;
+  montantReduction?: number;
   soldReservation?: number;
-  nmbreHomme?: number;
-  nmbreFemme?: number;
+  montantPaye?: number;
+  nmbreAdulte?: number;
+  montantReservation?: number;
   nmbrEnfant?: number;
   descriptionCategori?: string;
   nameCategori?: string;

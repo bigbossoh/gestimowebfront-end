@@ -15,6 +15,7 @@ export interface ReservationRequestDto {
   montantReduction?: number;
   soldReservation?: number;
   montantPaye?: number;
+  montantReservation?: number;
   nmbreAdulte?: number;
   nmbrEnfant?: number;
 }
