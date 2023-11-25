@@ -82,7 +82,7 @@ addDays(date:Date,days:number):Date{
   return date
 }
 saveReserver() {
-  alert("on est dans reservé")
+
   var debut:any=formatDate(this.addDays(this.dateDebutSejour,0),'yyyy-MM-dd','en-US');
   var fin:any=formatDate(this.addDays(this.dateFinSejour,0),'yyyy-MM-dd','en-US');
   const jdebut = debut.replaceAll('/', '-');
