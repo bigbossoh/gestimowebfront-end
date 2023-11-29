@@ -5037,8 +5037,13 @@
           "type" : "number",
           "format" : "double"
         },
-        "categorieChambre" : {
-          "$ref" : "#/definitions/CategoryChambreSaveOrUpdateDto"
+        "idCategorieChambre" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idChapitre" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "occupied" : {
           "type" : "boolean"
@@ -6864,10 +6869,14 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "underBuildingMagasin" : {
-          "type" : "boolean"
+        "idChapitre" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "occupied" : {
+          "type" : "boolean"
+        },
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -6917,10 +6926,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -8206,10 +8215,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -8315,10 +8324,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -8424,10 +8433,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -8496,6 +8505,10 @@
         },
         "proprietaire" : {
           "type" : "string"
+        },
+        "idChapitre" : {
+          "type" : "integer",
+          "format" : "int64"
         },
         "occupied" : {
           "type" : "boolean"

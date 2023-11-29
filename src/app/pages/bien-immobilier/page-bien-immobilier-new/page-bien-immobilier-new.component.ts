@@ -42,6 +42,8 @@ import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { DialogData } from '../../baux/page-baux/page-baux.component';
 import { GetMagasinByIdActions } from '../../../ngrx/magasin/magasin.actions';
 import { GetAllBiensActions } from '../../../ngrx/bien-immobilier/bienimmobilier.actions';
+import { EtablissementState, EtablissementStateEnum } from 'src/app/ngrx/etablissement/etablissement.reducer';
+import { GetDefaultEtabNameActions } from 'src/app/ngrx/etablissement/etablisement.action';
 
 @Component({
   selector: 'app-page-bien-immobilier-new',
@@ -84,6 +86,10 @@ export class PageBienImmobilierNewComponent implements OnInit {
   readonly UtilisteurStateEnum = UtilisteurStateEnum;
   readonly SiteStateEnum = SiteStateEnum;
 
+  etablissementState$: Observable<EtablissementState> | null = null;
+
+  readonly EtablissementStateEnum = EtablissementStateEnum;
+  etablissId=0;
   @Output() eventEmitter: EventEmitter<any> = new EventEmitter();
   constructor(
     private store: Store<any>,
@@ -160,7 +166,22 @@ export class PageBienImmobilierNewComponent implements OnInit {
       this.store.dispatch(new GetAllSitesActions(this.user.idAgence));
       this.siteState$ = this.store.pipe(map((state) => state.siteState));
     }
+    this.store.dispatch(new GetDefaultEtabNameActions(this.user.id));
+    this.etablissementState$ = this.store.pipe(map((state) => state.etablissementState));
+    this.store.pipe(map((state) => state.etablissementState)).subscribe(
+      data=>{
+        console.log("*********** THE BIEN ETABLISSEMENT IS THE NEXT ************");
 
+        if (data.dataState= 'Loaded') {
+          console.log(data.etabname);
+
+        this.etablissId=data.etabname.chapite
+        console.log(this.etablissId)
+        }
+        }
+
+
+    )
     this.user = this.userService.getUserFromLocalCache();
 
     this.store.dispatch(new GetAllProprietairesActions(this.user.idAgence));
@@ -240,6 +261,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
                 idUtilisateur: [dataReceive.villa.idUtilisateur],
                 occupied: [dataReceive.villa.occupied],
                 archived: [false],
+                idChapitre:[this.etablissId]
               });
             }
           });
@@ -269,6 +291,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
                   data.appartement.nomBaptiserBienImmobilier,
                 ],
                 residence: [data.appartement.bienMeublerResidence],
+                idChapitre:[this.etablissId]
               });
             }
           });
@@ -313,6 +336,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
         descriptionImmeuble: [''],
         numeroImmeuble: [0],
         garrage: [false],
+        idChapitre:[0]
       });
       this.villaForm = this.fb.group({
         id: [0],
@@ -334,6 +358,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
         idUtilisateur: ['', Validators.required],
         occupied: [false],
         archived: [false],
+        idChapitre:[this.etablissId]
       });
 
       this.magasinForm = this.fb.group({
@@ -355,6 +380,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
         underBuildingMagasin: [false],
         occupied: [false],
         archived: [false],
+        idChapitre:[this.etablissId]
       });
       this.appartementForm = this.fb.group({
         id: [0],
@@ -370,6 +396,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
         abrvNomApp: ['APPART'],
         nomBaptiserBienImmobilier: ['', Validators.required],
         residence: [false],
+        idChapitre:[this.etablissId]
       });
     }
   }
