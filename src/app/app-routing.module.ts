@@ -38,6 +38,7 @@ import { PageDashboardResidenceComponent } from './pages/residence/page-dashboar
 import { PageAjoutReservationComponent } from './pages/residence/page-ajout-reservation/page-ajout-reservation.component';
 import { PageConsultationDepenseComponent } from './pages/comptabilite/page-consultation-depense/page-consultation-depense.component';
 import { ClotureCaisseComponent } from './pages/cloture-caisse/cloture-caisse.component';
+import { CategorieAppartementComponent } from './pages/categorie-appartement/categorie-appartement.component';
 
 const routes: Routes = [
   {
@@ -68,6 +69,12 @@ const routes: Routes = [
     {
       path:'paiement',
     component:PagePaiementComponent,
+    canActivate:[ApplicationGuardService]
+    }
+    ,
+    {
+      path:'categorie-appartement',
+    component:CategorieAppartementComponent,
     canActivate:[ApplicationGuardService]
     }
     ,

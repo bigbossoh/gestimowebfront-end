@@ -101,6 +101,12 @@ export class MenuComponent implements OnInit {
           icon: 'fas fa-hotel',
           url: 'bien-immobilier',
         },
+        {
+          id: '99',
+          titre: 'Catégorie Appartement',
+          icon: 'fas fa-city',
+          url: 'categorie-appartement',
+        },
       ],
     },
     {
