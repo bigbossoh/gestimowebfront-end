@@ -25,6 +25,10 @@ export enum AppartementctionsTypes {
   GET_ALL_APPARTEMENT_MEUBLE = '[AppartementDto] Get All Meuble AppartementDto',
   GET_ALL_APPARTEMENT_MEUBLE_SUCCES = '[AppartementDto] Get All Meuble AppartementDto Succes',
   GET_ALL_APPARTEMENT_MEUBLE_ERROR = '[AppartementDto] Get All Meuble AppartementDto Error',
+
+  GET_ALL_APPARTEMENT_MEUBLE_PAR_CATEGORIE = '[AppartementDto] Get All Meuble _PAR_CATEGORIE AppartementDto',
+  GET_ALL_APPARTEMENT_MEUBLE_PAR_CATEGORIE_SUCCES = '[AppartementDto] Get All Meuble _PAR_CATEGORIE AppartementDto Succes',
+  GET_ALL_APPARTEMENT_MEUBLE_PAR_CATEGORIE_ERROR = '[AppartementDto] Get All Meuble _PAR_CATEGORIE AppartementDto Error',
 }
 // CREER LES DIFFERENTES ACTIONS
 export class SaveAppartementActions implements Action {
@@ -107,6 +111,23 @@ export class GetAllAppartementMeubleActionsError implements Action {
     AppartementctionsTypes.GET_ALL_APPARTEMENT_MEUBLE_ERROR;
   constructor(public payload: string) {}
 }
+
+export class GetAllAppartementMeubleParCategorieActions implements Action {
+  type: AppartementctionsTypes =
+    AppartementctionsTypes.GET_ALL_APPARTEMENT_MEUBLE_PAR_CATEGORIE;
+  constructor(public payload: any) {}
+}
+
+export class GetAllAppartementMeubleParCategorieActionsSuccess implements Action {
+  type: AppartementctionsTypes =
+    AppartementctionsTypes.GET_ALL_APPARTEMENT_MEUBLE_PAR_CATEGORIE_SUCCES;
+  constructor(public payload: any) {}
+}
+export class GetAllAppartementMeubleParCategorieActionsError implements Action {
+  type: AppartementctionsTypes =
+    AppartementctionsTypes.GET_ALL_APPARTEMENT_MEUBLE_PAR_CATEGORIE_ERROR;
+  constructor(public payload: string) {}
+}
 export type AppartementActions =
   | SaveAppartementActions
   | SaveAppartementActionsSuccess
@@ -122,4 +143,7 @@ export type AppartementActions =
   | GetAppartementByIdActionsSuccess
   | GetAllAppartementMeubleActions
   | GetAllAppartementMeubleActionsError
-  | GetAllAppartementMeubleActionsSuccess;
+  | GetAllAppartementMeubleActionsSuccess
+  |GetAllAppartementMeubleParCategorieActions
+  |GetAllAppartementMeubleParCategorieActionsError
+  |GetAllAppartementMeubleParCategorieActionsSuccess;

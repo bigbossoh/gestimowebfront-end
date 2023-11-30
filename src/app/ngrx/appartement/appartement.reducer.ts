@@ -18,12 +18,14 @@ export enum AppartementStateEnum {
 }
 export interface AppartementState {
   appartements: AppartementDto[];
+  appartementsCatego: AppartementDto[];
   appartement: any;
   errorMessage: string;
   dataState: AppartementStateEnum;
 }
 const initState: AppartementState = {
   appartements: [],
+  appartementsCatego:[],
   errorMessage: '',
   appartement: null,
   dataState: AppartementStateEnum.INITIAL,
@@ -108,6 +110,22 @@ export function appartementReducer(
         appartements: (<AppartementActions>action).payload,
       };
     case AppartementctionsTypes.GET_ALL_APPARTEMENT_MEUBLE_ERROR:
+      return {
+        ...state,
+        dataState: AppartementStateEnum.ERROR,
+        errorMessage: (<AppartementActions>action).payload,
+      };
+
+           // GET ALL APPARTEMENT
+    case AppartementctionsTypes.GET_ALL_APPARTEMENT_MEUBLE_PAR_CATEGORIE:
+      return { ...state, dataState: AppartementStateEnum.LOADING };
+    case AppartementctionsTypes.GET_ALL_APPARTEMENT_MEUBLE_PAR_CATEGORIE_SUCCES:
+      return {
+        ...state,
+        dataState: AppartementStateEnum.LOADED,
+        appartementsCatego: (<AppartementActions>action).payload,
+      };
+    case AppartementctionsTypes.GET_ALL_APPARTEMENT_MEUBLE_PAR_CATEGORIE_ERROR:
       return {
         ...state,
         dataState: AppartementStateEnum.ERROR,

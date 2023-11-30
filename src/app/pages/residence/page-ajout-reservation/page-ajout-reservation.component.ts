@@ -214,6 +214,13 @@ nbrEnfant: number=0;
     this.appartementState$ = this.store.pipe(
       map((state) => state.appartementState)
     );
+    this.store.pipe(
+      map((state) => state.appartementState)
+    ).subscribe(data=>{
+      console.log("****** THE BIEN IS *****");
+      console.log(data);
 
+
+    });
   }
 }

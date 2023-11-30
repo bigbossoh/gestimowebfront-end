@@ -265,6 +265,29 @@
         }
       }
     },
+    "gestimoweb/api/v1/appartement/findallappartementbyidcategorie/{id}" : {
+      "get" : {
+        "operationId" : "findAllAppartementByIdCategorie",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/AppartementDto"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/appartement/save" : {
       "post" : {
         "operationId" : "saveAppartement",
@@ -5045,6 +5068,9 @@
           "type" : "integer",
           "format" : "int64"
         },
+        "categoryChambreSaveOrUpdateDto" : {
+          "$ref" : "#/definitions/CategoryChambreSaveOrUpdateDto"
+        },
         "occupied" : {
           "type" : "boolean"
         }
@@ -5998,23 +6024,11 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "description" : {
-          "type" : "string"
-        },
         "name" : {
           "type" : "string"
         },
-        "price" : {
-          "type" : "number",
-          "format" : "double"
-        },
-        "nbrDiffJour" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "pourcentReduc" : {
-          "type" : "number",
-          "format" : "double"
+        "description" : {
+          "type" : "string"
         },
         "prixGategorieDto" : {
           "type" : "array",
@@ -6873,10 +6887,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -6926,10 +6940,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }

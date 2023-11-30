@@ -1,3 +1,4 @@
+import { CategorieAppartementComponent } from './pages/categorie-appartement/categorie-appartement.component';
 import { ClotureCaisseComponent } from './pages/cloture-caisse/cloture-caisse.component';
 import { PageConsultationDepenseComponent } from './pages/comptabilite/page-consultation-depense/page-consultation-depense.component';
 import { SuiviDepenseEffects } from './ngrx/journal-caisse/journal-caisse.effects';
@@ -175,6 +176,10 @@ import { ClotureCaisseReducer } from './ngrx/cloture-caisse/cloturecaisse.reduce
 import { EtablissementReducer } from './ngrx/etablissement/etablissement.reducer';
 import { CategorieChambreReducer } from './ngrx/categoriechambre/categoriechambre.reducer';
 import { CategorieChambreEffects } from './ngrx/categoriechambre/categoriechambre.effects';
+import { PrixParCategorieChambreEffects } from './ngrx/prix-par-categorie-chambre/prix-par-categorie-chambre.effects';
+import { prixParCategorieChambreReducer } from './ngrx/prix-par-categorie-chambre/prix-par-categorie-chambre.reducers';
+import { NewCategorieChambreComponent } from './pages/categorie-appartement/new-categorie-chambre/new-categorie-chambre.component';
+import { NewPrixCategorieChambreComponent } from './pages/bien-immobilier/new-prix-categorie-chambre/new-prix-categorie-chambre.component';
 @NgModule({
   declarations: [
     ClotureCaisseComponent,
@@ -247,6 +252,9 @@ import { CategorieChambreEffects } from './ngrx/categoriechambre/categoriechambr
     PageConsultationReglementLoyerPeriodeComponent,
     PageDashboardResidenceComponent,
     PageAjoutReservationComponent,
+    CategorieAppartementComponent,
+    NewCategorieChambreComponent,
+    NewPrixCategorieChambreComponent
   ],
   imports: [
     CanvasJSAngularChartsModule,
@@ -320,7 +328,8 @@ import { CategorieChambreEffects } from './ngrx/categoriechambre/categoriechambr
       statistiqueChartState: StatistiqueChartReducer,
       clotuteCaisseState: ClotureCaisseReducer,
       etablissementState: EtablissementReducer,
-      categorieChambreState:CategorieChambreReducer
+      categorieChambreState:CategorieChambreReducer,
+      prixParCategorieChambreState:prixParCategorieChambreReducer
     }),
     EffectsModule.forRoot([
       AnneeEffects,
@@ -353,7 +362,8 @@ import { CategorieChambreEffects } from './ngrx/categoriechambre/categoriechambr
       ReservationEffects,
       ClotureCaisseffects,
       EtablissementEffects,
-      CategorieChambreEffects
+      CategorieChambreEffects,
+      PrixParCategorieChambreEffects
     ]),
 
     StoreDevtoolsModule.instrument(),
