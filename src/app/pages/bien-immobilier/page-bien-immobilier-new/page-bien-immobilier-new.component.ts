@@ -396,7 +396,8 @@ export class PageBienImmobilierNewComponent implements OnInit {
         abrvNomApp: ['APPART'],
         nomBaptiserBienImmobilier: ['', Validators.required],
         residence: [false],
-        idChapitre:[this.etablissId]
+        idChapitre:[this.etablissId],
+        bienMeublerResidence: [false],
       });
     }
   }
