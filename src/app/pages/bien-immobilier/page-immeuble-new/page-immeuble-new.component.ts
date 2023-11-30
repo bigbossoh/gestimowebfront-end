@@ -75,7 +75,7 @@ export class PageImmeubleNewComponent implements OnInit {
       etatBien: [''],
       superficieBien: [0],
       idSite: ['', Validators.required],
-      idUtilisateur: ['', Validators.required],
+      idUtilisateur: [1],
       nbrEtage: [0],
       nbrePieceImmeuble: [0],
       abrvNomImmeuble: ['IMMEUBLE'],
