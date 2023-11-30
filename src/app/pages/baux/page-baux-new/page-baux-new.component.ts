@@ -60,7 +60,7 @@ export class PageBauxNewComponent implements OnInit {
   villaState$: Observable<VillaState> | null = null;
   magasinState$: Observable<MagasinState> | null = null;
   appartementState$: Observable<AppartementState> | null = null;
-
+  readonly AppartementStateEnum = AppartementStateEnum;
   bailvillaState$: Observable<BailVillaState> | null = null;
   bailMagasinState$: Observable<BailMagasinState> | null = null;
   bailAppartementState$: Observable<BailAppartementState> | null = null;
@@ -68,7 +68,7 @@ export class PageBauxNewComponent implements OnInit {
   readonly UtilisteurStateEnum = UtilisteurStateEnum;
   readonly VillaStateEnum = VillaStateEnum;
   readonly MagasinStateEnum = MagasinStateEnum;
-  readonly AppartementStateEnum = AppartementStateEnum;
+
 
   ngSelectTypeContrat = 'Bail';
   listTypeContrat: string[] = [];

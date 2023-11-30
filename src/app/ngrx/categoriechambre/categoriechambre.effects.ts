@@ -7,7 +7,7 @@ import { ApiService } from "src/gs-api/src/services";
 
 import { NotificationType } from "src/app/enum/natification-type.enum";
 import { NotificationService } from "src/app/services/notification/notification.service";
-import { CategorieChambreActions, CategorieChambreActionsTypes, ListChambreCategorieActionsError, ListChambreCategorieActionssSuccess } from './categoriechambre.actions';
+import { CategorieChambreActions, CategorieChambreActionsTypes, ListChambreCategorieActionsError, ListChambreCategorieActionssSuccess, SaveChambreCategorieActionsError, SaveChambreCategorieActionssSuccess } from './categoriechambre.actions';
 
 @Injectable()
 export class CategorieChambreEffects {
@@ -34,6 +34,37 @@ export class CategorieChambreEffects {
 
       })
   ));
+
+  saveCategorieChambre: Observable<Action> = createEffect(() =>
+  this.effectActions.pipe(
+    ofType(CategorieChambreActionsTypes.SAVE_CATEGORIE_CHAMBRE),
+    mergeMap((action: CategorieChambreActions) => {
+      return this.apiService.saveOrUpdateCategoryChambre(action.payload).pipe(
+        map((cloturesCaisse) => new SaveChambreCategorieActionssSuccess(cloturesCaisse)),
+        catchError((err) => of(new SaveChambreCategorieActionsError(err.message)))
+      );
+    }),
+    tap((resultat) => {
+      if (
+        resultat.type ==
+        CategorieChambreActionsTypes.SAVE_CATEGORIE_CHAMBRE_ERROR
+      ) {
+        this.sendErrorNotification(
+          NotificationType.ERROR,
+          resultat.payload.toString()
+        );
+      }
+      if (
+        resultat.type ==
+        CategorieChambreActionsTypes.SAVE_CATEGORIE_CHAMBRE_SUCCES
+      ) {
+        this.sendErrorNotification(
+          NotificationType.SUCCESS,
+          "Enregistrement éffectué avec succès."
+        );
+      }
+    })
+));
   private sendErrorNotification(
     notificationType: NotificationType,
     message: string

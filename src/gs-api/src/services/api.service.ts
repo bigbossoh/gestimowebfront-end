@@ -81,6 +81,7 @@ class ApiService extends __BaseService {
   static readonly findByIDAppartementPath = 'gestimoweb/api/v1/appartement/findById/{id}';
   static readonly findByIdEtageAppartementPath = 'gestimoweb/api/v1/appartement/findByIdEtage/{id}';
   static readonly findByNameAppartementPath = 'gestimoweb/api/v1/appartement/findByName/{name}';
+  static readonly findAllAppartementByIdCategoriePath = 'gestimoweb/api/v1/appartement/findallappartementbyidcategorie/{id}';
   static readonly saveAppartementPath = 'gestimoweb/api/v1/appartement/save';
   static readonly deleteAppelDtoPath = 'gestimoweb/api/v1/appelloyer/clotureOfAppelDtoByID/{id}';
   static readonly AppelLoyersParPeriodePath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerByPeriode/{periode}/{idAgence}';
@@ -715,6 +716,42 @@ class ApiService extends __BaseService {
   findByNameAppartement(name: string): __Observable<AppartementDto> {
     return this.findByNameAppartementResponse(name).pipe(
       __map(_r => _r.body as AppartementDto)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findAllAppartementByIdCategorieResponse(id: number): __Observable<__StrictHttpResponse<Array<AppartementDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/appartement/findallappartementbyidcategorie/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<AppartementDto>>;
+      })
+    );
+  }
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findAllAppartementByIdCategorie(id: number): __Observable<Array<AppartementDto>> {
+    return this.findAllAppartementByIdCategorieResponse(id).pipe(
+      __map(_r => _r.body as Array<AppartementDto>)
     );
   }
 

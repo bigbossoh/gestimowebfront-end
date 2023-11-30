@@ -1,0 +1,17 @@
+<p>
+  <mat-form-field appearance="outline">
+    <mat-label>Nom</mat-label>
+    <input matInput [(ngModel)]="nom" />
+  </mat-form-field>
+</p>
+<p>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea matInput [(ngModel)]="descpition"></textarea>
+  </mat-form-field>
+</p>
+<div class="example-button-row">
+
+  <button mat-raised-button color="primary" (click)="onSaveForm()">Valider</button>
+
+</div>

@@ -15,11 +15,12 @@ export enum CategorieChambreStateEnum {
 }
 export interface CategorieChambreState {
   listCategorieChambre: any;
-
+saveCategorie:any;
   errorMessage: string;
   dataState: CategorieChambreStateEnum;
 }
 const initState: CategorieChambreState = {
+  saveCategorie:null,
   listCategorieChambre: null,
   errorMessage: '',
   dataState: CategorieChambreStateEnum.INITIAL,
@@ -43,6 +44,22 @@ export function CategorieChambreReducer(
         dataState: CategorieChambreStateEnum.ERROR,
         errorMessage: (<CategorieChambreActions>action).payload,
       };
+
+
+      case CategorieChambreActionsTypes.SAVE_CATEGORIE_CHAMBRE:
+        return { ...state, dataState: CategorieChambreStateEnum.LOADING };
+      case CategorieChambreActionsTypes.SAVE_CATEGORIE_CHAMBRE_SUCCES:
+        return {
+          ...state,
+          dataState: CategorieChambreStateEnum.LOADED,
+          saveCategorie: (<CategorieChambreActions>action).payload,
+        };
+      case CategorieChambreActionsTypes.SAVE_CATEGORIE_CHAMBRE_ERROR:
+        return {
+          ...state,
+          dataState: CategorieChambreStateEnum.ERROR,
+          errorMessage: (<CategorieChambreActions>action).payload,
+        };
 
     default:
       return { ...state };

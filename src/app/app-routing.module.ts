@@ -39,234 +39,221 @@ import { PageAjoutReservationComponent } from './pages/residence/page-ajout-rese
 import { PageConsultationDepenseComponent } from './pages/comptabilite/page-consultation-depense/page-consultation-depense.component';
 import { ClotureCaisseComponent } from './pages/cloture-caisse/cloture-caisse.component';
 import { CategorieAppartementComponent } from './pages/categorie-appartement/categorie-appartement.component';
+import { NewCategorieChambreComponent } from './pages/categorie-appartement/new-categorie-chambre/new-categorie-chambre.component';
+import { NewPrixCategorieChambreComponent } from './pages/bien-immobilier/new-prix-categorie-chambre/new-prix-categorie-chambre.component';
 
 const routes: Routes = [
   {
-  path:'login',
-  component:PageLoginComponent
+    path: 'login',
+    component: PageLoginComponent,
   },
   {
-  path:'',
-  component:PageDashboardComponent,
-  canActivate:[ApplicationGuardService],
-  children:[
-    {
-      path:'statistiques',
-    component:PageStatistiqueComponent,
-    canActivate:[ApplicationGuardService]
-    },
-    {
-      path:'dashboard',
-      component:PageVueEnsembleComponent,
-      canActivate:[ApplicationGuardService]
+    path: '',
+    component: PageDashboardComponent,
+    canActivate: [ApplicationGuardService],
+    children: [
+      {
+        path: 'statistiques',
+        component: PageStatistiqueComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'dashboard',
+        component: PageVueEnsembleComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'sites',
+        component: PageSiteComponent,
+        canActivate: [ApplicationGuardService],
+      },
 
+      {
+        path: 'new-prix-categorie-chambre',
+        component: NewPrixCategorieChambreComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'paiement',
+        component: PagePaiementComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'new-categorie-appartement',
+        component: NewCategorieChambreComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'categorie-appartement',
+        component: CategorieAppartementComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'agences',
+        component: PageAgenceComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'locataires',
+        component: PageLocataireComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'proprietaires',
+        component: PageProprietaireComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'gerants',
+        component: PageGerantComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'Superviseurs',
+        component: PageSuperviseurComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'bail-loyers',
+        component: PageBauxLoyersComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'appelloyers',
+        component: AppelsLoyersComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'relance',
+        component: RelanceAppelsComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'bien-immobilier',
+        component: PageBienImmobilierComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'baux',
+        component: PageBauxComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'bien-par-site',
+        component: PageBienSiteGeographiqueComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'reglement-individuel',
+        component: PageReglementIndividuelComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'reglement-groupe',
+        component: PageReglementGroupeComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'journal-caisse',
+        component: PageJournalCaisseComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'compte-client',
+        component: PageCompteClientComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'compte-agence',
+        component: PageCompteAgenceComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'grand-compte',
+        component: PageGrandCompteComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'liste-utilisateurs',
+        component: PageListeUtilisateursComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'liste-immeubles',
+        component: PageImmeubleComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'liste-etages',
+        component: PageEtageComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'liste-taches-planifiees',
+        component: TachesPlanifieesComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'liste-gestion-roles-droits',
+        component: PageGestionDroitComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'reservation-residence',
+        component: PageReservationResidenceComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'paiement-residence',
+        component: PageReservationResidenceComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'disponibilite-residence',
+        component: PageDisponibiliteResidenceComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'client-residence',
+        component: PageClientResidenceComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'chat-ia',
+        component: PageChatIaComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'reglement-periode-loyer',
+        component: PageConsultationReglementLoyerPeriodeComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'dashboard-residence',
+        component: PageDashboardResidenceComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'ajout-reservation',
+        component: PageAjoutReservationComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'page-consultation-depense',
+        component: PageConsultationDepenseComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'cloture-caisse',
+        component: ClotureCaisseComponent,
+        canActivate: [ApplicationGuardService],
+      },
+    ],
   },
-    {
-      path:'sites',
-    component:PageSiteComponent,
-    canActivate:[ApplicationGuardService]
-    },
-    {
-      path:'paiement',
-    component:PagePaiementComponent,
-    canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'categorie-appartement',
-    component:CategorieAppartementComponent,
-    canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'agences',
-    component:PageAgenceComponent,
-    canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'locataires',
-      component:PageLocataireComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'proprietaires',
-      component:PageProprietaireComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'gerants',
-      component:PageGerantComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'Superviseurs',
-      component:PageSuperviseurComponent,
-      canActivate:[ApplicationGuardService]
-    },
-    {
-      path:'bail-loyers',
-      component:PageBauxLoyersComponent,
-      canActivate:[ApplicationGuardService]
-    },
-    {
-      path:'appelloyers',
-      component:AppelsLoyersComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'relance',
-      component:RelanceAppelsComponent,
-      canActivate:[ApplicationGuardService]
-    },
-    {
-      path:'bien-immobilier',
-      component:PageBienImmobilierComponent,
-      canActivate:[ApplicationGuardService]
-    },
-    {
-      path:'baux',
-      component:PageBauxComponent,
-      canActivate:[ApplicationGuardService]
-    },
-    {
-      path:'bien-par-site',
-      component:PageBienSiteGeographiqueComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'reglement-individuel',
-      component:PageReglementIndividuelComponent,
-    canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'reglement-groupe',
-      component:PageReglementGroupeComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'journal-caisse',
-      component:PageJournalCaisseComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'compte-client',
-      component:PageCompteClientComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'compte-agence',
-      component:PageCompteAgenceComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'grand-compte',
-      component:PageGrandCompteComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'liste-utilisateurs',
-      component:PageListeUtilisateursComponent,
-      canActivate:[ApplicationGuardService]
-    },
-    {
-      path:'liste-immeubles',
-      component:PageImmeubleComponent,
-      canActivate:[ApplicationGuardService]
-    },
-    {
-      path:'liste-etages',
-      component:PageEtageComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'liste-taches-planifiees',
-      component:TachesPlanifieesComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'liste-gestion-roles-droits',
-      component:PageGestionDroitComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'reservation-residence',
-      component:PageReservationResidenceComponent,
-      canActivate:[ApplicationGuardService]
-    },
-    {
-      path:'paiement-residence',
-      component:PageReservationResidenceComponent,
-      canActivate:[ApplicationGuardService]
-    },
-    {
-      path:'disponibilite-residence',
-      component:PageDisponibiliteResidenceComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'client-residence',
-      component:PageClientResidenceComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'chat-ia',
-      component:PageChatIaComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'reglement-periode-loyer',
-      component:PageConsultationReglementLoyerPeriodeComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'dashboard-residence',
-      component:PageDashboardResidenceComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'ajout-reservation',
-      component:PageAjoutReservationComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'page-consultation-depense',
-      component:PageConsultationDepenseComponent,
-      canActivate:[ApplicationGuardService]
-    }
-    ,
-    {
-      path:'cloture-caisse',
-      component:ClotureCaisseComponent,
-      canActivate:[ApplicationGuardService]
-    }
-
-  ]
-  }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
