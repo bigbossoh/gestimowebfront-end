@@ -11,11 +11,13 @@ export interface ReservationRequestDto {
   idUtilisateur?: number;
   nom?: string;
   prenom?: string;
+  username?: string;
   pourcentageReduction?: number;
   montantReduction?: number;
   soldReservation?: number;
   montantPaye?: number;
   montantReservation?: number;
+  montantDeReservation?: number;
   nmbreAdulte?: number;
   nmbrEnfant?: number;
 }

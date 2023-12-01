@@ -24,6 +24,6 @@ export interface AppartementDto {
   pourcentReducCategorie?: number;
   idCategorieChambre?: number;
   idChapitre?: number;
-  categoryChambreSaveOrUpdateDto?: CategoryChambreSaveOrUpdateDto;
+  categorieChambre?: CategoryChambreSaveOrUpdateDto;
   occupied?: boolean;
 }

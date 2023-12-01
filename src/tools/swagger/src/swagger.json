@@ -5068,7 +5068,7 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "categoryChambreSaveOrUpdateDto" : {
+        "categorieChambre" : {
           "$ref" : "#/definitions/CategoryChambreSaveOrUpdateDto"
         },
         "occupied" : {
@@ -6887,10 +6887,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -6940,10 +6940,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -7682,6 +7682,9 @@
         "prenom" : {
           "type" : "string"
         },
+        "username" : {
+          "type" : "string"
+        },
         "pourcentageReduction" : {
           "type" : "number",
           "format" : "double"
@@ -7699,6 +7702,10 @@
           "format" : "double"
         },
         "montantReservation" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "montantDeReservation" : {
           "type" : "number",
           "format" : "double"
         },

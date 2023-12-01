@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Route, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -11,6 +12,7 @@ import {
 } from 'src/app/ngrx/reservation/reservation.reducer';
 import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
+import { PageAjoutReservationComponent } from '../../page-ajout-reservation/page-ajout-reservation.component';
 
 @Component({
   selector: 'app-page-reservation-residence',
@@ -20,8 +22,7 @@ import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 export class PageReservationResidenceComponent implements OnInit {
   constructor(
     private store: Store<any>,
-    private userService: UserService,
-    private router: Router
+    public dialog: MatDialog
   ) {}
   public user?: UtilisateurRequestDto;
   reservationState$: Observable<ReservationState> | null = null;
@@ -44,7 +45,13 @@ export class PageReservationResidenceComponent implements OnInit {
         }
       });
   }
+
   creerUneReservation() {
-    this.router.navigateByUrl('/ajout-reservation');
+    const dialogRef = this.dialog.open(PageAjoutReservationComponent, {
+      data: {},
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.ngOnInit();
+    });
   }
 }
