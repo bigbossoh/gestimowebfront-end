@@ -120,7 +120,6 @@ export class ClotureCaisseComponent implements OnInit {
   ngOnInit(): void {
     var  dateFirstCloture =new Date();
     this.user = this.userService.getUserFromLocalCache();
-    // this.etablissement = this.userService.getDefaultChapitre(this.user.id);
 
     this.store.dispatch(new GetDefaultEtabNameActions(this.user.id));
     this.etablissementState$ = this.store.pipe(
@@ -157,8 +156,9 @@ export class ClotureCaisseComponent implements OnInit {
   saveFirstCloture(){
     var  dateFirstCloture =new Date();
 
-    var debut:any=formatDate(this.addDays(dateFirstCloture,0),'yyyy-MM-dd','en-US');
-    var fin:any=formatDate(this.addDays(dateFirstCloture,3),'yyyy-MM-dd','en-US');
+    var debut:any=formatDate(this.addDays(this.selectedDate,0),'yyyy-MM-dd','en-US');
+    var fin:any=formatDate(this.addDays(this.selectedDateJour,0),'yyyy-MM-dd','en-US');
+    var nex:any=formatDate(this.addDays(this.selectedDateJour,3),'yyyy-MM-dd','en-US');
     const jdebut = debut.replaceAll('/', '-');
     const jfin = fin.replaceAll('/', '-');
 
@@ -169,7 +169,8 @@ export class ClotureCaisseComponent implements OnInit {
       chapitreCloture: [this.etablissement],
       dateDeDCloture: [debut],
       intervalNextCloture: [3],
-      dateFinCloture: [fin]
+      dateFinCloture: [fin],
+      dateNextCloture:[nex]
     });
 
     this.store.dispatch(
@@ -179,9 +180,10 @@ export class ClotureCaisseComponent implements OnInit {
         idCreateur: this.user?.id,
         totalEncaisse: this.sommeEncaissePrincipal+this.sommeEncaisseSuivi,
         chapitreCloture: this.etablissementName,
-        dateDeDCloture: this.addDays(dateFirstCloture,0),
+        dateDeDCloture: jdebut,
         intervalNextCloture: 3,
-        dateFinCloture: this.addDays(dateFirstCloture,3),
+        dateFinCloture: jfin,
+        dateNextCloture:nex
       })
     );
     this.saveClotureCaisseState$ = this.store.pipe(

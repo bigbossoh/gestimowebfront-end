@@ -147,6 +147,7 @@ class ApiService extends __BaseService {
   static readonly saveorupdateCategoryChambrePath = 'gestimoweb/api/v1/categoriechambre/saveorupdate';
   static readonly countInitClotureByCaissiaireAndChampitrePath = 'gestimoweb/api/v1/cloturecaisse/countInitClotureByCaissiaireAndChampitre/{idCaisse}/{chapitre}';
   static readonly findAllByCaissierAndChapitrePath = 'gestimoweb/api/v1/cloturecaisse/countInitClotureByCaissiaireAndChampitre/{idCaisse}/{chapitre}';
+  static readonly findAllCloturerCaisseAgencePath = 'gestimoweb/api/v1/cloturecaisse/findAllCloturerCaisseAgence';
   static readonly findAllCloturerCaisseByDateAndChapitrePath = 'gestimoweb/api/v1/cloturecaisse/findAllCloturerCaisseByDateAndChapitre/{idCaisse}/{chapitre}/{dateDuJoure}';
   static readonly findNonCloturerByDateAndCaisseAndChapitrePath = 'gestimoweb/api/v1/cloturecaisse/findNonCloturerByDateAndCaisseAndChapitre/{idCaisse}/{chapitre}/{dateDuJoure}';
   static readonly saveClotureCaissePath = 'gestimoweb/api/v1/cloturecaisse/savecloturecaisse';
@@ -3349,6 +3350,39 @@ class ApiService extends __BaseService {
    */
   findAllByCaissierAndChapitre(params: ApiService.FindAllByCaissierAndChapitreParams): __Observable<Array<ClotureCaisseDto>> {
     return this.findAllByCaissierAndChapitreResponse(params).pipe(
+      __map(_r => _r.body as Array<ClotureCaisseDto>)
+    );
+  }
+
+  /**
+   * @return successful operation
+   */
+  findAllCloturerCaisseAgenceResponse(): __Observable<__StrictHttpResponse<Array<ClotureCaisseDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/cloturecaisse/findAllCloturerCaisseAgence`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<ClotureCaisseDto>>;
+      })
+    );
+  }
+  /**
+   * @return successful operation
+   */
+  findAllCloturerCaisseAgence(): __Observable<Array<ClotureCaisseDto>> {
+    return this.findAllCloturerCaisseAgenceResponse().pipe(
       __map(_r => _r.body as Array<ClotureCaisseDto>)
     );
   }

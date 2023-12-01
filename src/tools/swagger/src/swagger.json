@@ -1828,6 +1828,22 @@
         }
       }
     },
+    "gestimoweb/api/v1/cloturecaisse/findAllCloturerCaisseAgence" : {
+      "get" : {
+        "operationId" : "findAllCloturerCaisseAgence",
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ClotureCaisseDto"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/cloturecaisse/findAllCloturerCaisseByDateAndChapitre/{idCaisse}/{chapitre}/{dateDuJoure}" : {
       "get" : {
         "operationId" : "findAllCloturerCaisseByDateAndChapitre",
@@ -6153,6 +6169,13 @@
         "dateFinCloture" : {
           "type" : "string",
           "format" : "date"
+        },
+        "caissiere" : {
+          "type" : "string"
+        },
+        "dateNextCloture" : {
+          "type" : "string",
+          "format" : "date"
         }
       }
     },
@@ -7102,10 +7125,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         }
       }
