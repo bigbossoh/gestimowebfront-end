@@ -34,10 +34,10 @@
               <select matNativeControl [(ngModel)]="idClient">
                 <option value="" selected></option>
                 <option
-                  *ngFor="let clienth of state.clienthotel"
-                  [value]="clienth.id"
+                  *ngFor="let client of state.clienthotel"
+                  [value]="client.username"
                 >
-                  {{ clienth.nom }} {{ clienth.prenom }}
+                  {{ client.nom }} {{ client.prenom }}
                 </option>
               </select>
             </mat-form-field>

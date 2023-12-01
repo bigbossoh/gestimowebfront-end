@@ -17,8 +17,11 @@
             </div>
             <div class="p-2 flex-fill">
               <button
-              (click)="creerUneReservation()"
-              type="button" class="btn btn-primary" mat-raised-button>
+                (click)="creerUneReservation()"
+                type="button"
+                class="btn btn-primary"
+                mat-raised-button
+              >
                 <i class="fas fa-plus"></i>&nbsp; nouvelle reservation
               </button>
             </div>
@@ -36,142 +39,55 @@
               <label for="">Erreur : {{ reservationState.errorMessage }}</label>
             </ng-container>
             <ng-container *ngSwitchCase="ReservationStateEnum.LOADED">
-              <li *ngFor="let reservation of reservationState.reservations" class="position-relative booking">
-                <div class="media">
-                  <div class="msg-img">
-                    <img
-                      src="https://bootdey.com/img/Content/avatar/avatar6.png"
-                      alt=""
-                    />
-                  </div>
-                  <div class="media-body">
-                    <h5 class="mb-4">
-                      {{reservation.bienImmobilierOperation}}
-                      <span class="badge badge-primary mx-3">Pending</span
-                      ><span class="badge badge-danger">Unpaid</span>
-                    </h5>
-                    <div class="mb-3">
-                      <span class="mr-2 d-block d-sm-inline-block mb-2 mb-sm-0"
-                        >Booking Date:</span
-                      >
-                      <span class="bg-light-blue">{{reservation.creationDate | date:'fullDate'}}</span>
-                    </div>
-                    <div class="mb-3">
-                      <span class="mr-2 d-block d-sm-inline-block mb-2 mb-sm-0"
-                        >Booking Details: Arrivée {{reservation.dateDebut | date:'fullDate'}} - Départ prévu {{reservation.dateFin | date:'fullDate'}} </span
-                      >
-                      <span class="bg-light-blue">{{reservation.nmbreHomme}} Adultes | {{reservation.nmbrEnfant}} Enfants </span>
-                    </div>
-                    <div class="mb-3">
-                      <span class="mr-2 d-block d-sm-inline-block mb-2 mb-sm-0"
-                        >Price: {{reservation.montantReservation}}</span
-                      >
-                      <span class="bg-light-blue">$ </span>
-                    </div>
-                    <div class="mb-5">
-                      <span class="mr-2 d-block d-sm-inline-block mb-1 mb-sm-0"
-                        >Clients:</span
-                      >
-                      <span class="border-right pr-2 mr-2">{{reservation.utilisateurOperation}}</span>
-                      <span class="border-right pr-2 mr-2"> {{reservation.email}} </span>
-                      <span>{{reservation.username}} </span>
-                    </div>
-                    <a href="#" class="btn-gray">Send Message</a>
-                  </div>
-                </div>
-                <div class="buttons-to-right">
-                  <a href="#" class="btn-gray mr-2"
-                    ><i class="far fa-times-circle mr-2"></i> Reject</a
-                  >
-                  <a href="#" class="btn-gray"
-                    ><i class="far fa-check-circle mr-2"></i> Approve</a
-                  >
-                </div>
-              </li>
+              <table>
+                <tr>
+                  <th>Date de réservation</th>
+                  <th>Client</th>
+                  <th>Téléphone</th>
+                  <th>N° Pièce</th>
+                  <th>Appartement</th>
+                  <th>Total à payer</th>
+                  <th>Montant payé</th>
+                  <th>Reste à payer</th>
+                  <th>Montant de reduction</th>
+                  <th>Réduction</th>
+                  <th>période</th>
+                  <th>Nombre d'adultes</th>
+                  <th>Nombre d'enfant</th>
+                  <th>Actions</th>
+                </tr>
+                <tr *ngFor="let reservation of reservationState.reservations">
+                  <td>
+                    <span class="bg-light-blue">{{
+                      reservation.creationDate | date : "dd/MM/yyyy"
+                    }}</span>
+                  </td>
+                  <td>
+                    <span class="border-right pr-2 mr-2">{{
+                      reservation.utilisateurOperation
+                    }}</span>
+                  </td>
+
+                  <td>{{ reservation.username }}</td>
+                  <td>N° Pièce</td>
+                  <td>{{ reservation.bienImmobilierOperation }}</td>
+                  <td>{{ reservation.montantReservation |currency:'XOF' }}</td>
+                  <td>{{ reservation.montantPaye|currency:'XOF' }}</td>
+                  <td>{{ reservation.soldReservation |currency:'XOF'}}</td>
+                  <td>{{ reservation.montantReduction |currency:'XOF'}}</td>
+                  <td>{{ reservation.pourcentageReduction }} %</td>
+                  <td>
+                    <span class="mr-2 d-block d-sm-inline-block mb-2 mb-sm-0">
+                      {{ reservation.dateDebut | date : "dd/MM/yyyy" }} Au {{ reservation.dateFin | date : "dd/MM/yyyy" }}
+                    </span>
+                  </td>
+                  <td>{{ reservation.nmbreHomme }}</td>
+                  <td>{{ reservation.nmbrEnfant }}</td>
+                  <td>Actions</td>
+                </tr>
+              </table>
             </ng-container>
           </ng-container>
-
-
-          <!-- <li class="position-relative booking">
-            <div class="media">
-              <div class="msg-img">
-                <img
-                  src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                  alt=""
-                />
-              </div>
-              <div class="media-body">
-                <h5 class="mb-4">
-                  Burger House
-                  <span class="badge badge-success ml-3">Approved</span>
-                </h5>
-                <div class="mb-3">
-                  <span class="mr-2 d-block d-sm-inline-block mb-2 mb-sm-0"
-                    >Booking Date:</span
-                  >
-                  <span class="bg-light-green">06.03.2020 - 07.03.2020</span>
-                </div>
-                <div class="mb-3">
-                  <span class="mr-2 d-block d-sm-inline-block mb-2 mb-sm-0"
-                    >Booking Details:</span
-                  >
-                  <span class="bg-light-green">2 Adults, 2 Children</span>
-                </div>
-
-                <div class="mb-5">
-                  <span class="mr-2 d-block d-sm-inline-block mb-1 mb-sm-0"
-                    >Clients:</span
-                  >
-                  <span class="border-right pr-2 mr-2">Jaime Cressey</span>
-                  <span class="border-right pr-2 mr-2"> jaime@example.com</span>
-                  <span>355-456-789</span>
-                </div>
-                <a href="#" class="btn-gray">Send Message</a>
-              </div>
-            </div>
-            <div class="buttons-to-right">
-              <a href="#" class="btn-gray mr-2"
-                ><i class="far fa-times-circle mr-2"></i>Cancled</a
-              >
-            </div>
-          </li>
-
-          <li class="position-relative booking">
-            <div class="media">
-              <div class="msg-img">
-                <img
-                  src="https://bootdey.com/img/Content/avatar/avatar2.png"
-                  alt=""
-                />
-              </div>
-              <div class="media-body">
-                <h5 class="mb-4">
-                  Modern Hotel
-                  <span class="badge badge-danger ml-3">Cancled</span>
-                </h5>
-                <div class="mb-3">
-                  <span class="mr-2 d-block d-sm-inline-block mb-2 mb-sm-0"
-                    >Booking Date:</span
-                  >
-                  <span class="btn-gray">20.03.2020 - 24.03.2020</span>
-                </div>
-                <div class="mb-3">
-                  <span class="mr-2 d-block d-sm-inline-block mb-2 mb-sm-0"
-                    >Booking Details:</span
-                  >
-                  <span class="btn-gray">2 Adults</span>
-                </div>
-                <div>
-                  <span class="mr-2 d-block d-sm-inline-block mb-1 mb-sm-0"
-                    >Clients:</span
-                  >
-                  <span class="border-right pr-2 mr-2">Tesha Stovall</span>
-                  <span class="border-right pr-2 mr-2"> tesha@example.com</span>
-                  <span>123-456-684</span>
-                </div>
-              </div>
-            </div>
-          </li> -->
         </ul>
       </div>
     </div>
