@@ -8,4 +8,6 @@ export interface ClotureCaisseDto {
   dateDeDCloture?: string;
   intervalNextCloture?: number;
   dateFinCloture?: string;
+  caissiere?: string;
+  dateNextCloture?: string;
 }
