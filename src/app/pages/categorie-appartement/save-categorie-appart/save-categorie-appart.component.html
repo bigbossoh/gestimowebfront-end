@@ -1,7 +1,7 @@
-<p>
+<p >
   <mat-form-field appearance="outline">
-
-    <mat-label *ngIf="varData">{{varData.bien.id}}</mat-label>
+ Changer de catégorie
+    <mat-label >{{varData.bien.nomBaptiserBienImmobilier}}</mat-label>
 
   </mat-form-field>
 </p>
@@ -9,7 +9,6 @@
 *ngIf=" listeDesCategorieChambre$| async as state"
 [ngSwitch]="state.dataState"
 >
-
 <ng-container *ngSwitchCase="CategorieChambreStateEnum.ERROR">
   <div class="p-2 invalid-feedback">
     Une erreur est survenue

@@ -40,17 +40,7 @@ export class NewPrixCategorieChambreComponent implements OnInit {
     console.log(this.varData.cate.id);
   }
   onSaveForm() {
-    /**
-     *   id?: number;
-  idAgence?: number;
-  idCreateur?: number;
-  nombreDeJour?: string;
-  prix?: number;
-  intervalPrix?: number;
-  description?: string;
-  nbrDiffJour?: number;
-  idCategorieChambre?: number;
-     */
+
     this.formGroup = this.fb.group({
       id: [0],
       idAgence: [this.user?.idAgence],

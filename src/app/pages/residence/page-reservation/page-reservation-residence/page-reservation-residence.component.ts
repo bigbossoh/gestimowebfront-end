@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { BienImmobilierActions } from './../../../../ngrx/bien-immobilier/bienimmobilier.actions';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Route, Router } from '@angular/router';
@@ -13,6 +14,10 @@ import {
 import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { PageAjoutReservationComponent } from '../../page-ajout-reservation/page-ajout-reservation.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { SaveCategorieAppartComponent } from 'src/app/pages/categorie-appartement/save-categorie-appart/save-categorie-appart.component';
 
 @Component({
   selector: 'app-page-reservation-residence',
@@ -20,11 +25,27 @@ import { PageAjoutReservationComponent } from '../../page-ajout-reservation/page
   styleUrls: ['./page-reservation-residence.component.css'],
 })
 export class PageReservationResidenceComponent implements OnInit {
-  constructor(
-    private store: Store<any>,
-    public dialog: MatDialog
-  ) {}
+  displayedColumns = [
+    'datereservation',
+    'client',
+
+    'appartement',
+    'totalapayer',
+    'montantpaye',
+    'resteapayer',
+
+    'pourcentagereductione',
+    'periode',
+
+    'action',
+  ];
+  @ViewChild('paginatorReservation') paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  dataSource: MatTableDataSource<any> = new MatTableDataSource();
+  pageSizeAppel = [5, 10, 15, 20, 40];
   public user?: UtilisateurRequestDto;
+  constructor(private store: Store<any>, public dialog: MatDialog) {}
+
   reservationState$: Observable<ReservationState> | null = null;
   readonly ReservationStateEnum = ReservationStateEnum;
 
@@ -39,13 +60,22 @@ export class PageReservationResidenceComponent implements OnInit {
     this.store
       .pipe(map((state) => state.reservationState))
       .subscribe((data) => {
-        console.log('les  données sont les suivantes');
+        this.dataSource.data = [];
+        this.dataSource.paginator = null;
         if (data.dataState == 'Loaded') {
-          console.log(data);
+          this.dataSource.data = data.reservations;
+          this.dataSource.paginator = this.paginator;
         }
       });
   }
+  applyFilterAppel(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
 
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
   creerUneReservation() {
     const dialogRef = this.dialog.open(PageAjoutReservationComponent, {
       data: {},
@@ -54,4 +84,5 @@ export class PageReservationResidenceComponent implements OnInit {
       this.ngOnInit();
     });
   }
+
 }

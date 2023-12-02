@@ -17,6 +17,8 @@ import {
   GetAllAppartementMeubleActionsError,
   GetAllAppartementMeubleParCategorieActionsSuccess,
   GetAllAppartementMeubleParCategorieActionsError,
+  SaveAppartementCatActionsSuccess,
+  SaveAppartementCatActionsError,
 } from './appartement.actions';
 import {
   AppartementActions,
@@ -188,6 +190,34 @@ export class AppartementEffects {
     })
   )
 );
+
+ //SAVE EFFECTS
+ saveAppartementCateEffect: Observable<Action> = createEffect(() =>
+ this.effectActions.pipe(
+   ofType(AppartementActionsTypes.SAVE_APPARTEMENT_CATE),
+   mergeMap((action: AppartementActions) => {
+     return this.apiService.saveForCategorie(action.payload).pipe(
+       map((appart) => new SaveAppartementCatActionsSuccess(appart)),
+       catchError((err) => of(new SaveAppartementCatActionsError(err.message)))
+     );
+   }),
+   tap((resultat) => {
+     if (resultat.type == AppartementActionsTypes.SAVE_APPARTEMENT_CATE_SUCCES) {
+       this.sendErrorNotification(
+         NotificationType.SUCCESS,
+         "L'opération effectuée avec succès"
+       );
+     }
+     if (resultat.type == AppartementActionsTypes.SAVE_APPARTEMENT_CATE_ERROR) {
+       this.sendErrorNotification(
+         NotificationType.ERROR,
+         resultat.payload.toString()
+       );
+     }
+   })
+ )
+);
+
   private sendErrorNotification(
     notificationType: NotificationType,
     message: string
