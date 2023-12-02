@@ -1,0 +1,45 @@
+<p>
+  <mat-form-field appearance="outline">
+
+    <mat-label *ngIf="varData">{{varData.bien.id}}</mat-label>
+
+  </mat-form-field>
+</p>
+<ng-container
+*ngIf=" listeDesCategorieChambre$| async as state"
+[ngSwitch]="state.dataState"
+>
+
+<ng-container *ngSwitchCase="CategorieChambreStateEnum.ERROR">
+  <div class="p-2 invalid-feedback">
+    Une erreur est survenue
+  </div>
+</ng-container>
+<ng-container *ngSwitchCase="CategorieChambreStateEnum.LOADED">
+  <mat-form-field appearance="outline">
+    <mat-label>Categorie</mat-label>
+    <mat-select
+
+      [(ngModel)]="cateModel"
+      name="Propriétaire"
+    >
+      <mat-option [value]=""
+        >Sélectionnez une catégorie</mat-option
+      >
+      <mat-option
+        [value]="cate.id"
+        *ngFor="let cate of state.listCategorieChambre"
+      >
+        {{ cate.description }}
+      </mat-option>
+    </mat-select>
+    <mat-error>Ce champ est obligatoire.</mat-error>
+  </mat-form-field>
+</ng-container>
+</ng-container>
+<div class="example-button-row">
+
+  <button mat-raised-button color="primary" (click)="onSaveForm()">Valider</button>
+
+</div>
+
