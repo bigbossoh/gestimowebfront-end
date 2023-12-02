@@ -39,10 +39,11 @@ export class PageReservationResidenceComponent implements OnInit {
 
     'action',
   ];
-  @ViewChild('paginatorReservation') paginator!: MatPaginator;
+  @ViewChild('paginator') paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   pageSizeAppel = [5, 10, 15, 20, 40];
+  public totalRecords: number | undefined;
   public user?: UtilisateurRequestDto;
   constructor(private store: Store<any>, public dialog: MatDialog) {}
 
@@ -60,9 +61,11 @@ export class PageReservationResidenceComponent implements OnInit {
     this.store
       .pipe(map((state) => state.reservationState))
       .subscribe((data) => {
+        this.totalRecords=0;
         this.dataSource.data = [];
         this.dataSource.paginator = null;
         if (data.dataState == 'Loaded') {
+          this.totalRecords = data.reservations.length;
           this.dataSource.data = data.reservations;
           this.dataSource.paginator = this.paginator;
         }
