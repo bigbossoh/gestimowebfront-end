@@ -48,12 +48,12 @@
                 <mat-paginator
                   #paginator
                   showFirstLastButtons
-                  [length]="100"
+                  [length]="totalRecords!"
                   [pageSizeOptions]="pageSizeAppel"
                   aria-label="Select page of users"
                 >
                 </mat-paginator>
-                <mat-table #tableAppel [dataSource]="dataSource" matSort>
+                <mat-table #table [dataSource]="dataSource" matSort>
                   <ng-container matColumnDef="datereservation">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>
                       Date de Réservation
