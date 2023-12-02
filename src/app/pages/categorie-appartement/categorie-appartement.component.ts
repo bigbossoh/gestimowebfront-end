@@ -25,6 +25,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { NewCategorieChambreComponent } from './new-categorie-chambre/new-categorie-chambre.component';
 import { NewPrixCategorieChambreComponent } from '../bien-immobilier/new-prix-categorie-chambre/new-prix-categorie-chambre.component';
+import { SaveCategorieAppartComponent } from './save-categorie-appart/save-categorie-appart.component';
 
 @Component({
   selector: 'app-categorie-appartement',
@@ -104,10 +105,20 @@ export class CategorieAppartementComponent implements OnInit {
   openDialogPrix() {
     const dialogRef = this.dialog.open(NewPrixCategorieChambreComponent, {
       data: { cate: this.varCategorie },
+      width: '500px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       this.getListPrixParCategorie(this.selectedRowIndex);
+    });
+  }
+  openDialogApp(bien:any): void {
+    const dialolRef = this.dialog.open(SaveCategorieAppartComponent, {
+        width: '500px',
+        data:{bien:bien}
+    });
+    dialolRef.afterClosed().subscribe(() => {
+      this.ngOnInit();
     });
   }
   highlight(row: any) {
