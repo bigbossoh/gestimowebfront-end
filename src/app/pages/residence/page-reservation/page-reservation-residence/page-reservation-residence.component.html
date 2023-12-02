@@ -1,94 +1,159 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="card card-white mb-5">
-      <div class="row">
-        <div class="col-md-8">
-          <div class="card-heading clearfix border-bottom mb-4">
-            <h4 class="card-title">Demandes reservations en cours</h4>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="d-flex">
-            <div class="p-2 flex-fill">
-              <button type="button" class="btn btn-success">
-                <i class="fas fa-cloud-download-alt"></i>&nbsp; Exporter
-                reservations
-              </button>
-            </div>
-            <div class="p-2 flex-fill">
-              <button
-                (click)="creerUneReservation()"
-                type="button"
-                class="btn btn-primary"
-                mat-raised-button
-              >
-                <i class="fas fa-plus"></i>&nbsp; nouvelle reservation
-              </button>
+<div class="col">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card card-white mb-5">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card-heading clearfix border-bottom mb-4">
+              <h4 class="card-title">Demandes reservations en cours</h4>
             </div>
           </div>
+          <div class="col-md-4">
+            <div class="d-flex">
+              <div class="p-2 flex-fill">
+                <button type="button" class="btn btn-success">
+                  <i class="fas fa-cloud-download-alt"></i>&nbsp; Exporter
+                  reservations
+                </button>
+              </div>
+              <div class="p-2 flex-fill">
+                <button
+                  (click)="creerUneReservation()"
+                  type="button"
+                  class="btn btn-primary"
+                  mat-raised-button
+                >
+                  <i class="fas fa-plus"></i>&nbsp; nouvelle reservation
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div class="card-body">
-        <ul class="list-unstyled">
-          <ng-container
-            *ngIf="reservationState$ | async as reservationState"
-            [ngSwitch]="reservationState.dataState"
-          >
-            <ng-container *ngSwitchCase="ReservationStateEnum.ERROR">
-              <label for="">Erreur : {{ reservationState.errorMessage }}</label>
-            </ng-container>
-            <ng-container *ngSwitchCase="ReservationStateEnum.LOADED">
-              <table>
-                <tr>
-                  <th>Date de réservation</th>
-                  <th>Client</th>
-                  <th>Téléphone</th>
-                  <th>N° Pièce</th>
-                  <th>Appartement</th>
-                  <th>Total à payer</th>
-                  <th>Montant payé</th>
-                  <th>Reste à payer</th>
-                  <th>Montant de reduction</th>
-                  <th>Réduction</th>
-                  <th>période</th>
-                  <th>Nombre d'adultes</th>
-                  <th>Nombre d'enfant</th>
-                  <th>Actions</th>
-                </tr>
-                <tr *ngFor="let reservation of reservationState.reservations">
-                  <td>
-                    <span class="bg-light-blue">{{
-                      reservation.creationDate | date : "dd/MM/yyyy"
-                    }}</span>
-                  </td>
-                  <td>
-                    <span class="border-right pr-2 mr-2">{{
-                      reservation.utilisateurOperation
-                    }}</span>
-                  </td>
+        <div class="card-body">
+          <ul class="list-unstyled">
+            <div>
+              <div class="mat-elevation-z8">
+                <div class="example-header">
+                  <mat-form-field class="tail-50" style="margin-left: 12px">
+                    <mat-label>Rechercher</mat-label>
+                    <input
+                      matInput
+                      (keyup)="applyFilterAppel($event)"
+                      #input
+                      placeholder="Rechercher une réservation"
+                    />
+                  </mat-form-field>
+                </div>
+                <mat-paginator
+                  #paginator
+                  showFirstLastButtons
+                  [length]="100"
+                  [pageSizeOptions]="pageSizeAppel"
+                  aria-label="Select page of users"
+                >
+                </mat-paginator>
+                <mat-table #tableAppel [dataSource]="dataSource" matSort>
+                  <ng-container matColumnDef="datereservation">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Date de Réservation
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      {{ row.creationDate | date : "dd/MM/yyyy" }}
+                    </mat-cell>
+                  </ng-container>
 
-                  <td>{{ reservation.username }}</td>
-                  <td>N° Pièce</td>
-                  <td>{{ reservation.bienImmobilierOperation }}</td>
-                  <td>{{ reservation.montantReservation |currency:'XOF' }}</td>
-                  <td>{{ reservation.montantPaye|currency:'XOF' }}</td>
-                  <td>{{ reservation.soldReservation |currency:'XOF'}}</td>
-                  <td>{{ reservation.montantReduction |currency:'XOF'}}</td>
-                  <td>{{ reservation.pourcentageReduction }} %</td>
-                  <td>
-                    <span class="mr-2 d-block d-sm-inline-block mb-2 mb-sm-0">
-                      {{ reservation.dateDebut | date : "dd/MM/yyyy" }} Au {{ reservation.dateFin | date : "dd/MM/yyyy" }}
-                    </span>
-                  </td>
-                  <td>{{ reservation.nmbreHomme }}</td>
-                  <td>{{ reservation.nmbrEnfant }}</td>
-                  <td>Actions</td>
-                </tr>
-              </table>
-            </ng-container>
-          </ng-container>
-        </ul>
+                  <ng-container matColumnDef="client">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Client
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      {{ row.utilisateurOperation }}</mat-cell
+                    >
+                  </ng-container>
+
+                  <ng-container matColumnDef="appartement">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Appartement
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      {{ row.bienImmobilierOperation }}</mat-cell
+                    >
+                  </ng-container>
+
+                  <ng-container matColumnDef="totalapayer">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Montant à payer
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      {{ row.montantReservation | currency : "XOF" }}</mat-cell
+                    >
+                  </ng-container>
+                  <ng-container matColumnDef="montantpaye">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Payé
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      {{ row.montantPaye | currency : "XOF" }}</mat-cell
+                    >
+                  </ng-container>
+                  <ng-container matColumnDef="resteapayer">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Solde
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      {{ row.soldReservation | currency : "XOF" }}</mat-cell
+                    >
+                  </ng-container>
+
+                  <ng-container matColumnDef="pourcentagereductione">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Poucentage
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      {{ row.pourcentageReduction }} %</mat-cell
+                    >
+                  </ng-container>
+                  <ng-container matColumnDef="periode">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Période
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      {{ row.dateDebut | date : "dd/MM/yyyy" }} Au
+                      {{ row.dateFin | date : "dd/MM/yyyy" }}
+                    </mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="action">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Action
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">
+                      <section *ngIf="row.utilisateurOperation == 'XXX XXXX'">
+                        <div class="example-button-row">
+                          <button mat-raised-button color="primary">
+                            Entretr en chambre
+                          </button>
+                        </div>
+                      </section>
+                    </mat-cell>
+                  </ng-container>
+                  <mat-header-row *matHeaderRowDef="displayedColumns">
+                  </mat-header-row>
+                  <mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                  ></mat-row>
+                  <!-- Row shown when there is no matching data. -->
+                  <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">
+                      Aucune donnée enregistrée {{ input.value }}
+                    </td>
+                  </tr>
+                </mat-table>
+              </div>
+            </div>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

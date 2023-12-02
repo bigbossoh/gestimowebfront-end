@@ -10,6 +10,10 @@ export enum AppartementctionsTypes {
   SAVE_APPARTEMENT_SUCCES = '[AppartementDto] Get Save AppartementSucces',
   SAVE_APPARTEMENT_ERROR = '[AppartementDto] Get Save Appartement Error',
 
+  SAVE_APPARTEMENT_CATE = '[AppartementDto] Get Save Appartement _CATE',
+  SAVE_APPARTEMENT_CATE_SUCCES = '[AppartementDto] Get Save AppartementSucces _CATE',
+  SAVE_APPARTEMENT_CATE_ERROR = '[AppartementDto] Get Save Appartement Error _CATE',
+
   GET_ALL_APPARTEMENT_LIBRE = '[AppartementDto] Get All AppartementDto Libre',
   GET_ALL_APPARTEMENT_LIBRE_SUCCES = '[AppartementDto] Get All AppartementDto Libre Succes',
   GET_ALL_APPARTEMENT_LIBRE_ERROR = '[AppartementDto] Get All AppartementDto Libre Error',
@@ -118,7 +122,9 @@ export class GetAllAppartementMeubleParCategorieActions implements Action {
   constructor(public payload: any) {}
 }
 
-export class GetAllAppartementMeubleParCategorieActionsSuccess implements Action {
+export class GetAllAppartementMeubleParCategorieActionsSuccess
+  implements Action
+{
   type: AppartementctionsTypes =
     AppartementctionsTypes.GET_ALL_APPARTEMENT_MEUBLE_PAR_CATEGORIE_SUCCES;
   constructor(public payload: any) {}
@@ -126,6 +132,22 @@ export class GetAllAppartementMeubleParCategorieActionsSuccess implements Action
 export class GetAllAppartementMeubleParCategorieActionsError implements Action {
   type: AppartementctionsTypes =
     AppartementctionsTypes.GET_ALL_APPARTEMENT_MEUBLE_PAR_CATEGORIE_ERROR;
+  constructor(public payload: string) {}
+}
+
+export class SaveAppartementCatActions implements Action {
+  type: AppartementctionsTypes = AppartementctionsTypes.SAVE_APPARTEMENT_CATE;
+  constructor(public payload: AppartementDto) {}
+}
+
+export class SaveAppartementCatActionsSuccess implements Action {
+  type: AppartementctionsTypes =
+    AppartementctionsTypes.SAVE_APPARTEMENT_CATE_SUCCES;
+  constructor(public payload: any) {}
+}
+export class SaveAppartementCatActionsError implements Action {
+  type: AppartementctionsTypes =
+    AppartementctionsTypes.SAVE_APPARTEMENT_CATE_ERROR;
   constructor(public payload: string) {}
 }
 export type AppartementActions =
@@ -144,6 +166,9 @@ export type AppartementActions =
   | GetAllAppartementMeubleActions
   | GetAllAppartementMeubleActionsError
   | GetAllAppartementMeubleActionsSuccess
-  |GetAllAppartementMeubleParCategorieActions
-  |GetAllAppartementMeubleParCategorieActionsError
-  |GetAllAppartementMeubleParCategorieActionsSuccess;
+  | GetAllAppartementMeubleParCategorieActions
+  | GetAllAppartementMeubleParCategorieActionsError
+  | GetAllAppartementMeubleParCategorieActionsSuccess
+  | SaveAppartementCatActions
+  | SaveAppartementCatActionsError
+  | SaveAppartementCatActionsSuccess;

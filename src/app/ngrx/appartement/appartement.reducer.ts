@@ -17,6 +17,7 @@ export enum AppartementStateEnum {
   LOADEDBYIMMEUNLE = 'LoadedByImmeuble',
 }
 export interface AppartementState {
+  appa:any;
   appartements: AppartementDto[];
   appartementsCatego: AppartementDto[];
   appartement: any;
@@ -24,6 +25,7 @@ export interface AppartementState {
   dataState: AppartementStateEnum;
 }
 const initState: AppartementState = {
+  appa:null,
   appartements: [],
   appartementsCatego:[],
   errorMessage: '',
@@ -126,6 +128,22 @@ export function appartementReducer(
         appartementsCatego: (<AppartementActions>action).payload,
       };
     case AppartementctionsTypes.GET_ALL_APPARTEMENT_MEUBLE_PAR_CATEGORIE_ERROR:
+      return {
+        ...state,
+        dataState: AppartementStateEnum.ERROR,
+        errorMessage: (<AppartementActions>action).payload,
+      };
+        //SAVE APPARTEMENT
+    case AppartementctionsTypes.SAVE_APPARTEMENT_CATE:
+      return { ...state, dataState: AppartementStateEnum.LOADING };
+    case AppartementctionsTypes.SAVE_APPARTEMENT_CATE_SUCCES:
+
+      return {
+        ...state,
+        dataState: AppartementStateEnum.LOADED,
+        appartements: (<AppartementActions>action).payload,
+      };
+    case AppartementctionsTypes.SAVE_APPARTEMENT_CATE_ERROR:
       return {
         ...state,
         dataState: AppartementStateEnum.ERROR,

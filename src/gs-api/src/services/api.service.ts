@@ -83,6 +83,7 @@ class ApiService extends __BaseService {
   static readonly findByNameAppartementPath = 'gestimoweb/api/v1/appartement/findByName/{name}';
   static readonly findAllAppartementByIdCategoriePath = 'gestimoweb/api/v1/appartement/findallappartementbyidcategorie/{id}';
   static readonly saveAppartementPath = 'gestimoweb/api/v1/appartement/save';
+  static readonly saveForCategoriePath = 'gestimoweb/api/v1/appartement/saveForCategorie';
   static readonly deleteAppelDtoPath = 'gestimoweb/api/v1/appelloyer/clotureOfAppelDtoByID/{id}';
   static readonly AppelLoyersParPeriodePath = 'gestimoweb/api/v1/appelloyer/findAllAppelloyerByPeriode/{periode}/{idAgence}';
   static readonly listTousAppelsLoyersPath = 'gestimoweb/api/v1/appelloyer/findAllAppelsLoyer/{idAgence}';
@@ -788,6 +789,42 @@ class ApiService extends __BaseService {
    */
   saveAppartement(body?: AppartementDto): __Observable<AppartementDto> {
     return this.saveAppartementResponse(body).pipe(
+      __map(_r => _r.body as AppartementDto)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveForCategorieResponse(body?: AppartementDto): __Observable<__StrictHttpResponse<AppartementDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/appartement/saveForCategorie`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<AppartementDto>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveForCategorie(body?: AppartementDto): __Observable<AppartementDto> {
+    return this.saveForCategorieResponse(body).pipe(
       __map(_r => _r.body as AppartementDto)
     );
   }

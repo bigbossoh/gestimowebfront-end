@@ -9,7 +9,6 @@ import { Store } from '@ngrx/store';
 import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { SavePrixChambreParCategorieActions } from 'src/app/ngrx/prix-par-categorie-chambre/prix-par-categorie-chambre.action';
 import { SaveAppartementCatActions } from 'src/app/ngrx/appartement/appartement.actions';
 import { AppartementState, AppartementStateEnum } from 'src/app/ngrx/appartement/appartement.reducer';
 
@@ -20,6 +19,7 @@ import { AppartementState, AppartementStateEnum } from 'src/app/ngrx/appartement
 })
 export class SaveCategorieAppartComponent implements OnInit {
   listeDesCategorieChambre$: Observable<CategorieChambreState> | null = null;
+  // test
   readonly CategorieChambreStateEnum = CategorieChambreStateEnum;
   formGroup?: FormGroup;
   public user?: UtilisateurRequestDto;
@@ -42,15 +42,18 @@ cateModel: any;
     );
     this.varData = this.data;
     console.log("**** **** **** les datas *** **** ");
-    console.log(this.varData.bien.id)
+    console.log(this.varData.bien)
     console.log("*** *** *** **** **");
+    this.formGroup = this.fb.group({
+      id: [this.varData.bien.id],
+      idCategorieChambre: [this.cateModel],
 
+    });
   }
   onSaveForm() {
 
     this.formGroup = this.fb.group({
-      id: [this.varData.bien.
-        id],
+      id: [this.varData.bien.id],
       idCategorieChambre: [this.cateModel],
 
     });
