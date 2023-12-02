@@ -99,7 +99,23 @@ export class CategorieAppartementComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.ngOnInit();
+      this.user = this.userService.getUserFromLocalCache();
+      // this.etablissement = this.userService.getDefaultChapitre(this.user.id);
+
+      this.store.dispatch(new ListChambreCategorieActions(this.user.idAgence));
+      this.listeDesCategorieChambre$ = this.store.pipe(
+        map((state) => state.categorieChambreState)
+      );
+      this.store
+        .pipe(map((state) => state.categorieChambreState))
+        .subscribe((data) => {
+          this.dataSource.data = [];
+          this.dataSource.paginator = null;
+          if (data.dataState == 'Loaded') {
+            this.dataSource.data = data.listCategorieChambre;
+            this.dataSource.paginator = this.paginatorCategorieChambre;
+          }
+        });
     });
   }
   openDialogPrix() {

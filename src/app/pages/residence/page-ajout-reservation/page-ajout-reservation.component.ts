@@ -168,6 +168,7 @@ export class PageAjoutReservationComponent implements OnInit {
     this.listMontant = montant;
   }
   getMontantNuite(nbrJour: any, listMontant: any) {
+    alert(nbrJour+"-"+listMontant)
     var arrayForSort = [...listMontant];
     arrayForSort.sort((a: any, b: any) =>
       a.nbrDiffJour > b.nbrDiffJour ? 1 : -1
@@ -176,15 +177,13 @@ export class PageAjoutReservationComponent implements OnInit {
     var trouver = false;
     for (let index = 0; index < arrayForSort.length; index++) {
       const element = listMontant[index];
-
       if (nbrJour <= element.nbrDiffJour) {
-        this.laNuiteMontant = element.intervalPrix;
-
+        this.laNuiteMontant = element.prix;
         trouver = true;
         return;
       }
       if (trouver == false) {
-        this.laNuiteMontant = element.intervalPrix;
+        this.laNuiteMontant = element.prix;
       }
     }
   }

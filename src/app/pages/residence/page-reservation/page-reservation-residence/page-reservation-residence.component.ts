@@ -84,5 +84,4 @@ export class PageReservationResidenceComponent implements OnInit {
       this.ngOnInit();
     });
   }
-
 }
