@@ -28,7 +28,8 @@ export interface UtilisateurRequestDto {
   agenceDto?: number;
   roleRequestDto?: RoleRequestDto;
   userCreate?: number;
+  idEtablissement?: number;
   active?: boolean;
-  activated?: boolean;
   nonLocked?: boolean;
+  activated?: boolean;
 }

@@ -22,6 +22,9 @@ import {
 import { UserService } from 'src/app/services/user/user.service';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { GetDefaultEtabNameActions } from 'src/app/ngrx/etablissement/etablisement.action';
+import { EtablissementState } from 'src/app/ngrx/etablissement/etablissement.reducer';
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -50,18 +53,30 @@ export class AgenceNewComponent implements OnInit {
   public user?: UtilisateurRequestDto;
   matcher = new MyErrorStateMatcher();
 
-
+  etablissementState$: Observable<EtablissementState> | null = null;
+  idEtabl: any = 0;
   constructor(
     private store: Store<any>,
     private fb: FormBuilder,
     private userService: UserService,
     @Inject(MAT_DIALOG_DATA) public editData: any,
     public dialogRef: MatDialogRef<AgenceNewComponent>,
-    private http:HttpClient
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
     this.user = this.userService.getUserFromLocalCache();
+    this.store.dispatch(new GetDefaultEtabNameActions(this.user.id));
+    this.etablissementState$ = this.store.pipe(
+      map((state) => state.etablissementState)
+    );
+    this.store
+      .pipe(map((state) => state.etablissementState))
+      .subscribe((data) => {
+        if (data.dataState == 'Loaded') {
+          this.idEtabl = data.etabname.chapite;
+        }
+      });
     this.agenceRegisterForm = this.fb.group({
       id: [0],
       idAgence: [this.user.idAgence],
@@ -80,11 +95,12 @@ export class AgenceNewComponent implements OnInit {
       nomPrenomGerant: ['', [Validators.required]],
       active: [true],
       logoAgence: [],
+      idEtable: [this.idEtabl],
     });
     if (this.editData) {
       this.store.dispatch(new GetLogoAcions(this.editData.id));
       this.store.pipe(map((state) => state.imageState)).subscribe((data) => {
-        console.log('Le logo est le suivant :'+this.editData.id);
+        console.log('Le logo est le suivant :' + this.editData.id);
         console.log(data);
         if (data.logo != null) {
           this.selectedFile = data.logo;
@@ -139,6 +155,7 @@ export class AgenceNewComponent implements OnInit {
       );
       this.agenceRegisterForm.controls['active'].setValue(this.editData.active);
       this.agenceRegisterForm.controls['id'].setValue(this.editData.id);
+      this.agenceRegisterForm.controls['idEtable'].setValue(this.idEtabl);
     }
   }
   onClose() {
@@ -154,9 +171,7 @@ export class AgenceNewComponent implements OnInit {
       this.onUploadImage();
     }
   }
-  onUpload() {
-
-  }
+  onUpload() {}
   onUploadImage() {
     this.agenceRegisterForm.controls['id'].setValue(this.editData.idAgence);
     this.agenceRegisterForm.controls['logoAgence'].setValue(this.selectedFile);
