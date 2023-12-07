@@ -122,9 +122,8 @@ export class PageBienImmobilierNewComponent implements OnInit {
 
   onSaveMagasin() {
     this.submitted = true;
-    if (this.magasinForm?.invalid) {
-      return;
-    }
+console.log(this.magasinForm?.invalid);
+
     this.submitted = false;
     this.store.dispatch(new SaveMagasinActions(this.magasinForm?.value));
     this.magasinState$ = this.store.pipe(map((state) => state.magasinState));
@@ -151,9 +150,9 @@ export class PageBienImmobilierNewComponent implements OnInit {
 
   onSaveVilla() {
     this.submitted = true;
-    if (this.villaForm?.invalid) {
-      return;
-    }
+    // if (this.villaForm?.invalid) {
+    //   return;
+    // }
     this.submitted = false;
     this.store.dispatch(new SaveVillaActions(this.villaForm?.value));
     this.villaState$ = this.store.pipe(map((state) => state.villaState));
@@ -223,6 +222,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
                 underBuildingMagasin: [data.magasin.underBuildingMagasin],
                 occupied: [data.magasin.occupied],
                 archived: [data.magasin.archive],
+                idChapitre:[this.etablissId]
               });
             }
           });
@@ -376,7 +376,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
         nomBaptiserBienImmobilier: [0, [Validators.required]],
         idEtage: [0],
         idSite: ['', [Validators.required]],
-        idUtilisateur: ['', [Validators.required]],
+        //idUtilisateur: ['', [Validators.required]],
         underBuildingMagasin: [false],
         occupied: [false],
         archived: [false],

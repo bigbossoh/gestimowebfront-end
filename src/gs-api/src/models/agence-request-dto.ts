@@ -22,4 +22,5 @@ export interface AgenceRequestDto {
   profileAgenceUrl?: string;
   active?: boolean;
   logoAgence?: string;
+  idEtable?: number;
 }

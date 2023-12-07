@@ -22,6 +22,8 @@ import {
 } from '../../../ngrx/utulisateur/utlisateur.reducer';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PasswordValidation } from './password-validator';
+import { GetDefaultEtabNameActions } from 'src/app/ngrx/etablissement/etablisement.action';
+import { EtablissementState } from 'src/app/ngrx/etablissement/etablissement.reducer';
 
 @Component({
   selector: 'app-page-new-utilisateur',
@@ -42,6 +44,10 @@ export class PageNewUtilisateurComponent implements OnInit {
   actionBtn: String = 'Enregistrer';
   hide = true;
   idCompare= 0;
+
+  etablissementState$: Observable<EtablissementState> | null = null;
+  idEtabl: any = 0;
+
   constructor(
     private store: Store<any>,
     private userService: UserService,
@@ -60,6 +66,17 @@ export class PageNewUtilisateurComponent implements OnInit {
   ngOnInit(): void {
 
     this.user = this.userService.getUserFromLocalCache();
+    this.store.dispatch(new GetDefaultEtabNameActions(this.user.id));
+    this.etablissementState$ = this.store.pipe(
+      map((state) => state.etablissementState)
+    );
+    this.store
+      .pipe(map((state) => state.etablissementState))
+      .subscribe((data) => {
+        if (data.dataState == 'Loaded') {
+          this.idEtabl = data.etabname.chapite;
+        }
+      });
     this.newUserForm = this.fb.group(
       {
         id: [0],
@@ -90,6 +107,7 @@ export class PageNewUtilisateurComponent implements OnInit {
         nonLocked: [true],
         activated: [true],
         active: [true],
+        idEtablissement:[this.idEtabl]
       }
       // , {
       //   validator: PasswordValidation.MatchPassword
@@ -185,6 +203,7 @@ export class PageNewUtilisateurComponent implements OnInit {
       );
 
       this.newUserForm.controls['active'].setValue(this.editDataUser.active);
+      this.newUserForm.controls['idEtablissement'].setValue(this.idEtabl);
     }
   }
   // private clickButton(buttonId: string): void {

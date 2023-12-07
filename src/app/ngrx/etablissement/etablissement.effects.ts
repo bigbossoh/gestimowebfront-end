@@ -7,7 +7,7 @@ import { mergeMap, map, catchError, tap } from "rxjs/operators";
 import { NotificationService } from "src/app/services/notification/notification.service";
 import { ApiService } from "src/gs-api/src/services";
 import { EtagesActionsTypes, EtagesActions, GetAllEtagesByImmeubleActionsSuccess, GetAllEtagesByImmeubleActionsError } from "../etage/etage.actions";
-import { EtablissementActionsTypes, GetDefaultEtabNameActionsError, GetDefaultEtabNameActionsSuccess } from "./etablisement.action";
+import { EtablissementActionsTypes, EtablissementsActions, GetDefaultEtabNameActionsError, GetDefaultEtabNameActionsSuccess } from "./etablisement.action";
 import { NotificationType } from 'src/app/enum/natification-type.enum';
 
 @Injectable()
@@ -23,8 +23,7 @@ export class EtablissementEffects {
   getDefaultName: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(EtablissementActionsTypes.GET_ETAB_DEFAULT_NAME),
-      mergeMap((action: EtagesActions) => {
-
+      mergeMap((action: EtablissementsActions) => {
         return this.apiService.getDefaultEtable(action.payload).pipe(
           map((immeubles) => new GetDefaultEtabNameActionsSuccess(immeubles)),
           catchError((err) => of(new GetDefaultEtabNameActionsError(err.error.errors)))
