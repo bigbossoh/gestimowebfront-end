@@ -28,7 +28,7 @@
     "@angular/platform-browser": "~13.3.10",
     "@angular/platform-browser-dynamic": "~13.3.10",
     "@angular/router": "~13.3.10",
-    "@auth0/angular-jwt": "^5.0.2",
+    "@auth0/angular-jwt": "^5.2.0",
     "@canvasjs/angular-charts": "^1.0.1",
     "@canvasjs/charts": "^3.7.9",
     "@fortawesome/fontawesome-free": "^5.15.4",
