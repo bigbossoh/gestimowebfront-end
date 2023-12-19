@@ -3,7 +3,7 @@
   "nxVersion": "17.2.6",
   "deps": {
     "@angular/animations": "^14.3.0",
-    "@angular/cdk": "^12.2.13",
+    "@angular/cdk": "^13.3.9",
     "@angular/common": "^14.3.0",
     "@angular/compiler": "^14.3.0",
     "@angular/core": "^14.3.0",
@@ -59,8 +59,8 @@
     "mkdirp": "^1.0.4",
     "ng-packagr": "^14.2.2",
     "ng-swagger-gen": "^1.8.1",
-    "nx": "^14.8.8",
-    "nx-cloud": "14.7.0",
+    "nx": "^17.2.6",
+    "nx-cloud": "^16.0.4",
     "typescript": "~4.6.4"
   },
   "pathMappings": {},
@@ -106,7 +106,7 @@
       },
       {
         "file": "angular.json",
-        "hash": "3151454495263948294"
+        "hash": "14710280331288075575"
       },
       {
         "file": "decorate-angular-cli.js",
@@ -130,11 +130,11 @@
       },
       {
         "file": "package-lock.json",
-        "hash": "17737484295428234897"
+        "hash": "8593134845255294114"
       },
       {
         "file": "package.json",
-        "hash": "2732945036951058605"
+        "hash": "5794567025671506352"
       },
       {
         "file": "src/app/app-routing.module.ts",
