@@ -6,7 +6,7 @@
         <mat-select
           [(ngModel)]="chapitre"
           #selectionChapitre
-          (selectionChange)="getNombreBienImmobiliers(selectionChapitre.value);getNombreBienImmobiliersOqp(selectionChapitre.value)"
+          (selectionChange)="getNombreBienImmobiliers(selectionChapitre.value,idAgence);getNombreBienImmobiliersOqp(selectionChapitre.value,idAgence)"
         >
           <mat-option [value]=0>
             Tout

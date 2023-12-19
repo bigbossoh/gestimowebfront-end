@@ -205,7 +205,7 @@ export class PageReglementIndividuelComponent implements OnInit {
       });
   }
   getAllEncaissementByBienImmobilier(p: any) {
-    // alert('Liste encaissement le suivant : : : '+p.id+'***'+p.idBien)
+
     this.store.dispatch(new GetEncaissementBienActions(p.idBien));
 
     this.store
@@ -225,7 +225,6 @@ export class PageReglementIndividuelComponent implements OnInit {
     this.printService
       .printRecuEncaissement(p)
       .subscribe((blob) => {
-        console.log('La taille du fichier' + blob.size);
         saveAs(blob, 'appel_quittance_du_' + p + '.pdf');
       });
   }

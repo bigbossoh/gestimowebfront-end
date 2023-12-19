@@ -45,7 +45,7 @@ export class PageReservationResidenceComponent implements OnInit {
   pageSizeAppel = [5, 10, 15, 20, 40];
   public totalRecords: number | undefined;
   public user?: UtilisateurRequestDto;
-  constructor(private store: Store<any>, public dialog: MatDialog) {}
+  constructor(private store: Store<any>, public dialog: MatDialog, private userService: UserService,) {}
 
   reservationState$: Observable<ReservationState> | null = null;
   readonly ReservationStateEnum = ReservationStateEnum;
@@ -54,7 +54,8 @@ export class PageReservationResidenceComponent implements OnInit {
     this.afficherLesReservation();
   }
   afficherLesReservation() {
-    this.store.dispatch(new GetListReservationAction({}));
+    this.user = this.userService.getUserFromLocalCache();
+    this.store.dispatch(new GetListReservationAction(this.user!.idAgence));
     this.reservationState$ = this.store.pipe(
       map((state) => state.reservationState)
     );
@@ -64,6 +65,10 @@ export class PageReservationResidenceComponent implements OnInit {
         this.totalRecords=0;
         this.dataSource.data = [];
         this.dataSource.paginator = null;
+        console.log("****** **** liste des reservations est la suivante *** **** ****");
+        console.log(data.reservations);
+
+
         if (data.dataState == 'Loaded') {
           this.totalRecords = data.reservations.length;
           this.dataSource.data = data.reservations;

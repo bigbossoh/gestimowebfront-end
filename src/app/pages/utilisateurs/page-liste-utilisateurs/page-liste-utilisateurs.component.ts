@@ -171,7 +171,7 @@ this. getAllUsers()
 
   getAllUsers(): void{
     this.user = this.userService.getUserFromLocalCache();
-   
+
     this.store.dispatch(new GetAllUtilisateursActions(this.user.idAgence));
     this.utilisateurState$ = this.store.pipe(map((state) => state.utilisateurState));
     this.store.pipe(map((state) => state.utilisateurState)).subscribe({
@@ -183,7 +183,7 @@ this. getAllUsers()
         }
       },
       error:(err)=>{
-              alert("Error while getback the product data")
+            //  alert("Error while getback the product data")
               console.log(err);
             }
       });

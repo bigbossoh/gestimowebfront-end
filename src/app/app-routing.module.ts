@@ -41,6 +41,7 @@ import { ClotureCaisseComponent } from './pages/cloture-caisse/cloture-caisse.co
 import { CategorieAppartementComponent } from './pages/categorie-appartement/categorie-appartement.component';
 import { NewCategorieChambreComponent } from './pages/categorie-appartement/new-categorie-chambre/new-categorie-chambre.component';
 import { NewPrixCategorieChambreComponent } from './pages/bien-immobilier/new-prix-categorie-chambre/new-prix-categorie-chambre.component';
+import { PagePaiementResidenceComponent } from './page-paiement-residence/page-paiement-residence.component';
 
 const routes: Routes = [
   {
@@ -205,7 +206,7 @@ const routes: Routes = [
       },
       {
         path: 'paiement-residence',
-        component: PageReservationResidenceComponent,
+        component: PagePaiementResidenceComponent,
         canActivate: [ApplicationGuardService],
       },
       {

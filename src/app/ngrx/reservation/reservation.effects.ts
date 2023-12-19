@@ -28,7 +28,7 @@ export class ReservationEffects {
     this.effectActions.pipe(
       ofType(ReservationActionTypes.GET_LISTE_RESERVATION),
       mergeMap((action: ReservationActions) => {
-        return this.apiService.allreservation().pipe(
+        return this.apiService.allreservationparagence(action.payload).pipe(
           map((quartier) => new GetListReservationActionsSuccess(quartier)),
           catchError((err) =>
             of(new GetListReservationActionsError(err.message))

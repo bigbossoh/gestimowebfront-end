@@ -181,6 +181,7 @@ import { prixParCategorieChambreReducer } from './ngrx/prix-par-categorie-chambr
 import { NewCategorieChambreComponent } from './pages/categorie-appartement/new-categorie-chambre/new-categorie-chambre.component';
 import { NewPrixCategorieChambreComponent } from './pages/bien-immobilier/new-prix-categorie-chambre/new-prix-categorie-chambre.component';
 import { SaveCategorieAppartComponent } from './pages/categorie-appartement/save-categorie-appart/save-categorie-appart.component';
+import { PagePaiementResidenceComponent } from './page-paiement-residence/page-paiement-residence.component';
 @NgModule({
   declarations: [
     ClotureCaisseComponent,
@@ -256,7 +257,8 @@ import { SaveCategorieAppartComponent } from './pages/categorie-appartement/save
     CategorieAppartementComponent,
     NewCategorieChambreComponent,
     NewPrixCategorieChambreComponent,
-    SaveCategorieAppartComponent
+    SaveCategorieAppartComponent,
+    PagePaiementResidenceComponent
   ],
   imports: [
     CanvasJSAngularChartsModule,

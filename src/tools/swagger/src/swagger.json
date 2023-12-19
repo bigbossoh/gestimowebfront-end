@@ -3762,6 +3762,29 @@
         }
       }
     },
+    "gestimoweb/api/v1/reservation/allreservationparagence/{idAgence}" : {
+      "get" : {
+        "operationId" : "allreservationparagence",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ReservationAfficheDto"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/reservation/delete/{id}" : {
       "delete" : {
         "operationId" : "deleteReservation",
@@ -6935,10 +6958,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -6988,10 +7011,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -7150,10 +7173,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         }
       }
@@ -8076,9 +8099,6 @@
           "type" : "number",
           "format" : "double"
         },
-        "cloturerSuivi" : {
-          "type" : "string"
-        },
         "modePaiement" : {
           "type" : "string",
           "enum" : [ "ESPESE_MAGISER", "ESPECE_SEVEINVEST", "CHEQUE_ECOBANK_MAGISER", "CHEQUE_GTBANK_SEVEINVEST", "VIREMENT_ECOBANK_MAGISER", "VIREMENT_GTBANK_SEVEINVEST", "MOBILE_MONEY_MAGISER", "MOBILE_MONEY_SEVEINVEST" ]
@@ -8284,10 +8304,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -8393,10 +8413,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -8506,10 +8526,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }

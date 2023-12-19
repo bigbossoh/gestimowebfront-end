@@ -233,6 +233,7 @@ class ApiService extends __BaseService {
   static readonly findByNameQuartierPath = 'gestimoweb/api/v1/quartier/findByName/{name}';
   static readonly saveQuartierPath = 'gestimoweb/api/v1/quartier/save';
   static readonly allreservationPath = 'gestimoweb/api/v1/reservation/allreservation';
+  static readonly allreservationparagencePath = 'gestimoweb/api/v1/reservation/allreservationparagence/{idAgence}';
   static readonly deleteReservationPath = 'gestimoweb/api/v1/reservation/delete/{id}';
   static readonly findCategorieChambreByIDReservationPath = 'gestimoweb/api/v1/reservation/findById/{id}';
   static readonly saveorupdateResPath = 'gestimoweb/api/v1/reservation/saveorupdate';
@@ -6639,6 +6640,42 @@ class ApiService extends __BaseService {
    */
   allreservation(): __Observable<Array<ReservationAfficheDto>> {
     return this.allreservationResponse().pipe(
+      __map(_r => _r.body as Array<ReservationAfficheDto>)
+    );
+  }
+
+  /**
+   * @param idAgence undefined
+   * @return successful operation
+   */
+  allreservationparagenceResponse(idAgence: number): __Observable<__StrictHttpResponse<Array<ReservationAfficheDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/reservation/allreservationparagence/${idAgence}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<ReservationAfficheDto>>;
+      })
+    );
+  }
+  /**
+   * @param idAgence undefined
+   * @return successful operation
+   */
+  allreservationparagence(idAgence: number): __Observable<Array<ReservationAfficheDto>> {
+    return this.allreservationparagenceResponse(idAgence).pipe(
       __map(_r => _r.body as Array<ReservationAfficheDto>)
     );
   }

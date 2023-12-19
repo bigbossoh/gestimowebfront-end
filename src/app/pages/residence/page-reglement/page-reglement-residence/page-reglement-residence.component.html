@@ -1,1 +1,271 @@
-<p>page-reglement-residence works!</p>
+<div class="col">
+  <div class="row m-3">
+    <div class="col-md-8 p-0">
+      <h1>Règlement Individuel</h1>
+    </div>
+    <div class="col-md-4 text-right">
+
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="row">
+      <div class="col">
+        <h5>
+          <i class="fas fa-asterisk blue-color"></i>&nbsp;Paramètre de règlement
+        </h5>
+      </div>
+    </div>
+    <hr style="margin-top: 0" />
+    <div class="row">
+      <div class="col-md-12">
+        <ng-container *ngIf="locataireState$ | async as locataireState" [ngSwitch]="locataireState.dataState">
+          <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADING">
+          </ng-container>
+          <ng-container *ngSwitchCase="UtilisteurStateEnum.LOADED">
+            <!-- <label>Locataires</label> -->
+            <div class="col-md-6">
+              <mat-form-field appearance="outline">
+                <mat-label> Locataires</mat-label>
+                <mat-select #selectionlocataire [(value)]="leLocataire"
+                  (valueChange)="getLocatairePourEncaissement(selectionlocataire.value);
+                  getAllEncaissementByBienImmobilier(selectionlocataire.value)">
+                  <mat-option [value]="0">Selectionner un locataie / Bail
+                  </mat-option>
+                  <mat-option [value]="locataire" *ngFor="let locataire of locataireState.locataireBail">{{
+                    locataire.codeDescBail }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+            </div>
+            <ng-container *ngIf="locataireEncaissement$ | async as locataireBailState"
+              [ngSwitch]="locataireBailState.dataState">
+              <ng-container *ngSwitchCase="LocaEncaisseState.LOADED">
+                <form *ngIf="encaissementform" [formGroup]="encaissementform">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <h5>
+                        <i class="fas fa-asterisk blue-color"></i>&nbsp;Montant
+                        de règlement
+                      </h5>
+                    </div>
+                    <div class="col-md-4">
+                      <h5>
+                        <i class="fas fa-asterisk blue-color"></i>&nbsp;Premier loyer impayé :
+                        {{ locataireBailState.leLocataire.moisEnLettre }}
+                      </h5>
+                    </div>
+                  </div>
+                  <hr style="margin-top: 0" />
+                  <mat-form-field appearance="outline" hidden>
+                    <mat-label>N° Appel</mat-label>
+                    <input formControlName="idAppelLoyer" type="number" matInput placeholder="Montant encaissé"
+                      [(ngModel)]="idDeAppel" />
+                    <mat-error>Ce champ est obligatoire.</mat-error>
+                  </mat-form-field>
+
+                  <div class="row">
+                    <div class="col-md-3">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Mode de règlement*</mat-label>
+                        <mat-select formControlName="modePaiement" placeholder="Mode de règlement">
+                          <mat-option value="ESPESE_MAGISER">Espèce</mat-option>
+                          <mat-option value="MOBILE_MONEY_MAGISER">Money Electronique</mat-option>
+                          <mat-option value="CHEQUE_ECOBANK_MAGISER">Chèque</mat-option>
+                          <mat-option value="VIREMENT_ECOBANK_MAGISER">Virement Banquaire</mat-option>
+                        </mat-select>
+                        <mat-error>Ce champ est obligatoire.</mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Montant encaissé</mat-label>
+                        <input formControlName="montantEncaissement" type="number" matInput
+                          placeholder="Montant encaissé" [(ngModel)]="montant_Loyer" />
+                        <mat-error>Ce champ est obligatoire.</mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="mat-typography">
+                        <h3 *ngIf="locataireBailState.leLocataire">
+                          Montant du loyer :{{
+                          locataireBailState.leLocataire.montantloyer| currency: 'XOF' : 'symbol'
+                          }}
+                        </h3>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <button class="mr-2" mat-raised-button color="primary" (click)="onSaveEncaissement()"
+                        [disabled]="encaissementform.invalid">
+                        <mat-icon>save</mat-icon>
+                        Encaisser
+                      </button>
+                      <button mat-raised-button color="warn" class="mr-1">
+                        <mat-icon>cancel</mat-icon>
+                        Annuler
+                      </button>
+                    </div>
+                    <!-- </div> -->
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="col panel-body text-right"></div>
+                    </div>
+                  </div>
+                </form>
+                <div class="row">
+                  <div class="col">
+                    <h5>
+                      <i class="fas fa-asterisk blue-color"></i>&nbsp;Liste des
+                      encaissements
+                    </h5>
+                  </div>
+                </div>
+                <hr />
+                <div>
+                  <div class="mat-elevation-z8">
+                    <div class="example-header">
+                      <mat-form-field class="tail-50" style="margin-left: 12px">
+                        <mat-label>Rechercher</mat-label>
+                        <input matInput (keyup)="applyFilter($event)" #input placeholder="Rechercher un Encaissement" />
+                      </mat-form-field>
+                    </div>
+                    <mat-paginator #matimmeuble showFirstLastButtons [pageSizeOptions]="pageSize"
+                      aria-label="Select page of users">
+                    </mat-paginator>
+                    <mat-table #tableEncaissemnt [dataSource]="dataSource" matSort>
+                      <!-- Code colonne -->
+                      <ng-container matColumnDef="idEncaiss">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          id
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                          {{ row.id }}
+                        </mat-cell>
+                      </ng-container>
+                      <!-- Dénomination colonne -->
+                      <ng-container matColumnDef="Datedepaiement">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Date de Paiement
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                          {{
+                          row.creationDate | date : "dd / MM / yyyy à HH:mm"
+                          }}
+                        </mat-cell>
+                      </ng-container>
+
+                      <!-- Propriétaire colonne -->
+                      <ng-container matColumnDef="Periode">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Période
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                          {{
+                          row.appelLoyersFactureDto!.periodeLettre
+                          }}</mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="Loyer">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Montant Loyer
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                          {{
+                          row.appelLoyersFactureDto!.nouveauMontantLoyer| currency: 'XOF' : 'symbol'
+                          }}</mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="MontantPaye">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Montant Payé
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                          {{ row.montantEncaissement | currency: 'XOF' : 'symbol'}}</mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="ModedeReglement">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Mode de Paiement
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                          {{ row.modePaiement }}</mat-cell>
+                      </ng-container>
+
+                      <ng-container matColumnDef="soldedumois">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Solde du mois
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                          {{ row.soldeEncaissement| currency: 'XOF' : 'symbol' }}</mat-cell>
+                      </ng-container>
+                      <!-- Propriétaire colonne -->
+                      <ng-container matColumnDef="Status">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                          Status
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                          <span *ngIf="
+                              row.appelLoyersFactureDto!.statusAppelLoyer ==
+                              'Soldé'
+                            " class="badge badge-success">{{ row.appelLoyersFactureDto!.statusAppelLoyer }}
+                          </span>
+                          <span *ngIf="
+                              row.appelLoyersFactureDto!.statusAppelLoyer ==
+                              'Impayé'
+                            " class="badge badge-danger">{{ row.appelLoyersFactureDto!.statusAppelLoyer }}
+                          </span>
+                          <span *ngIf="
+                              row.appelLoyersFactureDto!.statusAppelLoyer ==
+                              'partiellement payé'
+                            " class="badge badge-warning">{{ row.appelLoyersFactureDto!.statusAppelLoyer }}
+                          </span>
+                        </mat-cell>
+                      </ng-container>
+                      <!-- Actions colonne -->
+                      <ng-container matColumnDef="Actions">
+                        <mat-header-cell *matHeaderCellDef>
+                          Actions
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                          <button mat-icon-button color="primary"
+                          (click)="printRecu(row.id)"
+                          >
+                            <mat-icon>print</mat-icon>
+                            <ng-container
+                            *ngIf="printQuittance$ | async as qtState"
+                            [ngSwitch]="qtState.dataState"
+                          >
+                            <ng-container
+                              *ngSwitchCase="QuittanceloyerStateEnum.Requested"
+                            >
+                              <i class="fas fa-sync fa-spin"></i>
+                            </ng-container>
+                          </ng-container>
+                          </button>
+                        </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns">
+                      </mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                      <!-- Row shown when there is no matching data. -->
+                      <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">
+                          Aucune donnée enregistrée {{ input.value }}
+                        </td>
+                      </tr>
+                    </mat-table>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -11,6 +11,8 @@ import { Observable } from 'rxjs';
 import { StatistiqueChartState } from 'src/app/ngrx/statistique-chart/statistiquechart.reducer';
 import { GetAllStatistiquePeriodeAction } from 'src/app/ngrx/statistique-chart/statistiquechart.action';
 import { map } from 'rxjs/operators';
+import { EtablissementState } from 'src/app/ngrx/etablissement/etablissement.reducer';
+import { GetDefaultEtabNameActions } from 'src/app/ngrx/etablissement/etablisement.action';
 
 export interface data {
   [key: string]: any;
@@ -32,7 +34,7 @@ export class PageVueEnsembleComponent implements OnInit, data {
   totalBiens: number = 0;
   totalBiensOQp: number = 0;
   PrcentagePiece: number = 0;
-  idAgence: number = 0;
+  idAgence: any = 0;
   totalequipement: number = 250;
   totquipement: number = 0;
   prcentagetotquipement: number = 0;
@@ -78,9 +80,9 @@ export class PageVueEnsembleComponent implements OnInit, data {
   public lineChartType: ChartType = 'line';
   public lineChartLegend = true;
   public lineChartPlugins = [];
-
   chartState$: Observable<StatistiqueChartState> | null = null;
-
+  etablissementState$: Observable<EtablissementState> | null = null;
+  idEtabl:any;
   constructor(
     private statistique: StatistiqueService,
     private userService: UserService,
@@ -89,20 +91,34 @@ export class PageVueEnsembleComponent implements OnInit, data {
   ) {}
 
   ngOnInit(): void {
-    this.getNombreBienImmobiliers(0);
-    this.getNombreBienImmobiliersOqp(0);
-    this.getNbreLocataire();
-    this.getIdAgence();
-    this.getNbreLocataireActif();
-    this.getNbrebauxActif();
-    this.getNbrebauxNonActif();
+    this.user = this.userService.getUserFromLocalCache();
+this.idAgence=this.user?.idAgence
+    this.store.dispatch(new GetDefaultEtabNameActions(this.user.id));
+    this.etablissementState$ = this.store.pipe(map((state) => state.etablissementState));
+    this.store.pipe(map((state) => state.etablissementState)).subscribe(
+      data=>{
+        if (data.dataState == 'Loaded') {
+       //   alert("ALERTE DE NAZAIRE *** "+data.etabname.chapite)
+          this.idEtabl = data.etabname.chapite;
+          this.getNombreBienImmobiliers(this.idEtabl,this.user?.idAgence);
+          this.getNombreBienImmobiliersOqp(this.idEtabl,this.user?.idAgence);
+          this.getNbreLocataire(this.user?.idAgence);
+          this.getIdAgence();
+          this.getNbreLocataireActif(this.user?.idAgence);
+          this.getNbrebauxActif(this.user?.idAgence);
+          this.getNbrebauxNonActif(this.user?.idAgence);
+        }
+      }
+    )
+
+
 
     const startMonth = '2023-01';
     const endMonth = '2023-12';
 
     this.store.dispatch(
       new GetAllStatistiquePeriodeAction({
-        idAgence: 1,
+        idAgence: this.user.idAgence,
         datedebut: '01-01-2023',
         datefin: '01-12-2023',
       })
@@ -120,9 +136,13 @@ export class PageVueEnsembleComponent implements OnInit, data {
     return this.userService.getUserFromLocalCache().idAgence!;
   }
 
-  public getNombreBienImmobiliers(chapitre: any) {
-    this.statistique.getAllBienImmobilier(chapitre).subscribe(
+  public getNombreBienImmobiliers(chapitre: any,agence:any) {
+   // alert(chapitre)
+    this.statistique.getAllBienImmobilier(chapitre,agence).subscribe(
       (response) => {
+        console.log("####### ###### ####");
+        console.log(response);
+
         this.totalBiens = response.length;
       },
       (error: HttpErrorResponse) => {
@@ -131,8 +151,8 @@ export class PageVueEnsembleComponent implements OnInit, data {
     );
   }
 
-  public getNombreBienImmobiliersOqp(chapitre: number) {
-    this.statistique.getAllBienImmobilierOccuper(chapitre).subscribe(
+  public getNombreBienImmobiliersOqp(chapitre: any,agence:any) {
+    this.statistique.getAllBienImmobilierOccuper(chapitre,agence).subscribe(
       (response) => {
         this.totalBiensOQp = response.length;
       },
@@ -141,9 +161,11 @@ export class PageVueEnsembleComponent implements OnInit, data {
       }
     );
   }
-
-  private getNbreLocataire() {
-    this.statistique.getAllLocatire().subscribe(
+  ngAfterViewInit(){
+    this.ngOnInit();
+  }
+  private getNbreLocataire(agence:any) {
+    this.statistique.getAllLocatire(agence).subscribe(
       (response) => {
         this.totalLocataireParAgence = response.length;
         // alert(this.totalLocataireParAgence)
@@ -154,8 +176,8 @@ export class PageVueEnsembleComponent implements OnInit, data {
     );
   }
 
-  private getNbreLocataireActif() {
-    this.statistique.getAlllocataireAyantBail().subscribe(
+  private getNbreLocataireActif(agence:any) {
+    this.statistique.getAlllocataireAyantBail(agence).subscribe(
       (resp) => {
         this.totalLocatireActifParAgence = resp.length;
       },
@@ -164,8 +186,8 @@ export class PageVueEnsembleComponent implements OnInit, data {
       }
     );
   }
-  private getNbrebauxActif() {
-    this.statistique.getAllBauxActif().subscribe(
+  private getNbrebauxActif(agence:any) {
+    this.statistique.getAllBauxActif(agence).subscribe(
       (resp) => {
         this.totalBailActif = resp;
       },
@@ -175,8 +197,8 @@ export class PageVueEnsembleComponent implements OnInit, data {
     );
   }
 
-  private getNbrebauxNonActif() {
-    this.statistique.getAllBauxNonActif().subscribe(
+  private getNbrebauxNonActif(agence:any) {
+    this.statistique.getAllBauxNonActif(agence).subscribe(
       (resp) => {
         this.totalBauxNonActif = resp;
       },
