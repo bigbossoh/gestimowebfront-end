@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogData } from '../../baux/page-baux/page-baux.component';
 import { Store } from '@ngrx/store';
 import { UserService } from 'src/app/services/user/user.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { CategorieChambreState } from 'src/app/ngrx/categoriechambre/categoriechambre.reducer';
 import { Observable } from 'rxjs';
 import { SaveChambreCategorieActions } from 'src/app/ngrx/categoriechambre/categoriechambre.actions';
@@ -17,11 +17,11 @@ import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 })
 export class NewCategorieChambreComponent implements OnInit {
   bauxState$: Observable<CategorieChambreState> | null = null;
-  formGroup?: FormGroup;
+  formGroup?: UntypedFormGroup;
   nom: any;
   descpition: any;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private store: Store<any>,
     private userService: UserService,
     public dialogRef: MatDialogRef<NewCategorieChambreComponent>,

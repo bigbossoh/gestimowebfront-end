@@ -5,7 +5,7 @@ import { SaveReductionActions } from './../../../ngrx/appelloyer/appelloyer.acti
 import { DialogData } from './../../baux/page-baux/page-baux.component';
 import { Store } from '@ngrx/store';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Component, OnInit, Inject } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -17,11 +17,11 @@ import { Observable } from 'rxjs';
 })
 export class ReductionAppelLoyerComponent implements OnInit {
   public user?: UtilisateurRequestDto;
-  formGroup?: FormGroup;
+  formGroup?: UntypedFormGroup;
   appelState$: Observable<AppelLoyerState> | null = null;
   periode: any;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public dialogRef: MatDialogRef<ReductionAppelLoyerComponent>,
     private store: Store<any>,
     private userService: UserService,

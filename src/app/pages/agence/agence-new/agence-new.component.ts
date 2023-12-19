@@ -5,9 +5,9 @@ import {
 } from './../../../ngrx/images/images.action';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   FormGroupDirective,
   NgForm,
   Validators,
@@ -28,7 +28,7 @@ import { EtablissementState } from 'src/app/ngrx/etablissement/etablissement.red
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
-    control: FormControl | null,
+    control: UntypedFormControl | null,
     form: FormGroupDirective | NgForm | null
   ): boolean {
     const isSubmitted = form && form.submitted;
@@ -45,7 +45,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./agence-new.component.css'],
 })
 export class AgenceNewComponent implements OnInit {
-  agenceRegisterForm!: FormGroup;
+  agenceRegisterForm!: UntypedFormGroup;
   actionBtn: String = 'Enregistrer';
   selectedFile = '';
   imagURL: any;
@@ -57,7 +57,7 @@ export class AgenceNewComponent implements OnInit {
   idEtabl: any = 0;
   constructor(
     private store: Store<any>,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private userService: UserService,
     @Inject(MAT_DIALOG_DATA) public editData: any,
     public dialogRef: MatDialogRef<AgenceNewComponent>,

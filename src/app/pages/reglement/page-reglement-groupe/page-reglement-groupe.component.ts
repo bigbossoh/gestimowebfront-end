@@ -1,4 +1,4 @@
-import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import {
   GetListImayerLocataireEncaissementPeriodeActions,
@@ -30,8 +30,8 @@ export class PageReglementGroupeComponent implements OnInit {
   periode: any = '2023-01';
   selectedDate: Date = new Date();
   toutSelectionner = true;
-  date = new FormControl(new Date());
-  encaissementform?: FormGroup;
+  date = new UntypedFormControl(new Date());
+  encaissementform?: UntypedFormGroup;
   saveEncaissementState$: Observable<EncaissementState> | null = null;
 
   displayedColumns: string[] = [
@@ -80,7 +80,7 @@ export class PageReglementGroupeComponent implements OnInit {
     private userService: UserService,
     private store: Store<any>,
     @Inject(MAT_DATE_LOCALE) private _locale: string,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {}
 
   ngOnInit(): void {

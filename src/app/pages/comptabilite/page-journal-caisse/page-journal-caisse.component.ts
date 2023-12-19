@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { UserService } from 'src/app/services/user/user.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { GetDefaultEtabNameActions } from 'src/app/ngrx/etablissement/etablisement.action';
@@ -43,7 +43,7 @@ export class PageJournalCaisseComponent implements OnInit {
   submitted = false;
   suiviDepenseState$: Observable<SuiviDepenseState> | null = null;
   allSuiviDepenseState$: Observable<SuiviDepenseState> | null = null;
-  formGroup?: FormGroup;
+  formGroup?: UntypedFormGroup;
   selectedDate = new Date();
   descdepense: any;
   montantencaisse: any;
@@ -53,7 +53,7 @@ export class PageJournalCaisseComponent implements OnInit {
   idChap: any = 0;
   constructor(
     private store: Store<any>,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private userService: UserService
   ) {}
 

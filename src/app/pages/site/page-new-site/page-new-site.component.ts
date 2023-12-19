@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { VilleStateEnum, VilleState } from '../../../ngrx/ville/ville.reducer';
@@ -42,14 +42,14 @@ export class PageNewSiteComponent implements OnInit {
   quartierState$: Observable<QuartiersState> | null = null;
   readonly QuartierStateEnum = QuartierStateEnum;
 
-  siteRegisterForm!: FormGroup;
+  siteRegisterForm!: UntypedFormGroup;
 
   villeModel = '';
   quartierModel = '';
   user?: UtilisateurRequestDto;
   constructor(
     private store: Store<any>,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private userService: UserService,
     public dialogRef: MatDialogRef<PageNewSiteComponent>
   ) {}

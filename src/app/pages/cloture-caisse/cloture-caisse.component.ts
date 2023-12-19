@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -56,7 +56,7 @@ export class ClotureCaisseComponent implements OnInit {
   getEncaissementPayerJour(arg0: string) {
     throw new Error('Method not implemented.');
   }
-  encaissementform?: FormGroup;
+  encaissementform?: UntypedFormGroup;
 
   displayedColumns = ['Datedepaiement', 'Periode', 'Loyer', 'ModedeReglement'];
   displayedColumnsAppel = ['idEncaiss', 'Periode', 'Loyer', 'solde'];
@@ -114,7 +114,7 @@ export class ClotureCaisseComponent implements OnInit {
   constructor(
     private store: Store<any>,
     private userService: UserService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
   ) {}
 
   ngOnInit(): void {

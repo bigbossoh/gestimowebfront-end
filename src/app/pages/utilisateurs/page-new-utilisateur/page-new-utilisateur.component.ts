@@ -2,8 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
-  FormBuilder,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormGroup,
   ValidationErrors,
   ValidatorFn,
   Validators,
@@ -38,7 +38,7 @@ export class PageNewUtilisateurComponent implements OnInit {
   nomProfil = '';
   nomPrenom = '';
   nomRole = '';
-  newUserForm!: FormGroup;
+  newUserForm!: UntypedFormGroup;
 
   submitted = false;
   actionBtn: String = 'Enregistrer';
@@ -52,7 +52,7 @@ export class PageNewUtilisateurComponent implements OnInit {
     private store: Store<any>,
     private userService: UserService,
     private notificationService: NotificationService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     @Inject(MAT_DIALOG_DATA) public editDataUser: any,
     private dialogRef: MatDialogRef<PageNewUtilisateurComponent>
   ) {}

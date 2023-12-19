@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -41,7 +41,7 @@ export class PageReglementResidenceComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   public user?: UtilisateurRequestDto;
-  encaissementform?: FormGroup;
+  encaissementform?: UntypedFormGroup;
   leLocataire: any;
   submitted = false;
   periode: string = '';
@@ -62,7 +62,7 @@ export class PageReglementResidenceComponent implements OnInit {
   printQuittance$: Observable<QuittanceLoyerState>  | null = null;
   readonly QuittanceloyerStateEnum = QuittanceloyerStateEnum;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private store: Store<any>,
     private userService: UserService ,
     private printService: PrintServiceService ) {}

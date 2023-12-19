@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { UtilisteurState, UtilisteurStateEnum } from '../../../ngrx/utulisateur/utlisateur.reducer';
 import { ImmeubleState, ImmeubleStateEnum } from '../../../ngrx/immeuble/immeuble.reducer';
@@ -30,9 +30,9 @@ export class PageEtageNewComponent implements OnInit {
   readonly UtilisteurStateEnum = UtilisteurStateEnum;
 
   public user?: UtilisateurRequestDto;
-  etageForm?: FormGroup;
+  etageForm?: UntypedFormGroup;
   constructor(public dialogRef: MatDialogRef<PageEtageNewComponent>
-    , private fb: FormBuilder,
+    , private fb: UntypedFormBuilder,
     private userService: UserService,
     private store: Store<any>,) { }
 

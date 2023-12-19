@@ -2,7 +2,7 @@ import { formatDate } from '@angular/common';
 import { MontantLoyerBail } from './../../../../gs-api/src/models/montant-loyer-bail';
 import { GetAllAppartementMeubleActions } from './../../../ngrx/appartement/appartement.actions';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { FindValueSubscriber } from 'rxjs/internal/operators/find';
@@ -38,9 +38,9 @@ export class PageAjoutReservationComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private store: Store<any>,
     private userService: UserService,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {}
-  encaissementform?: FormGroup;
+  encaissementform?: UntypedFormGroup;
   saveValider() {
     var debut: any = formatDate(
       this.addDays(this.dateDebutSejour, 0),

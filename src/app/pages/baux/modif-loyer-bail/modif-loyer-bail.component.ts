@@ -1,7 +1,7 @@
 import { ModifierBailActions } from './../../../ngrx/baux/baux.actions';
 import { Store } from '@ngrx/store';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogData } from '../page-baux/page-baux.component';
@@ -17,9 +17,9 @@ import { map } from 'rxjs/operators';
 export class ModifLoyerBailComponent implements OnInit {
   submitted = false;
   bauxState$: Observable<BauxState> | null = null;
-  formGroup?: FormGroup;
+  formGroup?: UntypedFormGroup;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public dialogRef: MatDialogRef<ModifLoyerBailComponent>,
     private store: Store<any>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
