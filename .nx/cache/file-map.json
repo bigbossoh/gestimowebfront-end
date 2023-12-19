@@ -1,0 +1,2053 @@
+{
+  "version": "6.0",
+  "nxVersion": "17.2.6",
+  "deps": {
+    "@angular/animations": "^14.3.0",
+    "@angular/cdk": "^12.2.13",
+    "@angular/common": "^14.3.0",
+    "@angular/compiler": "^14.3.0",
+    "@angular/core": "^14.3.0",
+    "@angular/forms": "^14.3.0",
+    "@angular/material": "^12.2.13",
+    "@angular/material-moment-adapter": "^14.2.5",
+    "@angular/platform-browser": "^14.3.0",
+    "@angular/platform-browser-dynamic": "^14.3.0",
+    "@angular/router": "^14.3.0",
+    "@auth0/angular-jwt": "^5.2.0",
+    "@canvasjs/angular-charts": "^1.0.1",
+    "@canvasjs/charts": "^3.7.9",
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "@ngrx/effects": "^13.2.0",
+    "@ngrx/store": "^13.2.0",
+    "@ngrx/store-devtools": "^13.2.0",
+    "angular-notifier": "^11.0.0",
+    "angular2-chartjs": "^0.5.1",
+    "autoprefixer": "10.4.5",
+    "boostrap": "^2.0.0",
+    "bootstrap": "^4.6.1",
+    "bootstrap-icons": "^1.8.2",
+    "cdk-table-exporter": "^10.2.4",
+    "chart.js": "^2.9.4",
+    "cross-env": "^7.0.3",
+    "file-saver": "^2.0.5",
+    "file-saver-es": "^2.0.5",
+    "jquery": "^3.6.0",
+    "mat-table-exporter": "^10.2.4",
+    "moment": "^2.29.4",
+    "ng2-charts": "^2.4.3",
+    "ngx-pagination": "^5.1.1",
+    "ngx-toastr": "^11.3.3",
+    "roboto-fontface": "^0.10.0",
+    "rxjs": "~6.6.0",
+    "swagger-angular-client-generator": "^1.0.1",
+    "swagger-codegen": "^0.1.1",
+    "swagger-js-codegen": "^1.9.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.11.4",
+    "@angular-devkit/build-angular": "^14.0.0",
+    "@angular/cli": "^14.0.0",
+    "@angular/compiler-cli": "^14.3.0",
+    "@types/file-saver": "^2.0.5",
+    "@types/jasmine": "~3.8.0",
+    "@types/node": "^12.11.1",
+    "jasmine-core": "~3.8.0",
+    "karma": "~6.3.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.0.3",
+    "karma-jasmine": "~4.0.0",
+    "karma-jasmine-html-reporter": "~1.7.0",
+    "mkdirp": "^1.0.4",
+    "ng-packagr": "^14.2.2",
+    "ng-swagger-gen": "^1.8.1",
+    "nx": "^14.8.8",
+    "nx-cloud": "14.7.0",
+    "typescript": "~4.6.4"
+  },
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "projectFileMap": {},
+    "nonProjectFiles": [
+      {
+        "file": ".angulardoc.json",
+        "hash": "17900778148786657672"
+      },
+      {
+        "file": ".browserslistrc",
+        "hash": "2519363244570020624"
+      },
+      {
+        "file": ".dockerignore",
+        "hash": "16011644504483108159"
+      },
+      {
+        "file": ".editorconfig",
+        "hash": "6686520031028425313"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "6391444484548658297"
+      },
+      {
+        "file": ".vscode/settings.json",
+        "hash": "18216050674206819240"
+      },
+      {
+        "file": "Dockerfile",
+        "hash": "4369731744176849044"
+      },
+      {
+        "file": "README.md",
+        "hash": "8587857007987695221"
+      },
+      {
+        "file": "SeveConnection.session.sql",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "angular.json",
+        "hash": "3151454495263948294"
+      },
+      {
+        "file": "decorate-angular-cli.js",
+        "hash": "9396980645667025874"
+      },
+      {
+        "file": "karma.conf.js",
+        "hash": "6781262421733498030"
+      },
+      {
+        "file": "newrelic_agent.log",
+        "hash": "7741560288475983702"
+      },
+      {
+        "file": "nx.json",
+        "hash": "7480655897895804885"
+      },
+      {
+        "file": "openapitools.json",
+        "hash": "17126216537739054881"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "17737484295428234897"
+      },
+      {
+        "file": "package.json",
+        "hash": "2732945036951058605"
+      },
+      {
+        "file": "src/app/app-routing.module.ts",
+        "hash": "9823666538460653190"
+      },
+      {
+        "file": "src/app/app.component.css",
+        "hash": "1497152754321454998"
+      },
+      {
+        "file": "src/app/app.component.html",
+        "hash": "5387914167091922657"
+      },
+      {
+        "file": "src/app/app.component.spec.ts",
+        "hash": "17607865251758937136"
+      },
+      {
+        "file": "src/app/app.component.ts",
+        "hash": "16453276031191914725"
+      },
+      {
+        "file": "src/app/app.module.ts",
+        "hash": "2470014136799261355"
+      },
+      {
+        "file": "src/app/chart/chart-bar-impaye-annee/chart-bar-impaye-annee.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/chart/chart-bar-impaye-annee/chart-bar-impaye-annee.component.html",
+        "hash": "11974776366458223682"
+      },
+      {
+        "file": "src/app/chart/chart-bar-impaye-annee/chart-bar-impaye-annee.component.spec.ts",
+        "hash": "10113413619468402114"
+      },
+      {
+        "file": "src/app/chart/chart-bar-impaye-annee/chart-bar-impaye-annee.component.ts",
+        "hash": "1824682253142959263"
+      },
+      {
+        "file": "src/app/chart/chart-camanber-impaye-mois/chart-camanber-impaye-mois.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/chart/chart-camanber-impaye-mois/chart-camanber-impaye-mois.component.html",
+        "hash": "3077003537116603252"
+      },
+      {
+        "file": "src/app/chart/chart-camanber-impaye-mois/chart-camanber-impaye-mois.component.spec.ts",
+        "hash": "5270158240377213416"
+      },
+      {
+        "file": "src/app/chart/chart-camanber-impaye-mois/chart-camanber-impaye-mois.component.ts",
+        "hash": "2851759539033440092"
+      },
+      {
+        "file": "src/app/composants/action-button-etage/action-button-etage.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/composants/action-button-etage/action-button-etage.component.html",
+        "hash": "15673874152103915862"
+      },
+      {
+        "file": "src/app/composants/action-button-etage/action-button-etage.component.ts",
+        "hash": "10107592428458342404"
+      },
+      {
+        "file": "src/app/composants/action-button-immeuble/action-button-immeuble.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/composants/action-button-immeuble/action-button-immeuble.component.html",
+        "hash": "15673874152103915862"
+      },
+      {
+        "file": "src/app/composants/action-button-immeuble/action-button-immeuble.component.ts",
+        "hash": "16422497462669228562"
+      },
+      {
+        "file": "src/app/composants/app-button-new-agence-action/app-button-new-agence-action.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/composants/app-button-new-agence-action/app-button-new-agence-action.component.html",
+        "hash": "15673874152103915862"
+      },
+      {
+        "file": "src/app/composants/app-button-new-agence-action/app-button-new-agence-action.component.ts",
+        "hash": "14444458514955337602"
+      },
+      {
+        "file": "src/app/composants/app-detail-bail-loyer/app-detail-bail-loyer.component.css",
+        "hash": "8681251718033314707"
+      },
+      {
+        "file": "src/app/composants/app-detail-bail-loyer/app-detail-bail-loyer.component.html",
+        "hash": "17385803927518334520"
+      },
+      {
+        "file": "src/app/composants/app-detail-bail-loyer/app-detail-bail-loyer.component.ts",
+        "hash": "14846220612760342052"
+      },
+      {
+        "file": "src/app/composants/app-detail-bail/app-detail-bail.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/composants/app-detail-bail/app-detail-bail.component.html",
+        "hash": "10186912674883639677"
+      },
+      {
+        "file": "src/app/composants/app-detail-bail/app-detail-bail.component.spec.ts",
+        "hash": "233286161349629869"
+      },
+      {
+        "file": "src/app/composants/app-detail-bail/app-detail-bail.component.ts",
+        "hash": "16924260334179109689"
+      },
+      {
+        "file": "src/app/composants/app-detail-biens-immobilliers/app-detail-biens-immobilliers.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/composants/app-detail-biens-immobilliers/app-detail-biens-immobilliers.component.html",
+        "hash": "13711047155549675972"
+      },
+      {
+        "file": "src/app/composants/app-detail-biens-immobilliers/app-detail-biens-immobilliers.component.spec.ts",
+        "hash": "16707166166869801391"
+      },
+      {
+        "file": "src/app/composants/app-detail-biens-immobilliers/app-detail-biens-immobilliers.component.ts",
+        "hash": "13520068764617277919"
+      },
+      {
+        "file": "src/app/composants/app-detail-biens-site/app-detail-biens-site.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/composants/app-detail-biens-site/app-detail-biens-site.component.html",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/composants/app-detail-biens-site/app-detail-biens-site.component.spec.ts",
+        "hash": "12168365578755671363"
+      },
+      {
+        "file": "src/app/composants/app-detail-biens-site/app-detail-biens-site.component.ts",
+        "hash": "5408405844087273886"
+      },
+      {
+        "file": "src/app/composants/boutton-action/boutton-action.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/composants/boutton-action/boutton-action.component.html",
+        "hash": "15673874152103915862"
+      },
+      {
+        "file": "src/app/composants/boutton-action/boutton-action.component.spec.ts",
+        "hash": "16055708442605356205"
+      },
+      {
+        "file": "src/app/composants/boutton-action/boutton-action.component.ts",
+        "hash": "1997505694738897258"
+      },
+      {
+        "file": "src/app/composants/button-new-user-action/button-new-user-action.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/composants/button-new-user-action/button-new-user-action.component.html",
+        "hash": "6819564145216600124"
+      },
+      {
+        "file": "src/app/composants/button-new-user-action/button-new-user-action.component.spec.ts",
+        "hash": "11906153789082920838"
+      },
+      {
+        "file": "src/app/composants/button-new-user-action/button-new-user-action.component.ts",
+        "hash": "9861633068935178709"
+      },
+      {
+        "file": "src/app/composants/detail-site/detail-site/detail-site.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/composants/detail-site/detail-site/detail-site.component.html",
+        "hash": "17010581237251127702"
+      },
+      {
+        "file": "src/app/composants/detail-site/detail-site/detail-site.component.ts",
+        "hash": "15581691839482727321"
+      },
+      {
+        "file": "src/app/composants/footer/footer.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/composants/footer/footer.component.html",
+        "hash": "12849578099334825430"
+      },
+      {
+        "file": "src/app/composants/footer/footer.component.spec.ts",
+        "hash": "9983519057068350389"
+      },
+      {
+        "file": "src/app/composants/footer/footer.component.ts",
+        "hash": "1403894911610685264"
+      },
+      {
+        "file": "src/app/composants/header/header.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/composants/header/header.component.html",
+        "hash": "14535932033593664554"
+      },
+      {
+        "file": "src/app/composants/header/header.component.ts",
+        "hash": "4150241727613834673"
+      },
+      {
+        "file": "src/app/composants/loader/loader.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/composants/loader/loader.component.html",
+        "hash": "4055606894390288348"
+      },
+      {
+        "file": "src/app/composants/loader/loader.component.spec.ts",
+        "hash": "5579948731691982140"
+      },
+      {
+        "file": "src/app/composants/loader/loader.component.ts",
+        "hash": "5782649621551327599"
+      },
+      {
+        "file": "src/app/composants/menu/menu.component.css",
+        "hash": "4055606894390288348"
+      },
+      {
+        "file": "src/app/composants/menu/menu.component.html",
+        "hash": "11091277506835723436"
+      },
+      {
+        "file": "src/app/composants/menu/menu.component.ts",
+        "hash": "13878012938787878899"
+      },
+      {
+        "file": "src/app/composants/menu/menu.ts",
+        "hash": "13346749307459215140"
+      },
+      {
+        "file": "src/app/composants/pagination/pagination.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/composants/pagination/pagination.component.html",
+        "hash": "7046271556293573172"
+      },
+      {
+        "file": "src/app/composants/pagination/pagination.component.spec.ts",
+        "hash": "14260507156733065519"
+      },
+      {
+        "file": "src/app/composants/pagination/pagination.component.ts",
+        "hash": "470009286252272898"
+      },
+      {
+        "file": "src/app/composants/widgets/pie/pie.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/composants/widgets/pie/pie.component.html",
+        "hash": "1788107782569673809"
+      },
+      {
+        "file": "src/app/composants/widgets/pie/pie.component.spec.ts",
+        "hash": "13246881921751493902"
+      },
+      {
+        "file": "src/app/composants/widgets/pie/pie.component.ts",
+        "hash": "8929950771004102007"
+      },
+      {
+        "file": "src/app/enum/chart-type.enum.ts",
+        "hash": "7326596197567507238"
+      },
+      {
+        "file": "src/app/enum/header-type.enum.ts",
+        "hash": "17735355502742058825"
+      },
+      {
+        "file": "src/app/enum/natification-type.enum.ts",
+        "hash": "5146275370704593205"
+      },
+      {
+        "file": "src/app/enum/role.enum.ts",
+        "hash": "18310551825013233216"
+      },
+      {
+        "file": "src/app/interceptor/auth.interceptor.ts",
+        "hash": "4193439952930520765"
+      },
+      {
+        "file": "src/app/interfaces/fileData.ts",
+        "hash": "8503606520069089443"
+      },
+      {
+        "file": "src/app/interfaces/system-cpu.ts",
+        "hash": "2252648552967264655"
+      },
+      {
+        "file": "src/app/interfaces/system-health.ts",
+        "hash": "14632548451108518635"
+      },
+      {
+        "file": "src/app/ngrx/agence/agence.actions.ts",
+        "hash": "4344035954603797420"
+      },
+      {
+        "file": "src/app/ngrx/agence/agence.effects.ts",
+        "hash": "287166886812395050"
+      },
+      {
+        "file": "src/app/ngrx/agence/agence.reducer.ts",
+        "hash": "15450094619240486030"
+      },
+      {
+        "file": "src/app/ngrx/annee/annee.actions.ts",
+        "hash": "1272434049229756362"
+      },
+      {
+        "file": "src/app/ngrx/annee/annee.effets.ts",
+        "hash": "11164710507695108801"
+      },
+      {
+        "file": "src/app/ngrx/annee/annee.reducer.ts",
+        "hash": "4212706303571737109"
+      },
+      {
+        "file": "src/app/ngrx/appartement/appartement.actions.ts",
+        "hash": "7564813972343630501"
+      },
+      {
+        "file": "src/app/ngrx/appartement/appartement.effects.ts",
+        "hash": "5083021655699762123"
+      },
+      {
+        "file": "src/app/ngrx/appartement/appartement.reducer.ts",
+        "hash": "15809155405138973447"
+      },
+      {
+        "file": "src/app/ngrx/appelloyer/appelloyer.actions.ts",
+        "hash": "12658233652705768473"
+      },
+      {
+        "file": "src/app/ngrx/appelloyer/appelloyer.effects.ts",
+        "hash": "13374265364574217492"
+      },
+      {
+        "file": "src/app/ngrx/appelloyer/appelloyer.reducer.ts",
+        "hash": "2453634176077338771"
+      },
+      {
+        "file": "src/app/ngrx/appelloyer/peiodeappel/periodeappel.actions.ts",
+        "hash": "6592124202591299834"
+      },
+      {
+        "file": "src/app/ngrx/appelloyer/peiodeappel/periodeappel.effects.ts",
+        "hash": "13452820017764489919"
+      },
+      {
+        "file": "src/app/ngrx/appelloyer/peiodeappel/periodeappel.reducer.ts",
+        "hash": "5740998904478276389"
+      },
+      {
+        "file": "src/app/ngrx/bail-appartement/bailappartement.actions.ts",
+        "hash": "968249912019016327"
+      },
+      {
+        "file": "src/app/ngrx/bail-appartement/bailappartement.effects.ts",
+        "hash": "68289786412151604"
+      },
+      {
+        "file": "src/app/ngrx/bail-appartement/bailappartement.reducer.ts",
+        "hash": "6497891411067281287"
+      },
+      {
+        "file": "src/app/ngrx/bail-magasin/bailmagasin.actions.ts",
+        "hash": "4066666491548286142"
+      },
+      {
+        "file": "src/app/ngrx/bail-magasin/bailmagasin.effects.ts",
+        "hash": "4574062647013528793"
+      },
+      {
+        "file": "src/app/ngrx/bail-magasin/bailmagasin.reducer.ts",
+        "hash": "3688824144621596008"
+      },
+      {
+        "file": "src/app/ngrx/bail-villa/bailvilla.actions.ts",
+        "hash": "17144211036326848994"
+      },
+      {
+        "file": "src/app/ngrx/bail-villa/bailvilla.effects.ts",
+        "hash": "7225715446766564499"
+      },
+      {
+        "file": "src/app/ngrx/bail-villa/bailvilla.reducer.ts",
+        "hash": "7870108252839230082"
+      },
+      {
+        "file": "src/app/ngrx/baux/baux.actions.ts",
+        "hash": "12120765535940110502"
+      },
+      {
+        "file": "src/app/ngrx/baux/baux.effects.ts",
+        "hash": "14927214624920177863"
+      },
+      {
+        "file": "src/app/ngrx/baux/baux.reducer.ts",
+        "hash": "18384723162302446455"
+      },
+      {
+        "file": "src/app/ngrx/bien-immobilier/bienimmobilier.actions.ts",
+        "hash": "15025319640983573732"
+      },
+      {
+        "file": "src/app/ngrx/bien-immobilier/bienimmobilier.effects.ts",
+        "hash": "12116158430299172527"
+      },
+      {
+        "file": "src/app/ngrx/bien-immobilier/bienimmobilier.reducer.ts",
+        "hash": "10155036857181098277"
+      },
+      {
+        "file": "src/app/ngrx/categoriechambre/categoriechambre.actions.ts",
+        "hash": "11182204314983909103"
+      },
+      {
+        "file": "src/app/ngrx/categoriechambre/categoriechambre.effects.ts",
+        "hash": "17837265352990335406"
+      },
+      {
+        "file": "src/app/ngrx/categoriechambre/categoriechambre.reducer.ts",
+        "hash": "3557262976248224319"
+      },
+      {
+        "file": "src/app/ngrx/cloture-caisse/cloturecaisse.actions.ts",
+        "hash": "1177752335911167589"
+      },
+      {
+        "file": "src/app/ngrx/cloture-caisse/cloturecaisse.effects.ts",
+        "hash": "3148503546432761353"
+      },
+      {
+        "file": "src/app/ngrx/cloture-caisse/cloturecaisse.reducer.ts",
+        "hash": "11673098118389717938"
+      },
+      {
+        "file": "src/app/ngrx/commune/commune.actions.ts",
+        "hash": "2940453026281325521"
+      },
+      {
+        "file": "src/app/ngrx/commune/commune.effects.ts",
+        "hash": "10186455802763734083"
+      },
+      {
+        "file": "src/app/ngrx/commune/commune.reducer.ts",
+        "hash": "16242876595302627885"
+      },
+      {
+        "file": "src/app/ngrx/etablissement/etablisement.action.ts",
+        "hash": "1232638451696360947"
+      },
+      {
+        "file": "src/app/ngrx/etablissement/etablissement.effects.ts",
+        "hash": "1641839158731894592"
+      },
+      {
+        "file": "src/app/ngrx/etablissement/etablissement.reducer.ts",
+        "hash": "9897086542766211587"
+      },
+      {
+        "file": "src/app/ngrx/etage/etage.actions.ts",
+        "hash": "321615622056528143"
+      },
+      {
+        "file": "src/app/ngrx/etage/etage.effects.ts",
+        "hash": "4849406359713332531"
+      },
+      {
+        "file": "src/app/ngrx/etage/etage.reducer.ts",
+        "hash": "6154195108079487196"
+      },
+      {
+        "file": "src/app/ngrx/images/images.action.ts",
+        "hash": "8272171600212807952"
+      },
+      {
+        "file": "src/app/ngrx/images/images.effects.ts",
+        "hash": "4546647597283943401"
+      },
+      {
+        "file": "src/app/ngrx/images/images.reducer.ts",
+        "hash": "14333928337851629395"
+      },
+      {
+        "file": "src/app/ngrx/immeuble/immeuble.actions.ts",
+        "hash": "9387849838947570282"
+      },
+      {
+        "file": "src/app/ngrx/immeuble/immeuble.effects.ts",
+        "hash": "8149192166498075860"
+      },
+      {
+        "file": "src/app/ngrx/immeuble/immeuble.reducer.ts",
+        "hash": "12372470738039252181"
+      },
+      {
+        "file": "src/app/ngrx/journal-caisse/journal-caisse.actions.ts",
+        "hash": "2165464031048324204"
+      },
+      {
+        "file": "src/app/ngrx/journal-caisse/journal-caisse.effects.ts",
+        "hash": "15013132123886554241"
+      },
+      {
+        "file": "src/app/ngrx/journal-caisse/journal-caisse.reducer.ts",
+        "hash": "17568062907162262865"
+      },
+      {
+        "file": "src/app/ngrx/magasin/magasin.actions.ts",
+        "hash": "8736464848439835991"
+      },
+      {
+        "file": "src/app/ngrx/magasin/magasin.effects.ts",
+        "hash": "6467720551873320657"
+      },
+      {
+        "file": "src/app/ngrx/magasin/magasin.reducer.ts",
+        "hash": "3725307164784669697"
+      },
+      {
+        "file": "src/app/ngrx/mail/mail.action.ts",
+        "hash": "5215467310119733233"
+      },
+      {
+        "file": "src/app/ngrx/mail/mail.effects.ts",
+        "hash": "2968477798782010297"
+      },
+      {
+        "file": "src/app/ngrx/mail/mail.reducer.ts",
+        "hash": "18095085862582713278"
+      },
+      {
+        "file": "src/app/ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.action.ts",
+        "hash": "1960324215824712547"
+      },
+      {
+        "file": "src/app/ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.effect.ts",
+        "hash": "11609714142671703888"
+      },
+      {
+        "file": "src/app/ngrx/print-data/quittance-appel-loyer/quittance-appel-loyer.reducer.ts",
+        "hash": "551396271568185806"
+      },
+      {
+        "file": "src/app/ngrx/prix-par-categorie-chambre/prix-par-categorie-chambre.action.ts",
+        "hash": "15649268991633217079"
+      },
+      {
+        "file": "src/app/ngrx/prix-par-categorie-chambre/prix-par-categorie-chambre.effects.ts",
+        "hash": "9218669756458409095"
+      },
+      {
+        "file": "src/app/ngrx/prix-par-categorie-chambre/prix-par-categorie-chambre.reducers.ts",
+        "hash": "6078647109377851822"
+      },
+      {
+        "file": "src/app/ngrx/quartier/quartier.actions.ts",
+        "hash": "6491150127259602101"
+      },
+      {
+        "file": "src/app/ngrx/quartier/quartier.effects.ts",
+        "hash": "16590371735368594615"
+      },
+      {
+        "file": "src/app/ngrx/quartier/quartier.reducer.ts",
+        "hash": "438794168130502062"
+      },
+      {
+        "file": "src/app/ngrx/reglement/reglement.actions.ts",
+        "hash": "6281878671353633006"
+      },
+      {
+        "file": "src/app/ngrx/reglement/reglement.effects.ts",
+        "hash": "3151833543819753603"
+      },
+      {
+        "file": "src/app/ngrx/reglement/reglement.reducer.ts",
+        "hash": "17468070321746219170"
+      },
+      {
+        "file": "src/app/ngrx/reservation/reservation.actions.ts",
+        "hash": "7125974481085509978"
+      },
+      {
+        "file": "src/app/ngrx/reservation/reservation.effects.ts",
+        "hash": "7046640229906936426"
+      },
+      {
+        "file": "src/app/ngrx/reservation/reservation.reducer.ts",
+        "hash": "294737666790352140"
+      },
+      {
+        "file": "src/app/ngrx/site/site.actions.ts",
+        "hash": "8898319304290358821"
+      },
+      {
+        "file": "src/app/ngrx/site/site.effects.ts",
+        "hash": "13432056843832090807"
+      },
+      {
+        "file": "src/app/ngrx/site/site.reducer.ts",
+        "hash": "15301606172952428893"
+      },
+      {
+        "file": "src/app/ngrx/statistique-chart/statistiquechart.action.ts",
+        "hash": "6843959374124968624"
+      },
+      {
+        "file": "src/app/ngrx/statistique-chart/statistiquechart.effects.ts",
+        "hash": "449544353649331957"
+      },
+      {
+        "file": "src/app/ngrx/statistique-chart/statistiquechart.reducer.ts",
+        "hash": "7865460407906528837"
+      },
+      {
+        "file": "src/app/ngrx/utulisateur/gerant/gerant.actions.ts",
+        "hash": "17808542608078525666"
+      },
+      {
+        "file": "src/app/ngrx/utulisateur/gerant/gerant.effects.ts",
+        "hash": "9424709941342338110"
+      },
+      {
+        "file": "src/app/ngrx/utulisateur/gerant/gerant.reducer.ts",
+        "hash": "2784830174519441022"
+      },
+      {
+        "file": "src/app/ngrx/utulisateur/superviseur/superviseur.action.ts",
+        "hash": "15002412452273067207"
+      },
+      {
+        "file": "src/app/ngrx/utulisateur/superviseur/superviseur.effect.ts",
+        "hash": "11713029616739956380"
+      },
+      {
+        "file": "src/app/ngrx/utulisateur/superviseur/superviseur.reducer.ts",
+        "hash": "14291850451534207888"
+      },
+      {
+        "file": "src/app/ngrx/utulisateur/utilisateur.actions.ts",
+        "hash": "7884655652968650117"
+      },
+      {
+        "file": "src/app/ngrx/utulisateur/utilisateur.effects.ts",
+        "hash": "5267059763130796211"
+      },
+      {
+        "file": "src/app/ngrx/utulisateur/utlisateur.reducer.ts",
+        "hash": "14664698177475042122"
+      },
+      {
+        "file": "src/app/ngrx/villa/villa.action.ts",
+        "hash": "18178120791747745962"
+      },
+      {
+        "file": "src/app/ngrx/villa/villa.effects.ts",
+        "hash": "8024485051750549324"
+      },
+      {
+        "file": "src/app/ngrx/villa/villa.reducer.ts",
+        "hash": "11357937410312269592"
+      },
+      {
+        "file": "src/app/ngrx/ville/ville.actions.ts",
+        "hash": "16262039677637370172"
+      },
+      {
+        "file": "src/app/ngrx/ville/ville.effects.ts",
+        "hash": "18137566276532382646"
+      },
+      {
+        "file": "src/app/ngrx/ville/ville.reducer.ts",
+        "hash": "13080336317142495029"
+      },
+      {
+        "file": "src/app/notification.module.ts",
+        "hash": "16618682206927891143"
+      },
+      {
+        "file": "src/app/page-paiement-residence/page-paiement-residence.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/page-paiement-residence/page-paiement-residence.component.html",
+        "hash": "17682368323085313559"
+      },
+      {
+        "file": "src/app/page-paiement-residence/page-paiement-residence.component.spec.ts",
+        "hash": "13134015665844031821"
+      },
+      {
+        "file": "src/app/page-paiement-residence/page-paiement-residence.component.ts",
+        "hash": "7976735945618451805"
+      },
+      {
+        "file": "src/app/pages/Chatgpt/page-chat-ia/page-chat-ia.component.css",
+        "hash": "17794803722488664109"
+      },
+      {
+        "file": "src/app/pages/Chatgpt/page-chat-ia/page-chat-ia.component.html",
+        "hash": "2966881849238419979"
+      },
+      {
+        "file": "src/app/pages/Chatgpt/page-chat-ia/page-chat-ia.component.ts",
+        "hash": "2084512504245041835"
+      },
+      {
+        "file": "src/app/pages/agence/agence-new/agence-new.component.css",
+        "hash": "19299974483654792"
+      },
+      {
+        "file": "src/app/pages/agence/agence-new/agence-new.component.html",
+        "hash": "15270093909241891693"
+      },
+      {
+        "file": "src/app/pages/agence/agence-new/agence-new.component.ts",
+        "hash": "15848746374387072216"
+      },
+      {
+        "file": "src/app/pages/agence/agence-update/agence-update.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/agence/agence-update/agence-update.component.html",
+        "hash": "9167788528084463728"
+      },
+      {
+        "file": "src/app/pages/agence/agence-update/agence-update.component.spec.ts",
+        "hash": "813109962860197827"
+      },
+      {
+        "file": "src/app/pages/agence/agence-update/agence-update.component.ts",
+        "hash": "3421756660327160201"
+      },
+      {
+        "file": "src/app/pages/agence/page-agence/page-agence.component.css",
+        "hash": "17651100502786344519"
+      },
+      {
+        "file": "src/app/pages/agence/page-agence/page-agence.component.html",
+        "hash": "17635735109063913959"
+      },
+      {
+        "file": "src/app/pages/agence/page-agence/page-agence.component.ts",
+        "hash": "4797975979132933129"
+      },
+      {
+        "file": "src/app/pages/appel-loyer/appels-loyers/appels-loyers.component.css",
+        "hash": "13253898174570669391"
+      },
+      {
+        "file": "src/app/pages/appel-loyer/appels-loyers/appels-loyers.component.html",
+        "hash": "13476778944130011390"
+      },
+      {
+        "file": "src/app/pages/appel-loyer/appels-loyers/appels-loyers.component.ts",
+        "hash": "12072461130941282872"
+      },
+      {
+        "file": "src/app/pages/appel-loyer/reduction-appel-loyer/reduction-appel-loyer.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/appel-loyer/reduction-appel-loyer/reduction-appel-loyer.component.html",
+        "hash": "11261677247252000496"
+      },
+      {
+        "file": "src/app/pages/appel-loyer/reduction-appel-loyer/reduction-appel-loyer.component.ts",
+        "hash": "8432580436115312124"
+      },
+      {
+        "file": "src/app/pages/appel-loyer/relance-appels/relance-appels.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/appel-loyer/relance-appels/relance-appels.component.html",
+        "hash": "13661426643880657791"
+      },
+      {
+        "file": "src/app/pages/appel-loyer/relance-appels/relance-appels.component.spec.ts",
+        "hash": "8423438541225193160"
+      },
+      {
+        "file": "src/app/pages/appel-loyer/relance-appels/relance-appels.component.ts",
+        "hash": "9176023043735209799"
+      },
+      {
+        "file": "src/app/pages/baux/boutton-action-baux/boutton-action-baux.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/baux/boutton-action-baux/boutton-action-baux.component.html",
+        "hash": "15673874152103915862"
+      },
+      {
+        "file": "src/app/pages/baux/boutton-action-baux/boutton-action-baux.component.spec.ts",
+        "hash": "16240420916322297211"
+      },
+      {
+        "file": "src/app/pages/baux/boutton-action-baux/boutton-action-baux.component.ts",
+        "hash": "9897510522527047629"
+      },
+      {
+        "file": "src/app/pages/baux/modif-loyer-bail/modif-loyer-bail.component.css",
+        "hash": "3851305185898561326"
+      },
+      {
+        "file": "src/app/pages/baux/modif-loyer-bail/modif-loyer-bail.component.html",
+        "hash": "12136858722620915726"
+      },
+      {
+        "file": "src/app/pages/baux/modif-loyer-bail/modif-loyer-bail.component.ts",
+        "hash": "7221333463359109986"
+      },
+      {
+        "file": "src/app/pages/baux/page-baux-loyers/page-baux-loyers.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/baux/page-baux-loyers/page-baux-loyers.component.html",
+        "hash": "1985629457828781482"
+      },
+      {
+        "file": "src/app/pages/baux/page-baux-loyers/page-baux-loyers.component.ts",
+        "hash": "2886543049563904435"
+      },
+      {
+        "file": "src/app/pages/baux/page-baux-new/page-baux-new.component.css",
+        "hash": "7128060301629017536"
+      },
+      {
+        "file": "src/app/pages/baux/page-baux-new/page-baux-new.component.html",
+        "hash": "3939049391522076448"
+      },
+      {
+        "file": "src/app/pages/baux/page-baux-new/page-baux-new.component.ts",
+        "hash": "11356796409461973144"
+      },
+      {
+        "file": "src/app/pages/baux/page-baux/page-baux.component.css",
+        "hash": "6278765044245811991"
+      },
+      {
+        "file": "src/app/pages/baux/page-baux/page-baux.component.html",
+        "hash": "1163669769825277660"
+      },
+      {
+        "file": "src/app/pages/baux/page-baux/page-baux.component.ts",
+        "hash": "13957904474037313154"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/bien-immobilier/action-button-bien/action-button-bien.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/bien-immobilier/action-button-bien/action-button-bien.component.html",
+        "hash": "15673874152103915862"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/bien-immobilier/action-button-bien/action-button-bien.component.ts",
+        "hash": "2536377981271373525"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/immeuble/page-immeuble/page-immeuble.component.css",
+        "hash": "11939099372159273073"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/immeuble/page-immeuble/page-immeuble.component.html",
+        "hash": "17989051687112011785"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/immeuble/page-immeuble/page-immeuble.component.ts",
+        "hash": "1506954317999941600"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/new-prix-categorie-chambre/new-prix-categorie-chambre.component.css",
+        "hash": "4882800346601512615"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/new-prix-categorie-chambre/new-prix-categorie-chambre.component.html",
+        "hash": "4805610462301181723"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/new-prix-categorie-chambre/new-prix-categorie-chambre.component.ts",
+        "hash": "9084712537642223669"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-bien-immobilier-new/page-bien-immobilier-new.component.css",
+        "hash": "7128060301629017536"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-bien-immobilier-new/page-bien-immobilier-new.component.html",
+        "hash": "1759233189566827853"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-bien-immobilier-new/page-bien-immobilier-new.component.ts",
+        "hash": "1379782395916142338"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-bien-immobilier/page-bien-immobilier.component.css",
+        "hash": "6662871304318389812"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-bien-immobilier/page-bien-immobilier.component.html",
+        "hash": "17585341281760063858"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-bien-immobilier/page-bien-immobilier.component.ts",
+        "hash": "4473534984091708740"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-bien-site-geographique/page-bien-site-geographique.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-bien-site-geographique/page-bien-site-geographique.component.html",
+        "hash": "17452421294305409530"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-bien-site-geographique/page-bien-site-geographique.component.spec.ts",
+        "hash": "17464770900406900204"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-bien-site-geographique/page-bien-site-geographique.component.ts",
+        "hash": "8973702351230414285"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-etage-new/page-etage-new.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-etage-new/page-etage-new.component.html",
+        "hash": "6022159668453515859"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-etage-new/page-etage-new.component.ts",
+        "hash": "714510372583498291"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-etage/page-etage/page-etage.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-etage/page-etage/page-etage.component.html",
+        "hash": "9646239484611896421"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-etage/page-etage/page-etage.component.ts",
+        "hash": "1242456884161275778"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-immeuble-new/page-immeuble-new.component.css",
+        "hash": "7128060301629017536"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-immeuble-new/page-immeuble-new.component.html",
+        "hash": "3047334929677789078"
+      },
+      {
+        "file": "src/app/pages/bien-immobilier/page-immeuble-new/page-immeuble-new.component.ts",
+        "hash": "13278107251523151482"
+      },
+      {
+        "file": "src/app/pages/categorie-appartement/categorie-appartement.component.css",
+        "hash": "4889689030745621984"
+      },
+      {
+        "file": "src/app/pages/categorie-appartement/categorie-appartement.component.html",
+        "hash": "3668347523050745148"
+      },
+      {
+        "file": "src/app/pages/categorie-appartement/categorie-appartement.component.ts",
+        "hash": "6255970693144976030"
+      },
+      {
+        "file": "src/app/pages/categorie-appartement/new-categorie-chambre/new-categorie-chambre.component.css",
+        "hash": "5472364145589939487"
+      },
+      {
+        "file": "src/app/pages/categorie-appartement/new-categorie-chambre/new-categorie-chambre.component.html",
+        "hash": "11842629690589418388"
+      },
+      {
+        "file": "src/app/pages/categorie-appartement/new-categorie-chambre/new-categorie-chambre.component.ts",
+        "hash": "16356155910768482512"
+      },
+      {
+        "file": "src/app/pages/categorie-appartement/save-categorie-appart/save-categorie-appart.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/categorie-appartement/save-categorie-appart/save-categorie-appart.component.html",
+        "hash": "12590554496867274232"
+      },
+      {
+        "file": "src/app/pages/categorie-appartement/save-categorie-appart/save-categorie-appart.component.ts",
+        "hash": "4192701842678278408"
+      },
+      {
+        "file": "src/app/pages/cloture-caisse/cloture-caisse.component.css",
+        "hash": "7128060301629017536"
+      },
+      {
+        "file": "src/app/pages/cloture-caisse/cloture-caisse.component.html",
+        "hash": "11306801126045927754"
+      },
+      {
+        "file": "src/app/pages/cloture-caisse/cloture-caisse.component.ts",
+        "hash": "49134991978273595"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-compte-agence/page-compte-agence.component.css",
+        "hash": "7128060301629017536"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-compte-agence/page-compte-agence.component.html",
+        "hash": "728537595278278037"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-compte-agence/page-compte-agence.component.ts",
+        "hash": "15242589268694069855"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-compte-client/page-compte-client.component.css",
+        "hash": "7128060301629017536"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-compte-client/page-compte-client.component.html",
+        "hash": "17339436236874807218"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-compte-client/page-compte-client.component.ts",
+        "hash": "12747866116102623880"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-consultation-depense/page-consultation-depense.component.css",
+        "hash": "14183278510825462170"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-consultation-depense/page-consultation-depense.component.html",
+        "hash": "18317212277606827332"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-consultation-depense/page-consultation-depense.component.ts",
+        "hash": "15797507875635089237"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-consultation-reglement-loyer-periode/page-consultation-reglement-loyer-periode.component.css",
+        "hash": "16206398598426174142"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-consultation-reglement-loyer-periode/page-consultation-reglement-loyer-periode.component.html",
+        "hash": "11932046844528440691"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-consultation-reglement-loyer-periode/page-consultation-reglement-loyer-periode.component.ts",
+        "hash": "2934762641529717701"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-grand-compte/page-grand-compte.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-grand-compte/page-grand-compte.component.html",
+        "hash": "1826416167931403388"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-grand-compte/page-grand-compte.component.spec.ts",
+        "hash": "15580444064041785140"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-grand-compte/page-grand-compte.component.ts",
+        "hash": "781324389832937584"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-journal-caisse/page-journal-caisse.component.css",
+        "hash": "992010237021515836"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-journal-caisse/page-journal-caisse.component.html",
+        "hash": "2143243934855727066"
+      },
+      {
+        "file": "src/app/pages/comptabilite/page-journal-caisse/page-journal-caisse.component.ts",
+        "hash": "401122225009093214"
+      },
+      {
+        "file": "src/app/pages/page-dashboard/page-dashboard.component.css",
+        "hash": "7025671838095466803"
+      },
+      {
+        "file": "src/app/pages/page-dashboard/page-dashboard.component.html",
+        "hash": "7861515214226757100"
+      },
+      {
+        "file": "src/app/pages/page-dashboard/page-dashboard.component.ts",
+        "hash": "4906223256512751148"
+      },
+      {
+        "file": "src/app/pages/page-login/page-login.component.css",
+        "hash": "8839366255311403537"
+      },
+      {
+        "file": "src/app/pages/page-login/page-login.component.html",
+        "hash": "3354849654857342863"
+      },
+      {
+        "file": "src/app/pages/page-login/page-login.component.ts",
+        "hash": "10071116354718829968"
+      },
+      {
+        "file": "src/app/pages/page-statistique-journalier/page-statistique-journalier.component.css",
+        "hash": "12429884954908719748"
+      },
+      {
+        "file": "src/app/pages/page-statistique-journalier/page-statistique-journalier.component.html",
+        "hash": "3924017107786423326"
+      },
+      {
+        "file": "src/app/pages/page-statistique-journalier/page-statistique-journalier.component.ts",
+        "hash": "11965461025437156290"
+      },
+      {
+        "file": "src/app/pages/page-statistique/page-statistique.component.css",
+        "hash": "10617616369833909373"
+      },
+      {
+        "file": "src/app/pages/page-statistique/page-statistique.component.html",
+        "hash": "6022286685846220520"
+      },
+      {
+        "file": "src/app/pages/page-statistique/page-statistique.component.ts",
+        "hash": "5182886418227765389"
+      },
+      {
+        "file": "src/app/pages/reglement/page-paiement/page-paiement.component.css",
+        "hash": "10081506811395989514"
+      },
+      {
+        "file": "src/app/pages/reglement/page-paiement/page-paiement.component.html",
+        "hash": "16178872504523080133"
+      },
+      {
+        "file": "src/app/pages/reglement/page-paiement/page-paiement.component.ts",
+        "hash": "16878780939972640397"
+      },
+      {
+        "file": "src/app/pages/reglement/page-reglement-groupe/page-reglement-groupe.component.css",
+        "hash": "18272353347521519809"
+      },
+      {
+        "file": "src/app/pages/reglement/page-reglement-groupe/page-reglement-groupe.component.html",
+        "hash": "16921817787936327768"
+      },
+      {
+        "file": "src/app/pages/reglement/page-reglement-groupe/page-reglement-groupe.component.ts",
+        "hash": "18237375256017377411"
+      },
+      {
+        "file": "src/app/pages/reglement/page-reglement-individuel/page-reglement-individuel.component.css",
+        "hash": "6585833956738825238"
+      },
+      {
+        "file": "src/app/pages/reglement/page-reglement-individuel/page-reglement-individuel.component.html",
+        "hash": "12440031510780559232"
+      },
+      {
+        "file": "src/app/pages/reglement/page-reglement-individuel/page-reglement-individuel.component.ts",
+        "hash": "5350156534194145529"
+      },
+      {
+        "file": "src/app/pages/residence/page-ajout-reservation/page-ajout-reservation.component.css",
+        "hash": "18151920088621859852"
+      },
+      {
+        "file": "src/app/pages/residence/page-ajout-reservation/page-ajout-reservation.component.html",
+        "hash": "8703243449661976264"
+      },
+      {
+        "file": "src/app/pages/residence/page-ajout-reservation/page-ajout-reservation.component.ts",
+        "hash": "13009380323407929327"
+      },
+      {
+        "file": "src/app/pages/residence/page-client-residence/page-client-residence/page-client-residence.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/residence/page-client-residence/page-client-residence/page-client-residence.component.html",
+        "hash": "11279769278851245971"
+      },
+      {
+        "file": "src/app/pages/residence/page-client-residence/page-client-residence/page-client-residence.component.ts",
+        "hash": "14846044780318454439"
+      },
+      {
+        "file": "src/app/pages/residence/page-dashboard-residence/page-dashboard-residence.component.css",
+        "hash": "18169061950618387985"
+      },
+      {
+        "file": "src/app/pages/residence/page-dashboard-residence/page-dashboard-residence.component.html",
+        "hash": "5729207971339832288"
+      },
+      {
+        "file": "src/app/pages/residence/page-dashboard-residence/page-dashboard-residence.component.ts",
+        "hash": "415369241462233879"
+      },
+      {
+        "file": "src/app/pages/residence/page-disponibilite-appartement/page-disponibilite-residence/page-disponibilite-residence.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/residence/page-disponibilite-appartement/page-disponibilite-residence/page-disponibilite-residence.component.html",
+        "hash": "1066315558844750375"
+      },
+      {
+        "file": "src/app/pages/residence/page-disponibilite-appartement/page-disponibilite-residence/page-disponibilite-residence.component.ts",
+        "hash": "15394627119568256414"
+      },
+      {
+        "file": "src/app/pages/residence/page-parametre-residence/page-parametre-residence/page-parametre-residence.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/residence/page-parametre-residence/page-parametre-residence/page-parametre-residence.component.html",
+        "hash": "7570708845080734784"
+      },
+      {
+        "file": "src/app/pages/residence/page-parametre-residence/page-parametre-residence/page-parametre-residence.component.ts",
+        "hash": "16190910791514980710"
+      },
+      {
+        "file": "src/app/pages/residence/page-reglement/page-reglement-residence/page-reglement-residence.component.css",
+        "hash": "6585833956738825238"
+      },
+      {
+        "file": "src/app/pages/residence/page-reglement/page-reglement-residence/page-reglement-residence.component.html",
+        "hash": "5795754835525149327"
+      },
+      {
+        "file": "src/app/pages/residence/page-reglement/page-reglement-residence/page-reglement-residence.component.ts",
+        "hash": "12699698525834334279"
+      },
+      {
+        "file": "src/app/pages/residence/page-reservation/page-reservation-residence/page-reservation-residence.component.css",
+        "hash": "16106677512628404056"
+      },
+      {
+        "file": "src/app/pages/residence/page-reservation/page-reservation-residence/page-reservation-residence.component.html",
+        "hash": "10297620168028701374"
+      },
+      {
+        "file": "src/app/pages/residence/page-reservation/page-reservation-residence/page-reservation-residence.component.ts",
+        "hash": "15680742283130470263"
+      },
+      {
+        "file": "src/app/pages/roles-droits/page-gestion-droit/page-gestion-droit.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/roles-droits/page-gestion-droit/page-gestion-droit.component.html",
+        "hash": "7479884848331797881"
+      },
+      {
+        "file": "src/app/pages/roles-droits/page-gestion-droit/page-gestion-droit.component.spec.ts",
+        "hash": "16692860891080956182"
+      },
+      {
+        "file": "src/app/pages/roles-droits/page-gestion-droit/page-gestion-droit.component.ts",
+        "hash": "5280864121948527433"
+      },
+      {
+        "file": "src/app/pages/site/page-new-site/page-new-site.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/site/page-new-site/page-new-site.component.html",
+        "hash": "8631616512243002328"
+      },
+      {
+        "file": "src/app/pages/site/page-new-site/page-new-site.component.ts",
+        "hash": "824251025649041250"
+      },
+      {
+        "file": "src/app/pages/site/page-site/page-site.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/site/page-site/page-site.component.html",
+        "hash": "371489764982049111"
+      },
+      {
+        "file": "src/app/pages/site/page-site/page-site.component.ts",
+        "hash": "5135945615164593179"
+      },
+      {
+        "file": "src/app/pages/tachesPlanifiees/taches-planifiees/taches-planifiees.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/tachesPlanifiees/taches-planifiees/taches-planifiees.component.html",
+        "hash": "17960444940016022701"
+      },
+      {
+        "file": "src/app/pages/tachesPlanifiees/taches-planifiees/taches-planifiees.component.spec.ts",
+        "hash": "10670134108866239880"
+      },
+      {
+        "file": "src/app/pages/tachesPlanifiees/taches-planifiees/taches-planifiees.component.ts",
+        "hash": "13952382056832743363"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/button-action-utlisateur/button-action-utlisateur.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/button-action-utlisateur/button-action-utlisateur.component.html",
+        "hash": "6819564145216600124"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/button-action-utlisateur/button-action-utlisateur.component.ts",
+        "hash": "17180223410346857152"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/gérant/page-gerant/page-gerant.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/gérant/page-gerant/page-gerant.component.html",
+        "hash": "17520726079878258377"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/gérant/page-gerant/page-gerant.component.ts",
+        "hash": "11281215738714308264"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/locataire/page-locataire/page-locataire.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/locataire/page-locataire/page-locataire.component.html",
+        "hash": "4250264332360475181"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/locataire/page-locataire/page-locataire.component.ts",
+        "hash": "939801995954931207"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/page-liste-utilisateurs/page-liste-utilisateurs.component.css",
+        "hash": "1907723195765007270"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/page-liste-utilisateurs/page-liste-utilisateurs.component.html",
+        "hash": "673640916791659339"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/page-liste-utilisateurs/page-liste-utilisateurs.component.ts",
+        "hash": "14598295016691599830"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/page-new-utilisateur/page-new-utilisateur.component.css",
+        "hash": "11734649919714897441"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/page-new-utilisateur/page-new-utilisateur.component.html",
+        "hash": "12300162962110158067"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/page-new-utilisateur/page-new-utilisateur.component.ts",
+        "hash": "4142588720927038355"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/page-new-utilisateur/password-validator.ts",
+        "hash": "12165674522857232856"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/propriétaire/page-proprietaire/page-proprietaire.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/propriétaire/page-proprietaire/page-proprietaire.component.html",
+        "hash": "2011824316518505482"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/propriétaire/page-proprietaire/page-proprietaire.component.spec.ts",
+        "hash": "4560493583520861185"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/propriétaire/page-proprietaire/page-proprietaire.component.ts",
+        "hash": "2093894456402800498"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/superviseur/page-superviseur/page-superviseur.component.css",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/superviseur/page-superviseur/page-superviseur.component.html",
+        "hash": "8761647315096436245"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/superviseur/page-superviseur/page-superviseur.component.spec.ts",
+        "hash": "1691806567084984092"
+      },
+      {
+        "file": "src/app/pages/utilisateurs/superviseur/page-superviseur/page-superviseur.component.ts",
+        "hash": "3480768565136775664"
+      },
+      {
+        "file": "src/app/pages/vue-ensemple/page-vue-ensemble/page-vue-ensemble.component.css",
+        "hash": "2903964361299502979"
+      },
+      {
+        "file": "src/app/pages/vue-ensemple/page-vue-ensemble/page-vue-ensemble.component.html",
+        "hash": "17675044175386866542"
+      },
+      {
+        "file": "src/app/pages/vue-ensemple/page-vue-ensemble/page-vue-ensemble.component.ts",
+        "hash": "9867691586371833551"
+      },
+      {
+        "file": "src/app/paginationPersonnalise.ts",
+        "hash": "5329659125075689822"
+      },
+      {
+        "file": "src/app/services/Agence/agence.service.ts",
+        "hash": "17200798933438036319"
+      },
+      {
+        "file": "src/app/services/Print/print-service.service.ts",
+        "hash": "12031395421114188479"
+      },
+      {
+        "file": "src/app/services/Site/site.service.ts",
+        "hash": "10095975586876521227"
+      },
+      {
+        "file": "src/app/services/Ville/ville.service.ts",
+        "hash": "12847158557764988982"
+      },
+      {
+        "file": "src/app/services/actuactor/admin-dashboard.service.ts",
+        "hash": "383685553527909396"
+      },
+      {
+        "file": "src/app/services/guard/application-guard.service.ts",
+        "hash": "14934479472377711129"
+      },
+      {
+        "file": "src/app/services/notification/notification.service.ts",
+        "hash": "14053503962193101218"
+      },
+      {
+        "file": "src/app/services/statistique_dashboard/statistique.service.spec.ts",
+        "hash": "14474496107817946112"
+      },
+      {
+        "file": "src/app/services/statistique_dashboard/statistique.service.ts",
+        "hash": "12745378635395866757"
+      },
+      {
+        "file": "src/app/services/user/user.service.ts",
+        "hash": "3695367253886148010"
+      },
+      {
+        "file": "src/app/services/utilisateur/user-login.service.spec.ts",
+        "hash": "9784406694438967142"
+      },
+      {
+        "file": "src/app/services/utilisateur/user-login.service.ts",
+        "hash": "16876597153208095358"
+      },
+      {
+        "file": "src/assets/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/assets/bien-immobilier.png",
+        "hash": "5473347653431704577"
+      },
+      {
+        "file": "src/assets/contrat.jpg",
+        "hash": "9680890125339675588"
+      },
+      {
+        "file": "src/assets/logoGestimo.png",
+        "hash": "10070873818987533602"
+      },
+      {
+        "file": "src/assets/nassmam.jpg",
+        "hash": "8371350228107347087"
+      },
+      {
+        "file": "src/assets/photo_homme.jpg",
+        "hash": "15602119707993888252"
+      },
+      {
+        "file": "src/assets/sitegeo.png",
+        "hash": "17738462445230967466"
+      },
+      {
+        "file": "src/assets/zolo.jpg",
+        "hash": "3369025009474997781"
+      },
+      {
+        "file": "src/assets/zolo2.jpg",
+        "hash": "15988567479305094077"
+      },
+      {
+        "file": "src/favicon.ico",
+        "hash": "3464744996580215640"
+      },
+      {
+        "file": "src/gs-api/src/api.module.ts",
+        "hash": "1399144864267643561"
+      },
+      {
+        "file": "src/gs-api/src/base-service.ts",
+        "hash": "16033192363908604299"
+      },
+      {
+        "file": "src/gs-api/src/models.ts",
+        "hash": "3046871200044504501"
+      },
+      {
+        "file": "src/gs-api/src/models/agence-immobilier-dto.ts",
+        "hash": "15670070420753987699"
+      },
+      {
+        "file": "src/gs-api/src/models/agence-request-dto.ts",
+        "hash": "14239757781100663829"
+      },
+      {
+        "file": "src/gs-api/src/models/agence-response-dto.ts",
+        "hash": "18347327768849750428"
+      },
+      {
+        "file": "src/gs-api/src/models/annee-appel-loyers-dto.ts",
+        "hash": "12586778773824566560"
+      },
+      {
+        "file": "src/gs-api/src/models/appartement-dto.ts",
+        "hash": "11767002474247646941"
+      },
+      {
+        "file": "src/gs-api/src/models/appel-loyer-dto.ts",
+        "hash": "10986192832319214697"
+      },
+      {
+        "file": "src/gs-api/src/models/appel-loyer-encaiss-dto.ts",
+        "hash": "431046457334506792"
+      },
+      {
+        "file": "src/gs-api/src/models/appel-loyer-request-dto.ts",
+        "hash": "16659584876601329652"
+      },
+      {
+        "file": "src/gs-api/src/models/appel-loyer.ts",
+        "hash": "11970510643520254745"
+      },
+      {
+        "file": "src/gs-api/src/models/appel-loyers-facture-dto.ts",
+        "hash": "14157240004520718828"
+      },
+      {
+        "file": "src/gs-api/src/models/auth-request-dto.ts",
+        "hash": "9894395667796085611"
+      },
+      {
+        "file": "src/gs-api/src/models/bail-appartement-dto.ts",
+        "hash": "9419147729601324064"
+      },
+      {
+        "file": "src/gs-api/src/models/bail-location.ts",
+        "hash": "11501131362058338406"
+      },
+      {
+        "file": "src/gs-api/src/models/bail-magasin-dto.ts",
+        "hash": "16117741493216982698"
+      },
+      {
+        "file": "src/gs-api/src/models/bail-modif-dto.ts",
+        "hash": "15760278513289280445"
+      },
+      {
+        "file": "src/gs-api/src/models/bail-villa-dto.ts",
+        "hash": "18153248364014436506"
+      },
+      {
+        "file": "src/gs-api/src/models/bien-immobilier-affihe-dto.ts",
+        "hash": "7631733440679162548"
+      },
+      {
+        "file": "src/gs-api/src/models/bienimmobilier.ts",
+        "hash": "504944362730779353"
+      },
+      {
+        "file": "src/gs-api/src/models/category-chambre-save-or-update-dto.ts",
+        "hash": "17774487206765227184"
+      },
+      {
+        "file": "src/gs-api/src/models/chapitre.ts",
+        "hash": "889813733682782858"
+      },
+      {
+        "file": "src/gs-api/src/models/charges.ts",
+        "hash": "1497700089437346505"
+      },
+      {
+        "file": "src/gs-api/src/models/cloture-caisse-dto.ts",
+        "hash": "5319524641541824155"
+      },
+      {
+        "file": "src/gs-api/src/models/commune-request-dto.ts",
+        "hash": "14218685785299354092"
+      },
+      {
+        "file": "src/gs-api/src/models/commune-response-dto.ts",
+        "hash": "16999366270121772821"
+      },
+      {
+        "file": "src/gs-api/src/models/commune.ts",
+        "hash": "1291165611073701974"
+      },
+      {
+        "file": "src/gs-api/src/models/droit-acces-dto.ts",
+        "hash": "11985750866501842222"
+      },
+      {
+        "file": "src/gs-api/src/models/droit-acces-payload-dto.ts",
+        "hash": "2178444101240702637"
+      },
+      {
+        "file": "src/gs-api/src/models/encaissement-payload-dto.ts",
+        "hash": "3222999314556108036"
+      },
+      {
+        "file": "src/gs-api/src/models/encaissement-principal-dto.ts",
+        "hash": "2823724077825346439"
+      },
+      {
+        "file": "src/gs-api/src/models/encaissement.ts",
+        "hash": "3189445785805467451"
+      },
+      {
+        "file": "src/gs-api/src/models/espece-encaissement-dto.ts",
+        "hash": "16544027851681291412"
+      },
+      {
+        "file": "src/gs-api/src/models/etablissement-utilisateur-dto.ts",
+        "hash": "10272474999765098557"
+      },
+      {
+        "file": "src/gs-api/src/models/etage-affiche-dto.ts",
+        "hash": "3399438964982293190"
+      },
+      {
+        "file": "src/gs-api/src/models/etage-dto.ts",
+        "hash": "9859910211665505643"
+      },
+      {
+        "file": "src/gs-api/src/models/groupe-droit-dto.ts",
+        "hash": "277645005057409252"
+      },
+      {
+        "file": "src/gs-api/src/models/image-data-dto.ts",
+        "hash": "7543901130385896082"
+      },
+      {
+        "file": "src/gs-api/src/models/image-data.ts",
+        "hash": "18021987096712503127"
+      },
+      {
+        "file": "src/gs-api/src/models/immeuble-dto.ts",
+        "hash": "7535870338768304872"
+      },
+      {
+        "file": "src/gs-api/src/models/immeuble-etage-dto.ts",
+        "hash": "7520108419733662603"
+      },
+      {
+        "file": "src/gs-api/src/models/input-stream-resource.ts",
+        "hash": "1440861511234773971"
+      },
+      {
+        "file": "src/gs-api/src/models/input-stream.ts",
+        "hash": "7727613018815417555"
+      },
+      {
+        "file": "src/gs-api/src/models/locataire-encais-dto.ts",
+        "hash": "13596424701612061732"
+      },
+      {
+        "file": "src/gs-api/src/models/magasin-dto.ts",
+        "hash": "17576296828231207657"
+      },
+      {
+        "file": "src/gs-api/src/models/magasin-response-dto.ts",
+        "hash": "7702679423468297982"
+      },
+      {
+        "file": "src/gs-api/src/models/message-envoyer-dto.ts",
+        "hash": "7346558638185324491"
+      },
+      {
+        "file": "src/gs-api/src/models/montant-loyer-bail-dto.ts",
+        "hash": "11015213035707855904"
+      },
+      {
+        "file": "src/gs-api/src/models/montant-loyer-bail.ts",
+        "hash": "17664261089439268752"
+      },
+      {
+        "file": "src/gs-api/src/models/multipart-file.ts",
+        "hash": "7913796465821765297"
+      },
+      {
+        "file": "src/gs-api/src/models/operation-dto.ts",
+        "hash": "14108919296945941729"
+      },
+      {
+        "file": "src/gs-api/src/models/operation.ts",
+        "hash": "2555736089412269128"
+      },
+      {
+        "file": "src/gs-api/src/models/pays-dto.ts",
+        "hash": "7279247662363550811"
+      },
+      {
+        "file": "src/gs-api/src/models/pays.ts",
+        "hash": "6127326029982298248"
+      },
+      {
+        "file": "src/gs-api/src/models/periode-dto.ts",
+        "hash": "8300828426134910753"
+      },
+      {
+        "file": "src/gs-api/src/models/pourcentage-appel-dto.ts",
+        "hash": "4497082761705324932"
+      },
+      {
+        "file": "src/gs-api/src/models/prestation-additionnel-reservation-save-orr-update.ts",
+        "hash": "4284146584972153409"
+      },
+      {
+        "file": "src/gs-api/src/models/prestation-save-or-update-dto.ts",
+        "hash": "18113204733456452997"
+      },
+      {
+        "file": "src/gs-api/src/models/prix-par-categorie-chambre-dto.ts",
+        "hash": "5980321540231724345"
+      },
+      {
+        "file": "src/gs-api/src/models/quartier-request-dto.ts",
+        "hash": "2862456512364509459"
+      },
+      {
+        "file": "src/gs-api/src/models/quartier-response-dto.ts",
+        "hash": "4927091122623165340"
+      },
+      {
+        "file": "src/gs-api/src/models/quartier.ts",
+        "hash": "7531862792898409960"
+      },
+      {
+        "file": "src/gs-api/src/models/reservation-affiche-dto.ts",
+        "hash": "8919657187790279020"
+      },
+      {
+        "file": "src/gs-api/src/models/reservation-request-dto.ts",
+        "hash": "1055433401152878290"
+      },
+      {
+        "file": "src/gs-api/src/models/reservation-save-or-update-dto.ts",
+        "hash": "3433226879540812676"
+      },
+      {
+        "file": "src/gs-api/src/models/role-request-dto.ts",
+        "hash": "12100751970961943401"
+      },
+      {
+        "file": "src/gs-api/src/models/role.ts",
+        "hash": "11086066119791813059"
+      },
+      {
+        "file": "src/gs-api/src/models/site-request-dto.ts",
+        "hash": "13179400609805122510"
+      },
+      {
+        "file": "src/gs-api/src/models/site-response-dto.ts",
+        "hash": "14512764708454244379"
+      },
+      {
+        "file": "src/gs-api/src/models/site.ts",
+        "hash": "5105375268840880228"
+      },
+      {
+        "file": "src/gs-api/src/models/statistique-periode-dto.ts",
+        "hash": "3478109226112793974"
+      },
+      {
+        "file": "src/gs-api/src/models/suivie-depense-dto.ts",
+        "hash": "14056633671233145028"
+      },
+      {
+        "file": "src/gs-api/src/models/suivie-depense-encais-periode-dto.ts",
+        "hash": "3740760733011759984"
+      },
+      {
+        "file": "src/gs-api/src/models/suivie-depense.ts",
+        "hash": "15546444742402326032"
+      },
+      {
+        "file": "src/gs-api/src/models/utilisateur-affiche-dto.ts",
+        "hash": "5797271185210549060"
+      },
+      {
+        "file": "src/gs-api/src/models/utilisateur-request-dto.ts",
+        "hash": "8039550989418499161"
+      },
+      {
+        "file": "src/gs-api/src/models/utilisateur.ts",
+        "hash": "7229600653202555899"
+      },
+      {
+        "file": "src/gs-api/src/models/villa-dto.ts",
+        "hash": "5476852672313432983"
+      },
+      {
+        "file": "src/gs-api/src/models/ville-dto.ts",
+        "hash": "10201450239173334902"
+      },
+      {
+        "file": "src/gs-api/src/models/ville.ts",
+        "hash": "15980523682281707072"
+      },
+      {
+        "file": "src/gs-api/src/services.ts",
+        "hash": "2379000071476013965"
+      },
+      {
+        "file": "src/gs-api/src/services/api.service.ts",
+        "hash": "618843287429007283"
+      },
+      {
+        "file": "src/gs-api/src/strict-http-response.ts",
+        "hash": "1058318179132357735"
+      },
+      {
+        "file": "src/index.html",
+        "hash": "10408590454030540804"
+      },
+      {
+        "file": "src/main.ts",
+        "hash": "10677612470474905821"
+      },
+      {
+        "file": "src/polyfills.ts",
+        "hash": "7244043635357181060"
+      },
+      {
+        "file": "src/styles.css",
+        "hash": "4689978387453338881"
+      },
+      {
+        "file": "src/test.ts",
+        "hash": "6219649691817330141"
+      },
+      {
+        "file": "src/tools/swagger/src/swagger.json",
+        "hash": "17550566664782728480"
+      },
+      {
+        "file": "tsconfig.app.json",
+        "hash": "9041030522571917449"
+      },
+      {
+        "file": "tsconfig.json",
+        "hash": "218018404137999016"
+      },
+      {
+        "file": "tsconfig.spec.json",
+        "hash": "17198424518534092990"
+      }
+    ]
+  }
+}
