@@ -3802,6 +3802,29 @@
         }
       }
     },
+    "gestimoweb/api/v1/reservation/findAllEncaissementReservationByIdBien/{idReser}" : {
+      "get" : {
+        "operationId" : "findAllEncaissementReservationByIdBien",
+        "parameters" : [ {
+          "name" : "idReser",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/EncaissementReservationDto"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/reservation/findById/{id}" : {
       "get" : {
         "operationId" : "findCategorieChambreByIDReservation",
@@ -3817,6 +3840,53 @@
             "description" : "successful operation",
             "schema" : {
               "$ref" : "#/definitions/ReservationSaveOrUpdateDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/reservation/listeDesReservationOuvertParAgence/{idAgence}" : {
+      "get" : {
+        "operationId" : "listeDesReservationOuvertParAgence",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ReservationAfficheDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/reservation/saveencaissementreservation" : {
+      "post" : {
+        "operationId" : "saveencaissementreservation",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/EncaissementReservationRequestDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/EncaissementReservationDto"
+              }
             }
           }
         }
@@ -6503,6 +6573,116 @@
         }
       }
     },
+    "EncaissementReservationDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idReservation" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "modePaiement" : {
+          "type" : "string",
+          "enum" : [ "ESPESE_MAGISER", "ESPECE_SEVEINVEST", "CHEQUE_ECOBANK_MAGISER", "CHEQUE_GTBANK_SEVEINVEST", "VIREMENT_ECOBANK_MAGISER", "VIREMENT_GTBANK_SEVEINVEST", "MOBILE_MONEY_MAGISER", "MOBILE_MONEY_SEVEINVEST" ]
+        },
+        "operationType" : {
+          "type" : "string",
+          "enum" : [ "CREDIT", "DEBIT" ]
+        },
+        "dateEncaissement" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "montantEncaissement" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "soldeEncaissement" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "encienSoldReservation" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nvoSoldeReservation" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "intituleDepense" : {
+          "type" : "string"
+        },
+        "entiteOperation" : {
+          "type" : "string",
+          "enum" : [ "MAGISER", "SEVEINVEST" ]
+        },
+        "reservationAfficheDto" : {
+          "$ref" : "#/definitions/ReservationAfficheDto"
+        },
+        "typePaiement" : {
+          "type" : "string"
+        }
+      }
+    },
+    "EncaissementReservationRequestDto" : {
+      "type" : "object",
+      "properties" : {
+        "idReservation" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "modePaiement" : {
+          "type" : "string"
+        },
+        "dateEncaissement" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "montantEncaissement" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "encienSoldReservation" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nvoSoldeReservation" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "idAppartement" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
     "EspeceEncaissementDto" : {
       "type" : "object",
       "properties" : {
@@ -6958,10 +7138,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }
@@ -7011,10 +7191,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         }
       }

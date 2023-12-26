@@ -65,10 +65,6 @@ export class PageReservationResidenceComponent implements OnInit {
         this.totalRecords=0;
         this.dataSource.data = [];
         this.dataSource.paginator = null;
-        console.log("****** **** liste des reservations est la suivante *** **** ****");
-        console.log(data.reservations);
-
-
         if (data.dataState == 'Loaded') {
           this.totalRecords = data.reservations.length;
           this.dataSource.data = data.reservations;

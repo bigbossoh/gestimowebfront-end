@@ -28,6 +28,8 @@ export { DroitAccesPayloadDTO } from './models/droit-acces-payload-dto';
 export { Encaissement } from './models/encaissement';
 export { EncaissementPayloadDto } from './models/encaissement-payload-dto';
 export { EncaissementPrincipalDTO } from './models/encaissement-principal-dto';
+export { EncaissementReservationDto } from './models/encaissement-reservation-dto';
+export { EncaissementReservationRequestDto } from './models/encaissement-reservation-request-dto';
 export { EspeceEncaissementDto } from './models/espece-encaissement-dto';
 export { EtablissementUtilisateurDto } from './models/etablissement-utilisateur-dto';
 export { EtageAfficheDto } from './models/etage-affiche-dto';

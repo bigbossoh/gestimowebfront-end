@@ -5,10 +5,17 @@ import { NotificationType } from 'src/app/enum/natification-type.enum';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 import { ApiService } from 'src/gs-api/src/services';
 import {
+  GetListEncaissementReservationBienAction,
+  GetListEncaissementReservationBienActionError,
+  GetListEncaissementReservationBienActionSuccess,
   GetListReservationActionsError,
   GetListReservationActionsSuccess,
+  GetListReservationOuvertActionsError,
+  GetListReservationOuvertActionsSuccess,
   ReservationActionTypes,
   ReservationActions,
+  SaveEncaissementReservationActionsError,
+  SaveEncaissementReservationActionsSuccess,
   SaveReservationActionsError,
   SaveReservationActionsSuccess,
 } from './reservation.actions';
@@ -24,6 +31,49 @@ export class ReservationEffects {
     private effectActions: Actions,
     private notificationService: NotificationService
   ) {}
+  listReservationOuverEffect: Observable<Action> = createEffect(() =>
+  this.effectActions.pipe(
+    ofType(ReservationActionTypes.GET_LISTE_RESERVATION_OUVERT),
+    mergeMap((action: ReservationActions) => {
+      return this.apiService.listeDesReservationOuvertParAgence(action.payload).pipe(
+        map((quartier) => new GetListReservationOuvertActionsSuccess(quartier)),
+        catchError((err) =>
+          of(new GetListReservationOuvertActionsError(err.message))
+        )
+      );
+    }),
+    tap((resultat) => {
+      if (
+        resultat.type == ReservationActionTypes.GET_LISTE_RESERVATION_OUVERT_ERROR
+      ) {
+        this.sendErrorNotification(NotificationType.ERROR, resultat.payload);
+      }
+    })
+  )
+);
+saveEncaissementReservationEffect: Observable<Action> = createEffect(() =>
+this.effectActions.pipe(
+  ofType(ReservationActionTypes.SAVE_ENCAISSEMENT_RESERVATION),
+  mergeMap((action: ReservationActions) => {
+    alert("before")
+    console.log("*** **** *** *** THE PAYLOAD ENCISSEMENT EST LE SUIVANT *** *** *** *** *** *** ");
+    console.log(action.payload);
+    return this.apiService.saveencaissementreservation(action.payload).pipe(
+      map((quartier) => new SaveEncaissementReservationActionsSuccess(quartier)),
+      catchError((err) =>
+        of(new SaveEncaissementReservationActionsError(err.message))
+      )
+    );
+  }),
+  tap((resultat) => {
+    if (
+      resultat.type == ReservationActionTypes.SAVE_ENCAISSEMENT_RESERVATION_ERROR
+    ) {
+      this.sendErrorNotification(NotificationType.ERROR, resultat.payload);
+    }
+  })
+)
+);
   listReservationEffect: Observable<Action> = createEffect(() =>
     this.effectActions.pipe(
       ofType(ReservationActionTypes.GET_LISTE_RESERVATION),
@@ -63,6 +113,27 @@ export class ReservationEffects {
       })
     )
   );
+
+  listEncaisseReservBienEffect: Observable<Action> = createEffect(() =>
+  this.effectActions.pipe(
+    ofType(ReservationActionTypes.GET_LISTE_ENCAISSEMENT_RESERVATION_BIEN),
+    mergeMap((action: ReservationActions) => {
+      return this.apiService.findAllEncaissementReservationByIdBien(action.payload).pipe(
+        map((quartier) => new GetListEncaissementReservationBienActionSuccess(quartier)),
+        catchError((err) =>
+          of(new GetListEncaissementReservationBienActionError(err.message))
+        )
+      );
+    }),
+    tap((resultat) => {
+      if (
+        resultat.type == ReservationActionTypes.GET_LISTE_RESERVATION_OUVERT_ERROR
+      ) {
+        this.sendErrorNotification(NotificationType.ERROR, resultat.payload);
+      }
+    })
+  )
+);
   private sendErrorNotification(
     notificationType: NotificationType,
     message: string
