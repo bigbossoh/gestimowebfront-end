@@ -55,9 +55,7 @@ saveEncaissementReservationEffect: Observable<Action> = createEffect(() =>
 this.effectActions.pipe(
   ofType(ReservationActionTypes.SAVE_ENCAISSEMENT_RESERVATION),
   mergeMap((action: ReservationActions) => {
-    alert("before")
-    console.log("*** **** *** *** THE PAYLOAD ENCISSEMENT EST LE SUIVANT *** *** *** *** *** *** ");
-    console.log(action.payload);
+
     return this.apiService.saveencaissementreservation(action.payload).pipe(
       map((quartier) => new SaveEncaissementReservationActionsSuccess(quartier)),
       catchError((err) =>
@@ -98,6 +96,8 @@ this.effectActions.pipe(
     this.effectActions.pipe(
       ofType(ReservationActionTypes.SAVE_RESERVATION),
       mergeMap((action: ReservationActions) => {
+        console.log("*** *** **** THE PAYLOAD *** *** **** ");
+        console.log(action.payload);
         return this.apiService.saveorupdatereservation(action.payload).pipe(
           map((q) => new SaveReservationActionsSuccess(q)),
           catchError((err) => of(new SaveReservationActionsError(err.message)))

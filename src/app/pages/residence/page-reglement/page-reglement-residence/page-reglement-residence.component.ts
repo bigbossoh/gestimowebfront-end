@@ -127,7 +127,6 @@ export class PageReglementResidenceComponent implements OnInit {
     this.afficherLesReservationOuverte();
   }
   onSaveEncaissement() {
-    alert(this.modePaiement)
     this.store.dispatch(
       new SaveEncaissementReservationAction({
         idReservation: this.leLocataire.id,
@@ -181,9 +180,14 @@ export class PageReglementResidenceComponent implements OnInit {
       });
   }
 
-  printRecu(p: any) {
-    this.printService.printRecuEncaissement(p).subscribe((blob) => {
-      saveAs(blob, 'appel_quittance_du_' + p + '.pdf');
-    });
+  printRecuPaiement(p: any) {
+    this.user = this.userService.getUserFromLocalCache();
+//recureservation(  idEncaissement:any,  idAgence:any,proprio:any)
+    this.printService
+      .recureservation(p,  this.user.idAgence,'SABLIN SEVERIN')
+      .subscribe((blob) => {
+        // console.log('La taille du fichier' + blob.size);
+        saveAs(blob, 'recu_de_paiement_' + p + '.pdf');
+      });
   }
 }

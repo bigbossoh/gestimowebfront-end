@@ -1,3 +1,4 @@
+import { PageReglementReservationIndividuelComponent } from './pages/residence/page-reglement-reservation-individuel/page-reglement-reservation-individuel.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageLoginComponent } from './pages/page-login/page-login.component';
@@ -208,6 +209,11 @@ const routes: Routes = [
       {
         path: 'paiement-residence',
         component: PageReglementResidenceComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'paiement-residence-individuel',
+        component: PageReglementReservationIndividuelComponent,
         canActivate: [ApplicationGuardService],
       },
       {

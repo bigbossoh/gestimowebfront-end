@@ -30,6 +30,7 @@ import { SupprimerOperationActions } from '../../../ngrx/baux/baux.actions';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 
 export interface DialogData {
+  idReservation: any;
   bienimmo: any;
   id: number;
 }

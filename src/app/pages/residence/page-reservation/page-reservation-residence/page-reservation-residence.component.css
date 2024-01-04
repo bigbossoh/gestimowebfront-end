@@ -1,3 +1,16 @@
+table {
+  width: 100%;
+}
+
+.highlightTableColor{
+  background-color: aquamarine ;
+}
+.example-container {
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
+}
+
 section {
   display: table;
 }

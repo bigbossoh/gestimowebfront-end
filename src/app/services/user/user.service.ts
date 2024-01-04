@@ -29,17 +29,7 @@ export class UserService {
     this.token = token;
     localStorage.setItem('token', token);
   }
-  // postFormDataToServerMultiPart(action: string, formData) {
-  //   return this.http
-  //     .post(this.rootUrl + `gestimoweb/api/v1/images` + action, formData)
-  //     .pipe(map((response: any) => response));
-  // }
 
-  // public onUploadImageService(image:any):Observable<any>{
-
-  //    console.log("from service ")
-  //  // return this.apiService.uploadImage(image);
-  // }
 
   public loadToken(): void {
     this.token = localStorage.getItem('token');
@@ -48,19 +38,13 @@ export class UserService {
   public getToken(): string {
     return this.token!;
   }
-  // public initClotureCaisse():boolean{
-  // return true;
-  // }
+
   public isUserLoggedIn(): boolean {
     this.loadToken();
     if (this.token != null && this.token !== '') {
       if (this.jwtHelper.decodeToken(this.token).sub != null || '') {
         if (!this.jwtHelper.isTokenExpired(this.token)) {
           this.loggedInUsername = this.jwtHelper.decodeToken(this.token).sub;
-          console.log('*** PRINT SUBJET ****');
-          console.log(this.getUserFromLocalCache());
-          console.log('*********************************');
-
           return true;
         }
       }
@@ -71,10 +55,6 @@ export class UserService {
     return false;
   }
 
-  // public login(authRequestDto:AuthRequestDto) : Observable<Utilisateur>{
-  //  // console.log("we are in userservice first", authRequestDto);
-  //   return this.apiService.login(authRequestDto);
-  // }
   public login(authRequestDto: AuthRequestDto): Observable<any> {
     return this.http.post<UtilisateurRequestDto>(
       `${this.apiService.rootUrl}gestimoweb/api/v1/auth/login`,
@@ -83,8 +63,6 @@ export class UserService {
     );
   }
   public getDefaultChapitre(id: any): Observable<any> {
-    console.log("THE ID IS THE NEXT : ****"+id);
-
   return  this.http.get<any>(
       this.apiService.rootUrl +
         'gestimoweb/api/v1/etablissement/getDefaultEtable/' +

@@ -129,13 +129,23 @@
                       Action
                     </mat-header-cell>
                     <mat-cell *matCellDef="let row">
-                      <section *ngIf="row.utilisateurOperation == 'XXX XXXXX'">
-                        <div class="example-button-row">
-                          <button mat-raised-button color="primary">
-                            Entretr en chambre
-                          </button>
-                        </div>
-                      </section>
+                      <button
+                        (click)="entrerEnChambre(row)"
+                        color="primary"
+                        *ngIf="row.utilisateurOperation == 'XXX XXXXX'"
+                        mat-icon-button
+                      >
+                        <mat-icon>login</mat-icon>
+                      </button>
+                      <button (click)="encaissementReservation(row)" mat-icon-button color="warn">
+                        <mat-icon>attach_money</mat-icon>
+                      </button>
+                      <button (click)="printRecuPaiementReservation(row.id)" mat-icon-button color="accent">
+                        <mat-icon>print</mat-icon>
+                      </button>
+                      <button mat-icon-button color="warn">
+                        <mat-icon>delete_sweep</mat-icon>
+                      </button>
                     </mat-cell>
                   </ng-container>
                   <mat-header-row *matHeaderRowDef="displayedColumns">

@@ -10,6 +10,7 @@ export interface ReservationAfficheDto {
   mobile?: string;
   username?: string;
   idAppartementdDto?: number;
+  idLastEncaissement?: number;
   dateDebut?: string;
   dateFin?: string;
   utilisateurOperation?: string;
