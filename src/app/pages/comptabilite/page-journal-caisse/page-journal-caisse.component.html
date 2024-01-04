@@ -31,6 +31,7 @@
               <ng-container>
                  <label>Type d'opérations</label>
                 <select
+                [(ngModel)]="operationType"
                   id="operationType"
                   name="operationType"
                   class="form-control"
@@ -66,10 +67,6 @@
             </ng-container>
           </div>
         </div>
-
-        <!-- <div class="row mb-3"> -->
-        <!-- <ng-container> -->
-
           <div class="row">
           <ng-container>
             <div class="col-md-4">
@@ -77,6 +74,7 @@
                 <mat-form-field appearance="outline">
                   <mat-label>Mode de règlement*</mat-label>
                   <mat-select
+                  [(ngModel)]="modeReglement"
                     formControlName="modePaiement"
                     placeholder="Mode de règlement"
                   >
@@ -95,11 +93,6 @@
                 </mat-form-field>
               </div>
             </div>
-
-
-            <!-- <div class="row"> -->
-              <!-- <div class="col-md-3"></div> -->
-
               <div class="col-md-4">
                 <mat-form-field appearance="outline">
                   <mat-label>Montant encaissé</mat-label>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
@@ -8,12 +8,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./page-chat-ia.component.css']
 })
 export class PageChatIaComponent implements OnInit {
- queryFormGroup!:FormGroup
+ queryFormGroup!:UntypedFormGroup
  messages=[
   {"role": "user", "content": "Say this is a test!"}
  ];
  result:any;
-  constructor(private fb:FormBuilder,private HttpClient:HttpClient) { }
+  constructor(private fb:UntypedFormBuilder,private HttpClient:HttpClient) { }
 
   ngOnInit(): void {
     this.queryFormGroup=this.fb.group({

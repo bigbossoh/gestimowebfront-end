@@ -23,7 +23,7 @@
           [ngSwitch]="state.dataState"
         >
           <ng-container *ngSwitchCase="GerantStateEnum.ERROR">
-            <div class="p-2 invalid-feedback">{{state.errorMessage}}</div>
+            <div class="p-2 invalid-feedback">{{ state.errorMessage }}</div>
           </ng-container>
           <ng-container *ngSwitchCase="GerantStateEnum.LOADING">
             <div class="p-2">les données sont en chargement ...</div>
@@ -41,16 +41,26 @@
                 </option>
               </select>
             </mat-form-field>
+            <button (click)="ajoutClient()" mat-icon-button color="warn">
+              <mat-icon>co_present</mat-icon>
+            </button>
             <mat-form-field appearance="fill">
               <mat-label>Nombre d'adultes</mat-label>
-              <input matInput placeholder="Placeholder" [(ngModel)]="nbrAdult" />
+              <input
+                matInput
+                placeholder="Placeholder"
+                [(ngModel)]="nbrAdult"
+              />
             </mat-form-field>
             <mat-form-field appearance="fill">
               <mat-label>Nombre d'enfants</mat-label>
-              <input matInput placeholder="Placeholder" [(ngModel)]="nbrEnfant" />
-            </mat-form-field>
-          </ng-container></ng-container
-        >
+              <input
+                matInput
+                placeholder="Placeholder"
+                [(ngModel)]="nbrEnfant"
+              />
+            </mat-form-field> </ng-container
+        ></ng-container>
       </div>
     </div>
     <hr style="margin-top: 0" />
@@ -87,7 +97,7 @@
                 [(ngModel)]="residenceModel"
                 (selectionChange)="
                   selectMontantLoyer(
-                    residenceModel.categorieChambre.prixGategorieDto
+                    residenceModel.idCategorieChambre.prixGategorieDto
                   )
                 "
               >
@@ -102,12 +112,11 @@
             </mat-form-field>
             <div class="row" *ngIf="residenceModel">
               <div style="color: darkgreen">
-                {{ residenceModel.categorieChambre.description }}
+                {{ residenceModel.idCategorieChambre.description }}
               </div>
-
               <div
                 *ngFor="
-                  let prix of residenceModel.categorieChambre.prixGategorieDto
+                  let prix of residenceModel.idCategorieChambre.prixGategorieDto
                 "
               >
                 De {{ prix.nombreDeJour }}:{{ prix.prix }} FCFA
@@ -116,8 +125,6 @@
           </ng-container>
         </ng-container>
       </div>
-
-
     </div>
   </div>
 </div>
@@ -146,9 +153,10 @@
           placeholder="End date"
           [(ngModel)]="dateFinSejour"
           (dateChange)="
-            getDiffDays(dateDebutSejour, dateFinSejour);
+            getDiffDays( dateDebutSejour, dateFinSejour);
             getMontantNuite(dateDiff, listMontant)
           "
+
         />
       </mat-date-range-input>
       <mat-hint>Arrivée – Départ</mat-hint>
@@ -162,22 +170,27 @@
 
   <div class="col-md-4">
     <mat-card-subtitle>
-      <span>{{ dateDiff }} jours </span>
+      <span class="larger">{{ dateDiff }} jours </span>
     </mat-card-subtitle>
   </div>
   <div class="col-md-4">
     <mat-card-subtitle>
-      <span>{{ laNuiteMontant }} la nuitée</span>
+      <span class="larger">{{ laNuiteMontant }} la nuitée</span>
     </mat-card-subtitle>
   </div>
   <mat-form-field appearance="fill">
     <mat-label>Pourcentace Reduction</mat-label>
-    <input matInput placeholder="Placeholder" [(ngModel)]="reduction" />
+    <input
+      class="larger"
+      matInput
+      placeholder="Placeholder"
+      [(ngModel)]="reduction"
+    />
     <mat-icon matSuffix>percent</mat-icon>
   </mat-form-field>
   <div class="col-md-4">
     <mat-card-subtitle>
-      <span
+      <span class="larger"
         >Montant réduction :
         {{
           (reduction * dateDiff * laNuiteMontant) / 100
@@ -187,38 +200,46 @@
     </mat-card-subtitle>
   </div>
   <mat-form-field appearance="fill">
-    <mat-label>Montant Payé</mat-label>
+    <mat-label class="larger">Montant Payé</mat-label>
     <input matInput placeholder="Placeholder" [(ngModel)]="montantPayer" />
   </mat-form-field>
   <div class="col-md-4">
     <mat-card-subtitle>
-      <span
+      <span class="larger" *ngIf="totalApayer <= 0"
         >Total :
         {{
           (1 - reduction / 100) * dateDiff * laNuiteMontant
             | currency : "XOF" : "symbol"
         }}
       </span>
+      <span class="larger" *ngIf="totalApayer > 0"
+        >Total :
+        {{ totalApayer | currency : "XOF" : "symbol" }}
+      </span>
     </mat-card-subtitle>
   </div>
   <div class="col-md-4">
     <mat-card-subtitle>
-      <span
-        >Reste à payer :
+      <span class="larger" *ngIf="resteApayer <= 0">
+        Reste à payer :
         {{
           (1 - reduction / 100) * dateDiff * laNuiteMontant - montantPayer
             | currency : "XOF" : "symbol"
         }}
       </span>
+      <span class="larger" *ngIf="resteApayer > 0"
+        >Reste à payer:
+        {{ resteApayer - montantPayer | currency : "XOF" : "symbol" }}
+      </span>
     </mat-card-subtitle>
   </div>
-  <div *ngIf="client == 1">
-    <button mat-raised-button color="primary"
-(click)="saveReserver()"
-    >Reverver</button>
+  <div>
+    <button mat-raised-button color="primary" (click)="saveReserver()">
+      Valider p
+    </button>
   </div>
-  <div *ngIf="client == 2">
+  <!-- <div *ngIf="client == 2">
     <button mat-raised-button color="primary"
-    (click)="saveValider()">Valider</button>
-  </div>
+    (click)="saveReserver()">Valider</button>
+  </div> -->
 </div>

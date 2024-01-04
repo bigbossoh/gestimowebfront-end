@@ -1,7 +1,7 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { AgenceRequestDto } from '../../../../gs-api/src/models/agence-request-dto';
 import { Observable } from 'rxjs';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { UtilisateurRequestDto } from 'src/gs-api/src/models';
 import { Store } from '@ngrx/store';
 import { GetAllAgenceActions } from '../../../ngrx/agence/agence.actions';
@@ -33,7 +33,7 @@ export class PageAgenceComponent implements OnInit {
   displayedColumns: string[] = ['id','nomAgence','sigleAgence','telAgence','emailAgence','agenceStatus','action'];
   dataSource: MatTableDataSource<any>=new MatTableDataSource();
   public refreshing?: boolean;
-  agenceRegisterForm!: FormGroup;
+  agenceRegisterForm!: UntypedFormGroup;
   getAgenceState$: Observable<AgenceBdState> | null = null;
 
   readonly AgenceStateEnum = AgenceStateEnum;

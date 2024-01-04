@@ -19,29 +19,30 @@ export class StatistiqueService {
       this.v_user = this.user!.idAgence;
     }
   }
-  public getAllBienImmobilier(chapitre: number): Observable<any>
+  public getAllBienImmobilier(chapitre: any,agence:any): Observable<any>
   {
-    return this.apiService.findAllBien({idAgence:this.v_user,chapitre: chapitre});
+
+    return this.apiService.findAllBien({idAgence:agence,chapitre: chapitre});
   }
-  public getAllBienImmobilierOccuper(chapitre: number): Observable<any> {
-    return this.apiService.findAllBienOqp({idAgence:this.v_user,chapitre: chapitre});
+  public getAllBienImmobilierOccuper(chapitre: number,agence:any): Observable<any> {
+    return this.apiService.findAllBienOqp({idAgence:agence,chapitre: chapitre});
   }
   // public getAllLocatire(idAgence:number):Observable<any>{
   //   return this.apiService.getUtilisateurByAgence(idAgence);
   // }
-  public getAllLocatire(): Observable<any> {
-    return this.apiService.getAllLocatairesByOrder(this.v_user);
+  public getAllLocatire(agence:any): Observable<any> {
+    return this.apiService.getAllLocatairesByOrder(agence);
   }
 
-  public getAlllocataireAyantBail(): Observable<any> {
-    return this.apiService.getAllLocatairesAvecBail(this.v_user);
+  public getAlllocataireAyantBail(agence:any): Observable<any> {
+    return this.apiService.getAllLocatairesAvecBail(agence);
   }
 
-  public getAllBauxActif(): Observable<any> {
-    return this.apiService.nombrebailactif(this.v_user);
+  public getAllBauxActif(agence:any): Observable<any> {
+    return this.apiService.nombrebailactif(agence);
   }
 
-  public getAllBauxNonActif(): Observable<any> {
-    return this.apiService.nombrebailnonactif(this.v_user);
+  public getAllBauxNonActif(agence:any): Observable<any> {
+    return this.apiService.nombrebailnonactif(agence);
   }
 }

@@ -1,3 +1,4 @@
+import { PageReglementReservationIndividuelComponent } from './pages/residence/page-reglement-reservation-individuel/page-reglement-reservation-individuel.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageLoginComponent } from './pages/page-login/page-login.component';
@@ -41,6 +42,8 @@ import { ClotureCaisseComponent } from './pages/cloture-caisse/cloture-caisse.co
 import { CategorieAppartementComponent } from './pages/categorie-appartement/categorie-appartement.component';
 import { NewCategorieChambreComponent } from './pages/categorie-appartement/new-categorie-chambre/new-categorie-chambre.component';
 import { NewPrixCategorieChambreComponent } from './pages/bien-immobilier/new-prix-categorie-chambre/new-prix-categorie-chambre.component';
+import { PageReglementResidenceComponent } from './pages/residence/page-reglement/page-reglement-residence/page-reglement-residence.component';
+
 
 const routes: Routes = [
   {
@@ -205,7 +208,12 @@ const routes: Routes = [
       },
       {
         path: 'paiement-residence',
-        component: PageReservationResidenceComponent,
+        component: PageReglementResidenceComponent,
+        canActivate: [ApplicationGuardService],
+      },
+      {
+        path: 'paiement-residence-individuel',
+        component: PageReglementReservationIndividuelComponent,
         canActivate: [ApplicationGuardService],
       },
       {

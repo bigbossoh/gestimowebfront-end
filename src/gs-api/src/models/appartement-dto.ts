@@ -17,13 +17,11 @@ export interface AppartementDto {
   description?: string;
   superficieBien?: number;
   bienMeublerResidence?: boolean;
-  idCategorie?: number;
   nameCategorie?: string;
   priceCategorie?: number;
   nbrDiffJourCategorie?: number;
   pourcentReducCategorie?: number;
-  idCategorieChambre?: number;
+  idCategorieChambre?: CategoryChambreSaveOrUpdateDto;
   idChapitre?: number;
-  categorieChambre?: CategoryChambreSaveOrUpdateDto;
   occupied?: boolean;
 }

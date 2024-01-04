@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
     this.store.dispatch(new GetDefaultEtabNameActions(this.user.id));
     this.etablissementState$ = this.store.pipe(map((state) => state.etablissementState));
     this.store.pipe(map((state) => state.etablissementState)).subscribe(
-      data=>console.log(data)
+
     )
   }
 

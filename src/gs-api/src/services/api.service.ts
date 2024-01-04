@@ -54,6 +54,8 @@ import { InputStreamResource } from '../models/input-stream-resource';
 import { PrixParCategorieChambreDto } from '../models/prix-par-categorie-chambre-dto';
 import { QuartierRequestDto } from '../models/quartier-request-dto';
 import { ReservationAfficheDto } from '../models/reservation-affiche-dto';
+import { EncaissementReservationDto } from '../models/encaissement-reservation-dto';
+import { EncaissementReservationRequestDto } from '../models/encaissement-reservation-request-dto';
 import { ReservationSaveOrUpdateDto } from '../models/reservation-save-or-update-dto';
 import { ReservationRequestDto } from '../models/reservation-request-dto';
 import { PrestationAdditionnelReservationSaveOrrUpdate } from '../models/prestation-additionnel-reservation-save-orr-update';
@@ -75,7 +77,7 @@ class ApiService extends __BaseService {
   static readonly getAgenceByIDAgencePath = 'gestimoweb/api/v1/agences/getagencebyid/{id}';
   static readonly authenticateAgencePath = 'gestimoweb/api/v1/agences/signup';
   static readonly findAllAppartementPath = 'gestimoweb/api/v1/appartement/all/{id}';
-  static readonly findAllAppartementLibrePath = 'gestimoweb/api/v1/appartement/alllibre/{id}';
+  static readonly findAllAppartementLibrePath = 'gestimoweb/api/v1/appartement/alllmeublelibre/{idAgence}';
   static readonly findAllAppartementMeublePath = 'gestimoweb/api/v1/appartement/allmeuble/{id}';
   static readonly deleteAppartementPath = 'gestimoweb/api/v1/appartement/delete/{id}';
   static readonly findByIDAppartementPath = 'gestimoweb/api/v1/appartement/findById/{id}';
@@ -223,7 +225,9 @@ class ApiService extends __BaseService {
   static readonly saveorupdatePrestationPath = 'gestimoweb/api/v1/prestation/saveorupdate';
   static readonly sampleQuitancePath = 'gestimoweb/api/v1/print/quittance/{id}';
   static readonly quittancePeriodePath = 'gestimoweb/api/v1/print/quittancegrouper/{periode}/{idAgence}/{proprio}';
+  static readonly recuReservationParIdReservationPath = 'gestimoweb/api/v1/print/recuReservationParIdReservation/{idReservation}/{idAgence}/{proprio}';
   static readonly recuPaimentPath = 'gestimoweb/api/v1/print/recupaiment/{idEncaissement}';
+  static readonly recuReservationPath = 'gestimoweb/api/v1/print/recureservation/{idEncaissement}/{idAgence}/{proprio}';
   static readonly listDesPrixParCategoriPath = 'gestimoweb/api/v1/prixparcategorie/listDesPrixParCategori/{idCategorie}';
   static readonly saveOrUpDatePrixParCategoriePath = 'gestimoweb/api/v1/prixparcategorie/saveOrUpDatePrixParCategorie';
   static readonly findAllQuartiersPath = 'gestimoweb/api/v1/quartier/all/{idAgence}';
@@ -233,8 +237,13 @@ class ApiService extends __BaseService {
   static readonly findByNameQuartierPath = 'gestimoweb/api/v1/quartier/findByName/{name}';
   static readonly saveQuartierPath = 'gestimoweb/api/v1/quartier/save';
   static readonly allreservationPath = 'gestimoweb/api/v1/reservation/allreservation';
+  static readonly allreservationparagencePath = 'gestimoweb/api/v1/reservation/allreservationparagence/{idAgence}';
   static readonly deleteReservationPath = 'gestimoweb/api/v1/reservation/delete/{id}';
-  static readonly findCategorieChambreByIDReservationPath = 'gestimoweb/api/v1/reservation/findById/{id}';
+  static readonly findAllEncaissementReservationByIdBienPath = 'gestimoweb/api/v1/reservation/findAllEncaissementReservationByIdBien/{idReser}';
+  static readonly findPeriodeReservationByIdBienPath = 'gestimoweb/api/v1/reservation/findPeriodeReservationByIdBien/{idBien}';
+  static readonly findCategorieChambreByIDReservationPath = 'gestimoweb/api/v1/reservation/findReservationById/{id}';
+  static readonly listeDesReservationOuvertParAgencePath = 'gestimoweb/api/v1/reservation/listeDesReservationOuvertParAgence/{idAgence}';
+  static readonly saveencaissementreservationPath = 'gestimoweb/api/v1/reservation/saveencaissementreservation';
   static readonly saveorupdateResPath = 'gestimoweb/api/v1/reservation/saveorupdate';
   static readonly saveorupdategoodPath = 'gestimoweb/api/v1/reservation/saveorupdategood';
   static readonly saveorupdatereservationPath = 'gestimoweb/api/v1/reservation/saveorupdatereservation';
@@ -506,17 +515,17 @@ class ApiService extends __BaseService {
   }
 
   /**
-   * @param id undefined
+   * @param idAgence undefined
    * @return successful operation
    */
-  findAllAppartementLibreResponse(id: number): __Observable<__StrictHttpResponse<Array<AppartementDto>>> {
+  findAllAppartementLibreResponse(idAgence: number): __Observable<__StrictHttpResponse<Array<AppartementDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
 
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/appartement/alllibre/${id}`,
+      this.rootUrl + `gestimoweb/api/v1/appartement/alllmeublelibre/${idAgence}`,
       __body,
       {
         headers: __headers,
@@ -532,11 +541,11 @@ class ApiService extends __BaseService {
     );
   }
   /**
-   * @param id undefined
+   * @param idAgence undefined
    * @return successful operation
    */
-  findAllAppartementLibre(id: number): __Observable<Array<AppartementDto>> {
-    return this.findAllAppartementLibreResponse(id).pipe(
+  findAllAppartementLibre(idAgence: number): __Observable<Array<AppartementDto>> {
+    return this.findAllAppartementLibreResponse(idAgence).pipe(
       __map(_r => _r.body as Array<AppartementDto>)
     );
   }
@@ -6287,6 +6296,58 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param params The `ApiService.RecuReservationParIdReservationParams` containing the following parameters:
+   *
+   * - `proprio`:
+   *
+   * - `idReservation`:
+   *
+   * - `idAgence`:
+   *
+   * @return successful operation
+   */
+  recuReservationParIdReservationResponse(params: ApiService.RecuReservationParIdReservationParams): __Observable<__StrictHttpResponse<InputStreamResource>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/print/recuReservationParIdReservation/${params.idReservation}/${params.idAgence}/${params.proprio}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<InputStreamResource>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.RecuReservationParIdReservationParams` containing the following parameters:
+   *
+   * - `proprio`:
+   *
+   * - `idReservation`:
+   *
+   * - `idAgence`:
+   *
+   * @return successful operation
+   */
+  recuReservationParIdReservation(params: ApiService.RecuReservationParIdReservationParams): __Observable<InputStreamResource> {
+    return this.recuReservationParIdReservationResponse(params).pipe(
+      __map(_r => _r.body as InputStreamResource)
+    );
+  }
+
+  /**
    * @param idEncaissement undefined
    * @return successful operation
    */
@@ -6318,6 +6379,58 @@ class ApiService extends __BaseService {
    */
   recuPaiment(idEncaissement: number): __Observable<InputStreamResource> {
     return this.recuPaimentResponse(idEncaissement).pipe(
+      __map(_r => _r.body as InputStreamResource)
+    );
+  }
+
+  /**
+   * @param params The `ApiService.RecuReservationParams` containing the following parameters:
+   *
+   * - `proprio`:
+   *
+   * - `idEncaissement`:
+   *
+   * - `idAgence`:
+   *
+   * @return successful operation
+   */
+  recuReservationResponse(params: ApiService.RecuReservationParams): __Observable<__StrictHttpResponse<InputStreamResource>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/print/recureservation/${params.idEncaissement}/${params.idAgence}/${params.proprio}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<InputStreamResource>;
+      })
+    );
+  }
+  /**
+   * @param params The `ApiService.RecuReservationParams` containing the following parameters:
+   *
+   * - `proprio`:
+   *
+   * - `idEncaissement`:
+   *
+   * - `idAgence`:
+   *
+   * @return successful operation
+   */
+  recuReservation(params: ApiService.RecuReservationParams): __Observable<InputStreamResource> {
+    return this.recuReservationResponse(params).pipe(
       __map(_r => _r.body as InputStreamResource)
     );
   }
@@ -6644,6 +6757,42 @@ class ApiService extends __BaseService {
   }
 
   /**
+   * @param idAgence undefined
+   * @return successful operation
+   */
+  allreservationparagenceResponse(idAgence: number): __Observable<__StrictHttpResponse<Array<ReservationAfficheDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/reservation/allreservationparagence/${idAgence}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<ReservationAfficheDto>>;
+      })
+    );
+  }
+  /**
+   * @param idAgence undefined
+   * @return successful operation
+   */
+  allreservationparagence(idAgence: number): __Observable<Array<ReservationAfficheDto>> {
+    return this.allreservationparagenceResponse(idAgence).pipe(
+      __map(_r => _r.body as Array<ReservationAfficheDto>)
+    );
+  }
+
+  /**
    * @param id undefined
    */
   deleteReservationResponse(id: number): __Observable<__StrictHttpResponse<null>> {
@@ -6678,17 +6827,17 @@ class ApiService extends __BaseService {
   }
 
   /**
-   * @param id undefined
+   * @param idReser undefined
    * @return successful operation
    */
-  findCategorieChambreByIDReservationResponse(id: number): __Observable<__StrictHttpResponse<ReservationSaveOrUpdateDto>> {
+  findAllEncaissementReservationByIdBienResponse(idReser: number): __Observable<__StrictHttpResponse<Array<EncaissementReservationDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
 
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `gestimoweb/api/v1/reservation/findById/${id}`,
+      this.rootUrl + `gestimoweb/api/v1/reservation/findAllEncaissementReservationByIdBien/${idReser}`,
       __body,
       {
         headers: __headers,
@@ -6699,7 +6848,79 @@ class ApiService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<ReservationSaveOrUpdateDto>;
+        return _r as __StrictHttpResponse<Array<EncaissementReservationDto>>;
+      })
+    );
+  }
+  /**
+   * @param idReser undefined
+   * @return successful operation
+   */
+  findAllEncaissementReservationByIdBien(idReser: number): __Observable<Array<EncaissementReservationDto>> {
+    return this.findAllEncaissementReservationByIdBienResponse(idReser).pipe(
+      __map(_r => _r.body as Array<EncaissementReservationDto>)
+    );
+  }
+
+  /**
+   * @param idBien undefined
+   * @return successful operation
+   */
+  findPeriodeReservationByIdBienResponse(idBien: number): __Observable<__StrictHttpResponse<ReservationAfficheDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/reservation/findPeriodeReservationByIdBien/${idBien}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<ReservationAfficheDto>;
+      })
+    );
+  }
+  /**
+   * @param idBien undefined
+   * @return successful operation
+   */
+  findPeriodeReservationByIdBien(idBien: number): __Observable<ReservationAfficheDto> {
+    return this.findPeriodeReservationByIdBienResponse(idBien).pipe(
+      __map(_r => _r.body as ReservationAfficheDto)
+    );
+  }
+
+  /**
+   * @param id undefined
+   * @return successful operation
+   */
+  findCategorieChambreByIDReservationResponse(id: number): __Observable<__StrictHttpResponse<ReservationAfficheDto>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/reservation/findReservationById/${id}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<ReservationAfficheDto>;
       })
     );
   }
@@ -6707,9 +6928,81 @@ class ApiService extends __BaseService {
    * @param id undefined
    * @return successful operation
    */
-  findCategorieChambreByIDReservation(id: number): __Observable<ReservationSaveOrUpdateDto> {
+  findCategorieChambreByIDReservation(id: number): __Observable<ReservationAfficheDto> {
     return this.findCategorieChambreByIDReservationResponse(id).pipe(
-      __map(_r => _r.body as ReservationSaveOrUpdateDto)
+      __map(_r => _r.body as ReservationAfficheDto)
+    );
+  }
+
+  /**
+   * @param idAgence undefined
+   * @return successful operation
+   */
+  listeDesReservationOuvertParAgenceResponse(idAgence: number): __Observable<__StrictHttpResponse<Array<ReservationAfficheDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+
+    let req = new HttpRequest<any>(
+      'GET',
+      this.rootUrl + `gestimoweb/api/v1/reservation/listeDesReservationOuvertParAgence/${idAgence}`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<ReservationAfficheDto>>;
+      })
+    );
+  }
+  /**
+   * @param idAgence undefined
+   * @return successful operation
+   */
+  listeDesReservationOuvertParAgence(idAgence: number): __Observable<Array<ReservationAfficheDto>> {
+    return this.listeDesReservationOuvertParAgenceResponse(idAgence).pipe(
+      __map(_r => _r.body as Array<ReservationAfficheDto>)
+    );
+  }
+
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveencaissementreservationResponse(body?: EncaissementReservationRequestDto): __Observable<__StrictHttpResponse<Array<EncaissementReservationDto>>> {
+    let __params = this.newParams();
+    let __headers = new HttpHeaders();
+    let __body: any = null;
+    __body = body;
+    let req = new HttpRequest<any>(
+      'POST',
+      this.rootUrl + `gestimoweb/api/v1/reservation/saveencaissementreservation`,
+      __body,
+      {
+        headers: __headers,
+        params: __params,
+        responseType: 'json'
+      });
+
+    return this.http.request<any>(req).pipe(
+      __filter(_r => _r instanceof HttpResponse),
+      __map((_r) => {
+        return _r as __StrictHttpResponse<Array<EncaissementReservationDto>>;
+      })
+    );
+  }
+  /**
+   * @param body undefined
+   * @return successful operation
+   */
+  saveencaissementreservation(body?: EncaissementReservationRequestDto): __Observable<Array<EncaissementReservationDto>> {
+    return this.saveencaissementreservationResponse(body).pipe(
+      __map(_r => _r.body as Array<EncaissementReservationDto>)
     );
   }
 
@@ -8747,6 +9040,24 @@ module ApiService {
   export interface QuittancePeriodeParams {
     proprio: string;
     periode: string;
+    idAgence: number;
+  }
+
+  /**
+   * Parameters for recuReservationParIdReservation
+   */
+  export interface RecuReservationParIdReservationParams {
+    proprio: string;
+    idReservation: number;
+    idAgence: number;
+  }
+
+  /**
+   * Parameters for recuReservation
+   */
+  export interface RecuReservationParams {
+    proprio: string;
+    idEncaissement: number;
     idAgence: number;
   }
 

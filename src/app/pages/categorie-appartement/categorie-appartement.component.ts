@@ -167,6 +167,7 @@ export class CategorieAppartementComponent implements OnInit {
       .subscribe((data) => {
         this.dataSourceAppart.data = [];
         this.dataSourceAppart.paginator = null;
+
         if (data.dataState == 'Loaded') {
           this.dataSourceAppart.data = data.appartementsCatego;
           this.dataSourceAppart.paginator = this.paginatorCategorieChambre;

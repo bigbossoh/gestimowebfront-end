@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -31,7 +31,7 @@ export class PageImmeubleNewComponent implements OnInit {
   public user?: UtilisateurRequestDto;
 
   submitted = false;
-  immeubleForm?: FormGroup;
+  immeubleForm?: UntypedFormGroup;
   immeubleState$: Observable<ImmeubleState> | null = null;
   siteState$: Observable<SiteState> | null = null;
   utilisateurState$: Observable<UtilisteurState> | null = null;
@@ -42,7 +42,7 @@ export class PageImmeubleNewComponent implements OnInit {
   constructor(
     private userService: UserService,
     public dialogRef: MatDialogRef<PageImmeubleNewComponent>,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private store: Store<any>
   ) {}
 

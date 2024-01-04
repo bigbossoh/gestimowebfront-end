@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -49,11 +49,11 @@ export class PageBauxNewComponent implements OnInit {
   nombreMoisCautionVil = 0;
   montantLoyerVil = 0;
   montantCautionVil = 0;
-  formGroup?: FormGroup;
-  bailvillaForm?: FormGroup;
-  bailMagainForm?: FormGroup;
-  bailStudioForm?: FormGroup;
-  bailAppartementForm?: FormGroup;
+  formGroup?: UntypedFormGroup;
+  bailvillaForm?: UntypedFormGroup;
+  bailMagainForm?: UntypedFormGroup;
+  bailStudioForm?: UntypedFormGroup;
+  bailAppartementForm?: UntypedFormGroup;
   public user?: UtilisateurRequestDto;
 
   utilisateurState$: Observable<UtilisteurState> | null = null;
@@ -73,7 +73,7 @@ export class PageBauxNewComponent implements OnInit {
   ngSelectTypeContrat = 'Bail';
   listTypeContrat: string[] = [];
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private store: Store<any>,
     private userService: UserService,
     public dialogRef: MatDialogRef<PageBauxNewComponent>

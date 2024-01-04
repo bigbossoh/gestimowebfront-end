@@ -24,7 +24,7 @@ export class CategorieChambreEffects {
       tap((resultat) => {
         if (
           resultat.type ==
-          CategorieChambreActionsTypes.LISTE_CATEGORIE_CHAMBRE_SUCCES
+          CategorieChambreActionsTypes.LISTE_CATEGORIE_CHAMBRE_ERROR
         ) {
           this.sendErrorNotification(
             NotificationType.ERROR,

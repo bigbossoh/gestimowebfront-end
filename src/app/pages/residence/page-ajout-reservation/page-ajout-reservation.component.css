@@ -22,7 +22,9 @@
 #container {
   visibility: hidden;
 }
-
+.larger {
+  font-size: larger;
+}
 #loader {
 color: #008cff;
 height: 40px;
@@ -43,4 +45,11 @@ left: 45%;
 }
 .mat-mdc-radio-button ~ .mat-mdc-radio-button {
   margin-left: 16px;
+}
+span {
+  font-size: 1.6em;
+}
+.longueurtext{
+  text-align: left;
+  width: 100%;
 }

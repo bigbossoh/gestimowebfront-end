@@ -29,7 +29,6 @@ import { PageProprietaireComponent } from './pages/utilisateurs/propriétaire/pa
 import { PageSuperviseurComponent } from './pages/utilisateurs/superviseur/page-superviseur/page-superviseur.component';
 import { PageVueEnsembleComponent } from './pages/vue-ensemple/page-vue-ensemble/page-vue-ensemble.component';
 import { PieComponent } from './composants/widgets/pie/pie.component';
-// import { HighchartsChartModule } from 'highcharts-angular';
 import { AppelsLoyersComponent } from './pages/appel-loyer/appels-loyers/appels-loyers.component';
 import { RelanceAppelsComponent } from './pages/appel-loyer/relance-appels/relance-appels.component';
 import { PageBienImmobilierComponent } from './pages/bien-immobilier/page-bien-immobilier/page-bien-immobilier.component';
@@ -181,6 +180,8 @@ import { prixParCategorieChambreReducer } from './ngrx/prix-par-categorie-chambr
 import { NewCategorieChambreComponent } from './pages/categorie-appartement/new-categorie-chambre/new-categorie-chambre.component';
 import { NewPrixCategorieChambreComponent } from './pages/bien-immobilier/new-prix-categorie-chambre/new-prix-categorie-chambre.component';
 import { SaveCategorieAppartComponent } from './pages/categorie-appartement/save-categorie-appart/save-categorie-appart.component';
+import { PageReglementReservationIndividuelComponent } from './pages/residence/page-reglement-reservation-individuel/page-reglement-reservation-individuel.component';
+
 @NgModule({
   declarations: [
     ClotureCaisseComponent,
@@ -256,7 +257,9 @@ import { SaveCategorieAppartComponent } from './pages/categorie-appartement/save
     CategorieAppartementComponent,
     NewCategorieChambreComponent,
     NewPrixCategorieChambreComponent,
-    SaveCategorieAppartComponent
+    SaveCategorieAppartComponent,
+    PageReglementResidenceComponent,
+    PageReglementReservationIndividuelComponent
   ],
   imports: [
     CanvasJSAngularChartsModule,

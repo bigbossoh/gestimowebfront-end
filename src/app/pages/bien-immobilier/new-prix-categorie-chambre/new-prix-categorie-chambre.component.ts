@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { UserService } from 'src/app/services/user/user.service';
@@ -19,14 +19,14 @@ import { map } from 'rxjs/operators';
 export class NewPrixCategorieChambreComponent implements OnInit {
   public user?: UtilisateurRequestDto;
   bauxState$: Observable<CategorieChambreState> | null = null;
-  formGroup?: FormGroup;
+  formGroup?: UntypedFormGroup;
   descpition: any;
   nombreDeJour: any;
   intervalPrix: any;
   prix: any;
   nbrDiffJour: any;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private store: Store<any>,
     private userService: UserService,
     public dialogRef: MatDialogRef<NewPrixCategorieChambreComponent>,

@@ -7,7 +7,7 @@ import {
   UtilisteurStateEnum,
 } from '../../../ngrx/utulisateur/utlisateur.reducer';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { UserService } from '../../../services/user/user.service';
 import { GetAllLocatairesBailActions } from '../../../ngrx/utulisateur/utilisateur.actions';
@@ -51,7 +51,7 @@ export class PageReglementIndividuelComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   public user?: UtilisateurRequestDto;
-  encaissementform?: FormGroup;
+  encaissementform?: UntypedFormGroup;
   leLocataire: any;
   submitted = false;
   periode: string = '';
@@ -72,7 +72,7 @@ export class PageReglementIndividuelComponent implements OnInit {
   printQuittance$: Observable<QuittanceLoyerState>  | null = null;
   readonly QuittanceloyerStateEnum = QuittanceloyerStateEnum;
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private store: Store<any>,
     private userService: UserService ,
     private printService: PrintServiceService ) {}
@@ -205,7 +205,7 @@ export class PageReglementIndividuelComponent implements OnInit {
       });
   }
   getAllEncaissementByBienImmobilier(p: any) {
-    // alert('Liste encaissement le suivant : : : '+p.id+'***'+p.idBien)
+
     this.store.dispatch(new GetEncaissementBienActions(p.idBien));
 
     this.store
@@ -225,7 +225,6 @@ export class PageReglementIndividuelComponent implements OnInit {
     this.printService
       .printRecuEncaissement(p)
       .subscribe((blob) => {
-        console.log('La taille du fichier' + blob.size);
         saveAs(blob, 'appel_quittance_du_' + p + '.pdf');
       });
   }

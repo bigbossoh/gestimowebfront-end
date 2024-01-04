@@ -18,6 +18,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SaveCategorieAppartComponent } from 'src/app/pages/categorie-appartement/save-categorie-appart/save-categorie-appart.component';
+import { PageReglementReservationIndividuelComponent } from '../../page-reglement-reservation-individuel/page-reglement-reservation-individuel.component';
+import { PrintServiceService } from 'src/app/services/Print/print-service.service';
+import * as saveAs from 'file-saver';
 
 @Component({
   selector: 'app-page-reservation-residence',
@@ -25,18 +28,24 @@ import { SaveCategorieAppartComponent } from 'src/app/pages/categorie-appartemen
   styleUrls: ['./page-reservation-residence.component.css'],
 })
 export class PageReservationResidenceComponent implements OnInit {
+encaissementReservation(row: any) {
+  const dialogRef = this.dialog.open(PageReglementReservationIndividuelComponent, {
+    data: {reservation:row},
+  });
+  dialogRef.afterClosed().subscribe((result) => {
+    this.ngOnInit();
+  });
+}
+
   displayedColumns = [
     'datereservation',
     'client',
-
     'appartement',
     'totalapayer',
     'montantpaye',
     'resteapayer',
-
     'pourcentagereductione',
     'periode',
-
     'action',
   ];
   @ViewChild('paginator') paginator!: MatPaginator;
@@ -45,7 +54,7 @@ export class PageReservationResidenceComponent implements OnInit {
   pageSizeAppel = [5, 10, 15, 20, 40];
   public totalRecords: number | undefined;
   public user?: UtilisateurRequestDto;
-  constructor(private store: Store<any>, public dialog: MatDialog) {}
+  constructor(private store: Store<any>, public dialog: MatDialog, private userService: UserService, private printService: PrintServiceService) {}
 
   reservationState$: Observable<ReservationState> | null = null;
   readonly ReservationStateEnum = ReservationStateEnum;
@@ -54,7 +63,8 @@ export class PageReservationResidenceComponent implements OnInit {
     this.afficherLesReservation();
   }
   afficherLesReservation() {
-    this.store.dispatch(new GetListReservationAction({}));
+    this.user = this.userService.getUserFromLocalCache();
+    this.store.dispatch(new GetListReservationAction(this.user!.idAgence));
     this.reservationState$ = this.store.pipe(
       map((state) => state.reservationState)
     );
@@ -68,6 +78,7 @@ export class PageReservationResidenceComponent implements OnInit {
           this.totalRecords = data.reservations.length;
           this.dataSource.data = data.reservations;
           this.dataSource.paginator = this.paginator;
+          console.log( this.dataSource.data = data.reservations)
         }
       });
   }
@@ -81,10 +92,28 @@ export class PageReservationResidenceComponent implements OnInit {
   }
   creerUneReservation() {
     const dialogRef = this.dialog.open(PageAjoutReservationComponent, {
-      data: {},
+      data: {idReservation:0},
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.ngOnInit();
     });
+  }
+  entrerEnChambre(id: any) {
+    const dialogRef = this.dialog.open(PageAjoutReservationComponent, {
+      data: {idReservation:id},
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.ngOnInit();
+    });
+  }
+  printRecuPaiementReservation(p: any) {
+    this.user = this.userService.getUserFromLocalCache();
+//recureservation(  idEncaissement:any,  idAgence:any,proprio:any)
+    this.printService
+      .recureservationparid(p,  this.user.idAgence,'SABLIN SEVERIN')
+      .subscribe((blob) => {
+        // console.log('La taille du fichier' + blob.size);
+        saveAs(blob, 'recu_de_paiement_' + p + '.pdf');
+      });
   }
 }

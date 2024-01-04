@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -53,14 +53,14 @@ import { GetDefaultEtabNameActions } from 'src/app/ngrx/etablissement/etabliseme
 export class PageBienImmobilierNewComponent implements OnInit {
   submitted = false;
 
-  formGroup?: FormGroup;
+  formGroup?: UntypedFormGroup;
 
-  etageForm?: FormGroup;
-  studioform?: FormGroup;
-  appartementForm?: FormGroup;
-  magasinForm?: FormGroup;
-  immeubleForm?: FormGroup;
-  villaForm?: FormGroup;
+  etageForm?: UntypedFormGroup;
+  studioform?: UntypedFormGroup;
+  appartementForm?: UntypedFormGroup;
+  magasinForm?: UntypedFormGroup;
+  immeubleForm?: UntypedFormGroup;
+  villaForm?: UntypedFormGroup;
 
   ngselecttypeBien = '20000';
   ngIelecttypeImm = 0;
@@ -93,7 +93,7 @@ export class PageBienImmobilierNewComponent implements OnInit {
   @Output() eventEmitter: EventEmitter<any> = new EventEmitter();
   constructor(
     private store: Store<any>,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private userService: UserService,
     public dialogRef: MatDialogRef<PageBienImmobilierNewComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData

@@ -30,6 +30,6 @@ export interface UtilisateurRequestDto {
   userCreate?: number;
   idEtablissement?: number;
   active?: boolean;
-  nonLocked?: boolean;
   activated?: boolean;
+  nonLocked?: boolean;
 }

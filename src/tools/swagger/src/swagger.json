@@ -137,11 +137,11 @@
         }
       }
     },
-    "gestimoweb/api/v1/appartement/alllibre/{id}" : {
+    "gestimoweb/api/v1/appartement/alllmeublelibre/{idAgence}" : {
       "get" : {
         "operationId" : "findAllAppartementLibre",
         "parameters" : [ {
-          "name" : "id",
+          "name" : "idAgence",
           "in" : "path",
           "required" : true,
           "type" : "integer",
@@ -3555,6 +3555,38 @@
         }
       }
     },
+    "gestimoweb/api/v1/print/recuReservationParIdReservation/{idReservation}/{idAgence}/{proprio}" : {
+      "get" : {
+        "operationId" : "recuReservationParIdReservation",
+        "produces" : [ "application/pdf" ],
+        "parameters" : [ {
+          "name" : "idReservation",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "proprio",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/InputStreamResource"
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/print/recupaiment/{idEncaissement}" : {
       "get" : {
         "operationId" : "recuPaiment",
@@ -3565,6 +3597,38 @@
           "required" : true,
           "type" : "integer",
           "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/InputStreamResource"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/print/recureservation/{idEncaissement}/{idAgence}/{proprio}" : {
+      "get" : {
+        "operationId" : "recuReservation",
+        "produces" : [ "application/pdf" ],
+        "parameters" : [ {
+          "name" : "idEncaissement",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        }, {
+          "name" : "proprio",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -3762,6 +3826,29 @@
         }
       }
     },
+    "gestimoweb/api/v1/reservation/allreservationparagence/{idAgence}" : {
+      "get" : {
+        "operationId" : "allreservationparagence",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ReservationAfficheDto"
+              }
+            }
+          }
+        }
+      }
+    },
     "gestimoweb/api/v1/reservation/delete/{id}" : {
       "delete" : {
         "operationId" : "deleteReservation",
@@ -3779,7 +3866,50 @@
         }
       }
     },
-    "gestimoweb/api/v1/reservation/findById/{id}" : {
+    "gestimoweb/api/v1/reservation/findAllEncaissementReservationByIdBien/{idReser}" : {
+      "get" : {
+        "operationId" : "findAllEncaissementReservationByIdBien",
+        "parameters" : [ {
+          "name" : "idReser",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/EncaissementReservationDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/reservation/findPeriodeReservationByIdBien/{idBien}" : {
+      "get" : {
+        "operationId" : "findPeriodeReservationByIdBien",
+        "parameters" : [ {
+          "name" : "idBien",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ReservationAfficheDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/reservation/findReservationById/{id}" : {
       "get" : {
         "operationId" : "findCategorieChambreByIDReservation",
         "parameters" : [ {
@@ -3793,7 +3923,54 @@
           "200" : {
             "description" : "successful operation",
             "schema" : {
-              "$ref" : "#/definitions/ReservationSaveOrUpdateDto"
+              "$ref" : "#/definitions/ReservationAfficheDto"
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/reservation/listeDesReservationOuvertParAgence/{idAgence}" : {
+      "get" : {
+        "operationId" : "listeDesReservationOuvertParAgence",
+        "parameters" : [ {
+          "name" : "idAgence",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ReservationAfficheDto"
+              }
+            }
+          }
+        }
+      }
+    },
+    "gestimoweb/api/v1/reservation/saveencaissementreservation" : {
+      "post" : {
+        "operationId" : "saveencaissementreservation",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/EncaissementReservationRequestDto"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/EncaissementReservationDto"
+              }
             }
           }
         }
@@ -5082,10 +5259,6 @@
         "bienMeublerResidence" : {
           "type" : "boolean"
         },
-        "idCategorie" : {
-          "type" : "integer",
-          "format" : "int64"
-        },
         "nameCategorie" : {
           "type" : "string"
         },
@@ -5102,15 +5275,11 @@
           "format" : "double"
         },
         "idCategorieChambre" : {
-          "type" : "integer",
-          "format" : "int64"
+          "$ref" : "#/definitions/CategoryChambreSaveOrUpdateDto"
         },
         "idChapitre" : {
           "type" : "integer",
           "format" : "int64"
-        },
-        "categorieChambre" : {
-          "$ref" : "#/definitions/CategoryChambreSaveOrUpdateDto"
         },
         "occupied" : {
           "type" : "boolean"
@@ -6480,6 +6649,114 @@
         }
       }
     },
+    "EncaissementReservationDto" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idReservation" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "creationDate" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "modePaiement" : {
+          "type" : "string"
+        },
+        "operationType" : {
+          "type" : "string"
+        },
+        "dateEncaissement" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "idLastEncaissement" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "montantEncaissement" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "soldeEncaissement" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "encienSoldReservation" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nvoSoldeReservation" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "intituleDepense" : {
+          "type" : "string"
+        },
+        "entiteOperation" : {
+          "type" : "string",
+          "enum" : [ "MAGISER", "SEVEINVEST" ]
+        },
+        "reservationAfficheDto" : {
+          "$ref" : "#/definitions/ReservationAfficheDto"
+        },
+        "typePaiement" : {
+          "type" : "string"
+        }
+      }
+    },
+    "EncaissementReservationRequestDto" : {
+      "type" : "object",
+      "properties" : {
+        "idReservation" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idAgence" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idCreateur" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "modePaiement" : {
+          "type" : "string"
+        },
+        "dateEncaissement" : {
+          "type" : "string",
+          "format" : "date"
+        },
+        "montantEncaissement" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "encienSoldReservation" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "nvoSoldeReservation" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "idAppartement" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
     "EspeceEncaissementDto" : {
       "type" : "object",
       "properties" : {
@@ -6935,10 +7212,10 @@
           "type" : "integer",
           "format" : "int64"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -6988,10 +7265,10 @@
         "proprietaire" : {
           "type" : "string"
         },
-        "occupied" : {
+        "underBuildingMagasin" : {
           "type" : "boolean"
         },
-        "underBuildingMagasin" : {
+        "occupied" : {
           "type" : "boolean"
         }
       }
@@ -7150,10 +7427,10 @@
         "inputStream" : {
           "$ref" : "#/definitions/InputStream"
         },
-        "contentType" : {
+        "originalFilename" : {
           "type" : "string"
         },
-        "originalFilename" : {
+        "contentType" : {
           "type" : "string"
         }
       }
@@ -7587,6 +7864,10 @@
           "type" : "string"
         },
         "idAppartementdDto" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "idLastEncaissement" : {
           "type" : "integer",
           "format" : "int64"
         },
@@ -8076,9 +8357,6 @@
           "type" : "number",
           "format" : "double"
         },
-        "cloturerSuivi" : {
-          "type" : "string"
-        },
         "modePaiement" : {
           "type" : "string",
           "enum" : [ "ESPESE_MAGISER", "ESPECE_SEVEINVEST", "CHEQUE_ECOBANK_MAGISER", "CHEQUE_GTBANK_SEVEINVEST", "VIREMENT_ECOBANK_MAGISER", "VIREMENT_GTBANK_SEVEINVEST", "MOBILE_MONEY_MAGISER", "MOBILE_MONEY_SEVEINVEST" ]
@@ -8284,10 +8562,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -8393,10 +8671,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }
@@ -8506,10 +8784,10 @@
         "active" : {
           "type" : "boolean"
         },
-        "nonLocked" : {
+        "activated" : {
           "type" : "boolean"
         },
-        "activated" : {
+        "nonLocked" : {
           "type" : "boolean"
         }
       }

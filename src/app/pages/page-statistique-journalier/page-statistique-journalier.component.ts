@@ -21,7 +21,7 @@ import { GetAllAnneeActions } from './../../ngrx/annee/annee.actions';
 import { AnneeState, AnneeStateEnum } from './../../ngrx/annee/annee.reducer';
 import { Observable } from 'rxjs';
 import { Component, OnInit, Inject, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -422,7 +422,7 @@ getStatPeriode(periode:string){
     this.getStatParAnnee(this.annee_model);
   }
   longText = ``;
-  toppings = new FormControl('');
+  toppings = new UntypedFormControl('');
 
   toppingList: string[] = [
     'Extra cheese',
