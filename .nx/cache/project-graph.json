@@ -239,9 +239,9 @@
       "type": "npm",
       "name": "npm:@angular/cdk",
       "data": {
-        "version": "12.2.13",
+        "version": "13.3.9",
         "packageName": "@angular/cdk",
-        "hash": "sha512-zSKRhECyFqhingIeyRInIyTvYErt4gWo+x5DQr0b7YLUbU8DZSwWnG4w76Ke2s4U8T7ry1jpJBHoX/e8YBpGMg=="
+        "hash": "sha512-XCuCbeuxWFyo3EYrgEYx7eHzwl76vaWcxtWXl00ka8d+WAOtMQ6Tf1D98ybYT5uwF9889fFpXAPw98mVnlo3MA=="
       }
     },
     "npm:@angular/cli": {
@@ -329,9 +329,9 @@
       "type": "npm",
       "name": "npm:@angular/material",
       "data": {
-        "version": "12.2.13",
+        "version": "13.3.9",
         "packageName": "@angular/material",
-        "hash": "sha512-6g2GyN4qp2D+DqY2AwrQuPB3cd9gybvQVXvNRbTPXEulHr+LgGei00ySdFHFp6RvdGSMZ4i3LM1Fq3VkFxhCfQ=="
+        "hash": "sha512-FU8lcMgo+AL8ckd27B4V097ZPoIZNRHiCe3wpgkImT1qC0YwcyXZVn0MqQTTFSdC9a/aI8wPm3AbTClJEVw5Vw=="
       }
     },
     "npm:@angular/material-moment-adapter": {
@@ -10976,6 +10976,16 @@
     "npm:@angular/cdk": [
       {
         "source": "npm:@angular/cdk",
+        "target": "npm:@angular/common",
+        "type": "static"
+      },
+      {
+        "source": "npm:@angular/cdk",
+        "target": "npm:@angular/core",
+        "type": "static"
+      },
+      {
+        "source": "npm:@angular/cdk",
         "target": "npm:rxjs",
         "type": "static"
       },
@@ -11267,7 +11277,32 @@
     "npm:@angular/material": [
       {
         "source": "npm:@angular/material",
+        "target": "npm:@angular/animations",
+        "type": "static"
+      },
+      {
+        "source": "npm:@angular/material",
         "target": "npm:@angular/cdk",
+        "type": "static"
+      },
+      {
+        "source": "npm:@angular/material",
+        "target": "npm:@angular/common",
+        "type": "static"
+      },
+      {
+        "source": "npm:@angular/material",
+        "target": "npm:@angular/core",
+        "type": "static"
+      },
+      {
+        "source": "npm:@angular/material",
+        "target": "npm:@angular/forms",
+        "type": "static"
+      },
+      {
+        "source": "npm:@angular/material",
+        "target": "npm:@angular/platform-browser",
         "type": "static"
       },
       {
